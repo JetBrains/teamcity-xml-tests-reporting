@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="50" hostname="ruspd-student3" name="TestClass0_3" tests="100" time="0.125"
+           timestamp="2008-10-14T14:21:11">
+    <properties>
+        <property name="java.vendor" value="Sun Microsystems Inc."/>
+        <property name="compiler.debug" value="on"/>
+        <property name="project.jdk.classpath" value="jdk.classpath.1.5"/>
+        <property name="sun.java.launcher" value="SUN_STANDARD"/>
+        <property name="sun.management.compiler" value="HotSpot Client Compiler"/>
+        <property name="os.name" value="Windows XP"/>
+        <property name="testreportparserpluginagent.output.dir"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin\TestReportParserPluginAgent/../out/production/TestReportParserPluginAgent"/>
+        <property name="module.jdk.home.testreportparserplugintests" value="C:/Program Files/Java/jdk1.5.0_14"/>
+        <property name="sun.boot.class.path"
+                  value="C:\Program Files\Java\jdk1.5.0_14\jre\lib\rt.jar;C:\Program Files\Java\jdk1.5.0_14\jre\lib\i18n.jar;C:\Program Files\Java\jdk1.5.0_14\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.5.0_14\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.5.0_14\jre\lib\jce.jar;C:\Program Files\Java\jdk1.5.0_14\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.5.0_14\jre\classes"/>
+        <property name="compiler.args" value=""/>
+        <property name="ant.file.testreportparserplugin"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin\testreportparserplugin.xml"/>
+        <property name="sun.desktop" value="windows"/>
+        <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."/>
+        <property name="module.jdk.home.testreportparserpluginagent" value="C:/Program Files/Java/jdk1.5.0_14"/>
+        <property name="ant.home" value="C:\Program Files\apache-ant-1.7.1"/>
+        <property name="java.runtime.version" value="1.5.0_14-b03"/>
+        <property name="ant.file.module_testreportparserpluginserver"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin\TestReportParserPluginServer\module_testreportparserpluginserver.xml"/>
+        <property name="user.name" value="vbedrosova"/>
+        <property name="module.jdk.bin.testreportparserplugin" value="C:/Program Files/Java/jdk1.5.0_14/bin"/>
+        <property name="module.testreportparserpluginserver.basedir"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin\TestReportParserPluginServer"/>
+        <property name="module.testreportparserpluginagent.basedir"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin\TestReportParserPluginAgent"/>
+        <property name="module.jdk.home.testreportparserpluginserver" value="C:/Program Files/Java/jdk1.5.0_14"/>
+        <property name="user.language" value="ru"/>
+        <property name="testreportparserplugintests.testoutput.dir"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin\TestReportParserPluginTests/../out/test/TestReportParserPluginTests"/>
+        <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.5.0_14\jre\bin"/>
+        <property name="ant.project.name" value="testreportparserplugin"/>
+        <property name="java.version" value="1.5.0_14"/>
+        <property name="ant.file.module_testreportparserplugintests"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin\TestReportParserPluginTests\module_testreportparserplugintests.xml"/>
+        <property name="user.timezone" value=""/>
+        <property name="sun.arch.data.model" value="32"/>
+        <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.5.0_14\jre\lib\endorsed"/>
+        <property name="ant.file.module_testreportparserpluginagent"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin\TestReportParserPluginAgent\module_testreportparserpluginagent.xml"/>
+        <property name="sun.cpu.isalist" value=""/>
+        <property name="sun.jnu.encoding" value="Cp1251"/>
+        <property name="file.encoding.pkg" value="sun.io"/>
+        <property name="file.separator" value="\"/>
+        <property name="java.specification.name" value="Java Platform API Specification"/>
+        <property name="project.jdk.bin" value="C:/Program Files/Java/jdk1.5.0_14/bin"/>
+        <property name="java.class.version" value="49.0"/>
+        <property name="compiler.args.testreportparserplugin" value=""/>
+        <property name="module.jdk.classpath.testreportparserplugin" value="jdk.classpath.1.5"/>
+        <property name="user.country" value="RU"/>
+        <property name="java.home" value="C:\Program Files\Java\jdk1.5.0_14\jre"/>
+        <property name="java.vm.info" value="mixed mode, sharing"/>
+        <property name="ant.file" value="C:\work\teamcityworkspace\TestReportParserPlugin\build.xml"/>
+        <property name="os.version" value="5.1"/>
+        <property name="ant.file.module_testreportparserplugin"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin\module_testreportparserplugin.xml"/>
+        <property name="jdk.bin.1.5" value="C:/Program Files/Java/jdk1.5.0_14/bin"/>
+        <property name="path.separator" value=";"/>
+        <property name="java.vm.version" value="1.5.0_14-b03"/>
+        <property name="testreportparserpluginagent.testoutput.dir"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin\TestReportParserPluginAgent/../out/test/TestReportParserPluginAgent"/>
+        <property name="module.jdk.bin.testreportparserpluginserver" value="C:/Program Files/Java/jdk1.5.0_14/bin"/>
+        <property name="user.variant" value=""/>
+        <property name="ant.library.dir" value="C:\Program Files\apache-ant-1.7.1\lib"/>
+        <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+        <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+        <property name="compiler.args.testreportparserpluginserver" value=""/>
+        <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+        <property name="testreportparserplugin.testoutput.dir"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin/out/test/TestReportParserPlugin"/>
+        <property name="testreportparserpluginserver.testoutput.dir"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin\TestReportParserPluginServer/../out/test/TestReportParserPluginServer"/>
+        <property name="compiler.max.memory" value="128m"/>
+        <property name="user.home" value="C:\Documents and Settings\vbedrosova"/>
+        <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
+        <property name="project.jdk.home" value="C:/Program Files/Java/jdk1.5.0_14"/>
+        <property name="java.library.path"
+                  value="C:\Program Files\Java\jdk1.5.0_14\bin;.;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\Intel\DMIX;C:\Program Files\apache-ant-1.7.1\bin"/>
+        <property name="java.vendor.url" value="http://java.sun.com/"/>
+        <property name="module.jdk.bin.testreportparserplugintests" value="C:/Program Files/Java/jdk1.5.0_14/bin"/>
+        <property name="java.vm.vendor" value="Sun Microsystems Inc."/>
+        <property name="testreportparserplugintests.output.dir"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin\TestReportParserPluginTests/../out/production/TestReportParserPluginTests"/>
+        <property name="jdk.home.1.5" value="C:/Program Files/Java/jdk1.5.0_14"/>
+        <property name="java.runtime.name" value="Java(TM) 2 Runtime Environment, Standard Edition"/>
+        <property name="ant.version" value="Apache Ant version 1.7.1 compiled on June 27 2008"/>
+        <property name="compiler.args.testreportparserplugintests" value=""/>
+        <property name="java.class.path"
+                  value="C:\Program Files\apache-ant-1.7.1\lib\ant-antlr.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-apache-bcel.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-apache-bsf.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-apache-log4j.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-apache-oro.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-apache-regexp.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-apache-resolver.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-commons-logging.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-commons-net.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-jai.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-javamail.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-jdepend.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-jmf.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-jsch.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-junit.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-launcher.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-netrexx.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-nodeps.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-starteam.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-stylebook.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-swing.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-testutil.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-trax.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-weblogic.jar;C:\Program Files\apache-ant-1.7.1\lib\ant.jar;C:\Program Files\apache-ant-1.7.1\lib\junit-4.5.jar;C:\Program Files\apache-ant-1.7.1\lib\xercesImpl.jar;C:\Program Files\apache-ant-1.7.1\lib\xml-apis.jar;C:\Program Files\Java\jdk1.5.0_14\lib\tools.jar;C:\Program Files\JetBrains\IntelliJ IDEA 7.0.4\lib\idea_rt.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-antlr.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-apache-bcel.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-apache-bsf.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-apache-log4j.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-apache-oro.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-apache-regexp.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-apache-resolver.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-commons-logging.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-commons-net.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-jai.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-javamail.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-jdepend.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-jmf.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-jsch.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-junit.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-launcher.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-netrexx.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-nodeps.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-starteam.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-stylebook.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-swing.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-testutil.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-trax.jar;C:\Program Files\apache-ant-1.7.1\lib\ant-weblogic.jar;C:\Program Files\apache-ant-1.7.1\lib\ant.jar;C:\Program Files\apache-ant-1.7.1\lib\junit-4.5.jar;C:\Program Files\apache-ant-1.7.1\lib\xercesImpl.jar;C:\Program Files\apache-ant-1.7.1\lib\xml-apis.jar"/>
+        <property name="module.jdk.bin.testreportparserpluginagent" value="C:/Program Files/Java/jdk1.5.0_14/bin"/>
+        <property name="testreportparserpluginserver.output.dir"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin\TestReportParserPluginServer/../out/production/TestReportParserPluginServer"/>
+        <property name="compiler.args.testreportparserpluginagent" value=""/>
+        <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+        <property name="java.vm.specification.version" value="1.0"/>
+        <property name="module.testreportparserplugin.basedir"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin"/>
+        <property name="sun.cpu.endian" value="little"/>
+        <property name="sun.os.patch.level" value="Service Pack 3"/>
+        <property name="java.io.tmpdir" value="C:\DOCUME~1\VBEDRO~1\LOCALS~1\Temp\"/>
+        <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi"/>
+        <property name="module.testreportparserplugintests.basedir"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin\TestReportParserPluginTests"/>
+        <property name="module.jdk.classpath.testreportparserpluginserver" value="jdk.classpath.1.5"/>
+        <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+        <property name="os.arch" value="x86"/>
+        <property name="compiler.generate.no.warnings" value="off"/>
+        <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.5.0_14\jre\lib\ext"/>
+        <property name="user.dir" value="C:\work\teamcityworkspace\TestReportParserPlugin"/>
+        <property name="module.jdk.home.testreportparserplugin" value="C:/Program Files/Java/jdk1.5.0_14"/>
+        <property name="line.separator" value="
+"/>
+        <property name="java.vm.name" value="Java HotSpot(TM) Client VM"/>
+        <property name="basedir" value="C:\work\teamcityworkspace\TestReportParserPlugin"/>
+        <property name="ant.java.version" value="1.5"/>
+        <property name="ant.core.lib" value="C:\Program Files\apache-ant-1.7.1\lib\ant.jar"/>
+        <property name="file.encoding" value="windows-1251"/>
+        <property name="module.jdk.classpath.testreportparserplugintests" value="jdk.classpath.1.5"/>
+        <property name="java.specification.version" value="1.5"/>
+        <property name="module.jdk.classpath.testreportparserpluginagent" value="jdk.classpath.1.5"/>
+        <property name="testreportparserplugin.output.dir"
+                  value="C:\work\teamcityworkspace\TestReportParserPlugin/out/production/TestReportParserPlugin"/>
+    </properties>
+    <testcase classname="TestClass0_3" name="test0" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test1" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test1(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test2" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test3" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test3(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test4" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test5" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test5(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test6" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test7" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test7(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test8" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test9" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test9(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test10" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test11" time="0.016">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test11(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test12" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test13" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test13(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test14" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test15" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test15(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test16" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test17" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test17(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test18" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test19" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test19(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test20" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test21" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test21(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test22" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test23" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test23(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test24" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test25" time="0.015">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test25(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test26" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test27" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test27(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test28" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test29" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test29(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test30" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test31" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test31(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test32" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test33" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test33(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test34" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test35" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test35(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test36" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test37" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test37(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test38" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test39" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test39(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test40" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test41" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test41(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test42" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test43" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test43(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test44" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test45" time="0.016">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test45(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test46" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test47" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test47(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test48" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test49" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test49(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test50" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test51" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test51(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test52" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test53" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test53(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test54" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test55" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test55(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test56" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test57" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test57(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test58" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test59" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test59(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test60" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test61" time="0.016">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test61(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test62" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test63" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test63(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test64" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test65" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test65(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test66" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test67" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test67(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test68" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test69" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test69(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test70" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test71" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test71(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test72" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test73" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test73(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test74" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test75" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test75(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test76" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test77" time="0.015">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test77(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test78" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test79" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test79(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test80" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test81" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test81(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test82" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test83" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test83(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test84" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test85" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test85(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test86" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test87" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test87(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test88" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test89" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test89(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test90" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test91" time="0.016">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test91(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test92" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test93" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test93(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test94" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test95" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test95(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test96" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test97" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test97(Unknown Source)
+        </failure>
+    </testcase>
+    <testcase classname="TestClass0_3" name="test98" time="0.0"/>
+    <testcase classname="TestClass0_3" name="test99" time="0.0">
+        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+            junit.framework.AssertionFailedError: Assertion message form test
+            at com.intellij.rt.ant.execution.AntMain2.main(AntMain2.java:17)
+            at TestClass0_3.test99(Unknown Source)
+        </failure>
+    </testcase>
+    <system-out><![CDATA[]]></system-out>
+    <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="module_testreportparserplugincommon" default="compile.module.testreportparserplugincommon">
+  <dirname property="module.testreportparserplugincommon.basedir" file="${ant.file.module_testreportparserplugincommon}"/>
+  
+  
+  <property name="compiler.args.testreportparserplugincommon" value="${compiler.args}"/>
+  
+  <property name="testreportparserplugincommon.output.dir" value="${module.testreportparserplugincommon.basedir}/../out/production/TestReportParserPluginCommon"/>
+  <property name="testreportparserplugincommon.testoutput.dir" value="${module.testreportparserplugincommon.basedir}/../out/test/TestReportParserPluginCommon"/>
+  
+  <path id="testreportparserplugincommon.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="testreportparserplugincommon.module.classpath">
+    <path refid="library.teamcity_openapi.classpath"/>
+    <path refid="library.teamcity_utils.classpath"/>
+  </path>
+  
+  <path id="testreportparserplugincommon.runtime.module.classpath">
+    <pathelement location="${testreportparserplugincommon.output.dir}"/>
+    <pathelement location="${testreportparserplugincommon.testoutput.dir}"/>
+    <path refid="library.teamcity_openapi.classpath"/>
+    <path refid="library.teamcity_utils.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.testreportparserplugincommon">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.testreportparserplugincommon">
+    <patternset refid="excluded.from.module.testreportparserplugincommon"/>
+  </patternset>
+  
+  <path id="testreportparserplugincommon.module.sourcepath">
+    <dirset dir="${module.testreportparserplugincommon.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.testreportparserplugincommon" depends="compile.module.testreportparserplugincommon.production,compile.module.testreportparserplugincommon.tests" description="Compile module TestReportParserPluginCommon"/>
+  
+  <target name="compile.module.testreportparserplugincommon.production" description="Compile module TestReportParserPluginCommon; production classes">
+    <mkdir dir="${testreportparserplugincommon.output.dir}"/>
+    <javac destdir="${testreportparserplugincommon.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.testreportparserplugincommon}"/>
+      <bootclasspath refid="testreportparserplugincommon.module.bootclasspath"/>
+      <classpath refid="testreportparserplugincommon.module.classpath"/>
+      <src refid="testreportparserplugincommon.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.testreportparserplugincommon"/>
+    </javac>
+    
+    <copy todir="${testreportparserplugincommon.output.dir}">
+      <fileset dir="${module.testreportparserplugincommon.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.testreportparserplugincommon.tests" depends="compile.module.testreportparserplugincommon.production" description="compile module TestReportParserPluginCommon; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.testreportparserplugincommon" description="cleanup module">
+    <delete dir="${testreportparserplugincommon.output.dir}"/>
+    <delete dir="${testreportparserplugincommon.testoutput.dir}"/>
+  </target>
+</project>

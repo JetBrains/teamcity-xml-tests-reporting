@@ -1,0 +1,79 @@
+--1. BuildAgentImpl getLogger() method returns BuildProgressLogger, which in fact is BaseServerLoggerFacade, but reqires
+    explicit cast of BuildAgent object.. BuildRunner getBuildLogger() method returns the same instance of logger as BuildAgent's getLogger()
+    but of type BaseServerLoggerFacade
+    
+--2. Running JUnit Ant task reqires junit.jar in $ant.home\lib???
+
+--3. Test duration (when parsing report start and finish time is not important, only duration?)
+
+4. ComparisonFailure - bad to create exception? BTW not introdused in SureFirereportParsing
+
+--5. On spot parsing - daemon-parser
+
+--6. Ant file clean up
+
+--7. sax parsing on stack
+
+8. error handling?
+
+--9. several paths to reports
+
+??10. ensure file is ok, see SurefireReportProcessorImpl
+
+11. wait for reports only when necessary
+
+--12. multi use of one parser
+
+--13. separator between paths to reports
+
+??14. not parse out-of-date files, may be clean directories? or let user parse some outside files? or just skip them?
+
+15. javadoc
+
+16. refactor
+
+17. log process to own log-file? where will it appear?
+
+18. can not extract System.out (((
+
+19. dirs string contains nothing or is invalid? - quite or verbose
+
+20. what is FlowManager?
+
+21. tests
+
+22. not absolute path to dirs and path to file? not dir
+
+23. some special thread creation?
+
+24. how to release file from RandomAccessFile?
+
+25. file can be griped when not complete
+
+26. add recursive report directory support
+
+27. is logger thread safe?
+
+------------------------------------------------------
+
+1. checking file is complete
+    - may be checking root tag is enough
+    - using length to check (as in SurefireReportProcessorImpl) - if long test is performed?
+    - run SAX parser and trace errors and of that ilk
+
+2. multi-thead file parsing, logging in critical section - order not retained (but when two files
+    are detected concurrently, order can also be reversed)
+
+    as i see: when daemon detects file, checks if it is new or modified, but complete - starts new thread
+    for parsing and marks file as processed
+    parsers collect info about test in special container, if parsing finishes successfully - log (critical section)
+
+3. monitoring directory - any API or just active sleep
+
+4. old files and already parsed files - may be some queue
+    if file is modified when parsing in progress - cashe file content
+    if file is modified after aleady parsed
+
+5. cashe parse results and log after file is over - preffered as no unfinished output occurs
+
+
