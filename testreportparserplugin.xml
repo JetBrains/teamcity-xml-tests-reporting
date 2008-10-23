@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="testreportparserplugin" default="all">
+
+
+    <property file="testreportparserplugin.properties"/>
+    <!-- Uncomment the following property if no tests compilation is needed -->
+    <!--
+   <property name="skip.tests" value="true"/>
+    -->
+
+    <!-- Compiler options -->
+
+    <property name="compiler.debug" value="on"/>
+    <property name="compiler.generate.no.warnings" value="off"/>
+    <property name="compiler.args" value=""/>
+    <property name="compiler.max.memory" value="128m"/>
+    <patternset id="ignored.files">
+        <exclude name="**/CVS/**"/>
+        <exclude name="**/SCCS/**"/>
+        <exclude name="**/RCS/**"/>
+        <exclude name="**/rcs/**"/>
+        <exclude name="**/.DS_Store/**"/>
+        <exclude name="**/.svn/**"/>
+        <exclude name="**/.sbas/**"/>
+        <exclude name="**/.IJI.*/**"/>
+        <exclude name="**/vssver.scc/**"/>
+        <exclude name="**/vssver2.scc/**"/>
+    </patternset>
+    <patternset id="compiler.resources">
+        <include name="**/?*.properties"/>
+        <include name="**/?*.xml"/>
+        <include name="**/?*.gif"/>
+        <include name="**/?*.png"/>
+        <include name="**/?*.jpeg"/>
+        <include name="**/?*.jpg"/>
+        <include name="**/?*.html"/>
+        <include name="**/?*.dtd"/>
+        <include name="**/?*.tld"/>
+        <include name="**/*?.class"/>
+    </patternset>
+
+
+    <!-- Project Libraries -->
+
+    <path id="library.junit.classpath">
+        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/junit-3.8.1.jar"/>
+        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/util.jar"/>
+    </path>
+
+    <path id="library.teamcity_api.classpath">
+        <pathelement location="${path.variable.teamcitydistribution}/buildAgent/lib/buildServerServerLogging.jar"/>
+    </path>
+
+    <path id="library.teamcity_openapi.classpath">
+        <pathelement location="${path.variable.teamcitydistribution}/devPackage/server-api.jar"/>
+        <pathelement location="${path.variable.teamcitydistribution}/devPackage/agent-api.jar"/>
+        <pathelement location="${path.variable.teamcitydistribution}/devPackage/common-api.jar"/>
+    </path>
+
+    <path id="library.teamcity_utils.classpath">
+        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/util.jar"/>
+        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/annotations.jar"/>
+    </path>
+
+    <!-- Modules -->
+
+    <import file="${basedir}/TestReportParserPluginCommon/module_testreportparserplugincommon.xml"/>
+
+    <import file="${basedir}/TestReportParserPluginServer/module_testreportparserpluginserver.xml"/>
+
+    <import file="${basedir}/TestReportParserPluginAgent/module_testreportparserpluginagent.xml"/>
+
+    <import file="${basedir}/TestReportParserPluginTests/module_testreportparserplugintests.xml"/>
+
+    <import file="${basedir}/module_testreportparserplugin.xml"/>
+
+    <target name="init" description="Build initialization">
+        <!-- Perform any build initialization in this target -->
+    </target>
+
+    <target name="clean"
+            depends="clean.module.testreportparserplugincommon, clean.module.testreportparserpluginserver, clean.module.testreportparserpluginagent, clean.module.testreportparserplugintests, clean.module.testreportparserplugin"
+            description="cleanup all"/>
+
+    <target name="all"
+            depends="init, clean, compile.module.testreportparserplugincommon, compile.module.testreportparserpluginserver, compile.module.testreportparserpluginagent, compile.module.testreportparserplugintests, compile.module.testreportparserplugin"
+            description="build all"/>
+</project>
