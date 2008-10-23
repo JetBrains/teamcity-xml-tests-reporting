@@ -21,10 +21,7 @@ import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParse
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
@@ -32,7 +29,7 @@ public class TestReportDirectoryWatcher implements Runnable {
     private static final int SCAN_INTERVAL = 50;
 
     private final LinkedBlockingQueue<File> myReportQueue;
-    private final Map<File, Long> myDirectories;
+    private final Map<File, Boolean> myDirectories;
     private final List<String> myProcessedFiles;
     private final BaseServerLoggerFacade myLogger;
     private final long myBuildStartTime;
@@ -42,9 +39,9 @@ public class TestReportDirectoryWatcher implements Runnable {
 
 
     public TestReportDirectoryWatcher(@NotNull final List<File> directories, @NotNull LinkedBlockingQueue<File> queue, BaseServerLoggerFacade logger, long buildStartTime) {
-        myDirectories = new HashMap<File, Long>();
-        for (File f : directories) {
-            myDirectories.put(f, buildStartTime);
+        myDirectories = new HashMap<File, Boolean>();
+        for (File d : directories) {
+            myDirectories.put(d, false);
         }
         myReportQueue = queue;
         myStopWatching = false;
@@ -71,7 +68,8 @@ public class TestReportDirectoryWatcher implements Runnable {
     }
 
     private void scanDirectories() {
-        for (File dir : myDirectories.keySet()) {
+        Set<File> directories = myDirectories.keySet();
+        for (File dir : directories) {
             if (dir.isDirectory()) {
 
                 File[] files = dir.listFiles();
@@ -79,9 +77,13 @@ public class TestReportDirectoryWatcher implements Runnable {
                     File report = files[i];
 
                     if (report.isFile() && (report.lastModified() > myBuildStartTime)) {
+                        if (!myDirectories.get(dir)) {
+                            myDirectories.put(dir, true);
+                        }
                         if (!myProcessedFiles.contains(report.getPath())) {
                             if (report.canRead() && AntJUnitReportParser.isReportFileComplete(report)) {
                                 TestReportParserPlugin.log("FILE: " + report.getName());
+                                myLogger.message("TestReportParserPlugin found report file: " + report.getPath() + ".");
                                 myProcessedFiles.add(report.getPath());
                                 try {
                                     myReportQueue.put(report);
@@ -101,6 +103,9 @@ public class TestReportDirectoryWatcher implements Runnable {
     }
 
     public boolean isStopped() {
+//        for (myDirectories.) { TODO: check not proc-d dirs
+//
+//        }
         return myStopped;
     }
 }

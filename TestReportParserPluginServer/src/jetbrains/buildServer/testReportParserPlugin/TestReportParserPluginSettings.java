@@ -16,15 +16,17 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
+import jetbrains.buildServer.serverSide.ProjectManager;
 import jetbrains.buildServer.web.openapi.PagePlaces;
 import jetbrains.buildServer.web.openapi.buildType.EditBuildRunnerSettingsExtension;
+import jetbrains.buildServer.web.openapi.buildType.ViewBuildRunnerSettingsExtension;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class TestReportParserPluginSettings {
-    public TestReportParserPluginSettings(@NotNull final PagePlaces pagePlaces) {
+    public TestReportParserPluginSettings(@NotNull final PagePlaces pagePlaces, @NotNull final ProjectManager projectManager) {
         List<String> supportedRunTypes = Arrays.asList("Ant");
 
         EditBuildRunnerSettingsExtension editSettingsExtension =
@@ -32,6 +34,12 @@ public class TestReportParserPluginSettings {
         editSettingsExtension.setPluginName("TestReportParserPlugin");
         editSettingsExtension.setIncludeUrl("testReportParserSettings.jsp");
         editSettingsExtension.register();
+
+        ViewBuildRunnerSettingsExtension viewSettingsExtension =
+                new ViewBuildRunnerSettingsExtension(projectManager, pagePlaces, supportedRunTypes);
+        viewSettingsExtension.setPluginName("TestReportParserPlugin");
+        viewSettingsExtension.setIncludeUrl("viewTestReportParserSettings.jsp");
+        viewSettingsExtension.register();
     }
 }
 //public CoverageSettingsPageExtension(@NotNull final PagePlaces pagePlaces, @NotNull final ProjectManager projectManager) {

@@ -3,9 +3,9 @@
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
 
 <div class="parameter">
-    Code coverage:
+    Ant JUnit report monitoring:
     <c:choose>
-        <c:when test="${propertiesBean.properties['coverage.enabled']}">
+        <c:when test="${propertiesBean.properties['testReportParsing.enabled']}">
             <strong>enabled</strong>
         </c:when>
         <c:otherwise>
@@ -14,21 +14,21 @@
     </c:choose>
 </div>
 
-<c:if test="${propertiesBean.properties['coverage.enabled']}">
+<c:if test="${propertiesBean.properties['testReportParsing.enabled']}">
     <div class="parameter">
-        Coverage instrumentation parameters: <props:displayValue name="coverage.instr.parameters"
-                                                                 emptyValue="none specified"/>
+        Test report directories: <props:displayValue name="testReportParsing.reportDirs"
+                                                     emptyValue="none specified"/>
     </div>
 
-    <div class="parameter">
-        Include source files in coverage data:
-        <c:choose>
-            <c:when test="${propertiesBean.properties['coverage.include.source']}">
-                <strong>ON</strong>
-            </c:when>
-            <c:otherwise>
-                <strong>OFF</strong>
-            </c:otherwise>
-        </c:choose>
-    </div>
+    <%--<div class="parameter">--%>
+    <%--Include source files in coverage data:--%>
+    <%--<c:choose>--%>
+    <%--<c:when test="${propertiesBean.properties['coverage.include.source']}">--%>
+    <%--<strong>ON</strong>--%>
+    <%--</c:when>--%>
+    <%--<c:otherwise>--%>
+    <%--<strong>OFF</strong>--%>
+    <%--</c:otherwise>--%>
+    <%--</c:choose>--%>
+    <%--</div>--%>
 </c:if>

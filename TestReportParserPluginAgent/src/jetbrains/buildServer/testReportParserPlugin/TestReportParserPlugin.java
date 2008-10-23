@@ -25,15 +25,12 @@ import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class TestReportParserPlugin extends AgentLifeCycleAdapter {
-    private static final String TEST_REPORT_DIR_VARIABLE = "system.TEST_REPORT_DIR";
+    private static final String TEST_REPORT_DIR_PROPERTY = "testReportParsing.reportDirs";
     private static final Logger LOG = Loggers.AGENT;
 
     private BaseServerLoggerFacade myLogger;
@@ -64,9 +61,17 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
     }
 
     public void beforeRunnerStart(@NotNull AgentRunningBuild agentRunningBuild) {
-        final Map<String, String> buildParameters = agentRunningBuild.getBuildParameters();
         final Map<String, String> runParameters = agentRunningBuild.getRunParameters();
-        final List<File> reportDirs = getReportDirsFromDirsString(buildParameters.get(TEST_REPORT_DIR_VARIABLE), agentRunningBuild.getWorkingDirectory());
+        Set<String> k = runParameters.keySet();
+        for (String s : k) {
+            log("PARAM: " + s);
+        }
+
+        String dir = runParameters.get(TEST_REPORT_DIR_PROPERTY);
+        log(dir);
+        File wd = agentRunningBuild.getWorkingDirectory();
+        log(wd.getPath());
+        final List<File> reportDirs = getReportDirsFromDirsString(dir, wd);
 
         log("BEFORE " + myTestReportParsingEnabled);
         myTestReportParsingEnabled = isTestReportParsingEnabled(runParameters);
@@ -95,10 +100,10 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
         int to = dirsStr.indexOf(separator);
 
         while (to != -1) {
-            if (workingDir == null) {
-                log("WD IS NULL");
-            } else {
+            if (workingDir != null) {
                 dirs.add(FileUtil.resolvePath(workingDir, dirsStr.substring(from, to)));
+            } else {
+                log("WD IS NULL");
             }
 
             from = to + 1;

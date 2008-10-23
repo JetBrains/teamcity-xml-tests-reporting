@@ -100,7 +100,7 @@ public class TestReportProcessor implements Runnable {
             if (processedTests != -1) {
                 myCurrentReport.setProcessedTests(processedTests);
             } else {
-                myLogger.message(report.getFile().getPath() + " report processed");
+                myLogger.message(report.getFile().getPath() + " report processed.");
                 myCurrentReport = null;
             }
         }
