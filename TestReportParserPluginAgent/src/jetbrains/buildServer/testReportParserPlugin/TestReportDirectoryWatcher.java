@@ -17,6 +17,7 @@
 package jetbrains.buildServer.testReportParserPlugin;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin.createBuildLogMessage;
 import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,7 +30,8 @@ public class TestReportDirectoryWatcher implements Runnable {
     private static final int SCAN_INTERVAL = 50;
 
     private final LinkedBlockingQueue<File> myReportQueue;
-    private final Map<File, Boolean> myDirectories;
+    private final Set<File> myDirectories;
+    private final Set<File> myActiveDirectories;
     private final List<String> myProcessedFiles;
     private final BaseServerLoggerFacade myLogger;
     private final long myBuildStartTime;
@@ -38,11 +40,9 @@ public class TestReportDirectoryWatcher implements Runnable {
     private volatile boolean myStopped;
 
 
-    public TestReportDirectoryWatcher(@NotNull final List<File> directories, @NotNull LinkedBlockingQueue<File> queue, BaseServerLoggerFacade logger, long buildStartTime) {
-        myDirectories = new HashMap<File, Boolean>();
-        for (File d : directories) {
-            myDirectories.put(d, false);
-        }
+    public TestReportDirectoryWatcher(@NotNull final List<File> directories, @NotNull final LinkedBlockingQueue<File> queue, @NotNull final BaseServerLoggerFacade logger, long buildStartTime) {
+        myDirectories = new LinkedHashSet<File>(directories);
+        myActiveDirectories = new HashSet<File>();
         myReportQueue = queue;
         myStopWatching = false;
         myStopped = false;
@@ -57,7 +57,7 @@ public class TestReportDirectoryWatcher implements Runnable {
                 scanDirectories();
                 Thread.sleep(SCAN_INTERVAL);
             } catch (InterruptedException e) {
-                myLogger.warning("TestReportDirectoryWatcher thread interrupted");
+                myLogger.warning(createBuildLogMessage("directory watcher thread interrupted."));
             }
         }
         scanDirectories();
@@ -68,8 +68,7 @@ public class TestReportDirectoryWatcher implements Runnable {
     }
 
     private void scanDirectories() {
-        Set<File> directories = myDirectories.keySet();
-        for (File dir : directories) {
+        for (File dir : myDirectories) {
             if (dir.isDirectory()) {
 
                 File[] files = dir.listFiles();
@@ -77,18 +76,15 @@ public class TestReportDirectoryWatcher implements Runnable {
                     File report = files[i];
 
                     if (report.isFile() && (report.lastModified() > myBuildStartTime)) {
-                        if (!myDirectories.get(dir)) {
-                            myDirectories.put(dir, true);
-                        }
+                        myActiveDirectories.add(dir);
                         if (!myProcessedFiles.contains(report.getPath())) {
                             if (report.canRead() && AntJUnitReportParser.isReportFileComplete(report)) {
-                                TestReportParserPlugin.log("FILE: " + report.getName());
-                                myLogger.message("TestReportParserPlugin found report file: " + report.getPath() + ".");
+                                myLogger.message(createBuildLogMessage("found report file " + report.getPath() + "."));
                                 myProcessedFiles.add(report.getPath());
                                 try {
                                     myReportQueue.put(report);
                                 } catch (InterruptedException e) {
-                                    myLogger.warning("TestReportDirectoryWatcher thread interrupted");
+                                    myLogger.warning(createBuildLogMessage("directory watcher thread interrupted."));
                                 }
                             }
                         }
@@ -103,9 +99,20 @@ public class TestReportDirectoryWatcher implements Runnable {
     }
 
     public boolean isStopped() {
-//        for (myDirectories.) { TODO: check not proc-d dirs
-//
-//        }
         return myStopped;
+    }
+
+    public void logDirectoryTotals() {
+        if (myDirectories.removeAll(myActiveDirectories)) {
+            for (File dir : myDirectories) {
+                if (!dir.exists()) {
+                    myLogger.warning(createBuildLogMessage(dir.getPath() + " directory didn't appear on disk during the build."));
+                } else if (!dir.isDirectory()) {
+                    myLogger.warning(createBuildLogMessage(dir.getPath() + " is not actually a directory."));
+                } else {
+                    myLogger.warning(createBuildLogMessage("no reports found in " + dir.getPath() + " directory."));
+                }
+            }
+        }
     }
 }

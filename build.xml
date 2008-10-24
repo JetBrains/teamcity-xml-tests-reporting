@@ -40,7 +40,7 @@
     </target>
 
     <target name="gentests" depends="all" description="Generarates test classes">
-        <java classname="jetbrains.buildServer.testReportParserPlugin.visible.TestGenerator">
+        <java classname="jetbrains.buildServer.testReportParserPlugin.visualTestGenerator">
             <classpath>
                 <pathelement location="${testreportparserplugintests.testoutput.dir}"/>
             </classpath>
@@ -67,7 +67,7 @@
 
             <formatter type="xml"/>
 
-            <!--<test name="jetbrains.buildServer.testReportParserPlugin.visible.ExampleClass"-->
+            <!--<test name="jetbrains.buildServer.testReportParserPlugin.visualExampleClass"-->
             <!--todir="reports"/>-->
 
             <!--<batchtest todir="reports2">-->

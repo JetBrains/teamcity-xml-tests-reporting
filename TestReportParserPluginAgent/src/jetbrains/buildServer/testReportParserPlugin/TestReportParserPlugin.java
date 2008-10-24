@@ -16,41 +16,49 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
-import com.intellij.openapi.diagnostic.Logger;
+//import com.intellij.openapi.diagnostic.Logger;
+
 import jetbrains.buildServer.agent.*;
-import jetbrains.buildServer.log.Loggers;
 import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil.isTestReportParsingEnabled;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class TestReportParserPlugin extends AgentLifeCycleAdapter {
+    //    private static final Logger LOG = Loggers.AGENT;
+    private static final String PLUGIN_LOG_PREFIX = "TestReportParserPlugin: ";
     private static final String TEST_REPORT_DIR_PROPERTY = "testReportParsing.reportDirs";
-    private static final Logger LOG = Loggers.AGENT;
 
     private BaseServerLoggerFacade myLogger;
     private TestReportDirectoryWatcher myDirectoryWatcher;
     private TestReportProcessor myReportProcessor;
 
     private boolean myTestReportParsingEnabled = false;
-    private long myBuildStartTme;
+    private long myBuildStartTime;
 
 
     public TestReportParserPlugin(@NotNull final EventDispatcher<AgentLifeCycleListener> agentDispatcher) {
         agentDispatcher.addListener(this);
     }
 
-    public static void log(String message) {
-        LOG.debug("T-R-P-PLUGIN: " + Thread.currentThread().getId() + ": " + message);
+    public static String createBuildLogMessage(String message) {
+        return PLUGIN_LOG_PREFIX + message;
     }
 
+//    public static void log(String message) {
+//        LOG.debug("T-R-P-PLUGIN: " + Thread.currentThread().getId() + ": " + message);
+//    }
+
     public void buildStarted(@NotNull AgentRunningBuild agentRunningBuild) {
-        myBuildStartTme = new Date().getTime();
+        myBuildStartTime = new Date().getTime();
         BuildProgressLogger logger = agentRunningBuild.getBuildLogger();
 
         if (logger instanceof BaseServerLoggerFacade) {
@@ -62,25 +70,19 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
 
     public void beforeRunnerStart(@NotNull AgentRunningBuild agentRunningBuild) {
         final Map<String, String> runParameters = agentRunningBuild.getRunParameters();
-        Set<String> k = runParameters.keySet();
-        for (String s : k) {
-            log("PARAM: " + s);
-        }
-
-        String dir = runParameters.get(TEST_REPORT_DIR_PROPERTY);
-        log(dir);
-        File wd = agentRunningBuild.getWorkingDirectory();
-        log(wd.getPath());
+        final String dir = runParameters.get(TEST_REPORT_DIR_PROPERTY);
+        final File wd = agentRunningBuild.getWorkingDirectory();
         final List<File> reportDirs = getReportDirsFromDirsString(dir, wd);
 
-        log("BEFORE " + myTestReportParsingEnabled);
-        myTestReportParsingEnabled = isTestReportParsingEnabled(runParameters);
-        log("AFTER " + myTestReportParsingEnabled);
+        if (reportDirs.size() == 0) {
+            myLogger.warning(createBuildLogMessage("no report directories specified."));
+        }
 
         LinkedBlockingQueue<File> queue = new LinkedBlockingQueue<File>();
-        myDirectoryWatcher = new TestReportDirectoryWatcher(reportDirs, queue, myLogger, myBuildStartTme);
+        myDirectoryWatcher = new TestReportDirectoryWatcher(reportDirs, queue, myLogger, myBuildStartTime);
         myReportProcessor = new TestReportProcessor(queue, myDirectoryWatcher, myLogger);
 
+        myTestReportParsingEnabled = isTestReportParsingEnabled(runParameters);
         if (myTestReportParsingEnabled) {
             new Thread(myDirectoryWatcher, "TestReportParserPlugin-DirectoryWatcher").start();
             new Thread(myReportProcessor, "TestReportParserPlugin-ReportParser").start();
@@ -100,12 +102,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
         int to = dirsStr.indexOf(separator);
 
         while (to != -1) {
-            if (workingDir != null) {
-                dirs.add(FileUtil.resolvePath(workingDir, dirsStr.substring(from, to)));
-            } else {
-                log("WD IS NULL");
-            }
-
+            dirs.add(FileUtil.resolvePath(workingDir, dirsStr.substring(from, to)));
             from = to + 1;
             to = dirsStr.indexOf(separator, from);
         }
@@ -122,22 +119,22 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
 
         switch (buildFinishedStatus) {
             case DOES_NOT_EXIST:
-                myLogger.warning("Build finished with not existing status.");
+                myLogger.warning(createBuildLogMessage("build finished with not existing status."));
                 break;
             case INTERRUPTED:
-                myLogger.warning("Build interrupted. TestReportParserPlugin may not finish it's work.");
+                myLogger.warning(createBuildLogMessage("build interrupted, plugin may not finish it's work."));
                 break;
             case FINISHED:
                 synchronized (myReportProcessor) {
                     while (!myReportProcessor.isProcessingFinished()) {
                         try {
                             myReportProcessor.wait();
-                            TestReportParserPlugin.log("Plugin after waiting for processor");
                         } catch (InterruptedException e) {
-                            myLogger.warning("TestReportProcessor thread interrupted.");
+                            myLogger.warning(createBuildLogMessage("plugin thread interrupted."));
                         }
                     }
                 }
+                myDirectoryWatcher.logDirectoryTotals();
                 break;
         }
     }

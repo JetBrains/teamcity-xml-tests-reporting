@@ -18,7 +18,7 @@ package jetbrains.buildServer.testReportParserPlugin.antJUnit;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParser;
-import jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin;
+import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin.createBuildLogMessage;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
@@ -147,7 +147,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
             myXMLReader.setContentHandler(this);
             myXMLReader.setErrorHandler(this);
         } catch (SAXException e) {
-            myLogger.warning("AntJUnitReportParser couldn't get default XMLReader");
+            myLogger.warning(createBuildLogMessage("Ant JUnit report parser couldn't get default XMLReader"));
         }
     }
 
@@ -195,7 +195,6 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
  <!ELEMENT system-out (#PCDATA)> */
 
     public long parse(@NotNull final File report, long testsToSkip) {
-        TestReportParserPlugin.log("Parser works with FILE: " + report.getName() + " from TEST: " + (testsToSkip + 1));
         myLoggedTests = 0;
         myTestsToSkip = testsToSkip;
         try {
@@ -203,12 +202,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
         } catch (SAXParseException e) {
             return myLoggedTests;
         } catch (Exception e) {
-            myLogger.warning("Exception in AntJUnitReportParser: " + e.getClass().getName());
-            TestReportParserPlugin.log("ERROR: Exc " + e.getClass());
-            StackTraceElement[] s = e.getStackTrace();
-            for (int i = 0; i < s.length; ++i) {
-                TestReportParserPlugin.log(s[i].getClassName() + ": " + s[i].getLineNumber());
-            }
+            myLogger.warning(createBuildLogMessage(e.getClass().getName() + " exception in Ant JUnit report parser."));
         }
         return -1;
     }

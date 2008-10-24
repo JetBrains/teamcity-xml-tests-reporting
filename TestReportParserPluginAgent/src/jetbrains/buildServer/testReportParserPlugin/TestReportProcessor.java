@@ -17,6 +17,7 @@
 package jetbrains.buildServer.testReportParserPlugin;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin.createBuildLogMessage;
 import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
 
@@ -79,9 +80,8 @@ public class TestReportProcessor implements Runnable {
             while (!myWatcher.isStopped()) {
                 try {
                     myWatcher.wait();
-                    TestReportParserPlugin.log("Processor after waiting for watcher");
                 } catch (InterruptedException e) {
-                    myLogger.warning("TestReportProcessor thread interrupted");
+                    myLogger.warning(createBuildLogMessage("report processor thread interrupted"));
                 }
             }
         }
@@ -100,7 +100,7 @@ public class TestReportProcessor implements Runnable {
             if (processedTests != -1) {
                 myCurrentReport.setProcessedTests(processedTests);
             } else {
-                myLogger.message(report.getFile().getPath() + " report processed.");
+                myLogger.message(createBuildLogMessage(report.getFile().getPath() + " report processed."));
                 myCurrentReport = null;
             }
         }
@@ -117,7 +117,7 @@ public class TestReportProcessor implements Runnable {
                 return myCurrentReport;
             }
         } catch (InterruptedException e) {
-            myLogger.warning("TestReportProcessor thread interrupted");
+            myLogger.warning(createBuildLogMessage("report processor thread interrupted"));
         }
         return null;
     }

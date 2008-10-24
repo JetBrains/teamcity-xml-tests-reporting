@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package jetbrains.buildServer.testReportParserPlugin.visible;
+package jetbrains.buildServer.testReportParserPlugin.visual;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -34,7 +34,7 @@ public class TestGenerator {
                 try {
                     out = new FileWriter(outFile);
 
-                    //                out.write("package jetbrains.buildServer.agent.testReportParserPlugin.visible;\n");
+                    //                out.write("package jetbrains.buildServer.agent.testReportParserPlugin.visual;\n");
                     out.write("import static org.junit.Assert.assertTrue;\n");
                     out.write("import org.junit.Test;\n\n");
 
