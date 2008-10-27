@@ -291,8 +291,7 @@
   <component name="libraryTable">
     <library name="JUnit">
       <CLASSES>
-        <root url="jar://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib/junit-3.8.1.jar!/" />
-        <root url="jar://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib/util.jar!/" />
+        <root url="jar://C:/Program Files/Javalibs/junit-4.5/junit-4.5.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -324,6 +323,14 @@
       </CLASSES>
       <JAVADOC />
       <SOURCES />
+    </library>
+    <library name="JMock">
+      <CLASSES>
+        <root url="file://C:/Program Files/Javalibs/jmock-2.5.1" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+      <jarDirectory url="file://C:/Program Files/Javalibs/jmock-2.5.1" recursive="false" />
     </library>
   </component>
   <UsedPathMacros>

@@ -54,11 +54,8 @@
         <!--</delete>-->
     </target>
 
-    <target name="test" depends="gentests" description="test all">
+    <target name="visual.test" depends="gentests" description="run visual tests">
         <mkdir dir="reports0"/>
-        <!--<mkdir dir="reports1"/>-->
-        <!--<mkdir dir="reports2"/>-->
-        <!--<mkdir dir="reports3"/>-->
 
         <junit printsummary="withOutAndErr">
             <classpath>
@@ -70,21 +67,6 @@
             <!--<test name="jetbrains.buildServer.testReportParserPlugin.visualExampleClass"-->
             <!--todir="reports"/>-->
 
-            <!--<batchtest todir="reports2">-->
-            <!--<fileset dir="${testreportparserplugintests.testoutput.dir}">-->
-            <!--<include name="TestClass*2.java"/>-->
-            <!--</fileset>-->
-            <!--</batchtest>-->
-            <!--<batchtest todir="reports1">-->
-            <!--<fileset dir="${testreportparserplugintests.testoutput.dir}">-->
-            <!--<include name="TestClass*1.java"/>-->
-            <!--</fileset>-->
-            <!--</batchtest>-->
-            <!--<batchtest todir="reports3">-->
-            <!--<fileset dir="${testreportparserplugintests.testoutput.dir}">-->
-            <!--<include name="TestClass*3.java"/>-->
-            <!--</fileset>-->
-            <!--</batchtest>-->
             <batchtest todir="reports0">
                 <fileset dir="${testreportparserplugintests.testoutput.dir}">
                     <include name="TestClass*0.java"/>
@@ -93,4 +75,24 @@
         </junit>
     </target>
 
+    <target name="test" depends="all" description="test all">
+        <mkdir dir="reports0"/>
+
+        <junit printsummary="withOutAndErr">
+            <classpath>
+                <pathelement location="${testreportparserplugintests.testoutput.dir}"/>
+            </classpath>
+
+            <formatter type="xml"/>
+
+            <!--<test name="jetbrains.buildServer.testReportParserPlugin.visualExampleClass"-->
+            <!--todir="reports"/>-->
+
+            <batchtest todir="reports0">
+                <fileset dir="${testreportparserplugintests.testoutput.dir}">
+                    <include name="TestClass*0.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
 </project>

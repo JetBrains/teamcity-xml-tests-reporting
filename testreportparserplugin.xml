@@ -43,8 +43,7 @@
     <!-- Project Libraries -->
 
     <path id="library.junit.classpath">
-        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/junit-3.8.1.jar"/>
-        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/util.jar"/>
+        <pathelement location="C:/Program Files/Javalibs/junit-4.5/junit-4.5.jar"/>
     </path>
 
     <path id="library.teamcity_api.classpath">
@@ -60,6 +59,20 @@
     <path id="library.teamcity_utils.classpath">
         <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/util.jar"/>
         <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/annotations.jar"/>
+    </path>
+
+    <path id="library.jmock.classpath">
+        <pathelement location="C:/Program Files/Javalibs/jmock-2.5.1/bsh-core-2.0b4.jar"/>
+        <pathelement location="C:/Program Files/Javalibs/jmock-2.5.1/cglib-2.1_3-src.jar"/>
+        <pathelement location="C:/Program Files/Javalibs/jmock-2.5.1/cglib-nodep-2.1_3.jar"/>
+        <pathelement location="C:/Program Files/Javalibs/jmock-2.5.1/hamcrest-core-1.1.jar"/>
+        <pathelement location="C:/Program Files/Javalibs/jmock-2.5.1/hamcrest-library-1.1.jar"/>
+        <pathelement location="C:/Program Files/Javalibs/jmock-2.5.1/jmock-2.5.1.jar"/>
+        <pathelement location="C:/Program Files/Javalibs/jmock-2.5.1/jmock-junit3-2.5.1.jar"/>
+        <pathelement location="C:/Program Files/Javalibs/jmock-2.5.1/jmock-junit4-2.5.1.jar"/>
+        <pathelement location="C:/Program Files/Javalibs/jmock-2.5.1/jmock-legacy-2.5.1.jar"/>
+        <pathelement location="C:/Program Files/Javalibs/jmock-2.5.1/jmock-script-2.5.1.jar"/>
+        <pathelement location="C:/Program Files/Javalibs/jmock-2.5.1/objenesis-1.0.jar"/>
     </path>
 
     <!-- Modules -->

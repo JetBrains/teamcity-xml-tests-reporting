@@ -21,6 +21,9 @@
         <pathelement location="${testreportparserpluginserver.output.dir}"/>
         <pathelement location="${testreportparserpluginserver.testoutput.dir}"/>
         <path refid="library.junit.classpath"/>
+        <path refid="library.jmock.classpath"/>
+        <path refid="library.teamcity_api.classpath"/>
+        <path refid="library.teamcity_openapi.classpath"/>
     </path>
 
     <path id="testreportparserplugintests.runtime.module.classpath">
@@ -36,6 +39,7 @@
         <pathelement location="${testreportparserpluginserver.output.dir}"/>
         <pathelement location="${testreportparserpluginserver.testoutput.dir}"/>
         <path refid="library.junit.classpath"/>
+        <path refid="library.jmock.classpath"/>
     </path>
 
 

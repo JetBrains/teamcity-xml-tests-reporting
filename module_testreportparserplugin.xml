@@ -40,6 +40,7 @@
         <pathelement location="${testreportparserplugintests.output.dir}"/>
         <pathelement location="${testreportparserplugintests.testoutput.dir}"/>
         <path refid="library.junit.classpath"/>
+        <path refid="library.jmock.classpath"/>
     </path>
 
 
