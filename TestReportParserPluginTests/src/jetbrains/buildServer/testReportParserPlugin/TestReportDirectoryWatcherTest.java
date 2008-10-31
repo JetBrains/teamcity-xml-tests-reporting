@@ -51,9 +51,21 @@ public class TestReportDirectoryWatcherTest {
 
     }
 
+    private TestReportParserPlugin createTestReportParserPlugin() {
+        return myContext.mock(TestReportParserPlugin.class);
+    }
+
     private BaseServerLoggerFacade createBaseServerLoggerFacade() {
         return myContext.mock(BaseServerLoggerFacade.class);
     }
+
+    private LinkedBlockingQueue<File> createLinkedBlockingQueue() {
+        return myContext.mock(LinkedBlockingQueue.class);
+    }
+
+//    private BaseServerLoggerFacade createBaseServerLoggerFacade() {
+//        return myContext.mock(BaseServerLoggerFacade.class);
+//    }
 
     @Before
     public void setUp() {
@@ -66,23 +78,68 @@ public class TestReportDirectoryWatcherTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testFirstConstructorNullArgument() {
-        TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(null, new LinkedBlockingQueue<File>(), createBaseServerLoggerFacade(), 0);
+        final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(null, new ArrayList<File>(), createLinkedBlockingQueue());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testSecondConstructorNullArgument() {
-        TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(new ArrayList<File>(), null, createBaseServerLoggerFacade(), 0);
+        final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), null, createLinkedBlockingQueue());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testThirdConstructorNullArgument() {
-        TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(new ArrayList<File>(), new LinkedBlockingQueue<File>(), null, 0);
+        final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), null);
     }
 
     @Test
     public void testIsStoppedAfterCreation() {
-        TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(new ArrayList<File>(), new LinkedBlockingQueue<File>(), createBaseServerLoggerFacade(), 0);
-        (new Thread(watcher)).start();
+        final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), createLinkedBlockingQueue());
         assertFalse("Watcher:stopWatching() method not invoked, but watcher is stopped.", watcher.isStopped());
     }
+
+    @Test
+    public void testLogDirectoryTotalsAfterCreation() {
+        final BaseServerLoggerFacade logger = createBaseServerLoggerFacade();
+        myContext.checking(new Expectations() {
+            {
+                never(logger).warning(with(any(String.class)));
+//                allowing (any(BaseServerLoggerFacade.class)).method(".*");
+//                allowing (never(any(Object.class))).method(".*");
+//                allowing (never(logger)).warning(with(any(String.class)));
+//                never(logger);
+            }
+        });
+        final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), createLinkedBlockingQueue());
+        watcher.logDirectoryTotals();
+        myContext.assertIsSatisfied();
+    }
+
+//    @Test
+//    public void testNoDirectoriesToWatch() throws InterruptedException {
+//        final LinkedBlockingQueue<File> queue = createLinkedBlockingQueue();
+//        myContext.checking(new Expectations() {
+//            {
+//            }
+//        });
+//        final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher();
+//        new Thread(new Runnable() {
+//            public void run() {
+//                try {
+//                    Thread.sleep(5000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+//                }
+//                watcher.stopWatching();
+//            }
+//        }).start();
+//        watcher.run();
+//
+//        myContext.checking(new Expectations() {
+//            {
+//                oneOf(queue).take(); will(returnValue(null));
+//            }
+//        });
+//
+//        myContext.assertIsSatisfied();
+//    }
 }

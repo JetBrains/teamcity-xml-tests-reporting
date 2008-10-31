@@ -59,12 +59,14 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
         private final long myTestNumber;
         private final long myStartTime;
         private final long myDuration;
+        private boolean myLogged;
 
         public SuiteData(final String name, long testNumber, long startTime, long duration) {
             myName = name;
             myTestNumber = testNumber;
             myStartTime = startTime;
             myDuration = duration;
+            myLogged = false;
         }
 
         public String getName() {
@@ -81,6 +83,14 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
         public long getDuraion() {
             return myDuration;
+        }
+
+        public void logged(boolean logged) {
+            myLogged = logged;
+        }
+
+        public boolean isLogged() {
+            return myLogged;
         }
     }
 
@@ -127,6 +137,10 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
         public long getDuration() {
             return myDuration;
+        }
+
+        public boolean isFailure() {
+            return (myFailureType != null);
         }
 
         public String getFailureType() {
@@ -202,8 +216,10 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
         } catch (SAXParseException e) {
             return myLoggedTests;
         } catch (Exception e) {
+            e.printStackTrace();
             myLogger.warning(createBuildLogMessage(e.getClass().getName() + " exception in Ant JUnit report parser."));
         }
+        myCurrentSuite = null;
         return -1;
     }
 
@@ -214,6 +230,9 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
             return;
         }
         if (TEST_SUITE.equals(localName)) {
+            if ((myCurrentSuite != null) && myCurrentSuite.isLogged()) {
+                return;
+            }
             final String name = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
             final long testNumber = Long.parseLong(attributes.getValue(DEFAULT_NAMESPACE, TESTS_ATTR));//catch NumberFormatEx
             final Date startTime = new Date();
@@ -222,6 +241,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
             myCurrentSuite = new SuiteData(name, testNumber, startTime.getTime(), duration);
             myTests = new Stack<TestData>();
             myLogger.logSuiteStarted(name, startTime);
+            myCurrentSuite.logged(true);
         } else if (TEST_CASE.equals(localName)) {
             final String className = attributes.getValue(DEFAULT_NAMESPACE, CLASSNAME_ATTR);
             final String testName = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
@@ -230,7 +250,6 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
             final TestData test = new TestData(className, testName, startTime.getTime(), duration);
             myTests.push(test);
-            myLogger.logTestStarted(className + "." + testName, startTime);
         } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
             final TestData test = myTests.peek();
 
@@ -258,24 +277,23 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
             myTests = null;
         } else if (TEST_CASE.equals(localName)) {
             final TestData test = myTests.pop();
+            final String testFullName = test.getClassName() + "." + test.getTestName();
 
+            myLogger.logTestStarted(testFullName, new Date(test.getStartTime()));
+            if (test.isFailure()) {
+                myLogger.logTestFailed(testFullName, test.getFailureType() + ": " + test.getFailureMessage(), myCurrentStackTrace.toString().trim());
+                myCurrentStackTrace = null;
+            }
+            myLogger.logTestFinished(testFullName, new Date(test.getStartTime() + test.getDuration()));
             myLoggedTests = myLoggedTests + 1;
-            myLogger.logTestFinished(test.getClassName() + "." + test.getTestName(), new Date(test.getStartTime() + test.getDuration()));
-        } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
-            final TestData test = myTests.peek();
-            final String fullName = test.getClassName() + "." + test.getTestName();
-
-            myLogger.logTestFailed(fullName, test.getFailureType() + ": " + test.getFailureMessage(), myCurrentStackTrace.toString().trim());
-            myCurrentStackTrace = null;
         }
     }
 
     public void characters(char ch[], int start, int length)
             throws SAXException {
-//TODO: uncomment
-//        if (testSkipped()) {
-//            return;
-//        }
+        if (testSkipped()) {
+            return;
+        }
         if (myCurrentStackTrace != null) {
             myCurrentStackTrace.append(ch, start, length);
         }

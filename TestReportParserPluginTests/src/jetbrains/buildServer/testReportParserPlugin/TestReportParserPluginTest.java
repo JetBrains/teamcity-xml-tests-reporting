@@ -16,5 +16,48 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
+import jetbrains.buildServer.agent.AgentRunningBuild;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JMock;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.util.Map;
+
+@RunWith(JMock.class)
 public class TestReportParserPluginTest {
+
+    private Mockery myContext;
+
+    private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final File workingDirFile) {
+        final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
+        myContext.checking(new Expectations() {
+            {
+                oneOf(runningBuild).getRunParameters();
+                will(returnValue(runParams));
+                oneOf(runningBuild).getWorkingDirectory();
+                will(returnValue(workingDirFile));
+            }
+        });
+        return runningBuild;
+
+    }
+
+    @Before
+    public void setUp() {
+        myContext = new JUnit4Mockery() {
+//            {
+//                setImposteriser(ClassImposteriser.INSTANCE);
+//            }
+        };
+    }
+
+    @Test
+    public void test() {
+
+    }
 }

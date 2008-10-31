@@ -16,8 +16,6 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
-//import com.intellij.openapi.diagnostic.Logger;
-
 import jetbrains.buildServer.agent.*;
 import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil.isTestReportParsingEnabled;
 import jetbrains.buildServer.util.EventDispatcher;
@@ -44,6 +42,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
     private boolean myTestReportParsingEnabled = false;
     private long myBuildStartTime;
 
+    private volatile boolean myStopped;
 
     public TestReportParserPlugin(@NotNull final EventDispatcher<AgentLifeCycleListener> agentDispatcher) {
         agentDispatcher.addListener(this);
@@ -58,6 +57,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
 //    }
 
     public void buildStarted(@NotNull AgentRunningBuild agentRunningBuild) {
+        myStopped = false;
         myBuildStartTime = new Date().getTime();
         BuildProgressLogger logger = agentRunningBuild.getBuildLogger();
 
@@ -79,8 +79,8 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
         }
 
         LinkedBlockingQueue<File> queue = new LinkedBlockingQueue<File>();
-        myDirectoryWatcher = new TestReportDirectoryWatcher(reportDirs, queue, myLogger, myBuildStartTime);
-        myReportProcessor = new TestReportProcessor(queue, myDirectoryWatcher, myLogger);
+        myDirectoryWatcher = new TestReportDirectoryWatcher(this, reportDirs, queue);
+        myReportProcessor = new TestReportProcessor(this, queue, myDirectoryWatcher);
 
         myTestReportParsingEnabled = isTestReportParsingEnabled(runParameters);
         if (myTestReportParsingEnabled) {
@@ -90,7 +90,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
     }
 
     //dirsStr is not supposed to contain ';' in their path, as it is separator
-    private List<File> getReportDirsFromDirsString(@NotNull String dirsStr, final File workingDir) {
+    private static List<File> getReportDirsFromDirsString(@NotNull String dirsStr, final File workingDir) {
         final String separator = ";";
         final List<File> dirs = new ArrayList<File>();
 
@@ -114,8 +114,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
             return;
         }
 
-        myDirectoryWatcher.stopWatching();
-        myReportProcessor.stopProcessing();
+        myStopped = true;
 
         switch (buildFinishedStatus) {
             case DOES_NOT_EXIST:
@@ -138,4 +137,28 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
                 break;
         }
     }
+
+    public BaseServerLoggerFacade getLogger() {
+        return myLogger;
+    }
+
+    public long getBuildStartTime() {
+        return myBuildStartTime;
+    }
+
+    public boolean isStopped() {
+        return myStopped;
+    }
+
+//    @Test
+//    public void testEmptyReportDirsString() {
+//        List<File> repDirs = getReportDirsFromDirsString("", new File("."));
+//        assertTrue("Report directories list must be empty", repDirs.size() == 0);
+//    }
+
+//    @Test
+//    public void testEmptyReportDirsString() {
+//        List<File> repDirs = getReportDirsFromDirsString("", new File("."));
+//        assertTrue("Report directories list must be empty", repDirs.size() == 0);
+//    }
 }

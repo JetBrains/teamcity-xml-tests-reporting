@@ -16,7 +16,6 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin.createBuildLogMessage;
 import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
@@ -28,14 +27,14 @@ import java.util.concurrent.TimeUnit;
 public class TestReportProcessor implements Runnable {
     private static final long FILE_WAIT_TIMEOUT = 500;
 
+    private final TestReportParserPlugin myPlugin;
+
     private final LinkedBlockingQueue<File> myReportQueue;
     private final TestReportDirectoryWatcher myWatcher;
     private final AntJUnitReportParser myParser;
-    private final BaseServerLoggerFacade myLogger;
 
     private ReportData myCurrentReport;
 
-    private volatile boolean myStopped;
     private volatile boolean myFinished;
 
 
@@ -61,19 +60,20 @@ public class TestReportProcessor implements Runnable {
         }
     }
 
-    public TestReportProcessor(@NotNull final LinkedBlockingQueue<File> queue, @NotNull final TestReportDirectoryWatcher watcher, @NotNull final BaseServerLoggerFacade logger) {
+    public TestReportProcessor(@NotNull final TestReportParserPlugin plugin,
+                               @NotNull final LinkedBlockingQueue<File> queue,
+                               @NotNull final TestReportDirectoryWatcher watcher) {
+        myPlugin = plugin;
         myReportQueue = queue;
         myWatcher = watcher;
-        myParser = new AntJUnitReportParser(logger);
-        myLogger = logger;
+        myParser = new AntJUnitReportParser(myPlugin.getLogger());
     }
 
     public void run() {
-        myStopped = false;
         myFinished = false;
         myCurrentReport = null;
 
-        while (!myStopped) {
+        while (!myPlugin.isStopped()) {
             processReport(takeNextReport(FILE_WAIT_TIMEOUT));
         }
         synchronized (myWatcher) {
@@ -81,7 +81,7 @@ public class TestReportProcessor implements Runnable {
                 try {
                     myWatcher.wait();
                 } catch (InterruptedException e) {
-                    myLogger.warning(createBuildLogMessage("report processor thread interrupted"));
+                    myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted"));
                 }
             }
         }
@@ -100,7 +100,7 @@ public class TestReportProcessor implements Runnable {
             if (processedTests != -1) {
                 myCurrentReport.setProcessedTests(processedTests);
             } else {
-                myLogger.message(createBuildLogMessage(report.getFile().getPath() + " report processed."));
+                myPlugin.getLogger().message(createBuildLogMessage(report.getFile().getPath() + " report processed."));
                 myCurrentReport = null;
             }
         }
@@ -117,13 +117,9 @@ public class TestReportProcessor implements Runnable {
                 return myCurrentReport;
             }
         } catch (InterruptedException e) {
-            myLogger.warning(createBuildLogMessage("report processor thread interrupted"));
+            myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted"));
         }
         return null;
-    }
-
-    public void stopProcessing() {
-        myStopped = true;
     }
 
     public boolean isProcessingFinished() {
