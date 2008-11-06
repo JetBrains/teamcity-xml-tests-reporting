@@ -74,15 +74,15 @@ public class TestReportDirectoryWatcher implements Runnable {
 
                     if (report.isFile() && (report.lastModified() > myPlugin.getBuildStartTime())) {
                         myActiveDirectories.add(dir);
-                        if (!myProcessedFiles.contains(report.getPath())) {
-                            if (report.canRead() && AntJUnitReportParser.isReportFileComplete(report)) {
-                                myPlugin.getLogger().message(createBuildLogMessage("found report file " + report.getPath() + "."));
-                                myProcessedFiles.add(report.getPath());
-                                try {
-                                    myReportQueue.put(report);
-                                } catch (InterruptedException e) {
-                                    myPlugin.getLogger().warning(createBuildLogMessage("directory watcher thread interrupted."));
-                                }
+                        if (!myProcessedFiles.contains(report.getPath()) &&
+                                report.canRead() &&
+                                AntJUnitReportParser.isReportFileComplete(report)) {
+                            myPlugin.getLogger().message(createBuildLogMessage("found report file " + report.getPath() + "."));
+                            myProcessedFiles.add(report.getPath());
+                            try {
+                                myReportQueue.put(report);
+                            } catch (InterruptedException e) {
+                                myPlugin.getLogger().warning(createBuildLogMessage("directory watcher thread interrupted."));
                             }
                         }
                     }
