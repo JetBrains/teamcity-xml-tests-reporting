@@ -75,6 +75,10 @@
         <pathelement location="C:/Program Files/Javalibs/jmock-2.5.1/objenesis-1.0.jar"/>
     </path>
 
+    <path id="library.log4j.classpath">
+        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/log4j-1.2.12.jar"/>
+    </path>
+
     <!-- Modules -->
 
     <import file="${basedir}/TestReportParserPluginCommon/module_testreportparserplugincommon.xml"/>

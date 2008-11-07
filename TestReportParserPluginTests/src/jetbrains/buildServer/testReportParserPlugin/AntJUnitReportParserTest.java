@@ -102,6 +102,11 @@ public class AntJUnitReportParserTest {
     }
 
     @Test
+    public void testWrongFormatReport() {
+        myParser.parse(report("wrongFormat"), 0);
+    }
+
+    @Test
     public void testNoCases() {
         myContext.checking(new Expectations() {
             {
@@ -597,8 +602,6 @@ public class AntJUnitReportParserTest {
                 inSequence(mySequence);
                 oneOf(myLogger).message(with("System out from TestCase:\nfrom test1"));
                 inSequence(mySequence);
-                oneOf(myLogger).message(with("System error from TestCase:\n"));
-                inSequence(mySequence);
             }
         });
         myParser.parse(report(reportName), 0);
@@ -626,9 +629,7 @@ public class AntJUnitReportParserTest {
                 inSequence(mySequence);
                 oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
                 inSequence(mySequence);
-                oneOf(myLogger).message(with("System out from TestCase:\n"));
-                inSequence(mySequence);
-                oneOf(myLogger).message(with("System error from TestCase:\nfrom test1"));
+                oneOf(myLogger).warning(with("System error from TestCase:\nfrom test1"));
                 inSequence(mySequence);
             }
         });
@@ -644,5 +645,88 @@ public class AntJUnitReportParserTest {
     @Test
     public void testPrintlnSystemErr() {
         oneLineSystemErr("printlnSystemErr.xml");
+    }
+
+    private void fiveLineSystemOut(String reportName) {
+        myContext.checking(new Expectations() {
+            {
+                oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+                inSequence(mySequence);
+                oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
+                inSequence(mySequence);
+                oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
+                inSequence(mySequence);
+                oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+                inSequence(mySequence);
+                oneOf(myLogger).message(with("System out from TestCase:\n" +
+                        "from test1 line1\nfrom test1 line2\nfrom test1 line3\nfrom test1 line4\nfrom test1 line5"));
+                inSequence(mySequence);
+            }
+        });
+        myParser.parse(report(reportName), 0);
+        myContext.assertIsSatisfied();
+    }
+
+    @Test
+    public void testPrintFiveLineSystemOut() {
+        fiveLineSystemOut("printFiveLineSystemOut.xml");
+    }
+
+    @Test
+    public void testPrintlnFiveLineSystemOut() {
+        fiveLineSystemOut("printlnFiveLineSystemOut.xml");
+    }
+
+    private void fiveLineSystemErr(String reportName) {
+        myContext.checking(new Expectations() {
+            {
+                oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+                inSequence(mySequence);
+                oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
+                inSequence(mySequence);
+                oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
+                inSequence(mySequence);
+                oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+                inSequence(mySequence);
+                oneOf(myLogger).warning(with("System error from TestCase:\n" +
+                        "from test1 line1\nfrom test1 line2\nfrom test1 line3\nfrom test1 line4\nfrom test1 line5"));
+                inSequence(mySequence);
+            }
+        });
+        myParser.parse(report(reportName), 0);
+        myContext.assertIsSatisfied();
+    }
+
+    @Test
+    public void testPrintFiveLineSystemErr() {
+        fiveLineSystemErr("printFiveLineSystemErr.xml");
+    }
+
+    @Test
+    public void testPrintlnFiveLineSystemErr() {
+        fiveLineSystemErr("printlnFiveLineSystemErr.xml");
+    }
+
+    @Test
+    public void fiveLineSystemOutAndErr() {
+        myContext.checking(new Expectations() {
+            {
+                oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+                inSequence(mySequence);
+                oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
+                inSequence(mySequence);
+                oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
+                inSequence(mySequence);
+                oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+                inSequence(mySequence);
+                oneOf(myLogger).message(with("System out from TestCase:\n" +
+                        "out from test1 line1\nout from test1 line2\nout from test1 line3\nout from test1 line4\nout from test1 line5"));
+                oneOf(myLogger).warning(with("System error from TestCase:\n" +
+                        "err from test1 line1\nerr from test1 line2\nerr from test1 line3\nerr from test1 line4\nerr from test1 line5"));
+                inSequence(mySequence);
+            }
+        });
+        myParser.parse(report("fiveLineSystemOutAndErr.xml"), 0);
+        myContext.assertIsSatisfied();
     }
 }

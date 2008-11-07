@@ -13,6 +13,8 @@
     <orderEntry type="library" name="JMock" level="project" />
     <orderEntry type="library" name="TeamCity API" level="project" />
     <orderEntry type="library" name="TeamCity openAPI" level="project" />
+    <orderEntry type="module" module-name="TestReportParserPluginCommon" />
+    <orderEntry type="library" name="Log4J" level="project" />
     <orderEntryProperties />
   </component>
 </module>

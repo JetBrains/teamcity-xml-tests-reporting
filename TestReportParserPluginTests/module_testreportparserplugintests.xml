@@ -24,6 +24,9 @@
         <path refid="library.jmock.classpath"/>
         <path refid="library.teamcity_api.classpath"/>
         <path refid="library.teamcity_openapi.classpath"/>
+        <pathelement location="${testreportparserplugincommon.output.dir}"/>
+        <pathelement location="${testreportparserplugincommon.testoutput.dir}"/>
+        <path refid="library.log4j.classpath"/>
     </path>
 
     <path id="testreportparserplugintests.runtime.module.classpath">
@@ -40,6 +43,7 @@
         <pathelement location="${testreportparserpluginserver.testoutput.dir}"/>
         <path refid="library.junit.classpath"/>
         <path refid="library.jmock.classpath"/>
+        <path refid="library.log4j.classpath"/>
     </path>
 
 
@@ -63,7 +67,7 @@
             description="Compile module TestReportParserPluginTests"/>
 
     <target name="compile.module.testreportparserplugintests.production"
-            depends="compile.module.testreportparserpluginagent,compile.module.testreportparserpluginserver"
+            depends="compile.module.testreportparserpluginagent,compile.module.testreportparserpluginserver,compile.module.testreportparserplugincommon"
             description="Compile module TestReportParserPluginTests; production classes"/>
 
     <target name="compile.module.testreportparserplugintests.tests"

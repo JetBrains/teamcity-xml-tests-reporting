@@ -63,10 +63,6 @@ public class TestReportDirectoryWatcherTest {
         return myContext.mock(LinkedBlockingQueue.class);
     }
 
-//    private BaseServerLoggerFacade createBaseServerLoggerFacade() {
-//        return myContext.mock(BaseServerLoggerFacade.class);
-//    }
-
     @Before
     public void setUp() {
         myContext = new JUnit4Mockery() {

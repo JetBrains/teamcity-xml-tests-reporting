@@ -76,6 +76,7 @@
     </target>
 
     <target name="test" depends="all" description="test all">
+        <copy file="TestReportParserPluginTests\log4j.xml" todir="${testreportparserplugintests.output.dir}"/>
         <mkdir dir="reports0"/>
 
         <junit printsummary="withOutAndErr">

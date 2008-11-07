@@ -41,6 +41,7 @@
         <pathelement location="${testreportparserplugintests.testoutput.dir}"/>
         <path refid="library.junit.classpath"/>
         <path refid="library.jmock.classpath"/>
+        <path refid="library.log4j.classpath"/>
     </path>
 
 

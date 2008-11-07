@@ -23,10 +23,7 @@ import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
@@ -59,17 +56,21 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
     public void buildStarted(@NotNull AgentRunningBuild agentRunningBuild) {
         myStopped = false;
         myBuildStartTime = new Date().getTime();
-        BuildProgressLogger logger = agentRunningBuild.getBuildLogger();
+    }
 
+    public void beforeRunnerStart(@NotNull AgentRunningBuild agentRunningBuild) {
+        final Map<String, String> runParameters = agentRunningBuild.getRunParameters();
+        myTestReportParsingEnabled = isTestReportParsingEnabled(runParameters);
+        if (!myTestReportParsingEnabled) {
+            return;
+        }
+
+        BuildProgressLogger logger = agentRunningBuild.getBuildLogger();
         if (logger instanceof BaseServerLoggerFacade) {
             myLogger = (BaseServerLoggerFacade) logger;
         } else {
             // not expected
         }
-    }
-
-    public void beforeRunnerStart(@NotNull AgentRunningBuild agentRunningBuild) {
-        final Map<String, String> runParameters = agentRunningBuild.getRunParameters();
         final String dir = runParameters.get(TEST_REPORT_DIR_PROPERTY);
         final File wd = agentRunningBuild.getWorkingDirectory();
         final List<File> reportDirs = getReportDirsFromDirsString(dir, wd);
@@ -81,16 +82,16 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
         LinkedBlockingQueue<File> queue = new LinkedBlockingQueue<File>();
         myDirectoryWatcher = new TestReportDirectoryWatcher(this, reportDirs, queue);
         myReportProcessor = new TestReportProcessor(this, queue, myDirectoryWatcher);
-
-        myTestReportParsingEnabled = isTestReportParsingEnabled(runParameters);
-        if (myTestReportParsingEnabled) {
-            new Thread(myDirectoryWatcher, "TestReportParserPlugin-DirectoryWatcher").start();
-            new Thread(myReportProcessor, "TestReportParserPlugin-ReportParser").start();
-        }
+        new Thread(myDirectoryWatcher, "TestReportParserPlugin-DirectoryWatcher").start();
+        new Thread(myReportProcessor, "TestReportParserPlugin-ReportParser").start();
     }
 
     //dirsStr is not supposed to contain ';' in their path, as it is separator
-    private static List<File> getReportDirsFromDirsString(@NotNull String dirsStr, final File workingDir) {
+    private static List<File> getReportDirsFromDirsString(String dirsStr, final File workingDir) {
+        if (dirsStr == null) {
+            return Collections.emptyList();
+        }
+
         final String separator = ";";
         final List<File> dirs = new ArrayList<File>();
 
@@ -149,16 +150,4 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
     public boolean isStopped() {
         return myStopped;
     }
-
-//    @Test
-//    public void testEmptyReportDirsString() {
-//        List<File> repDirs = getReportDirsFromDirsString("", new File("."));
-//        assertTrue("Report directories list must be empty", repDirs.size() == 0);
-//    }
-
-//    @Test
-//    public void testEmptyReportDirsString() {
-//        List<File> repDirs = getReportDirsFromDirsString("", new File("."));
-//        assertTrue("Report directories list must be empty", repDirs.size() == 0);
-//    }
 }
