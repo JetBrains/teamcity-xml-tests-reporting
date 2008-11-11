@@ -15,6 +15,7 @@
     <orderEntry type="library" name="TeamCity openAPI" level="project" />
     <orderEntry type="module" module-name="TestReportParserPluginCommon" />
     <orderEntry type="library" name="Log4J" level="project" />
+    <orderEntry type="library" name="TeamCity utils" level="project" />
     <orderEntryProperties />
   </component>
 </module>

@@ -75,6 +75,9 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
         final File wd = agentRunningBuild.getWorkingDirectory();
         final List<File> reportDirs = getReportDirsFromDirsString(dir, wd);
 
+        for (File s : reportDirs) {
+            System.out.println(s.getPath());
+        }
         if (reportDirs.size() == 0) {
             myLogger.warning(createBuildLogMessage("no report directories specified."));
         }
@@ -88,7 +91,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
 
     //dirsStr is not supposed to contain ';' in their path, as it is separator
     private static List<File> getReportDirsFromDirsString(String dirsStr, final File workingDir) {
-        if (dirsStr == null) {
+        if ((dirsStr == null) || dirsStr.length() == 0) {
             return Collections.emptyList();
         }
 
@@ -111,11 +114,11 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
     }
 
     public void beforeBuildFinish(@NotNull BuildFinishedStatus buildFinishedStatus) {
+        myStopped = true;
+
         if (!myTestReportParsingEnabled) {
             return;
         }
-
-        myStopped = true;
 
         switch (buildFinishedStatus) {
             case DOES_NOT_EXIST:

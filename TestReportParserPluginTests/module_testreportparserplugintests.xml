@@ -27,6 +27,7 @@
         <pathelement location="${testreportparserplugincommon.output.dir}"/>
         <pathelement location="${testreportparserplugincommon.testoutput.dir}"/>
         <path refid="library.log4j.classpath"/>
+        <path refid="library.teamcity_utils.classpath"/>
     </path>
 
     <path id="testreportparserplugintests.runtime.module.classpath">

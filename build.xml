@@ -77,23 +77,23 @@
 
     <target name="test" depends="all" description="test all">
         <copy file="TestReportParserPluginTests\log4j.xml" todir="${testreportparserplugintests.output.dir}"/>
-        <mkdir dir="reports0"/>
+        <!--<mkdir dir="reports0"/>-->
 
-        <junit printsummary="withOutAndErr">
-            <classpath>
-                <pathelement location="${testreportparserplugintests.testoutput.dir}"/>
-            </classpath>
+        <!--<junit printsummary="withOutAndErr">-->
+        <!--<classpath>-->
+        <!--<pathelement location="${testreportparserplugintests.testoutput.dir}"/>-->
+        <!--</classpath>-->
 
-            <formatter type="xml"/>
+        <!--<formatter type="xml"/>-->
 
-            <!--<test name="jetbrains.buildServer.testReportParserPlugin.visualExampleClass"-->
-            <!--todir="reports"/>-->
+        <!--<test name="jetbrains.buildServer.testReportParserPlugin.visualExampleClass"-->
+        <!--todir="reports"/>-->
 
-            <batchtest todir="reports0">
-                <fileset dir="${testreportparserplugintests.testoutput.dir}">
-                    <include name="TestClass*0.java"/>
-                </fileset>
-            </batchtest>
-        </junit>
+        <!--<batchtest todir="reports0">-->
+        <!--<fileset dir="${testreportparserplugintests.testoutput.dir}">-->
+        <!--<include name="TestClass*0.java"/>-->
+        <!--</fileset>-->
+        <!--</batchtest>-->
+        <!--</junit>-->
     </target>
 </project>

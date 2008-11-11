@@ -24,7 +24,7 @@
                                 disabled="${empty propertiesBean.properties['testReportParsing.enabled']}"/>
         <span class="smallNote">
         ";" separated paths to directories where reports are expected to appear.
-            Specified paths can be absolute or relative to the working directory.          
+            Specified paths can be absolute or relative to the working directory.
         </span>
         </td>
     </tr>
