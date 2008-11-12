@@ -16,5 +16,8 @@
 package jetbrains.buildServer.testReportParserPlugin.performance;
 
 
-public class LogSequence {
+public class UnexpectedInvokationException extends RuntimeException {
+    public UnexpectedInvokationException(String message) {
+        super(message);
+    }
 }

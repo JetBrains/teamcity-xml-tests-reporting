@@ -21,6 +21,7 @@ import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.BuildFinishedStatus;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin;
+import jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil;
 import jetbrains.buildServer.util.EventDispatcher;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -31,7 +32,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RunWith(JMock.class)
@@ -43,7 +46,9 @@ public class TestReportParserPluginPerformanceTest {
     private Map<String, String> myRunParams;
     private File myWorkingDir;
     private EventDispatcher<AgentLifeCycleListener> myEventDispatcher;
-    private BaseServerLoggerFacade myTestLogger;
+    private BaseServerLoggerFacadeForTesting myTestLogger;
+    private List<MethodInvokation> myLogSequence;
+    private List<UnexpectedInvokationException> myFailure;
 
     private Mockery myContext;
 
@@ -53,6 +58,10 @@ public class TestReportParserPluginPerformanceTest {
             {
                 allowing(runningBuild).getBuildLogger();
                 will(returnValue(logger));
+                allowing(runningBuild).getRunParameters();
+                will(returnValue(runParams));
+                allowing(runningBuild).getWorkingDirectory();
+                will(returnValue(workingDirFile));
                 ignoring(runningBuild);
             }
         });
@@ -62,20 +71,50 @@ public class TestReportParserPluginPerformanceTest {
     @Before
     public void setUp() {
         myContext = new JUnit4Mockery();
-        myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
+
+        myLogSequence = new ArrayList<MethodInvokation>();
+        myFailure = new ArrayList<UnexpectedInvokationException>();
+        myTestLogger = new BaseServerLoggerFacadeForTesting(myFailure);
+
         myRunParams = new HashMap<String, String>();
         myWorkingDir = new File(WORKING_DIR);
-        myTestLogger = new BaseServerLoggerFacadeForTesting();
         myRunningBuild = createAgentRunningBuild(myRunParams, myWorkingDir, myTestLogger);
+        myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
         myPlugin = new TestReportParserPlugin(myEventDispatcher);
     }
 
     @Test
-    public void test() {
+    public void testIsSilentWhenDisabled() {
+        TestReportParserPluginUtil.enableTestReportParsing(myRunParams, false);
+        myTestLogger.setExpectedSequence(myLogSequence);
+
         myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
         myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
         myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED);
         myContext.assertIsSatisfied();
+
+        if (myFailure.size() > 0) {
+            throw myFailure.get(0);
+        }
     }
 
+    @Test
+    public void testNotSilentWhenEnabled() {
+        TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
+
+        List<Object> params = new ArrayList<Object>();
+        params.add(MethodInvokation.ANY);
+        myLogSequence.add(new MethodInvokation("warning", params));
+        myTestLogger.setExpectedSequence(myLogSequence);
+
+        myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+        myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+        myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED);
+        myContext.assertIsSatisfied();
+        myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+
+        if (myFailure.size() > 0) {
+            throw myFailure.get(0);
+        }
+    }
 }
