@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="3" hostname="ruspd-student3" name="TestCase" tests="9" time="1.203"
+           timestamp="2008-10-30T17:11:25">
+    <properties/>
+    <testcase classname="TestCase" name="test1" time="0.031"/>
+    <testcase classname="TestCase" name="test2" time="0.031"/>
+    <testcase classname="TestCase" name="test3" time="0.031"/>
