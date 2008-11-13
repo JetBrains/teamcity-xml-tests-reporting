@@ -14,9 +14,9 @@
         <mkdir dir="out\pack\TestReportParserPlugin\agent\zip\TestReportParserPlugin\lib"/>
 
         <jar destfile="out\pack\TestReportParserPlugin\agent\zip\TestReportParserPlugin\lib\TestReportParserPlugin.jar"
-             basedir="${testreportparserpluginagent.output.dir}" update="true"/>
+             basedir="${agent.output.dir}" update="true"/>
         <jar destfile="out\pack\TestReportParserPlugin\agent\zip\TestReportParserPlugin\lib\TestReportParserPluginCommon.jar"
-             basedir="${testreportparserplugincommon.output.dir}" update="true"/>
+             basedir="${common.output.dir}" update="true"/>
         <zip destfile="out\pack\TestReportParserPlugin\agent\TestReportParserPlugin.zip"
              basedir="out\pack\TestReportParserPlugin\agent\zip"
              update="true"/>
@@ -25,12 +25,12 @@
 
     <target name="pack.server" depends="all" description="pack server part of plugin">
         <mkdir dir="out\pack\TestReportParserPlugin\server"/>
-        <copy todir="${testreportparserpluginserver.output.dir}">
+        <copy todir="${server.output.dir}">
             <fileset dir="${basedir}\TestReportParserPluginServer\resources"/>
         </copy>
 
         <jar destfile="out\pack\TestReportParserPlugin\server\TestReportParserPlugin.jar"
-             basedir="${testreportparserpluginserver.output.dir}" update="true"/>
+             basedir="${server.output.dir}" update="true"/>
     </target>
 
     <target name="deploy" depends="pack.agent, pack.server" description="deploy plugin to TeamCity">
@@ -42,11 +42,11 @@
     <target name="gentests" depends="all" description="Generarates test classes">
         <java classname="jetbrains.buildServer.testReportParserPlugin.visualTestGenerator">
             <classpath>
-                <pathelement location="${testreportparserplugintests.testoutput.dir}"/>
+                <pathelement location="${tests.testoutput.dir}"/>
             </classpath>
         </java>
-        <javac srcdir="${testreportparserplugintests.testoutput.dir}"
-               destdir="${testreportparserplugintests.testoutput.dir}">
+        <javac srcdir="${tests.testoutput.dir}"
+               destdir="${tests.testoutput.dir}">
             <include name="TestClass*.java"/>
         </javac>
         <!--<delete>-->
@@ -59,7 +59,7 @@
 
         <junit printsummary="withOutAndErr">
             <classpath>
-                <pathelement location="${testreportparserplugintests.testoutput.dir}"/>
+                <pathelement location="${tests.testoutput.dir}"/>
             </classpath>
 
             <formatter type="xml"/>
@@ -68,7 +68,7 @@
             <!--todir="reports"/>-->
 
             <batchtest todir="reports0">
-                <fileset dir="${testreportparserplugintests.testoutput.dir}">
+                <fileset dir="${tests.testoutput.dir}">
                     <include name="TestClass*0.java"/>
                 </fileset>
             </batchtest>
@@ -76,7 +76,7 @@
     </target>
 
     <target name="test" depends="all" description="test all">
-        <copy file="Tests\log4j.xml" todir="${testreportparserplugintests.output.dir}"/>
+        <copy file="Tests\log4j.xml" todir="${tests.output.dir}"/>
         <!--<mkdir dir="reports0"/>-->
 
         <!--<junit printsummary="withOutAndErr">-->

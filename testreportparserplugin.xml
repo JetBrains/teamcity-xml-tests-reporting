@@ -81,25 +81,415 @@
 
     <!-- Modules -->
 
-    <import file="${basedir}/TestReportParserPluginCommon/module_testreportparserplugincommon.xml"/>
 
-    <import file="${basedir}/TestReportParserPluginServer/module_testreportparserpluginserver.xml"/>
+    <!-- Module Common -->
 
-    <import file="${basedir}/TestReportParserPluginAgent/module_testreportparserpluginagent.xml"/>
+    <dirname property="module.common.basedir" file="${ant.file}"/>
 
-    <import file="${basedir}/TestReportParserPluginTests/module_testreportparserplugintests.xml"/>
 
-    <import file="${basedir}/module_testreportparserplugin.xml"/>
+    <property name="compiler.args.common" value="${compiler.args}"/>
+
+    <property name="common.output.dir" value="${module.common.basedir}/out/production/Common"/>
+    <property name="common.testoutput.dir" value="${module.common.basedir}/out/test/Common"/>
+
+    <path id="common.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="common.module.classpath">
+        <path refid="library.teamcity_openapi.classpath"/>
+        <path refid="library.teamcity_utils.classpath"/>
+    </path>
+
+    <path id="common.runtime.module.classpath">
+        <pathelement location="${common.output.dir}"/>
+        <pathelement location="${common.testoutput.dir}"/>
+        <path refid="library.teamcity_openapi.classpath"/>
+        <path refid="library.teamcity_utils.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.common">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.common">
+        <patternset refid="excluded.from.module.common"/>
+    </patternset>
+
+    <path id="common.module.sourcepath">
+        <dirset dir="${module.common.basedir}/Common">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.common" depends="compile.module.common.production,compile.module.common.tests"
+            description="Compile module Common"/>
+
+    <target name="compile.module.common.production" description="Compile module Common; production classes">
+        <mkdir dir="${common.output.dir}"/>
+        <javac destdir="${common.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.common}"/>
+            <bootclasspath refid="common.module.bootclasspath"/>
+            <classpath refid="common.module.classpath"/>
+            <src refid="common.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.common"/>
+        </javac>
+
+        <copy todir="${common.output.dir}">
+            <fileset dir="${module.common.basedir}/Common/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.common.tests" depends="compile.module.common.production"
+            description="compile module Common; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.common" description="cleanup module">
+        <delete dir="${common.output.dir}"/>
+        <delete dir="${common.testoutput.dir}"/>
+    </target>
+
+
+    <!-- Module Server -->
+
+    <dirname property="module.server.basedir" file="${ant.file}"/>
+
+
+    <property name="compiler.args.server" value="${compiler.args}"/>
+
+    <property name="server.output.dir" value="${module.server.basedir}/out/production/Server"/>
+    <property name="server.testoutput.dir" value="${module.server.basedir}/out/test/Server"/>
+
+    <path id="server.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="server.module.classpath">
+        <path refid="library.teamcity_openapi.classpath"/>
+        <path refid="library.teamcity_utils.classpath"/>
+    </path>
+
+    <path id="server.runtime.module.classpath">
+        <pathelement location="${server.output.dir}"/>
+        <pathelement location="${server.testoutput.dir}"/>
+        <path refid="library.teamcity_openapi.classpath"/>
+        <path refid="library.teamcity_utils.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.server">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.server">
+        <patternset refid="excluded.from.module.server"/>
+    </patternset>
+
+    <path id="server.module.sourcepath">
+        <dirset dir="${module.server.basedir}/Server">
+            <include name="resources"/>
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.server" depends="compile.module.server.production,compile.module.server.tests"
+            description="Compile module Server"/>
+
+    <target name="compile.module.server.production" description="Compile module Server; production classes">
+        <mkdir dir="${server.output.dir}"/>
+        <javac destdir="${server.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.server}"/>
+            <bootclasspath refid="server.module.bootclasspath"/>
+            <classpath refid="server.module.classpath"/>
+            <src refid="server.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.server"/>
+        </javac>
+
+        <copy todir="${server.output.dir}">
+            <fileset dir="${module.server.basedir}/Server/resources">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+            <fileset dir="${module.server.basedir}/Server/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.server.tests" depends="compile.module.server.production"
+            description="compile module Server; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.server" description="cleanup module">
+        <delete dir="${server.output.dir}"/>
+        <delete dir="${server.testoutput.dir}"/>
+    </target>
+
+
+    <!-- Module Agent -->
+
+    <dirname property="module.agent.basedir" file="${ant.file}"/>
+
+
+    <property name="compiler.args.agent" value="${compiler.args}"/>
+
+    <property name="agent.output.dir" value="${module.agent.basedir}/out/production/Agent"/>
+    <property name="agent.testoutput.dir" value="${module.agent.basedir}/out/test/Agent"/>
+
+    <path id="agent.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="agent.module.classpath">
+        <pathelement location="${common.output.dir}"/>
+        <pathelement location="${common.testoutput.dir}"/>
+        <path refid="library.teamcity_api.classpath"/>
+        <path refid="library.teamcity_openapi.classpath"/>
+        <path refid="library.teamcity_utils.classpath"/>
+    </path>
+
+    <path id="agent.runtime.module.classpath">
+        <pathelement location="${agent.output.dir}"/>
+        <pathelement location="${agent.testoutput.dir}"/>
+        <pathelement location="${common.output.dir}"/>
+        <pathelement location="${common.testoutput.dir}"/>
+        <path refid="library.teamcity_openapi.classpath"/>
+        <path refid="library.teamcity_utils.classpath"/>
+        <path refid="library.teamcity_api.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.agent">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.agent">
+        <patternset refid="excluded.from.module.agent"/>
+    </patternset>
+
+    <path id="agent.module.sourcepath">
+        <dirset dir="${module.agent.basedir}/Agent">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.agent" depends="compile.module.agent.production,compile.module.agent.tests"
+            description="Compile module Agent"/>
+
+    <target name="compile.module.agent.production" depends="compile.module.common"
+            description="Compile module Agent; production classes">
+        <mkdir dir="${agent.output.dir}"/>
+        <javac destdir="${agent.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.agent}"/>
+            <bootclasspath refid="agent.module.bootclasspath"/>
+            <classpath refid="agent.module.classpath"/>
+            <src refid="agent.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.agent"/>
+        </javac>
+
+        <copy todir="${agent.output.dir}">
+            <fileset dir="${module.agent.basedir}/Agent/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="compile.module.agent.tests" depends="compile.module.agent.production"
+            description="compile module Agent; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.agent" description="cleanup module">
+        <delete dir="${agent.output.dir}"/>
+        <delete dir="${agent.testoutput.dir}"/>
+    </target>
+
+
+    <!-- Module Tests -->
+
+    <dirname property="module.tests.basedir" file="${ant.file}"/>
+
+
+    <property name="compiler.args.tests" value="${compiler.args}"/>
+
+    <property name="tests.output.dir" value="${module.tests.basedir}/out/production/Tests"/>
+    <property name="tests.testoutput.dir" value="${module.tests.basedir}/out/test/Tests"/>
+
+    <path id="tests.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="tests.module.classpath">
+        <pathelement location="${agent.output.dir}"/>
+        <pathelement location="${agent.testoutput.dir}"/>
+        <pathelement location="${server.output.dir}"/>
+        <pathelement location="${server.testoutput.dir}"/>
+        <path refid="library.junit.classpath"/>
+        <path refid="library.jmock.classpath"/>
+        <path refid="library.teamcity_api.classpath"/>
+        <path refid="library.teamcity_openapi.classpath"/>
+        <pathelement location="${common.output.dir}"/>
+        <pathelement location="${common.testoutput.dir}"/>
+        <path refid="library.log4j.classpath"/>
+        <path refid="library.teamcity_utils.classpath"/>
+    </path>
+
+    <path id="tests.runtime.module.classpath">
+        <pathelement location="${tests.output.dir}"/>
+        <pathelement location="${tests.testoutput.dir}"/>
+        <pathelement location="${agent.output.dir}"/>
+        <pathelement location="${agent.testoutput.dir}"/>
+        <pathelement location="${common.output.dir}"/>
+        <pathelement location="${common.testoutput.dir}"/>
+        <path refid="library.teamcity_openapi.classpath"/>
+        <path refid="library.teamcity_utils.classpath"/>
+        <path refid="library.teamcity_api.classpath"/>
+        <pathelement location="${server.output.dir}"/>
+        <pathelement location="${server.testoutput.dir}"/>
+        <path refid="library.junit.classpath"/>
+        <path refid="library.jmock.classpath"/>
+        <path refid="library.log4j.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.tests">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.tests">
+        <patternset refid="excluded.from.module.tests"/>
+    </patternset>
+
+    <path id="tests.module.test.sourcepath">
+        <dirset dir="${module.tests.basedir}/Tests">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.tests" depends="compile.module.tests.production,compile.module.tests.tests"
+            description="Compile module Tests"/>
+
+    <target name="compile.module.tests.production"
+            depends="compile.module.agent,compile.module.server,compile.module.common"
+            description="Compile module Tests; production classes"/>
+
+    <target name="compile.module.tests.tests" depends="compile.module.tests.production"
+            description="compile module Tests; test classes" unless="skip.tests">
+        <mkdir dir="${tests.testoutput.dir}"/>
+        <javac destdir="${tests.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.tests}"/>
+            <classpath refid="tests.module.classpath"/>
+            <classpath location="${tests.output.dir}"/>
+            <src refid="tests.module.test.sourcepath"/>
+            <patternset refid="excluded.from.compilation.tests"/>
+        </javac>
+
+        <copy todir="${tests.testoutput.dir}">
+            <fileset dir="${module.tests.basedir}/Tests/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="clean.module.tests" description="cleanup module">
+        <delete dir="${tests.output.dir}"/>
+        <delete dir="${tests.testoutput.dir}"/>
+    </target>
+
+
+    <!-- Module TestReportParserPlugin -->
+
+    <dirname property="module.testreportparserplugin.basedir" file="${ant.file}"/>
+
+
+    <property name="compiler.args.testreportparserplugin" value="${compiler.args}"/>
+
+    <property name="testreportparserplugin.output.dir"
+              value="${module.testreportparserplugin.basedir}/out/production/TestReportParserPlugin"/>
+    <property name="testreportparserplugin.testoutput.dir"
+              value="${module.testreportparserplugin.basedir}/out/test/TestReportParserPlugin"/>
+
+    <path id="testreportparserplugin.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="testreportparserplugin.module.classpath">
+        <pathelement location="${agent.output.dir}"/>
+        <pathelement location="${agent.testoutput.dir}"/>
+        <pathelement location="${server.output.dir}"/>
+        <pathelement location="${server.testoutput.dir}"/>
+        <pathelement location="${tests.output.dir}"/>
+        <pathelement location="${tests.testoutput.dir}"/>
+        <pathelement location="${common.output.dir}"/>
+        <pathelement location="${common.testoutput.dir}"/>
+    </path>
+
+    <path id="testreportparserplugin.runtime.module.classpath">
+        <pathelement location="${testreportparserplugin.output.dir}"/>
+        <pathelement location="${testreportparserplugin.testoutput.dir}"/>
+        <pathelement location="${agent.output.dir}"/>
+        <pathelement location="${agent.testoutput.dir}"/>
+        <pathelement location="${common.output.dir}"/>
+        <pathelement location="${common.testoutput.dir}"/>
+        <path refid="library.teamcity_openapi.classpath"/>
+        <path refid="library.teamcity_utils.classpath"/>
+        <path refid="library.teamcity_api.classpath"/>
+        <pathelement location="${server.output.dir}"/>
+        <pathelement location="${server.testoutput.dir}"/>
+        <pathelement location="${tests.output.dir}"/>
+        <pathelement location="${tests.testoutput.dir}"/>
+        <path refid="library.junit.classpath"/>
+        <path refid="library.jmock.classpath"/>
+        <path refid="library.log4j.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.testreportparserplugin">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.testreportparserplugin">
+        <patternset refid="excluded.from.module.testreportparserplugin"/>
+    </patternset>
+
+
+    <target name="compile.module.testreportparserplugin"
+            depends="compile.module.testreportparserplugin.production,compile.module.testreportparserplugin.tests"
+            description="Compile module TestReportParserPlugin"/>
+
+    <target name="compile.module.testreportparserplugin.production"
+            depends="compile.module.agent,compile.module.server,compile.module.tests,compile.module.common"
+            description="Compile module TestReportParserPlugin; production classes"/>
+
+    <target name="compile.module.testreportparserplugin.tests"
+            depends="compile.module.testreportparserplugin.production"
+            description="compile module TestReportParserPlugin; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.testreportparserplugin" description="cleanup module">
+        <delete dir="${testreportparserplugin.output.dir}"/>
+        <delete dir="${testreportparserplugin.testoutput.dir}"/>
+    </target>
 
     <target name="init" description="Build initialization">
         <!-- Perform any build initialization in this target -->
     </target>
 
     <target name="clean"
-            depends="clean.module.testreportparserplugincommon, clean.module.testreportparserpluginserver, clean.module.testreportparserpluginagent, clean.module.testreportparserplugintests, clean.module.testreportparserplugin"
+            depends="clean.module.common, clean.module.server, clean.module.agent, clean.module.tests, clean.module.testreportparserplugin"
             description="cleanup all"/>
 
     <target name="all"
-            depends="init, clean, compile.module.testreportparserplugincommon, compile.module.testreportparserpluginserver, compile.module.testreportparserpluginagent, compile.module.testreportparserplugintests, compile.module.testreportparserplugin"
+            depends="init, clean, compile.module.common, compile.module.server, compile.module.agent, compile.module.tests, compile.module.testreportparserplugin"
             description="build all"/>
 </project>
