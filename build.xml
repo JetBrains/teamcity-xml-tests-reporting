@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="testreportparserplugin" basedir="." default="all">
+    <import file="${basedir}/testreportparserplugin.xml"/>
+
+    <target name="init" description="Build initialization">
+        <!-- Perform any build initialization in this target -->
+    </target>
+
+    <target name="clean" depends="testreportparserplugin.clean" description="cleanup all"/>
+
+    <target name="all" depends="init, clean, testreportparserplugin.all" description="build all"/>
+
+    <target name="pack.agent" depends="all" description="pack agent part of plugin plugin">
+        <mkdir dir="out\pack\TestReportParserPlugin\agent\zip\TestReportParserPlugin\lib"/>
+
+        <jar destfile="out\pack\TestReportParserPlugin\agent\zip\TestReportParserPlugin\lib\TestReportParserPlugin.jar"
+             basedir="${testreportparserpluginagent.output.dir}" update="true"/>
+        <jar destfile="out\pack\TestReportParserPlugin\agent\zip\TestReportParserPlugin\lib\TestReportParserPluginCommon.jar"
+             basedir="${testreportparserplugincommon.output.dir}" update="true"/>
+        <zip destfile="out\pack\TestReportParserPlugin\agent\TestReportParserPlugin.zip"
+             basedir="out\pack\TestReportParserPlugin\agent\zip"
+             update="true"/>
+        <delete dir="out\pack\TestReportParserPlugin\agent\zip"/>
+    </target>
+
+    <target name="pack.server" depends="all" description="pack server part of plugin">
+        <mkdir dir="out\pack\TestReportParserPlugin\server"/>
+        <copy todir="${testreportparserpluginserver.output.dir}">
+            <fileset dir="${basedir}\TestReportParserPluginServer\resources"/>
+        </copy>
+
+        <jar destfile="out\pack\TestReportParserPlugin\server\TestReportParserPlugin.jar"
+             basedir="${testreportparserpluginserver.output.dir}" update="true"/>
+    </target>
+
+    <target name="deploy" depends="pack.agent, pack.server" description="deploy plugin to TeamCity">
+        <copy todir="${user.home}\.BuildServer\plugins">
+            <fileset dir="out\pack"/>
+        </copy>
+    </target>
+
+    <target name="gentests" depends="all" description="Generarates test classes">
+        <java classname="jetbrains.buildServer.testReportParserPlugin.visualTestGenerator">
+            <classpath>
+                <pathelement location="${testreportparserplugintests.testoutput.dir}"/>
+            </classpath>
+        </java>
+        <javac srcdir="${testreportparserplugintests.testoutput.dir}"
+               destdir="${testreportparserplugintests.testoutput.dir}">
+            <include name="TestClass*.java"/>
+        </javac>
+        <!--<delete>-->
+        <!--<fileset dir="." includes="**/*.java"/>-->
+        <!--</delete>-->
+    </target>
+
+    <target name="visual.test" depends="gentests" description="run visual tests">
+        <mkdir dir="reports0"/>
+
+        <junit printsummary="withOutAndErr">
+            <classpath>
+                <pathelement location="${testreportparserplugintests.testoutput.dir}"/>
+            </classpath>
+
+            <formatter type="xml"/>
+
+            <!--<test name="jetbrains.buildServer.testReportParserPlugin.visualExampleClass"-->
+            <!--todir="reports"/>-->
+
+            <batchtest todir="reports0">
+                <fileset dir="${testreportparserplugintests.testoutput.dir}">
+                    <include name="TestClass*0.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="test" depends="all" description="test all">
+        <copy file="Tests\log4j.xml" todir="${testreportparserplugintests.output.dir}"/>
+        <!--<mkdir dir="reports0"/>-->
+
+        <!--<junit printsummary="withOutAndErr">-->
+        <!--<classpath>-->
+        <!--<pathelement location="${testreportparserplugintests.testoutput.dir}"/>-->
+        <!--</classpath>-->
+
+        <!--<formatter type="xml"/>-->
+
+        <!--<test name="jetbrains.buildServer.testReportParserPlugin.visualExampleClass"-->
+        <!--todir="reports"/>-->
+
+        <!--<batchtest todir="reports0">-->
+        <!--<fileset dir="${testreportparserplugintests.testoutput.dir}">-->
+        <!--<include name="TestClass*0.java"/>-->
+        <!--</fileset>-->
+        <!--</batchtest>-->
+        <!--</junit>-->
+    </target>
+</project>
