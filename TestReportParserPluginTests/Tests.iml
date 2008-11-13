@@ -7,13 +7,13 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="TestReportParserPluginAgent" />
-    <orderEntry type="module" module-name="TestReportParserPluginServer" />
+    <orderEntry type="module" module-name="Agent" />
+    <orderEntry type="module" module-name="Server" />
     <orderEntry type="library" name="JUnit" level="project" />
     <orderEntry type="library" name="JMock" level="project" />
     <orderEntry type="library" name="TeamCity API" level="project" />
     <orderEntry type="library" name="TeamCity openAPI" level="project" />
-    <orderEntry type="module" module-name="TestReportParserPluginCommon" />
+    <orderEntry type="module" module-name="Common" />
     <orderEntry type="library" name="Log4J" level="project" />
     <orderEntry type="library" name="TeamCity utils" level="project" />
     <orderEntryProperties />

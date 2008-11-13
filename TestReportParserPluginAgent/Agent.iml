@@ -27,7 +27,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="TestReportParserPluginCommon" />
+    <orderEntry type="module" module-name="Common" />
     <orderEntry type="library" name="TeamCity API" level="project" />
     <orderEntry type="library" name="TeamCity openAPI" level="project" />
     <orderEntry type="library" name="TeamCity utils" level="project" />

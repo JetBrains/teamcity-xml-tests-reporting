@@ -16,10 +16,10 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="TestReportParserPluginAgent" />
-    <orderEntry type="module" module-name="TestReportParserPluginServer" />
-    <orderEntry type="module" module-name="TestReportParserPluginTests" />
-    <orderEntry type="module" module-name="TestReportParserPluginCommon" />
+    <orderEntry type="module" module-name="Agent" />
+    <orderEntry type="module" module-name="Server" />
+    <orderEntry type="module" module-name="Tests" />
+    <orderEntry type="module" module-name="Common" />
     <orderEntryProperties />
   </component>
 </module>

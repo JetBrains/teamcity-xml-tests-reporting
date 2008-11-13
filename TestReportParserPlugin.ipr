@@ -257,11 +257,11 @@
   <component name="ProjectFileVersion" converted="true" />
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/TestReportParserPluginAgent/Agent.iml" filepath="$PROJECT_DIR$/TestReportParserPluginAgent/Agent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestReportParserPluginCommon/Common.iml" filepath="$PROJECT_DIR$/TestReportParserPluginCommon/Common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestReportParserPluginServer/Server.iml" filepath="$PROJECT_DIR$/TestReportParserPluginServer/Server.iml" />
       <module fileurl="file://$PROJECT_DIR$/TestReportParserPlugin.iml" filepath="$PROJECT_DIR$/TestReportParserPlugin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TestReportParserPluginAgent/TestReportParserPluginAgent.iml" filepath="$PROJECT_DIR$/TestReportParserPluginAgent/TestReportParserPluginAgent.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TestReportParserPluginCommon/TestReportParserPluginCommon.iml" filepath="$PROJECT_DIR$/TestReportParserPluginCommon/TestReportParserPluginCommon.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TestReportParserPluginServer/TestReportParserPluginServer.iml" filepath="$PROJECT_DIR$/TestReportParserPluginServer/TestReportParserPluginServer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TestReportParserPluginTests/TestReportParserPluginTests.iml" filepath="$PROJECT_DIR$/TestReportParserPluginTests/TestReportParserPluginTests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestReportParserPluginTests/Tests.iml" filepath="$PROJECT_DIR$/TestReportParserPluginTests/Tests.iml" />
     </modules>
   </component>
   <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.5" project-jdk-type="JavaSDK">
