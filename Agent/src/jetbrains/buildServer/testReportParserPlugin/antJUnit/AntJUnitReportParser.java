@@ -29,7 +29,8 @@ import java.util.Date;
 import java.util.Stack;
 
 
-public class AntJUnitReportParser extends DefaultHandler implements TestReportParser {
+public class /**/
+        AntJUnitReportParser extends DefaultHandler implements TestReportParser {
     private static final String TEST_SUITE = "testsuite";
     private static final String TEST_CASE = "testcase";
     private static final String FAILURE = "failure";
