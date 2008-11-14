@@ -2,36 +2,53 @@
 <project name="test-report-parser-plugin-custom" basedir="." default="all">
     <import file="${basedir}/testreportparserplugin.xml"/>
 
-    <property  name="dist" value="out\pack"/>
-    <property  name="dist.output" value="${dist}\TestReportParserPlugin"/>
+    <property name="dist" value="dist"/>
+    <property name="dist.tmp" value="out/dist.tmp"/>
+    <property name="dist.unpacked" value="${dist.tmp}/unpacked"/>
 
-    <target name="pack.agent" depends="all" description="pack agent part of plugin plugin">
-        <property  name="dist.output.agent" value="${dist.output}\agent" />
-        <property  name="dist.tmp" value="${dist.output.agent}\zip" />
-        <property  name="dist.tmp.agent.part" value="${dist.tmp}\TestReportParserPlugin\lib" />
-        <mkdir dir="${dist.tmp.agent.part}"/>
+    <target name="pack.agent" description="pack agent part of plugin plugin">
+        <property name="dist.unpacked.output.agent" value="${dist.unpacked}/agent"/>
+        <delete dir="${dist.unpacked.output.agent}" quiet="true"/>
+        <mkdir dir="${dist.unpacked.output.agent}"/>
 
-        <jar destfile="${dist.tmp.agent.part}\TestReportParserPlugin.jar"
+        <property name="dist.tmp.agent" value="${dist.tmp}/agent"/>
+        <property name="dist.tmp.agent.content" value="${dist.tmp.agent}/TestReportParserPlugin/lib"/>
+        <delete dir="${dist.tmp.agent}" quiet="true"/>
+        <mkdir dir="${dist.tmp.agent.content}"/>
+
+        <jar destfile="${dist.tmp.agent.content}/TestReportParserPlugin.jar"
              basedir="${agent.output.dir}" update="true"/>
-        <jar destfile="${dist.tmp.agent.part}\TestReportParserPluginCommon.jar"
+        <jar destfile="${dist.tmp.agent.content}/TestReportParserPluginCommon.jar"
              basedir="${common.output.dir}" update="true"/>
-        <zip destfile="${dist.output.agent}\TestReportParserPlugin.zip"
+        <zip destfile="${dist.unpacked.output.agent}/TestReportParserPlugin.zip"
              basedir="${dist.tmp}"
              update="true"/>
-        <delete dir="${dist.tmp}"/>
+        <delete dir="${dist.tmp.agent}"/>
     </target>
 
-    <target name="pack.server" depends="all" description="pack server part of plugin">
-        <property  name="dist.output.server" value="${dist.output}\server" />
+    <target name="pack.server" description="pack server part of plugin">
+        <property name="dist.output.server" value="${dist.unpacked}/server"/>
         <mkdir dir="${dist.output.server}"/>
-        <jar destfile="${dist.output.server}\TestReportParserPlugin.jar"
+        <jar destfile="${dist.output.server}/TestReportParserPlugin.jar"
              basedir="${server.output.dir}" update="true"/>
     </target>
 
-    <target name="dist" depends="pack.agent, pack.server"/>
+    <target name="dist" depends="all">
+        <delete dir="${dist}" quiet="true"/>
+        <mkdir dir="${dist}"/>
+
+        <delete dir="${dist.unpacked}" quiet="true"/>
+        <mkdir dir="${dist.unpacked}"/>
+        <antcall target="pack.agent"/>
+        <antcall target="pack.server"/>
+
+        <zip destfile="${dist}/TestReportParserPlugin.zip"
+             basedir="${dist.unpacked}"/>
+        <delete dir="${dist.unpacked}"/>
+    </target>
 
     <target name="deploy" depends="dist" description="deploy plugin to TeamCity">
-        <copy todir="${user.home}\.BuildServer\plugins">
+        <copy todir="${user.home}/.BuildServer/plugins">
             <fileset dir="${dist}"/>
         </copy>
     </target>
