@@ -35,7 +35,7 @@ import java.util.Date;
 
 @RunWith(JMock.class)
 public class AntJUnitReportParserTest {
-    private static final String REPORT_DIR = "src\\\\jetbrains\\\\buildServer\\\\testReportParserPlugin\\\\reports\\\\";
+    private static final String REPORT_DIR = "out/test/Tests//jetbrains/buildServer/testReportParserPlugin/reports/";
     private static final String SUITE_NAME = "TestCase";
     private static final String CASE_CLASSNAME = "TestCase";
     private static final String CASE_NAME = CASE_CLASSNAME + ".test";

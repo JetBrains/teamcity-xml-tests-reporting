@@ -1,99 +1,62 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="testreportparserplugin" basedir="." default="all">
+<project name="test-report-parser-plugin-custom" basedir="." default="all">
     <import file="${basedir}/testreportparserplugin.xml"/>
 
-    <target name="init" description="Build initialization">
-        <!-- Perform any build initialization in this target -->
-    </target>
-
-    <target name="clean" depends="testreportparserplugin.clean" description="cleanup all"/>
-
-    <target name="all" depends="init, clean, testreportparserplugin.all" description="build all"/>
+    <property  name="dist" value="out\pack"/>
+    <property  name="dist.output" value="${dist}\TestReportParserPlugin"/>
 
     <target name="pack.agent" depends="all" description="pack agent part of plugin plugin">
-        <mkdir dir="out\pack\TestReportParserPlugin\agent\zip\TestReportParserPlugin\lib"/>
+        <property  name="dist.output.agent" value="${dist.output}\agent" />
+        <property  name="dist.tmp" value="${dist.output.agent}\zip" />
+        <property  name="dist.tmp.agent.part" value="${dist.tmp}\TestReportParserPlugin\lib" />
+        <mkdir dir="${dist.tmp.agent.part}"/>
 
-        <jar destfile="out\pack\TestReportParserPlugin\agent\zip\TestReportParserPlugin\lib\TestReportParserPlugin.jar"
+        <jar destfile="${dist.tmp.agent.part}\TestReportParserPlugin.jar"
              basedir="${agent.output.dir}" update="true"/>
-        <jar destfile="out\pack\TestReportParserPlugin\agent\zip\TestReportParserPlugin\lib\TestReportParserPluginCommon.jar"
+        <jar destfile="${dist.tmp.agent.part}\TestReportParserPluginCommon.jar"
              basedir="${common.output.dir}" update="true"/>
-        <zip destfile="out\pack\TestReportParserPlugin\agent\TestReportParserPlugin.zip"
-             basedir="out\pack\TestReportParserPlugin\agent\zip"
+        <zip destfile="${dist.output.agent}\TestReportParserPlugin.zip"
+             basedir="${dist.tmp}"
              update="true"/>
-        <delete dir="out\pack\TestReportParserPlugin\agent\zip"/>
+        <delete dir="${dist.tmp}"/>
     </target>
 
     <target name="pack.server" depends="all" description="pack server part of plugin">
-        <mkdir dir="out\pack\TestReportParserPlugin\server"/>
-        <copy todir="${server.output.dir}">
-            <fileset dir="${basedir}\TestReportParserPluginServer\resources"/>
-        </copy>
-
-        <jar destfile="out\pack\TestReportParserPlugin\server\TestReportParserPlugin.jar"
+        <property  name="dist.output.server" value="${dist.output}\server" />
+        <mkdir dir="${dist.output.server}"/>
+        <jar destfile="${dist.output.server}\TestReportParserPlugin.jar"
              basedir="${server.output.dir}" update="true"/>
     </target>
 
-    <target name="deploy" depends="pack.agent, pack.server" description="deploy plugin to TeamCity">
+    <target name="dist" depends="pack.agent, pack.server"/>
+
+    <target name="deploy" depends="dist" description="deploy plugin to TeamCity">
         <copy todir="${user.home}\.BuildServer\plugins">
-            <fileset dir="out\pack"/>
+            <fileset dir="${dist}"/>
         </copy>
     </target>
 
-    <target name="gentests" depends="all" description="Generarates test classes">
-        <java classname="jetbrains.buildServer.testReportParserPlugin.visualTestGenerator">
-            <classpath>
-                <pathelement location="${tests.testoutput.dir}"/>
-            </classpath>
-        </java>
-        <javac srcdir="${tests.testoutput.dir}"
-               destdir="${tests.testoutput.dir}">
-            <include name="TestClass*.java"/>
-        </javac>
-        <!--<delete>-->
-        <!--<fileset dir="." includes="**/*.java"/>-->
-        <!--</delete>-->
-    </target>
+    <target name="test">
+        <delete dir="test-reports" quiet="true"/>
+        <mkdir dir="test-reports"/>
 
-    <target name="visual.test" depends="gentests" description="run visual tests">
-        <mkdir dir="reports0"/>
-
-        <junit printsummary="withOutAndErr">
-            <classpath>
-                <pathelement location="${tests.testoutput.dir}"/>
-            </classpath>
+        <junit printsummary="on" fork="true" haltonfailure="false" haltonerror="false" failureproperty="failure_found"
+               showoutput="true">
+            <classpath refid="tests.runtime.module.classpath"/>
 
             <formatter type="xml"/>
 
-            <!--<test name="jetbrains.buildServer.testReportParserPlugin.visualExampleClass"-->
-            <!--todir="reports"/>-->
-
-            <batchtest todir="reports0">
+            <batchtest todir="test-reports">
                 <fileset dir="${tests.testoutput.dir}">
-                    <include name="TestClass*0.java"/>
+                    <include name="**/*Test.class"/>
                 </fileset>
             </batchtest>
         </junit>
+        <antcall target="check_failures"/>
     </target>
 
-    <target name="test" depends="all" description="test all">
-        <copy file="Tests\log4j.xml" todir="${tests.output.dir}"/>
-        <!--<mkdir dir="reports0"/>-->
-
-        <!--<junit printsummary="withOutAndErr">-->
-        <!--<classpath>-->
-        <!--<pathelement location="${testreportparserplugintests.testoutput.dir}"/>-->
-        <!--</classpath>-->
-
-        <!--<formatter type="xml"/>-->
-
-        <!--<test name="jetbrains.buildServer.testReportParserPlugin.visualExampleClass"-->
-        <!--todir="reports"/>-->
-
-        <!--<batchtest todir="reports0">-->
-        <!--<fileset dir="${testreportparserplugintests.testoutput.dir}">-->
-        <!--<include name="TestClass*0.java"/>-->
-        <!--</fileset>-->
-        <!--</batchtest>-->
-        <!--</junit>-->
+    <target name="check_failures" if="failure_found">
+        <fail message="Failures found"/>
     </target>
+
 </project>

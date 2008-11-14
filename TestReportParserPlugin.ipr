@@ -42,6 +42,7 @@
       <entry name="?*.dtd" />
       <entry name="?*.tld" />
       <entry name="*?.class" />
+      <entry name="*?.jsp" />
     </wildcardResourcePatterns>
   </component>
   <component name="DependenciesAnalyzeManager">
@@ -84,6 +85,20 @@
           <module name="TestReportParserPluginServer">
             <files>
               <file url="file://$PROJECT_DIR$/TestReportParserPluginServer/web/WEB-INF/web.xml" />
+            </files>
+          </module>
+        </modules>
+      </facet-type>
+      <facet-type id="Spring">
+        <modules>
+          <module name="Server">
+            <files>
+              <file url="file://$PROJECT_DIR$/Server/src/META-INF/build-server-plugin-TestReportParserPlugin.xml" />
+            </files>
+          </module>
+          <module name="Agent">
+            <files>
+              <file url="file://$PROJECT_DIR$/Agent/src/META-INF/build-agent-plugin.xml" />
             </files>
           </module>
         </modules>
@@ -335,6 +350,10 @@
         <root url="jar://$PROJECT_DIR$/Tests/lib/jmock-2.5.1.jar!/" />
         <root url="jar://$PROJECT_DIR$/Tests/lib/jmock-junit4-2.5.1.jar!/" />
         <root url="jar://$PROJECT_DIR$/Tests/lib/jmock-legacy-2.5.1.jar!/" />
+        <root url="jar://$PROJECT_DIR$/Tests/lib/cglib-nodep-2.1_3.jar!/" />
+        <root url="jar://$PROJECT_DIR$/Tests/lib/objenesis-1.0.jar!/" />
+        <root url="jar://$PROJECT_DIR$/Tests/lib/hamcrest-library-1.1.jar!/" />
+        <root url="jar://$PROJECT_DIR$/Tests/lib/hamcrest-core-1.1.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
