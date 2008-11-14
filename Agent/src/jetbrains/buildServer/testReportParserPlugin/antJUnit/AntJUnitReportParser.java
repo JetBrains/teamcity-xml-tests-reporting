@@ -28,8 +28,11 @@ import java.io.File;
 import java.util.Date;
 import java.util.Stack;
 
+import com.intellij.openapi.diagnostic.Logger;
+
 
 public class AntJUnitReportParser extends DefaultHandler implements TestReportParser {
+    private final static Logger LOG = Logger.getInstance(AntJUnitReportParser.class.getName());
     private static final String TEST_SUITE = "testsuite";
     private static final String TEST_CASE = "testcase";
     private static final String FAILURE = "failure";
@@ -122,7 +125,8 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
         } catch (SAXParseException e) {
             return myLoggedTests;
         } catch (Exception e) {
-            myLogger.warning(createBuildLogMessage(e.getClass().getName() + " exception in Ant JUnit report parser."));
+            myLogger.warning(createBuildLogMessage("An error occurred in Ant JUnit report parser: " + e.getMessage()));
+            LOG.debug(createBuildLogMessage("An error occurred in Ant JUnit report parser: " + e.toString()));
         }
         myCurrentSuite = null;
         return -1;
