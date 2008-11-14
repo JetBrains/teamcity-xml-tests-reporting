@@ -58,7 +58,7 @@ public class TestReportParserPluginPerformanceTest {
             {
                 allowing(runningBuild).getBuildLogger();
                 will(returnValue(logger));
-                allowing(runningBuild).getRunParameters();
+                allowing(runningBuild).getRunnerParameters();
                 will(returnValue(runParams));
                 allowing(runningBuild).getWorkingDirectory();
                 will(returnValue(workingDirFile));
@@ -90,7 +90,7 @@ public class TestReportParserPluginPerformanceTest {
 
         myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
         myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-        myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED);
+        myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
         myContext.assertIsSatisfied();
 
         if (myFailure.size() > 0) {
@@ -109,7 +109,7 @@ public class TestReportParserPluginPerformanceTest {
 
         myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
         myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-        myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED);
+        myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
         myContext.assertIsSatisfied();
         myTestLogger.checkIfAllExpectedMethodsWereInvoked();
 

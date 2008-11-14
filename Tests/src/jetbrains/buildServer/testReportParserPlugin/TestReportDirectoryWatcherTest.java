@@ -41,7 +41,7 @@ public class TestReportDirectoryWatcherTest {
         final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
         myContext.checking(new Expectations() {
             {
-                oneOf(runningBuild).getRunParameters();
+                oneOf(runningBuild).getRunnerParameters();
                 will(returnValue(runParams));
                 oneOf(runningBuild).getWorkingDirectory();
                 will(returnValue(workingDirFile));

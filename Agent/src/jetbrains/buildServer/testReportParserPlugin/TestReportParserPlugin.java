@@ -59,7 +59,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
     }
 
     public void beforeRunnerStart(@NotNull AgentRunningBuild agentRunningBuild) {
-        final Map<String, String> runParameters = agentRunningBuild.getRunParameters();
+        final Map<String, String> runParameters = agentRunningBuild.getRunnerParameters();
         myTestReportParsingEnabled = isTestReportParsingEnabled(runParameters);
         if (!myTestReportParsingEnabled) {
             return;
@@ -127,7 +127,8 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
             case INTERRUPTED:
                 myLogger.warning(createBuildLogMessage("build interrupted, plugin may not finish it's work."));
                 break;
-            case FINISHED:
+            case FINISHED_FAILED:
+            case FINISHED_SUCCESS:
                 synchronized (myReportProcessor) {
                     while (!myReportProcessor.isProcessingFinished()) {
                         try {

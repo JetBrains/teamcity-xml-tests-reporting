@@ -52,7 +52,7 @@ public class TestReportParserPluginTest {
         final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
         myContext.checking(new Expectations() {
             {
-                allowing(runningBuild).getRunParameters();
+                allowing(runningBuild).getRunnerParameters();
                 will(returnValue(runParams));
                 inSequence(mySequence);
                 allowing(runningBuild).getWorkingDirectory();
@@ -94,7 +94,7 @@ public class TestReportParserPluginTest {
 
     @Test
     public void testIsSilentWhenDisabledNormalFinish() {
-        isSilentWhenDisabled(BuildFinishedStatus.FINISHED);
+        isSilentWhenDisabled(BuildFinishedStatus.FINISHED_SUCCESS);
     }
 
 
@@ -151,7 +151,7 @@ public class TestReportParserPluginTest {
 
         myEventDispatcher.getMulticaster().buildStarted(runningBuild);
         myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
-        myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED);
+        myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
         myContext.assertIsSatisfied();
 
         Assert.assertTrue("Plugin must be stopped", myPlugin.isStopped());
@@ -172,7 +172,7 @@ public class TestReportParserPluginTest {
 
         myEventDispatcher.getMulticaster().buildStarted(runningBuild);
         myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
-        myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED);
+        myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
         myContext.assertIsSatisfied();
 
         Assert.assertTrue("Plugin must be stopped", myPlugin.isStopped());
