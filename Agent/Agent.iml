@@ -11,6 +11,7 @@
     <orderEntry type="library" name="TeamCity API" level="project" />
     <orderEntry type="library" name="TeamCity openAPI" level="project" />
     <orderEntry type="library" name="TeamCity utils" level="project" />
+    <orderEntryProperties />
   </component>
 </module>
 

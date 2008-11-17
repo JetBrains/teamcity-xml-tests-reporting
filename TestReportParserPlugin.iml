@@ -9,6 +9,7 @@
     <orderEntry type="module" module-name="Server" />
     <orderEntry type="module" module-name="Tests" />
     <orderEntry type="module" module-name="Common" />
+    <orderEntryProperties />
   </component>
 </module>
 
