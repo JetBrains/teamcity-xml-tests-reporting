@@ -16,8 +16,10 @@
 
 package jetbrains.buildServer.testReportParserPlugin.antJUnit;
 
+import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParser;
+import jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin;
 import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin.createBuildLogMessage;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.*;
@@ -27,8 +29,6 @@ import org.xml.sax.helpers.XMLReaderFactory;
 import java.io.File;
 import java.util.Date;
 import java.util.Stack;
-
-import com.intellij.openapi.diagnostic.Logger;
 
 
 public class AntJUnitReportParser extends DefaultHandler implements TestReportParser {
@@ -121,6 +121,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
         myLoggedTests = 0;
         myTestsToSkip = testsToSkip;
         try {
+            TestReportParserPlugin.log("GOT FILE: " + report.getPath());
             myXMLReader.parse(new InputSource(report.toURI().toString()));
         } catch (SAXParseException e) {
             return myLoggedTests;
@@ -136,6 +137,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
                              String qName, Attributes attributes)
             throws SAXException {
         if (testSkipped()) {
+            TestReportParserPlugin.log("Skipped " + localName);
             return;
         }
         if (TEST_SUITE.equals(localName)) {
