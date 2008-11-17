@@ -105,7 +105,7 @@ public class TestReportParserPluginTest {
 
     @Test
     public void testIsSilentWhenDisabledDoesNotExistFinish() {
-        isSilentWhenDisabled(BuildFinishedStatus.DOES_NOT_EXIST);
+        isSilentWhenDisabled(BuildFinishedStatus.FINISHED_FAILED);
     }
 
     private void warningWhenZeroReportDirsSize() {
@@ -191,4 +191,6 @@ public class TestReportParserPluginTest {
 
         isStoppedWhenZeroReportDirsSize();
     }
+
+    //TODO: add tests for failure - must finish work!!!
 }
