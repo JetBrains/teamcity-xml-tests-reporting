@@ -25,8 +25,6 @@ import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -54,7 +52,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
         return PLUGIN_LOG_PREFIX + message;
     }
 
-    public static void log(String message) {
+    public static void sendDebugMessageToAgentLog(String message) {
         LOG.debug("T-R-P-PLUGIN: " + Thread.currentThread().getId() + ": " + message);
     }
 
@@ -85,13 +83,13 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
         if (reportDirs.size() == 0) {
             myLogger.warning(createBuildLogMessage("no report directories specified."));
         }
-
-        final File f = new File("C:\\work\\TS\7964\\TeamCity\\buildAgent\\work\\TestProject\\reports\\ill");
-        try {
-            FileWriter fw = new FileWriter(f);
-            fw.write("<<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\" ?>>\njvhbzfxdlbvhzdxfklbv;zdfoxvb;zodfxvh;zodfivnh;zodfivnh;ozdfivnhzdo;vzd'f");
-        } catch (IOException e) {
-        }
+//
+//        final File f = new File("C:\\work\\TS\7964\\TeamCity\\buildAgent\\work\\TestProject\\reports\\ill");
+//        try {
+//            FileWriter fw = new FileWriter(f);
+//            fw.write("<<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\" ?>>\njvhbzfxdlbvhzdxfklbv;zdfoxvb;zodfxvh;zodfivnh;zodfivnh;ozdfivnhzdo;vzd'f");
+//        } catch (IOException e) {
+//        }
 
         LinkedBlockingQueue<File> queue = new LinkedBlockingQueue<File>();
         myDirectoryWatcher = new TestReportDirectoryWatcher(this, reportDirs, queue);
@@ -102,7 +100,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
 
     //dirs are not supposed to contain ';' in their path, as it is separator
     private static List<File> getReportDirsFromDirProperty(String dirProperty, final File workingDir) {
-        if ((dirProperty == null) || dirProperty.length() == 0) {
+        if (dirProperty == null) {
             return Collections.emptyList();
         }
 

@@ -121,7 +121,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
         myLoggedTests = 0;
         myTestsToSkip = testsToSkip;
         try {
-            TestReportParserPlugin.log("GOT FILE: " + report.getPath());
+            TestReportParserPlugin.sendDebugMessageToAgentLog("GOT FILE: " + report.getPath());
             myXMLReader.parse(new InputSource(report.toURI().toString()));
         } catch (SAXParseException e) {
             return myLoggedTests;
@@ -137,7 +137,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
                              String qName, Attributes attributes)
             throws SAXException {
         if (testSkipped()) {
-            TestReportParserPlugin.log("Skipped " + localName);
+            TestReportParserPlugin.sendDebugMessageToAgentLog("Skipped " + localName);
             return;
         }
         if (TEST_SUITE.equals(localName)) {

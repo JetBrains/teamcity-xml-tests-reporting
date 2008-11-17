@@ -74,8 +74,6 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
         final MethodInvokation expected = getNextExpectedInvokation();
         expected.setInvoked();
         if ((expected == null) || (!currentMethod().equals(expected.getMethodName()))) {
-            System.out.println("Is: " + currentMethod());
-            System.out.println("FAILURE NOT EQUAL");
             return "Unexpected method invokation: " + name;
         }
         List<Object> expectedParams = expected.getMethodParams();

@@ -6,10 +6,10 @@
     <property name="dist.tmp" value="out/dist.tmp"/>
     <property name="dist.unpacked" value="${dist.tmp}/unpacked"/>
 
-    <target name="pack.agent" description="pack agent part of plugin plugin">
-        <property name="dist.unpacked.output.agent" value="${dist.unpacked}/agent"/>
-        <delete dir="${dist.unpacked.output.agent}" quiet="true"/>
-        <mkdir dir="${dist.unpacked.output.agent}"/>
+    <target name="pack.agent" description="pack agent part of plugin">
+        <property name="dist.output.agent" value="${dist.unpacked}/agent"/>
+        <delete dir="${dist.output.agent}" quiet="true"/>
+        <mkdir dir="${dist.output.agent}"/>
 
         <property name="dist.tmp.agent" value="${dist.tmp}/agent"/>
         <property name="dist.tmp.agent.content" value="${dist.tmp.agent}/TestReportParserPlugin/lib"/>
@@ -20,8 +20,8 @@
              basedir="${agent.output.dir}" update="true"/>
         <jar destfile="${dist.tmp.agent.content}/TestReportParserPluginCommon.jar"
              basedir="${common.output.dir}" update="true"/>
-        <zip destfile="${dist.unpacked.output.agent}/TestReportParserPlugin.zip"
-             basedir="${dist.tmp}"
+        <zip destfile="${dist.output.agent}/TestReportParserPlugin.zip"
+             basedir="${dist.tmp.agent}"
              update="true"/>
         <delete dir="${dist.tmp.agent}"/>
     </target>
@@ -44,7 +44,7 @@
 
         <zip destfile="${dist}/TestReportParserPlugin.zip"
              basedir="${dist.unpacked}"/>
-        <delete dir="${dist.unpacked}"/>
+        <delete dir="${dist.tmp}"/>
     </target>
 
     <target name="deploy" depends="dist" description="deploy plugin to TeamCity">
