@@ -7,7 +7,6 @@
       <antReference projectDefault="true" />
       <customJdkName value="" />
       <maximumHeapSize value="128" />
-      <maximumStackSize value="32" />
       <properties>
         <property name="TeamCityDistribution" value="C:\TeamCity" />
       </properties>
@@ -65,7 +64,6 @@
     <option name="ADDITIONAL_OPTIONS_STRING" value="" />
     <option name="MAXIMUM_HEAP_SIZE" value="128" />
   </component>
-  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false" />
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
@@ -85,20 +83,6 @@
           <module name="TestReportParserPluginServer">
             <files>
               <file url="file://$PROJECT_DIR$/TestReportParserPluginServer/web/WEB-INF/web.xml" />
-            </files>
-          </module>
-        </modules>
-      </facet-type>
-      <facet-type id="Spring">
-        <modules>
-          <module name="Server">
-            <files>
-              <file url="file://$PROJECT_DIR$/Server/src/META-INF/build-server-plugin-TestReportParserPlugin.xml" />
-            </files>
-          </module>
-          <module name="Agent">
-            <files>
-              <file url="file://$PROJECT_DIR$/Agent/src/META-INF/build-agent-plugin.xml" />
             </files>
           </module>
         </modules>
@@ -284,7 +268,7 @@
       <module fileurl="file://$PROJECT_DIR$/Tests/Tests.iml" filepath="$PROJECT_DIR$/Tests/Tests.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.5" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.5" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="ResourceManagerContainer">
@@ -302,7 +286,7 @@
     <option name="ADDITIONAL_OPTIONS_STRING" value="" />
   </component>
   <component name="SvnBranchConfigurationManager">
-    <option name="myVersion" value="124" />
+    <option name="myVersion" value="123" />
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="svn" />
