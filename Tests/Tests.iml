@@ -16,6 +16,7 @@
     <orderEntry type="module" module-name="Common" />
     <orderEntry type="library" name="Log4J" level="project" />
     <orderEntry type="library" name="TeamCity utils" level="project" />
+    <orderEntryProperties />
   </component>
 </module>
 
