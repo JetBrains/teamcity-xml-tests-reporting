@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2007 JetBrains s.r.o.
+ * Copyright 2008 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ import java.util.Date;
 
 @RunWith(JMock.class)
 public class AntJUnitReportParserTest {
-    private static final String REPORT_DIR = "out/test/Tests//jetbrains/buildServer/testReportParserPlugin/reports/";
+    private static final String REPORT_DIR = "Tests/testData/";
     private static final String SUITE_NAME = "TestCase";
     private static final String CASE_CLASSNAME = "TestCase";
     private static final String CASE_NAME = CASE_CLASSNAME + ".test";
@@ -72,15 +72,15 @@ public class AntJUnitReportParserTest {
         mySequence = myContext.sequence("Log Sequence");
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testFirstNullArgument() {
-        myParser = new AntJUnitReportParser(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void testNullReport() {
-        myParser.parse(null, 0);
-    }
+//    @Test(expected = IllegalArgumentException.class)
+//    public void testFirstNullArgument() {
+//        myParser = new AntJUnitReportParser(null);
+//    }
+//
+//    @Test(expected = IllegalArgumentException.class)
+//    public void testNullReport() {
+//        myParser.parse(null, 0);
+//    }
 
     @Test
     public void testUnexistingReport() {

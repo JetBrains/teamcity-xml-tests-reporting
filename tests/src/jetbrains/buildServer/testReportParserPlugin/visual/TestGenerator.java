@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2007 JetBrains s.r.o.
+ * Copyright 2008 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ public class TestGenerator {
             for (int i = 0; i < TEST_CASE_NUMBER; ++i) {
                 String testCaseName = "TestClass" + i + "_" + n;
                 File outFile = new File("out\\test\\TestReportParserPluginTests\\" + testCaseName + ".java");
-                FileWriter out = null;
+                FileWriter out;
                 try {
                     out = new FileWriter(outFile);
 

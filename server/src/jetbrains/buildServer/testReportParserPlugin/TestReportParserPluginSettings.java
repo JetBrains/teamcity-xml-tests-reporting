@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2007 JetBrains s.r.o.
+ * Copyright 2008 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,18 +42,3 @@ public class TestReportParserPluginSettings {
         viewSettingsExtension.register();
     }
 }
-//public CoverageSettingsPageExtension(@NotNull final PagePlaces pagePlaces, @NotNull final ProjectManager projectManager) {
-//  List<String> supportedRunTypes = Arrays.asList("Ant", "Ipr");
-//
-//  EditBuildRunnerSettingsExtension editSettingsExtension =
-//    new EditBuildRunnerSettingsExtension(pagePlaces, supportedRunTypes);
-//  editSettingsExtension.setPluginName("coverage");
-//  editSettingsExtension.setIncludeUrl("coverageParams.jsp");
-//  editSettingsExtension.register();
-//
-//  ViewBuildRunnerSettingsExtension viewSettingsExtension =
-//    new ViewBuildRunnerSettingsExtension(projectManager, pagePlaces, supportedRunTypes);
-//  viewSettingsExtension.setPluginName("coverage");
-//  viewSettingsExtension.setIncludeUrl("viewCoverageParams.jsp");
-//  viewSettingsExtension.register();
-//}
