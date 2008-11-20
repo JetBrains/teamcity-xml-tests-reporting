@@ -19,7 +19,6 @@ package jetbrains.buildServer.testReportParserPlugin.antJUnit;
 import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParser;
-import jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin;
 import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin.createBuildLogMessage;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.*;
@@ -121,13 +120,21 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
         myLoggedTests = 0;
         myTestsToSkip = testsToSkip;
         try {
-            TestReportParserPlugin.sendDebugMessageToAgentLog("GOT FILE: " + report.getPath());
+            LOG.debug("GOT FILE: " + report.getPath());
             myXMLReader.parse(new InputSource(report.toURI().toString()));
         } catch (SAXParseException e) {
             return myLoggedTests;
         } catch (Exception e) {
-            myLogger.warning(createBuildLogMessage("An error occurred in Ant JUnit report parser: " + e.getMessage()));
-            LOG.debug(createBuildLogMessage("An error occurred in Ant JUnit report parser: " + e.toString()));
+            String message = "<no message>";
+            if (e.getMessage() != null) {
+                message = e.getMessage();
+            }
+            myLogger.warning(createBuildLogMessage("An error occurred in Ant JUnit report parser: " + e + ": " + message));
+            LOG.debug(createBuildLogMessage("An error occurred in Ant JUnit report parser: " + e + ": " + message));
+            StackTraceElement[] st = e.getStackTrace();
+            for (int i = 0; i < st.length; ++i) {
+                LOG.debug(st[i].toString());
+            }
         }
         myCurrentSuite = null;
         return -1;
@@ -137,15 +144,15 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
                              String qName, Attributes attributes)
             throws SAXException {
         if (testSkipped()) {
-            TestReportParserPlugin.sendDebugMessageToAgentLog("Skipped " + localName);
+            LOG.debug("Skipped " + localName);
             return;
         }
         if (TEST_SUITE.equals(localName)) {
-            suiteStarted(attributes);
+            startSuite(attributes);
         } else if (TEST_CASE.equals(localName)) {
-            testStarted(attributes);
+            startTest(attributes);
         } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
-            failureStarted(attributes);
+            startFailure(attributes);
         } else if (SYSTEM_OUT.equals(localName) || SYSTEM_ERR.equals(localName)) {
             myCData = new StringBuffer();
         }
@@ -160,9 +167,9 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
             return;
         }
         if (TEST_SUITE.equals(localName)) {
-            suiteFinished();
+            endSuite();
         } else if (TEST_CASE.equals(localName)) {
-            testFinished();
+            endTest();
         } else if (SYSTEM_OUT.equals(localName)) {
             final String trimmedCData = getTrimmedCData();
             if (trimmedCData.length() > 0) {
@@ -178,7 +185,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
         }
     }
 
-    private void suiteStarted(Attributes attributes) {
+    private void startSuite(Attributes attributes) {
         if ((myCurrentSuite != null) && myCurrentSuite.isLogged()) {
             return;
         }
@@ -193,21 +200,24 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
         myCurrentSuite.logged(true);
     }
 
-    private void suiteFinished() {
+    private void endSuite() {
+        if (myCurrentSuite.isFailure()) {
+            myLogger.error(myCurrentSuite.getFailureType() + ": " + myCurrentSuite.getFailureMessage());
+        }
         myLogger.logSuiteFinished(myCurrentSuite.getName(), new Date(myCurrentSuite.getStartTime() + myCurrentSuite.getDuraion()));
-        if (mySystemOut != null) {
-            myLogger.message("System out from " + myCurrentSuite.getName() + ":\n" + mySystemOut);
-            mySystemOut = null;
-        }
-        if (mySystemErr != null) {
-            myLogger.warning("System error from " + myCurrentSuite.getName() + ":\n" + mySystemErr);
-            mySystemErr = null;
-        }
+//        if (mySystemOut != null) {
+//            myLogger.message("System out from " + myCurrentSuite.getName() + ":\n" + mySystemOut);
+//            mySystemOut = null;
+//        }
+//        if (mySystemErr != null) {
+//            myLogger.warning("System error from " + myCurrentSuite.getName() + ":\n" + mySystemErr);
+//            mySystemErr = null;
+//        }
         myCurrentSuite = null;
         myTests = null;
     }
 
-    private void testStarted(Attributes attributes) {
+    private void startTest(Attributes attributes) {
         final String className = attributes.getValue(DEFAULT_NAMESPACE, CLASSNAME_ATTR);
         final String testName = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
         final Date startTime = new Date();
@@ -217,7 +227,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
         myTests.push(test);
     }
 
-    private void testFinished() {
+    private void endTest() {
         final TestData test = myTests.pop();
         final String testFullName = test.getClassName() + "." + test.getTestName();
 
@@ -230,15 +240,18 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
         myLoggedTests = myLoggedTests + 1;
     }
 
-    private void failureStarted(Attributes attributes) {
-        final TestData test = myTests.peek();
-
+    private void startFailure(Attributes attributes) {
         final String failureMessage = attributes.getValue(DEFAULT_NAMESPACE, MESSAGE_ATTR);
-        test.setFailureMessage(failureMessage);
-
         final String failureType = attributes.getValue(DEFAULT_NAMESPACE, TYPE_ATTR);
-        test.setFailureType(failureType);
 
+        if (myTests.size() != 0) {
+            final TestData test = myTests.peek();
+            test.setFailureMessage(failureMessage);
+            test.setFailureType(failureType);
+        } else {
+            myCurrentSuite.setFailureMessage(failureMessage);
+            myCurrentSuite.setFailureType(failureType);
+        }
         myCData = new StringBuffer();
     }
 
@@ -280,103 +293,5 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
     private String getTrimmedCData() {
         return myCData.toString().trim();
-    }
-
-    private static final class SuiteData {
-        private final String myName;
-        private final long myTestNumber;
-        private final long myStartTime;
-        private final long myDuration;
-        private boolean myLogged;
-
-        public SuiteData(final String name, long testNumber, long startTime, long duration) {
-            myName = name;
-            myTestNumber = testNumber;
-            myStartTime = startTime;
-            myDuration = duration;
-            myLogged = false;
-        }
-
-        public String getName() {
-            return myName;
-        }
-
-        public long getTestNumber() {
-            return myTestNumber;
-        }
-
-        public long getStartTime() {
-            return myStartTime;
-        }
-
-        public long getDuraion() {
-            return myDuration;
-        }
-
-        public void logged(boolean logged) {
-            myLogged = logged;
-        }
-
-        public boolean isLogged() {
-            return myLogged;
-        }
-    }
-
-
-    private static final class TestData {
-        private final String myClassName;
-        private final String myTestName;
-
-        private final long myStartTime;
-        private final long myDuration;
-
-        private String myFailureType;
-        private String myFailureMessage;
-
-        public TestData(final String className,
-                        final String testName,
-                        final long startTime,
-                        final long duration) {
-            myClassName = className;
-            myTestName = testName;
-            myStartTime = startTime;
-            myDuration = duration;
-        }
-
-        public void setFailureMessage(String message) {
-            myFailureMessage = message;
-        }
-
-        public void setFailureType(String type) {
-            myFailureType = type;
-        }
-
-        public String getClassName() {
-            return myClassName;
-        }
-
-        public String getTestName() {
-            return myTestName;
-        }
-
-        public long getStartTime() {
-            return myStartTime;
-        }
-
-        public long getDuration() {
-            return myDuration;
-        }
-
-        public boolean isFailure() {
-            return (myFailureType != null);
-        }
-
-        public String getFailureType() {
-            return myFailureType;
-        }
-
-        public String getFailureMessage() {
-            return myFailureMessage;
-        }
     }
 }

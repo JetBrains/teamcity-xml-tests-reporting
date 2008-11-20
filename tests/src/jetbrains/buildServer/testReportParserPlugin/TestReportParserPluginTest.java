@@ -134,13 +134,13 @@ public class TestReportParserPluginTest {
         warningWhenZeroReportDirsSize();
     }
 
-    @Test
-    public void testWarningWhenReportDirsEmpty() {
-        TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
-        TestReportParserPluginUtil.setTestReportDirs(myRunParams, "");
-
-        warningWhenZeroReportDirsSize();
-    }
+//    @Test
+//    public void testWarningWhenReportDirsEmpty() {
+//        TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
+//        TestReportParserPluginUtil.setTestReportDirs(myRunParams, "");
+//
+//        warningWhenZeroReportDirsSize();
+//    }
 
     @Test
     public void testIsStoppedWhenDisabled() {

@@ -16,9 +16,9 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
-import com.intellij.openapi.diagnostic.Logger;
+//import com.intellij.openapi.diagnostic.Logger;
+
 import jetbrains.buildServer.agent.*;
-import jetbrains.buildServer.log.Loggers;
 import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil.isTestReportParsingEnabled;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
@@ -30,7 +30,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class TestReportParserPlugin extends AgentLifeCycleAdapter {
-    private static final Logger LOG = Loggers.AGENT;
+    //    private static final Logger LOG = Loggers.AGENT;
     private static final String PLUGIN_LOG_PREFIX = "TestReportParserPlugin: ";
     private static final String TEST_REPORT_DIR_PROPERTY = "testReportParsing.reportDirs";
 
@@ -52,9 +52,9 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
         return PLUGIN_LOG_PREFIX + message;
     }
 
-    public static void sendDebugMessageToAgentLog(String message) {
-        LOG.debug("T-R-P-PLUGIN: " + Thread.currentThread().getId() + ": " + message);
-    }
+//    public static void sendDebugMessageToAgentLog(String message) {
+//        LOG.debug("T-R-P-PLUGIN: " + Thread.currentThread().getId() + ": " + message);
+//    }
 
     public void buildStarted(@NotNull AgentRunningBuild agentRunningBuild) {
         myStopped = false;
@@ -83,13 +83,6 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
         if (reportDirs.size() == 0) {
             myLogger.warning(createBuildLogMessage("no report directories specified."));
         }
-//
-//        final File f = new File("C:\\work\\TS\7964\\TeamCity\\buildAgent\\work\\TestProject\\reports\\ill");
-//        try {
-//            FileWriter fw = new FileWriter(f);
-//            fw.write("<<?xml version=\\\"1.0\\\" encoding=\\\"UTF-8\\\" ?>>\njvhbzfxdlbvhzdxfklbv;zdfoxvb;zodfxvh;zodfivnh;zodfivnh;ozdfivnhzdo;vzd'f");
-//        } catch (IOException e) {
-//        }
 
         LinkedBlockingQueue<File> queue = new LinkedBlockingQueue<File>();
         myDirectoryWatcher = new TestReportDirectoryWatcher(this, reportDirs, queue);
