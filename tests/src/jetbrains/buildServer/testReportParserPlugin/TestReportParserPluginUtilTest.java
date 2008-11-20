@@ -25,65 +25,65 @@ import java.util.Map;
 
 
 public class TestReportParserPluginUtilTest {
-    private static final String TRUE = "true";
-    private static final String FALSE = "false";
+  private static final String TRUE = "true";
+  private static final String FALSE = "false";
 
-    private Map<String, String> myRunParams;
+  private Map<String, String> myRunParams;
 
-    @Before
-    public void setUp() {
-        myRunParams = new HashMap<String, String>();
-    }
+  @Before
+  public void setUp() {
+    myRunParams = new HashMap<String, String>();
+  }
 
-    @Test
-    public void testIsEnabledOnEmptyParams() {
-        assertFalse("Test report parsing must be disabled", isTestReportParsingEnabled(myRunParams));
-    }
+  @Test
+  public void testIsEnabledOnEmptyParams() {
+    assertFalse("Test report parsing must be disabled", isTestReportParsingEnabled(myRunParams));
+  }
 
-    @Test
-    public void testIsEnabledAfterPuttingTrueToParams() {
-        myRunParams.put(TEST_REPORT_PARSING_ENABLED, TRUE);
-        assertTrue("Test report parsing must be enabled", isTestReportParsingEnabled(myRunParams));
-    }
+  @Test
+  public void testIsEnabledAfterPuttingTrueToParams() {
+    myRunParams.put(TEST_REPORT_PARSING_ENABLED, TRUE);
+    assertTrue("Test report parsing must be enabled", isTestReportParsingEnabled(myRunParams));
+  }
 
-    @Test
-    public void testParamsContainTrueAfterEnabling() {
-        enableTestReportParsing(myRunParams, true);
-        assertEquals("Params must contain true", TRUE, myRunParams.get(TEST_REPORT_PARSING_ENABLED));
-    }
+  @Test
+  public void testParamsContainTrueAfterEnabling() {
+    enableTestReportParsing(myRunParams, true);
+    assertEquals("Params must contain true", TRUE, myRunParams.get(TEST_REPORT_PARSING_ENABLED));
+  }
 
-    @Test
-    public void testParamsDoNotContainTrueAfterDisabling() {
-        myRunParams.put(TEST_REPORT_PARSING_ENABLED, TRUE);
-        enableTestReportParsing(myRunParams, false);
-        assertNull("Params must not contain any value for this key", myRunParams.get(TEST_REPORT_PARSING_ENABLED));
-    }
+  @Test
+  public void testParamsDoNotContainTrueAfterDisabling() {
+    myRunParams.put(TEST_REPORT_PARSING_ENABLED, TRUE);
+    enableTestReportParsing(myRunParams, false);
+    assertNull("Params must not contain any value for this key", myRunParams.get(TEST_REPORT_PARSING_ENABLED));
+  }
 
-    @Test
-    public void testIsEnabledAfterEnabling() {
-        enableTestReportParsing(myRunParams, true);
-        assertTrue("Test report parsing must be enabled", isTestReportParsingEnabled(myRunParams));
-    }
+  @Test
+  public void testIsEnabledAfterEnabling() {
+    enableTestReportParsing(myRunParams, true);
+    assertTrue("Test report parsing must be enabled", isTestReportParsingEnabled(myRunParams));
+  }
 
-    @Test
-    public void testIsEnabledAfterDisabling() {
-        enableTestReportParsing(myRunParams, false);
-        assertFalse("Test report parsing must be disabled", isTestReportParsingEnabled(myRunParams));
-    }
+  @Test
+  public void testIsEnabledAfterDisabling() {
+    enableTestReportParsing(myRunParams, false);
+    assertFalse("Test report parsing must be disabled", isTestReportParsingEnabled(myRunParams));
+  }
 
-    @Test
-    public void testSetReportDirsAfterPuttingTrueToParams() {
-        final String reportDirs = "reportDirs";
-        myRunParams.put(TEST_REPORT_PARSING_ENABLED, TRUE);
-        setTestReportDirs(myRunParams, reportDirs);
-        assertEquals("Unexpected vulue in parameters", myRunParams.get(TEST_REPORT_PARSING_REPORT_DIRS), reportDirs);
-    }
+  @Test
+  public void testSetReportDirsAfterPuttingTrueToParams() {
+    final String reportDirs = "reportDirs";
+    myRunParams.put(TEST_REPORT_PARSING_ENABLED, TRUE);
+    setTestReportDirs(myRunParams, reportDirs);
+    assertEquals("Unexpected vulue in parameters", myRunParams.get(TEST_REPORT_PARSING_REPORT_DIRS), reportDirs);
+  }
 
-    @Test
-    public void testSetReportDirsAfterDisabling() {
-        final String reportDirs = "reportDirs";
-        enableTestReportParsing(myRunParams, false);
-        setTestReportDirs(myRunParams, reportDirs);
-        assertNull("ReportDirs parameter must be null", myRunParams.get(TEST_REPORT_PARSING_REPORT_DIRS));
-    }
+  @Test
+  public void testSetReportDirsAfterDisabling() {
+    final String reportDirs = "reportDirs";
+    enableTestReportParsing(myRunParams, false);
+    setTestReportDirs(myRunParams, reportDirs);
+    assertNull("ReportDirs parameter must be null", myRunParams.get(TEST_REPORT_PARSING_REPORT_DIRS));
+  }
 }

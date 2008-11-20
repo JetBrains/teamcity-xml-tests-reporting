@@ -25,104 +25,104 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 public class TestReportProcessor implements Runnable {
-    private static final long FILE_WAIT_TIMEOUT = 500;
+  private static final long FILE_WAIT_TIMEOUT = 500;
 
-    private final TestReportParserPlugin myPlugin;
+  private final TestReportParserPlugin myPlugin;
 
-    private final LinkedBlockingQueue<File> myReportQueue;
-    private final TestReportDirectoryWatcher myWatcher;
-    private final AntJUnitReportParser myParser;
+  private final LinkedBlockingQueue<File> myReportQueue;
+  private final TestReportDirectoryWatcher myWatcher;
+  private final AntJUnitReportParser myParser;
 
-    private ReportData myCurrentReport;
+  private ReportData myCurrentReport;
 
-    private volatile boolean myFinished;
+  private volatile boolean myFinished;
 
 
-    private static final class ReportData {
-        private final File myFile;
-        private long myProcessedTests;
+  private static final class ReportData {
+    private final File myFile;
+    private long myProcessedTests;
 
-        public ReportData(@NotNull final File file) {
-            myFile = file;
-            myProcessedTests = 0;
-        }
-
-        public File getFile() {
-            return myFile;
-        }
-
-        public long getProcessedTests() {
-            return myProcessedTests;
-        }
-
-        public void setProcessedTests(long tests) {
-            myProcessedTests = tests;
-        }
+    public ReportData(@NotNull final File file) {
+      myFile = file;
+      myProcessedTests = 0;
     }
 
-    public TestReportProcessor(@NotNull final TestReportParserPlugin plugin,
-                               @NotNull final LinkedBlockingQueue<File> queue,
-                               @NotNull final TestReportDirectoryWatcher watcher) {
-        myPlugin = plugin;
-        myReportQueue = queue;
-        myWatcher = watcher;
-        myParser = new AntJUnitReportParser(myPlugin.getLogger());
+    public File getFile() {
+      return myFile;
     }
 
-    public void run() {
-        myFinished = false;
-        myCurrentReport = null;
-
-        while (!myPlugin.isStopped()) {
-            processReport(takeNextReport(FILE_WAIT_TIMEOUT));
-        }
-        synchronized (myWatcher) {
-            while (!myWatcher.isStopped()) {
-                try {
-                    myWatcher.wait();
-                } catch (InterruptedException e) {
-                    myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted"));
-                }
-            }
-        }
-        while (!myReportQueue.isEmpty()) {
-            processReport(takeNextReport(1));
-        }
-        synchronized (this) {
-            myFinished = true;
-            this.notify();
-        }
+    public long getProcessedTests() {
+      return myProcessedTests;
     }
 
-    private void processReport(ReportData report) {
-        if (report != null) {
-            long processedTests = myParser.parse(report.getFile(), report.getProcessedTests());
-            if (processedTests != -1) {
-                myCurrentReport.setProcessedTests(processedTests);
-            } else {
-                myPlugin.getLogger().message(createBuildLogMessage(report.getFile().getPath() + " report processed."));
-                myCurrentReport = null;
-            }
-        }
+    public void setProcessedTests(long tests) {
+      myProcessedTests = tests;
     }
+  }
 
-    private ReportData takeNextReport(long timeout) {
-        if (myCurrentReport != null) {
-            return myCurrentReport;
-        }
+  public TestReportProcessor(@NotNull final TestReportParserPlugin plugin,
+                             @NotNull final LinkedBlockingQueue<File> queue,
+                             @NotNull final TestReportDirectoryWatcher watcher) {
+    myPlugin = plugin;
+    myReportQueue = queue;
+    myWatcher = watcher;
+    myParser = new AntJUnitReportParser(myPlugin.getLogger());
+  }
+
+  public void run() {
+    myFinished = false;
+    myCurrentReport = null;
+
+    while (!myPlugin.isStopped()) {
+      processReport(takeNextReport(FILE_WAIT_TIMEOUT));
+    }
+    synchronized (myWatcher) {
+      while (!myWatcher.isStopped()) {
         try {
-            File file = myReportQueue.poll(timeout, TimeUnit.MILLISECONDS);
-            if (file != null) {
-                myCurrentReport = new ReportData(file);
-                return myCurrentReport;
-            }
+          myWatcher.wait();
         } catch (InterruptedException e) {
-            myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted"));
+          myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted"));
         }
-        return null;
+      }
     }
+    while (!myReportQueue.isEmpty()) {
+      processReport(takeNextReport(1));
+    }
+    synchronized (this) {
+      myFinished = true;
+      this.notify();
+    }
+  }
 
-    public boolean isProcessingFinished() {
-        return myFinished;
+  private void processReport(ReportData report) {
+    if (report != null) {
+      long processedTests = myParser.parse(report.getFile(), report.getProcessedTests());
+      if (processedTests != -1) {
+        myCurrentReport.setProcessedTests(processedTests);
+      } else {
+        myPlugin.getLogger().message(createBuildLogMessage(report.getFile().getPath() + " report processed."));
+        myCurrentReport = null;
+      }
     }
+  }
+
+  private ReportData takeNextReport(long timeout) {
+    if (myCurrentReport != null) {
+      return myCurrentReport;
+    }
+    try {
+      File file = myReportQueue.poll(timeout, TimeUnit.MILLISECONDS);
+      if (file != null) {
+        myCurrentReport = new ReportData(file);
+        return myCurrentReport;
+      }
+    } catch (InterruptedException e) {
+      myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted"));
+    }
+    return null;
+  }
+
+  public boolean isProcessingFinished() {
+    return myFinished;
+  }
 }

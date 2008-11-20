@@ -26,86 +26,86 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class TestReportDirectoryWatcher implements Runnable {
-    private static final int SCAN_INTERVAL = 50;
+  private static final int SCAN_INTERVAL = 50;
 
-    private final TestReportParserPlugin myPlugin;
+  private final TestReportParserPlugin myPlugin;
 
-    private final LinkedBlockingQueue<File> myReportQueue;
-    private final Set<File> myDirectories;
-    private final Set<File> myActiveDirectories;
-    private final List<String> myProcessedFiles;
+  private final LinkedBlockingQueue<File> myReportQueue;
+  private final Set<File> myDirectories;
+  private final Set<File> myActiveDirectories;
+  private final List<String> myProcessedFiles;
 
-    private volatile boolean myFinished;
+  private volatile boolean myFinished;
 
 
-    public TestReportDirectoryWatcher(@NotNull final TestReportParserPlugin plugin,
-                                      @NotNull final List<File> directories,
-                                      @NotNull final LinkedBlockingQueue<File> queue) {
-        myPlugin = plugin;
-        myDirectories = new LinkedHashSet<File>(directories);
-        myActiveDirectories = new HashSet<File>();
-        myReportQueue = queue;
-        myFinished = false;
-        myProcessedFiles = new ArrayList<String>();
-    }
+  public TestReportDirectoryWatcher(@NotNull final TestReportParserPlugin plugin,
+                                    @NotNull final List<File> directories,
+                                    @NotNull final LinkedBlockingQueue<File> queue) {
+    myPlugin = plugin;
+    myDirectories = new LinkedHashSet<File>(directories);
+    myActiveDirectories = new HashSet<File>();
+    myReportQueue = queue;
+    myFinished = false;
+    myProcessedFiles = new ArrayList<String>();
+  }
 
-    public void run() {
-        while (!myPlugin.isStopped()) {
-            try {
-                scanDirectories();
-                Thread.sleep(SCAN_INTERVAL);
-            } catch (InterruptedException e) {
-                myPlugin.getLogger().warning(createBuildLogMessage("directory watcher thread interrupted."));
-            }
-        }
+  public void run() {
+    while (!myPlugin.isStopped()) {
+      try {
         scanDirectories();
-        synchronized (this) {
-            myFinished = true;
-            this.notify();
-        }
+        Thread.sleep(SCAN_INTERVAL);
+      } catch (InterruptedException e) {
+        myPlugin.getLogger().warning(createBuildLogMessage("directory watcher thread interrupted."));
+      }
     }
+    scanDirectories();
+    synchronized (this) {
+      myFinished = true;
+      this.notify();
+    }
+  }
 
-    private void scanDirectories() {
-        for (File dir : myDirectories) {
-            if (dir.isDirectory()) {
-                File[] files = dir.listFiles();
-                for (int i = 0; i < files.length; ++i) {
-                    File report = files[i];
+  private void scanDirectories() {
+    for (File dir : myDirectories) {
+      if (dir.isDirectory()) {
+        File[] files = dir.listFiles();
+        for (int i = 0; i < files.length; ++i) {
+          File report = files[i];
 
-                    if (report.isFile() && (report.lastModified() > myPlugin.getBuildStartTime())) {
-                        myActiveDirectories.add(dir);
-                        if (!myProcessedFiles.contains(report.getPath()) &&
-                                report.canRead() &&
-                                AntJUnitReportParser.isReportFileComplete(report)) {
-                            myPlugin.getLogger().message(createBuildLogMessage("found report file " + report.getPath() + "."));
-                            myProcessedFiles.add(report.getPath());
-                            try {
-                                myReportQueue.put(report);
-                            } catch (InterruptedException e) {
-                                myPlugin.getLogger().warning(createBuildLogMessage("directory watcher thread interrupted."));
-                            }
-                        }
-                    }
-                }
+          if (report.isFile() && (report.lastModified() > myPlugin.getBuildStartTime())) {
+            myActiveDirectories.add(dir);
+            if (!myProcessedFiles.contains(report.getPath()) &&
+              report.canRead() &&
+              AntJUnitReportParser.isReportFileComplete(report)) {
+              myPlugin.getLogger().message(createBuildLogMessage("found report file " + report.getPath() + "."));
+              myProcessedFiles.add(report.getPath());
+              try {
+                myReportQueue.put(report);
+              } catch (InterruptedException e) {
+                myPlugin.getLogger().warning(createBuildLogMessage("directory watcher thread interrupted."));
+              }
             }
+          }
         }
+      }
     }
+  }
 
-    public boolean isStopped() {
-        return myFinished;
-    }
+  public boolean isStopped() {
+    return myFinished;
+  }
 
-    public void logDirectoryTotals() {
-        if (myDirectories.removeAll(myActiveDirectories)) {
-            for (File dir : myDirectories) {
-                if (!dir.exists()) {
-                    myPlugin.getLogger().warning(createBuildLogMessage(dir.getPath() + " directory didn't appear on disk during the build."));
-                } else if (!dir.isDirectory()) {
-                    myPlugin.getLogger().warning(createBuildLogMessage(dir.getPath() + " is not actually a directory."));
-                } else {
-                    myPlugin.getLogger().warning(createBuildLogMessage("no reports found in " + dir.getPath() + " directory."));
-                }
-            }
+  public void logDirectoryTotals() {
+    if (myDirectories.removeAll(myActiveDirectories)) {
+      for (File dir : myDirectories) {
+        if (!dir.exists()) {
+          myPlugin.getLogger().warning(createBuildLogMessage(dir.getPath() + " directory didn't appear on disk during the build."));
+        } else if (!dir.isDirectory()) {
+          myPlugin.getLogger().warning(createBuildLogMessage(dir.getPath() + " is not actually a directory."));
+        } else {
+          myPlugin.getLogger().warning(createBuildLogMessage("no reports found in " + dir.getPath() + " directory."));
         }
+      }
     }
+  }
 }

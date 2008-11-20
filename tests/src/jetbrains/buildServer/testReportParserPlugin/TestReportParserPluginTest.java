@@ -38,101 +38,101 @@ import java.util.Map;
 
 @RunWith(JMock.class)
 public class TestReportParserPluginTest {
-    private static final String WORKING_DIR = "workingDir";
+  private static final String WORKING_DIR = "workingDir";
 
-    private TestReportParserPlugin myPlugin;
-    private Map<String, String> myRunParams;
-    private File myWorkingDir;
-    private EventDispatcher<AgentLifeCycleListener> myEventDispatcher;
+  private TestReportParserPlugin myPlugin;
+  private Map<String, String> myRunParams;
+  private File myWorkingDir;
+  private EventDispatcher<AgentLifeCycleListener> myEventDispatcher;
 
-    private Mockery myContext;
-    private Sequence mySequence;
+  private Mockery myContext;
+  private Sequence mySequence;
 
-    private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final File workingDirFile) {
-        final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
-        myContext.checking(new Expectations() {
-            {
-                allowing(runningBuild).getRunnerParameters();
-                will(returnValue(runParams));
-                inSequence(mySequence);
-                allowing(runningBuild).getWorkingDirectory();
-                will(returnValue(workingDirFile));
-                inSequence(mySequence);
-            }
-        });
-        return runningBuild;
-    }
+  private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final File workingDirFile) {
+    final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
+    myContext.checking(new Expectations() {
+      {
+        allowing(runningBuild).getRunnerParameters();
+        will(returnValue(runParams));
+        inSequence(mySequence);
+        allowing(runningBuild).getWorkingDirectory();
+        will(returnValue(workingDirFile));
+        inSequence(mySequence);
+      }
+    });
+    return runningBuild;
+  }
 
-    private BaseServerLoggerFacade createBaseServerLoggerFacade() {
-        return myContext.mock(BaseServerLoggerFacade.class);
-    }
+  private BaseServerLoggerFacade createBaseServerLoggerFacade() {
+    return myContext.mock(BaseServerLoggerFacade.class);
+  }
 
-    @Before
-    public void setUp() {
-        myContext = new JUnit4Mockery() {
-            {
-                setImposteriser(ClassImposteriser.INSTANCE);
-            }
-        };
-        mySequence = myContext.sequence("Log Sequence");
-        myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
-        myRunParams = new HashMap<String, String>();
-        myWorkingDir = new File(WORKING_DIR);
-    }
+  @Before
+  public void setUp() {
+    myContext = new JUnit4Mockery() {
+      {
+        setImposteriser(ClassImposteriser.INSTANCE);
+      }
+    };
+    mySequence = myContext.sequence("Log Sequence");
+    myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
+    myRunParams = new HashMap<String, String>();
+    myWorkingDir = new File(WORKING_DIR);
+  }
 
-    private void isSilentWhenDisabled(BuildFinishedStatus status) {
-        TestReportParserPluginUtil.enableTestReportParsing(myRunParams, false);
+  private void isSilentWhenDisabled(BuildFinishedStatus status) {
+    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, false);
 
-        final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
-        myPlugin = new TestReportParserPlugin(myEventDispatcher);
+    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
+    myPlugin = new TestReportParserPlugin(myEventDispatcher);
 
-        myEventDispatcher.getMulticaster().buildStarted(runningBuild);
-        myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
-        myEventDispatcher.getMulticaster().beforeBuildFinish(status);
-        myContext.assertIsSatisfied();
-    }
+    myEventDispatcher.getMulticaster().buildStarted(runningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
+    myEventDispatcher.getMulticaster().beforeBuildFinish(status);
+    myContext.assertIsSatisfied();
+  }
 
-    @Test
-    public void testIsSilentWhenDisabledNormalFinish() {
-        isSilentWhenDisabled(BuildFinishedStatus.FINISHED_SUCCESS);
-    }
+  @Test
+  public void testIsSilentWhenDisabledNormalFinish() {
+    isSilentWhenDisabled(BuildFinishedStatus.FINISHED_SUCCESS);
+  }
 
 
-    @Test
-    public void testIsSilentWhenDisabledInterruptedFinish() {
-        isSilentWhenDisabled(BuildFinishedStatus.INTERRUPTED);
-    }
+  @Test
+  public void testIsSilentWhenDisabledInterruptedFinish() {
+    isSilentWhenDisabled(BuildFinishedStatus.INTERRUPTED);
+  }
 
-    @Test
-    public void testIsSilentWhenDisabledDoesNotExistFinish() {
-        isSilentWhenDisabled(BuildFinishedStatus.FINISHED_FAILED);
-    }
+  @Test
+  public void testIsSilentWhenDisabledDoesNotExistFinish() {
+    isSilentWhenDisabled(BuildFinishedStatus.FINISHED_FAILED);
+  }
 
-    private void warningWhenZeroReportDirsSize() {
-        final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
-        final BaseServerLoggerFacade logger = createBaseServerLoggerFacade();
-        myContext.checking(new Expectations() {
-            {
-                oneOf(runningBuild).getBuildLogger();
-                will(returnValue(logger));
-                inSequence(mySequence);
-                oneOf(logger).warning(with(any(String.class)));
-                inSequence(mySequence);
-            }
-        });
-        myPlugin = new TestReportParserPlugin(myEventDispatcher);
+  private void warningWhenZeroReportDirsSize() {
+    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
+    final BaseServerLoggerFacade logger = createBaseServerLoggerFacade();
+    myContext.checking(new Expectations() {
+      {
+        oneOf(runningBuild).getBuildLogger();
+        will(returnValue(logger));
+        inSequence(mySequence);
+        oneOf(logger).warning(with(any(String.class)));
+        inSequence(mySequence);
+      }
+    });
+    myPlugin = new TestReportParserPlugin(myEventDispatcher);
 
-        myEventDispatcher.getMulticaster().buildStarted(runningBuild);
-        myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
-        myContext.assertIsSatisfied();
-    }
+    myEventDispatcher.getMulticaster().buildStarted(runningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
+    myContext.assertIsSatisfied();
+  }
 
-    @Test
-    public void testWarningWhenReportDirsNull() {
-        TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
+  @Test
+  public void testWarningWhenReportDirsNull() {
+    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
 
-        warningWhenZeroReportDirsSize();
-    }
+    warningWhenZeroReportDirsSize();
+  }
 
 //    @Test
 //    public void testWarningWhenReportDirsEmpty() {
@@ -142,55 +142,55 @@ public class TestReportParserPluginTest {
 //        warningWhenZeroReportDirsSize();
 //    }
 
-    @Test
-    public void testIsStoppedWhenDisabled() {
-        TestReportParserPluginUtil.enableTestReportParsing(myRunParams, false);
+  @Test
+  public void testIsStoppedWhenDisabled() {
+    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, false);
 
-        final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
-        myPlugin = new TestReportParserPlugin(myEventDispatcher);
+    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
+    myPlugin = new TestReportParserPlugin(myEventDispatcher);
 
-        myEventDispatcher.getMulticaster().buildStarted(runningBuild);
-        myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
-        myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-        myContext.assertIsSatisfied();
+    myEventDispatcher.getMulticaster().buildStarted(runningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myContext.assertIsSatisfied();
 
-        Assert.assertTrue("Plugin must be stopped", myPlugin.isStopped());
-    }
+    Assert.assertTrue("Plugin must be stopped", myPlugin.isStopped());
+  }
 
-    private void isStoppedWhenZeroReportDirsSize() {
-        final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
-        final BaseServerLoggerFacade logger = createBaseServerLoggerFacade();
-        myContext.checking(new Expectations() {
-            {
-                oneOf(runningBuild).getBuildLogger();
-                will(returnValue(logger));
-                ignoring(runningBuild);
-                ignoring(logger);
-            }
-        });
-        myPlugin = new TestReportParserPlugin(myEventDispatcher);
+  private void isStoppedWhenZeroReportDirsSize() {
+    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
+    final BaseServerLoggerFacade logger = createBaseServerLoggerFacade();
+    myContext.checking(new Expectations() {
+      {
+        oneOf(runningBuild).getBuildLogger();
+        will(returnValue(logger));
+        ignoring(runningBuild);
+        ignoring(logger);
+      }
+    });
+    myPlugin = new TestReportParserPlugin(myEventDispatcher);
 
-        myEventDispatcher.getMulticaster().buildStarted(runningBuild);
-        myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
-        myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-        myContext.assertIsSatisfied();
+    myEventDispatcher.getMulticaster().buildStarted(runningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myContext.assertIsSatisfied();
 
-        Assert.assertTrue("Plugin must be stopped", myPlugin.isStopped());
-    }
+    Assert.assertTrue("Plugin must be stopped", myPlugin.isStopped());
+  }
 
-    @Test
-    public void testIsStoppedWhenReportDirsEmpty() {
-        TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
+  @Test
+  public void testIsStoppedWhenReportDirsEmpty() {
+    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
 
-        isStoppedWhenZeroReportDirsSize();
-    }
+    isStoppedWhenZeroReportDirsSize();
+  }
 
-    @Test
-    public void testIsStoppedWhenReportDirsNull() {
-        TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
+  @Test
+  public void testIsStoppedWhenReportDirsNull() {
+    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
 
-        isStoppedWhenZeroReportDirsSize();
-    }
+    isStoppedWhenZeroReportDirsSize();
+  }
 
-    //TODO: add tests for failure - must finish work!!!
+  //TODO: add tests for failure - must finish work!!!
 }

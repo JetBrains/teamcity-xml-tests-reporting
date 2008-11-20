@@ -17,7 +17,7 @@ package jetbrains.buildServer.testReportParserPlugin.performance;
 
 
 public class UnexpectedInvokationException extends RuntimeException {
-    public UnexpectedInvokationException(String message) {
-        super(message);
-    }
+  public UnexpectedInvokationException(String message) {
+    super(message);
+  }
 }

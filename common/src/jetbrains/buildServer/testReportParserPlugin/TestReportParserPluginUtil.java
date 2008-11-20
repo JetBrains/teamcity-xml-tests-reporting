@@ -22,26 +22,26 @@ import java.util.Map;
 
 
 public class TestReportParserPluginUtil {
-    public static final String TEST_REPORT_PARSING_ENABLED = "testReportParsing.enabled";
-    public static final String TEST_REPORT_PARSING_REPORT_DIRS = "testReportParsing.reportDirs";
+  public static final String TEST_REPORT_PARSING_ENABLED = "testReportParsing.enabled";
+  public static final String TEST_REPORT_PARSING_REPORT_DIRS = "testReportParsing.reportDirs";
 
 
-    public static boolean isTestReportParsingEnabled(@NotNull final Map<String, String> runParams) {
-        return runParams.containsKey(TEST_REPORT_PARSING_ENABLED);
+  public static boolean isTestReportParsingEnabled(@NotNull final Map<String, String> runParams) {
+    return runParams.containsKey(TEST_REPORT_PARSING_ENABLED);
+  }
+
+  public static void enableTestReportParsing(@NotNull final Map<String, String> runParams, boolean enableTestReportParsing) {
+    if (enableTestReportParsing) {
+      runParams.put(TEST_REPORT_PARSING_ENABLED, "true");
+    } else {
+      runParams.remove(TEST_REPORT_PARSING_ENABLED);
+      runParams.remove(TEST_REPORT_PARSING_REPORT_DIRS);
     }
+  }
 
-    public static void enableTestReportParsing(@NotNull final Map<String, String> runParams, boolean enableTestReportParsing) {
-        if (enableTestReportParsing) {
-            runParams.put(TEST_REPORT_PARSING_ENABLED, "true");
-        } else {
-            runParams.remove(TEST_REPORT_PARSING_ENABLED);
-            runParams.remove(TEST_REPORT_PARSING_REPORT_DIRS);
-        }
+  public static void setTestReportDirs(@NotNull final Map<String, String> runParams, String reportDirs) {
+    if (isTestReportParsingEnabled(runParams)) {
+      runParams.put(TEST_REPORT_PARSING_REPORT_DIRS, reportDirs);
     }
-
-    public static void setTestReportDirs(@NotNull final Map<String, String> runParams, String reportDirs) {
-        if (isTestReportParsingEnabled(runParams)) {
-            runParams.put(TEST_REPORT_PARSING_REPORT_DIRS, reportDirs);
-        }
-    }
+  }
 }

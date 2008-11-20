@@ -26,19 +26,19 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TestReportParserPluginSettings {
-    public TestReportParserPluginSettings(@NotNull final PagePlaces pagePlaces, @NotNull final ProjectManager projectManager) {
-        List<String> supportedRunTypes = Arrays.asList("Ant", "simpleRunner");
+  public TestReportParserPluginSettings(@NotNull final PagePlaces pagePlaces, @NotNull final ProjectManager projectManager) {
+    List<String> supportedRunTypes = Arrays.asList("Ant", "simpleRunner");
 
-        EditBuildRunnerSettingsExtension editSettingsExtension =
-                new EditBuildRunnerSettingsExtension(pagePlaces, supportedRunTypes);
-        editSettingsExtension.setPluginName("TestReportParserPlugin");
-        editSettingsExtension.setIncludeUrl("testReportParserSettings.jsp");
-        editSettingsExtension.register();
+    EditBuildRunnerSettingsExtension editSettingsExtension =
+      new EditBuildRunnerSettingsExtension(pagePlaces, supportedRunTypes);
+    editSettingsExtension.setPluginName("TestReportParserPlugin");
+    editSettingsExtension.setIncludeUrl("testReportParserSettings.jsp");
+    editSettingsExtension.register();
 
-        ViewBuildRunnerSettingsExtension viewSettingsExtension =
-                new ViewBuildRunnerSettingsExtension(projectManager, pagePlaces, supportedRunTypes);
-        viewSettingsExtension.setPluginName("TestReportParserPlugin");
-        viewSettingsExtension.setIncludeUrl("viewTestReportParserSettings.jsp");
-        viewSettingsExtension.register();
-    }
+    ViewBuildRunnerSettingsExtension viewSettingsExtension =
+      new ViewBuildRunnerSettingsExtension(projectManager, pagePlaces, supportedRunTypes);
+    viewSettingsExtension.setPluginName("TestReportParserPlugin");
+    viewSettingsExtension.setIncludeUrl("viewTestReportParserSettings.jsp");
+    viewSettingsExtension.register();
+  }
 }

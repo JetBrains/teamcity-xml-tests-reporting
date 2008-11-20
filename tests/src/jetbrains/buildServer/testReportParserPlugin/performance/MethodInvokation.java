@@ -22,31 +22,31 @@ import java.util.List;
 
 
 public class MethodInvokation {
-    public static final Object ANY = new Object();
+  public static final Object ANY = new Object();
 
-    private final String myMethodName;
-    private final List<Object> myMethodParams;
-    private boolean myInvoked;
+  private final String myMethodName;
+  private final List<Object> myMethodParams;
+  private boolean myInvoked;
 
-    public MethodInvokation(@NotNull final String methodName, @NotNull final List<Object> methodParams) {
-        myMethodName = methodName;
-        myMethodParams = methodParams;
-        myInvoked = false;
-    }
+  public MethodInvokation(@NotNull final String methodName, @NotNull final List<Object> methodParams) {
+    myMethodName = methodName;
+    myMethodParams = methodParams;
+    myInvoked = false;
+  }
 
-    public String getMethodName() {
-        return myMethodName;
-    }
+  public String getMethodName() {
+    return myMethodName;
+  }
 
-    public List<Object> getMethodParams() {
-        return Collections.unmodifiableList(myMethodParams);
-    }
+  public List<Object> getMethodParams() {
+    return Collections.unmodifiableList(myMethodParams);
+  }
 
-    public void setInvoked() {
-        myInvoked = true;
-    }
+  public void setInvoked() {
+    myInvoked = true;
+  }
 
-    public boolean wasInvoked() {
-        return myInvoked;
-    }
+  public boolean wasInvoked() {
+    return myInvoked;
+  }
 }

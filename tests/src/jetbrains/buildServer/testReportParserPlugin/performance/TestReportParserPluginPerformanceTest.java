@@ -39,82 +39,82 @@ import java.util.Map;
 
 @RunWith(JMock.class)
 public class TestReportParserPluginPerformanceTest {
-    private static final String WORKING_DIR = "workingDir";
+  private static final String WORKING_DIR = "workingDir";
 
-    private TestReportParserPlugin myPlugin;
-    private AgentRunningBuild myRunningBuild;
-    private Map<String, String> myRunParams;
-    private File myWorkingDir;
-    private EventDispatcher<AgentLifeCycleListener> myEventDispatcher;
-    private BaseServerLoggerFacadeForTesting myTestLogger;
-    private List<MethodInvokation> myLogSequence;
-    private List<UnexpectedInvokationException> myFailure;
+  private TestReportParserPlugin myPlugin;
+  private AgentRunningBuild myRunningBuild;
+  private Map<String, String> myRunParams;
+  private File myWorkingDir;
+  private EventDispatcher<AgentLifeCycleListener> myEventDispatcher;
+  private BaseServerLoggerFacadeForTesting myTestLogger;
+  private List<MethodInvokation> myLogSequence;
+  private List<UnexpectedInvokationException> myFailure;
 
-    private Mockery myContext;
+  private Mockery myContext;
 
-    private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final File workingDirFile, final BaseServerLoggerFacade logger) {
-        final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
-        myContext.checking(new Expectations() {
-            {
-                allowing(runningBuild).getBuildLogger();
-                will(returnValue(logger));
-                allowing(runningBuild).getRunnerParameters();
-                will(returnValue(runParams));
-                allowing(runningBuild).getWorkingDirectory();
-                will(returnValue(workingDirFile));
-                ignoring(runningBuild);
-            }
-        });
-        return runningBuild;
+  private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final File workingDirFile, final BaseServerLoggerFacade logger) {
+    final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
+    myContext.checking(new Expectations() {
+      {
+        allowing(runningBuild).getBuildLogger();
+        will(returnValue(logger));
+        allowing(runningBuild).getRunnerParameters();
+        will(returnValue(runParams));
+        allowing(runningBuild).getWorkingDirectory();
+        will(returnValue(workingDirFile));
+        ignoring(runningBuild);
+      }
+    });
+    return runningBuild;
+  }
+
+  @Before
+  public void setUp() {
+    myContext = new JUnit4Mockery();
+
+    myLogSequence = new ArrayList<MethodInvokation>();
+    myFailure = new ArrayList<UnexpectedInvokationException>();
+    myTestLogger = new BaseServerLoggerFacadeForTesting(myFailure);
+
+    myRunParams = new HashMap<String, String>();
+    myWorkingDir = new File(WORKING_DIR);
+    myRunningBuild = createAgentRunningBuild(myRunParams, myWorkingDir, myTestLogger);
+    myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
+    myPlugin = new TestReportParserPlugin(myEventDispatcher);
+  }
+
+  @Test
+  public void testIsSilentWhenDisabled() {
+    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, false);
+    myTestLogger.setExpectedSequence(myLogSequence);
+
+    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myContext.assertIsSatisfied();
+
+    if (myFailure.size() > 0) {
+      throw myFailure.get(0);
     }
+  }
 
-    @Before
-    public void setUp() {
-        myContext = new JUnit4Mockery();
+  @Test
+  public void testNotSilentWhenEnabled() {
+    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
 
-        myLogSequence = new ArrayList<MethodInvokation>();
-        myFailure = new ArrayList<UnexpectedInvokationException>();
-        myTestLogger = new BaseServerLoggerFacadeForTesting(myFailure);
+    List<Object> params = new ArrayList<Object>();
+    params.add(MethodInvokation.ANY);
+    myLogSequence.add(new MethodInvokation("warning", params));
+    myTestLogger.setExpectedSequence(myLogSequence);
 
-        myRunParams = new HashMap<String, String>();
-        myWorkingDir = new File(WORKING_DIR);
-        myRunningBuild = createAgentRunningBuild(myRunParams, myWorkingDir, myTestLogger);
-        myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
-        myPlugin = new TestReportParserPlugin(myEventDispatcher);
+    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myContext.assertIsSatisfied();
+    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+
+    if (myFailure.size() > 0) {
+      throw myFailure.get(0);
     }
-
-    @Test
-    public void testIsSilentWhenDisabled() {
-        TestReportParserPluginUtil.enableTestReportParsing(myRunParams, false);
-        myTestLogger.setExpectedSequence(myLogSequence);
-
-        myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-        myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-        myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-        myContext.assertIsSatisfied();
-
-        if (myFailure.size() > 0) {
-            throw myFailure.get(0);
-        }
-    }
-
-    @Test
-    public void testNotSilentWhenEnabled() {
-        TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
-
-        List<Object> params = new ArrayList<Object>();
-        params.add(MethodInvokation.ANY);
-        myLogSequence.add(new MethodInvokation("warning", params));
-        myTestLogger.setExpectedSequence(myLogSequence);
-
-        myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-        myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-        myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-        myContext.assertIsSatisfied();
-        myTestLogger.checkIfAllExpectedMethodsWereInvoked();
-
-        if (myFailure.size() > 0) {
-            throw myFailure.get(0);
-        }
-    }
+  }
 }

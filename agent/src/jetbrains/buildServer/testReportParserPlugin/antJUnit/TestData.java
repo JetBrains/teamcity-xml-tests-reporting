@@ -17,58 +17,58 @@ package jetbrains.buildServer.testReportParserPlugin.antJUnit;
 
 
 public class TestData {
-    private final String myClassName;
-    private final String myTestName;
+  private final String myClassName;
+  private final String myTestName;
 
-    private final long myStartTime;
-    private final long myDuration;
+  private final long myStartTime;
+  private final long myDuration;
 
-    private String myFailureType;
-    private String myFailureMessage;
+  private String myFailureType;
+  private String myFailureMessage;
 
-    public TestData(final String className,
-                    final String testName,
-                    final long startTime,
-                    final long duration) {
-        myClassName = className;
-        myTestName = testName;
-        myStartTime = startTime;
-        myDuration = duration;
-    }
+  public TestData(final String className,
+                  final String testName,
+                  final long startTime,
+                  final long duration) {
+    myClassName = className;
+    myTestName = testName;
+    myStartTime = startTime;
+    myDuration = duration;
+  }
 
-    public String getClassName() {
-        return myClassName;
-    }
+  public String getClassName() {
+    return myClassName;
+  }
 
-    public String getTestName() {
-        return myTestName;
-    }
+  public String getTestName() {
+    return myTestName;
+  }
 
-    public long getStartTime() {
-        return myStartTime;
-    }
+  public long getStartTime() {
+    return myStartTime;
+  }
 
-    public long getDuration() {
-        return myDuration;
-    }
+  public long getDuration() {
+    return myDuration;
+  }
 
-    public boolean isFailure() {
-        return (myFailureType != null);
-    }
+  public boolean isFailure() {
+    return (myFailureType != null);
+  }
 
-    public void setFailureMessage(String message) {
-        myFailureMessage = message;
-    }
+  public void setFailureMessage(String message) {
+    myFailureMessage = message;
+  }
 
-    public void setFailureType(String type) {
-        myFailureType = type;
-    }
+  public void setFailureType(String type) {
+    myFailureType = type;
+  }
 
-    public String getFailureType() {
-        return myFailureType;
-    }
+  public String getFailureType() {
+    return myFailureType;
+  }
 
-    public String getFailureMessage() {
-        return myFailureMessage;
-    }
+  public String getFailureMessage() {
+    return myFailureMessage;
+  }
 }

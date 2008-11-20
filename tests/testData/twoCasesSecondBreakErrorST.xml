@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <testsuite errors="0" failures="0" hostname="ruspd-student3" name="TestCase" tests="2" time="0.062"
            timestamp="2008-10-30T17:11:25">
-    <properties/>
-    <testcase classname="TestCase" name="test1" time="0.031">
-        <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
-            junit.framework.AssertionFailedError: Assertion message form test
-            at TestCase.test(Unknown Source)
-        </failure>
-    </testcase>
-    <testcase classname="TestCase" name="test2" time="0.031">
-        <error message="Error message from test" type="java.lang.NullPointerException">java.lang.NullPointerException:
-            Error message from test
-            at TestCa
+  <properties/>
+  <testcase classname="TestCase" name="test1" time="0.031">
+    <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+      junit.framework.AssertionFailedError: Assertion message form test
+      at TestCase.test(Unknown Source)
+    </failure>
+  </testcase>
+  <testcase classname="TestCase" name="test2" time="0.031">
+    <error message="Error message from test" type="java.lang.NullPointerException">java.lang.NullPointerException:
+      Error message from test
+      at TestCa

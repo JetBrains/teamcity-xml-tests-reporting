@@ -17,64 +17,64 @@ package jetbrains.buildServer.testReportParserPlugin.antJUnit;
 
 
 public class SuiteData {
-    private final String myName;
-    private final long myTestNumber;
-    private final long myStartTime;
-    private final long myDuration;
-    private boolean myLogged;
+  private final String myName;
+  private final long myTestNumber;
+  private final long myStartTime;
+  private final long myDuration;
+  private boolean myLogged;
 
-    private String myFailureType;
-    private String myFailureMessage;
+  private String myFailureType;
+  private String myFailureMessage;
 
-    public SuiteData(final String name, long testNumber, long startTime, long duration) {
-        myName = name;
-        myTestNumber = testNumber;
-        myStartTime = startTime;
-        myDuration = duration;
-        myLogged = false;
-    }
+  public SuiteData(final String name, long testNumber, long startTime, long duration) {
+    myName = name;
+    myTestNumber = testNumber;
+    myStartTime = startTime;
+    myDuration = duration;
+    myLogged = false;
+  }
 
-    public String getName() {
-        return myName;
-    }
+  public String getName() {
+    return myName;
+  }
 
-    public long getTestNumber() {
-        return myTestNumber;
-    }
+  public long getTestNumber() {
+    return myTestNumber;
+  }
 
-    public long getStartTime() {
-        return myStartTime;
-    }
+  public long getStartTime() {
+    return myStartTime;
+  }
 
-    public long getDuraion() {
-        return myDuration;
-    }
+  public long getDuraion() {
+    return myDuration;
+  }
 
-    public void logged(boolean logged) {
-        myLogged = logged;
-    }
+  public void logged(boolean logged) {
+    myLogged = logged;
+  }
 
-    public boolean isLogged() {
-        return myLogged;
-    }
+  public boolean isLogged() {
+    return myLogged;
+  }
 
-    public void setFailureMessage(String message) {
-        myFailureMessage = message;
-    }
+  public void setFailureMessage(String message) {
+    myFailureMessage = message;
+  }
 
-    public void setFailureType(String type) {
-        myFailureType = type;
-    }
+  public void setFailureType(String type) {
+    myFailureType = type;
+  }
 
-    public String getFailureType() {
-        return myFailureType;
-    }
+  public String getFailureType() {
+    return myFailureType;
+  }
 
-    public String getFailureMessage() {
-        return myFailureMessage;
-    }
+  public String getFailureMessage() {
+    return myFailureMessage;
+  }
 
-    public boolean isFailure() {
-        return (myFailureType != null);
-    }
+  public boolean isFailure() {
+    return (myFailureType != null);
+  }
 }

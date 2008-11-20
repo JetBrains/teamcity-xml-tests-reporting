@@ -35,42 +35,42 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 @RunWith(JMock.class)
 public class TestReportDirectoryWatcherTest {
-    private Mockery myContext;
+  private Mockery myContext;
 
-    private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final File workingDirFile) {
-        final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
-        myContext.checking(new Expectations() {
-            {
-                oneOf(runningBuild).getRunnerParameters();
-                will(returnValue(runParams));
-                oneOf(runningBuild).getWorkingDirectory();
-                will(returnValue(workingDirFile));
-            }
-        });
-        return runningBuild;
+  private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final File workingDirFile) {
+    final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
+    myContext.checking(new Expectations() {
+      {
+        oneOf(runningBuild).getRunnerParameters();
+        will(returnValue(runParams));
+        oneOf(runningBuild).getWorkingDirectory();
+        will(returnValue(workingDirFile));
+      }
+    });
+    return runningBuild;
 
-    }
+  }
 
-    private TestReportParserPlugin createTestReportParserPlugin() {
-        return myContext.mock(TestReportParserPlugin.class);
-    }
+  private TestReportParserPlugin createTestReportParserPlugin() {
+    return myContext.mock(TestReportParserPlugin.class);
+  }
 
-    private BaseServerLoggerFacade createBaseServerLoggerFacade() {
-        return myContext.mock(BaseServerLoggerFacade.class);
-    }
+  private BaseServerLoggerFacade createBaseServerLoggerFacade() {
+    return myContext.mock(BaseServerLoggerFacade.class);
+  }
 
-    private LinkedBlockingQueue<File> createLinkedBlockingQueue() {
-        return myContext.mock(LinkedBlockingQueue.class);
-    }
+  private LinkedBlockingQueue<File> createLinkedBlockingQueue() {
+    return myContext.mock(LinkedBlockingQueue.class);
+  }
 
-    @Before
-    public void setUp() {
-        myContext = new JUnit4Mockery() {
-            {
-                setImposteriser(ClassImposteriser.INSTANCE);
-            }
-        };
-    }
+  @Before
+  public void setUp() {
+    myContext = new JUnit4Mockery() {
+      {
+        setImposteriser(ClassImposteriser.INSTANCE);
+      }
+    };
+  }
 
 //    @Test(expected = IllegalArgumentException.class)
 //    public void testFirstConstructorNullArgument() {
@@ -87,28 +87,28 @@ public class TestReportDirectoryWatcherTest {
 //        final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), null);
 //    }
 
-    @Test
-    public void testIsStoppedAfterCreation() {
-        final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), createLinkedBlockingQueue());
-        assertFalse("Watcher:stopWatching() method not invoked, but watcher is stopped.", watcher.isStopped());
-    }
+  @Test
+  public void testIsStoppedAfterCreation() {
+    final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), createLinkedBlockingQueue());
+    assertFalse("Watcher:stopWatching() method not invoked, but watcher is stopped.", watcher.isStopped());
+  }
 
-    @Test
-    public void testLogDirectoryTotalsAfterCreation() {
-        final BaseServerLoggerFacade logger = createBaseServerLoggerFacade();
-        myContext.checking(new Expectations() {
-            {
-                never(logger).warning(with(any(String.class)));
+  @Test
+  public void testLogDirectoryTotalsAfterCreation() {
+    final BaseServerLoggerFacade logger = createBaseServerLoggerFacade();
+    myContext.checking(new Expectations() {
+      {
+        never(logger).warning(with(any(String.class)));
 //                allowing (any(BaseServerLoggerFacade.class)).method(".*");
 //                allowing (never(any(Object.class))).method(".*");
 //                allowing (never(logger)).warning(with(any(String.class)));
 //                never(logger);
-            }
-        });
-        final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), createLinkedBlockingQueue());
-        watcher.logDirectoryTotals();
-        myContext.assertIsSatisfied();
-    }
+      }
+    });
+    final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), createLinkedBlockingQueue());
+    watcher.logDirectoryTotals();
+    myContext.assertIsSatisfied();
+  }
 
 //    @Test
 //    public void testNoDirectoriesToWatch() throws InterruptedException {
