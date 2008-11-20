@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="testreportparserplugin" default="all">
+<project name="xml-report-plugin" default="all">
 
 
-    <property file="testreportparserplugin.properties"/>
+    <property file="xml-report-plugin.properties"/>
     <!-- Uncomment the following property if no tests compilation is needed -->
     <!--
    <property name="skip.tests" value="true"/>
@@ -231,6 +231,55 @@
     </target>
 
 
+    <!-- Module xml-report-plugin -->
+
+    <dirname property="module.xml-report-plugin.basedir" file="${ant.file}"/>
+
+
+    <property name="compiler.args.xml-report-plugin" value="${compiler.args}"/>
+
+    <property name="xml-report-plugin.output.dir"
+              value="${module.xml-report-plugin.basedir}/out/production/xml-report-plugin"/>
+    <property name="xml-report-plugin.testoutput.dir"
+              value="${module.xml-report-plugin.basedir}/out/test/xml-report-plugin"/>
+
+    <path id="xml-report-plugin.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="xml-report-plugin.module.classpath"/>
+
+    <path id="xml-report-plugin.runtime.module.classpath">
+        <pathelement location="${xml-report-plugin.output.dir}"/>
+        <pathelement location="${xml-report-plugin.testoutput.dir}"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.xml-report-plugin">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.xml-report-plugin">
+        <patternset refid="excluded.from.module.xml-report-plugin"/>
+    </patternset>
+
+
+    <target name="compile.module.xml-report-plugin"
+            depends="compile.module.xml-report-plugin.production,compile.module.xml-report-plugin.tests"
+            description="Compile module xml-report-plugin"/>
+
+    <target name="compile.module.xml-report-plugin.production"
+            description="Compile module xml-report-plugin; production classes"/>
+
+    <target name="compile.module.xml-report-plugin.tests" depends="compile.module.xml-report-plugin.production"
+            description="compile module xml-report-plugin; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.xml-report-plugin" description="cleanup module">
+        <delete dir="${xml-report-plugin.output.dir}"/>
+        <delete dir="${xml-report-plugin.testoutput.dir}"/>
+    </target>
+
+
     <!-- Module Agent -->
 
     <dirname property="module.agent.basedir" file="${ant.file}"/>
@@ -409,10 +458,11 @@
         <!-- Perform any build initialization in this target -->
     </target>
 
-    <target name="clean" depends="clean.module.common, clean.module.server, clean.module.agent, clean.module.tests"
+    <target name="clean"
+            depends="clean.module.common, clean.module.server, clean.module.xml-report-plugin, clean.module.agent, clean.module.tests"
             description="cleanup all"/>
 
     <target name="all"
-            depends="init, clean, compile.module.common, compile.module.server, compile.module.agent, compile.module.tests"
+            depends="init, clean, compile.module.common, compile.module.server, compile.module.xml-report-plugin, compile.module.agent, compile.module.tests"
             description="build all"/>
 </project>
