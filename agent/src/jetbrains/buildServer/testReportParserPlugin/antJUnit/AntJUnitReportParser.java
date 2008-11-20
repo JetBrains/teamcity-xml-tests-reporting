@@ -196,7 +196,12 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
     myCurrentSuite = new SuiteData(name, testNumber, startTime.getTime(), duration);
     myTests = new Stack<TestData>();
-    myLogger.logSuiteStarted(name, startTime);
+    try {
+      myLogger.warning("SUITE");
+      myLogger.logSuiteStarted(name, startTime);
+    } catch (Exception e) {
+      LOG.error(e.toString());
+    }
     myCurrentSuite.logged(true);
   }
 

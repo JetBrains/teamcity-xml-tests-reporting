@@ -54,7 +54,7 @@ public class TestReportProcessor extends Thread {
     try {
       myWatcher.join();
     } catch (InterruptedException e) {
-      myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted"));
+      myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted."));
     }
     while (!myReportQueue.isEmpty()) {
       processReport(takeNextReport(1));
@@ -80,11 +80,12 @@ public class TestReportProcessor extends Thread {
     try {
       final File file = myReportQueue.poll(timeout, TimeUnit.MILLISECONDS);
       if (file != null) {
+        myPlugin.getLogger().message(createBuildLogMessage("found report file " + file.getPath() + "."));
         myCurrentReport = new ReportData(file);
         return myCurrentReport;
       }
     } catch (InterruptedException e) {
-      myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted"));
+      myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted."));
     }
     return null;
   }

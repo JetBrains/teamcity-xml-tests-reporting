@@ -58,7 +58,7 @@ public class TestReportDirectoryWatcher extends Thread {
     scanDirectories();
   }
 
-  private void scanDirectories() {
+  private synchronized void scanDirectories() {
     for (File dir : myDirectories) {
       if (dir.isDirectory()) {
         File[] files = dir.listFiles();
@@ -70,7 +70,6 @@ public class TestReportDirectoryWatcher extends Thread {
             if (!myProcessedFiles.contains(report.getPath()) &&
               report.canRead() &&
               AntJUnitReportParser.isReportFileComplete(report)) {
-              myPlugin.getLogger().message(createBuildLogMessage("found report file " + report.getPath() + "."));
               myProcessedFiles.add(report.getPath());
               try {
                 myReportQueue.put(report);
@@ -82,6 +81,10 @@ public class TestReportDirectoryWatcher extends Thread {
         }
       }
     }
+  }
+
+  public synchronized void addDirectories(List<File> directories) {
+    myDirectories.addAll(directories);
   }
 
   public void logDirectoryTotals() {
