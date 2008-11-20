@@ -24,7 +24,7 @@ import java.io.File;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-public class TestReportProcessor implements Runnable {
+public class TestReportProcessor extends Thread {
   private static final long FILE_WAIT_TIMEOUT = 500;
 
   private final TestReportParserPlugin myPlugin;
@@ -35,8 +35,59 @@ public class TestReportProcessor implements Runnable {
 
   private ReportData myCurrentReport;
 
-  private volatile boolean myFinished;
+  public TestReportProcessor(@NotNull final TestReportParserPlugin plugin,
+                             @NotNull final LinkedBlockingQueue<File> queue,
+                             @NotNull final TestReportDirectoryWatcher watcher) {
+    super("xml-report-plugin-ReportParser");
+    myPlugin = plugin;
+    myReportQueue = queue;
+    myWatcher = watcher;
+    myParser = new AntJUnitReportParser(myPlugin.getLogger());
+  }
 
+  public void run() {
+    myCurrentReport = null;
+
+    while (!myPlugin.isStopped()) {
+      processReport(takeNextReport(FILE_WAIT_TIMEOUT));
+    }
+    try {
+      myWatcher.join();
+    } catch (InterruptedException e) {
+      myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted"));
+    }
+    while (!myReportQueue.isEmpty()) {
+      processReport(takeNextReport(1));
+    }
+  }
+
+  private void processReport(ReportData report) {
+    if (report != null) {
+      long processedTests = myParser.parse(report.getFile(), report.getProcessedTests());
+      if (processedTests != -1) {
+        myCurrentReport.setProcessedTests(processedTests);
+      } else {
+        myPlugin.getLogger().message(createBuildLogMessage(report.getFile().getPath() + " report processed."));
+        myCurrentReport = null;
+      }
+    }
+  }
+
+  private ReportData takeNextReport(long timeout) {
+    if (myCurrentReport != null) {
+      return myCurrentReport;
+    }
+    try {
+      final File file = myReportQueue.poll(timeout, TimeUnit.MILLISECONDS);
+      if (file != null) {
+        myCurrentReport = new ReportData(file);
+        return myCurrentReport;
+      }
+    } catch (InterruptedException e) {
+      myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted"));
+    }
+    return null;
+  }
 
   private static final class ReportData {
     private final File myFile;
@@ -58,71 +109,5 @@ public class TestReportProcessor implements Runnable {
     public void setProcessedTests(long tests) {
       myProcessedTests = tests;
     }
-  }
-
-  public TestReportProcessor(@NotNull final TestReportParserPlugin plugin,
-                             @NotNull final LinkedBlockingQueue<File> queue,
-                             @NotNull final TestReportDirectoryWatcher watcher) {
-    myPlugin = plugin;
-    myReportQueue = queue;
-    myWatcher = watcher;
-    myParser = new AntJUnitReportParser(myPlugin.getLogger());
-  }
-
-  public void run() {
-    myFinished = false;
-    myCurrentReport = null;
-
-    while (!myPlugin.isStopped()) {
-      processReport(takeNextReport(FILE_WAIT_TIMEOUT));
-    }
-    synchronized (myWatcher) {
-      while (!myWatcher.isStopped()) {
-        try {
-          myWatcher.wait();
-        } catch (InterruptedException e) {
-          myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted"));
-        }
-      }
-    }
-    while (!myReportQueue.isEmpty()) {
-      processReport(takeNextReport(1));
-    }
-    synchronized (this) {
-      myFinished = true;
-      this.notify();
-    }
-  }
-
-  private void processReport(ReportData report) {
-    if (report != null) {
-      long processedTests = myParser.parse(report.getFile(), report.getProcessedTests());
-      if (processedTests != -1) {
-        myCurrentReport.setProcessedTests(processedTests);
-      } else {
-        myPlugin.getLogger().message(createBuildLogMessage(report.getFile().getPath() + " report processed."));
-        myCurrentReport = null;
-      }
-    }
-  }
-
-  private ReportData takeNextReport(long timeout) {
-    if (myCurrentReport != null) {
-      return myCurrentReport;
-    }
-    try {
-      File file = myReportQueue.poll(timeout, TimeUnit.MILLISECONDS);
-      if (file != null) {
-        myCurrentReport = new ReportData(file);
-        return myCurrentReport;
-      }
-    } catch (InterruptedException e) {
-      myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted"));
-    }
-    return null;
-  }
-
-  public boolean isProcessingFinished() {
-    return myFinished;
   }
 }

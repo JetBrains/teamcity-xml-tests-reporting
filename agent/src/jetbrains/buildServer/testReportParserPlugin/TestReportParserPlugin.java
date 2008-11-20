@@ -30,9 +30,10 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class TestReportParserPlugin extends AgentLifeCycleAdapter {
-  //    private static final Logger LOG = Loggers.AGENT;
-  private static final String PLUGIN_LOG_PREFIX = "TestReportParserPlugin: ";
+  private static final String PLUGIN_LOG_PREFIX = "xml-report-plugin: ";
   private static final String TEST_REPORT_DIR_PROPERTY = "testReportParsing.reportDirs";
+
+  //    private static final Logger LOG = Loggers.AGENT;
 
   private TestReportDirectoryWatcher myDirectoryWatcher;
   private TestReportProcessor myReportProcessor;
@@ -43,7 +44,6 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
 
   private volatile boolean myStopped;
 
-
   public TestReportParserPlugin(@NotNull final EventDispatcher<AgentLifeCycleListener> agentDispatcher) {
     agentDispatcher.addListener(this);
   }
@@ -51,10 +51,6 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
   public static String createBuildLogMessage(String message) {
     return PLUGIN_LOG_PREFIX + message;
   }
-
-//    public static void sendDebugMessageToAgentLog(String message) {
-//        LOG.debug("T-R-P-PLUGIN: " + Thread.currentThread().getId() + ": " + message);
-//    }
 
   public void buildStarted(@NotNull AgentRunningBuild agentRunningBuild) {
     myStopped = false;
@@ -69,12 +65,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
       return;
     }
 
-    final BuildProgressLogger logger = agentRunningBuild.getBuildLogger();
-    if (logger instanceof BaseServerLoggerFacade) {
-      myLogger = (BaseServerLoggerFacade) logger;
-    } else {
-      // not expected
-    }
+    obtainLogger(agentRunningBuild);
 
     final String dirProperty = runnerParameters.get(TEST_REPORT_DIR_PROPERTY);
     final File workingDir = agentRunningBuild.getWorkingDirectory();
@@ -84,11 +75,21 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
       myLogger.warning(createBuildLogMessage("no report directories specified."));
     }
 
-    LinkedBlockingQueue<File> queue = new LinkedBlockingQueue<File>();
-    myDirectoryWatcher = new TestReportDirectoryWatcher(this, reportDirs, queue);
-    myReportProcessor = new TestReportProcessor(this, queue, myDirectoryWatcher);
-    new Thread(myDirectoryWatcher, "TestReportParserPlugin-DirectoryWatcher").start();
-    new Thread(myReportProcessor, "TestReportParserPlugin-ReportParser").start();
+    final LinkedBlockingQueue<File> reportsQueue = new LinkedBlockingQueue<File>();
+    myDirectoryWatcher = new TestReportDirectoryWatcher(this, reportDirs, reportsQueue);
+    myReportProcessor = new TestReportProcessor(this, reportsQueue, myDirectoryWatcher);
+
+    myDirectoryWatcher.start();
+    myReportProcessor.start();
+  }
+
+  private void obtainLogger(AgentRunningBuild agentRunningBuild) {
+    final BuildProgressLogger logger = agentRunningBuild.getBuildLogger();
+    if (logger instanceof BaseServerLoggerFacade) {
+      myLogger = (BaseServerLoggerFacade) logger;
+    } else {
+      // not expected
+    }
   }
 
   //dirs are not supposed to contain ';' in their path, as it is separator
@@ -128,12 +129,10 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
       case FINISHED_SUCCESS:
       case FINISHED_FAILED:
         synchronized (myReportProcessor) {
-          while (!myReportProcessor.isProcessingFinished()) {
-            try {
-              myReportProcessor.wait();
-            } catch (InterruptedException e) {
-              myLogger.warning(createBuildLogMessage("plugin thread interrupted."));
-            }
+          try {
+            myReportProcessor.join();
+          } catch (InterruptedException e) {
+            myLogger.warning(createBuildLogMessage("plugin thread interrupted."));
           }
         }
         myDirectoryWatcher.logDirectoryTotals();

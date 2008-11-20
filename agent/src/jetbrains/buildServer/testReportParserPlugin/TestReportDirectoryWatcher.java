@@ -25,7 +25,7 @@ import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
-public class TestReportDirectoryWatcher implements Runnable {
+public class TestReportDirectoryWatcher extends Thread {
   private static final int SCAN_INTERVAL = 50;
 
   private final TestReportParserPlugin myPlugin;
@@ -35,17 +35,14 @@ public class TestReportDirectoryWatcher implements Runnable {
   private final Set<File> myActiveDirectories;
   private final List<String> myProcessedFiles;
 
-  private volatile boolean myFinished;
-
-
   public TestReportDirectoryWatcher(@NotNull final TestReportParserPlugin plugin,
                                     @NotNull final List<File> directories,
                                     @NotNull final LinkedBlockingQueue<File> queue) {
+    super("xml-report-plugin-DirectoryWatcher");
     myPlugin = plugin;
     myDirectories = new LinkedHashSet<File>(directories);
     myActiveDirectories = new HashSet<File>();
     myReportQueue = queue;
-    myFinished = false;
     myProcessedFiles = new ArrayList<String>();
   }
 
@@ -59,10 +56,6 @@ public class TestReportDirectoryWatcher implements Runnable {
       }
     }
     scanDirectories();
-    synchronized (this) {
-      myFinished = true;
-      this.notify();
-    }
   }
 
   private void scanDirectories() {
@@ -89,10 +82,6 @@ public class TestReportDirectoryWatcher implements Runnable {
         }
       }
     }
-  }
-
-  public boolean isStopped() {
-    return myFinished;
   }
 
   public void logDirectoryTotals() {

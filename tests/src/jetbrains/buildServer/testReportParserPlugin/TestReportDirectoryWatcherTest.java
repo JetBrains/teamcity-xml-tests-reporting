@@ -18,7 +18,6 @@ package jetbrains.buildServer.testReportParserPlugin;
 
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
-import static junit.framework.Assert.assertFalse;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -87,11 +86,11 @@ public class TestReportDirectoryWatcherTest {
 //        final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), null);
 //    }
 
-  @Test
-  public void testIsStoppedAfterCreation() {
-    final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), createLinkedBlockingQueue());
-    assertFalse("Watcher:stopWatching() method not invoked, but watcher is stopped.", watcher.isStopped());
-  }
+//  @Test
+//  public void testIsStoppedAfterCreation() {
+//    final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), createLinkedBlockingQueue());
+//    assertFalse("Watcher:stopWatching() method not invoked, but watcher is stopped.", watcher.isStopped());
+//  }
 
   @Test
   public void testLogDirectoryTotalsAfterCreation() {
