@@ -44,6 +44,7 @@ public class TestReportParserPluginTest {
   private TestReportParserPlugin myPlugin;
   private Map<String, String> myRunParams;
   private File myWorkingDir;
+  private BaseServerLoggerFacade myLogger;
   private EventDispatcher<AgentLifeCycleListener> myEventDispatcher;
   private ServiceMessagesRegister myServiceMessagesRegister;
 
@@ -54,11 +55,14 @@ public class TestReportParserPluginTest {
     final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
     myContext.checking(new Expectations() {
       {
-        allowing(runningBuild).getRunnerParameters();
-        will(returnValue(runParams));
-        inSequence(mySequence);
         allowing(runningBuild).getWorkingDirectory();
         will(returnValue(workingDirFile));
+        inSequence(mySequence);
+        allowing(runningBuild).getBuildLogger();
+        will(returnValue(myLogger));
+        inSequence(mySequence);
+        allowing(runningBuild).getRunnerParameters();
+        will(returnValue(runParams));
         inSequence(mySequence);
       }
     });
@@ -90,6 +94,7 @@ public class TestReportParserPluginTest {
     });
     myRunParams = new HashMap<String, String>();
     myWorkingDir = new File(WORKING_DIR);
+    myLogger = createBaseServerLoggerFacade();
   }
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
@@ -122,13 +127,9 @@ public class TestReportParserPluginTest {
 
   private void warningWhenZeroReportDirsSize() {
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
-    final BaseServerLoggerFacade logger = createBaseServerLoggerFacade();
     myContext.checking(new Expectations() {
       {
-        oneOf(runningBuild).getBuildLogger();
-        will(returnValue(logger));
-        inSequence(mySequence);
-        oneOf(logger).warning(with(any(String.class)));
+        oneOf(myLogger).warning(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -171,13 +172,10 @@ public class TestReportParserPluginTest {
 
   private void isStoppedWhenZeroReportDirsSize() {
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
-    final BaseServerLoggerFacade logger = createBaseServerLoggerFacade();
     myContext.checking(new Expectations() {
       {
-        oneOf(runningBuild).getBuildLogger();
-        will(returnValue(logger));
         ignoring(runningBuild);
-        ignoring(logger);
+        ignoring(myLogger);
       }
     });
     myPlugin = new TestReportParserPlugin(myEventDispatcher, myServiceMessagesRegister);

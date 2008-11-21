@@ -39,6 +39,7 @@ public class TestReportDirectoryWatcher extends Thread {
                                     @NotNull final List<File> directories,
                                     @NotNull final LinkedBlockingQueue<File> queue) {
     super("xml-report-plugin-DirectoryWatcher");
+
     myPlugin = plugin;
     myDirectories = new LinkedHashSet<File>(directories);
     myActiveDirectories = new HashSet<File>();
@@ -55,27 +56,31 @@ public class TestReportDirectoryWatcher extends Thread {
         myPlugin.getLogger().warning(createBuildLogMessage("directory watcher thread interrupted."));
       }
     }
+
     scanDirectories();
   }
 
   private synchronized void scanDirectories() {
     for (File dir : myDirectories) {
       if (dir.isDirectory()) {
-        File[] files = dir.listFiles();
+        final File[] files = dir.listFiles();
+
         for (int i = 0; i < files.length; ++i) {
-          File report = files[i];
+          final File report = files[i];
 
           if (report.isFile() && (report.lastModified() > myPlugin.getBuildStartTime())) {
             myActiveDirectories.add(dir);
-            if (!myProcessedFiles.contains(report.getPath()) &&
-              report.canRead() &&
+            if (!myProcessedFiles.contains(report.getPath()) && report.canRead() &&
               AntJUnitReportParser.isReportFileComplete(report)) {
+
               myProcessedFiles.add(report.getPath());
+
               try {
                 myReportQueue.put(report);
               } catch (InterruptedException e) {
                 myPlugin.getLogger().warning(createBuildLogMessage("directory watcher thread interrupted."));
               }
+
             }
           }
         }

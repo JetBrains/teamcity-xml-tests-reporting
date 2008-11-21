@@ -52,23 +52,23 @@ public class TestData {
     return myDuration;
   }
 
-  public boolean isFailure() {
-    return (myFailureType != null);
+  public String getFailureMessage() {
+    return myFailureMessage;
   }
 
   public void setFailureMessage(String message) {
     myFailureMessage = message;
   }
 
-  public void setFailureType(String type) {
-    myFailureType = type;
-  }
-
   public String getFailureType() {
     return myFailureType;
   }
 
-  public String getFailureMessage() {
-    return myFailureMessage;
+  public void setFailureType(String type) {
+    myFailureType = type;
+  }
+
+  public boolean isFailure() {
+    return (myFailureType != null);
   }
 }

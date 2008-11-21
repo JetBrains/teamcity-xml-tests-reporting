@@ -598,9 +598,9 @@ public class AntJUnitReportParserTest {
         inSequence(mySequence);
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        oneOf(myLogger).message(with("[System out]\nfrom test1"));
         inSequence(mySequence);
-        oneOf(myLogger).message(with("System out from TestCase:\nfrom test1"));
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
       }
     });
@@ -627,9 +627,9 @@ public class AntJUnitReportParserTest {
         inSequence(mySequence);
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        oneOf(myLogger).warning(with("[System error]\nfrom test1"));
         inSequence(mySequence);
-        oneOf(myLogger).warning(with("System error from TestCase:\nfrom test1"));
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
       }
     });
@@ -656,10 +656,10 @@ public class AntJUnitReportParserTest {
         inSequence(mySequence);
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).message(with("System out from TestCase:\n" +
+        oneOf(myLogger).message(with("[System out]\n" +
           "from test1 line1\nfrom test1 line2\nfrom test1 line3\nfrom test1 line4\nfrom test1 line5"));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
       }
     });
@@ -686,10 +686,10 @@ public class AntJUnitReportParserTest {
         inSequence(mySequence);
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).warning(with("System error from TestCase:\n" +
+        oneOf(myLogger).warning(with("[System error]\n" +
           "from test1 line1\nfrom test1 line2\nfrom test1 line3\nfrom test1 line4\nfrom test1 line5"));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
       }
     });
@@ -717,12 +717,12 @@ public class AntJUnitReportParserTest {
         inSequence(mySequence);
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).message(with("System out from TestCase:\n" +
+        oneOf(myLogger).message(with("[System out]\n" +
           "out from test1 line1\nout from test1 line2\nout from test1 line3\nout from test1 line4\nout from test1 line5"));
-        oneOf(myLogger).warning(with("System error from TestCase:\n" +
+        oneOf(myLogger).warning(with("[System error]\n" +
           "err from test1 line1\nerr from test1 line2\nerr from test1 line3\nerr from test1 line4\nerr from test1 line5"));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
       }
     });

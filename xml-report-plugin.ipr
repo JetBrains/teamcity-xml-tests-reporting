@@ -261,10 +261,10 @@
   <component name="ProjectFileVersion" converted="true" />
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/agent/Agent.iml" filepath="$PROJECT_DIR$/agent/Agent.iml" />
-      <module fileurl="file://$PROJECT_DIR$/common/Common.iml" filepath="$PROJECT_DIR$/common/Common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/server/Server.iml" filepath="$PROJECT_DIR$/server/Server.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tests/Tests.iml" filepath="$PROJECT_DIR$/tests/Tests.iml" />
+      <module fileurl="file://$PROJECT_DIR$/agent/agent.iml" filepath="$PROJECT_DIR$/agent/agent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/server.iml" filepath="$PROJECT_DIR$/server/server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tests/tests.iml" filepath="$PROJECT_DIR$/tests/tests.iml" />
       <module fileurl="file://$PROJECT_DIR$/xml-report-plugin.iml" filepath="$PROJECT_DIR$/xml-report-plugin.iml" />
     </modules>
   </component>
@@ -302,8 +302,8 @@
     </library>
     <library name="TeamCity API">
       <CLASSES>
-        <root url="jar://$TeamCityDistribution$/buildAgent/lib/server-logging.jar!/" />
         <root url="jar://$TeamCityDistribution$/buildAgent/lib/runtime-util.jar!/" />
+        <root url="jar://$TeamCityDistribution$/buildAgent/lib/server-logging.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -331,13 +331,13 @@
     </library>
     <library name="JMock">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/Tests/lib/jmock-2.5.1.jar!/" />
-        <root url="jar://$PROJECT_DIR$/Tests/lib/jmock-junit4-2.5.1.jar!/" />
-        <root url="jar://$PROJECT_DIR$/Tests/lib/jmock-legacy-2.5.1.jar!/" />
-        <root url="jar://$PROJECT_DIR$/Tests/lib/cglib-nodep-2.1_3.jar!/" />
         <root url="jar://$PROJECT_DIR$/Tests/lib/objenesis-1.0.jar!/" />
+        <root url="jar://$PROJECT_DIR$/Tests/lib/jmock-junit4-2.5.1.jar!/" />
         <root url="jar://$PROJECT_DIR$/Tests/lib/hamcrest-library-1.1.jar!/" />
+        <root url="jar://$PROJECT_DIR$/Tests/lib/jmock-legacy-2.5.1.jar!/" />
+        <root url="jar://$PROJECT_DIR$/Tests/lib/jmock-2.5.1.jar!/" />
         <root url="jar://$PROJECT_DIR$/Tests/lib/hamcrest-core-1.1.jar!/" />
+        <root url="jar://$PROJECT_DIR$/Tests/lib/cglib-nodep-2.1_3.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

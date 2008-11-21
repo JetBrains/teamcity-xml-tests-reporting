@@ -54,9 +54,16 @@
     </copy>
   </target>
 
+  <target name="copy.log4j.configuration">
+    <property name="tests.testdata" value="${basedir}/tests/testData"/>
+    <copy todir="${tests.testoutput.dir}" file="${tests.testdata}/log4j.xml"/>
+  </target>
+
   <target name="test">
     <delete dir="test-reports" quiet="true"/>
     <mkdir dir="test-reports"/>
+
+    <antcall target="copy.log4j.configuration"/>
 
     <junit printsummary="on" fork="true" haltonfailure="false" haltonerror="false" failureproperty="failure_found"
            showoutput="true">

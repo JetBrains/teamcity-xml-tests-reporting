@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
+import com.intellij.openapi.diagnostic.Logger;
 import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin.createBuildLogMessage;
 import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
@@ -26,6 +27,9 @@ import java.util.concurrent.TimeUnit;
 
 public class TestReportProcessor extends Thread {
   private static final long FILE_WAIT_TIMEOUT = 500;
+  private static final int TRIES_TO_PARSE = 20;
+
+  private static final Logger LOG = Logger.getInstance(TestReportProcessor.class.getName());
 
   private final TestReportParserPlugin myPlugin;
 
@@ -62,23 +66,36 @@ public class TestReportProcessor extends Thread {
   }
 
   private void processReport(ReportData report) {
-    if (report != null) {
-      long processedTests = myParser.parse(report.getFile(), report.getProcessedTests());
-      if (processedTests != -1) {
-        myCurrentReport.setProcessedTests(processedTests);
-      } else {
-        myPlugin.getLogger().message(createBuildLogMessage(report.getFile().getPath() + " report processed."));
+    if (report == null) {
+      return;
+    }
+
+    long processedTests = myParser.parse(report.getFile(), report.getProcessedTests());
+    if (processedTests != -1) {
+      myCurrentReport.setProcessedTests(processedTests);
+
+      if (myCurrentReport.getTriesToParse() == TRIES_TO_PARSE) {
+        LOG.debug("Unable to get full report from " + TRIES_TO_PARSE + " tries.");
+
+        myParser.abnormalEnd();
+        myPlugin.getLogger().message(createBuildLogMessage(report.getFile().getPath() + " report has unexpected finish."));
         myCurrentReport = null;
       }
+    } else {
+      myPlugin.getLogger().message(createBuildLogMessage(report.getFile().getPath() + " report processed."));
+      myCurrentReport = null;
     }
   }
 
   private ReportData takeNextReport(long timeout) {
     if (myCurrentReport != null) {
+      myCurrentReport.parsedOnceMore();
       return myCurrentReport;
     }
+
     try {
       final File file = myReportQueue.poll(timeout, TimeUnit.MILLISECONDS);
+
       if (file != null) {
         myPlugin.getLogger().message(createBuildLogMessage("found report file " + file.getPath() + "."));
         myCurrentReport = new ReportData(file);
@@ -87,16 +104,19 @@ public class TestReportProcessor extends Thread {
     } catch (InterruptedException e) {
       myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted."));
     }
+
     return null;
   }
 
   private static final class ReportData {
     private final File myFile;
     private long myProcessedTests;
+    private int myTriesToParse;
 
     public ReportData(@NotNull final File file) {
       myFile = file;
       myProcessedTests = 0;
+      myTriesToParse = 0;
     }
 
     public File getFile() {
@@ -109,6 +129,14 @@ public class TestReportProcessor extends Thread {
 
     public void setProcessedTests(long tests) {
       myProcessedTests = tests;
+    }
+
+    public int getTriesToParse() {
+      return myTriesToParse;
+    }
+
+    public void parsedOnceMore() {
+      ++myTriesToParse;
     }
   }
 }

@@ -16,8 +16,7 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
-//import com.intellij.openapi.diagnostic.Logger;
-
+import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.messages.serviceMessages.ServiceMessage;
 import jetbrains.buildServer.messages.serviceMessages.ServiceMessageHandler;
@@ -38,7 +37,8 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
 
   private static final String SERVICE_MESSAGE_NAME = "junitReportsPath";
   private static final String SERVICE_MESSAGE_PARAMETER_NAME = "paths";
-  //    private static final Logger LOG = Loggers.AGENT;
+
+  private static final Logger LOG = Logger.getInstance(TestReportParserPlugin.class.getName());
 
   private TestReportDirectoryWatcher myDirectoryWatcher;
   private TestReportProcessor myReportProcessor;
@@ -66,6 +66,9 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
   }
 
   public void beforeRunnerStart(@NotNull AgentRunningBuild agentRunningBuild) {
+    myRunnerWorkingDir = agentRunningBuild.getWorkingDirectory();
+    obtainLogger(agentRunningBuild);
+
     final Map<String, String> runnerParameters = agentRunningBuild.getRunnerParameters();
 
     myTestReportParsingEnabled = isTestReportParsingEnabled(runnerParameters);
@@ -73,9 +76,6 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
       return;
     }
 
-    obtainLogger(agentRunningBuild);
-
-    myRunnerWorkingDir = agentRunningBuild.getWorkingDirectory();
     final String dirProperty = runnerParameters.get(TEST_REPORT_DIR_PROPERTY);
     final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myRunnerWorkingDir);
 
@@ -83,7 +83,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
       myLogger.warning(createBuildLogMessage("no report directories specified."));
     }
 
-    startReportProcessing(reportDirs);        //"##teamcity[junitReportsPath paths='reports']"
+    startReportProcessing(reportDirs);
   }
 
   private void startReportProcessing(List<File> reportDirs) {
@@ -101,6 +101,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
       myLogger = (BaseServerLoggerFacade) logger;
     } else {
       // not expected
+      LOG.debug("Couldn't obtain logger: agentRunningBuild.getBuildLogger() is not instance of BaseServerLoggerFacade");
     }
   }
 
@@ -152,9 +153,8 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
     }
   }
 
+  //"##teamcity[junitReportsPath paths='reports']"
   public void handle(@NotNull ServiceMessage serviceMessage) {
-    myLogger.message(createBuildLogMessage("recieved service message: " + serviceMessage.getArgument()));
-
     final String dirProperty = serviceMessage.getAttributes().get(SERVICE_MESSAGE_PARAMETER_NAME);
     final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myRunnerWorkingDir);
 

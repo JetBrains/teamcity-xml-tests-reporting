@@ -21,5 +21,8 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 
 public interface TestReportParser {
+
   long parse(@NotNull final File report, long testsToSkip);
+
+  void abnormalEnd();
 }

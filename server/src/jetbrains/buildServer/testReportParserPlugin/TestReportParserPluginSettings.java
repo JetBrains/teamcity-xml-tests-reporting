@@ -27,7 +27,7 @@ import java.util.List;
 
 public class TestReportParserPluginSettings {
   public TestReportParserPluginSettings(@NotNull final PagePlaces pagePlaces, @NotNull final ProjectManager projectManager) {
-    List<String> supportedRunTypes = Arrays.asList("Ant", "simpleRunner");
+    List<String> supportedRunTypes = Arrays.asList("simpleRunner");
 
     EditBuildRunnerSettingsExtension editSettingsExtension =
       new EditBuildRunnerSettingsExtension(pagePlaces, supportedRunTypes);

@@ -18,7 +18,6 @@ package jetbrains.buildServer.testReportParserPlugin.antJUnit;
 
 public class SuiteData {
   private final String myName;
-  private final long myTestNumber;
   private final long myStartTime;
   private final long myDuration;
   private boolean myLogged;
@@ -26,9 +25,8 @@ public class SuiteData {
   private String myFailureType;
   private String myFailureMessage;
 
-  public SuiteData(final String name, long testNumber, long startTime, long duration) {
+  public SuiteData(final String name, long startTime, long duration) {
     myName = name;
-    myTestNumber = testNumber;
     myStartTime = startTime;
     myDuration = duration;
     myLogged = false;
@@ -36,10 +34,6 @@ public class SuiteData {
 
   public String getName() {
     return myName;
-  }
-
-  public long getTestNumber() {
-    return myTestNumber;
   }
 
   public long getStartTime() {
@@ -50,28 +44,28 @@ public class SuiteData {
     return myDuration;
   }
 
-  public void logged(boolean logged) {
+  public boolean getLogged() {
+    return myLogged;
+  }
+
+  public void setLogged(boolean logged) {
     myLogged = logged;
   }
 
-  public boolean isLogged() {
-    return myLogged;
+  public String getFailureMessage() {
+    return myFailureMessage;
   }
 
   public void setFailureMessage(String message) {
     myFailureMessage = message;
   }
 
-  public void setFailureType(String type) {
-    myFailureType = type;
-  }
-
   public String getFailureType() {
     return myFailureType;
   }
 
-  public String getFailureMessage() {
-    return myFailureMessage;
+  public void setFailureType(String type) {
+    myFailureType = type;
   }
 
   public boolean isFailure() {
