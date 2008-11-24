@@ -67,8 +67,11 @@ public class TestReportDirectoryWatcher extends Thread {
 
         for (int i = 0; i < files.length; ++i) {
           final File report = files[i];
+          System.out.println("FILE: " + report.getPath());
 
-          if (report.isFile() && (report.lastModified() > myPlugin.getBuildStartTime())) {
+          System.out.println(report.lastModified());
+          System.out.println(myPlugin.getBuildStartTime());
+          if (report.isFile() && (report.lastModified() >= myPlugin.getBuildStartTime())) {
             myActiveDirectories.add(dir);
             if (!myProcessedFiles.contains(report.getPath()) && report.canRead() &&
               AntJUnitReportParser.isReportFileComplete(report)) {
@@ -76,6 +79,7 @@ public class TestReportDirectoryWatcher extends Thread {
               myProcessedFiles.add(report.getPath());
 
               try {
+                System.out.println("REPORT: " + report.getPath());
                 myReportQueue.put(report);
               } catch (InterruptedException e) {
                 myPlugin.getLogger().warning(createBuildLogMessage("directory watcher thread interrupted."));
@@ -93,7 +97,7 @@ public class TestReportDirectoryWatcher extends Thread {
   }
 
   public void logDirectoryTotals() {
-    if (myDirectories.removeAll(myActiveDirectories)) {
+    if (myDirectories.removeAll(myActiveDirectories) || (myActiveDirectories.size() == 0)) {
       for (File dir : myDirectories) {
         if (!dir.exists()) {
           myPlugin.getLogger().warning(createBuildLogMessage(dir.getPath() + " directory didn't appear on disk during the build."));

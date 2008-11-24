@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package jetbrains.buildServer.testReportParserPlugin.performance;
+package jetbrains.buildServer.testReportParserPlugin.integration;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 
@@ -72,15 +72,15 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
       return null;
     }
     final MethodInvokation expected = getNextExpectedInvokation();
-    expected.setInvoked();
     if ((expected == null) || (!currentMethod().equals(expected.getMethodName()))) {
       return "Unexpected method invokation: " + name;
     }
+    expected.setInvoked();
     List<Object> expectedParams = expected.getMethodParams();
     for (int i = 0; i < params.size(); ++i) {
-      Object expectedParam = expectedParams.get(i);
-      Object actualParam = params.get(i);
-      if (expected.equals(MethodInvokation.ANY)) {
+      final Object expectedParam = expectedParams.get(i);
+      final Object actualParam = params.get(i);
+      if (expected.equals(MethodInvokation.ANY_VALUE)) {
         continue;
       }
       if (!actualParam.equals(expectedParam)) {
@@ -100,12 +100,12 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   }
 
   public void message(java.lang.String s) {
-    List<Object> params = new ArrayList();
-    params.add(s);
-    final String message = getFailureIfOccurs(params);
-    if (message != null) {
-      myFailures.add(new UnexpectedInvokationException(message));
-    }
+//    List<Object> params = new ArrayList();
+//    params.add(s);
+//    final String message = getFailureIfOccurs(params);
+//    if (message != null) {
+//      myFailures.add(new UnexpectedInvokationException(message));
+//    }
   }
 
   public void logTestStarted(java.lang.String s, java.util.Date date) {

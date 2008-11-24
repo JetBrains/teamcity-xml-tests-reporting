@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jetbrains.buildServer.testReportParserPlugin.performance;
+package jetbrains.buildServer.testReportParserPlugin.integration;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +22,7 @@ import java.util.List;
 
 
 public class MethodInvokation {
-  public static final Object ANY = new Object();
+  public static final Object ANY_VALUE = new Object();
 
   private final String myMethodName;
   private final List<Object> myMethodParams;

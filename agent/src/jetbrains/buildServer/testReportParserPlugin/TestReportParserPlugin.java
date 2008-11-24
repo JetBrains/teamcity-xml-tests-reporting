@@ -32,8 +32,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class TestReportParserPlugin extends AgentLifeCycleAdapter implements ServiceMessageHandler {
+  public static final String TEST_REPORT_DIR_PROPERTY = "testReportParsing.reportDirs";
   private static final String PLUGIN_LOG_PREFIX = "xml-report-plugin: ";
-  private static final String TEST_REPORT_DIR_PROPERTY = "testReportParsing.reportDirs";
 
   private static final String SERVICE_MESSAGE_NAME = "junitReportsPath";
   private static final String SERVICE_MESSAGE_PARAMETER_NAME = "paths";
