@@ -52,16 +52,23 @@ public class TestReportProcessor extends Thread {
   public void run() {
     myCurrentReport = null;
 
-    while (!myPlugin.isStopped()) {
-      processReport(takeNextReport(FILE_WAIT_TIMEOUT));
-    }
     try {
-      myWatcher.join();
-    } catch (InterruptedException e) {
-      myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted."));
-    }
-    while (!allReportsProcessed()) {
-      processReport(takeNextReport(1));
+      // workaround to show test suites in the build log
+      myPlugin.getLogger().targetStarted("junit-report-parser");
+
+      while (!myPlugin.isStopped()) {
+        processReport(takeNextReport(FILE_WAIT_TIMEOUT));
+      }
+      try {
+        myWatcher.join();
+      } catch (InterruptedException e) {
+        myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted."));
+      }
+      while (!allReportsProcessed()) {
+        processReport(takeNextReport(1));
+      }
+    } finally {
+      myPlugin.getLogger().targetFinished("junit-report-parser");
     }
   }
 
@@ -86,7 +93,7 @@ public class TestReportProcessor extends Thread {
         myCurrentReport = null;
       }
     } else {
-      myPlugin.getLogger().message(createBuildLogMessage(report.getFile().getPath() + " report processed."));
+      //myPlugin.getLogger().message(createBuildLogMessage(report.getFile().getPath() + " report processed."));
       myCurrentReport = null;
     }
   }
