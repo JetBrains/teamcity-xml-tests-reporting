@@ -65,14 +65,12 @@ public class TestReportDirectoryWatcher extends Thread {
       if (dir.isDirectory()) {
         final File[] files = dir.listFiles();
 
-        for (int i = 0; i < files.length; ++i) {
-          final File report = files[i];
-
+        for (final File report : files) {
           if (report.isFile() && (report.lastModified() >= myPlugin.getBuildStartTime())) {
             myActiveDirectories.add(dir);
 
             if (!myProcessedFiles.contains(report.getPath()) && report.canRead() &&
-              AntJUnitReportParser.isReportFileComplete(report)) {
+                    AntJUnitReportParser.isReportFileComplete(report)) {
 
               myProcessedFiles.add(report.getPath());
 
@@ -94,7 +92,8 @@ public class TestReportDirectoryWatcher extends Thread {
   }
 
   public void logDirectoryTotals() {
-    if (myDirectories.removeAll(myActiveDirectories) || (myActiveDirectories.size() == 0)) {
+    if (myDirectories.isEmpty()) return;
+    if (myDirectories.size() != myActiveDirectories.size()) {
       for (File dir : myDirectories) {
         if (!dir.exists()) {
           myPlugin.getLogger().warning(createBuildLogMessage(dir.getPath() + " directory didn't appear on disk during the build."));
