@@ -145,7 +145,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
           try {
             myReportProcessor.join();
           } catch (InterruptedException e) {
-            myLogger.warning(createBuildLogMessage("plugin thread interrupted."));
+            LOG.debug(createBuildLogMessage("plugin thread interrupted."));
           }
         }
         myDirectoryWatcher.logDirectoryTotals();

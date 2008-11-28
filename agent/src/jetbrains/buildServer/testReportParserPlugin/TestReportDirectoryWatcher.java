@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
+import com.intellij.openapi.diagnostic.Logger;
 import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin.createBuildLogMessage;
 import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
@@ -26,6 +27,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class TestReportDirectoryWatcher extends Thread {
+  private final static Logger LOG = Logger.getInstance(AntJUnitReportParser.class.getName());
   private static final int SCAN_INTERVAL = 50;
 
   private final TestReportParserPlugin myPlugin;
@@ -72,14 +74,14 @@ public class TestReportDirectoryWatcher extends Thread {
             myActiveDirectories.add(dir);
 
             if (!myProcessedFiles.contains(report.getPath()) && report.canRead() &&
-                    AntJUnitReportParser.isReportFileComplete(report)) {
+              AntJUnitReportParser.isReportFileComplete(report)) {
 
               myProcessedFiles.add(report.getPath());
 
               try {
                 myReportQueue.put(report);
               } catch (InterruptedException e) {
-                myPlugin.getLogger().warning(createBuildLogMessage("directory watcher thread interrupted."));
+                LOG.debug(createBuildLogMessage("directory watcher thread interrupted."));
               }
 
             }

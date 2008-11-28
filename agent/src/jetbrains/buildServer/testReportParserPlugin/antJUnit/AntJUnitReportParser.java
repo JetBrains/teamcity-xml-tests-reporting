@@ -232,9 +232,9 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       myLogger.warning("[System error]\n" + mySystemErr);
       mySystemErr = null;
     }
-    myLogger.logSuiteFinished(myCurrentSuite.getName(), new Date(myCurrentSuite.getStartTime() + myCurrentSuite.getDuraion()));
 //    uncomment for deploy
 //    myLogger.logSuiteFinished(myCurrentSuite.getName(), new Date(myCurrentSuite.getStartTime() + myCurrentSuite.getDuraion()));
+    myLogger.logSuiteFinished(myCurrentSuite.getName(), new Date(myCurrentSuite.getStartTime() + myCurrentSuite.getDuraion()));
 
     myCurrentSuite = null;
     myTests = null;
