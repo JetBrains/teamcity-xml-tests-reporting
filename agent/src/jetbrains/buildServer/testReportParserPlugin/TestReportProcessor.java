@@ -101,7 +101,7 @@ public class TestReportProcessor extends Thread {
       final File file = myReportQueue.poll(timeout, TimeUnit.MILLISECONDS);
 
       if (file != null) {
-        myPlugin.getLogger().message(createBuildLogMessage("found report file " + file.getPath() + "."));
+//        myPlugin.getLogger().message(createBuildLogMessage("found report file " + file.getPath() + "."));
         myCurrentReport = new ReportData(file);
         return myCurrentReport;
       }
