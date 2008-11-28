@@ -60,7 +60,7 @@ public class TestReportProcessor extends Thread {
     } catch (InterruptedException e) {
       myPlugin.getLogger().warning(createBuildLogMessage("report processor thread interrupted."));
     }
-    while (!myReportQueue.isEmpty()) {
+    while (!allReportsProcessed()) {
       processReport(takeNextReport(1));
     }
   }
@@ -75,10 +75,14 @@ public class TestReportProcessor extends Thread {
       myCurrentReport.setProcessedTests(processedTests);
 
       if (myCurrentReport.getTriesToParse() == TRIES_TO_PARSE) {
-        LOG.debug("Unable to get full report from " + TRIES_TO_PARSE + " tries.");
+        System.out.println(myCurrentReport.getFile().getPath());
+        LOG.debug("Unable to get full report from " + TRIES_TO_PARSE + " tries. File is supposed to have illegal structure or unsupported format.");
 
-        myParser.abnormalEnd();
-        myPlugin.getLogger().message(createBuildLogMessage(report.getFile().getPath() + " report has unexpected finish."));
+        if (myParser.abnormalEnd()) {
+          myPlugin.getLogger().warning(createBuildLogMessage(report.getFile().getPath() + " report has unexpected finish."));
+        } else {
+          myPlugin.getLogger().warning(createBuildLogMessage(report.getFile().getPath() + " is not Ant JUnit report file."));
+        }
         myCurrentReport = null;
       }
     } else {
@@ -106,6 +110,10 @@ public class TestReportProcessor extends Thread {
     }
 
     return null;
+  }
+
+  private boolean allReportsProcessed() {
+    return (myCurrentReport == null) && myReportQueue.isEmpty();
   }
 
   private static final class ReportData {

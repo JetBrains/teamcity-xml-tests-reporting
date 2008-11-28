@@ -67,19 +67,16 @@ public class TestReportDirectoryWatcher extends Thread {
 
         for (int i = 0; i < files.length; ++i) {
           final File report = files[i];
-          System.out.println("FILE: " + report.getPath());
 
-          System.out.println(report.lastModified());
-          System.out.println(myPlugin.getBuildStartTime());
           if (report.isFile() && (report.lastModified() >= myPlugin.getBuildStartTime())) {
             myActiveDirectories.add(dir);
+
             if (!myProcessedFiles.contains(report.getPath()) && report.canRead() &&
               AntJUnitReportParser.isReportFileComplete(report)) {
 
               myProcessedFiles.add(report.getPath());
 
               try {
-                System.out.println("REPORT: " + report.getPath());
                 myReportQueue.put(report);
               } catch (InterruptedException e) {
                 myPlugin.getLogger().warning(createBuildLogMessage("directory watcher thread interrupted."));

@@ -42,6 +42,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
 //        for (int i = 0; i < ste.length; ++i) {
 //            System.out.println(ste[i]);
 //        }
+    System.out.println(ste[4].getMethodName());
     return ste[4].getMethodName();
   }
 

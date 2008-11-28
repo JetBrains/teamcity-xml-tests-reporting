@@ -124,6 +124,10 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       myXMLReader.parse(new InputSource(report.toURI().toString()));
 
     } catch (SAXParseException e) {
+      if (myTests != null) {
+        myTests.clear();
+      }
+
       return myLoggedTests;
 
     } catch (Exception e) {
@@ -144,15 +148,14 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     return -1;
   }
 
-  public void abnormalEnd() {
-    LOG.debug("Abnormal end called. Log ending of all started entities.");
-
-    while (myTests.size() != 0) {
-      endTest();
-    }
+  public boolean abnormalEnd() {
     if ((myCurrentSuite != null) && myCurrentSuite.getLogged()) {
       endSuite();
+      LOG.debug("Abnormal end called. Log ending of started suite.");
+      return true;
     }
+
+    return false;
   }
 
   public void startElement(String uri, String localName,

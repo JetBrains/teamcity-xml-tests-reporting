@@ -24,6 +24,7 @@ import jetbrains.buildServer.agent.BuildFinishedStatus;
 import jetbrains.buildServer.messages.serviceMessages.ServiceMessagesRegister;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil;
+import static jetbrains.buildServer.testReportParserPlugin.integration.ReportFactory.*;
 import jetbrains.buildServer.util.EventDispatcher;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -34,8 +35,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +43,7 @@ import java.util.Map;
 @RunWith(JMock.class)
 public class TestReportParserPluginIntegrationTest {
   private static final String WORKING_DIR = "workingDirForTesting";
+  private static final String REPORTS_DIR = "reportsDir";
 
   private TestReportParserPlugin myPlugin;
   private AgentRunningBuild myRunningBuild;
@@ -98,6 +98,7 @@ public class TestReportParserPluginIntegrationTest {
       }
     });
     myPlugin = new TestReportParserPlugin(myEventDispatcher, myServiceMessagesRegister);
+    ReportFactory.setWorkingDir(WORKING_DIR);
   }
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
@@ -156,34 +157,89 @@ public class TestReportParserPluginIntegrationTest {
     }
   }
 
-  private static void createDir(String name) {
-    (new File(WORKING_DIR + "\\" + name)).mkdir();
-  }
-
-  private void createFile(String name) {
-    final File f = new File(WORKING_DIR + "\\" + name);
-    try {
-      final FileWriter fw = new FileWriter(f);
-      fw.write("File content");
-      fw.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
   @Test
   public void testWarningWhenDirectoryWasNotActuallyDirectory() {
     myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, "reports");
     TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
 
-    List<Object> params = new ArrayList<Object>();
+    final List<Object> params = new ArrayList<Object>();
     params.add(MethodInvokation.ANY_VALUE);
     myLogSequence.add(new MethodInvokation("warning", params));
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    createFile("reports");
+    ReportFactory.createFile("reports");
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myContext.assertIsSatisfied();
+    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+
+    if (myFailures.size() > 0) {
+      throw myFailures.get(0);
+    }
+  }
+
+  private void warningWhenNoReportsFoundInDirectory() {
+    createDir(REPORTS_DIR);
+    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, REPORTS_DIR);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
+
+    final List<Object> params = new ArrayList<Object>();
+    params.add(MethodInvokation.ANY_VALUE);
+    myLogSequence.add(new MethodInvokation("warning", params));
+    myTestLogger.setExpectedSequence(myLogSequence);
+  }
+
+  @Test
+  public void testWarningWhenNoReportsFoundInDirectory() {
+    warningWhenNoReportsFoundInDirectory();
+
+    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myContext.assertIsSatisfied();
+    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+
+    if (myFailures.size() > 0) {
+      throw myFailures.get(0);
+    }
+  }
+
+  @Test
+  public void testWarningWhenNoReportsFoundInDirectoryOnlyWrongFile() {
+    warningWhenNoReportsFoundInDirectory();
+
+    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    createFile(REPORTS_DIR + "\\somefile");
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myContext.assertIsSatisfied();
+    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+
+    if (myFailures.size() > 0) {
+      throw myFailures.get(0);
+    }
+  }
+
+  @Test
+  public void testWarningWhenUnfinishedReportFoundInDirectory() {
+    createDir(REPORTS_DIR);
+    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, REPORTS_DIR);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
+
+    final List<Object> params = new ArrayList<Object>();
+    params.add(MethodInvokation.ANY_VALUE);
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", params));
+    myLogSequence.add(new MethodInvokation("logTestStarted", params));
+    myLogSequence.add(new MethodInvokation("logTestFailed", params));
+    myLogSequence.add(new MethodInvokation("logTestFinished", params));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", params));
+    myLogSequence.add(new MethodInvokation("warning", params));
+    myTestLogger.setExpectedSequence(myLogSequence);
+
+    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    createUnfinishedReport(REPORTS_DIR + "\\report");
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -194,20 +250,31 @@ public class TestReportParserPluginIntegrationTest {
   }
 
 //  @Test
-//  public void testWarningWhenNoReportsFoundInDirectoryOnlyWrongFile() {
-//    final String dirName = "reportsDir";
-//    createDir(dirName);
-//    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, "reportsDir");
+//  public void testWarningWhenUnfinishedReportsFoundInDirectory() {
+//    final int fileNumber = 50;
+//
+//    createDir(REPORTS_DIR);
+//    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, REPORTS_DIR);
 //    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
 //
-//    List<Object> params = new ArrayList<Object>();
+//    final List<Object> params = new ArrayList<Object>();
 //    params.add(MethodInvokation.ANY_VALUE);
-//    myLogSequence.add(new MethodInvokation("warning", params));
+//    for (int i = 0; i < fileNumber; ++i) {
+//      myLogSequence.add(new MethodInvokation("logSuiteStarted", params));
+//      myLogSequence.add(new MethodInvokation("logTestStarted", params));
+//      myLogSequence.add(new MethodInvokation("logTestFailed", params));
+//      myLogSequence.add(new MethodInvokation("logTestFinished", params));
+//      myLogSequence.add(new MethodInvokation("logSuiteFinished", params));
+//      myLogSequence.add(new MethodInvokation("warning", params));
+//    }
 //    myTestLogger.setExpectedSequence(myLogSequence);
+//    warningWhenNoReportsFoundInDirectory();
 //
 //    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
 //    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-//    createFile(dirName + "\\somefile");
+//    for (int i = 0; i < fileNumber; ++i) {
+//      createUnfinishedReport(REPORTS_DIR + "\\report" + i);
+//    }
 //    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
 //    myContext.assertIsSatisfied();
 //    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -218,33 +285,10 @@ public class TestReportParserPluginIntegrationTest {
 //  }
 
   @Test
-  public void testWarningWhenNoReportsFoundInDirectory() {
-    final String dirName = "reportsDir";
-    createDir(dirName);
-    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, "reportsDir");
-    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
-
-    List<Object> params = new ArrayList<Object>();
-    params.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("warning", params));
-    myTestLogger.setExpectedSequence(myLogSequence);
-
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-    myContext.assertIsSatisfied();
-    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
-
-    if (myFailures.size() > 0) {
-      throw myFailures.get(0);
-    }
-  }
-
-  @Test
   public void testNotSilentWhenEnabled() {
     TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
 
-    List<Object> params = new ArrayList<Object>();
+    final List<Object> params = new ArrayList<Object>();
     params.add(MethodInvokation.ANY_VALUE);
     myLogSequence.add(new MethodInvokation("warning", params));
     myTestLogger.setExpectedSequence(myLogSequence);

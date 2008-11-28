@@ -24,5 +24,5 @@ public interface TestReportParser {
 
   long parse(@NotNull final File report, long testsToSkip);
 
-  void abnormalEnd();
+  boolean abnormalEnd();
 }
