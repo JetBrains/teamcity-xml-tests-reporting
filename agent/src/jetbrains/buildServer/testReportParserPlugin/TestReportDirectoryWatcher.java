@@ -52,8 +52,9 @@ public class TestReportDirectoryWatcher extends Thread {
       try {
         scanDirectories();
         Thread.sleep(SCAN_INTERVAL);
-      } catch (InterruptedException e) {
-        myPlugin.getLogger().warning(createBuildLogMessage("directory watcher thread interrupted."));
+      } catch (Throwable e) {
+        myPlugin.getLogger().error(createBuildLogMessage("Exception occurred during directories scanning: " + e.toString()));
+        myPlugin.getLogger().exception(e);
       }
     }
 
@@ -64,6 +65,7 @@ public class TestReportDirectoryWatcher extends Thread {
     for (File dir : myDirectories) {
       if (dir.isDirectory()) {
         final File[] files = dir.listFiles();
+        if (files == null) continue;
 
         for (final File report : files) {
           if (report.isFile() && (report.lastModified() >= myPlugin.getBuildStartTime())) {
