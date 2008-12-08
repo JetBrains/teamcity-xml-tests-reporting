@@ -28,5 +28,4 @@
         </span>
     </td>
   </tr>
-
 </l:settingsGroup>

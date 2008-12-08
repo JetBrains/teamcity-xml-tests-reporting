@@ -17,7 +17,7 @@
 package jetbrains.buildServer.testReportParserPlugin;
 
 import com.intellij.openapi.diagnostic.Logger;
-import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin.createBuildLogMessage;
+import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin.createLogMessage;
 import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
 
@@ -62,7 +62,7 @@ public class TestReportProcessor extends Thread {
       try {
         myWatcher.join();
       } catch (InterruptedException e) {
-        LOG.debug(createBuildLogMessage("report processor thread interrupted."));
+        LOG.debug(createLogMessage("report processor thread interrupted."));
       }
       while (!allReportsProcessed()) {
         processReport(takeNextReport(1));
@@ -86,14 +86,14 @@ public class TestReportProcessor extends Thread {
         LOG.debug("Unable to get full report from " + TRIES_TO_PARSE + " tries. File is supposed to have illegal structure or unsupported format.");
 
         if (myParser.abnormalEnd()) {
-          myPlugin.getLogger().warning(createBuildLogMessage(report.getFile().getPath() + " report has unexpected finish."));
+          myPlugin.getLogger().warning(createLogMessage(report.getFile().getPath() + " report has unexpected finish or unsupported format."));
         } else {
-          myPlugin.getLogger().warning(createBuildLogMessage(report.getFile().getPath() + " is not Ant JUnit report file."));
+          myPlugin.getLogger().warning(createLogMessage(report.getFile().getPath() + " is not Ant JUnit report file."));
         }
         myCurrentReport = null;
       }
     } else {
-      LOG.debug(createBuildLogMessage(report.getFile().getPath() + " report processed."));
+      LOG.debug(createLogMessage(report.getFile().getPath() + " report processed."));
       myCurrentReport = null;
     }
   }
@@ -108,12 +108,12 @@ public class TestReportProcessor extends Thread {
       final File file = myReportQueue.poll(timeout, TimeUnit.MILLISECONDS);
 
       if (file != null) {
-        LOG.debug(createBuildLogMessage("found report file " + file.getPath() + "."));
+        LOG.debug(createLogMessage("found report file " + file.getPath() + "."));
         myCurrentReport = new ReportData(file);
         return myCurrentReport;
       }
     } catch (InterruptedException e) {
-      LOG.debug(createBuildLogMessage("report processor thread interrupted."));
+      LOG.debug(createLogMessage("report processor thread interrupted."));
     }
 
     return null;

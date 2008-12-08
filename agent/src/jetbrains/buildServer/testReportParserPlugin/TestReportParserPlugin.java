@@ -56,7 +56,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
     serviceMessagesRegister.registerHandler(SERVICE_MESSAGE_NAME, this);
   }
 
-  public static String createBuildLogMessage(String message) {
+  public static String createLogMessage(String message) {
     return PLUGIN_LOG_PREFIX + message;
   }
 
@@ -80,7 +80,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
     final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myRunnerWorkingDir);
 
     if (reportDirs.size() == 0) {
-      myLogger.warning(createBuildLogMessage("no report directories specified."));
+      myLogger.warning(createLogMessage("no report directories specified."));
     }
 
     startReportProcessing(reportDirs);
@@ -138,14 +138,14 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
 
     switch (buildFinishedStatus) {
       case INTERRUPTED:
-        myLogger.warning(createBuildLogMessage("build interrupted, plugin may not finish it's work."));
+        myLogger.warning(createLogMessage("build interrupted, plugin may not finish it's work."));
       case FINISHED_SUCCESS:
       case FINISHED_FAILED:
         synchronized (myReportProcessor) {
           try {
             myReportProcessor.join();
           } catch (InterruptedException e) {
-            LOG.debug(createBuildLogMessage("plugin thread interrupted."));
+            LOG.debug(createLogMessage("plugin thread interrupted."));
           }
         }
         myDirectoryWatcher.logDirectoryTotals();

@@ -19,7 +19,7 @@ package jetbrains.buildServer.testReportParserPlugin.antJUnit;
 import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParser;
-import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin.createBuildLogMessage;
+import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin.createLogMessage;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
@@ -68,7 +68,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       myXMLReader.setContentHandler(this);
       myXMLReader.setErrorHandler(this);
     } catch (SAXException e) {
-      myLogger.warning(createBuildLogMessage("Ant JUnit report parser couldn't get default XMLReader"));
+      myLogger.warning(createLogMessage("Ant JUnit report parser couldn't get default XMLReader"));
     }
   }
 
@@ -128,6 +128,8 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
         myTests.clear();
       }
 
+      LOG.debug(createLogMessage("Couldn't completely parse " + report.getPath() + " report - SAXParseException occured: " + e.toString()));
+
       return myLoggedTests;
 
     } catch (Exception e) {
@@ -135,9 +137,9 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       if (e.getMessage() != null) {
         message = e.getMessage();
       }
-      myLogger.warning(createBuildLogMessage("An error occurred in Ant JUnit report parser: " + e + ": " + message));
+      myLogger.warning(createLogMessage("An error occurred in Ant JUnit report parser: " + e + ": " + message));
 
-      LOG.debug(createBuildLogMessage("An error occurred in Ant JUnit report parser: " + e + ": " + message));
+      LOG.debug(createLogMessage("An error occurred in Ant JUnit report parser: " + e + ": " + message));
       StackTraceElement[] st = e.getStackTrace();
       for (int i = 0; i < st.length; ++i) {
         LOG.debug(st[i].toString());
@@ -214,8 +216,6 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
     myCurrentSuite = new SuiteData(name, startTime.getTime(), duration);
     myTests = new Stack<TestData>();
-//    uncomment for deploy
-//    myLogger.logSuiteStarted(name, startTime);
     myLogger.logSuiteStarted(name, startTime);
     myCurrentSuite.setLogged(true);
   }
@@ -232,8 +232,6 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       myLogger.warning("[System error]\n" + mySystemErr);
       mySystemErr = null;
     }
-//    uncomment for deploy
-//    myLogger.logSuiteFinished(myCurrentSuite.getName(), new Date(myCurrentSuite.getStartTime() + myCurrentSuite.getDuraion()));
     myLogger.logSuiteFinished(myCurrentSuite.getName(), new Date(myCurrentSuite.getStartTime() + myCurrentSuite.getDuraion()));
 
     myCurrentSuite = null;
