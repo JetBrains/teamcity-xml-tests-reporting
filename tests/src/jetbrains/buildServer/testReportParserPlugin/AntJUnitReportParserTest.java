@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Date;
 
 
@@ -68,7 +69,7 @@ public class AntJUnitReportParserTest {
       }
     };
     myLogger = createBaseServerLoggerFacade();
-    myParser = new AntJUnitReportParser(myLogger);
+    myParser = new AntJUnitReportParser(new TestReportLogger(myLogger, true));
     mySequence = myContext.sequence("Log Sequence");
   }
 
@@ -86,7 +87,7 @@ public class AntJUnitReportParserTest {
   public void testUnexistingReport() {
     myContext.checking(new Expectations() {
       {
-        oneOf(myLogger).warning(with(any(String.class)));
+        oneOf(myLogger).exception(with(any(FileNotFoundException.class)));
       }
     });
 
@@ -95,7 +96,7 @@ public class AntJUnitReportParserTest {
   }
 
   @Test
-  public void testEmptyReport() {
+  public void testEm4ptyReport() {
     long testsLogged = myParser.parse(report("empty.xml"), 0);
     Assert.assertTrue("Empty report contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
     myContext.assertIsSatisfied();

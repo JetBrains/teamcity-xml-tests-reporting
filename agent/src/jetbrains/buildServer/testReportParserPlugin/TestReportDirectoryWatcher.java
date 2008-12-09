@@ -17,7 +17,6 @@
 package jetbrains.buildServer.testReportParserPlugin;
 
 import com.intellij.openapi.diagnostic.Logger;
-import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin.createLogMessage;
 import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
 
@@ -55,7 +54,6 @@ public class TestReportDirectoryWatcher extends Thread {
         scanDirectories();
         Thread.sleep(SCAN_INTERVAL);
       } catch (Throwable e) {
-        myPlugin.getLogger().error(createLogMessage("Exception occurred during directories scanning: " + e.toString()));
         myPlugin.getLogger().exception(e);
       }
     }
@@ -81,7 +79,7 @@ public class TestReportDirectoryWatcher extends Thread {
               try {
                 myReportQueue.put(report);
               } catch (InterruptedException e) {
-                LOG.debug(createLogMessage("directory watcher thread interrupted."));
+                myPlugin.getLogger().debugToAgentLog("directory watcher thread interrupted.");
               }
 
             }
@@ -100,11 +98,11 @@ public class TestReportDirectoryWatcher extends Thread {
     if (myDirectories.size() != myActiveDirectories.size()) {
       for (File dir : myDirectories) {
         if (!dir.exists()) {
-          myPlugin.getLogger().warning(createLogMessage(dir.getPath() + " directory didn't appear on disk during the build."));
+          myPlugin.getLogger().warning(dir.getPath() + " directory didn't appear on disk during the build.");
         } else if (!dir.isDirectory()) {
-          myPlugin.getLogger().warning(createLogMessage(dir.getPath() + " is not actually a directory."));
+          myPlugin.getLogger().warning(dir.getPath() + " is not actually a directory.");
         } else {
-          myPlugin.getLogger().warning(createLogMessage("no reports found in " + dir.getPath() + " directory."));
+          myPlugin.getLogger().warning("no reports found in " + dir.getPath() + " directory.");
         }
       }
     }

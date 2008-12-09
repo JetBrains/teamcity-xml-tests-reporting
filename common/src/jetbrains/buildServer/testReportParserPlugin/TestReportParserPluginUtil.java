@@ -24,10 +24,15 @@ import java.util.Map;
 public class TestReportParserPluginUtil {
   public static final String TEST_REPORT_PARSING_ENABLED = "testReportParsing.enabled";
   public static final String TEST_REPORT_PARSING_REPORT_DIRS = "testReportParsing.reportDirs";
+  public static final String TEST_REPORT_PARSING_VERBOSE_OUTPUT = "testReportParsing.verboseOutput";
 
 
   public static boolean isTestReportParsingEnabled(@NotNull final Map<String, String> runParams) {
     return runParams.containsKey(TEST_REPORT_PARSING_ENABLED);
+  }
+
+  public static boolean isOutputVerbose(@NotNull final Map<String, String> runParams) {
+    return runParams.containsKey(TEST_REPORT_PARSING_VERBOSE_OUTPUT);
   }
 
   public static void enableTestReportParsing(@NotNull final Map<String, String> runParams, boolean enableTestReportParsing) {

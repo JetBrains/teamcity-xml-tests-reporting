@@ -20,15 +20,15 @@
                                                  emptyValue="none specified"/>
   </div>
 
-  <%--<div class="parameter">--%>
-  <%--Include source files in coverage data:--%>
-  <%--<c:choose>--%>
-  <%--<c:when test="${propertiesBean.properties['coverage.include.source']}">--%>
-  <%--<strong>ON</strong>--%>
-  <%--</c:when>--%>
-  <%--<c:otherwise>--%>
-  <%--<strong>OFF</strong>--%>
-  <%--</c:otherwise>--%>
-  <%--</c:choose>--%>
-  <%--</div>--%>
+  <div class="parameter">
+    Verbose output:
+    <c:choose>
+      <c:when test="${propertiesBean.properties['testReportParsing.verboseOutput']}">
+        <strong>enabled</strong>
+      </c:when>
+      <c:otherwise>
+        <strong>disabled</strong>
+      </c:otherwise>
+    </c:choose>
+  </div>
 </c:if>

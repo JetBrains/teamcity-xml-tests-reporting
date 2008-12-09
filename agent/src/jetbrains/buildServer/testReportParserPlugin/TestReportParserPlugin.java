@@ -16,11 +16,11 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
-import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.messages.serviceMessages.ServiceMessage;
 import jetbrains.buildServer.messages.serviceMessages.ServiceMessageHandler;
 import jetbrains.buildServer.messages.serviceMessages.ServiceMessagesRegister;
+import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil.isOutputVerbose;
 import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil.isTestReportParsingEnabled;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
@@ -33,18 +33,18 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class TestReportParserPlugin extends AgentLifeCycleAdapter implements ServiceMessageHandler {
   public static final String TEST_REPORT_DIR_PROPERTY = "testReportParsing.reportDirs";
-  private static final String PLUGIN_LOG_PREFIX = "xml-report-plugin: ";
 
   private static final String SERVICE_MESSAGE_NAME = "junitReportsPath";
   private static final String SERVICE_MESSAGE_PARAMETER_NAME = "paths";
 
-  private static final Logger LOG = Logger.getInstance(TestReportParserPlugin.class.getName());
+//  private static final Logger LOG = Logger.getInstance(TestReportParserPlugin.class.getName());
 
   private TestReportDirectoryWatcher myDirectoryWatcher;
   private TestReportProcessor myReportProcessor;
-  private BaseServerLoggerFacade myLogger;
+  private TestReportLogger myLogger;
 
   private boolean myTestReportParsingEnabled = false;
+  private boolean myVerboseOutput = false;
   private long myBuildStartTime;
   private File myRunnerWorkingDir;
 
@@ -56,10 +56,6 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
     serviceMessagesRegister.registerHandler(SERVICE_MESSAGE_NAME, this);
   }
 
-  public static String createLogMessage(String message) {
-    return PLUGIN_LOG_PREFIX + message;
-  }
-
   public void buildStarted(@NotNull AgentRunningBuild agentRunningBuild) {
     myStopped = false;
     myBuildStartTime = new Date().getTime();
@@ -67,11 +63,14 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
 
   public void beforeRunnerStart(@NotNull AgentRunningBuild agentRunningBuild) {
     myRunnerWorkingDir = agentRunningBuild.getWorkingDirectory();
-    obtainLogger(agentRunningBuild);
 
     final Map<String, String> runnerParameters = agentRunningBuild.getRunnerParameters();
 
     myTestReportParsingEnabled = isTestReportParsingEnabled(runnerParameters);
+    myVerboseOutput = isOutputVerbose(runnerParameters);
+
+    obtainLogger(agentRunningBuild);
+
     if (!myTestReportParsingEnabled) {
       return;
     }
@@ -80,7 +79,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
     final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myRunnerWorkingDir);
 
     if (reportDirs.size() == 0) {
-      myLogger.warning(createLogMessage("no report directories specified."));
+      myLogger.warning("no report directories specified.");
     }
 
     startReportProcessing(reportDirs);
@@ -98,10 +97,9 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
   private void obtainLogger(AgentRunningBuild agentRunningBuild) {
     final BuildProgressLogger logger = agentRunningBuild.getBuildLogger();
     if (logger instanceof BaseServerLoggerFacade) {
-      myLogger = (BaseServerLoggerFacade) logger;
+      myLogger = new TestReportLogger((BaseServerLoggerFacade) logger, myVerboseOutput);
     } else {
       // not expected
-      LOG.debug("Couldn't obtain logger: agentRunningBuild.getBuildLogger() is not instance of BaseServerLoggerFacade");
     }
   }
 
@@ -138,14 +136,14 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
 
     switch (buildFinishedStatus) {
       case INTERRUPTED:
-        myLogger.warning(createLogMessage("build interrupted, plugin may not finish it's work."));
+        myLogger.warning("build interrupted, plugin may not finish it's work.");
       case FINISHED_SUCCESS:
       case FINISHED_FAILED:
         synchronized (myReportProcessor) {
           try {
             myReportProcessor.join();
           } catch (InterruptedException e) {
-            LOG.debug(createLogMessage("plugin thread interrupted."));
+            myLogger.debugToAgentLog("plugin thread interrupted.");
           }
         }
         myDirectoryWatcher.logDirectoryTotals();
@@ -166,7 +164,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
     }
   }
 
-  public BaseServerLoggerFacade getLogger() {
+  public TestReportLogger getLogger() {
     return myLogger;
   }
 

@@ -9,6 +9,7 @@
     <td class="noBorder">
       <c:set var="onclick">
         $('testReportParsing.reportDirs').disabled = !this.checked;
+        $('testReportParsing.verboseOutput').disabled = !this.checked;
       </c:set>
       <props:checkboxProperty name="testReportParsing.enabled" onclick="${onclick}"/>
       <label for="testReportParsing.enabled">Enable Ant JUnit report monitoring</label>
@@ -28,4 +29,13 @@
         </span>
     </td>
   </tr>
+
+  <tr>
+    <th class="noBorder"><label>Verbose output:</label></th>
+    <td class="noBorder">
+      <props:checkboxProperty name="testReportParsing.verboseOutput"/>
+      <br/>
+    </td>
+  </tr>
+
 </l:settingsGroup>
