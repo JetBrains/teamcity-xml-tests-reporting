@@ -34,7 +34,8 @@
   <tr>
     <th class="noBorder"><label>Verbose output:</label></th>
     <td class="noBorder">
-      <props:checkboxProperty name="testReportParsing.verboseOutput"/>
+      <props:checkboxProperty name="testReportParsing.verboseOutput"
+                              disabled="${empty propertiesBean.properties['testReportParsing.enabled']}"/>
       <br/>
     </td>
   </tr>
