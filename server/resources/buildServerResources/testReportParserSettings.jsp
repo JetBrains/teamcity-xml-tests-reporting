@@ -4,9 +4,10 @@
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
 <l:settingsGroup title="Ant JUnit Reports Settings">
 
-  <tr>
+  <tr id="testReportParsing.enabled.container">
     <th class="noBorder"><label>Ant JUnit reports:</label></th>
-    <td class="noBorder">
+    <!--<td class="noBorder">-->
+    <td>
       <c:set var="onclick">
         $('testReportParsing.reportDirs').disabled = !this.checked;
         $('testReportParsing.verboseOutput').disabled = !this.checked;
@@ -14,7 +15,6 @@
       <props:checkboxProperty name="testReportParsing.enabled" onclick="${onclick}"/>
       <label for="testReportParsing.enabled">Enable Ant JUnit report monitoring</label>
       <span class="smallNote">Tests will be logged as soon as report files appear.</span>
-      <br/>
     </td>
   </tr>
 
@@ -27,16 +27,15 @@
         ";" separated paths to directories where reports are expected to appear.
             Specified paths can be absolute or relative to the working directory.
         </span>
-      <br/>
     </td>
   </tr>
 
-  <tr>
+  <tr id="testReportParsing.verboseOutput.container">
     <th class="noBorder"><label>Verbose output:</label></th>
-    <td class="noBorder">
+    <td>
+      <!--<td class="noBorder">-->
       <props:checkboxProperty name="testReportParsing.verboseOutput"
                               disabled="${empty propertiesBean.properties['testReportParsing.enabled']}"/>
-      <br/>
     </td>
   </tr>
 

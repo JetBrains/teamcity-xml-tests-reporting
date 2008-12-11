@@ -31,7 +31,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class TestReportParserPlugin extends AgentLifeCycleAdapter implements DataProcessor {
   public static final String TEST_REPORT_DIR_PROPERTY = "testReportParsing.reportDirs";
 
-  private static final String DATA_PROCESSOR_ID = "xml-report-plugin";
+  private static final String DATA_PROCESSOR_ID = "junit";
 
   private TestReportDirectoryWatcher myDirectoryWatcher;
   private TestReportProcessor myReportProcessor;
@@ -155,7 +155,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
     return myStopped;
   }
 
-  //"##teamcity[importData id='junitReportDir' file='somedir']"
+  //"##teamcity[importData id='junit' file='somedir']"
   // service messsage activates watching "somedir" directory 
   public void processData(@NotNull File file, Map<String, String> arguments) throws Exception {
     final List<File> reportDirs = new ArrayList<File>();
