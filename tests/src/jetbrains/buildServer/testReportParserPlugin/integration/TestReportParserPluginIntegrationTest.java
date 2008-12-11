@@ -21,7 +21,6 @@ import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.BuildFinishedStatus;
-import jetbrains.buildServer.messages.serviceMessages.ServiceMessagesRegister;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil;
 import static jetbrains.buildServer.testReportParserPlugin.integration.ReportFactory.*;
@@ -50,7 +49,6 @@ public class TestReportParserPluginIntegrationTest {
   private Map<String, String> myRunnerParams;
   private File myWorkingDir;
   private EventDispatcher<AgentLifeCycleListener> myEventDispatcher;
-  private ServiceMessagesRegister myServiceMessagesRegister;
   private BaseServerLoggerFacadeForTesting myTestLogger;
   private List<MethodInvokation> myLogSequence;
   private List<UnexpectedInvokationException> myFailures;
@@ -73,10 +71,6 @@ public class TestReportParserPluginIntegrationTest {
     return runningBuild;
   }
 
-  private ServiceMessagesRegister createServiceMessagesRegister() {
-    return myContext.mock(ServiceMessagesRegister.class);
-  }
-
   @Before
   public void setUp() {
     myContext = new JUnit4Mockery();
@@ -91,13 +85,7 @@ public class TestReportParserPluginIntegrationTest {
     myWorkingDir.mkdir();
     myRunningBuild = createAgentRunningBuild(myRunnerParams, myWorkingDir, myTestLogger);
     myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
-    myServiceMessagesRegister = createServiceMessagesRegister();
-    myContext.checking(new Expectations() {
-      {
-        ignoring(myServiceMessagesRegister);
-      }
-    });
-    myPlugin = new TestReportParserPlugin(myEventDispatcher, myServiceMessagesRegister);
+    myPlugin = new TestReportParserPlugin(myEventDispatcher);
     ReportFactory.setWorkingDir(WORKING_DIR);
   }
 

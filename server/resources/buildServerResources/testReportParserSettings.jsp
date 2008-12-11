@@ -27,6 +27,7 @@
         ";" separated paths to directories where reports are expected to appear.
             Specified paths can be absolute or relative to the working directory.
         </span>
+      <br/>
     </td>
   </tr>
 

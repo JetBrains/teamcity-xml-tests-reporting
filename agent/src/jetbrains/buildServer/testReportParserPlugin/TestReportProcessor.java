@@ -16,7 +16,6 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
-import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,8 +26,6 @@ import java.util.concurrent.TimeUnit;
 public class TestReportProcessor extends Thread {
   private static final long FILE_WAIT_TIMEOUT = 500;
   private static final int TRIES_TO_PARSE = 20;
-
-  private static final Logger LOG = Logger.getInstance(TestReportProcessor.class.getName());
 
   private final TestReportParserPlugin myPlugin;
 
@@ -82,7 +79,7 @@ public class TestReportProcessor extends Thread {
 
       if (myCurrentReport.getTriesToParse() == TRIES_TO_PARSE) {
         System.out.println(myCurrentReport.getFile().getPath());
-        LOG.debug("Unable to get full report from " + TRIES_TO_PARSE + " tries. File is supposed to have illegal structure or unsupported format.");
+        myPlugin.getLogger().debugToAgentLog("Unable to get full report from " + TRIES_TO_PARSE + " tries. File is supposed to have illegal structure or unsupported format.");
 
         if (myParser.abnormalEnd()) {
           myPlugin.getLogger().warning(report.getFile().getPath() + " report has unexpected finish or unsupported format.");

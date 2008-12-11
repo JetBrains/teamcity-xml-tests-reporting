@@ -20,7 +20,6 @@ import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.BuildFinishedStatus;
-import jetbrains.buildServer.messages.serviceMessages.ServiceMessagesRegister;
 import jetbrains.buildServer.util.EventDispatcher;
 import junit.framework.Assert;
 import org.jmock.Expectations;
@@ -46,7 +45,6 @@ public class TestReportParserPluginTest {
   private File myWorkingDir;
   private BaseServerLoggerFacade myLogger;
   private EventDispatcher<AgentLifeCycleListener> myEventDispatcher;
-  private ServiceMessagesRegister myServiceMessagesRegister;
 
   private Mockery myContext;
   private Sequence mySequence;
@@ -73,10 +71,6 @@ public class TestReportParserPluginTest {
     return myContext.mock(BaseServerLoggerFacade.class);
   }
 
-  private ServiceMessagesRegister createServiceMessagesRegister() {
-    return myContext.mock(ServiceMessagesRegister.class);
-  }
-
   @Before
   public void setUp() {
     myContext = new JUnit4Mockery() {
@@ -86,12 +80,6 @@ public class TestReportParserPluginTest {
     };
     mySequence = myContext.sequence("Log Sequence");
     myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
-    myServiceMessagesRegister = createServiceMessagesRegister();
-    myContext.checking(new Expectations() {
-      {
-        ignoring(myServiceMessagesRegister);
-      }
-    });
     myRunParams = new HashMap<String, String>();
     myWorkingDir = new File(WORKING_DIR);
     myLogger = createBaseServerLoggerFacade();
@@ -101,7 +89,7 @@ public class TestReportParserPluginTest {
     TestReportParserPluginUtil.enableTestReportParsing(myRunParams, false);
 
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
-    myPlugin = new TestReportParserPlugin(myEventDispatcher, myServiceMessagesRegister);
+    myPlugin = new TestReportParserPlugin(myEventDispatcher);
 
     myEventDispatcher.getMulticaster().buildStarted(runningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
@@ -134,7 +122,7 @@ public class TestReportParserPluginTest {
         inSequence(mySequence);
       }
     });
-    myPlugin = new TestReportParserPlugin(myEventDispatcher, myServiceMessagesRegister);
+    myPlugin = new TestReportParserPlugin(myEventDispatcher);
 
     myEventDispatcher.getMulticaster().buildStarted(runningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
@@ -161,7 +149,7 @@ public class TestReportParserPluginTest {
     TestReportParserPluginUtil.enableTestReportParsing(myRunParams, false);
 
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
-    myPlugin = new TestReportParserPlugin(myEventDispatcher, myServiceMessagesRegister);
+    myPlugin = new TestReportParserPlugin(myEventDispatcher);
 
     myEventDispatcher.getMulticaster().buildStarted(runningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
@@ -179,7 +167,7 @@ public class TestReportParserPluginTest {
         ignoring(myLogger);
       }
     });
-    myPlugin = new TestReportParserPlugin(myEventDispatcher, myServiceMessagesRegister);
+    myPlugin = new TestReportParserPlugin(myEventDispatcher);
 
     myEventDispatcher.getMulticaster().buildStarted(runningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);

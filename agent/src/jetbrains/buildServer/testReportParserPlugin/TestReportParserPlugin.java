@@ -17,9 +17,6 @@
 package jetbrains.buildServer.testReportParserPlugin;
 
 import jetbrains.buildServer.agent.*;
-import jetbrains.buildServer.messages.serviceMessages.ServiceMessage;
-import jetbrains.buildServer.messages.serviceMessages.ServiceMessageHandler;
-import jetbrains.buildServer.messages.serviceMessages.ServiceMessagesRegister;
 import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil.isOutputVerbose;
 import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil.isTestReportParsingEnabled;
 import jetbrains.buildServer.util.EventDispatcher;
@@ -31,13 +28,10 @@ import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
-public class TestReportParserPlugin extends AgentLifeCycleAdapter implements ServiceMessageHandler {
+public class TestReportParserPlugin extends AgentLifeCycleAdapter implements DataProcessor {
   public static final String TEST_REPORT_DIR_PROPERTY = "testReportParsing.reportDirs";
 
-  private static final String SERVICE_MESSAGE_NAME = "junitReportsPath";
-  private static final String SERVICE_MESSAGE_PARAMETER_NAME = "paths";
-
-//  private static final Logger LOG = Logger.getInstance(TestReportParserPlugin.class.getName());
+  private static final String DATA_PROCESSOR_ID = "xml-report-plugin";
 
   private TestReportDirectoryWatcher myDirectoryWatcher;
   private TestReportProcessor myReportProcessor;
@@ -50,10 +44,8 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
 
   private volatile boolean myStopped;
 
-  public TestReportParserPlugin(@NotNull final EventDispatcher<AgentLifeCycleListener> agentDispatcher,
-                                @NotNull final ServiceMessagesRegister serviceMessagesRegister) {
+  public TestReportParserPlugin(@NotNull final EventDispatcher<AgentLifeCycleListener> agentDispatcher) {
     agentDispatcher.addListener(this);
-    serviceMessagesRegister.registerHandler(SERVICE_MESSAGE_NAME, this);
   }
 
   public void buildStarted(@NotNull AgentRunningBuild agentRunningBuild) {
@@ -151,19 +143,6 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
     }
   }
 
-  //"##teamcity[junitReportsPath paths='reports']"
-  public void handle(@NotNull ServiceMessage serviceMessage) {
-    final String dirProperty = serviceMessage.getAttributes().get(SERVICE_MESSAGE_PARAMETER_NAME);
-    final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myRunnerWorkingDir);
-
-    if (!myTestReportParsingEnabled) {
-      myTestReportParsingEnabled = true;
-      startReportProcessing(reportDirs);
-    } else {
-      myDirectoryWatcher.addDirectories(reportDirs);
-    }
-  }
-
   public TestReportLogger getLogger() {
     return myLogger;
   }
@@ -174,5 +153,24 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Ser
 
   public boolean isStopped() {
     return myStopped;
+  }
+
+  //"##teamcity[importData id='junitReportDir' file='somedir']"
+  // service messsage activates watching "somedir" directory 
+  public void processData(@NotNull File file, Map<String, String> arguments) throws Exception {
+    final List<File> reportDirs = new ArrayList<File>();
+    reportDirs.add(file);
+
+    if (!myTestReportParsingEnabled) {
+      myTestReportParsingEnabled = true;
+      startReportProcessing(reportDirs);
+    } else {
+      myDirectoryWatcher.addDirectories(reportDirs);
+    }
+  }
+
+  @NotNull
+  public String getId() {
+    return DATA_PROCESSOR_ID;
   }
 }

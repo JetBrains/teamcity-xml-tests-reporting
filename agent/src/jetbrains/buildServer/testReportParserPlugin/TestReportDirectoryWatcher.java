@@ -16,7 +16,6 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
-import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,7 +25,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class TestReportDirectoryWatcher extends Thread {
-  private final static Logger LOG = Logger.getInstance(AntJUnitReportParser.class.getName());
   private static final int SCAN_INTERVAL = 50;
 
   private final TestReportParserPlugin myPlugin;
@@ -101,7 +99,7 @@ public class TestReportDirectoryWatcher extends Thread {
           myPlugin.getLogger().warning(dir.getPath() + " directory didn't appear on disk during the build.");
         } else if (!dir.isDirectory()) {
           myPlugin.getLogger().warning(dir.getPath() + " is not actually a directory.");
-        } else {
+        } else if (!myActiveDirectories.contains(dir)) {
           myPlugin.getLogger().warning("no reports found in " + dir.getPath() + " directory.");
         }
       }
