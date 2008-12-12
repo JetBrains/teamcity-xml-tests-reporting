@@ -26,7 +26,7 @@ public class TestReportLogger {
   private static final Logger AGENT_LOG = Logger.getInstance(TestReportParserPlugin.class.getName());
 
   private final BaseServerLoggerFacade myBuildLogger;
-  private final boolean myVerboseOutput;
+  private boolean myVerboseOutput;
 
   public TestReportLogger(@NotNull BaseServerLoggerFacade buildLogger, boolean verboseOutput) {
     myBuildLogger = buildLogger;
@@ -82,5 +82,9 @@ public class TestReportLogger {
 
   public BaseServerLoggerFacade getBuildLogger() {
     return myBuildLogger;
+  }
+
+  public void setVerboseOutput(boolean verboseOutput) {
+    myVerboseOutput = verboseOutput;
   }
 }

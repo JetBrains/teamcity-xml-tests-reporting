@@ -31,8 +31,7 @@ public class TestReportDirectoryWatcher extends Thread {
 
   private final LinkedBlockingQueue<File> myReportQueue;
   private final Set<File> myDirectories;
-  private final Set<File> myActiveDirectories;
-  private final List<String> myProcessedFiles;
+  private final Map<File, List<String>> myActiveDirectories;
 
   public TestReportDirectoryWatcher(@NotNull final TestReportParserPlugin plugin,
                                     @NotNull final List<File> directories,
@@ -41,9 +40,8 @@ public class TestReportDirectoryWatcher extends Thread {
 
     myPlugin = plugin;
     myDirectories = new LinkedHashSet<File>(directories);
-    myActiveDirectories = new HashSet<File>();
     myReportQueue = queue;
-    myProcessedFiles = new ArrayList<String>();
+    myActiveDirectories = new HashMap<File, List<String>>();
   }
 
   public void run() {
@@ -63,16 +61,23 @@ public class TestReportDirectoryWatcher extends Thread {
     for (File dir : myDirectories) {
       if (dir.isDirectory()) {
         final File[] files = dir.listFiles();
-        if (files == null) continue;
+        if ((files == null) || (files.length == 0)) continue;
+
+        final List<String> processedFiles;
+
+        if (!myActiveDirectories.containsKey(dir)) {
+          processedFiles = new ArrayList<String>();
+        } else {
+          processedFiles = myActiveDirectories.get(dir);
+        }
 
         for (final File report : files) {
           if (report.isFile() && (report.lastModified() >= myPlugin.getBuildStartTime())) {
-            myActiveDirectories.add(dir);
 
-            if (!myProcessedFiles.contains(report.getPath()) && report.canRead() &&
+            if (!processedFiles.contains(report.getPath()) && report.canRead() &&
               AntJUnitReportParser.isReportFileComplete(report)) {
 
-              myProcessedFiles.add(report.getPath());
+              processedFiles.add(report.getPath());
 
               try {
                 myReportQueue.put(report);
@@ -82,6 +87,9 @@ public class TestReportDirectoryWatcher extends Thread {
 
             }
           }
+        }
+        if (processedFiles.size() > 0) {
+          myActiveDirectories.put(dir, processedFiles);
         }
       }
     }
@@ -99,8 +107,11 @@ public class TestReportDirectoryWatcher extends Thread {
           myPlugin.getLogger().warning(dir.getPath() + " directory didn't appear on disk during the build.");
         } else if (!dir.isDirectory()) {
           myPlugin.getLogger().warning(dir.getPath() + " is not actually a directory.");
-        } else if (!myActiveDirectories.contains(dir)) {
+        } else if (!myActiveDirectories.containsKey(dir)) {
           myPlugin.getLogger().warning("no reports found in " + dir.getPath() + " directory.");
+        } else {
+          final List<String> processedFiles = myActiveDirectories.get(dir);
+          myPlugin.getLogger().message(processedFiles.size() + " files(s) appeared in directory " + dir.getPath() + ".");
         }
       }
     }

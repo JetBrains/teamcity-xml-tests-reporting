@@ -5,8 +5,7 @@
 <l:settingsGroup title="Ant JUnit Reports Settings">
 
   <tr id="testReportParsing.enabled.container">
-    <th class="noBorder"><label>Ant JUnit reports:</label></th>
-    <!--<td class="noBorder">-->
+    <th><label for="testReportParsing.enabled">Ant JUnit reports:</label></th>
     <td>
       <c:set var="onclick">
         $('testReportParsing.reportDirs').disabled = !this.checked;
@@ -31,9 +30,8 @@
   </tr>
 
   <tr id="testReportParsing.verboseOutput.container">
-    <th class="noBorder"><label>Verbose output:</label></th>
+    <th><label for="testReportParsing.verboseOutput">Verbose output:</label></th>
     <td>
-      <!--<td class="noBorder">-->
       <props:checkboxProperty name="testReportParsing.verboseOutput"
                               disabled="${empty propertiesBean.properties['testReportParsing.enabled']}"/>
     </td>

@@ -32,6 +32,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
   public static final String TEST_REPORT_DIR_PROPERTY = "testReportParsing.reportDirs";
 
   private static final String DATA_PROCESSOR_ID = "junit";
+  private static final String DATA_PROCESSOR_VERBOSE_ARGUMENT = "verbose";
 
   private TestReportDirectoryWatcher myDirectoryWatcher;
   private TestReportProcessor myReportProcessor;
@@ -155,11 +156,16 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
     return myStopped;
   }
 
-  //"##teamcity[importData id='junit' file='somedir']"
-  // service messsage activates watching "somedir" directory 
+  //"##teamcity[importData id='junit' file='somedir']" service messsage activates watching "somedir" directory
+  //"##teamcity[importData id='junit' file='somedir' verbose='true']" does the same and sets output verbose 
   public void processData(@NotNull File file, Map<String, String> arguments) throws Exception {
     final List<File> reportDirs = new ArrayList<File>();
     reportDirs.add(file);
+
+    if (arguments.containsKey(DATA_PROCESSOR_VERBOSE_ARGUMENT)) {
+      myVerboseOutput = Boolean.parseBoolean(arguments.get(DATA_PROCESSOR_VERBOSE_ARGUMENT));
+      myLogger.setVerboseOutput(myVerboseOutput);
+    }
 
     if (!myTestReportParsingEnabled) {
       myTestReportParsingEnabled = true;
