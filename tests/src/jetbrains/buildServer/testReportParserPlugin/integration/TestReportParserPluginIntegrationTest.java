@@ -91,6 +91,7 @@ public class TestReportParserPluginIntegrationTest {
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
     TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, false);
+    TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
@@ -126,8 +127,9 @@ public class TestReportParserPluginIntegrationTest {
 
   @Test
   public void testWarningWhenNoReportDirAppears() {
-    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, "reports");
     TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
+    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, "reports");
+    TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     List<Object> params = new ArrayList<Object>();
     params.add(MethodInvokation.ANY_VALUE);
@@ -147,8 +149,9 @@ public class TestReportParserPluginIntegrationTest {
 
   @Test
   public void testWarningWhenDirectoryWasNotActuallyDirectory() {
-    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, "reports");
     TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
+    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, "reports");
+    TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final List<Object> params = new ArrayList<Object>();
     params.add(MethodInvokation.ANY_VALUE);
@@ -169,8 +172,9 @@ public class TestReportParserPluginIntegrationTest {
 
   private void warningWhenNoReportsFoundInDirectory() {
     createDir(REPORTS_DIR);
-    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, REPORTS_DIR);
     TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
+    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, REPORTS_DIR);
+    TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final List<Object> params = new ArrayList<Object>();
     params.add(MethodInvokation.ANY_VALUE);
@@ -212,8 +216,9 @@ public class TestReportParserPluginIntegrationTest {
   @Test
   public void testWarningWhenUnfinishedReportFoundInDirectory() {
     createDir(REPORTS_DIR);
-    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, REPORTS_DIR);
     TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
+    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, REPORTS_DIR);
+    TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final List<Object> params = new ArrayList<Object>();
     params.add(MethodInvokation.ANY_VALUE);
@@ -275,6 +280,7 @@ public class TestReportParserPluginIntegrationTest {
   @Test
   public void testNotSilentWhenEnabled() {
     TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
+    TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final List<Object> params = new ArrayList<Object>();
     params.add(MethodInvokation.ANY_VALUE);

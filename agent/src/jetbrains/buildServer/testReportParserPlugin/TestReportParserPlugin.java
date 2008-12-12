@@ -72,6 +72,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
     final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myRunnerWorkingDir);
 
     if (reportDirs.size() == 0) {
+      System.out.println(reportDirs.size());
       myLogger.warning("no report directories specified.");
     }
 
@@ -164,8 +165,11 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
 
     if (arguments.containsKey(DATA_PROCESSOR_VERBOSE_ARGUMENT)) {
       myVerboseOutput = Boolean.parseBoolean(arguments.get(DATA_PROCESSOR_VERBOSE_ARGUMENT));
-      myLogger.setVerboseOutput(myVerboseOutput);
+    } else {
+      myVerboseOutput = false;
     }
+
+    myLogger.setVerboseOutput(myVerboseOutput);
 
     if (!myTestReportParsingEnabled) {
       myTestReportParsingEnabled = true;

@@ -41,12 +41,23 @@ public class TestReportParserPluginUtil {
     } else {
       runParams.remove(TEST_REPORT_PARSING_ENABLED);
       runParams.remove(TEST_REPORT_PARSING_REPORT_DIRS);
+      runParams.remove(TEST_REPORT_PARSING_VERBOSE_OUTPUT);
     }
   }
 
   public static void setTestReportDirs(@NotNull final Map<String, String> runParams, String reportDirs) {
     if (isTestReportParsingEnabled(runParams)) {
       runParams.put(TEST_REPORT_PARSING_REPORT_DIRS, reportDirs);
+    }
+  }
+
+  public static void setVerboseOutput(@NotNull final Map<String, String> runParams, boolean verboseOutput) {
+    if (isTestReportParsingEnabled(runParams)) {
+      if (verboseOutput) {
+        runParams.put(TEST_REPORT_PARSING_VERBOSE_OUTPUT, "true");
+      } else {
+        runParams.remove(TEST_REPORT_PARSING_VERBOSE_OUTPUT);
+      }
     }
   }
 }

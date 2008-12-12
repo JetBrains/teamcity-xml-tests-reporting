@@ -10,6 +10,7 @@
       <properties>
         <property name="TeamCityDistribution" value="C:\TeamCity" />
       </properties>
+      <executeOn event="beforeRun" target="test" runConfigurationType="JUnit" runConfigurationName="&lt;default&gt;" />
     </buildFile>
     <buildFile url="file://$PROJECT_DIR$/tests/src/jetbrains/buildServer/testReportParserPlugin/visual/build.xml">
       <additionalClassPath />

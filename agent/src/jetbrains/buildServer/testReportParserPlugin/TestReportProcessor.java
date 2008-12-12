@@ -38,7 +38,7 @@ public class TestReportProcessor extends Thread {
   public TestReportProcessor(@NotNull final TestReportParserPlugin plugin,
                              @NotNull final LinkedBlockingQueue<File> queue,
                              @NotNull final TestReportDirectoryWatcher watcher) {
-    super("xml-report-plugin-ReportParser");
+    super("xml-report-plugin-ReportProcessor");
     myPlugin = plugin;
     myReportQueue = queue;
     myWatcher = watcher;
@@ -50,7 +50,7 @@ public class TestReportProcessor extends Thread {
 
     try {
       // workaround to show test suites in the build log
-      myPlugin.getLogger().getBuildLogger().targetStarted("junit-report-parser");
+      myPlugin.getLogger().getBuildLogger().targetStarted("xml-report-plugin");
 
       while (!myPlugin.isStopped()) {
         processReport(takeNextReport(FILE_WAIT_TIMEOUT));
@@ -64,7 +64,7 @@ public class TestReportProcessor extends Thread {
         processReport(takeNextReport(1));
       }
     } finally {
-      myPlugin.getLogger().getBuildLogger().targetFinished("junit-report-parser");
+      myPlugin.getLogger().getBuildLogger().targetFinished("xml-report-plugin");
     }
   }
 

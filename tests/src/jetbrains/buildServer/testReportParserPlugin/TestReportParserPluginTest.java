@@ -117,8 +117,8 @@ public class TestReportParserPluginTest {
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
     myContext.checking(new Expectations() {
       {
-        oneOf(myLogger).message(with("targetStarted(\"junit-report-parser\")"));
         oneOf(myLogger).warning(with(any(String.class)));
+        ignoring(myLogger);
         inSequence(mySequence);
       }
     });
@@ -132,6 +132,7 @@ public class TestReportParserPluginTest {
   @Test
   public void testWarningWhenReportDirsNull() {
     TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
+    TestReportParserPluginUtil.setVerboseOutput(myRunParams, true);
 
     warningWhenZeroReportDirsSize();
   }
