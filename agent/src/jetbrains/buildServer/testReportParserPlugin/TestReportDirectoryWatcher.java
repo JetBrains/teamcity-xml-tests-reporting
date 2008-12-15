@@ -82,7 +82,7 @@ public class TestReportDirectoryWatcher extends Thread {
               try {
                 myReportQueue.put(report);
               } catch (InterruptedException e) {
-                myPlugin.getLogger().debugToAgentLog("directory watcher thread interrupted.");
+                myPlugin.getLogger().debugToAgentLog("directory watcher thread interrupted");
               }
 
             }
@@ -104,14 +104,14 @@ public class TestReportDirectoryWatcher extends Thread {
     if (myDirectories.size() != myActiveDirectories.size()) {
       for (File dir : myDirectories) {
         if (!dir.exists()) {
-          myPlugin.getLogger().warning(dir.getPath() + " directory didn't appear on disk during the build.");
+          myPlugin.getLogger().warning(dir.getPath() + " directory didn't appear on disk during the build");
         } else if (!dir.isDirectory()) {
-          myPlugin.getLogger().warning(dir.getPath() + " is not actually a directory.");
+          myPlugin.getLogger().warning(dir.getPath() + " is not actually a directory");
         } else if (!myActiveDirectories.containsKey(dir)) {
-          myPlugin.getLogger().warning("no reports found in " + dir.getPath() + " directory.");
+          myPlugin.getLogger().warning("no reports found in " + dir.getPath() + " directory");
         } else {
           final List<String> processedFiles = myActiveDirectories.get(dir);
-          myPlugin.getLogger().message(processedFiles.size() + " files(s) appeared in directory " + dir.getPath() + ".");
+          myPlugin.getLogger().message(processedFiles.size() + " files(s) appeared in directory " + dir.getPath());
         }
       }
     }

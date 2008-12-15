@@ -33,6 +33,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
   private static final String TEST_CASE = "testcase";
   private static final String FAILURE = "failure";
   private static final String ERROR = "error";
+  private static final String TIME = "time";
   private static final String SYSTEM_OUT = "system-out";
   private static final String SYSTEM_ERR = "system-err";
 
@@ -117,7 +118,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     myTestsToSkip = testsToSkip;
 
     try {
-      myLogger.debugToAgentLog("Parser got report: " + report.getPath());
+      myLogger.debugToAgentLog("Parser got report: " + report.getPath() + " with " + testsToSkip + " tests to skip");
       myXMLReader.parse(new InputSource(report.toURI().toString()));
 
     } catch (SAXParseException e) {
@@ -161,6 +162,8 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       startFailure(attributes);
     } else if (SYSTEM_OUT.equals(localName) || SYSTEM_ERR.equals(localName)) {
       myCData = new StringBuffer();
+    } else if (TIME.equals(localName)) {
+      myCData = new StringBuffer();
     }
   }
 
@@ -176,6 +179,8 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       endSuite();
     } else if (TEST_CASE.equals(localName)) {
       endTest();
+    } else if (FAILURE.equals(localName)) {
+      endFailure();
     } else if (SYSTEM_OUT.equals(localName)) {
       final String trimmedCData = getTrimmedCData();
       if (trimmedCData.length() > 0) {
@@ -186,6 +191,12 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       final String trimmedCData = getTrimmedCData();
       if (trimmedCData.length() > 0) {
         mySystemErr = trimmedCData;
+      }
+      myCData = null;
+    } else if (TIME.equals(localName)) {
+      if (myTests.size() != 0) {
+        final TestData test = myTests.peek();
+        test.setDuration(getExecutionTime(getTrimmedCData()));
       }
       myCData = null;
     }
@@ -225,7 +236,13 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
   }
 
   private void startTest(Attributes attributes) {
-    final String className = attributes.getValue(DEFAULT_NAMESPACE, CLASSNAME_ATTR);
+    String className = "<unknown name>";
+    final String reportClassName = attributes.getValue(DEFAULT_NAMESPACE, CLASSNAME_ATTR);
+    if (reportClassName != null) {
+      className = reportClassName;
+    } else if (myCurrentSuite != null) {
+      className = myCurrentSuite.getName();
+    }
     final String testName = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
     final Date startTime = new Date();
     final long duration = getExecutionTime(attributes.getValue(DEFAULT_NAMESPACE, TIME_ATTR));
@@ -240,8 +257,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
     myLogger.getBuildLogger().logTestStarted(testFullName, new Date(test.getStartTime()));
     if (test.isFailure()) {
-      myLogger.getBuildLogger().logTestFailed(testFullName, test.getFailureType() + ": " + test.getFailureMessage(), myCData.toString().trim());
-      myCData = null;
+      myLogger.getBuildLogger().logTestFailed(testFullName, test.getFailureType() + ": " + test.getFailureMessage(), test.getFailureStackTrace());
     }
     myLogger.getBuildLogger().logTestFinished(testFullName, new Date(test.getStartTime() + test.getDuration()));
     myLoggedTests = myLoggedTests + 1;
@@ -260,6 +276,14 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       myCurrentSuite.setFailureType(failureType);
     }
     myCData = new StringBuffer();
+  }
+
+  private void endFailure() {
+    if (myTests.size() != 0) {
+      final TestData test = myTests.peek();
+      test.setFailureStackTrace(getTrimmedCData());
+    }
+    myCData = null;
   }
 
   public void characters(char ch[], int start, int length) throws SAXException {

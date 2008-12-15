@@ -21,10 +21,11 @@ public class TestData {
   private final String myTestName;
 
   private final long myStartTime;
-  private final long myDuration;
+  private long myDuration;
 
   private String myFailureType;
   private String myFailureMessage;
+  private String myFailureStackTrace;
 
   public TestData(final String className,
                   final String testName,
@@ -52,6 +53,10 @@ public class TestData {
     return myDuration;
   }
 
+  public void setDuration(long duration) {
+    myDuration = duration;
+  }
+
   public String getFailureMessage() {
     return myFailureMessage;
   }
@@ -66,6 +71,14 @@ public class TestData {
 
   public void setFailureType(String type) {
     myFailureType = type;
+  }
+
+  public String getFailureStackTrace() {
+    return myFailureStackTrace;
+  }
+
+  public void setFailureStackTrace(String stackTrace) {
+    myFailureStackTrace = stackTrace;
   }
 
   public boolean isFailure() {

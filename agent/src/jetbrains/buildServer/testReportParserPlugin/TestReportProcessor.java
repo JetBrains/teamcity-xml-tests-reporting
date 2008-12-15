@@ -25,7 +25,8 @@ import java.util.concurrent.TimeUnit;
 
 public class TestReportProcessor extends Thread {
   private static final long FILE_WAIT_TIMEOUT = 500;
-  private static final int TRIES_TO_PARSE = 20;
+  private static final int TRIES_TO_PARSE = 100;
+  private static final long SCAN_INTERVAL = 100;
 
   private final TestReportParserPlugin myPlugin;
 
@@ -58,7 +59,7 @@ public class TestReportProcessor extends Thread {
       try {
         myWatcher.join();
       } catch (InterruptedException e) {
-        myPlugin.getLogger().debugToAgentLog("report processor thread interrupted.");
+        myPlugin.getLogger().debugToAgentLog("report processor thread interrupted");
       }
       while (!allReportsProcessed()) {
         processReport(takeNextReport(1));
@@ -79,17 +80,23 @@ public class TestReportProcessor extends Thread {
 
       if (myCurrentReport.getTriesToParse() == TRIES_TO_PARSE) {
         System.out.println(myCurrentReport.getFile().getPath());
-        myPlugin.getLogger().debugToAgentLog("Unable to get full report from " + TRIES_TO_PARSE + " tries. File is supposed to have illegal structure or unsupported format.");
+        myPlugin.getLogger().debugToAgentLog("Unable to get full report from " + TRIES_TO_PARSE + " tries. File is supposed to have illegal structure or unsupported format");
 
         if (myParser.abnormalEnd()) {
-          myPlugin.getLogger().warning(report.getFile().getPath() + " report has unexpected finish or unsupported format.");
+          myPlugin.getLogger().warning(report.getFile().getPath() + " report has unexpected finish or unsupported format");
         } else {
-          myPlugin.getLogger().warning(report.getFile().getPath() + " is not Ant JUnit report file.");
+          myPlugin.getLogger().warning(report.getFile().getPath() + " is not Ant JUnit report file");
         }
         myCurrentReport = null;
+      } else {
+        try {
+          Thread.sleep(SCAN_INTERVAL);
+        } catch (InterruptedException e) {
+          myPlugin.getLogger().debugToAgentLog("report processor thread interrupted");
+        }
       }
     } else {
-      myPlugin.getLogger().debugToAgentLog(report.getFile().getPath() + " report processed.");
+      myPlugin.getLogger().debugToAgentLog(report.getFile().getPath() + " report processed");
       myCurrentReport = null;
     }
   }
@@ -104,12 +111,12 @@ public class TestReportProcessor extends Thread {
       final File file = myReportQueue.poll(timeout, TimeUnit.MILLISECONDS);
 
       if (file != null) {
-        myPlugin.getLogger().debugToAgentLog("found report file " + file.getPath() + ".");
+        myPlugin.getLogger().debugToAgentLog("found report file " + file.getPath());
         myCurrentReport = new ReportData(file);
         return myCurrentReport;
       }
     } catch (InterruptedException e) {
-      myPlugin.getLogger().debugToAgentLog("report processor thread interrupted.");
+      myPlugin.getLogger().debugToAgentLog("report processor thread interrupted");
     }
 
     return null;

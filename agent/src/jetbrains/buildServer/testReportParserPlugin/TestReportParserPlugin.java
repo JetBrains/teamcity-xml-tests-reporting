@@ -72,8 +72,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
     final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myRunnerWorkingDir);
 
     if (reportDirs.size() == 0) {
-      System.out.println(reportDirs.size());
-      myLogger.warning("no report directories specified.");
+      myLogger.warning("no report directories specified");
     }
 
     startReportProcessing(reportDirs);
@@ -130,14 +129,14 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
 
     switch (buildFinishedStatus) {
       case INTERRUPTED:
-        myLogger.warning("build interrupted, plugin may not finish it's work.");
+        myLogger.warning("build interrupted, plugin may not finish it's work");
       case FINISHED_SUCCESS:
       case FINISHED_FAILED:
         synchronized (myReportProcessor) {
           try {
             myReportProcessor.join();
           } catch (InterruptedException e) {
-            myLogger.debugToAgentLog("plugin thread interrupted.");
+            myLogger.debugToAgentLog("plugin thread interrupted");
           }
         }
         myDirectoryWatcher.logDirectoryTotals();
