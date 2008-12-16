@@ -25,4 +25,6 @@ public interface TestReportParser {
   long parse(@NotNull final File report, long testsToSkip);
 
   boolean abnormalEnd();
+
+  public String getReportType();
 }

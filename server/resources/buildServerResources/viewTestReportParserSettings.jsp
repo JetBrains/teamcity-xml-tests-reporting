@@ -3,7 +3,7 @@
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
 
 <div class="parameter">
-  Ant JUnit report monitoring:
+  Test report monitoring:
   <c:choose>
     <c:when test="${propertiesBean.properties['testReportParsing.enabled']}">
       <strong>enabled</strong>

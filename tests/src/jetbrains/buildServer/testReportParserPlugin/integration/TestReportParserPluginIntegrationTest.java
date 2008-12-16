@@ -128,7 +128,7 @@ public class TestReportParserPluginIntegrationTest {
   @Test
   public void testWarningWhenNoReportDirAppears() {
     TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
-    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, "reports");
+    myRunnerParams.put(TestReportParserPluginUtil.TEST_REPORT_PARSING_REPORT_DIRS, "reports");
     TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     List<Object> params = new ArrayList<Object>();
@@ -150,7 +150,7 @@ public class TestReportParserPluginIntegrationTest {
   @Test
   public void testWarningWhenDirectoryWasNotActuallyDirectory() {
     TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
-    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, "reports");
+    myRunnerParams.put(TestReportParserPluginUtil.TEST_REPORT_PARSING_REPORT_DIRS, "reports");
     TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final List<Object> params = new ArrayList<Object>();
@@ -173,7 +173,7 @@ public class TestReportParserPluginIntegrationTest {
   private void warningWhenNoReportsFoundInDirectory() {
     createDir(REPORTS_DIR);
     TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
-    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, REPORTS_DIR);
+    myRunnerParams.put(TestReportParserPluginUtil.TEST_REPORT_PARSING_REPORT_DIRS, REPORTS_DIR);
     TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final List<Object> params = new ArrayList<Object>();
@@ -217,7 +217,7 @@ public class TestReportParserPluginIntegrationTest {
   public void testWarningWhenUnfinishedReportFoundInDirectory() {
     createDir(REPORTS_DIR);
     TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
-    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, REPORTS_DIR);
+    myRunnerParams.put(TestReportParserPluginUtil.TEST_REPORT_PARSING_REPORT_DIRS, REPORTS_DIR);
     TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final List<Object> params = new ArrayList<Object>();

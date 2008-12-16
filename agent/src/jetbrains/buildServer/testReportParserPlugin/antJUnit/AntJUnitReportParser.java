@@ -29,6 +29,8 @@ import java.util.Stack;
 
 
 public class AntJUnitReportParser extends DefaultHandler implements TestReportParser {
+  public static final String TYPE = "junit";
+
   private static final String TEST_SUITE = "testsuite";
   private static final String TEST_CASE = "testcase";
   private static final String FAILURE = "failure";
@@ -72,6 +74,10 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
   public static boolean isReportFileComplete(@NotNull final File report) {
     return (report.length() > 0);
+  }
+
+  public String getReportType() {
+    return TYPE;
   }
 
   /*  As of now the DTD is:

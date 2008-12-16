@@ -25,6 +25,7 @@ public class TestReportParserPluginUtil {
   public static final String TEST_REPORT_PARSING_ENABLED = "testReportParsing.enabled";
   public static final String TEST_REPORT_PARSING_REPORT_DIRS = "testReportParsing.reportDirs";
   public static final String TEST_REPORT_PARSING_VERBOSE_OUTPUT = "testReportParsing.verboseOutput";
+  public static final String TEST_REPORT_PARSING_REPORT_TYPE = "testReportParsing.reportType";
 
 
   public static boolean isTestReportParsingEnabled(@NotNull final Map<String, String> runParams) {
@@ -45,12 +46,6 @@ public class TestReportParserPluginUtil {
     }
   }
 
-  public static void setTestReportDirs(@NotNull final Map<String, String> runParams, String reportDirs) {
-    if (isTestReportParsingEnabled(runParams)) {
-      runParams.put(TEST_REPORT_PARSING_REPORT_DIRS, reportDirs);
-    }
-  }
-
   public static void setVerboseOutput(@NotNull final Map<String, String> runParams, boolean verboseOutput) {
     if (isTestReportParsingEnabled(runParams)) {
       if (verboseOutput) {
@@ -59,5 +54,25 @@ public class TestReportParserPluginUtil {
         runParams.remove(TEST_REPORT_PARSING_VERBOSE_OUTPUT);
       }
     }
+  }
+
+  public static void setTestReportDirs(@NotNull final Map<String, String> runParams, String reportDirs) {
+    if (isTestReportParsingEnabled(runParams)) {
+      runParams.put(TEST_REPORT_PARSING_REPORT_DIRS, reportDirs);
+    }
+  }
+
+  public static String getTestReportDirs(@NotNull final Map<String, String> runParams) {
+    return runParams.get(TEST_REPORT_PARSING_REPORT_DIRS);
+  }
+
+  public static void setReportType(@NotNull final Map<String, String> runParams, String reportType) {
+    if (isTestReportParsingEnabled(runParams)) {
+      runParams.put(TEST_REPORT_PARSING_REPORT_TYPE, reportType);
+    }
+  }
+
+  public static String getReportType(@NotNull final Map<String, String> runParams) {
+    return runParams.get(TEST_REPORT_PARSING_REPORT_TYPE);
   }
 }

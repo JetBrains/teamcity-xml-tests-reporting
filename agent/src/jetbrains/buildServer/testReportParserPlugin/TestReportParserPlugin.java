@@ -17,8 +17,7 @@
 package jetbrains.buildServer.testReportParserPlugin;
 
 import jetbrains.buildServer.agent.*;
-import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil.isOutputVerbose;
-import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil.isTestReportParsingEnabled;
+import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil.*;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
@@ -29,8 +28,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class TestReportParserPlugin extends AgentLifeCycleAdapter implements DataProcessor {
-  public static final String TEST_REPORT_DIR_PROPERTY = "testReportParsing.reportDirs";
-
   private static final String DATA_PROCESSOR_ID = "junit";
   private static final String DATA_PROCESSOR_VERBOSE_ARGUMENT = "verbose";
 
@@ -68,12 +65,15 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
       return;
     }
 
-    final String dirProperty = runnerParameters.get(TEST_REPORT_DIR_PROPERTY);
+    final String dirProperty = getTestReportDirs(runnerParameters);
     final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myRunnerWorkingDir);
 
     if (reportDirs.size() == 0) {
       myLogger.warning("no report directories specified");
     }
+
+    final String type = getReportType(runnerParameters);
+    myLogger.debugToAgentLog("TYPE: " + type);
 
     startReportProcessing(reportDirs);
   }
