@@ -23,22 +23,31 @@ import java.util.List;
 
 
 public class ReportTypeForm extends RememberState {
+  private static final String JSP_DIRECTORY = "../plugins/xml-report-plugin/";
+
+
   @StateField
   private List<ReportTypeInfo> myAvailableReportTypes;
+  @StateField
+  private ReportTypeInfo mySelectedReportType;
 
   public ReportTypeForm() {
-    myAvailableReportTypes = new ArrayList(2);
-    myAvailableReportTypes.add(new ReportTypeInfo("junit", "JUnit", "JUnit tests reports"));
-    myAvailableReportTypes.add(new ReportTypeInfo("nunit", "NUnit", "NUnit tests reports"));
-    myAvailableReportTypes.add(new ReportTypeInfo("surefire", "Surefire", "Surefire tests reports"));
+    myAvailableReportTypes = new ArrayList(1);
+    myAvailableReportTypes.add(new ReportTypeInfo("junit", "JUnit Report", "jUnitReportParserSettings.jsp"));
+    myAvailableReportTypes.add(new ReportTypeInfo("nunit", "NUnit Report", "nUnitReportParserSettings.jsp"));
+    mySelectedReportType = myAvailableReportTypes.get(1);
   }
 
   public List<ReportTypeInfo> getAvailableReportTypes() {
     return myAvailableReportTypes;
   }
 
-  public void setAvailableReportTypes(List<ReportTypeInfo> availableReportTypes) {
-    myAvailableReportTypes = availableReportTypes;
+  public ReportTypeInfo getSelectedReportType() {
+    return mySelectedReportType;
+  }
+
+  public void setSelectedReportType(ReportTypeInfo selectedReportType) {
+    mySelectedReportType = selectedReportType;
   }
 
   /**
@@ -50,14 +59,14 @@ public class ReportTypeForm extends RememberState {
     @StateField
     private String myDisplayName;
     @StateField
-    private String myDescription;
+    private String myReportParserSettingsJspPath;
 
     public ReportTypeInfo(final String type,
                           final String typeDisplayName,
-                          final String typeDescription) {
+                          final String reportParseParametersJspPath) {
       myType = type;
       myDisplayName = typeDisplayName;
-      myDescription = typeDescription;
+      myReportParserSettingsJspPath = reportParseParametersJspPath;
     }
 
     public String getType() {
@@ -68,8 +77,8 @@ public class ReportTypeForm extends RememberState {
       return myDisplayName;
     }
 
-    public String getDescription() {
-      return myDescription;
+    public String getReportParserSettingsJspPath() {
+      return JSP_DIRECTORY + myReportParserSettingsJspPath;
     }
   }
 }
