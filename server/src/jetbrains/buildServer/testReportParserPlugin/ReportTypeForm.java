@@ -25,29 +25,30 @@ import java.util.List;
 public class ReportTypeForm extends RememberState {
   private static final String JSP_DIRECTORY = "../plugins/xml-report-plugin/";
 
+  @StateField
+  private String mySelectedReportType;
 
   @StateField
   private List<ReportTypeInfo> myAvailableReportTypes;
-  @StateField
-  private ReportTypeInfo mySelectedReportType;
 
   public ReportTypeForm() {
+    mySelectedReportType = "";
+
     myAvailableReportTypes = new ArrayList(1);
     myAvailableReportTypes.add(new ReportTypeInfo("junit", "JUnit Report", "jUnitReportParserSettings.jsp"));
     myAvailableReportTypes.add(new ReportTypeInfo("nunit", "NUnit Report", "nUnitReportParserSettings.jsp"));
-    mySelectedReportType = myAvailableReportTypes.get(1);
+  }
+
+  public String getSelectedReportType() {
+    return mySelectedReportType;
+  }
+
+  public void setSelectedReportType(String selectedReportType) {
+    mySelectedReportType = selectedReportType;
   }
 
   public List<ReportTypeInfo> getAvailableReportTypes() {
     return myAvailableReportTypes;
-  }
-
-  public ReportTypeInfo getSelectedReportType() {
-    return mySelectedReportType;
-  }
-
-  public void setSelectedReportType(ReportTypeInfo selectedReportType) {
-    mySelectedReportType = selectedReportType;
   }
 
   /**

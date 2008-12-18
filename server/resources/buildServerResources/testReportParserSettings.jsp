@@ -5,6 +5,7 @@
 
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
 <jsp:useBean id="reportTypeForm" scope="request" class="jetbrains.buildServer.testReportParserPlugin.ReportTypeForm"/>
+
 <l:settingsGroup title="Test Reports Settings">
 
   <tr id="testReportParsing.enabled.container">
@@ -24,9 +25,10 @@
   <tr id="testReportParsing.reportType.container">
     <th><label for="testReportParsing.reportType">Import data from:</label></th>
     <td>
-      <c:set var="onchange">
-        <%--update--%>
-      </c:set>
+        <%--<c:set var="onchange">--%>
+      <!--$('testReportParsing.reportDirs').disabled = !this.;-->
+      <!--$('testReportParsing.verboseOutput').disabled = !this.checked;-->
+        <%--</c:set>--%>
       <props:selectProperty name="testReportParsing.reportType"
                             disabled="${empty propertiesBean.properties['testReportParsing.enabled']}"
                             onchange="${onchange}">
@@ -47,6 +49,25 @@
       <span class="smallNote">Choose report format.</span>
     </td>
   </tr>
+
+  <tr id="testReportParsing.reportDirs.container">
+    <th><label for="testReportParsing.reportDirs">Test report directories:</label></th>
+    <td>
+      <props:textProperty name="testReportParsing.reportDirs" className="longField"
+                          disabled="${empty propertiesBean.properties['testReportParsing.enabled']}"/>
+        <span class="smallNote">
+        ";" separated paths to directories where reports are expected to appear.
+            Specified paths can be absolute or relative to the working directory.
+        </span>
+    </td>
+  </tr>
+
+  <tr id="testReportParsing.verboseOutput.container">
+    <th><label for="testReportParsing.verboseOutput">Verbose output:</label></th>
+    <td>
+      <props:checkboxProperty name="testReportParsing.verboseOutput"
+                              disabled="${empty propertiesBean.properties['testReportParsing.enabled']}"/>
+    </td>
+  </tr>
 </l:settingsGroup>
 
-<jsp:include page="${reportTypeForm.selectedReportType.reportParserSettingsJspPath}"/>

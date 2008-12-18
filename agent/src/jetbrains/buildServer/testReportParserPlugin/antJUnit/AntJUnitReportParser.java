@@ -25,6 +25,8 @@ import org.xml.sax.helpers.XMLReaderFactory;
 
 import java.io.File;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Stack;
 
 
@@ -41,6 +43,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
   private static final String NAME_ATTR = "name";
   private static final String CLASSNAME_ATTR = "classname";
+  private static final String PACKAGE_ATTR = "package";
   private static final String MESSAGE_ATTR = "message";
   private static final String TYPE_ATTR = "type";
   private static final String TIME_ATTR = "time";
@@ -59,6 +62,8 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
   private long myLoggedTests;
   private long myTestsToSkip;
 
+  private Set<String> myLoggedSuits;
+
 
   public AntJUnitReportParser(@NotNull final TestReportLogger logger) {
     myLogger = logger;
@@ -70,6 +75,8 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     } catch (SAXException e) {
       myLogger.warning("Ant JUnit report parser couldn't get default XMLReader");
     }
+
+    myLoggedSuits = new HashSet<String>();
   }
 
   public static boolean isReportFileComplete(@NotNull final File report) {
@@ -136,6 +143,8 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
       return myLoggedTests;
 
+    } catch (ParserStoppedException e) {
+      myLogger.debugToAgentLog(e.getMessage());
     } catch (Exception e) {
       myLogger.exception(e);
     }
@@ -213,14 +222,24 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       return;
     }
 
-    final String name = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
+    String name = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
+    final String pack = attributes.getValue(DEFAULT_NAMESPACE, PACKAGE_ATTR);
     final Date startTime = new Date();
     final long duration = getExecutionTime(attributes.getValue(DEFAULT_NAMESPACE, TIME_ATTR));
+
+    if ((pack != null) && (!name.startsWith(pack))) {
+      name = pack + "." + name;
+    }
+
+    if (myLoggedSuits.contains(name)) {
+      throw new ParserStoppedException("Suite :" + name + " already logged from other report.");
+    }
 
     myCurrentSuite = new SuiteData(name, startTime.getTime(), duration);
     myTests = new Stack<TestData>();
     myLogger.getBuildLogger().logSuiteStarted(name, startTime);
     myCurrentSuite.setLogged(true);
+    myLoggedSuits.add(name);
   }
 
   private void endSuite() {
@@ -329,5 +348,11 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
   private String getTrimmedCData() {
     return myCData.toString().trim();
+  }
+
+  private class ParserStoppedException extends RuntimeException {
+    public ParserStoppedException(String message) {
+      super(message);
+    }
   }
 }

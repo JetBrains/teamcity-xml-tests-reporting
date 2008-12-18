@@ -33,35 +33,28 @@ public class TestReportLogger {
     myVerboseOutput = verboseOutput;
   }
 
-  public static String createLogMessage(String message) {
-    return PLUGIN_LOG_PREFIX + message;
-  }
-
   public void debugToAgentLog(String message) {
-    AGENT_LOG.debug(createLogMessage(message));
+    AGENT_LOG.debug(message);
   }
 
   public void error(String message) {
-    final String m = createLogMessage(message);
-    AGENT_LOG.debug(m);
+    AGENT_LOG.debug(message);
     if (myVerboseOutput) {
-      myBuildLogger.error(m);
+      myBuildLogger.error(message);
     }
   }
 
   public void message(String message) {
-    final String m = createLogMessage(message);
-    AGENT_LOG.debug(m);
+    AGENT_LOG.debug(message);
     if (myVerboseOutput) {
-      myBuildLogger.message(m);
+      myBuildLogger.message(message);
     }
   }
 
   public void warning(String message) {
-    final String m = createLogMessage(message);
-    AGENT_LOG.debug(m);
+    AGENT_LOG.debug(message);
     if (myVerboseOutput) {
-      myBuildLogger.warning(m);
+      myBuildLogger.warning(message);
     }
   }
 
