@@ -5,16 +5,21 @@
 <div class="parameter">
   Test report monitoring:
   <c:choose>
-    <c:when test="${propertiesBean.properties['testReportParsing.enabled']}">
-      <strong>enabled</strong>
+    <c:when test="${propertiesBean.properties['testReportParsing.reportType'] == ''}">
+      <strong>disabled</strong>
     </c:when>
     <c:otherwise>
-      <strong>disabled</strong>
+      <strong>enabled</strong>
     </c:otherwise>
   </c:choose>
 </div>
 
-<c:if test="${propertiesBean.properties['testReportParsing.enabled']}">
+<c:if test="${propertiesBean.properties['testReportParsing.reportType'] == 'junit'}">
+  <div class="parameter">
+    Test report type: <props:displayValue name="testReportParsing.reportType"
+                                          emptyValue="none specified"/>
+  </div>
+
   <div class="parameter">
     Test report directories: <props:displayValue name="testReportParsing.reportDirs"
                                                  emptyValue="none specified"/>

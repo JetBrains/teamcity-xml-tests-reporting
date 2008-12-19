@@ -115,6 +115,8 @@ public class AntJUnitReportParserTest {
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
+        inSequence(mySequence);
       }
     });
     myParser.parse(report("noCase.xml"), 0);
@@ -132,6 +134,8 @@ public class AntJUnitReportParserTest {
         oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -153,6 +157,8 @@ public class AntJUnitReportParserTest {
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
+        inSequence(mySequence);
       }
     });
     myParser.parse(report("singleCaseFailure.xml"), 0);
@@ -172,6 +178,8 @@ public class AntJUnitReportParserTest {
         oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -193,6 +201,8 @@ public class AntJUnitReportParserTest {
         oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -228,6 +238,8 @@ public class AntJUnitReportParserTest {
         oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -270,6 +282,8 @@ public class AntJUnitReportParserTest {
       {
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
+        inSequence(mySequence);
       }
     });
     myParser.parse(report("singleCaseFailure.xml"), testsLogged);
@@ -291,6 +305,8 @@ public class AntJUnitReportParserTest {
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -316,6 +332,8 @@ public class AntJUnitReportParserTest {
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
+        inSequence(mySequence);
       }
     });
     myParser.parse(report("twoCasesFirstSuccess.xml"), 0);
@@ -339,6 +357,8 @@ public class AntJUnitReportParserTest {
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -365,6 +385,8 @@ public class AntJUnitReportParserTest {
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -396,6 +418,8 @@ public class AntJUnitReportParserTest {
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -442,6 +466,8 @@ public class AntJUnitReportParserTest {
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -505,6 +531,8 @@ public class AntJUnitReportParserTest {
       {
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
+        inSequence(mySequence);
       }
     });
     myParser.parse(report("twoCasesFailed.xml"), testsLogged);
@@ -530,6 +558,8 @@ public class AntJUnitReportParserTest {
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -584,6 +614,8 @@ public class AntJUnitReportParserTest {
 
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
+        inSequence(mySequence);
       }
     });
     myParser.parse(report("nineCases.xml"), testsLogged);
@@ -602,6 +634,8 @@ public class AntJUnitReportParserTest {
         oneOf(myLogger).message(with("[System out]\nfrom test1"));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -631,6 +665,8 @@ public class AntJUnitReportParserTest {
         oneOf(myLogger).warning(with("[System error]\nfrom test1"));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -662,6 +698,8 @@ public class AntJUnitReportParserTest {
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
+        inSequence(mySequence);
       }
     });
     myParser.parse(report(reportName), 0);
@@ -691,6 +729,8 @@ public class AntJUnitReportParserTest {
           "from test1 line1\nfrom test1 line2\nfrom test1 line3\nfrom test1 line4\nfrom test1 line5"));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -724,6 +764,8 @@ public class AntJUnitReportParserTest {
           "err from test1 line1\nerr from test1 line2\nerr from test1 line3\nerr from test1 line4\nerr from test1 line5"));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });

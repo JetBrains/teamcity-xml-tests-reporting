@@ -44,6 +44,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
   private static final String NAME_ATTR = "name";
   private static final String CLASSNAME_ATTR = "classname";
   private static final String PACKAGE_ATTR = "package";
+  private static final String TESTS_ATTR = "tests";
   private static final String MESSAGE_ATTR = "message";
   private static final String TYPE_ATTR = "type";
   private static final String TIME_ATTR = "time";
@@ -59,10 +60,11 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
   private String mySystemErr;
   private StringBuffer myCData;
 
+  private long myLoggedSuites;
   private long myLoggedTests;
   private long myTestsToSkip;
 
-  private Set<String> myLoggedSuits;
+  private Set<String> myPreviouslyLoggedSuits;
 
 
   public AntJUnitReportParser(@NotNull final TestReportLogger logger) {
@@ -72,11 +74,13 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       myXMLReader = XMLReaderFactory.createXMLReader();
       myXMLReader.setContentHandler(this);
       myXMLReader.setErrorHandler(this);
+      myXMLReader.setFeature("http://xml.org/sax/features/validation", false);
     } catch (SAXException e) {
       myLogger.warning("Ant JUnit report parser couldn't get default XMLReader");
     }
 
-    myLoggedSuits = new HashSet<String>();
+    myPreviouslyLoggedSuits = new HashSet<String>();
+    myLoggedSuites = 0;
   }
 
   public static boolean isReportFileComplete(@NotNull final File report) {
@@ -131,9 +135,13 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     myTestsToSkip = testsToSkip;
 
     try {
-      myLogger.debugToAgentLog("Parser got report: " + report.getPath() + " with " + testsToSkip + " tests to skip");
       myXMLReader.parse(new InputSource(report.toURI().toString()));
 
+      String message = report.getPath() + " report processed";
+      if ((myLoggedSuites != 0) && (myLoggedTests != 0)) {
+        message.concat(": " + myLoggedSuites + " suite(s), " + myLoggedTests + " test(s)");
+      }
+      myLogger.message(message);
     } catch (SAXParseException e) {
       if (myTests != null) {
         myTests.clear();
@@ -143,17 +151,16 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
       return myLoggedTests;
 
-    } catch (ParserStoppedException e) {
-      myLogger.debugToAgentLog(e.getMessage());
     } catch (Exception e) {
       myLogger.exception(e);
     }
     myCurrentSuite = null;
+    myLoggedSuites = 0;
     return -1;
   }
 
   public boolean abnormalEnd() {
-    if ((myCurrentSuite != null) && myCurrentSuite.getLogged()) {
+    if (myCurrentSuite != null) {
       endSuite();
       myLogger.debugToAgentLog("Abnormal end called. Log ending of started suite.");
       return true;
@@ -165,12 +172,10 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
   public void startElement(String uri, String localName,
                            String qName, Attributes attributes)
     throws SAXException {
-    if (testSkipped()) {
-      return;
-    }
-
     if (TEST_SUITE.equals(localName)) {
       startSuite(attributes);
+    } else if (testSkipped()) {
+      return;
     } else if (TEST_CASE.equals(localName)) {
       startTest(attributes);
     } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
@@ -218,12 +223,13 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
   }
 
   private void startSuite(Attributes attributes) {
-    if ((myCurrentSuite != null) && myCurrentSuite.getLogged()) {
+    if (myCurrentSuite != null) {
       return;
     }
 
     String name = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
     final String pack = attributes.getValue(DEFAULT_NAMESPACE, PACKAGE_ATTR);
+    final long testNumber = getTestNumber(attributes.getValue(DEFAULT_NAMESPACE, TESTS_ATTR));
     final Date startTime = new Date();
     final long duration = getExecutionTime(attributes.getValue(DEFAULT_NAMESPACE, TIME_ATTR));
 
@@ -231,18 +237,24 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       name = pack + "." + name;
     }
 
-    if (myLoggedSuits.contains(name)) {
-      throw new ParserStoppedException("Suite :" + name + " already logged from other report.");
+    if (myPreviouslyLoggedSuits.contains(name)) {
+//      throw new ParserStoppedException(name + " suite has been already logged from other report");
+      myLogger.debugToAgentLog(name + " suite has been already logged from other report");
+      myTestsToSkip = myTestsToSkip + testNumber;
+      return;
     }
 
     myCurrentSuite = new SuiteData(name, startTime.getTime(), duration);
     myTests = new Stack<TestData>();
     myLogger.getBuildLogger().logSuiteStarted(name, startTime);
-    myCurrentSuite.setLogged(true);
-    myLoggedSuits.add(name);
+    myPreviouslyLoggedSuits.add(name);
   }
 
   private void endSuite() {
+    if (myCurrentSuite == null) {
+      return;
+    }
+
     if (myCurrentSuite.isFailure()) {
       myLogger.error(myCurrentSuite.getFailureType() + ": " + myCurrentSuite.getFailureMessage());
     }
@@ -255,6 +267,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       mySystemErr = null;
     }
     myLogger.getBuildLogger().logSuiteFinished(myCurrentSuite.getName(), new Date(myCurrentSuite.getStartTime() + myCurrentSuite.getDuraion()));
+    myLoggedSuites = myLoggedSuites + 1;
 
     myCurrentSuite = null;
     myTests = null;
@@ -296,7 +309,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       final TestData test = myTests.peek();
       test.setFailureMessage(failureMessage);
       test.setFailureType(failureType);
-    } else {
+    } else if (myCurrentSuite != null) {
       myCurrentSuite.setFailureMessage(failureMessage);
       myCurrentSuite.setFailureType(failureType);
     }
@@ -320,16 +333,16 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     }
   }
 
-//  private long getTestNumber(String testNumStr) {
-//    if (testNumStr == null) {
-//      return 0L;
-//    }
-//    try {
-//      return (Long.parseLong(testNumStr));
-//    } catch (NumberFormatException e) {
-//      return 0L;
-//    }
-//  }
+  private long getTestNumber(String testNumStr) {
+    if (testNumStr == null) {
+      return 0L;
+    }
+    try {
+      return (Long.parseLong(testNumStr));
+    } catch (NumberFormatException e) {
+      return 0L;
+    }
+  }
 
   private long getExecutionTime(String timeStr) {
     if (timeStr == null) {

@@ -6,31 +6,27 @@
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
 <jsp:useBean id="reportTypeForm" scope="request" class="jetbrains.buildServer.testReportParserPlugin.ReportTypeForm"/>
 
-<l:settingsGroup title="Test Reports Settings">
+<c:set var="displayJUnitSettings"
+       value="${propertiesBean.properties['testReportParsing.reportType'] == 'junit' ? true : false}"/>
+<%--<c:set var="displayNUnitSettings" value="${propertiesBean.properties['testReportParsing.reportType'] == 'nunit' ? true : false}"/>--%>
 
-  <tr id="testReportParsing.enabled.container">
-    <th><label for="testReportParsing.enabled">Test reports:</label></th>
-    <td>
-      <c:set var="onclick">
-        $('testReportParsing.reportType').disabled = !this.checked;
-        $('testReportParsing.reportDirs').disabled = !this.checked;
-        $('testReportParsing.verboseOutput').disabled = !this.checked;
-      </c:set>
-      <props:checkboxProperty name="testReportParsing.enabled" onclick="${onclick}"/>
-      <label for="testReportParsing.enabled">Enable test report monitoring</label>
-      <span class="smallNote">Tests will be logged as soon as report files appear.</span>
-    </td>
-  </tr>
+<l:settingsGroup title="Test Reports Settings">
 
   <tr id="testReportParsing.reportType.container">
     <th><label for="testReportParsing.reportType">Import data from:</label></th>
     <td>
-        <%--<c:set var="onchange">--%>
-      <!--$('testReportParsing.reportDirs').disabled = !this.;-->
-      <!--$('testReportParsing.verboseOutput').disabled = !this.checked;-->
-        <%--</c:set>--%>
+      <c:set var="onchange">
+        var selectedValue = this.options[this.selectedIndex].value;
+        if (selectedValue == '') {
+        $('testReportParsing.reportDirs.container').style.display = 'none';
+        $('testReportParsing.verboseOutput.container').style.display = 'none';
+        }
+        if (selectedValue == 'junit') {
+        $('testReportParsing.reportDirs.container').style.display = '';
+        $('testReportParsing.verboseOutput.container').style.display = '';
+        }
+      </c:set>
       <props:selectProperty name="testReportParsing.reportType"
-                            disabled="${empty propertiesBean.properties['testReportParsing.enabled']}"
                             onchange="${onchange}">
         <c:set var="selected" value="false"/>
         <c:if test="${empty propertiesBean.properties['testReportParsing.reportType']}">
@@ -50,24 +46,21 @@
     </td>
   </tr>
 
-  <tr id="testReportParsing.reportDirs.container">
+  <tr id="testReportParsing.reportDirs.container" style="${displayJUnitSettings ? '' : 'display: none;'}">
     <th><label for="testReportParsing.reportDirs">Test report directories:</label></th>
     <td>
-      <props:textProperty name="testReportParsing.reportDirs" className="longField"
-                          disabled="${empty propertiesBean.properties['testReportParsing.enabled']}"/>
-        <span class="smallNote">
-        ";" separated paths to directories where reports are expected to appear.
-            Specified paths can be absolute or relative to the working directory.
-        </span>
+      <props:textProperty name="testReportParsing.reportDirs" className="longField"/>
+          <span class="smallNote">
+          ";" separated paths to directories where reports are expected to appear.
+              Specified paths can be absolute or relative to the working directory.
+          </span>
     </td>
   </tr>
 
-  <tr id="testReportParsing.verboseOutput.container">
+  <tr id="testReportParsing.verboseOutput.container" style="${displayJUnitSettings ? '' : 'display: none;'}">
     <th><label for="testReportParsing.verboseOutput">Verbose output:</label></th>
     <td>
-      <props:checkboxProperty name="testReportParsing.verboseOutput"
-                              disabled="${empty propertiesBean.properties['testReportParsing.enabled']}"/>
+      <props:checkboxProperty name="testReportParsing.verboseOutput"/>
     </td>
   </tr>
 </l:settingsGroup>
-

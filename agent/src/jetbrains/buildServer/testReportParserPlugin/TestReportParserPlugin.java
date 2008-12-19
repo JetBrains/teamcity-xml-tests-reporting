@@ -37,6 +37,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
 
   private boolean myTestReportParsingEnabled = false;
   private boolean myVerboseOutput = false;
+  private String myReportType = "";
   private long myBuildStartTime;
   private File myRunnerWorkingDir;
 
@@ -69,11 +70,11 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
     final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myRunnerWorkingDir);
 
     if (reportDirs.size() == 0) {
-      myLogger.warning("no report directories specified");
+      myLogger.warning("No report directories specified");
     }
 
-    final String type = getReportType(runnerParameters);
-    myLogger.debugToAgentLog("TYPE: " + type);
+    myReportType = getReportType(runnerParameters);
+    myLogger.debugToAgentLog("Current report type: " + myReportType);
 
     startReportProcessing(reportDirs);
   }
@@ -129,17 +130,17 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
 
     switch (buildFinishedStatus) {
       case INTERRUPTED:
-        myLogger.warning("build interrupted, plugin may not finish it's work");
+        myLogger.warning("Build interrupted, plugin may not finish it's work");
       case FINISHED_SUCCESS:
       case FINISHED_FAILED:
         synchronized (myReportProcessor) {
           try {
             myReportProcessor.join();
           } catch (InterruptedException e) {
-            myLogger.debugToAgentLog("plugin thread interrupted");
+            myLogger.debugToAgentLog("Plugin thread interrupted");
           }
         }
-        myDirectoryWatcher.logDirectoryTotals();
+        myDirectoryWatcher.logDirectoriesTotals();
         break;
     }
   }
@@ -150,6 +151,10 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
 
   public long getBuildStartTime() {
     return myBuildStartTime;
+  }
+
+  public String getSelectedReportType() {
+    return myReportType;
   }
 
   public boolean isStopped() {

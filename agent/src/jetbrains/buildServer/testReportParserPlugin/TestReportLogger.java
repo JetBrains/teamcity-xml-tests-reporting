@@ -22,7 +22,6 @@ import org.jetbrains.annotations.NotNull;
 
 
 public class TestReportLogger {
-  private static final String PLUGIN_LOG_PREFIX = "xml-report-plugin: ";
   private static final Logger AGENT_LOG = Logger.getInstance(TestReportParserPlugin.class.getName());
 
   private final BaseServerLoggerFacade myBuildLogger;

@@ -20,6 +20,7 @@ import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.BuildFinishedStatus;
+import static jetbrains.buildServer.testReportParserPlugin.TestUtil.REPORT_TYPE;
 import jetbrains.buildServer.util.EventDispatcher;
 import junit.framework.Assert;
 import org.jmock.Expectations;
@@ -86,7 +87,12 @@ public class TestReportParserPluginTest {
   }
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
-    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, false);
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).targetStarted(with("xml-report-plugin"));
+      }
+    });
+    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, REPORT_TYPE);
 
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
     myPlugin = new TestReportParserPlugin(myEventDispatcher);
@@ -131,7 +137,7 @@ public class TestReportParserPluginTest {
 
   @Test
   public void testWarningWhenReportDirsNull() {
-    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, REPORT_TYPE);
     TestReportParserPluginUtil.setVerboseOutput(myRunParams, true);
 
     warningWhenZeroReportDirsSize();
@@ -147,7 +153,7 @@ public class TestReportParserPluginTest {
 
   @Test
   public void testIsStoppedWhenDisabled() {
-    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, false);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, REPORT_TYPE);
 
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
     myPlugin = new TestReportParserPlugin(myEventDispatcher);
@@ -180,14 +186,14 @@ public class TestReportParserPluginTest {
 
   @Test
   public void testIsStoppedWhenReportDirsEmpty() {
-    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, REPORT_TYPE);
 
     isStoppedWhenZeroReportDirsSize();
   }
 
   @Test
   public void testIsStoppedWhenReportDirsNull() {
-    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunParams, REPORT_TYPE);
 
     isStoppedWhenZeroReportDirsSize();
   }

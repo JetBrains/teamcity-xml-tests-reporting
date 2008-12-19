@@ -105,7 +105,7 @@ public class TestReportDirectoryWatcherTest {
       }
     });
     final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), createLinkedBlockingQueue());
-    watcher.logDirectoryTotals();
+    watcher.logDirectoriesTotals();
     myContext.assertIsSatisfied();
   }
 

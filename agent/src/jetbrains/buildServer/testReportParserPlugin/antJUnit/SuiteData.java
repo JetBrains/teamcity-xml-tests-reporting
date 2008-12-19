@@ -20,7 +20,6 @@ public class SuiteData {
   private final String myName;
   private final long myStartTime;
   private final long myDuration;
-  private boolean myLogged;
 
   private String myFailureType;
   private String myFailureMessage;
@@ -29,7 +28,6 @@ public class SuiteData {
     myName = name;
     myStartTime = startTime;
     myDuration = duration;
-    myLogged = false;
   }
 
   public String getName() {
@@ -42,14 +40,6 @@ public class SuiteData {
 
   public long getDuraion() {
     return myDuration;
-  }
-
-  public boolean getLogged() {
-    return myLogged;
-  }
-
-  public void setLogged(boolean logged) {
-    myLogged = logged;
   }
 
   public String getFailureMessage() {

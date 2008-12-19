@@ -35,8 +35,7 @@ public class ReportTypeForm extends RememberState {
     mySelectedReportType = "";
 
     myAvailableReportTypes = new ArrayList(1);
-    myAvailableReportTypes.add(new ReportTypeInfo("junit", "JUnit Report", "jUnitReportParserSettings.jsp"));
-    myAvailableReportTypes.add(new ReportTypeInfo("nunit", "NUnit Report", "nUnitReportParserSettings.jsp"));
+    myAvailableReportTypes.add(new ReportTypeInfo("junit", "Ant JUnit reports"));
   }
 
   public String getSelectedReportType() {
@@ -59,15 +58,11 @@ public class ReportTypeForm extends RememberState {
     private String myType;
     @StateField
     private String myDisplayName;
-    @StateField
-    private String myReportParserSettingsJspPath;
 
     public ReportTypeInfo(final String type,
-                          final String typeDisplayName,
-                          final String reportParseParametersJspPath) {
+                          final String typeDisplayName) {
       myType = type;
       myDisplayName = typeDisplayName;
-      myReportParserSettingsJspPath = reportParseParametersJspPath;
     }
 
     public String getType() {
@@ -76,10 +71,6 @@ public class ReportTypeForm extends RememberState {
 
     public String getDisplayName() {
       return myDisplayName;
-    }
-
-    public String getReportParserSettingsJspPath() {
-      return JSP_DIRECTORY + myReportParserSettingsJspPath;
     }
   }
 }

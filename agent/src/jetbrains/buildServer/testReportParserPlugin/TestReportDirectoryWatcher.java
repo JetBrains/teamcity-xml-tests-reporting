@@ -31,7 +31,7 @@ public class TestReportDirectoryWatcher extends Thread {
 
   private final LinkedBlockingQueue<File> myReportQueue;
   private final Set<File> myDirectories;
-  private final Map<File, List<String>> myActiveDirectories;
+  private final Map<File, List<File>[]> myActiveDirectories;
 
   public TestReportDirectoryWatcher(@NotNull final TestReportParserPlugin plugin,
                                     @NotNull final List<File> directories,
@@ -41,7 +41,7 @@ public class TestReportDirectoryWatcher extends Thread {
     myPlugin = plugin;
     myDirectories = new LinkedHashSet<File>(directories);
     myReportQueue = queue;
-    myActiveDirectories = new HashMap<File, List<String>>();
+    myActiveDirectories = new HashMap<File, List<File>[]>();
   }
 
   public void run() {
@@ -57,62 +57,105 @@ public class TestReportDirectoryWatcher extends Thread {
     scanDirectories();
   }
 
+  public synchronized void addDirectories(List<File> directories) {
+    myDirectories.addAll(directories);
+  }
+
   private synchronized void scanDirectories() {
     for (File dir : myDirectories) {
       if (dir.isDirectory()) {
         final File[] files = dir.listFiles();
         if ((files == null) || (files.length == 0)) continue;
 
-        final List<String> processedFiles;
+        final List<File>[] processedFiles;
 
         if (!myActiveDirectories.containsKey(dir)) {
-          processedFiles = new ArrayList<String>();
+          processedFiles = new List[2];
+          processedFiles[0] = new ArrayList<File>();
+          processedFiles[1] = new ArrayList<File>();
         } else {
           processedFiles = myActiveDirectories.get(dir);
         }
 
         for (final File report : files) {
-          if (report.isFile() && (report.lastModified() >= myPlugin.getBuildStartTime())) {
-
-            if (!processedFiles.contains(report.getPath()) && report.canRead() &&
-              AntJUnitReportParser.isReportFileComplete(report)) {
-
-              processedFiles.add(report.getPath());
-
-              try {
-                myReportQueue.put(report);
-              } catch (InterruptedException e) {
-                myPlugin.getLogger().debugToAgentLog("directory watcher thread interrupted");
-              }
-
+          if (!isFileOk(report)) {
+            if (!processedFiles[1].contains(report)) {
+              processedFiles[1].add(report);
             }
+            continue;
+          }
+
+          if (!processedFiles[0].contains(report) && AntJUnitReportParser.isReportFileComplete(report)) {
+            processedFiles[0].add(report);
+            processedFiles[1].remove(report);
+
+            try {
+              myReportQueue.put(report);
+            } catch (InterruptedException e) {
+              myPlugin.getLogger().debugToAgentLog("Directory watcher thread interrupted");
+            }
+
           }
         }
-        if (processedFiles.size() > 0) {
+        if ((processedFiles[0].size() > 0) || (processedFiles[1].size() > 0)) {
           myActiveDirectories.put(dir, processedFiles);
         }
       }
     }
   }
 
-  public synchronized void addDirectories(List<File> directories) {
-    myDirectories.addAll(directories);
+  private boolean isFileOk(File report) {
+    return !(!report.isFile() || !report.canRead() || (report.lastModified() < myPlugin.getBuildStartTime()));
   }
 
-  public void logDirectoryTotals() {
+  public void logDirectoriesTotals() {
     if (myDirectories.isEmpty()) return;
     if (myDirectories.size() != myActiveDirectories.size()) {
       for (File dir : myDirectories) {
-        if (!dir.exists()) {
-          myPlugin.getLogger().warning(dir.getPath() + " directory didn't appear on disk during the build");
-        } else if (!dir.isDirectory()) {
-          myPlugin.getLogger().warning(dir.getPath() + " is not actually a directory");
-        } else if (!myActiveDirectories.containsKey(dir)) {
-          myPlugin.getLogger().warning("no reports found in " + dir.getPath() + " directory");
-        } else {
-          final List<String> processedFiles = myActiveDirectories.get(dir);
-          myPlugin.getLogger().message(processedFiles.size() + " files(s) appeared in directory " + dir.getPath());
-        }
+        logDirectoryTotals(dir);
+      }
+    }
+  }
+
+  private void logDirectoryTotals(File dir) {
+    if (!dir.exists()) {
+      myPlugin.getLogger().warning(dir.getPath() + " directory didn't appear on disk during the build");
+    } else if (!dir.isDirectory()) {
+      myPlugin.getLogger().warning(dir.getPath() + " is not actually a directory");
+    } else if (!myActiveDirectories.containsKey(dir)) {
+      myPlugin.getLogger().warning(dir.getPath() + ": no reports found in directory");
+    } else {
+      logActiveDirectoryTotals(dir);
+    }
+  }
+
+  private void logActiveDirectoryTotals(File dir) {
+    final List<File> processedFiles = myActiveDirectories.get(dir)[0];
+    final List<File> unprocessedFiles = myActiveDirectories.get(dir)[1];
+    final int fileNumber = processedFiles.size() + unprocessedFiles.size();
+
+    String message = dir.getPath() + " directory: " + fileNumber + " files(s) found";
+
+    if (unprocessedFiles.size() > 0) {
+      message = message.concat(", " + unprocessedFiles.size() + " of them unprocessed (see reasons below):");
+    }
+    myPlugin.getLogger().message(message);
+
+    logUnprocessedFilesTotals(unprocessedFiles);
+  }
+
+  private void logUnprocessedFilesTotals(List<File> unprocessedFiles) {
+    for (File file : unprocessedFiles) {
+      if (!file.isFile()) {
+        myPlugin.getLogger().warning(file.getPath() + " is not actually a file");
+        continue;
+      }
+      if (!file.canRead()) {
+        myPlugin.getLogger().warning(file.getPath() + ": unable to read file");
+        continue;
+      }
+      if (file.lastModified() < myPlugin.getBuildStartTime()) {
+        myPlugin.getLogger().warning(file.getPath() + " file has modification date preceding build start time");
       }
     }
   }

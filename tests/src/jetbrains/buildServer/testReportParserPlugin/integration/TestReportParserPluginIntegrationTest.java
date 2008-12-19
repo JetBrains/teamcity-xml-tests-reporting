@@ -23,6 +23,8 @@ import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.BuildFinishedStatus;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil;
+import static jetbrains.buildServer.testReportParserPlugin.TestUtil.EMPTY_REPORT_TYPE;
+import static jetbrains.buildServer.testReportParserPlugin.TestUtil.REPORT_TYPE;
 import static jetbrains.buildServer.testReportParserPlugin.integration.ReportFactory.*;
 import jetbrains.buildServer.util.EventDispatcher;
 import org.jmock.Expectations;
@@ -90,7 +92,7 @@ public class TestReportParserPluginIntegrationTest {
   }
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
-    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, false);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, EMPTY_REPORT_TYPE);
     TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
     myTestLogger.setExpectedSequence(myLogSequence);
 
@@ -127,7 +129,7 @@ public class TestReportParserPluginIntegrationTest {
 
   @Test
   public void testWarningWhenNoReportDirAppears() {
-    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, REPORT_TYPE);
     myRunnerParams.put(TestReportParserPluginUtil.TEST_REPORT_PARSING_REPORT_DIRS, "reports");
     TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
@@ -149,7 +151,7 @@ public class TestReportParserPluginIntegrationTest {
 
   @Test
   public void testWarningWhenDirectoryWasNotActuallyDirectory() {
-    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, REPORT_TYPE);
     myRunnerParams.put(TestReportParserPluginUtil.TEST_REPORT_PARSING_REPORT_DIRS, "reports");
     TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
@@ -172,7 +174,7 @@ public class TestReportParserPluginIntegrationTest {
 
   private void warningWhenNoReportsFoundInDirectory() {
     createDir(REPORTS_DIR);
-    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, REPORT_TYPE);
     myRunnerParams.put(TestReportParserPluginUtil.TEST_REPORT_PARSING_REPORT_DIRS, REPORTS_DIR);
     TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
@@ -216,7 +218,7 @@ public class TestReportParserPluginIntegrationTest {
   @Test
   public void testWarningWhenUnfinishedReportFoundInDirectory() {
     createDir(REPORTS_DIR);
-    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, REPORT_TYPE);
     myRunnerParams.put(TestReportParserPluginUtil.TEST_REPORT_PARSING_REPORT_DIRS, REPORTS_DIR);
     TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
@@ -279,7 +281,7 @@ public class TestReportParserPluginIntegrationTest {
 
   @Test
   public void testNotSilentWhenEnabled() {
-    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, REPORT_TYPE);
     TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final List<Object> params = new ArrayList<Object>();
