@@ -110,10 +110,8 @@ public class TestReportDirectoryWatcher extends Thread {
 
   public void logDirectoriesTotals() {
     if (myDirectories.isEmpty()) return;
-    if (myDirectories.size() != myActiveDirectories.size()) {
-      for (File dir : myDirectories) {
-        logDirectoryTotals(dir);
-      }
+    for (File dir : myDirectories) {
+      logDirectoryTotals(dir);
     }
   }
 
