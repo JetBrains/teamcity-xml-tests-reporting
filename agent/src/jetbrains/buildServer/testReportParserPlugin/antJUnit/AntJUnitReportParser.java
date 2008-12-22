@@ -138,8 +138,11 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       myXMLReader.parse(new InputSource(report.toURI().toString()));
 
       String message = report.getPath() + " report processed";
-      if ((myLoggedSuites != 0) && (myLoggedTests != 0)) {
-        message.concat(": " + myLoggedSuites + " suite(s), " + myLoggedTests + " test(s)");
+      if (myLoggedSuites != 0) {
+        message.concat(": " + myLoggedSuites + " suite(s)");
+      }
+      if (myLoggedTests != 0) {
+        message.concat(", " + myLoggedTests + " test(s)");
       }
       myLogger.message(message);
     } catch (SAXParseException e) {

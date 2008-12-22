@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 public class TestReportProcessor extends Thread {
   private static final long FILE_WAIT_TIMEOUT = 500;
   private static final int TRIES_TO_PARSE = 100;
-  private static final long SCAN_INTERVAL = 100;
+  private static final long SCAN_INTERVAL = 300;
 
   private final TestReportParserPlugin myPlugin;
 
@@ -94,6 +94,12 @@ public class TestReportProcessor extends Thread {
         myPlugin.getLogger().warning(report.getFile().getPath() + " report has unexpected finish or unsupported format");
         myCurrentReport = null;
       } else {
+        final long currLength = myCurrentReport.getFile().length();
+        final long prevLength = myCurrentReport.getPrevLength();  
+        if (currLength > prevLength) {
+          myCurrentReport.setPrevLength(currLength);
+          myCurrentReport.setTriesToParse(0);
+        }
         try {
           Thread.sleep(SCAN_INTERVAL);
         } catch (InterruptedException e) {
@@ -133,12 +139,14 @@ public class TestReportProcessor extends Thread {
   private static final class ReportData {
     private final File myFile;
     private long myProcessedTests;
+    private long myPrevLength;
     private int myTriesToParse;
 
     public ReportData(@NotNull final File file) {
       myFile = file;
       myProcessedTests = 0;
       myTriesToParse = 0;
+      myPrevLength = file.length();
     }
 
     public File getFile() {
@@ -157,8 +165,19 @@ public class TestReportProcessor extends Thread {
       return myTriesToParse;
     }
 
+    public void setTriesToParse(int triesToParse) {
+      myTriesToParse = triesToParse;
+    }
     public void parsedOnceMore() {
       ++myTriesToParse;
+    }
+
+    public long getPrevLength() {
+      return myPrevLength;
+    }
+
+    public void setPrevLength(long prevLength) {
+      myPrevLength = prevLength;
     }
   }
 }
