@@ -17,6 +17,7 @@
 package jetbrains.buildServer.testReportParserPlugin;
 
 import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParser;
+import jetbrains.buildServer.testReportParserPlugin.nUnit.NUnitReportParser;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -43,10 +44,14 @@ public class TestReportProcessor extends Thread {
     myPlugin = plugin;
     myReportQueue = queue;
     myWatcher = watcher;
-    if (AntJUnitReportParser.TYPE.equals(plugin.getSelectedReportType())) {
+
+    final String expectedReportType = plugin.getSelectedReportType();
+    if (AntJUnitReportParser.TYPE.equals(expectedReportType)) {
       myParser = new AntJUnitReportParser(myPlugin.getLogger());
+    } else if (NUnitReportParser.TYPE.equals(expectedReportType)) {
+      myParser = new NUnitReportParser(myPlugin.getLogger(), myPlugin.getAgentHome());
     } else {
-      myPlugin.getLogger().debugToAgentLog("No parser for " + plugin.getSelectedReportType() + " available");
+      myPlugin.getLogger().debugToAgentLog("No parser for " + expectedReportType + " available");
       myParser = null;
     }
   }
@@ -95,7 +100,7 @@ public class TestReportProcessor extends Thread {
         myCurrentReport = null;
       } else {
         final long currLength = myCurrentReport.getFile().length();
-        final long prevLength = myCurrentReport.getPrevLength();  
+        final long prevLength = myCurrentReport.getPrevLength();
         if (currLength > prevLength) {
           myCurrentReport.setPrevLength(currLength);
           myCurrentReport.setTriesToParse(0);
@@ -168,6 +173,7 @@ public class TestReportProcessor extends Thread {
     public void setTriesToParse(int triesToParse) {
       myTriesToParse = triesToParse;
     }
+
     public void parsedOnceMore() {
       ++myTriesToParse;
     }

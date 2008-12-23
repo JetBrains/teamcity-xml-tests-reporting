@@ -31,6 +31,8 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
   private static final String DATA_PROCESSOR_ID = "junit";
   private static final String DATA_PROCESSOR_VERBOSE_ARGUMENT = "verbose";
 
+  private static final String AGENT_HOME_PROPERTY_NAME = "agent.home.dir";
+
   private TestReportDirectoryWatcher myDirectoryWatcher;
   private TestReportProcessor myReportProcessor;
   private TestReportLogger myLogger;
@@ -40,6 +42,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
   private String myReportType = "";
   private long myBuildStartTime;
   private File myRunnerWorkingDir;
+  private String myAgentHome;
 
   private volatile boolean myStopped;
 
@@ -74,7 +77,9 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
     }
 
     myReportType = getReportType(runnerParameters);
-    myLogger.debugToAgentLog("Current report type: " + myReportType);
+    myLogger.debugToAgentLog("Plugin expects reports of type: " + myReportType);
+
+    myAgentHome = runnerParameters.get(AGENT_HOME_PROPERTY_NAME);
 
     startReportProcessing(reportDirs);
   }
@@ -159,6 +164,10 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
 
   public boolean isStopped() {
     return myStopped;
+  }
+
+  public String getAgentHome() {
+    return myAgentHome;
   }
 
   //"##teamcity[importData id='junit' file='somedir']" service messsage activates watching "somedir" directory

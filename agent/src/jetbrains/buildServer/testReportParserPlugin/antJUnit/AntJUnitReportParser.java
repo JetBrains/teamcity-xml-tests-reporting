@@ -172,6 +172,10 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     return false;
   }
 
+  public TestReportLogger getLogger() {
+    return myLogger;
+  }
+
   public void startElement(String uri, String localName,
                            String qName, Attributes attributes)
     throws SAXException {
@@ -364,11 +368,5 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
   private String getTrimmedCData() {
     return myCData.toString().trim();
-  }
-
-  private class ParserStoppedException extends RuntimeException {
-    public ParserStoppedException(String message) {
-      super(message);
-    }
   }
 }

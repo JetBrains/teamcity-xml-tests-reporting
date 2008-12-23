@@ -50,6 +50,7 @@
       <entry name="?*.tld" />
       <entry name="*?.class" />
       <entry name="*?.jsp" />
+      <entry name="*?.xsl" />
     </wildcardResourcePatterns>
   </component>
   <component name="DependenciesAnalyzeManager">
