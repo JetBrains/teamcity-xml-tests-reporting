@@ -72,7 +72,7 @@
       <formatter type="xml"/>
 
       <batchtest todir="test-reports">
-        <fileset dir="${tests.output.dir}">
+        <fileset dir="${tests.testoutput.dir}">
           <include name="**/*Test.class"/>
         </fileset>
       </batchtest>
