@@ -414,7 +414,7 @@
     <patternset refid="excluded.from.module.tests"/>
   </patternset>
 
-  <path id="tests.module.sourcepath">
+  <path id="tests.module.test.sourcepath">
     <dirset dir="${module.tests.basedir}/tests">
       <include name="src"/>
     </dirset>
@@ -426,27 +426,27 @@
 
   <target name="compile.module.tests.production"
           depends="compile.module.agent,compile.module.common,compile.module.server"
-          description="Compile module tests; production classes">
-    <mkdir dir="${tests.output.dir}"/>
-    <javac destdir="${tests.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+          description="Compile module tests; production classes"/>
+
+  <target name="compile.module.tests.tests" depends="compile.module.tests.production"
+          description="compile module tests; test classes" unless="skip.tests">
+    <mkdir dir="${tests.testoutput.dir}"/>
+    <javac destdir="${tests.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
            memorymaximumsize="${compiler.max.memory}" fork="true">
       <compilerarg line="${compiler.args.tests}"/>
-      <bootclasspath refid="tests.module.bootclasspath"/>
       <classpath refid="tests.module.classpath"/>
-      <src refid="tests.module.sourcepath"/>
+      <classpath location="${tests.output.dir}"/>
+      <src refid="tests.module.test.sourcepath"/>
       <patternset refid="excluded.from.compilation.tests"/>
     </javac>
 
-    <copy todir="${tests.output.dir}">
+    <copy todir="${tests.testoutput.dir}">
       <fileset dir="${module.tests.basedir}/tests/src">
         <patternset refid="compiler.resources"/>
         <type type="file"/>
       </fileset>
     </copy>
   </target>
-
-  <target name="compile.module.tests.tests" depends="compile.module.tests.production"
-          description="compile module tests; test classes" unless="skip.tests"/>
 
   <target name="clean.module.tests" description="cleanup module">
     <delete dir="${tests.output.dir}"/>
