@@ -19,6 +19,9 @@ import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParse
 
 
 public class TestUtil {
-  public static final String REPORT_TYPE = AntJUnitReportParser.TYPE;
+  public static final String WORKING_DIR = "workingDirForTesting";
+
+  public static final String NUNIT_REPORT_TYPE = "nunit";
+  public static final String ANT_JUNIT_REPORT_TYPE = AntJUnitReportParser.TYPE;
   public static final String EMPTY_REPORT_TYPE = "";
 }

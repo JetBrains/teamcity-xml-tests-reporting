@@ -23,8 +23,8 @@ import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.BuildFinishedStatus;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil;
-import static jetbrains.buildServer.testReportParserPlugin.TestUtil.EMPTY_REPORT_TYPE;
-import static jetbrains.buildServer.testReportParserPlugin.TestUtil.REPORT_TYPE;
+import static jetbrains.buildServer.testReportParserPlugin.TestUtil.*;
+import static jetbrains.buildServer.testReportParserPlugin.TestUtil.WORKING_DIR;
 import static jetbrains.buildServer.testReportParserPlugin.integration.ReportFactory.*;
 import jetbrains.buildServer.util.EventDispatcher;
 import org.jmock.Expectations;
@@ -43,7 +43,6 @@ import java.util.Map;
 
 @RunWith(JMock.class)
 public class TestReportParserPluginIntegrationTest {
-  private static final String WORKING_DIR = "workingDirForTesting";
   private static final String REPORTS_DIR = "reportsDir";
 
   private TestReportParserPlugin myPlugin;
@@ -129,7 +128,7 @@ public class TestReportParserPluginIntegrationTest {
 
   @Test
   public void testWarningWhenNoReportDirAppears() {
-    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, REPORT_TYPE);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
     myRunnerParams.put(TestReportParserPluginUtil.TEST_REPORT_PARSING_REPORT_DIRS, "reports");
     TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
@@ -151,7 +150,7 @@ public class TestReportParserPluginIntegrationTest {
 
   @Test
   public void testWarningWhenDirectoryWasNotActuallyDirectory() {
-    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, REPORT_TYPE);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
     myRunnerParams.put(TestReportParserPluginUtil.TEST_REPORT_PARSING_REPORT_DIRS, "reports");
     TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
@@ -172,9 +171,9 @@ public class TestReportParserPluginIntegrationTest {
     }
   }
 
-  private void warningWhenNoReportsFoundInDirectory() {
+  private void warningWhenNoReportsFoundInDirectory(String reportType) {
     createDir(REPORTS_DIR);
-    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, REPORT_TYPE);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, reportType);
     myRunnerParams.put(TestReportParserPluginUtil.TEST_REPORT_PARSING_REPORT_DIRS, REPORTS_DIR);
     TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
@@ -185,8 +184,8 @@ public class TestReportParserPluginIntegrationTest {
   }
 
   @Test
-  public void testWarningWhenNoReportsFoundInDirectory() {
-    warningWhenNoReportsFoundInDirectory();
+  public void testAntJUnitWarningWhenNoReportsFoundInDirectory() {
+    warningWhenNoReportsFoundInDirectory(ANT_JUNIT_REPORT_TYPE);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
@@ -200,8 +199,8 @@ public class TestReportParserPluginIntegrationTest {
   }
 
   @Test
-  public void testWarningWhenNoReportsFoundInDirectoryOnlyWrongFile() {
-    warningWhenNoReportsFoundInDirectory();
+  public void testAntJUnitWarningWhenNoReportsFoundInDirectoryOnlyWrongFile() {
+    warningWhenNoReportsFoundInDirectory(ANT_JUNIT_REPORT_TYPE);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
@@ -216,9 +215,40 @@ public class TestReportParserPluginIntegrationTest {
   }
 
   @Test
-  public void testWarningWhenUnfinishedReportFoundInDirectory() {
+  public void testNUnitWarningWhenNoReportsFoundInDirectory() {
+    warningWhenNoReportsFoundInDirectory(NUNIT_REPORT_TYPE);
+
+    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myContext.assertIsSatisfied();
+    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+
+    if (myFailures.size() > 0) {
+      throw myFailures.get(0);
+    }
+  }
+
+  @Test
+  public void testNUnitWarningWhenNoReportsFoundInDirectoryOnlyWrongFile() {
+    warningWhenNoReportsFoundInDirectory(NUNIT_REPORT_TYPE);
+
+    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    createFile(REPORTS_DIR + "\\somefile");
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myContext.assertIsSatisfied();
+    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+
+    if (myFailures.size() > 0) {
+      throw myFailures.get(0);
+    }
+  }
+
+  @Test
+  public void testAntJUnitWarningWhenUnfinishedReportFoundInDirectory() {
     createDir(REPORTS_DIR);
-    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, REPORT_TYPE);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
     myRunnerParams.put(TestReportParserPluginUtil.TEST_REPORT_PARSING_REPORT_DIRS, REPORTS_DIR);
     TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
@@ -234,7 +264,7 @@ public class TestReportParserPluginIntegrationTest {
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    createUnfinishedReport(REPORTS_DIR + "\\report");
+    createUnfinishedReport(REPORTS_DIR + "\\report", ANT_JUNIT_REPORT_TYPE);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -244,44 +274,9 @@ public class TestReportParserPluginIntegrationTest {
     }
   }
 
-//  @Test
-//  public void testWarningWhenUnfinishedReportsFoundInDirectory() {
-//    final int fileNumber = 50;
-//
-//    createDir(REPORTS_DIR);
-//    myRunnerParams.put(TestReportParserPlugin.TEST_REPORT_DIR_PROPERTY, REPORTS_DIR);
-//    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, true);
-//
-//    final List<Object> params = new ArrayList<Object>();
-//    params.add(MethodInvokation.ANY_VALUE);
-//    for (int i = 0; i < fileNumber; ++i) {
-//      myLogSequence.add(new MethodInvokation("logSuiteStarted", params));
-//      myLogSequence.add(new MethodInvokation("logTestStarted", params));
-//      myLogSequence.add(new MethodInvokation("logTestFailed", params));
-//      myLogSequence.add(new MethodInvokation("logTestFinished", params));
-//      myLogSequence.add(new MethodInvokation("logSuiteFinished", params));
-//      myLogSequence.add(new MethodInvokation("warning", params));
-//    }
-//    myTestLogger.setExpectedSequence(myLogSequence);
-//    warningWhenNoReportsFoundInDirectory();
-//
-//    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-//    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-//    for (int i = 0; i < fileNumber; ++i) {
-//      createUnfinishedReport(REPORTS_DIR + "\\report" + i);
-//    }
-//    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-//    myContext.assertIsSatisfied();
-//    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
-//
-//    if (myFailures.size() > 0) {
-//      throw myFailures.get(0);
-//    }
-//  }
-
   @Test
   public void testNotSilentWhenEnabled() {
-    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, REPORT_TYPE);
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
     TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final List<Object> params = new ArrayList<Object>();
@@ -298,5 +293,49 @@ public class TestReportParserPluginIntegrationTest {
     if (myFailures.size() > 0) {
       throw myFailures.get(0);
     }
+  }
+
+  //test for Gradle bug after fixing
+  @Test
+  public void testLogSuiteWhenAppearsIn2Files() {
+//    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
+//    TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
+//    TestReportParserPluginUtil.setTestReportDirs(myRunnerParams, WORKING_DIR);
+//
+//    final List<Object> params = new ArrayList<Object>();
+//    params.add(MethodInvokation.ANY_VALUE);
+//    myLogSequence.add(new MethodInvokation("message", params));
+//    myLogSequence.add(new MethodInvokation("logSuiteStarted", params));
+//    myLogSequence.add(new MethodInvokation("logTestStarted", params));
+//    myLogSequence.add(new MethodInvokation("logTestFinished", params));
+//    myLogSequence.add(new MethodInvokation("logSuiteFinished", params));
+//    myLogSequence.add(new MethodInvokation("message", params));
+//
+//    myLogSequence.add(new MethodInvokation("message", params));
+////    myLogSequence.add(new MethodInvokation("warning", params));
+//
+//    myTestLogger.setExpectedSequence(myLogSequence);
+//
+//    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+//    createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+//      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase\" tests=\"1\" time=\"0.031\"\n" +
+//      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+//      "  <properties/>\n" +
+//      "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
+//      "</testsuite>");
+//    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+//    createFile("suite2", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+//      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase\" tests=\"1\" time=\"0.031\"\n" +
+//      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+//      "  <properties/>\n" +
+//      "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
+//      "</testsuite>");
+//    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+//    myContext.assertIsSatisfied();
+//    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+//
+//    if (myFailures.size() > 0) {
+//      throw myFailures.get(0);
+//    }
   }
 }

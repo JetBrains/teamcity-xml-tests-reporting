@@ -139,10 +139,12 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
       String message = report.getPath() + " report processed";
       if (myLoggedSuites != 0) {
-        message.concat(": " + myLoggedSuites + " suite(s)");
-      }
-      if (myLoggedTests != 0) {
-        message.concat(", " + myLoggedTests + " test(s)");
+        message = message.concat(": " + myLoggedSuites + " suite(s)");
+        if (myLoggedTests != 0) {
+          message = message.concat(", " + myLoggedTests + " test(s)");
+        } else {
+          myLogger.debugToAgentLog(report.getPath() + " contains no suits, but " + myLoggedTests + " tests");
+        }
       }
       myLogger.message(message);
     } catch (SAXParseException e) {

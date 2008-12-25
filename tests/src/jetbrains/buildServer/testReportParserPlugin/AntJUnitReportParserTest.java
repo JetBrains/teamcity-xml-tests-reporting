@@ -19,6 +19,7 @@ package jetbrains.buildServer.testReportParserPlugin;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParser;
 import junit.framework.Assert;
+import junit.framework.TestCase;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.Sequence;
@@ -35,29 +36,26 @@ import java.util.Date;
 
 
 @RunWith(JMock.class)
-public class AntJUnitReportParserTest {
+public class AntJUnitReportParserTest extends TestCase {
   private static final String REPORT_DIR = "Tests/testData/junit/";
   private static final String SUITE_NAME = "TestCase";
   private static final String CASE_CLASSNAME = "TestCase";
   private static final String CASE_NAME = CASE_CLASSNAME + ".test";
 
   private static final String FAILURE_MESSAGE = "junit.framework.AssertionFailedError: Assertion message form test";
-  //    private static final String FAILURE_STACK_TRACE = "junit.framework.AssertionFailedError: Assertion message form test\n\tat TestCase.test(Unknown Source)";
   private static final String ERROR_MESSAGE = "java.lang.NullPointerException: Error message from test";
-//    private static final String ERROR_STACK_TRACE = "java.lang.NullPointerException: Error message from test\n\tat TestCase.test(Unknown Source)";
 
-  private AntJUnitReportParser myParser;
+  private TestReportParser myParser;
   private BaseServerLoggerFacade myLogger;
 
   private Mockery myContext;
   private Sequence mySequence;
 
-
   private BaseServerLoggerFacade createBaseServerLoggerFacade() {
     return myContext.mock(BaseServerLoggerFacade.class);
   }
 
-  private static File report(String name) {
+  private File report(String name) {
     return new File(REPORT_DIR + name);
   }
 

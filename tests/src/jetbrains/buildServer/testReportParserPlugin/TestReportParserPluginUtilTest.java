@@ -16,8 +16,8 @@
 package jetbrains.buildServer.testReportParserPlugin;
 
 import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil.*;
+import static jetbrains.buildServer.testReportParserPlugin.TestUtil.ANT_JUNIT_REPORT_TYPE;
 import static jetbrains.buildServer.testReportParserPlugin.TestUtil.EMPTY_REPORT_TYPE;
-import static jetbrains.buildServer.testReportParserPlugin.TestUtil.REPORT_TYPE;
 import static junit.framework.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,20 +49,20 @@ public class TestReportParserPluginUtilTest {
 
   @Test
   public void testParamsContainTrueAfterEnabling() {
-    enableTestReportParsing(myRunParams, REPORT_TYPE);
-    assertEquals("Params must contain true", REPORT_TYPE, myRunParams.get(TEST_REPORT_PARSING_REPORT_TYPE));
+    enableTestReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
+    assertEquals("Params must contain true", ANT_JUNIT_REPORT_TYPE, myRunParams.get(TEST_REPORT_PARSING_REPORT_TYPE));
   }
 
   @Test
   public void testParamsDoNotContainTrueAfterDisabling() {
-    myRunParams.put(TEST_REPORT_PARSING_REPORT_TYPE, REPORT_TYPE);
+    myRunParams.put(TEST_REPORT_PARSING_REPORT_TYPE, ANT_JUNIT_REPORT_TYPE);
     enableTestReportParsing(myRunParams, EMPTY_REPORT_TYPE);
     assertNull("Params must not contain any value for this key", myRunParams.get(TEST_REPORT_PARSING_REPORT_TYPE));
   }
 
   @Test
   public void testIsEnabledAfterEnabling() {
-    enableTestReportParsing(myRunParams, REPORT_TYPE);
+    enableTestReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
     assertTrue("Test report parsing must be enabled", isTestReportParsingEnabled(myRunParams));
   }
 
@@ -75,7 +75,7 @@ public class TestReportParserPluginUtilTest {
   @Test
   public void testSetReportDirsAfterPuttingTrueToParams() {
     final String reportDirs = "reportDirs";
-    myRunParams.put(TEST_REPORT_PARSING_REPORT_TYPE, REPORT_TYPE);
+    myRunParams.put(TEST_REPORT_PARSING_REPORT_TYPE, ANT_JUNIT_REPORT_TYPE);
     setTestReportDirs(myRunParams, reportDirs);
     assertEquals("Unexpected vulue in parameters", myRunParams.get(TEST_REPORT_PARSING_REPORT_DIRS), reportDirs);
   }
