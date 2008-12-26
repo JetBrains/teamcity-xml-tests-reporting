@@ -181,10 +181,10 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
   public void startElement(String uri, String localName,
                            String qName, Attributes attributes)
     throws SAXException {
-    if (TEST_SUITE.equals(localName)) {
-      startSuite(attributes);
-    } else if (testSkipped()) {
+    if (testSkipped()) {
       return;
+    } else if (TEST_SUITE.equals(localName)) {
+      startSuite(attributes);
     } else if (TEST_CASE.equals(localName)) {
       startTest(attributes);
     } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
@@ -249,7 +249,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     if (myPreviouslyLoggedSuits.contains(name)) {
 //      throw new ParserStoppedException(name + " suite has been already logged from other report");
       myLogger.debugToAgentLog(name + " suite has been already logged from other report");
-      myTestsToSkip = myTestsToSkip + testNumber;
+      myTestsToSkip = myLoggedTests + testNumber;
       return;
     }
 
@@ -303,8 +303,17 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     final String testFullName = test.getClassName() + "." + test.getTestName();
 
     myLogger.getBuildLogger().logTestStarted(testFullName, new Date(test.getStartTime()));
+
     if (test.isFailure()) {
-      myLogger.getBuildLogger().logTestFailed(testFullName, test.getFailureType() + ": " + test.getFailureMessage(), test.getFailureStackTrace());
+      String failureMessage = "";
+      if (test.getFailureType() != null) {
+        failureMessage = failureMessage.concat(test.getFailureType());
+        if (test.getFailureMessage() != null) {
+          failureMessage = failureMessage.concat(": " + test.getFailureMessage());
+        }
+      }
+
+      myLogger.getBuildLogger().logTestFailed(testFullName, failureMessage, test.getFailureStackTrace());
     }
     myLogger.getBuildLogger().logTestFinished(testFullName, new Date(test.getStartTime() + test.getDuration()));
     myLoggedTests = myLoggedTests + 1;

@@ -41,6 +41,10 @@ public final class ReportFactory {
     }
   }
 
+  public static File getFileByName(String name) {
+    return new File(WORKING_DIR + "\\" + name);
+  }
+
   public static void createUnfinishedReport(String name, String type) {
     final File f = new File(WORKING_DIR + "\\" + name);
     try {

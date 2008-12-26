@@ -82,6 +82,6 @@ public class TestData {
   }
 
   public boolean isFailure() {
-    return (myFailureType != null);
+    return ((myFailureType != null) || (myFailureStackTrace != null));
   }
 }

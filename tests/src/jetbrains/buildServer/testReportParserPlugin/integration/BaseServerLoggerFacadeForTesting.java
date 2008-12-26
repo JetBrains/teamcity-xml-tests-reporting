@@ -25,6 +25,9 @@ import java.util.List;
 
 public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   private List<MethodInvokation> myMethodSequence = null;
+  private List<String> myNotControlledMethods = new LinkedList<String>();
+
+
   private Iterator<MethodInvokation> myCurrent = null;
   private final List<UnexpectedInvokationException> myFailures;
 
@@ -35,6 +38,10 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   public void setExpectedSequence(List<MethodInvokation> sequence) {
     myMethodSequence = new LinkedList<MethodInvokation>(sequence);
     myCurrent = myMethodSequence.iterator();
+  }
+
+  public void addNotControlledMethod(String method) {
+    myNotControlledMethods.add(method);
   }
 
   public static String currentMethod() {
@@ -60,9 +67,9 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
     if (myFailures.size() > 0) {
       return false;
     }
-//        if () {
-//
-//        }
+    if (myNotControlledMethods.contains(name)) {
+      return false;
+    }
     return true;
   }
 
@@ -71,8 +78,10 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
     if (!isMethodUnderControl(name)) {
       return null;
     }
+    System.out.println("call " + name);
     final MethodInvokation expected = getNextExpectedInvokation();
     if ((expected == null) || (!currentMethod().equals(expected.getMethodName()))) {
+      System.out.println("unexpected " + name);
       return "Unexpected method invokation: " + name;
     }
     expected.setInvoked();
@@ -84,6 +93,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
         continue;
       }
       if (!actualParam.equals(expectedParam)) {
+        System.out.println("wrong param in " + name);
         return "Unexpected parameter value: <" + actualParam + "> in method: " + name;
       }
     }
@@ -100,12 +110,12 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   }
 
   public void message(java.lang.String s) {
-//    List<Object> params = new ArrayList();
+    List<Object> params = new ArrayList();
 //    params.add(s);
-//    final String message = getFailureIfOccurs(params);
-//    if (message != null) {
-//      myFailures.add(new UnexpectedInvokationException(message));
-//    }
+    final String message = getFailureIfOccurs(params);
+    if (message != null) {
+      myFailures.add(new UnexpectedInvokationException(message));
+    }
   }
 
   public void logTestStarted(java.lang.String s, java.util.Date date) {
