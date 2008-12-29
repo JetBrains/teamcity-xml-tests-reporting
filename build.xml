@@ -67,7 +67,10 @@
 
     <junit printsummary="on" fork="true" haltonfailure="false" haltonerror="false" failureproperty="failure_found"
            showoutput="true">
-      <classpath refid="tests.runtime.module.classpath"/>
+      <classpath>
+        <pathelement location="${agent.home.dir}/lib/runtime-util.jar"/>
+        <path refid="tests.runtime.module.classpath"/>
+      </classpath>
 
       <formatter type="xml"/>
 
