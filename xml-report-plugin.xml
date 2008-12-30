@@ -60,8 +60,8 @@
   </path>
 
   <path id="library.teamcity_utils.classpath">
-    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/util.jar"/>
     <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/annotations.jar"/>
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/util.jar"/>
   </path>
 
   <path id="library.jmock.classpath">
@@ -322,6 +322,7 @@
 
   <path id="server.module.sourcepath">
     <dirset dir="${module.server.basedir}/server">
+      <include name="resources"/>
       <include name="src"/>
     </dirset>
   </path>
@@ -343,6 +344,10 @@
     </javac>
 
     <copy todir="${server.output.dir}">
+      <fileset dir="${module.server.basedir}/server/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
       <fileset dir="${module.server.basedir}/server/src">
         <patternset refid="compiler.resources"/>
         <type type="file"/>

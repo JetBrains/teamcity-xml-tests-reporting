@@ -63,23 +63,16 @@ public class TestReportProcessor extends Thread {
 
     myCurrentReport = null;
 
+    while (!myPlugin.isStopped()) {
+      processReport(takeNextReport(FILE_WAIT_TIMEOUT));
+    }
     try {
-      // workaround to show test suites in the build log
-      myPlugin.getLogger().getBuildLogger().targetStarted("xml-report-plugin");
-
-      while (!myPlugin.isStopped()) {
-        processReport(takeNextReport(FILE_WAIT_TIMEOUT));
-      }
-      try {
-        myWatcher.join();
-      } catch (InterruptedException e) {
-        myPlugin.getLogger().debugToAgentLog("Report processor thread interrupted");
-      }
-      while (!allReportsProcessed()) {
-        processReport(takeNextReport(1));
-      }
-    } finally {
-      myPlugin.getLogger().getBuildLogger().targetFinished("xml-report-plugin");
+      myWatcher.join();
+    } catch (InterruptedException e) {
+      myPlugin.getLogger().debugToAgentLog("Report processor thread interrupted");
+    }
+    while (!allReportsProcessed()) {
+      processReport(takeNextReport(1));
     }
   }
 

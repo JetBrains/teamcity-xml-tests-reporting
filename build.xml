@@ -5,9 +5,9 @@
   <property name="dist" value="dist"/>
   <property name="dist.tmp" value="out/dist.tmp"/>
   <property name="dist.unpacked" value="${dist.tmp}/unpacked"/>
+  <property name="dist.output.agent" value="${dist.unpacked}/agent"/>
 
   <target name="pack.agent" description="pack agent part of plugin">
-    <property name="dist.output.agent" value="${dist.unpacked}/agent"/>
     <delete dir="${dist.output.agent}" quiet="true"/>
     <mkdir dir="${dist.output.agent}"/>
 
@@ -41,6 +41,7 @@
     <mkdir dir="${dist.unpacked}"/>
     <antcall target="pack.agent"/>
     <antcall target="pack.server"/>
+    <copy todir="${dist.unpacked}" file="${basedir}/teamcity-plugin.xml"/>
 
     <zip destfile="${dist}/xml-report-plugin.zip"
          basedir="${dist.unpacked}"
@@ -51,6 +52,25 @@
   <target name="deploy" depends="dist" description="deploy plugin to TeamCity">
     <copy todir="${user.home}/.BuildServer/plugins">
       <fileset dir="${dist}"/>
+    </copy>
+  </target>
+
+  <target name="deploy.agent" depends="dist.agent" description="deploy agent part of plugin to TeamCity">
+    <copy todir="${path.variable.teamcitydistribution}/webapps/ROOT/update/plugins">
+      <fileset dir="${dist}"/>
+    </copy>
+  </target>
+
+  <target name="dist.agent" depends="all">
+    <delete dir="${dist}" quiet="true"/>
+    <mkdir dir="${dist}"/>
+
+    <delete dir="${dist.unpacked}" quiet="true"/>
+    <mkdir dir="${dist.unpacked}"/>
+
+    <antcall target="pack.agent"/>
+    <copy todir="${dist}">
+      <fileset dir="${dist.output.agent}"/>
     </copy>
   </target>
 

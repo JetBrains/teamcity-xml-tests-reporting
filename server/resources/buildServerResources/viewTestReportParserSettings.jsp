@@ -14,7 +14,8 @@
   </c:choose>
 </div>
 
-<c:if test="${propertiesBean.properties['testReportParsing.reportType'] == 'junit'}">
+<c:if test="${propertiesBean.properties['testReportParsing.reportType'] == 'junit' or
+              propertiesBean.properties['testReportParsing.reportType'] == 'nunit'}">
   <div class="parameter">
     Test report type: <props:displayValue name="testReportParsing.reportType"
                                           emptyValue="none specified"/>

@@ -48,6 +48,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
   private static final String MESSAGE_ATTR = "message";
   private static final String TYPE_ATTR = "type";
   private static final String TIME_ATTR = "time";
+  private static final String TIMESTAMP_ATTR = "timestamp";
 
   private static final String DEFAULT_NAMESPACE = "";
 
@@ -61,6 +62,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
   private StringBuffer myCData;
 
   private long myLoggedSuites;
+  private long mySkippedSuites;
   private long myLoggedTests;
   private long myTestsToSkip;
 
@@ -81,6 +83,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
     myPreviouslyLoggedSuits = new HashSet<String>();
     myLoggedSuites = 0;
+    mySkippedSuites = 0;
   }
 
   public static boolean isReportFileComplete(@NotNull final File report) {
@@ -137,16 +140,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     try {
       myXMLReader.parse(new InputSource(report.toURI().toString()));
 
-      String message = report.getPath() + " report processed";
-      if (myLoggedSuites != 0) {
-        message = message.concat(": " + myLoggedSuites + " suite(s)");
-        if (myLoggedTests != 0) {
-          message = message.concat(", " + myLoggedTests + " test(s)");
-        } else {
-          myLogger.debugToAgentLog(report.getPath() + " contains no suits, but " + myLoggedTests + " tests");
-        }
-      }
-      myLogger.message(message);
+      logReportTotals(report);
     } catch (SAXParseException e) {
       if (myTests != null) {
         myTests.clear();
@@ -161,7 +155,23 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     }
     myCurrentSuite = null;
     myLoggedSuites = 0;
+    mySkippedSuites = 0;
     return -1;
+  }
+
+  private void logReportTotals(File report) {
+    String message = report.getPath() + " report processed";
+    if (myLoggedSuites != 0) {
+      message = message.concat(": " + myLoggedSuites + " suite(s)");
+      if (myLoggedTests != 0) {
+        message = message.concat(", " + myLoggedTests + " test(s)");
+      } else {
+        myLogger.debugToAgentLog(report.getPath() + " contains no suits, but " + myLoggedTests + " tests");
+      }
+    } else if (mySkippedSuites != 0) {
+      message = message.concat(", " + mySkippedSuites + " suite(s) skipped");
+    }
+    myLogger.message(message);
   }
 
   public boolean abnormalEnd() {
@@ -240,15 +250,16 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     final String pack = attributes.getValue(DEFAULT_NAMESPACE, PACKAGE_ATTR);
     final long testNumber = getTestNumber(attributes.getValue(DEFAULT_NAMESPACE, TESTS_ATTR));
     final Date startTime = new Date();
+    final String timestamp = getTimetamp(attributes.getValue(DEFAULT_NAMESPACE, TIMESTAMP_ATTR));
     final long duration = getExecutionTime(attributes.getValue(DEFAULT_NAMESPACE, TIME_ATTR));
 
     if ((pack != null) && (!name.startsWith(pack))) {
       name = pack + "." + name;
     }
 
-    if (myPreviouslyLoggedSuits.contains(name)) {
-//      throw new ParserStoppedException(name + " suite has been already logged from other report");
+    if (myPreviouslyLoggedSuits.contains(name + timestamp)) {
       myLogger.debugToAgentLog(name + " suite has been already logged from other report");
+      mySkippedSuites = mySkippedSuites + 1;
       myTestsToSkip = myLoggedTests + testNumber;
       return;
     }
@@ -256,7 +267,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     myCurrentSuite = new SuiteData(name, startTime.getTime(), duration);
     myTests = new Stack<TestData>();
     myLogger.getBuildLogger().logSuiteStarted(name, startTime);
-    myPreviouslyLoggedSuits.add(name);
+    myPreviouslyLoggedSuits.add(name + timestamp);
   }
 
   private void endSuite() {
@@ -371,6 +382,13 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     } catch (NumberFormatException e) {
       return 0L;
     }
+  }
+
+  private String getTimetamp(String timestampStr) {
+    if (timestampStr == null) {
+      return "";
+    }
+    return timestampStr;
   }
 
   private boolean testSkipped() {

@@ -170,8 +170,8 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
     return myAgentHome;
   }
 
-  //"##teamcity[importData id='junit' file='somedir']" service messsage activates watching "somedir" directory
-  //"##teamcity[importData id='junit' file='somedir' verbose='true']" does the same and sets output verbose 
+  //"##teamcity[importData type='junit' file='somedir']" service messsage activates watching "somedir" directory
+  //"##teamcity[importData type='junit' file='somedir' verbose='true']" does the same and sets output verbose 
   public void processData(@NotNull File file, Map<String, String> arguments) throws Exception {
     final List<File> reportDirs = new ArrayList<File>();
     reportDirs.add(file);
@@ -193,7 +193,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
   }
 
   @NotNull
-  public String getId() {
+  public String getType() {
     return DATA_PROCESSOR_ID;
   }
 }

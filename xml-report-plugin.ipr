@@ -332,8 +332,8 @@
     </library>
     <library name="TeamCity utils">
       <CLASSES>
-        <root url="jar://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib/util.jar!/" />
         <root url="jar://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib/annotations.jar!/" />
+        <root url="jar://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib/util.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

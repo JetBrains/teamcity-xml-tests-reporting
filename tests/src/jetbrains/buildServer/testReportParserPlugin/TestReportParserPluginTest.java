@@ -87,11 +87,6 @@ public class TestReportParserPluginTest {
   }
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).targetStarted(with("xml-report-plugin"));
-      }
-    });
     TestReportParserPluginUtil.enableTestReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
 
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);

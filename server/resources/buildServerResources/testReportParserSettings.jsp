@@ -7,7 +7,8 @@
 <jsp:useBean id="reportTypeForm" scope="request" class="jetbrains.buildServer.testReportParserPlugin.ReportTypeForm"/>
 
 <c:set var="displayJUnitSettings"
-       value="${propertiesBean.properties['testReportParsing.reportType'] == 'junit' ? true : false}"/>
+       value="${propertiesBean.properties['testReportParsing.reportType'] == 'junit' or
+                propertiesBean.properties['testReportParsing.reportType'] == 'nunit'? true : false}"/>
 <%--<c:set var="displayNUnitSettings" value="${propertiesBean.properties['testReportParsing.reportType'] == 'nunit' ? true : false}"/>--%>
 
 <l:settingsGroup title="Test Reports Settings">
