@@ -196,4 +196,9 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
   public String getType() {
     return DATA_PROCESSOR_ID;
   }
+
+  @NotNull
+  public String getId() {
+    return DATA_PROCESSOR_ID;
+  }
 }
