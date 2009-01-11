@@ -90,8 +90,6 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).message(with(any(String.class)));
-        inSequence(mySequence);
       }
     });
     myParser.parse(report("singleCaseSuccess.xml"), 0);
@@ -112,8 +110,6 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).message(with(any(String.class)));
-        inSequence(mySequence);
       }
     });
     myParser.parse(report("singleCaseFailure.xml"), 0);
@@ -131,8 +127,6 @@ public class NUnitReportParserTest extends TestCase {
         oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -156,8 +150,6 @@ public class NUnitReportParserTest extends TestCase {
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -183,8 +175,6 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).message(with(any(String.class)));
-        inSequence(mySequence);
       }
     });
     myParser.parse(report("twoCasesFirstSuccess.xml"), 0);
@@ -208,8 +198,6 @@ public class NUnitReportParserTest extends TestCase {
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
@@ -236,8 +224,6 @@ public class NUnitReportParserTest extends TestCase {
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).message(with(any(String.class)));
         inSequence(mySequence);
       }
     });
