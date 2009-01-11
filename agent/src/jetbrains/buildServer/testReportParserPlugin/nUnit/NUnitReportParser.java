@@ -31,7 +31,7 @@ public class NUnitReportParser extends AntJUnitReportParser {
   private NUnitToJUnitReportTransformer myReportTransformer;
   private File myTmpReportDir;
 
-  public NUnitReportParser(TestReportLogger logger, String agentHome) {
+  public NUnitReportParser(TestReportLogger logger, File workingDir) {
     super(logger);
     myReportTransformer = null;
     try {
@@ -39,7 +39,7 @@ public class NUnitReportParser extends AntJUnitReportParser {
     } catch (TransformerConfigurationException e) {
       getLogger().warning("NUnit report parser couldn't instantiate transformer");
     }
-    myTmpReportDir = new File(agentHome + TMP_REPORT_DIRECTORY);
+    myTmpReportDir = new File(workingDir.getPath() + TMP_REPORT_DIRECTORY);
     myTmpReportDir.mkdirs();
   }
 

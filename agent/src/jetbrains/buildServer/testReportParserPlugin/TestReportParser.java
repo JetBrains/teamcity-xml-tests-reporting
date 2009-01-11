@@ -27,4 +27,6 @@ public interface TestReportParser {
   boolean abnormalEnd();
 
   public String getReportType();
+
+  public void logReportTotals(File report);
 }

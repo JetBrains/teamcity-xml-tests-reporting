@@ -106,6 +106,7 @@ public class TestReportDirectoryWatcher extends Thread {
 
   private boolean isFileOk(File report) {
     return !(!report.isFile() || !report.canRead() || (report.lastModified() < myPlugin.getBuildStartTime()));
+//    return !(!report.isFile() || !report.canRead());
   }
 
   public void logDirectoriesTotals() {

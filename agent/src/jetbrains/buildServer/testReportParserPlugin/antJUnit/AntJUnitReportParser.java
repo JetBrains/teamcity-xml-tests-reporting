@@ -139,8 +139,6 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
 
     try {
       myXMLReader.parse(new InputSource(report.toURI().toString()));
-
-      logReportTotals(report);
     } catch (SAXParseException e) {
       if (myTests != null) {
         myTests.clear();
@@ -159,7 +157,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     return -1;
   }
 
-  private void logReportTotals(File report) {
+  public void logReportTotals(File report) {
     String message = report.getPath() + " report processed";
     if (myLoggedSuites != 0) {
       message = message.concat(": " + myLoggedSuites + " suite(s)");

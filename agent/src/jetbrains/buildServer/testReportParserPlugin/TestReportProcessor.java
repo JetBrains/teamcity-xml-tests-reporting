@@ -49,7 +49,7 @@ public class TestReportProcessor extends Thread {
     if (AntJUnitReportParser.TYPE.equals(expectedReportType)) {
       myParser = new AntJUnitReportParser(myPlugin.getLogger());
     } else if (NUnitReportParser.TYPE.equals(expectedReportType)) {
-      myParser = new NUnitReportParser(myPlugin.getLogger(), myPlugin.getAgentHome());
+      myParser = new NUnitReportParser(myPlugin.getLogger(), myPlugin.getRunnerWorkingDir());
     } else {
       myPlugin.getLogger().debugToAgentLog("No parser for " + expectedReportType + " available");
       myParser = null;
@@ -105,6 +105,7 @@ public class TestReportProcessor extends Thread {
         }
       }
     } else {
+      myParser.logReportTotals(report.getFile());
       myCurrentReport = null;
     }
   }

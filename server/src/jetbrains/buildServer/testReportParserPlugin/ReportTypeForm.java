@@ -36,7 +36,7 @@ public class ReportTypeForm extends RememberState {
 
     myAvailableReportTypes = new ArrayList(1);
     myAvailableReportTypes.add(new ReportTypeInfo("junit", "Ant JUnit reports"));
-//    myAvailableReportTypes.add(new ReportTypeInfo("nunit", "NUnit reports"));
+    myAvailableReportTypes.add(new ReportTypeInfo("nunit", "NUnit reports"));
   }
 
 //  public String getSelectedReportType() {
@@ -48,6 +48,7 @@ public class ReportTypeForm extends RememberState {
 //  }
 
   //
+
   public List<ReportTypeInfo> getAvailableReportTypes() {
     return myAvailableReportTypes;
   }
