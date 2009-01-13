@@ -49,6 +49,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
   private static final String TYPE_ATTR = "type";
   private static final String TIME_ATTR = "time";
   private static final String TIMESTAMP_ATTR = "timestamp";
+  private static final String EXECUTED_ATTR = "executed";
 
   private static final String DEFAULT_NAMESPACE = "";
 
@@ -302,8 +303,9 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     final String testName = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
     final Date startTime = new Date();
     final long duration = getExecutionTime(attributes.getValue(DEFAULT_NAMESPACE, TIME_ATTR));
+    final boolean executed = getBoolean(attributes.getValue(DEFAULT_NAMESPACE, EXECUTED_ATTR));
 
-    final TestData test = new TestData(className, testName, startTime.getTime(), duration);
+    final TestData test = new TestData(className, testName, executed, startTime.getTime(), duration);
     myTests.push(test);
   }
 
@@ -311,20 +313,25 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     final TestData test = myTests.pop();
     final String testFullName = test.getClassName() + "." + test.getTestName();
 
-    myLogger.getBuildLogger().logTestStarted(testFullName, new Date(test.getStartTime()));
+    if (!test.isExecuted()) {
+      myLogger.getBuildLogger().logTestIgnored(testFullName, "");
+    } else {
+      myLogger.getBuildLogger().logTestStarted(testFullName, new Date(test.getStartTime()));
 
-    if (test.isFailure()) {
-      String failureMessage = "";
-      if (test.getFailureType() != null) {
-        failureMessage = failureMessage.concat(test.getFailureType());
-        if (test.getFailureMessage() != null) {
-          failureMessage = failureMessage.concat(": " + test.getFailureMessage());
+      if (test.isFailure()) {
+        String failureMessage = "";
+        if (test.getFailureType() != null) {
+          failureMessage = failureMessage.concat(test.getFailureType());
+          if (test.getFailureMessage() != null) {
+            failureMessage = failureMessage.concat(": " + test.getFailureMessage());
+          }
         }
-      }
 
-      myLogger.getBuildLogger().logTestFailed(testFullName, failureMessage, test.getFailureStackTrace());
+        myLogger.getBuildLogger().logTestFailed(testFullName, failureMessage, test.getFailureStackTrace());
+      }
+      myLogger.getBuildLogger().logTestFinished(testFullName, new Date(test.getStartTime() + test.getDuration()));
     }
-    myLogger.getBuildLogger().logTestFinished(testFullName, new Date(test.getStartTime() + test.getDuration()));
+//    myLogger.getBuildLogger().flush();
     myLoggedTests = myLoggedTests + 1;
   }
 
@@ -387,6 +394,13 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
       return "";
     }
     return timestampStr;
+  }
+
+  private boolean getBoolean(String str) {
+    if (str == null) {
+      return true;
+    }
+    return Boolean.parseBoolean(str);
   }
 
   private boolean testSkipped() {

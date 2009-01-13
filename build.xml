@@ -2,10 +2,12 @@
 <project name="xml-report-plugin-custom" basedir="." default="all">
   <import file="${basedir}/xml-report-plugin.xml"/>
 
+  <property environment="env"/>
   <property name="dist" value="dist"/>
   <property name="dist.tmp" value="out/dist.tmp"/>
   <property name="dist.unpacked" value="${dist.tmp}/unpacked"/>
   <property name="dist.output.agent" value="${dist.unpacked}/agent"/>
+  <property name="build.number" value="${env.BUILD_NUMBER}"/>
 
   <target name="pack.agent" description="pack agent part of plugin">
     <delete dir="${dist.output.agent}" quiet="true"/>
@@ -41,12 +43,22 @@
     <mkdir dir="${dist.unpacked}"/>
     <antcall target="pack.agent"/>
     <antcall target="pack.server"/>
+
+    <antcall target="update.version.in.plugin.descriptor"/>
     <copy todir="${dist.unpacked}" file="${basedir}/teamcity-plugin.xml"/>
 
     <zip destfile="${dist}/xml-report-plugin.zip"
          basedir="${dist.unpacked}"
          update="true"/>
     <delete dir="${dist.tmp}"/>
+  </target>
+
+  <target name="update.version.in.plugin.descriptor">
+    <xslt in="teamcity-plugin.xml" out="teamcity-plugin_new.xml" style="teamcity-plugin.xsl">
+      <param name="version" expression="${build.number}"/>
+    </xslt>
+
+    <rename src="teamcity-plugin_new.xml" dest="teamcity-plugin.xml"/>
   </target>
 
   <target name="deploy" depends="dist" description="deploy plugin to TeamCity">
