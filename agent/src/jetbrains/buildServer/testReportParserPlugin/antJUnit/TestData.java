@@ -23,16 +23,20 @@ public class TestData {
   private final long myStartTime;
   private long myDuration;
 
+  private final boolean myExecuted;
+
   private String myFailureType;
   private String myFailureMessage;
   private String myFailureStackTrace;
 
   public TestData(final String className,
                   final String testName,
-                  final long startTime,
-                  final long duration) {
+                  boolean executed,
+                  long startTime,
+                  long duration) {
     myClassName = className;
     myTestName = testName;
+    myExecuted = executed;
     myStartTime = startTime;
     myDuration = duration;
   }
@@ -43,6 +47,10 @@ public class TestData {
 
   public String getTestName() {
     return myTestName;
+  }
+
+  public boolean isExecuted() {
+    return myExecuted;
   }
 
   public long getStartTime() {

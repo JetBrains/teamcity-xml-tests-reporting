@@ -230,4 +230,36 @@ public class NUnitReportParserTest extends TestCase {
     myParser.parse(report("twoCasesFailed.xml"), 0);
     myContext.assertIsSatisfied();
   }
+
+  @Test
+  public void test1CaseIgnored() {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with(CASE_NAME), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(report("singleCaseIgnored.xml"), 0);
+    myContext.assertIsSatisfied();
+  }
+
+  @Test
+  public void test1CaseIgnoredFailed() {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with(CASE_NAME), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(report("singleCaseIgnoredFailure.xml"), 0);
+    myContext.assertIsSatisfied();
+  }
 }

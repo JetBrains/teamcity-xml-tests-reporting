@@ -8,15 +8,7 @@
   <culture-info current-culture="ru-RU" current-uiculture="en-US"/>
   <test-suite name="TestCase" success="True" time="0.016" asserts="0">
     <results>
-      <test-case name="test"
-                 executed="True" success="False" time="0.016" asserts="1">
-        <failure>
-          <message>Assertion message form test</message>
-          <stack-trace>junit.framework.AssertionFailedError: Assertion message form test
-            at TestCase.test(Unknown Source)
-          </stack-trace>
-        </failure>
-      </test-case>
+      <test-case name="test" executed="False"/>
     </results>
   </test-suite>
 </test-results>

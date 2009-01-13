@@ -19,7 +19,8 @@
                      tests="{count(*/test-case)}" time="{@time}"
                      failures="{count(*/test-case/failure)}" errors="0"
                      skipped="{count(*/test-case[@executed='False'])}">
-            <xsl:for-each select="*/test-case[@time!='']">
+            <xsl:for-each select="*/test-case">
+              <!--<xsl:for-each select="*/test-case[@time!='']">-->
               <xsl:variable name="testcaseName">
                 <xsl:choose>
                   <xsl:when test="contains(./@name, $assembly)">
@@ -35,7 +36,8 @@
 
               <testcase classname="{$assembly}"
                         name="{$testcaseName}"
-                        time="{@time}">
+                        time="{@time}"
+                        executed="{@executed}">
 
                 <xsl:variable name="generalfailure"
                               select="./failure"/>
