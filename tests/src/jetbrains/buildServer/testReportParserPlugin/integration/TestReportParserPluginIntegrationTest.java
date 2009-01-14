@@ -526,7 +526,6 @@ public class TestReportParserPluginIntegrationTest {
       "  <properties/>\n" +
       "  <testcase ");
 
-    getFileByName("suite2").delete();
     createFile("suite2", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuites>" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase2\" tests=\"2\" time=\"0.062\"\n" +
