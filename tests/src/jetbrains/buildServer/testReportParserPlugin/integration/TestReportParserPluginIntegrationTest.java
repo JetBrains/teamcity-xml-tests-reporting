@@ -16,7 +16,6 @@
 
 package jetbrains.buildServer.testReportParserPlugin.integration;
 
-import com.intellij.openapi.util.io.FileUtil;
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
@@ -66,6 +65,8 @@ public class TestReportParserPluginIntegrationTest {
         will(returnValue(runParams));
         allowing(runningBuild).getWorkingDirectory();
         will(returnValue(workingDirFile));
+        allowing(runningBuild).getBuildTempDirectory();
+        will(returnValue(workingDirFile));
         ignoring(runningBuild);
       }
     });
@@ -82,12 +83,23 @@ public class TestReportParserPluginIntegrationTest {
 
     myRunnerParams = new HashMap<String, String>();
     myWorkingDir = new File(WORKING_DIR);
-    FileUtil.delete(myWorkingDir);
+    removeDir(myWorkingDir);
     myWorkingDir.mkdir();
     myRunningBuild = createAgentRunningBuild(myRunnerParams, myWorkingDir, myTestLogger);
     myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
     myPlugin = new TestReportParserPlugin(myEventDispatcher);
     ReportFactory.setWorkingDir(WORKING_DIR);
+  }
+
+  private void removeDir(File dir) {
+    File[] subDirs = dir.listFiles();
+    if ((subDirs == null) || (subDirs.length == 0)) {
+      dir.delete();
+      return;
+    }
+    for (int i = 0; i < subDirs.length; ++i) {
+      removeDir(subDirs[i]);
+    }
   }
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {

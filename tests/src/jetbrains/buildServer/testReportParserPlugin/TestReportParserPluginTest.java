@@ -57,6 +57,8 @@ public class TestReportParserPluginTest {
         allowing(runningBuild).getWorkingDirectory();
         will(returnValue(workingDirFile));
         inSequence(mySequence);
+        allowing(runningBuild).getBuildTempDirectory();
+        inSequence(mySequence);
         allowing(runningBuild).getBuildLogger();
         will(returnValue(myLogger));
         inSequence(mySequence);
