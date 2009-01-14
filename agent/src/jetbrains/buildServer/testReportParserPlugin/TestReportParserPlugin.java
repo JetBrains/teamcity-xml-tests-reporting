@@ -40,6 +40,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
   private String myReportType = "";
   private long myBuildStartTime;
   private File myRunnerWorkingDir;
+  private File myTmpDir;
 
   private volatile boolean myStopped;
 
@@ -54,6 +55,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
 
   public void beforeRunnerStart(@NotNull AgentRunningBuild agentRunningBuild) {
     myRunnerWorkingDir = agentRunningBuild.getWorkingDirectory();
+    myTmpDir = agentRunningBuild.getBuildTempDirectory();
 
     final Map<String, String> runnerParameters = agentRunningBuild.getRunnerParameters();
 
@@ -155,6 +157,10 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
 
   public File getRunnerWorkingDir() {
     return myRunnerWorkingDir;
+  }
+
+  public File getTmpDir() {
+    return myTmpDir;
   }
 
   public String getSelectedReportType() {

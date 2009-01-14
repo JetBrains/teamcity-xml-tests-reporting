@@ -26,7 +26,7 @@ import java.io.File;
 
 public class NUnitReportParser extends AntJUnitReportParser {
   public static final String TYPE = "nunit";
-  private static final String TMP_REPORT_DIRECTORY = "/temp/junit_reports";
+  private static final String TMP_REPORT_DIRECTORY = "/junit_reports";
 
   private NUnitToJUnitReportTransformer myReportTransformer;
   private File myTmpReportDir;
