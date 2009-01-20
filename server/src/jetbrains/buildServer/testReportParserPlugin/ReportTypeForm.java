@@ -56,7 +56,7 @@ public class ReportTypeForm extends RememberState {
   /**
    * Represents information about a build runner in the form suitable for JSP
    */
-  public class ReportTypeInfo {
+  public static class ReportTypeInfo {
     @StateField
     private String myType;
     @StateField

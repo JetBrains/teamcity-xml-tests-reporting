@@ -45,6 +45,9 @@ public class AntJUnitReportParserTest extends TestCase {
   private static final String FAILURE_MESSAGE = "junit.framework.AssertionFailedError: Assertion message form test";
   private static final String ERROR_MESSAGE = "java.lang.NullPointerException: Error message from test";
 
+  private static final String SYSO_MESSAGE1 = "from test1";
+  private static final String SYSO_MESSAGE2 = "from test2";
+
   private TestReportParser myParser;
   private BaseServerLoggerFacade myLogger;
 
@@ -737,7 +740,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logTestStdOut(with(CASE_NAME + "1"), with(any(String.class)));
+        oneOf(myLogger).logTestStdOut(with(CASE_NAME + "1"), with(SYSO_MESSAGE1));
         inSequence(mySequence);
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
         inSequence(mySequence);
@@ -757,7 +760,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logTestStdErr(with(CASE_NAME + "1"), with(any(String.class)));
+        oneOf(myLogger).logTestStdErr(with(CASE_NAME + "1"), with(SYSO_MESSAGE1));
         inSequence(mySequence);
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
         inSequence(mySequence);
@@ -766,6 +769,32 @@ public class AntJUnitReportParserTest extends TestCase {
       }
     });
     myParser.parse(report("caseWithSystemErr.xml"), 0);
+    myContext.assertIsSatisfied();
+  }
+
+  @Test
+  public void testLog2CasesSystemOut() {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStdOut(with(CASE_NAME + "1"), with(SYSO_MESSAGE1));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStdOut(with(CASE_NAME + "2"), with(SYSO_MESSAGE2));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(report("twoCasesWithSystemOut.xml"), 0);
     myContext.assertIsSatisfied();
   }
 }
