@@ -117,7 +117,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
  <!ATTLIST property name  CDATA #REQUIRED>
  <!ATTLIST property value CDATA #REQUIRED>
 
-<!ELEMENT testcase (failure?, error?)>
+<!ELEMENT testcase (failure?, error?, system-out?, system-err?)>
  <!ATTLIST testcase name       CDATA #REQUIRED>
  <!ATTLIST testcase classname  CDATA #IMPLIED>
  <!ATTLIST testcase time       CDATA #REQUIRED>
@@ -328,6 +328,14 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
         }
 
         myLogger.getBuildLogger().logTestFailed(testFullName, failureMessage, test.getFailureStackTrace());
+      }
+      if (mySystemOut != null) {
+        myLogger.getBuildLogger().logTestStdOut(testFullName, mySystemOut);
+        mySystemOut = null;
+      }
+      if (mySystemErr != null) {
+        myLogger.getBuildLogger().logTestStdErr(testFullName, mySystemErr);
+        mySystemErr = null;
       }
       myLogger.getBuildLogger().logTestFinished(testFullName, new Date(test.getStartTime() + test.getDuration()));
     }

@@ -728,4 +728,44 @@ public class AntJUnitReportParserTest extends TestCase {
     myParser.parse(report("fiveLineSystemOutAndErr.xml"), 0);
     myContext.assertIsSatisfied();
   }
+
+  @Test
+  public void testLogCaseSystemOut() {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStdOut(with(CASE_NAME + "1"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(report("caseWithSystemOut.xml"), 0);
+    myContext.assertIsSatisfied();
+  }
+
+  @Test
+  public void testLogCaseSystemErr() {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStdErr(with(CASE_NAME + "1"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(report("caseWithSystemErr.xml"), 0);
+    myContext.assertIsSatisfied();
+  }
 }
