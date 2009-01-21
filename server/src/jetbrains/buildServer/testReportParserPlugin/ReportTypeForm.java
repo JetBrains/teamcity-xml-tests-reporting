@@ -15,6 +15,7 @@
  */
 package jetbrains.buildServer.testReportParserPlugin;
 
+
 import jetbrains.buildServer.controllers.RememberState;
 import jetbrains.buildServer.controllers.StateField;
 
@@ -23,39 +24,27 @@ import java.util.List;
 
 
 public class ReportTypeForm extends RememberState {
-//  private static final String JSP_DIRECTORY = "../plugins/xml-report-plugin/";
-//
-//  @StateField
-//  private String mySelectedReportType;
-
   @StateField
   private List<ReportTypeInfo> myAvailableReportTypes;
 
   public ReportTypeForm() {
-//    mySelectedReportType = "";
+//    myAvailableReportTypes = new ArrayList<ReportTypeInfo>(TestReportParserPluginUtil.SUPPORTED_REPORT_TYPES.size());
+//
+//    for (Map.Entry<String, String> reportInfo: TestReportParserPluginUtil.SUPPORTED_REPORT_TYPES.entrySet()) {
+//      myAvailableReportTypes.add(new ReportTypeInfo(reportInfo.getKey(), reportInfo.getValue()));
+//    }
 
-    myAvailableReportTypes = new ArrayList(1);
+    myAvailableReportTypes = new ArrayList<ReportTypeInfo>();
     myAvailableReportTypes.add(new ReportTypeInfo("junit", "Ant JUnit reports"));
     myAvailableReportTypes.add(new ReportTypeInfo("nunit", "NUnit reports"));
+    myAvailableReportTypes.add(new ReportTypeInfo("surefire", "Surefire reports"));
+//    myAvailableReportTypes.add(new ReportTypeInfo("findBugs", "FindBugs reports"));
   }
-
-//  public String getSelectedReportType() {
-//    return mySelectedReportType;
-//  }
-//
-//  public void setSelectedReportType(String selectedReportType) {
-//    mySelectedReportType = selectedReportType;
-//  }
-
-  //
 
   public List<ReportTypeInfo> getAvailableReportTypes() {
     return myAvailableReportTypes;
   }
 
-  /**
-   * Represents information about a build runner in the form suitable for JSP
-   */
   public static class ReportTypeInfo {
     @StateField
     private String myType;

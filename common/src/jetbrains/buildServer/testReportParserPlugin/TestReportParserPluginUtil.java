@@ -18,10 +18,20 @@ package jetbrains.buildServer.testReportParserPlugin;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
 public class TestReportParserPluginUtil {
+  public static final Map<String, String> SUPPORTED_REPORT_TYPES = new HashMap<String, String>();
+
+  static {
+    SUPPORTED_REPORT_TYPES.put("junit", "Ant JUnit reports");
+    SUPPORTED_REPORT_TYPES.put("nunit", "NUnit reports");
+    SUPPORTED_REPORT_TYPES.put("surefire", "Surefire reports");
+    SUPPORTED_REPORT_TYPES.put("findBugs", "FindBugs reports");
+  }
+
   public static final String TEST_REPORT_PARSING_REPORT_TYPE = "testReportParsing.reportType";
   public static final String TEST_REPORT_PARSING_REPORT_DIRS = "testReportParsing.reportDirs";
   public static final String TEST_REPORT_PARSING_VERBOSE_OUTPUT = "testReportParsing.verboseOutput";

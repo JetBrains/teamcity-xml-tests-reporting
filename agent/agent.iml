@@ -11,6 +11,7 @@
     <orderEntry type="library" name="TeamCity API" level="project" />
     <orderEntry type="library" name="TeamCity utils" level="project" />
     <orderEntry type="module" module-name="common" />
+    <orderEntry type="library" name="JDom" level="project" />
     <orderEntryProperties />
   </component>
 </module>

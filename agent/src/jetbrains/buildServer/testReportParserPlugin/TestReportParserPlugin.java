@@ -28,8 +28,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class TestReportParserPlugin extends AgentLifeCycleAdapter implements DataProcessor {
-  private static final String DATA_PROCESSOR_ID = "junit";
+  private static final String DATA_PROCESSOR_ID = "XmlReport";
   private static final String DATA_PROCESSOR_VERBOSE_ARGUMENT = "verbose";
+  private static final String DATA_PROCESSOR_REPORT_TYPE_ARGUMENT = "reportType";
 
   private TestReportDirectoryWatcher myDirectoryWatcher;
   private TestReportProcessor myReportProcessor;
@@ -171,24 +172,36 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
     return myStopped;
   }
 
-  //"##teamcity[importData type='junit' file='somedir']" service messsage activates watching "somedir" directory
-  //"##teamcity[importData type='junit' file='somedir' verbose='true']" does the same and sets output verbose 
+  //"##teamcity[importData id='XmlReport' reportType='sometype' file='somedir']"
+  // service messsage activates watching "somedir" directory for reports of sometype type
+  //"##teamcity[importData id='XmlReport' reportType='sometype' file='somedir' verbose='true']"
+  // does the same and sets output verbose
   public void processData(@NotNull File file, Map<String, String> arguments) throws Exception {
-    final List<File> reportDirs = new ArrayList<File>();
-    reportDirs.add(file);
+    final String reportType = arguments.get(DATA_PROCESSOR_REPORT_TYPE_ARGUMENT);
+    if (!SUPPORTED_REPORT_TYPES.containsKey(reportType)) {
+      myLogger.error("Wrong report type specified in service message arguments: " + reportType);
+      return;
+    }
 
     if (arguments.containsKey(DATA_PROCESSOR_VERBOSE_ARGUMENT)) {
       myVerboseOutput = Boolean.parseBoolean(arguments.get(DATA_PROCESSOR_VERBOSE_ARGUMENT));
     } else {
       myVerboseOutput = false;
     }
-
     myLogger.setVerboseOutput(myVerboseOutput);
+
+    final List<File> reportDirs = new ArrayList<File>();
+    reportDirs.add(file);
 
     if (!myTestReportParsingEnabled) {
       myTestReportParsingEnabled = true;
+      myReportType = reportType;
       startReportProcessing(reportDirs);
     } else {
+      if (!myReportType.equals(reportType)) {
+        myLogger.error("Report type '" + reportType + "' specified in service message arguments is illegal");
+        return;
+      }
       myDirectoryWatcher.addDirectories(reportDirs);
     }
   }

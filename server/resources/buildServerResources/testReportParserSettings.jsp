@@ -21,11 +21,12 @@
         if (selectedValue == '') {
         $('testReportParsing.reportDirs.container').style.display = 'none';
         $('testReportParsing.verboseOutput.container').style.display = 'none';
-        }
-        if (selectedValue == 'junit') {
+        } else {
         $('testReportParsing.reportDirs.container').style.display = '';
         $('testReportParsing.verboseOutput.container').style.display = '';
         }
+        $('testReportParsing.reportDirs.container').disabled = (selectedValue == '');
+        $('testReportParsing.verboseOutput.container').disabled = (selectedValue == '');
       </c:set>
       <props:selectProperty name="testReportParsing.reportType"
                             onchange="${onchange}">

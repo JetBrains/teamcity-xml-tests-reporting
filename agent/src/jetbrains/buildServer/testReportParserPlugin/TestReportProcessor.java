@@ -46,7 +46,7 @@ public class TestReportProcessor extends Thread {
     myWatcher = watcher;
 
     final String expectedReportType = plugin.getSelectedReportType();
-    if (AntJUnitReportParser.TYPE.equals(expectedReportType)) {
+    if (AntJUnitReportParser.TYPE.equals(expectedReportType) || ("surefire".equals(expectedReportType))) {
       myParser = new AntJUnitReportParser(myPlugin.getLogger());
     } else if (NUnitReportParser.TYPE.equals(expectedReportType)) {
       myParser = new NUnitReportParser(myPlugin.getLogger(), myPlugin.getTmpDir());
