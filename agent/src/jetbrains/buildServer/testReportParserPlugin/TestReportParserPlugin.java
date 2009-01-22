@@ -148,6 +148,21 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
     }
   }
 
+  public void buildFinished(@NotNull final BuildFinishedStatus buildStatus) {
+    myDirectoryWatcher = null;
+    myReportProcessor = null;
+    myLogger = null;
+
+    myTestReportParsingEnabled = false;
+    myVerboseOutput = false;
+    myReportType = "";
+    myBuildStartTime = 0L;
+    myRunnerWorkingDir = null;
+    myTmpDir = null;
+
+    myStopped = true;
+  }
+
   public TestReportLogger getLogger() {
     return myLogger;
   }
@@ -200,9 +215,9 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
     } else {
       if (!myReportType.equals(reportType)) {
         myLogger.error("Report type '" + reportType + "' specified in service message arguments is illegal");
-        return;
+      } else {
+        myDirectoryWatcher.addDirectories(reportDirs);
       }
-      myDirectoryWatcher.addDirectories(reportDirs);
     }
   }
 

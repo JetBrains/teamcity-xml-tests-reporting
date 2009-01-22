@@ -91,10 +91,6 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     return (report.length() > 0);
   }
 
-  public String getReportType() {
-    return TYPE;
-  }
-
   /*  As of now the DTD is:
 
 <!ELEMENT testsuites (testsuite*)>
