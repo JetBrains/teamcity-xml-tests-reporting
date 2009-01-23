@@ -397,6 +397,7 @@
     <path refid="library.teamcity_utils.classpath"/>
     <path refid="library.teamcity_openapi.classpath"/>
     <path refid="library.log4j.classpath"/>
+    <path refid="library.jdom.classpath"/>
   </path>
 
   <path id="tests.runtime.module.classpath">
