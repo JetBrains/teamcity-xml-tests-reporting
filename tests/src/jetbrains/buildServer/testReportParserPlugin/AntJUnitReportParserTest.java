@@ -97,7 +97,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void testEm4ptyReport() {
+  public void testEmptyReport() {
     long testsLogged = myParser.parse(report("empty.xml"), 0);
     Assert.assertTrue("Empty report contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
     myContext.assertIsSatisfied();
@@ -106,6 +106,7 @@ public class AntJUnitReportParserTest extends TestCase {
   @Test
   public void testWrongFormatReport() {
     myParser.parse(report("wrongFormat"), 0);
+    myContext.assertIsSatisfied();
   }
 
   @Test

@@ -1,3 +1,19 @@
+/*
+ * Copyright 2008 JetBrains s.r.o.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package jetbrains.buildServer.testReportParserPlugin.findBugs;
 
 import jetbrains.buildServer.testReportParserPlugin.TestReportLogger;
@@ -11,6 +27,7 @@ import java.util.List;
 
 
 public class FindBugsReportParser implements TestReportParser {
+  //TODO: add optional attributes and elements logging
   public static final String TYPE = "findBugs";
 
   private final TestReportLogger myLogger;
@@ -20,12 +37,13 @@ public class FindBugsReportParser implements TestReportParser {
   }
 
   public void parse(@NotNull File report) {
-    myLogger.message("");
     myLogger.message("Start processing FindBugs report");
     try {
       final Element root = new SAXBuilder().build(report).getRootElement();
 
-      processProjectElement(root.getChild("Project"));
+      processRootAttributes(root);
+
+      processProject(root);
 
       processBugInstances(root);
 
@@ -39,6 +57,8 @@ public class FindBugsReportParser implements TestReportParser {
 
       processFindBugsSummary(root);
 
+//      <xs:element name="SummaryHTML" type="xs:string" minOccurs="0"/>
+
       processClassFeaturesElement(root);
 
       processHistory(root);
@@ -48,18 +68,29 @@ public class FindBugsReportParser implements TestReportParser {
 //    } catch (IOException e) {
 //      e.printStackTrace();
     } catch (Exception e) {
-      throw new RuntimeException(e);
+//      throw new RuntimeException(e);
+      myLogger.exception(e);
     }
   }
 
-  private void processProjectElement(Element project) {
+  private void processRootAttributes(Element root) {
+    myLogger.message("Version: " + root.getAttributeValue("version"));
+    myLogger.message("Sequence: " + root.getAttributeValue("sequence"));
+    myLogger.message("Timestamp: " + root.getAttributeValue("timestamp"));
+    myLogger.message("Analysis timestamp: " + root.getAttributeValue("analysisTimestamp"));
+    myLogger.message("Release: " + root.getAttributeValue("release"));
+  }
+
+  private void processProject(Element root) {
+    Element project = root.getChild("Project");
+
     String attrValue;
 
     attrValue = project.getAttributeValue("projectName");
-    logMessageIfNotNull("[Project name] " + attrValue, attrValue);
+    logAttrIfNotNull("[Project name] ", attrValue);
 
     attrValue = project.getAttributeValue("filename");
-    logMessageIfNotNull("[File name] " + attrValue, attrValue);
+    logAttrIfNotNull("[File name] ", attrValue);
 
     processJars(project);
     processAuxCPs(project);
@@ -69,7 +100,6 @@ public class FindBugsReportParser implements TestReportParser {
   private void processJars(Element project) {
     final List jars = project.getChildren("Jar");
     if (jars.size() > 0) {
-      myLogger.message("");
       myLogger.message("[Clases analized from jars]");
       for (Object o : jars) {
         final Element jar = (Element) o;
@@ -81,7 +111,6 @@ public class FindBugsReportParser implements TestReportParser {
   private void processAuxCPs(Element project) {
     final List auxClassPaths = project.getChildren("AuxClasspathEntry");
     if (auxClassPaths.size() > 0) {
-      myLogger.message("");
       myLogger.message("[Auxiliary class paths]");
       for (Object o : auxClassPaths) {
         final Element path = (Element) o;
@@ -93,7 +122,6 @@ public class FindBugsReportParser implements TestReportParser {
   private void processSrcPaths(Element project) {
     final List srcPaths = project.getChildren("SrcDir");
     if (srcPaths.size() > 0) {
-      myLogger.message("");
       myLogger.message("[Source paths]");
       for (Object o : srcPaths) {
         final Element path = (Element) o;
@@ -105,53 +133,34 @@ public class FindBugsReportParser implements TestReportParser {
   private void processBugInstances(Element root) {
     final List bugs = root.getChildren("BugInstance");
     if (bugs.size() > 0) {
-      myLogger.message("");
       myLogger.message("[Bug instances]");
-//      <xs:element name="ShortMessage" type="xs:string" minOccurs="0"/>
-//      <xs:element name="LongMessage" type="xs:string" minOccurs="0"/>
       for (Object o : bugs) {
         final Element bug = (Element) o;
 
-        processBugChoice(bug);
+        processBugDetails(bug);
         myLogger.message("Type: " + bug.getAttributeValue("type"));
         myLogger.message("Priority: " + bug.getAttributeValue("priority"));
         myLogger.message("Abbreviation: " + bug.getAttributeValue("abbrev"));
         myLogger.message("Category: " + bug.getAttributeValue("category"));
 
-//                     <xs:element name="UserAnnotation" minOccurs="0">
-//                <xs:complexType>
-//                  <xs:simpleContent>
-//                    <xs:extension base="xs:string">
-//                      <xs:attribute name="designation" type="designationType" use="optional"/>
-//                      <xs:attribute name="user" type="xs:string" use="optional"/>
-//                      <xs:attribute name="timestamp" type="xs:unsignedLong" use="optional"/>
-//                    </xs:extension>
-//                  </xs:simpleContent>
-//                </xs:complexType>
-//              </xs:element>
-        //TODO: add optional attributes and elements logging
+        logTextIfNotNull("Short message: ", bug.getChild("ShortMessage"));
+        logTextIfNotNull("Long message: ", bug.getChild("LongMessage"));
+        processUserAnnotation(bug);
       }
     }
   }
 
-  private void processBugChoice(Element root) {
-    processClass(root.getChildren("Class"));
-    processType(root.getChildren("Type"));
-    processMethod(root.getChildren("Method"));
-//    choice = root.getChildren("SourceLine");
-//    if (choice.size() != 0) {
-//      for (Object o: choice) {
-//        Element e = (Element) o;
-//
-//        myLogger.message("[SourceLine]");
-//      }
-//      return;
-//    }
-    processLocalVariable(root.getChildren("LocalVariable"));
-    processField(root.getChildren("Field"));
-    processInt(root.getChildren("Int"));
-    processString(root.getChildren("String"));
-    processProperty(root.getChildren("Property"));
+  private void processBugDetails(Element bug) {
+    processClasses(bug.getChildren("Class"));
+    processType(bug.getChildren("Type"));
+    processMethod(bug.getChildren("Method"));
+    processSourceLines(bug);
+    processLocalVariable(bug.getChildren("LocalVariable"));
+    processField(bug.getChildren("Field"));
+    processInt(bug.getChildren("Int"));
+    processString(bug.getChildren("String"));
+    processProperty(bug.getChildren("Property"));
+    processSourceLines(bug);
   }
 
   private void processProperty(List choice) {
@@ -159,7 +168,6 @@ public class FindBugsReportParser implements TestReportParser {
       for (Object o : choice) {
         Element e = (Element) o;
 
-        myLogger.message("");
         myLogger.message("[Property]");
         myLogger.message("Name: " + e.getAttributeValue("name"));
         myLogger.message("Value: " + e.getAttributeValue("value"));
@@ -172,9 +180,9 @@ public class FindBugsReportParser implements TestReportParser {
       for (Object o : choice) {
         Element e = (Element) o;
 
-        myLogger.message("");
         myLogger.message("[String]");
         myLogger.message("Value: " + e.getAttributeValue("value"));
+        processMessages(e);
       }
     }
   }
@@ -184,9 +192,9 @@ public class FindBugsReportParser implements TestReportParser {
       for (Object o : choice) {
         Element e = (Element) o;
 
-        myLogger.message("");
         myLogger.message("[Int]");
         myLogger.message("Value: " + e.getAttributeValue("value"));
+        processMessages(e);
       }
     }
   }
@@ -196,12 +204,13 @@ public class FindBugsReportParser implements TestReportParser {
       for (Object o : choice) {
         Element e = (Element) o;
 
-        myLogger.message("");
         myLogger.message("[Field]");
         myLogger.message("Classname: " + e.getAttributeValue("classname"));
         myLogger.message("Name: " + e.getAttributeValue("name"));
         myLogger.message("Signature: " + e.getAttributeValue("signature"));
         myLogger.message("Is static: " + e.getAttributeValue("isStatic"));
+        processSourceLines(e);
+        processMessages(e);
       }
     }
   }
@@ -211,12 +220,12 @@ public class FindBugsReportParser implements TestReportParser {
       for (Object o : choice) {
         Element e = (Element) o;
 
-        myLogger.message("");
         myLogger.message("[LocalVariable]");
         myLogger.message("Name: " + e.getAttributeValue("name"));
         myLogger.message("Register: " + e.getAttributeValue("register"));
         myLogger.message("Pc: " + e.getAttributeValue("pc"));
         myLogger.message("Role: " + e.getAttributeValue("role"));
+        processMessages(e);
       }
     }
   }
@@ -226,12 +235,13 @@ public class FindBugsReportParser implements TestReportParser {
       for (Object o : choice) {
         Element e = (Element) o;
 
-        myLogger.message("");
         myLogger.message("[Method]");
         myLogger.message("Classname: " + e.getAttributeValue("classname"));
         myLogger.message("Name: " + e.getAttributeValue("name"));
         myLogger.message("Signature: " + e.getAttributeValue("signature"));
         myLogger.message("Is static: " + e.getAttributeValue("isStatic"));
+        processSourceLines(e);
+        processMessages(e);
       }
     }
   }
@@ -241,27 +251,39 @@ public class FindBugsReportParser implements TestReportParser {
       for (Object o : choice) {
         Element e = (Element) o;
 
-        myLogger.message("");
-        myLogger.message("[Type] " + e.getAttributeValue("descriptor"));
+        myLogger.message("[Descriptor] " + e.getAttributeValue("descriptor"));
+        processSourceLines(e);
+        processMessages(e);
       }
     }
   }
 
-  private void processClass(List choice) {
+  private void processClasses(List choice) {
     if (choice.size() != 0) {
       for (Object o : choice) {
         Element e = (Element) o;
 
-        myLogger.message("");
         myLogger.message("[Class] " + e.getAttributeValue("classname"));
+        processSourceLines(e);
+        processMessages(e);
       }
+    }
+  }
+
+  private void processUserAnnotation(Element bug) {
+    final Element annotation = bug.getChild("UserAnnotation");
+    if (annotation != null) {
+//  optional attrs
+//      myLogger.message("Designation: " + annotation.getAttributeValue("designation"));
+//      myLogger.message("User: " + annotation.getAttributeValue("user"));
+//      myLogger.message("Timestamp: " + annotation.getAttributeValue("timestamp"));
+      myLogger.message("Annotation: " + annotation.getText());
     }
   }
 
   private void processBugCategories(Element root) {
     final List categories = root.getChildren("BugCategory");
     if (categories.size() > 0) {
-      myLogger.message("");
       myLogger.message("[Bug categories]");
       for (Object o : categories) {
         final Element category = (Element) o;
@@ -269,11 +291,8 @@ public class FindBugsReportParser implements TestReportParser {
         myLogger.message("[Category] " + category.getAttributeValue("category"));
         myLogger.message("Description: " + category.getChild("Description").getText());
 
-        Element optional;
-        optional = category.getChild("Abbreviation");
-        logMessageIfNotNull("Abbreviation: ", optional);
-        optional = category.getChild("Details");
-        logMessageIfNotNull("Details: ", optional);
+        logTextIfNotNull("Abbreviation: ", category.getChild("Abbreviation"));
+        logTextIfNotNull("Details: ", category.getChild("Details"));
       }
     }
   }
@@ -281,7 +300,6 @@ public class FindBugsReportParser implements TestReportParser {
   private void processBugPatterns(Element root) {
     final List patterns = root.getChildren("BugPattern");
     if (patterns.size() > 0) {
-      myLogger.message("");
       myLogger.message("[Bug patterns]");
       for (Object o : patterns) {
         final Element pattern = (Element) o;
@@ -299,7 +317,6 @@ public class FindBugsReportParser implements TestReportParser {
   private void processBugCodeElements(Element root) {
     final List bugCodeElements = root.getChildren("BugCode");
     if (bugCodeElements.size() > 0) {
-      myLogger.message("");
       myLogger.message("[Bug code]");
       int i = 0;
       for (Object o : bugCodeElements) {
@@ -328,42 +345,43 @@ public class FindBugsReportParser implements TestReportParser {
   private void processFindBugsSummary(Element root) {
     final Element summary = root.getChild("FindBugsSummary");
 
-    myLogger.message("");
     myLogger.message("[Summary]");
     myLogger.message("Total classes: " + summary.getAttributeValue("total_classes"));
     myLogger.message("Total bugs: " + summary.getAttributeValue("total_bugs"));
     myLogger.message("Total size: " + summary.getAttributeValue("total_size"));
     myLogger.message("Packages number: " + summary.getAttributeValue("num_packages"));
+    myLogger.message("Timestamp: " + summary.getAttributeValue("timestamp"));
     processFileStatusElements(summary);
     processPackageStatusElements(summary);
   }
 
   private void processFileStatusElements(Element element) {
     final List fileStatusElements = element.getChildren("FileStatus");
-    myLogger.message("");
-    myLogger.message("[File statuses]");
-    for (Object o : fileStatusElements) {
-      final Element fileStatus = (Element) o;
+    if (fileStatusElements.size() > 0) {
+      myLogger.message("[File statuses]");
+      for (Object o : fileStatusElements) {
+        final Element fileStatus = (Element) o;
 
-      myLogger.message("");
-      myLogger.message("Path: " + fileStatus.getAttributeValue("path"));
-      myLogger.message("Bug count: " + fileStatus.getAttributeValue("bugCount"));
+        myLogger.message("Path: " + fileStatus.getAttributeValue("path"));
+        myLogger.message("Bug count: " + fileStatus.getAttributeValue("bugCount"));
+      }
     }
   }
 
   private void processPackageStatusElements(Element element) {
     final List packageStatusElements = element.getChildren("FileStatus");
-    myLogger.message("");
-    myLogger.message("[Package statuses]");
-    for (Object o : packageStatusElements) {
-      final Element packageStatus = (Element) o;
+    if (packageStatusElements.size() > 0) {
+      myLogger.message("[Package statuses]");
+      for (Object o : packageStatusElements) {
+        final Element packageStatus = (Element) o;
 
-      myLogger.message("Package: " + packageStatus.getAttributeValue("package"));
-      myLogger.message("Total bugs: " + packageStatus.getAttributeValue("total_bugs"));
-      myLogger.message("Total types: " + packageStatus.getAttributeValue("total_types"));
-      myLogger.message("Total size: " + packageStatus.getAttributeValue("total_size"));
+        myLogger.message("Package: " + packageStatus.getAttributeValue("package"));
+        myLogger.message("Total bugs: " + packageStatus.getAttributeValue("total_bugs"));
+        myLogger.message("Total types: " + packageStatus.getAttributeValue("total_types"));
+        myLogger.message("Total size: " + packageStatus.getAttributeValue("total_size"));
 
-      processClassStatusElements(packageStatus);
+        processClassStatusElements(packageStatus);
+      }
     }
   }
 
@@ -413,26 +431,34 @@ public class FindBugsReportParser implements TestReportParser {
     }
   }
 
-  private void processSourceLine(Element root) {
-    Element line = root.getChild("SourceLine");
+  private void processSourceLines(Element root) {
+    List lines = root.getChildren("SourceLine");
 
-    if (line != null) {
+    for (Object o : lines) {
+      Element line = (Element) o;
       myLogger.message("Class : " + line.getAttributeValue("classname"));
-      processMessage(line);
+      processMessages(line);
     }
   }
 
-  private void processMessage(Element root) {
-    Element message = root.getChild("Message");
+  private void processMessages(Element root) {
+    List messages = root.getChildren("Message");
 
-    if (message != null) {
+    for (Object o : messages) {
+      Element message = (Element) o;
       myLogger.message(message.getText());
     }
   }
 
-  private void logMessageIfNotNull(String message, Object o) {
-    if (o != null) {
-      myLogger.message(message);
+  private void logTextIfNotNull(String message, Element e) {
+    if (e != null) {
+      myLogger.message(message + e.getText());
+    }
+  }
+
+  private void logAttrIfNotNull(String message, String m) {
+    if (m != null) {
+      myLogger.message(message + m);
     }
   }
 
