@@ -9,6 +9,8 @@
   <property name="dist.output.agent" value="${dist.unpacked}/agent"/>
   <property name="build.number" value="${env.BUILD_NUMBER}"/>
 
+  <target name="all" depends="check,xml-report-plugin.all"/>
+  
   <target name="pack.agent" description="pack agent part of plugin">
     <delete dir="${dist.output.agent}" quiet="true"/>
     <mkdir dir="${dist.output.agent}"/>
@@ -117,6 +119,20 @@
 
   <target name="check_failures" if="failure_found">
     <fail message="Failures found"/>
+  </target>
+
+  <target name="check">
+    <condition property="not.configured">
+      <not>
+        <and>
+          <isset property="path.variable.teamcitydistribution"/>
+          <length string="${path.variable.teamcitydistribution}" when="greater" length="0"/>
+          <available file="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib"/>
+        </and>
+      </not>
+    </condition>
+    <fail if="not.configured"
+          message="Please define 'path.variable.teamcitydistribution' property in xml-report-plugin.properties file. The property should point to unpacked TeamCity .tar.gz or .exe distribution."/>
   </target>
 
 </project>
