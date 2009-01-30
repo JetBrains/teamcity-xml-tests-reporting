@@ -38,6 +38,16 @@ public class NUnitToJUnitReportTransformer {
   }
 
   public void transform(@NotNull File nUnitReport, @NotNull File jUnitReport) throws TransformerException {
-    myTransformer.transform(new StreamSource(nUnitReport), new StreamResult(jUnitReport));
+    final StreamSource source = new StreamSource(nUnitReport);
+    final StreamResult result = new StreamResult(jUnitReport);
+    myTransformer.transform(source, result);
+//    try {
+//      source.getInputStream().close();
+//      source.getReader().close();
+//      result.getOutputStream().close();
+//      result.getWriter().close();
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
   }
 }

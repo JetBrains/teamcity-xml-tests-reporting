@@ -104,9 +104,14 @@ public class TestReportDirectoryWatcher extends Thread {
     }
   }
 
-  private boolean isFileOk(File report) {
-//    return !(!report.isFile() || !report.canRead() || (report.lastModified() < myPlugin.getBuildStartTime()));
-    return !(!report.isFile() || !report.canRead());
+  private boolean isFileOk(File file) {
+    boolean f = timeConstraintsSatisfied(file);
+    return file.isFile() && file.canRead() && f;
+  }
+
+  private boolean timeConstraintsSatisfied(File file) {
+    return myPlugin.getParameters().isParseOutOfDateFiles()
+      || (file.lastModified() > myPlugin.getParameters().getBuildStartTime());
   }
 
   public void logDirectoriesTotals() {
@@ -153,7 +158,7 @@ public class TestReportDirectoryWatcher extends Thread {
         myPlugin.getLogger().warning(file.getPath() + ": unable to read file");
         continue;
       }
-      if (file.lastModified() < myPlugin.getBuildStartTime()) {
+      if (file.lastModified() < myPlugin.getParameters().getBuildStartTime()) {
         myPlugin.getLogger().warning(file.getPath() + " file has modification date preceding build start time");
       }
     }

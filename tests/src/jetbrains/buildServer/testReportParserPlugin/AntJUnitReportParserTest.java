@@ -74,16 +74,6 @@ public class AntJUnitReportParserTest extends TestCase {
     mySequence = myContext.sequence("Log Sequence");
   }
 
-//    @Test(expected = IllegalArgumentException.class)
-//    public void testFirstNullArgument() {
-//        myParser = new AntJUnitReportParser(null);
-//    }
-//
-//    @Test(expected = IllegalArgumentException.class)
-//    public void testNullReport() {
-//        myParser.parse(null, 0);
-//    }
-
   @Test
   public void testUnexistingReport() {
     myContext.checking(new Expectations() {

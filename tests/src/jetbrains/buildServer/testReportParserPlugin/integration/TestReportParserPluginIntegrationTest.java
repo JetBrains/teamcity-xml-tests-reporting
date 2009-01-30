@@ -16,10 +16,8 @@
 
 package jetbrains.buildServer.testReportParserPlugin.integration;
 
-import jetbrains.buildServer.agent.AgentLifeCycleListener;
-import jetbrains.buildServer.agent.AgentRunningBuild;
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
-import jetbrains.buildServer.agent.BuildFinishedStatus;
+import jetbrains.buildServer.agent.*;
+import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil;
 import static jetbrains.buildServer.testReportParserPlugin.TestUtil.*;
@@ -54,6 +52,11 @@ public class TestReportParserPluginIntegrationTest {
   private List<UnexpectedInvokationException> myFailures;
 
   private Mockery myContext;
+  private InspectionReporter myInspectionReporter;
+
+  private InspectionReporter createInspectionReporter() {
+    return myContext.mock(InspectionReporter.class);
+  }
 
   private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final File workingDirFile, final BaseServerLoggerFacade logger) {
     final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
@@ -67,15 +70,35 @@ public class TestReportParserPluginIntegrationTest {
         will(returnValue(workingDirFile));
         allowing(runningBuild).getBuildTempDirectory();
         will(returnValue(workingDirFile));
+        allowing(runningBuild).getBuildParameters();
+        will(returnValue(createBuildParametersMap(myRunnerParams)));
         ignoring(runningBuild);
       }
     });
     return runningBuild;
   }
 
+  private BuildParametersMap createBuildParametersMap(final Map<String, String> systemProperties) {
+    final BuildParametersMap params = myContext.mock(BuildParametersMap.class);
+    myContext.checking(new Expectations() {
+      {
+        oneOf(params).getSystemProperties();
+        will(returnValue(systemProperties));
+      }
+    });
+    return params;
+  }
+
   @Before
   public void setUp() {
     myContext = new JUnit4Mockery();
+
+    myInspectionReporter = createInspectionReporter();
+    myContext.checking(new Expectations() {
+      {
+        ignoring(myInspectionReporter);
+      }
+    });
 
     myLogSequence = new ArrayList<MethodInvokation>();
     myFailures = new ArrayList<UnexpectedInvokationException>();
@@ -87,7 +110,7 @@ public class TestReportParserPluginIntegrationTest {
     myWorkingDir.mkdir();
     myRunningBuild = createAgentRunningBuild(myRunnerParams, myWorkingDir, myTestLogger);
     myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
-    myPlugin = new TestReportParserPlugin(myEventDispatcher);
+    myPlugin = new TestReportParserPlugin(myEventDispatcher, myInspectionReporter);
     ReportFactory.setWorkingDir(WORKING_DIR);
   }
 
@@ -108,6 +131,11 @@ public class TestReportParserPluginIntegrationTest {
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeBuildFinish(status);
     myContext.assertIsSatisfied();
@@ -150,6 +178,11 @@ public class TestReportParserPluginIntegrationTest {
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
@@ -172,6 +205,11 @@ public class TestReportParserPluginIntegrationTest {
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     ReportFactory.createFile("reports");
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
@@ -214,6 +252,11 @@ public class TestReportParserPluginIntegrationTest {
     warningWhenNoReportsFoundInDirectory(ANT_JUNIT_REPORT_TYPE);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
@@ -229,6 +272,11 @@ public class TestReportParserPluginIntegrationTest {
     warningWhenNoReportsFoundInDirectoryOnlyWrong(ANT_JUNIT_REPORT_TYPE);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     createFile(REPORTS_DIR + "\\somefile");
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
@@ -245,6 +293,11 @@ public class TestReportParserPluginIntegrationTest {
     warningWhenNoReportsFoundInDirectory(NUNIT_REPORT_TYPE);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
@@ -255,21 +308,26 @@ public class TestReportParserPluginIntegrationTest {
     }
   }
 
-  @Test
-  public void testNUnitWarningWhenNoReportsFoundInDirectoryOnlyWrongFile() {
-    warningWhenNoReportsFoundInDirectoryOnlyWrong(NUNIT_REPORT_TYPE);
-
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    createFile(REPORTS_DIR + "\\somefile");
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-    myContext.assertIsSatisfied();
-    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
-
-    if (myFailures.size() > 0) {
-      throw myFailures.get(0);
-    }
-  }
+//  @Test
+//  public void testNUnitWarningWhenNoReportsFoundInDirectoryOnlyWrongFile() {
+//    warningWhenNoReportsFoundInDirectoryOnlyWrong(NUNIT_REPORT_TYPE);
+//
+//    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+//    try {
+//      Thread.sleep(1000);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
+//    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+//    createFile(REPORTS_DIR + "\\somefile");
+//    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+//    myContext.assertIsSatisfied();
+//    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+//
+//    if (myFailures.size() > 0) {
+//      throw myFailures.get(0);
+//    }
+//  }
 
   @Test
   public void testAntJUnitWarningWhenUnfinishedReportFoundInDirectory() {
@@ -292,6 +350,11 @@ public class TestReportParserPluginIntegrationTest {
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     createUnfinishedReport(REPORTS_DIR + "\\report", ANT_JUNIT_REPORT_TYPE);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
@@ -314,6 +377,11 @@ public class TestReportParserPluginIntegrationTest {
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
@@ -343,6 +411,11 @@ public class TestReportParserPluginIntegrationTest {
     myTestLogger.addNotControlledMethod("warning");
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase\" tests=\"1\" time=\"0.031\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
@@ -410,6 +483,11 @@ public class TestReportParserPluginIntegrationTest {
     myTestLogger.addNotControlledMethod("warning");
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
@@ -501,6 +579,11 @@ public class TestReportParserPluginIntegrationTest {
     myTestLogger.addNotControlledMethod("warning");
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
@@ -558,6 +641,98 @@ public class TestReportParserPluginIntegrationTest {
       "</testsuites>");
 
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+    myContext.assertIsSatisfied();
+    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+
+    if (myFailures.size() > 0) {
+      throw myFailures.get(0);
+    }
+  }
+
+  @Test
+  public void testSkipsOldFiles() {
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
+    TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
+    TestReportParserPluginUtil.setTestReportDirs(myRunnerParams, "");
+    TestReportParserPluginUtil.setParseOutOfDateReports(myRunnerParams, false);
+
+    final List<Object> params = new ArrayList<Object>();
+    params.add(MethodInvokation.ANY_VALUE);
+    myLogSequence.add(new MethodInvokation("message", params));
+    myLogSequence.add(new MethodInvokation("warning", params));
+    myTestLogger.setExpectedSequence(myLogSequence);
+
+    createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
+      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+      "  <properties/>\n" +
+      "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
+      "</testsuite>");
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+
+    myContext.assertIsSatisfied();
+    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+
+    if (myFailures.size() > 0) {
+      throw myFailures.get(0);
+    }
+  }
+
+  @Test
+  public void testNotSkipsOldFiles() {
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
+    TestReportParserPluginUtil.setVerboseOutput(myRunnerParams, true);
+    TestReportParserPluginUtil.setTestReportDirs(myRunnerParams, "");
+    TestReportParserPluginUtil.setParseOutOfDateReports(myRunnerParams, true);
+
+    final List<Object> params = new ArrayList<Object>();
+    params.add(MethodInvokation.ANY_VALUE);
+    myLogSequence.add(new MethodInvokation("message", params));
+
+    final List<Object> param = new ArrayList<Object>();
+    param.add(MethodInvokation.ANY_VALUE);
+    param.add("TestCase1");
+
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", param));
+    myLogSequence.add(new MethodInvokation("logTestStarted", params));
+    myLogSequence.add(new MethodInvokation("logTestFinished", params));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
+    myLogSequence.add(new MethodInvokation("message", params));
+    myLogSequence.add(new MethodInvokation("message", params));
+    myTestLogger.setExpectedSequence(myLogSequence);
+
+    createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
+      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+      "  <properties/>\n" +
+      "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
+      "</testsuite>");
+
+    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
 

@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package jetbrains.buildServer.testReportParserPlugin;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import jetbrains.buildServer.testReportParserPlugin.findBugs.FindBugsReportParser;
+import jetbrains.buildServer.testReportParserPlugin.findBugs.FindBugsReportParserText;
 import junit.framework.TestCase;
 import org.jdom.input.JDOMParseException;
 import org.jmock.Expectations;
@@ -35,7 +36,7 @@ import java.io.FileNotFoundException;
 
 
 @RunWith(JMock.class)
-public class FindBugsReportParserTest extends TestCase {
+public class FindBugsReportParserTextTest extends TestCase {
   private static final String REPORT_DIR = "Tests/testData/findbugs/";
 
   private TestReportParser myParser;
@@ -50,14 +51,7 @@ public class FindBugsReportParserTest extends TestCase {
   }
 
   private InspectionReporter createInspectionReporter() {
-    final InspectionReporter reporter = myContext.mock(InspectionReporter.class);
-    myContext.checking(new Expectations() {
-      {
-        oneOf(reporter).markBuildAsInspectionsBuild();
-        oneOf(reporter).flush();
-      }
-    });
-    return reporter;
+    return myContext.mock(InspectionReporter.class);
   }
 
   private File report(String name) {
@@ -73,14 +67,15 @@ public class FindBugsReportParserTest extends TestCase {
     };
     myLogger = createBaseServerLoggerFacade();
     myInspectionReporter = createInspectionReporter();
-    myParser = new FindBugsReportParser(new TestReportLogger(myLogger, true), myInspectionReporter);
+    myParser = new FindBugsReportParserText(new TestReportLogger(myLogger, true), myInspectionReporter);
     mySequence = myContext.sequence("Log Sequence");
-//    myContext.checking(new Expectations() {
-//      {
-//        oneOf(myLogger).message(with("Start processing FindBugs report"));
-//        inSequence(mySequence);
-//      }
-//    });
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).message(with("Start processing FindBugs report"));
+        inSequence(mySequence);
+        ignoring(myInspectionReporter);
+      }
+    });
   }
 
   @Test
@@ -120,42 +115,42 @@ public class FindBugsReportParserTest extends TestCase {
     myContext.assertIsSatisfied();
   }
 
-//  @Test
-//  public void testMinimumXml() {
-//    myContext.checking(new Expectations() {
-//      {
-//        oneOf(myLogger).message(with("Version: 1.1.1"));
-//        oneOf(myLogger).message(with("Sequence: 0"));
-//        oneOf(myLogger).message(with("Timestamp: 1"));
-//        oneOf(myLogger).message(with("Analysis timestamp: 2"));
-//        oneOf(myLogger).message(with("Release: "));
-//        oneOf(myLogger).message(with("[Summary]"));
-//        oneOf(myLogger).message(with("Total classes: 0"));
-//        oneOf(myLogger).message(with("Total bugs: 0"));
-//        oneOf(myLogger).message(with("Total size: 0"));
-//        oneOf(myLogger).message(with("Packages number: 0"));
-//        oneOf(myLogger).message(with("Timestamp: Sun, 14 Oct 2007 14:23:30 -0400"));
-//        inSequence(mySequence);
-//      }
-//    });
-//    myParser.parse(report("miminum.xml"), 0);
-//    myContext.assertIsSatisfied();
-//  }
-//
-//  @Test
-//  public void testIllegalXml() {
-//    myContext.checking(new Expectations() {
-//      {
-//        oneOf(myLogger).message(with("Version: 1.1.1"));
-//        oneOf(myLogger).message(with("Sequence: 0"));
-//        oneOf(myLogger).message(with("Timestamp: 1"));
-//        oneOf(myLogger).message(with("Analysis timestamp: 2"));
-//        oneOf(myLogger).message(with("Release: "));
-//        oneOf(myLogger).exception(with(any(NullPointerException.class)));
-//        inSequence(mySequence);
-//      }
-//    });
-//    myParser.parse(report("illegalXml.xml"), 0);
-//    myContext.assertIsSatisfied();
-//  }
+  @Test
+  public void testMinimumXml() {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).message(with("Version: 1.1.1"));
+        oneOf(myLogger).message(with("Sequence: 0"));
+        oneOf(myLogger).message(with("Timestamp: 1"));
+        oneOf(myLogger).message(with("Analysis timestamp: 2"));
+        oneOf(myLogger).message(with("Release: "));
+        oneOf(myLogger).message(with("[Summary]"));
+        oneOf(myLogger).message(with("Total classes: 0"));
+        oneOf(myLogger).message(with("Total bugs: 0"));
+        oneOf(myLogger).message(with("Total size: 0"));
+        oneOf(myLogger).message(with("Packages number: 0"));
+        oneOf(myLogger).message(with("Timestamp: Sun, 14 Oct 2007 14:23:30 -0400"));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(report("miminum.xml"), 0);
+    myContext.assertIsSatisfied();
+  }
+
+  @Test
+  public void testIllegalXml() {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).message(with("Version: 1.1.1"));
+        oneOf(myLogger).message(with("Sequence: 0"));
+        oneOf(myLogger).message(with("Timestamp: 1"));
+        oneOf(myLogger).message(with("Analysis timestamp: 2"));
+        oneOf(myLogger).message(with("Release: "));
+        oneOf(myLogger).exception(with(any(NullPointerException.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(report("illegalXml.xml"), 0);
+    myContext.assertIsSatisfied();
+  }
 }

@@ -35,6 +35,7 @@ public class TestReportParserPluginUtil {
   public static final String TEST_REPORT_PARSING_REPORT_TYPE = "testReportParsing.reportType";
   public static final String TEST_REPORT_PARSING_REPORT_DIRS = "testReportParsing.reportDirs";
   public static final String TEST_REPORT_PARSING_VERBOSE_OUTPUT = "testReportParsing.verboseOutput";
+  public static final String TEST_REPORT_PARSING_PARSE_OUT_OF_DATE = "system.teamcity.xml.tests.reporting.parse.outofdate.reports";
 
   public static boolean isTestReportParsingEnabled(@NotNull final Map<String, String> runParams) {
     return runParams.containsKey(TEST_REPORT_PARSING_REPORT_TYPE) &&
@@ -43,6 +44,10 @@ public class TestReportParserPluginUtil {
 
   public static boolean isOutputVerbose(@NotNull final Map<String, String> runParams) {
     return runParams.containsKey(TEST_REPORT_PARSING_VERBOSE_OUTPUT);
+  }
+
+  public static boolean shouldParseOutOfDateReports(@NotNull final Map<String, String> systemProperties) {
+    return systemProperties.containsKey(TEST_REPORT_PARSING_PARSE_OUT_OF_DATE);
   }
 
   public static void enableTestReportParsing(@NotNull final Map<String, String> runParams, String reportType) {
@@ -62,6 +67,14 @@ public class TestReportParserPluginUtil {
       } else {
         runParams.remove(TEST_REPORT_PARSING_VERBOSE_OUTPUT);
       }
+    }
+  }
+
+  public static void setParseOutOfDateReports(@NotNull final Map<String, String> systemProperties, boolean shouldParse) {
+    if (shouldParse) {
+      systemProperties.put(TEST_REPORT_PARSING_PARSE_OUT_OF_DATE, "true");
+    } else {
+      systemProperties.remove(TEST_REPORT_PARSING_PARSE_OUT_OF_DATE);
     }
   }
 

@@ -17,73 +17,74 @@
 package jetbrains.buildServer.testReportParserPlugin;
 
 import jetbrains.buildServer.agent.*;
-import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil.*;
+import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil.getTestReportDirs;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
-public class TestReportParserPlugin extends AgentLifeCycleAdapter implements DataProcessor {
-  private static final String DATA_PROCESSOR_ID = "XmlReport";
-  private static final String DATA_PROCESSOR_VERBOSE_ARGUMENT = "verbose";
-  private static final String DATA_PROCESSOR_REPORT_TYPE_ARGUMENT = "reportType";
-
+public class TestReportParserPlugin extends AgentLifeCycleAdapter {
   private TestReportDirectoryWatcher myDirectoryWatcher;
   private TestReportProcessor myReportProcessor;
   private TestReportLogger myLogger;
+  private InspectionReporter myInspectionReporter;
 
-  private boolean myTestReportParsingEnabled = false;
-  private boolean myVerboseOutput = false;
-  private String myReportType = "";
-  private long myBuildStartTime;
-  private File myRunnerWorkingDir;
-  private File myTmpDir;
+  private TestReportParsingParameters myParameters;
 
   private volatile boolean myStopped;
 
-  public TestReportParserPlugin(@NotNull final EventDispatcher<AgentLifeCycleListener> agentDispatcher) {
+  public TestReportParserPlugin(@NotNull final EventDispatcher<AgentLifeCycleListener> agentDispatcher,
+                                @NotNull final InspectionReporter inspectionReporter) {
     agentDispatcher.addListener(this);
+    myInspectionReporter = inspectionReporter;
   }
 
   public void buildStarted(@NotNull AgentRunningBuild agentRunningBuild) {
     myStopped = false;
-    myBuildStartTime = new Date().getTime();
+    myParameters = new TestReportParsingParameters(agentRunningBuild);
   }
 
-  public void beforeRunnerStart(@NotNull AgentRunningBuild agentRunningBuild) {
-    myRunnerWorkingDir = agentRunningBuild.getWorkingDirectory();
-    myTmpDir = agentRunningBuild.getBuildTempDirectory();
-
-    final Map<String, String> runnerParameters = agentRunningBuild.getRunnerParameters();
-
-    myTestReportParsingEnabled = isTestReportParsingEnabled(runnerParameters);
-    myVerboseOutput = isOutputVerbose(runnerParameters);
-
-    obtainLogger(agentRunningBuild);
-
-    if (!myTestReportParsingEnabled) {
+  public void beforeRunnerStart(@NotNull AgentRunningBuild build) {
+    obtainLogger(build);
+    if (!myParameters.isParsingEnabled()) {
       return;
     }
 
-    final String dirProperty = getTestReportDirs(runnerParameters);
-    final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myRunnerWorkingDir);
+    final String dirProperty = getTestReportDirs(build.getRunnerParameters());
+    final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myParameters.getRunnerWorkingDir());
 
     if (reportDirs.size() == 0) {
       myLogger.warning("No report directories specified");
     }
+    myLogger.debugToAgentLog("Plugin expects reports of type: " + myParameters.getReportType());
 
-    myReportType = getReportType(runnerParameters);
-    myLogger.debugToAgentLog("Plugin expects reports of type: " + myReportType);
-
-    startReportProcessing(reportDirs);
+    startProcessing(reportDirs);
   }
 
-  private void startReportProcessing(List<File> reportDirs) {
+  public void processReports(String reportType, List<File> reportDirs) {
+    if (!myParameters.isParsingEnabled()) {
+      myParameters.setParsingEnabled(true);
+      myParameters.setReportType(reportType);
+      startProcessing(reportDirs);
+    } else {
+      if (!myParameters.getReportType().equals(reportType)) {
+        myLogger.error("Report type '" + reportType + "' is illegal");
+      } else {
+        myDirectoryWatcher.addDirectories(reportDirs);
+      }
+    }
+  }
+
+  private void startProcessing(List<File> reportDirs) {
     final LinkedBlockingQueue<File> reportsQueue = new LinkedBlockingQueue<File>();
+
     myDirectoryWatcher = new TestReportDirectoryWatcher(this, reportDirs, reportsQueue);
     myReportProcessor = new TestReportProcessor(this, reportsQueue, myDirectoryWatcher);
 
@@ -94,7 +95,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
   private void obtainLogger(AgentRunningBuild agentRunningBuild) {
     final BuildProgressLogger logger = agentRunningBuild.getBuildLogger();
     if (logger instanceof BaseServerLoggerFacade) {
-      myLogger = new TestReportLogger((BaseServerLoggerFacade) logger, myVerboseOutput);
+      myLogger = new TestReportLogger((BaseServerLoggerFacade) logger, myParameters.isVerboseOutput());
     } else {
       // not expected
     }
@@ -127,7 +128,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
   public void beforeBuildFinish(@NotNull BuildFinishedStatus buildFinishedStatus) {
     myStopped = true;
 
-    if (!myTestReportParsingEnabled) {
+    if (!myParameters.isParsingEnabled()) {
       return;
     }
 
@@ -152,13 +153,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
     myDirectoryWatcher = null;
     myReportProcessor = null;
     myLogger = null;
-
-    myTestReportParsingEnabled = false;
-    myVerboseOutput = false;
-    myReportType = "";
-    myBuildStartTime = 0L;
-    myRunnerWorkingDir = null;
-    myTmpDir = null;
+    myParameters = null;
 
     myStopped = true;
   }
@@ -167,67 +162,15 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter implements Dat
     return myLogger;
   }
 
-  public long getBuildStartTime() {
-    return myBuildStartTime;
+  public InspectionReporter getInspectionReporter() {
+    return myInspectionReporter;
   }
 
-  public File getRunnerWorkingDir() {
-    return myRunnerWorkingDir;
-  }
-
-  public File getTmpDir() {
-    return myTmpDir;
-  }
-
-  public String getSelectedReportType() {
-    return myReportType;
+  public TestReportParsingParameters getParameters() {
+    return myParameters;
   }
 
   public boolean isStopped() {
     return myStopped;
-  }
-
-  //"##teamcity[importData id='XmlReport' reportType='sometype' file='somedir']"
-  // service messsage activates watching "somedir" directory for reports of sometype type
-  //"##teamcity[importData id='XmlReport' reportType='sometype' file='somedir' verbose='true']"
-  // does the same and sets output verbose
-  public void processData(@NotNull File file, Map<String, String> arguments) throws Exception {
-    final String reportType = arguments.get(DATA_PROCESSOR_REPORT_TYPE_ARGUMENT);
-    if (!SUPPORTED_REPORT_TYPES.containsKey(reportType)) {
-      myLogger.error("Wrong report type specified in service message arguments: " + reportType);
-      return;
-    }
-
-    if (arguments.containsKey(DATA_PROCESSOR_VERBOSE_ARGUMENT)) {
-      myVerboseOutput = Boolean.parseBoolean(arguments.get(DATA_PROCESSOR_VERBOSE_ARGUMENT));
-    } else {
-      myVerboseOutput = false;
-    }
-    myLogger.setVerboseOutput(myVerboseOutput);
-
-    final List<File> reportDirs = new ArrayList<File>();
-    reportDirs.add(file);
-
-    if (!myTestReportParsingEnabled) {
-      myTestReportParsingEnabled = true;
-      myReportType = reportType;
-      startReportProcessing(reportDirs);
-    } else {
-      if (!myReportType.equals(reportType)) {
-        myLogger.error("Report type '" + reportType + "' specified in service message arguments is illegal");
-      } else {
-        myDirectoryWatcher.addDirectories(reportDirs);
-      }
-    }
-  }
-
-  @NotNull
-  public String getType() {
-    return DATA_PROCESSOR_ID;
-  }
-
-  @NotNull
-  public String getId() {
-    return DATA_PROCESSOR_ID;
   }
 }

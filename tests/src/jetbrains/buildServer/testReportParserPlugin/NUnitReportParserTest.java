@@ -42,9 +42,6 @@ public class NUnitReportParserTest extends TestCase {
   private static final String CASE_CLASSNAME = "TestCase";
   private static final String CASE_NAME = CASE_CLASSNAME + ".test";
 
-  private static final String FAILURE_MESSAGE = "junit.framework.AssertionFailedError: Assertion message form test";
-  private static final String ERROR_MESSAGE = "java.lang.NullPointerException: Error message from test";
-
   private TestReportParser myParser;
   private BaseServerLoggerFacade myLogger;
 

@@ -82,6 +82,10 @@
     <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/jdom.jar"/>
   </path>
 
+  <path id="library.servlet_api.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/lib/servlet-api.jar"/>
+  </path>
+
   <!-- Modules -->
 
 
@@ -306,6 +310,7 @@
     <path refid="library.teamcity_utils.classpath"/>
     <pathelement location="${common.output.dir}"/>
     <pathelement location="${common.testoutput.dir}"/>
+    <path refid="library.servlet_api.classpath"/>
   </path>
 
   <path id="server.runtime.module.classpath">
@@ -315,6 +320,7 @@
     <path refid="library.teamcity_utils.classpath"/>
     <pathelement location="${common.output.dir}"/>
     <pathelement location="${common.testoutput.dir}"/>
+    <path refid="library.servlet_api.classpath"/>
   </path>
 
 
@@ -415,6 +421,7 @@
     <path refid="library.jdom.classpath"/>
     <pathelement location="${server.output.dir}"/>
     <pathelement location="${server.testoutput.dir}"/>
+    <path refid="library.servlet_api.classpath"/>
     <path refid="library.log4j.classpath"/>
   </path>
 

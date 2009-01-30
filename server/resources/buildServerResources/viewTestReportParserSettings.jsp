@@ -5,7 +5,7 @@
 <div class="parameter">
   Test report monitoring:
   <c:choose>
-    <c:when test="${propertiesBean.properties['testReportParsing.reportType'] == ''}">
+    <c:when test="${empty propertiesBean.properties['testReportParsing.reportType']}">
       <strong>disabled</strong>
     </c:when>
     <c:otherwise>
@@ -14,8 +14,7 @@
   </c:choose>
 </div>
 
-<c:if test="${propertiesBean.properties['testReportParsing.reportType'] == 'junit' or
-              propertiesBean.properties['testReportParsing.reportType'] == 'nunit'}">
+<c:if test="${not empty propertiesBean.properties['testReportParsing.reportType']}">
   <div class="parameter">
     Test report type: <props:displayValue name="testReportParsing.reportType"
                                           emptyValue="none specified"/>

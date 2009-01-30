@@ -71,37 +71,12 @@ public class TestReportDirectoryWatcherTest {
     };
   }
 
-//    @Test(expected = IllegalArgumentException.class)
-//    public void testFirstConstructorNullArgument() {
-//        final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(null, new ArrayList<File>(), createLinkedBlockingQueue());
-//    }
-//
-//    @Test(expected = IllegalArgumentException.class)
-//    public void testSecondConstructorNullArgument() {
-//        final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), null, createLinkedBlockingQueue());
-//    }
-//
-//    @Test(expected = IllegalArgumentException.class)
-//    public void testThirdConstructorNullArgument() {
-//        final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), null);
-//    }
-
-//  @Test
-//  public void testIsStoppedAfterCreation() {
-//    final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), createLinkedBlockingQueue());
-//    assertFalse("Watcher:stopWatching() method not invoked, but watcher is stopped.", watcher.isStopped());
-//  }
-
   @Test
   public void testLogDirectoryTotalsAfterCreation() {
     final BaseServerLoggerFacade logger = createBaseServerLoggerFacade();
     myContext.checking(new Expectations() {
       {
         never(logger).warning(with(any(String.class)));
-//                allowing (any(BaseServerLoggerFacade.class)).method(".*");
-//                allowing (never(any(Object.class))).method(".*");
-//                allowing (never(logger)).warning(with(any(String.class)));
-//                never(logger);
       }
     });
     final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), createLinkedBlockingQueue());
@@ -109,6 +84,7 @@ public class TestReportDirectoryWatcherTest {
     myContext.assertIsSatisfied();
   }
 
+//tests do not fail, when exception in other thread is thrownW
 //    @Test
 //    public void testNoDirectoriesToWatch() throws InterruptedException {
 //        final LinkedBlockingQueue<File> queue = createLinkedBlockingQueue();
@@ -137,4 +113,32 @@ public class TestReportDirectoryWatcherTest {
 //
 //        myContext.assertIsSatisfied();
 //    }
+
+//  @Test
+//  public void testSkipsOutOfDateFiles() {
+//    final BaseServerLoggerFacade logger = createBaseServerLoggerFacade();
+//    myContext.checking(new Expectations() {
+//      {
+//        never(logger);
+//      }
+//    });
+//    final List<File> dirs = new ArrayList<File>();
+//    dirs.add(new File("Tests/testData/junit/"));
+//
+//    final TestReportParserPlugin plugin = createTestReportParserPlugin();
+//    myContext.checking(new Expectations() {
+//      {
+//        allowing(plugin);
+//      }
+//    });
+//
+//    final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(plugin, dirs, createLinkedBlockingQueue());
+//    watcher.start();
+//    try {
+//      Thread.sleep(5000);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
+//    myContext.assertIsSatisfied();
+//  }
 }

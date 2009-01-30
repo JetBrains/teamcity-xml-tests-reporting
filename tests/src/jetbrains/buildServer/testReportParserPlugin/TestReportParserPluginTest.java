@@ -16,10 +16,8 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
-import jetbrains.buildServer.agent.AgentLifeCycleListener;
-import jetbrains.buildServer.agent.AgentRunningBuild;
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
-import jetbrains.buildServer.agent.BuildFinishedStatus;
+import jetbrains.buildServer.agent.*;
+import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import static jetbrains.buildServer.testReportParserPlugin.TestUtil.ANT_JUNIT_REPORT_TYPE;
 import jetbrains.buildServer.util.EventDispatcher;
 import junit.framework.Assert;
@@ -49,8 +47,25 @@ public class TestReportParserPluginTest {
 
   private Mockery myContext;
   private Sequence mySequence;
+  private InspectionReporter myInspectionReporter;
 
-  private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final File workingDirFile) {
+  private InspectionReporter createInspectionReporter() {
+    return myContext.mock(InspectionReporter.class);
+  }
+
+  private BuildParametersMap createBuildParametersMap(final Map<String, String> systemProperties) {
+    final BuildParametersMap params = myContext.mock(BuildParametersMap.class);
+    myContext.checking(new Expectations() {
+      {
+        oneOf(params).getSystemProperties();
+        will(returnValue(systemProperties));
+      }
+    });
+    return params;
+  }
+
+  private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams,
+                                                    final File workingDirFile) {
     final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
     myContext.checking(new Expectations() {
       {
@@ -59,11 +74,14 @@ public class TestReportParserPluginTest {
         inSequence(mySequence);
         allowing(runningBuild).getBuildTempDirectory();
         inSequence(mySequence);
-        allowing(runningBuild).getBuildLogger();
-        will(returnValue(myLogger));
-        inSequence(mySequence);
         allowing(runningBuild).getRunnerParameters();
         will(returnValue(runParams));
+        inSequence(mySequence);
+        allowing(runningBuild).getBuildParameters();
+        will(returnValue(createBuildParametersMap(runParams)));
+        inSequence(mySequence);
+        allowing(runningBuild).getBuildLogger();
+        will(returnValue(myLogger));
         inSequence(mySequence);
       }
     });
@@ -86,13 +104,19 @@ public class TestReportParserPluginTest {
     myRunParams = new HashMap<String, String>();
     myWorkingDir = new File(WORKING_DIR);
     myLogger = createBaseServerLoggerFacade();
+    myInspectionReporter = createInspectionReporter();
+    myContext.checking(new Expectations() {
+      {
+        ignoring(myInspectionReporter);
+      }
+    });
   }
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
     TestReportParserPluginUtil.enableTestReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
 
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
-    myPlugin = new TestReportParserPlugin(myEventDispatcher);
+    myPlugin = new TestReportParserPlugin(myEventDispatcher, myInspectionReporter);
 
     myEventDispatcher.getMulticaster().buildStarted(runningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
@@ -125,7 +149,7 @@ public class TestReportParserPluginTest {
         inSequence(mySequence);
       }
     });
-    myPlugin = new TestReportParserPlugin(myEventDispatcher);
+    myPlugin = new TestReportParserPlugin(myEventDispatcher, myInspectionReporter);
 
     myEventDispatcher.getMulticaster().buildStarted(runningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
@@ -140,20 +164,12 @@ public class TestReportParserPluginTest {
     warningWhenZeroReportDirsSize();
   }
 
-//    @Test
-//    public void testWarningWhenReportDirsEmpty() {
-//        TestReportParserPluginUtil.enableTestReportParsing(myRunParams, true);
-//        TestReportParserPluginUtil.setTestReportDirs(myRunParams, "");
-//
-//        warningWhenZeroReportDirsSize();
-//    }
-
   @Test
   public void testIsStoppedWhenDisabled() {
     TestReportParserPluginUtil.enableTestReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
 
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
-    myPlugin = new TestReportParserPlugin(myEventDispatcher);
+    myPlugin = new TestReportParserPlugin(myEventDispatcher, myInspectionReporter);
 
     myEventDispatcher.getMulticaster().buildStarted(runningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
@@ -171,7 +187,7 @@ public class TestReportParserPluginTest {
         ignoring(myLogger);
       }
     });
-    myPlugin = new TestReportParserPlugin(myEventDispatcher);
+    myPlugin = new TestReportParserPlugin(myEventDispatcher, myInspectionReporter);
 
     myEventDispatcher.getMulticaster().buildStarted(runningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);

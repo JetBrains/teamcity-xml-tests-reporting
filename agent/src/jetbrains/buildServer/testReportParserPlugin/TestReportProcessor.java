@@ -46,13 +46,17 @@ public class TestReportProcessor extends Thread {
     myReportQueue = queue;
     myWatcher = watcher;
 
-    final String expectedReportType = plugin.getSelectedReportType();
+    final String expectedReportType = plugin.getParameters().getReportType();
+
     if (AntJUnitReportParser.TYPE.equals(expectedReportType) || ("surefire".equals(expectedReportType))) {
       myParser = new AntJUnitReportParser(myPlugin.getLogger());
+
     } else if (NUnitReportParser.TYPE.equals(expectedReportType)) {
-      myParser = new NUnitReportParser(myPlugin.getLogger(), myPlugin.getTmpDir());
+      myParser = new NUnitReportParser(myPlugin.getLogger(), myPlugin.getParameters().getTmpDir());
+
     } else if (FindBugsReportParser.TYPE.equals(expectedReportType)) {
-      myParser = new FindBugsReportParser(myPlugin.getLogger());
+      myParser = new FindBugsReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter());
+
     } else {
       myPlugin.getLogger().debugToAgentLog("No parser for " + expectedReportType + " available");
       myParser = null;
