@@ -38,6 +38,8 @@ public class FindBugsReportParser implements TestReportParser {
   private final Set<String> myReportedInstanceTypes;
   private final Map<String, String> myCategories;
 
+  private final Map<String, String> myFilePaths;
+
   private InspectionInstance myInspectionInstance = null;
 
   public FindBugsReportParser(@NotNull final TestReportLogger logger, @NotNull InspectionReporter inspectionReporter) {
@@ -46,6 +48,8 @@ public class FindBugsReportParser implements TestReportParser {
 
     myReportedInstanceTypes = new HashSet<String>();
     myCategories = new HashMap<String, String>();
+
+    myFilePaths = new HashMap<String, String>();
   }
 
   public void parse(@NotNull File report) {
@@ -53,6 +57,7 @@ public class FindBugsReportParser implements TestReportParser {
     try {
       final Element root = new SAXBuilder().build(report).getRootElement();
 
+      processJars(root);
       processBugCategories(root);
       processBugPatterns(root);
       processBugInstances(root);
@@ -61,6 +66,30 @@ public class FindBugsReportParser implements TestReportParser {
       myLogger.exception(e);
     }
     myInspectionReporter.flush();
+  }
+
+  private void processJars(Element root) {
+    final Element project = root.getChild("Project");
+    if (project == null) {
+      //illegal report
+      myLogger.error("Illegal report");
+      return;
+    }
+    final List jars = project.getChildren("Jar");
+    for (Object o : jars) {
+      final Element jar = (Element) o;
+      final String path = jar.getText();
+      final String classname;
+      if (path.endsWith(".class")) {
+        classname = path.substring(path.lastIndexOf(File.separator) + 1, path.lastIndexOf('.'));
+      } else {
+        //may be illegal report
+        myLogger.error("Illegal report");
+        return;
+      }
+
+      myFilePaths.put(classname, path);
+    }
   }
 
   private void processBugInstances(Element root) {
@@ -72,9 +101,9 @@ public class FindBugsReportParser implements TestReportParser {
       final String id = bug.getAttributeValue("type");
       if (id == null) {
         //illegal report
+        myLogger.error("Illegal report");
         return;
       }
-      myInspectionInstance.setInspectionId(id);
       myInspectionInstance.setInspectionId(id);
 
       if (bug.getChild("ShortMessage") != null) {
@@ -82,22 +111,44 @@ public class FindBugsReportParser implements TestReportParser {
       } else if (bug.getChild("LongMessage") != null) {
         myInspectionInstance.setMessage(bug.getChild("LongMessage").getText());
       } else {
-        myInspectionInstance.setMessage("<no description>");
+        myInspectionInstance.setMessage("<no description>");    //TODO take data from other tags
       }
 
+      final Element classElement = bug.getChild("Class");
+      if (classElement == null) {
+        //may be illegal report
+        myLogger.error("Illegal report");
+        return;
+      }
+      final String classname = classElement.getAttributeValue("classname");
+      if (classname == null) {
+        //illegal report
+        myLogger.error("Illegal report");
+        return;
+      }
+      String path = myFilePaths.get(classname);
+      if (path == null) {
+        //may be illegal report
+        myLogger.error("Illegal report");
+        return;
+      }
+      myInspectionInstance.setFilePath(path.replace(".class", ".java").replace("\\", "|").replace("/", "|"));
+
       final List lines = bug.getChildren("SourceLine");
+      Element line;
       if (lines.size() != 0) {
-        final Element line = (Element) lines.get(0);
+        line = (Element) lines.get(0);
         getLocationDetails(line);
       } else {
-        final Element classElement = bug.getChild("Class");
-        if (classElement == null) {
+        line = classElement.getChild("SourceLine");
+        if (line == null) {
           //illegal report
+          myLogger.error("Illegal report");
           return;
         }
-        final Element line = classElement.getChild("SourceLine");
         getLocationDetails(line);
       }
+
 
       myInspectionReporter.reportInspection(myInspectionInstance);
       myInspectionInstance = null;
@@ -113,6 +164,9 @@ public class FindBugsReportParser implements TestReportParser {
 
           myInspectionReporter.reportInspectionType(type);
           myReportedInstanceTypes.add(id);
+        } else {
+          //illegal report          
+          myLogger.error("Illegal report");
         }
       }
     }
@@ -124,11 +178,12 @@ public class FindBugsReportParser implements TestReportParser {
     } else {
       myInspectionInstance.setLine(0);
     }
-    if (line.getAttributeValue("sourcepath") != null) {
-      myInspectionInstance.setFilePath(line.getAttributeValue("sourcepath"));
-    } else {
-      myInspectionInstance.setFilePath("<file path not available>");
-    }
+// sourcepath attribute deprecated
+//    if (line.getAttributeValue("sourcepath") != null) {
+//      myInspectionInstance.setFilePath(line.getAttributeValue("sourcepath"));
+//    } else {
+//      myInspectionInstance.setFilePath("<file path not available>");
+//    }
   }
 
   private void processBugCategories(Element root) {
@@ -140,6 +195,7 @@ public class FindBugsReportParser implements TestReportParser {
       final Element description = category.getChild("Description");
       if ((id == null) || FindBugsCategories.isCommonCategory(id) || myCategories.containsKey(id) || (description == null)) {
         //illegal report
+        myLogger.error("Illegal report");
         return;
       }
       myCategories.put(id, description.getText());
@@ -157,29 +213,32 @@ public class FindBugsReportParser implements TestReportParser {
       String category = pattern.getAttributeValue("category");
 
       if ((id == null) || FindBugsPatterns.isCommonPattern(id)
-        || (shortDescription == null) || (details == null) || (category == null)) {
+        || (shortDescription == null) || (details == null) || (category == null) || myReportedInstanceTypes.contains(id)) {
         //illegal report
+        myLogger.error("Illegal report");
         return;
       }
 
-      if (!myReportedInstanceTypes.contains(id)) {
-        final InspectionTypeInfo type = new InspectionTypeInfo();
+      final InspectionTypeInfo type = new InspectionTypeInfo();
 
-        type.setId(id);
-        type.setName(shortDescription.getText());
-        type.setDescription(details.getText());
+      type.setId(id);
+      type.setName(shortDescription.getText());
+      type.setDescription(details.getText());
 
-        if (FindBugsCategories.isCommonCategory(category)) {
-          category = FindBugsCategories.getName(category);
-        } else {
-          category = myCategories.get(category);
-        }
-
-        type.setCategory(category);
-
-        myInspectionReporter.reportInspectionType(type);
-        myReportedInstanceTypes.add(id);
+      if (FindBugsCategories.isCommonCategory(category)) {
+        category = FindBugsCategories.getName(category);
+      } else if (myCategories.containsKey(category)) {
+        category = myCategories.get(category);
+      } else {
+        //illegal report
+        myLogger.error("Illegal report");
+        return;
       }
+
+      type.setCategory(category);
+
+      myInspectionReporter.reportInspectionType(type);
+      myReportedInstanceTypes.add(id);
     }
   }
 

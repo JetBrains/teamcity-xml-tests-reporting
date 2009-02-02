@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Categories>
+  <Category id="CORRECTNESS" name="Correctness bug">
+    Probable bug - an apparent coding mistake resulting in code that was probably not what the developer intended. "We
+    strive for a low false positive rate.
+  </Category>
+  <Category id="BAD_PRACTICE" name="Bad Practice">
+    Violations of recommended and essential coding practice. Examples include hash code and equals problems, cloneable
+    idiom, dropped exceptions, serializable problems, and misuse of finalize. We strive to make this analysis accurate,
+    although some groups may not care about some of the bad practices.
+  </Category>
+  <Category id="DODGY" name="Dodgy">
+    Code that is confusing, anomalous, or written in a way that leads itself to errors. Examples include dead local
+    stores, switch fall through, unconfirmed casts, and redundant null check of value known to be null. More false
+    positives accepted. In previous versions of FindBugs, this category was known as Style.
+  </Category>
+  <!--extra categories-->
+  <Category id="MT_CORRECTNESS" name="Multithreaded correctness">
+    No description
+  </Category>
+  <Category id="PERFORMANCE" name="Performance">
+    No description
+  </Category>
+  <Category id="SECURITY" name="Security">
+    No description
+  </Category>
+  <Category id="MALICIOUS_CODE" name="Malicious code vulnerability">
+    No description
+  </Category>
+  <!--experimantal-->
+  <Category id="EXPERIMENTAL" name="Experimental">
+    Experimental
+  </Category>
+  <!--for old versions support-->
+  <Category id="STYLE" name="Dodgy">
+    Code that is confusing, anomalous, or written in a way that leads itself to errors. Examples include dead local
+    stores, switch fall through, unconfirmed casts, and redundant null check of value known to be null. More false
+    positives accepted. In previous versions of FindBugs, this category was known as Style.
+  </Category>
+</Categories>

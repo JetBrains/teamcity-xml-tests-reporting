@@ -4,4 +4,5 @@
 <beans default-autowire="constructor" default-lazy-init="false" default-dependency-check="none">
   <bean id="TestReportParserPlugin" class="jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin"
         lazy-init="default" autowire="default" dependency-check="default"/>
-</beans>        
+  <bean id="XmlReportDataProcesor" class="jetbrains.buildServer.testReportParserPlugin.XmlReportDataProcessor"/>
+</beans>

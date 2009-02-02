@@ -1,0 +1,1272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Patterns>
+  <BugPattern abbrev="XSS" type="XSS_REQUEST_PARAMETER_TO_SEND_ERROR" category="SECURITY"
+              name="Servlet reflected cross site scripting vulnerability">
+    This code directly writes an HTTP parameter to a Server error page (using HttpServletResponse.sendError). Echoing
+    this untrusted input allows for a reflected cross site scripting vulnerability.
+  </BugPattern>
+  <!--<BugPattern abbrev="SKIPPED" type="SKIPPED_CLASS_TOO_BIG" category="STYLE">-->
+  <!--</BugPattern>-->
+  <BugPattern abbrev="XSS" type="XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER" category="SECURITY"
+              name="Servlet reflected cross site scripting vulnerability">
+    This code directly writes an HTTP parameter to Servlet output, which allows for a reflected cross site scripting
+    vulnerability.
+  </BugPattern>
+  <BugPattern abbrev="XSS" type="XSS_REQUEST_PARAMETER_TO_JSP_WRITER" category="SECURITY"
+              name="JSP reflected cross site scripting vulnerability">
+    This code directly writes an HTTP parameter to JSP output, which allows for a cross site scripting vulnerability.
+  </BugPattern>
+  <BugPattern abbrev="HRS" type="HRS_REQUEST_PARAMETER_TO_HTTP_HEADER" category="SECURITY"
+              name="HTTP Response splitting vulnerability">
+    This code directly writes an HTTP parameter to an HTTP header, which allows for a HTTP response splitting
+    vulnerability.
+  </BugPattern>
+  <BugPattern abbrev="HRS" type="HRS_REQUEST_PARAMETER_TO_COOKIE" category="SECURITY"
+              name="HTTP cookie formed from untrusted input">
+    This code constructs an HTTP Cookie using an untrusted HTTP parameter. If this cookie is added to an HTTP response,
+    it will allow a HTTP response splitting vulnerability.
+  </BugPattern>
+
+  <BugPattern abbrev="STCAL" type="STCAL_STATIC_CALENDAR_INSTANCE" category="MT_CORRECTNESS" name="Static Calendar">
+    Even though the JavaDoc does not contain a hint about it, Calendars are inherently unsafe for multihtreaded use.
+    Sharing a single instance across thread boundaries without proper synchronization will result in erratic behavior of
+    the application. Under 1.4 problems seem to surface less often than under Java 5 where you will probably see random
+    ArrayIndexOutOfBoundsExceptions or IndexOutOfBoundsExceptions in
+    sun.util.calendar.BaseCalendar.getCalendarDateFromFixedDate().
+    You may also experience serialization problems.
+    Using an instance field is recommended.
+  </BugPattern>
+  <BugPattern abbrev="STCAL" type="STCAL_STATIC_SIMPLE_DATE_FORMAT_INSTANCE" category="MT_CORRECTNESS"
+              name="Static DateFormat">
+    As the JavaDoc states, DateFormats are inherently unsafe for multithreaded use. Sharing a single instance across
+    thread boundaries without proper synchronization will result in erratic behavior of the application.
+    You may also experience serialization problems.
+    Using an instance field is recommended.
+  </BugPattern>
+  <BugPattern abbrev="STCAL" type="STCAL_INVOKE_ON_STATIC_CALENDAR_INSTANCE" category="MT_CORRECTNESS"
+              name="Call to static Calendar">
+    Even though the JavaDoc does not contain a hint about it, Calendars are inherently unsafe for multihtreaded use. The
+    detector has found a call to an instance of Calendar that has been obtained via a static field. This looks
+    suspicous.
+  </BugPattern>
+  <BugPattern abbrev="STCAL" type="STCAL_INVOKE_ON_STATIC_DATE_FORMAT_INSTANCE" category="MT_CORRECTNESS"
+              name="Call to static DateFormat">
+    As the JavaDoc states, DateFormats are inherently unsafe for multithreaded use. The detector has found a call to an
+    instance of DateFormat that has been obtained via a static field. This looks suspicous.
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_SYNC_AND_NULL_CHECK_FIELD" category="MT_CORRECTNESS" cweid="585"
+              name="Synchronize and null check on the same field">
+    Since the field is synchronized on, it seems not likely to be null. If it is null and then synchronized on a
+    NullPointerException will be thrown and the check would be pointless. Better to synchronize on another field.
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_BOOLEAN_RETURN_NULL" category="BAD_PRACTICE"
+              name="Method with Boolean return type returns explicit null">
+    A method that returns either Boolean.TRUE, Boolean.FALSE or null is an accident waiting to happen. This method can
+    be invoked as though it returned a value of type boolean, and the compiler will insert automatic unboxing of the
+    Boolean value. If a null value is returned, this will result in a NullPointerException.
+  </BugPattern>
+
+  <!--<BugPattern abbrev="VR" type="VR_UNRESOLVABLE_REFERENCE" category="CORRECTNESS"-->
+  <!--experimental="true">-->
+  <!--</BugPattern>-->
+
+  <BugPattern abbrev="SW" type="SW_SWING_METHODS_INVOKED_IN_SWING_THREAD" category="BAD_PRACTICE"
+              name="Certain swing methods needs to be invoked in Swing thread">
+    The Swing methods show(), setVisible(), and pack() will create the associated peer for the frame. With the creation
+    of the peer, the system creates the event dispatch thread. This makes things problematic because the event dispatch
+    thread could be notifying listeners while pack and validate are still processing. This situation could result in two
+    threads going through the Swing component-based GUI -- it's a serious flaw that could result in deadlocks or other
+    related threading issues. A pack call causes components to be realized. As they are being realized (that is, not
+    necessarily visible), they could trigger listener notification on the event dispatch thread.
+  </BugPattern>
+  <BugPattern abbrev="IL" type="IL_INFINITE_LOOP" category="CORRECTNESS" name="An apparent infinite loop">
+    This loop doesn't seem to have a way to terminate (other than by perhaps throwing an exception).
+  </BugPattern>
+  <BugPattern abbrev="IO" type="IO_APPENDING_TO_OBJECT_OUTPUT_STREAM" category="CORRECTNESS"
+              name="Doomed attempt to append to an object output stream">
+    This code opens a file in append mode and then wraps the result in an object output stream. This won't allow you to
+    append to an existing object output stream stored in a file. If you want to be able to append to an object output
+    stream, you need to keep the object output stream open.
+    The only situation in which opening a file in append mode and the writing an object output stream could work is if
+    on reading the file you plan to open it in random access mode and seek to the byte offset where the append started.
+  </BugPattern>
+  <BugPattern abbrev="IL" type="IL_INFINITE_RECURSIVE_LOOP" category="CORRECTNESS" cweid="674"
+              name="An apparent infinite recursive loop">
+    This method unconditionally invokes itself. This would seem to indicate an infinite recursive loop that will result
+    in a stack overflow.
+  </BugPattern>
+  <BugPattern abbrev="FI" type="FI_FINALIZER_ONLY_NULLS_FIELDS" category="BAD_PRACTICE"
+              name="Finalizer only nulls fields">
+    This finalizer does nothing except null out fields. This is completely pointless, and requires that the object be
+    garbage collected, finalized, and then garbage collected again. You should just remove the finalize method.
+  </BugPattern>
+  <BugPattern abbrev="FI" type="FI_FINALIZER_NULLS_FIELDS" category="BAD_PRACTICE" name="Finalizer nulls fields">
+    This finalizer nulls out fields. This is usually an error, as it does not aid garbage collection, and the object is
+    going to be garbage collected anyway.
+  </BugPattern>
+  <BugPattern abbrev="IL" type="IL_CONTAINER_ADDED_TO_ITSELF" category="CORRECTNESS"
+              name="A collection is added to itself">
+    A collection is added to itself. As a result, computing the hashCode of this set will throw a
+    StackOverflowException.
+  </BugPattern>
+  <BugPattern abbrev="VO" type="VO_VOLATILE_REFERENCE_TO_ARRAY" category="MT_CORRECTNESS"
+              name="A volatile reference to an array doesn't treat the array elements as volatile ">
+    This declares a volatile reference to an array, which might not be what you want. With a volatile reference to an
+    array, reads and writes of the reference to the array are treated as volatile, but the array elements are
+    non-volatile. To get volatile array elements, you will need to use one of the atomic array classes in
+    java.util.concurrent (provided in Java 5.0).
+  </BugPattern>
+  <BugPattern abbrev="UI" type="UI_INHERITANCE_UNSAFE_GETRESOURCE" category="BAD_PRACTICE"
+              name="Usage of GetResource may be unsafe if class is extended">
+    Calling this.getClass().getResource(...) could give results other than expected if this class is extended by a class
+    in another package.
+  </BugPattern>
+  <BugPattern abbrev="HSC" type="HSC_HUGE_SHARED_STRING_CONSTANT" category="PERFORMANCE"
+              name="Huge string constants is duplicated across multiple class files">
+    A large String constant is duplicated across multiple class files. This is likely because a final field is
+    initialized to a String constant, and the Java language mandates that all references to a final field from other
+    classes be inlined into that classfile.
+  </BugPattern>
+  <BugPattern abbrev="RpC" type="RpC_REPEATED_CONDITIONAL_TEST" category="CORRECTNESS"
+              name="Repeated conditional tests">
+    The code contains a conditional test is performed twice, one right after the other (e.g., x == 0 || x == 0). Perhaps
+    the second occurrence is intended to be something else (e.g., x == 0 || y == 0).
+  </BugPattern>
+  <!--<BugPattern abbrev="TEST" type="UNKNOWN" category="EXPERIMENTAL">-->
+  <!--</BugPattern>-->
+  <BugPattern abbrev="AM" type="AM_CREATES_EMPTY_ZIP_FILE_ENTRY" category="BAD_PRACTICE"
+              name="Creates an empty zip file entry">
+    The code calls putNextEntry(), immediately followed by a call to closeEntry(). This results in an empty ZipFile
+    entry. The contents of the entry should be written to the ZipFile between the calls to putNextEntry() and
+    closeEntry().
+  </BugPattern>
+
+  <BugPattern abbrev="AM" type="AM_CREATES_EMPTY_JAR_FILE_ENTRY" category="BAD_PRACTICE"
+              name="Creates an empty jar file entry">
+    The code calls putNextEntry(), immediately followed by a call to closeEntry(). This results in an empty JarFile
+    entry. The contents of the entry should be written to the JarFile between the calls to putNextEntry() and
+    closeEntry().
+  </BugPattern>
+
+  <BugPattern abbrev="DP" type="DP_DO_INSIDE_DO_PRIVILEGED" category="BAD_PRACTICE"
+              name="Method invoked that should be only be invoked inside a doPrivileged block">
+    This code invokes a method that requires a security permission check. If this code will be granted security
+    permissions, but might be invoked by code that does not have security permissions, then the invocation needs to
+    occur inside a doPrivileged block.
+  </BugPattern>
+  <!--<BugPattern abbrev="DP" type="DP_DO_INSIDE_DO_PRIVILEDGED" category="BAD_PRACTICE"-->
+  <!--experimental="true">-->
+  <!--</BugPattern>-->
+
+  <!-- deprecated in favor of DP_DO_INSIDE_DO_PRIVILEGED (no D before G) -->
+  <BugPattern abbrev="DP" type="DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED" category="BAD_PRACTICE"
+              name="Classloaders should only be created inside doPrivileged block">
+    This code creates a classloader, which requires a security manager. If this code will be granted security
+    permissions, but might be invoked by code that does not have security permissions, then the classloader creation
+    needs to occur inside a doPrivileged block.
+  </BugPattern>
+  <!--<BugPattern abbrev="DP" type="DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEDGED" category="BAD_PRACTICE"-->
+  <!--experimental="true">-->
+  <!--</BugPattern>-->
+
+  <!-- deprecated in favor of DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED (no D before G) -->
+  <BugPattern abbrev="IMSE" type="IMSE_DONT_CATCH_IMSE" category="BAD_PRACTICE"
+              name="Dubious catching of IllegalMonitorStateException">
+    IllegalMonitorStateException is generally only thrown in case of a design flaw in your code (calling wait or notify
+    on an object you do not hold a lock on).
+  </BugPattern>
+  <!--<BugPattern abbrev="FL" type="FL_MATH_USING_FLOAT_PRECISION" category="CORRECTNESS">-->
+  <!--</BugPattern>-->
+  <BugPattern abbrev="CN" type="CN_IMPLEMENTS_CLONE_BUT_NOT_CLONEABLE" category="BAD_PRACTICE"
+              name="Class defines clone() but doesn't implement Cloneable">
+    This class defines a clone() method but the class doesn't implement Cloneable. There are some situations in which
+    this is OK (e.g., you want to control how subclasses can clone themselves), but just make sure that this is what you
+    intended.
+  </BugPattern>
+  <BugPattern abbrev="CN" type="CN_IDIOM" category="BAD_PRACTICE"
+              name="Class implements Cloneable but does not define or use clone method">
+    Class implements Cloneable but does not define or use the clone method.
+  </BugPattern>
+  <BugPattern abbrev="CN" type="CN_IDIOM_NO_SUPER_CALL" category="BAD_PRACTICE"
+              name="clone method does not call super.clone()">
+    This non-final class defines a clone() method that does not call super.clone(). If this class ("A") is extended by a
+    subclass ("B"), and the subclass B calls super.clone(), then it is likely that B's clone() method will return an
+    object of type A, which violates the standard contract for clone().
+    If all clone() methods call super.clone(), then they are guaranteed to use Object.clone(), which always returns an
+    object of the correct type.
+  </BugPattern>
+  <BugPattern abbrev="DE" type="DE_MIGHT_DROP" category="BAD_PRACTICE" name="Method might drop exception">
+    This method might drop an exception. In general, exceptions should be handled or reported in some way, or they
+    should be thrown out of the method.
+  </BugPattern>
+  <BugPattern abbrev="DE" type="DE_MIGHT_IGNORE" category="BAD_PRACTICE" name="Method might ignore exception">
+    This method might ignore an exception. In general, exceptions should be handled or reported in some way, or they
+    should be thrown out of the method.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DM_EXIT" category="BAD_PRACTICE" cweid="382" name="Method invokes System.exit(...)">
+    Invoking System.exit shuts down the entire Java virtual machine. This should only been done when it is appropriate.
+    Such calls make it hard or impossible for your code to be invoked by other code. Consider throwing a
+    RuntimeException instead.
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_FUTURE_KEYWORD_USED_AS_IDENTIFIER" category="BAD_PRACTICE"
+              name="Use of identifier that is a keyword in later versions of Java ">
+    The identifier is a word that is reserved as a keyword in later versions of Java, and your code will need to be
+    changed in order to compile it in later versions of Java.
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_FUTURE_KEYWORD_USED_AS_MEMBER_IDENTIFIER" category="BAD_PRACTICE"
+              name="Use of identifier that is a keyword in later versions of Java">
+    This identifier is used as a keyword in later versions of Java. This code, and any code that references this API,
+    will need to be changed in order to compile it in later versions of Java.
+  </BugPattern>
+  <BugPattern abbrev="JCIP" type="JCIP_FIELD_ISNT_FINAL_IN_IMMUTABLE_CLASS" category="BAD_PRACTICE"
+              name="Fields of immutable classes should be final">
+    The class is annotated with net.jcip.annotations.Immutable, and the rules for that annotation require that all
+    fields are final.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DMI_VACUOUS_CALL_TO_EASYMOCK_METHOD" category="CORRECTNESS"
+              name="Useless/vacuous call to EasyMock method">
+    This call doesn't pass any objects to the EasyMock method, so the call doesn't do anything.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DMI_FUTILE_ATTEMPT_TO_CHANGE_MAXPOOL_SIZE_OF_SCHEDULED_THREAD_POOL_EXECUTOR"
+              category="CORRECTNESS" name="Futile attempt to change max pool size of ScheduledThreadPoolExecutor ">
+    While ScheduledThreadPoolExecutor inherits from ThreadPoolExecutor, a few of the inherited tuning methods are not
+    useful for it. In particular, because it acts as a fixed-sized pool using corePoolSize threads and an unbounded
+    queue, adjustments to maximumPoolSize have no useful effect.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DMI_SCHEDULED_THREAD_POOL_EXECUTOR_WITH_ZERO_CORE_THREADS" category="CORRECTNESS"
+              name="Creation of ScheduledThreadPoolExecutor with zero core threads">
+    A ScheduledThreadPoolExecutor with zero core threads will never execute anything; changes to the max pool size are
+    ignored.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DMI_CONSTANT_DB_PASSWORD" category="SECURITY" cweid="259"
+              name="Hardcoded constant database password">
+    This code creates a database connect using a hardcoded, constant password. Anyone with access to either the source
+    code or the compiled code can easily learn the password.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DMI_EMPTY_DB_PASSWORD" category="SECURITY" cweid="259" name="Empty database password">
+    This code creates a database connect using a blank or empty password. This indicates that the database is not
+    protected by a password.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DMI_UNSUPPORTED_METHOD" category="STYLE" name="Call to unsupported method">
+    All targets of this method invocation throw an UnsupportedOperationException.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DMI_THREAD_PASSED_WHERE_RUNNABLE_EXPECTED" category="STYLE"
+              name="Thread passed where Runnable expected">
+    A Thread object is passed as a parameter to a method where a Runnable is expected. This is rather unusual, and may
+    indicate a logic error or cause unexpected behavior.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DMI_BLOCKING_METHODS_ON_URL" category="PERFORMANCE"
+              name="The equals and hashCode methods of URL are blocking">
+    The equals and hashCode method of URL perform domain name resolution, this can result in a big performance hit.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DMI_COLLECTION_OF_URLS" category="PERFORMANCE"
+              name="Maps and sets of URLs can be performance hogs ">
+    This method or field is or uses a Map or Set of URLs. Since both the equals and hashCode method of URL perform
+    domain name resolution, this can result in a big performance hit.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DMI_ANNOTATION_IS_NOT_VISIBLE_TO_REFLECTION" category="CORRECTNESS"
+              name="Can't use reflection to check for presence of annotation with default retention">
+    Unless an annotation has itself been annotated with a @Retention other than the default of source-only retention,
+    the annotation isn't retained in the classfile and can't be observed using reflection (e.g., by using the
+    isAnnotationPresent method).
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DM_RUN_FINALIZERS_ON_EXIT" category="BAD_PRACTICE"
+              name="Method invokes dangerous method runFinalizersOnExit">
+    Never call System.runFinalizersOnExit or Runtime.runFinalizersOnExit for any reason: they are among the most
+    dangerous methods in the Java libraries (Joshua Bloch).
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DM_STRING_CTOR" category="PERFORMANCE"
+              name="Method invokes inefficient new String(String) constructor">
+    Using the java.lang.String(String) constructor wastes memory because the object so constructed will be functionally
+    indistinguishable from the String passed as a parameter. Just use the argument String directly.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DM_STRING_VOID_CTOR" category="PERFORMANCE"
+              name="Method invokes inefficient new String() constructor">
+    Creating a new java.lang.String object using the no-argument constructor wastes memory because the object so created
+    will be functionally indistinguishable from the empty string constant "". Java guarantees that identical string
+    constants will be represented by the same String object. Therefore, you should just use the empty string constant
+    directly.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DM_STRING_TOSTRING" category="PERFORMANCE"
+              name="Method invokes toString() method on a String">
+    Calling String.toString() is just a redundant operation. Just use the String.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DM_GC" category="PERFORMANCE"
+              name="Explicit garbage collection; extremely dubious except in benchmarking code">
+    Code explicitly invokes garbage collection. Except for specific use in benchmarking, this is very dubious.
+    In the past, situations where people have explicitly invoked the garbage collector in routines such as close or
+    finalize methods has led to huge performance black holes. Garbage collection can be expensive. Any situation that
+    forces hundreds or thousands of garbage collections will bring the machine to a crawl.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DM_BOOLEAN_CTOR" category="PERFORMANCE"
+              name="Method invokes inefficient Boolean constructor; use Boolean.valueOf(...) instead">
+    Creating new instances of java.lang.Boolean wastes memory, since Boolean objects are immutable and there are only
+    two useful values of this type. Use the Boolean.valueOf() method (or Java 1.5 autoboxing) to create Boolean objects
+    instead.
+  </BugPattern>
+  <BugPattern abbrev="Bx" type="DM_NUMBER_CTOR" category="PERFORMANCE"
+              name="Method invokes inefficient Number constructor; use static valueOf instead">
+    Using new Integer(int) is guaranteed to always result in a new object whereas Integer.valueOf(int) allows caching of
+    values to be done by the compiler, class library, or JVM. Using of cached values avoids object allocation and the
+    code will be faster.
+    Values between -128 and 127 are guaranteed to have corresponding cached instances and using valueOf is approximately
+    3.5 times faster than using constructor. For values outside the constant range the performance of both styles is the
+    same.
+    Unless the class must be compatible with JVMs predating Java 1.5, use either autoboxing or the valueOf() method when
+    creating instances of Long, Integer, Short, Character, and Byte.
+  </BugPattern>
+  <BugPattern abbrev="Bx" type="DM_FP_NUMBER_CTOR" category="PERFORMANCE"
+              name="Method invokes inefficient floating-point Number constructor; use static valueOf instead">
+    Using new Double(double) is guaranteed to always result in a new object whereas Double.valueOf(double) allows
+    caching of values to be done by the compiler, class library, or JVM. Using of cached values avoids object allocation
+    and the code will be faster.
+    Unless the class must be compatible with JVMs predating Java 1.5, use either autoboxing or the valueOf() method when
+    creating instances of Double and Float.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DM_STRING_EMPTY_EQUALS" category="PERFORMANCE"
+              name="Method invokes inefficient String.equals(&quot&quot); use String.length() == 0 instead">
+    An object is compared to the empty String object using the equals() method here. Checking that the String object's
+    length is zero may be faster, and removes String constants from the class file.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DM_CONVERT_CASE" category="I18N"
+              name="Consider using Locale parameterized version of invoked method">
+    A String is being converted to upper or lowercase, using the platform's default encoding. This may result in
+    improper conversions when used with international characters. Use the String.toUpperCase( Locale l ),
+    String.toLowerCase( Locale l ) versions instead.
+  </BugPattern>
+  <BugPattern abbrev="Bx" type="DM_BOXED_PRIMITIVE_TOSTRING" category="PERFORMANCE"
+              name="Method allocates a boxed primitive just to call toString">
+    A boxed primitive is allocated just to call toString(). It is more effective to just use the static form of toString
+    which takes the primitive value.
+  </BugPattern>
+  <BugPattern abbrev="Bx" type="BX_UNBOXED_AND_COERCED_FOR_TERNARY_OPERATOR" category="CORRECTNESS"
+              name="Primitive value is unboxed and coerced for ternary operator">
+    A wrapped primitive value is unboxed and converted to another primitive type as part of the evaluation of a
+    conditional ternary operator (the b ? e1 : e2 operator). The semantics of Java mandate that if e1 and e2 are wrapped
+    numeric values, the values are unboxed and converted/coerced to their common type (e.g, if e1 is of type Integer and
+    e2 is of type Float, then e1 is unboxed, converted to a floating point value, and boxed. See JLS Section 15.25.
+  </BugPattern>
+  <BugPattern abbrev="Bx" type="BX_BOXING_IMMEDIATELY_UNBOXED" category="PERFORMANCE"
+              name="Primitive value is boxed and then immediately unboxed ">
+    A primitive is boxed, and then immediately unboxed. This probably is due to a manual boxing in a place where an
+    unboxed value is required, thus forcing the compiler to immediately undo the work of the boxing.
+  </BugPattern>
+  <BugPattern abbrev="Bx" type="BX_BOXING_IMMEDIATELY_UNBOXED_TO_PERFORM_COERCION" category="PRFORMANCE" cweid="192"
+              name="Primitive value is boxed then unboxed to perform primitive coercion">
+    A primitive boxed value constructed and then immediately converted into a different primitive type (e.g., new
+    Double(d).intValue()). Just perform direct primitive coercion (e.g., (int) d).
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DM_NEW_FOR_GETCLASS" category="PERFORMANCE"
+              name="Method allocates an object, only to get the class object">
+    This method allocates an object just to call getClass() on it, in order to retrieve the Class object for it. It is
+    simpler to just access the .class property of the class.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DM_MONITOR_WAIT_ON_CONDITION" category="MT_CORRECTNESS"
+              name="Monitor wait() called on Condition">
+    This method calls wait() on a java.util.concurrent.locks.Condition object. Waiting for a Condition should be done
+    using one of the await() methods defined by the Condition interface.
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_ARGUMENT_MIGHT_BE_NULL" category="CORRECTNESS"
+              name="Method does not check for null argument">
+    A parameter to this method has been identified as a value that should always be checked to see whether or not it is
+    null, but it is being dereferenced without a preceding null check.
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT" category="BAD_PRACTICE"
+              name="equals() method does not check for null argument">
+    This implementation of equals(Object) violates the contract defined by java.lang.Object.equals() because it does not
+    check for null being passed as the argument. All equals() methods should return false if passed a null value.
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_DEREFERENCE_OF_READLINE_VALUE" category="STYLE"
+              name="Dereference of the result of readLine() without nullcheck">
+    The result of invoking readLine() is dereferenced without checking to see if the result is null. If there are no
+    more lines of text to read, readLine() will return null and dereferencing that will generate a null pointer
+    exception.
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_IMMEDIATE_DEREFERENCE_OF_READLINE" category="STYLE"
+              name="Immediate dereference of the result of readLine()">
+    The result of invoking readLine() is immediately dereferenced. If there are no more lines of text to read,
+    readLine() will return null and dereferencing that will generate a null pointer exception.
+  </BugPattern>
+  <BugPattern abbrev="RV" type="RV_ABSOLUTE_VALUE_OF_RANDOM_INT" category="CORRECTNESS"
+              name="Bad attempt to compute absolute value of signed 32-bit random integer">
+    This code generates a random signed integer and then computes the absolute value of that random integer. If the
+    number returned by the random number generator is Integer.MIN_VALUE, then the result will be negative as well (since
+    Math.abs(Integer.MIN_VALUE) == Integer.MIN_VALUE).
+  </BugPattern>
+  <BugPattern abbrev="RV" type="RV_ABSOLUTE_VALUE_OF_HASHCODE" category="CORRECTNESS"
+              name="Bad attempt to compute absolute value of signed 32-bit hashcode">
+    This code generates a hashcode and then computes the absolute value of that hashcode. If the hashcode is
+    Integer.MIN_VALUE, then the result will be negative as well (since Math.abs(Integer.MIN_VALUE) ==
+    Integer.MIN_VALUE).
+  </BugPattern>
+  <BugPattern abbrev="RV" type="RV_REM_OF_RANDOM_INT" category="STYLE" name="Remainder of 32-bit signed random integer">
+    This code generates a random signed integer and then computes the remainder of that value modulo another value.
+    Since the random number can be negative, the result of the remainder operation can also be negative. Be sure this is
+    intended, and strongly consider using the Random.nextInt(int) method instead.
+  </BugPattern>
+  <BugPattern abbrev="RV" type="RV_REM_OF_HASHCODE" category="STYLE" name="Remainder of hashCode could be negative">
+    This code computes a hashCode, and then computes the remainder of that value modulo another value. Since the
+    hashCode can be negative, the result of the remainder operation can also be negative. Assuming you want to ensure
+    that the result of your computation is nonnegative, you may need to change your code. If you know the divisor is a
+    power of 2, you can use a bitwise and operator instead (i.e., instead of using x.hashCode()%n, use x.hashCode()&
+    (n-1). This is probably faster than computing the remainder as well. If you don't know that the divisor is a power
+    of 2, take the absolute value of the result of the remainder operation (i.e., use Math.abs(x.hashCode()%n).
+  </BugPattern>
+  <BugPattern abbrev="RV" type="RV_01_TO_INT" category="CORRECTNESS"
+              name="Random value from 0 to 1 is coerced to the integer 0 ">
+    A random value from 0 to 1 is being coerced to the integer value 0. You probably want to multiple the random value
+    by something else before coercing it to an integer, or use the Random.nextInt(n) method.
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DM_NEXTINT_VIA_NEXTDOUBLE" category="PERFORMANCE"
+              name="Use the nextInt method of Random rather than nextDouble to generate a random integer">
+    If r is a java.util.Random, you can generate a random number from 0 to n-1 using r.nextInt(n), rather than using
+    (int)(r.nextDouble() * n).
+  </BugPattern>
+  <BugPattern abbrev="Dm" type="DM_USELESS_THREAD" category="MT_CORRECTNESS"
+              name="A thread was created using the default empty run method ">
+    This method creates a thread without specifying a run method either by deriving from the Thread class, or by passing
+    a Runnable object. This thread, then, does nothing but waste time.
+  </BugPattern>
+  <BugPattern abbrev="SQL" type="SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE" category="SECURITY" cweid="89"
+              name="Nonconstant string passed to execute method on an SQL statement">
+    The method invokes the execute method on an SQL statement with a String that seems to be dynamically generated.
+    Consider using a prepared statement instead. It is more efficient and less vulnerable to SQL injection attacks.
+  </BugPattern>
+  <BugPattern abbrev="SQL" type="SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING" category="SECURITY"
+              cweid="89"
+              name="A prepared statement is generated from a nonconstant String">
+    The code creates an SQL prepared statement from a nonconstant String. If unchecked, tainted data from a user is used
+    in building this String, SQL injection could be used to make the prepared statement do something unexpected and
+    undesirable.
+  </BugPattern>
+  <BugPattern abbrev="DC" type="DC_DOUBLECHECK" category="MT_CORRECTNESS" cweid="609"
+              name="Possible double check of field">
+    This method may contain an instance of double-checked locking. This idiom is not correct according to the semantics
+    of the Java memory model.
+  </BugPattern>
+  <BugPattern abbrev="FI" type="FI_PUBLIC_SHOULD_BE_PROTECTED" category="MALICIOUS_CODE" cweid="583"
+              name="Finalizer should be protected, not public">
+    A class's finalize() method should have protected access, not public.
+  </BugPattern>
+  <BugPattern abbrev="FI" type="FI_EMPTY" category="BAD_PRACTICE" name="Empty finalizer should be deleted">
+    Empty finalize() methods are useless, so they should be deleted.
+  </BugPattern>
+  <BugPattern abbrev="FI" type="FI_NULLIFY_SUPER" category="BAD_PRACTICE"
+              name="Finalizer nullifies superclass finalizer">
+    This empty finalize() method explicitly negates the effect of any finalizer defined by its superclass. Any finalizer
+    actions defined for the superclass will not be performed. Unless this is intended, delete this method.
+  </BugPattern>
+  <BugPattern abbrev="FI" type="FI_USELESS" category="BAD_PRACTICE"
+              name="Finalizer does nothing but call superclass finalizer">
+    The only thing this finalize() method does is call the superclass's finalize() method, making it redundant. Delete
+    it.
+  </BugPattern>
+  <BugPattern abbrev="FI" type="FI_MISSING_SUPER_CALL" category="BAD_PRACTICE"
+              name="Finalizer does not call superclass finalizer">
+    This finalize() method does not make a call to its superclass's finalize() method. So, any finalizer actions defined
+    for the superclass will not be performed. Add a call to super.finalize().
+  </BugPattern>
+  <BugPattern abbrev="FI" type="FI_EXPLICIT_INVOCATION" category="BAD_PRACTICE" cweid="586"
+              name="Explicit invocation of finalizer">
+    This method contains an explicit invocation of the finalize() method on an object. Because finalizer methods are
+    supposed to be executed once, and only by the VM, this is a bad idea.
+    If a connected set of objects beings finalizable, then the VM will invoke the finalize method on all the finalizable
+    object, possibly at the same time in different threads. Thus, it is a particularly bad idea, in the finalize method
+    for a class X, invoke finalize on objects referenced by X, because they may already be getting finalized in a
+    separate thread.
+  </BugPattern>
+  <BugPattern abbrev="Eq" type="EQ_CHECK_FOR_OPERAND_NOT_COMPATIBLE_WITH_THIS" category="BAD_PRACTICE"
+              name="Equals checks for noncompatible operand">
+    This equals method is checking to see if the argument is some incompatible type (i.e., a class that is neither a
+    supertype nor subtype of the class that defines the equals method).
+  </BugPattern>
+  <BugPattern abbrev="Eq" type="EQ_COMPARING_CLASS_NAMES" category="CORRECTNESS"
+              name="equals method compares class names rather than class objects">
+    This method checks to see if two objects are the same class by checking to see if the names of their classes are
+    equal. You can have different classes with the same name if they are loaded by different class loaders. Just check
+    to see if the class objects are the same.
+  </BugPattern>
+  <BugPattern abbrev="Eq" type="EQ_UNUSUAL" category="STYLE" name="Unusual equals method">
+    This class doesn't do any of the patterns we recognize for checking that the type of the argument is compatible with
+    the type of the this object. There might not be anything wrong with this code, but it is worth reviewing.
+  </BugPattern>
+  <BugPattern abbrev="Eq" type="EQ_GETCLASS_AND_CLASS_CONSTANT" category="BAD_PRACTICE"
+              name="equals method fails for subtypes">
+    This class has an equals method that will be broken if it is inherited by subclasses. It compares a class literal
+    with the class of the argument (e.g., in class Foo it might check if Foo.class == o.getClass()). It is better to
+    check if this.getClass() == o.getClass().
+  </BugPattern>
+  <BugPattern abbrev="Eq" type="EQ_ALWAYS_TRUE" category="CORRECTNESS" name="equals method always returns true">
+    This class defines an equals method that always returns true. This is imaginative, but not very smart. Plus, it
+    means that the equals method is not symmetric.
+  </BugPattern>
+  <BugPattern abbrev="Eq" type="EQ_ALWAYS_FALSE" category="CORRECTNESS" name="equals method always returns false">
+    This class defines an equals method that always returns false. This means that an object is not equal to itself, and
+    it is impossible to create useful Maps or Sets of this class. More fundamentally, it means that equals is not
+    reflexive, one of the requirements of the equals method.
+    The likely intended semantics are object identity: that an object is equal to itself. This is the behavior inherited
+    from class Object. If you need to override an equals inherited from a different superclass, you can use use:
+    public boolean equals(Object o) { return this == o; }
+  </BugPattern>
+  <BugPattern abbrev="Eq" type="EQ_OVERRIDING_EQUALS_NOT_SYMMETRIC" category="CORRECTNESS"
+              name="equals method overrides equals in superclass and may not be symmetric">
+    This class defines an equals method that overrides an equals method in a superclass. Both equals methods methods use
+    instanceof in the determination of whether two objects are equal. This is fraught with peril, since it is important
+    that the equals method is symmetrical (in other words, a.equals(b) == b.equals(a)). If B is a subtype of A, and A's
+    equals method checks that the argument is an instanceof A, and B's equals method checks that the argument is an
+    instanceof B, it is quite likely that the equivalence relation defined by these methods is not symmetric.
+  </BugPattern>
+  <BugPattern abbrev="Eq" type="EQ_DOESNT_OVERRIDE_EQUALS" category="STYLE"
+              name="Class doesn't override equals in superclass">
+    This class extends a class that defines an equals method and adds fields, but doesn't define an equals method
+    itself. Thus, equality on instances of this class will ignore the identity of the subclass and the added fields. Be
+    sure this is what is intended, and that you don't need to override the equals method. Even if you don't need to
+    override the equals method, consider overriding it anyway to document the fact that the equals method for the
+    subclass just return the result of invoking super.equals(o).
+  </BugPattern>
+  <BugPattern abbrev="Eq" type="EQ_DONT_DEFINE_EQUALS_FOR_ENUM" category="CORRECTNESS"
+              name="Covariant equals() method defined for enum">
+    This class defines an enumeration, and equality on enumerations are defined using object identity. Defining a
+    covariant equals method for an enumeration value is exceptionally bad practice, since it would likely result in
+    having two different enumeration values that compare as equals using the covariant enum method, and as not equal
+    when compared normally. Don't do it.
+  </BugPattern>
+  <BugPattern abbrev="Eq" type="EQ_SELF_USE_OBJECT" category="CORRECTNESS"
+              name="Covariant equals() method defined, Object.equals(Object) inherited">
+    This class defines a covariant version of the equals() method, but inherits the normal equals(Object) method defined
+    in the base java.lang.Object class. The class should probably define a boolean equals(Object) method.
+  </BugPattern>
+  <BugPattern abbrev="Eq" type="EQ_OTHER_USE_OBJECT" category="CORRECTNESS"
+              name="equals() method defined that doesn't override Object.equals(Object)">
+    This class defines an equals() method, that doesn't override the normal equals(Object) method defined in the base
+    java.lang.Object class. The class should probably define a boolean equals(Object) method.
+  </BugPattern>
+  <BugPattern abbrev="Eq" type="EQ_OTHER_NO_OBJECT" category="CORRECTNESS"
+              name="equals() method defined that doesn't override equals(Object)">
+    This class defines an equals() method, that doesn't override the normal equals(Object) method defined in the base
+    java.lang.Object class. Instead, it inherits an equals(Object) method from a superclass. The class should probably
+    define a boolean equals(Object) method.
+  </BugPattern>
+  <BugPattern abbrev="Eq" type="EQ_SELF_NO_OBJECT" category="BAD_PRACTICE" name="Covariant equals() method defined">
+    This class defines a covariant version of equals(). To correctly override the equals() method in java.lang.Object,
+    the parameter of equals() must have type java.lang.Object.
+  </BugPattern>
+  <!--<BugPattern abbrev="NP" type="NP_DOES_NOT_HANDLE_NULL" category="BAD_PRACTICE">-->
+  <!--</BugPattern>-->
+  <BugPattern abbrev="Co" type="CO_SELF_NO_OBJECT" category="BAD_PRACTICE" name="Covariant compareTo() method defined">
+    This class defines a covariant version of compareTo(). To correctly override the compareTo() method in the
+    Comparable interface, the parameter of compareTo() must have type java.lang.Object.
+  </BugPattern>
+  <BugPattern abbrev="ES" type="ES_COMPARING_STRINGS_WITH_EQ" category="BAD_PRACTICE"
+              name="Comparison of String objects using == or !=">
+    This code compares java.lang.String objects for reference equality using the == or != operators. Unless both strings
+    are either constants in a source file, or have been interned using the String.intern() method, the same string value
+    may be represented by two different String objects. Consider using the equals(Object) method instead.
+  </BugPattern>
+  <BugPattern abbrev="ES" type="ES_COMPARING_PARAMETER_STRING_WITH_EQ" category="BAD_PRACTICE"
+              name="Comparison of String parameter using == or !=">
+    This code compares a java.lang.String parameter for reference equality using the == or != operators. Requiring
+    callers to pass only String constants or interned strings to a method is unnecessarily fragile, and rarely leads to
+    measurable performance gains. Consider using the equals(Object) method instead.
+  </BugPattern>
+  <BugPattern abbrev="HE" type="HE_SIGNATURE_DECLARES_HASHING_OF_UNHASHABLE_CLASS" category="CORRECTNESS"
+              name="Signature declares use of unhashable class in hashed construct ">
+    A method, field or class declares a generic signature where a non-hashable class is used in context where a hashable
+    class is required. A class that declares an equals method but inherits a hashCode() method from Object is
+    unhashable, since it doesn't fulfill the requirement that equal objects have equal hashCodes.
+  </BugPattern>
+  <BugPattern abbrev="HE" type="HE_USE_OF_UNHASHABLE_CLASS" category="CORRECTNESS"
+              name="Use of class without a hashCode() method in a hashed data structure">
+    A class defines an equals(Object) method but not a hashCode() method, and thus doesn't fulfill the requirement that
+    equal objects have equal hashCodes. An instance of this class is used in a hash data structure, making the need to
+    fix this problem of highest importance.
+  </BugPattern>
+  <BugPattern abbrev="Eq" type="EQ_COMPARETO_USE_OBJECT_EQUALS" category="BAD_PRACTICE"
+              name="Class defines compareTo(...) and uses Object.equals()">
+    This class defines a compareTo(...) method but inherits its equals() method from java.lang.Object. Generally, the
+    value of compareTo should return zero if and only if equals returns true. If this is violated, weird and
+    unpredictable failures will occur in classes such as PriorityQueue. In Java 5 the PriorityQueue.remove method uses
+    the compareTo method, while in Java 6 it uses the equals method.
+  </BugPattern>
+  <BugPattern abbrev="HE" type="HE_HASHCODE_USE_OBJECT_EQUALS" category="BAD_PRACTICE"
+              name="Class defines hashCode() and uses Object.equals()">
+    This class defines a hashCode() method but inherits its equals() method from java.lang.Object (which defines
+    equality by comparing object references). Although this will probably satisfy the contract that equal objects must
+    have equal hashcodes, it is probably not what was intended by overriding the hashCode() method. (Overriding
+    hashCode() implies that the object's identity is based on criteria more complicated than simple reference equality.)
+  </BugPattern>
+  <BugPattern abbrev="HE" type="HE_HASHCODE_NO_EQUALS" category="BAD_PRACTICE"
+              name="Class defines hashCode() but not equals()">
+    This class defines a hashCode() method but not an equals() method. Therefore, the class may violate the invariant
+    that equal objects must have equal hashcodes.
+  </BugPattern>
+  <BugPattern abbrev="HE" type="HE_EQUALS_USE_HASHCODE" category="BAD_PRACTICE"
+              name="Class defines equals() and uses Object.hashCode()">
+    This class overrides equals(Object), but does not override hashCode(), and inherits the implementation of hashCode()
+    from java.lang.Object (which returns the identity hash code, an arbitrary value assigned to the object by the VM).
+    Therefore, the class is very likely to violate the invariant that equal objects must have equal hashcodes.
+  </BugPattern>
+  <BugPattern abbrev="HE" type="HE_INHERITS_EQUALS_USE_HASHCODE" category="BAD_PRACTICE"
+              name="Class inherits equals() and uses Object.hashCode()">
+    This class inherits equals(Object) from an abstract superclass, and hashCode() from java.lang.Object (which returns
+    the identity hash code, an arbitrary value assigned to the object by the VM). Therefore, the class is very likely to
+    violate the invariant that equal objects must have equal hashcodes.
+    If you don't want to define a hashCode method, and/or don't believe the object will ever be put into a
+    HashMap/Hashtable, define the hashCode() method to throw UnsupportedOperationException.
+  </BugPattern>
+  <BugPattern abbrev="HE" type="HE_EQUALS_NO_HASHCODE" category="BAD_PRACTICE"
+              name="Class defines equals() but not hashCode()">
+    This class overrides equals(Object), but does not override hashCode(). Therefore, the class may violate the
+    invariant that equal objects must have equal hashcodes.
+  </BugPattern>
+  <BugPattern abbrev="Eq" type="EQ_ABSTRACT_SELF" category="BAD_PRACTICE"
+              name="Abstract class defines covariant equals() method">
+    This class defines a covariant version of equals(). To correctly override the equals() method in java.lang.Object,
+    the parameter of equals() must have type java.lang.Object.
+  </BugPattern>
+  <BugPattern abbrev="Co" type="CO_ABSTRACT_SELF" category="BAD_PRACTICE"
+              name="Abstract class defines covariant compareTo() method ">
+    This class defines a covariant version of compareTo(). To correctly override the compareTo() method in the
+    Comparable interface, the parameter of compareTo() must have type java.lang.Object.
+  </BugPattern>
+  <BugPattern abbrev="DL" type="DL_SYNCHRONIZATION_ON_SHARED_CONSTANT" category="MT_CORRECTNESS"
+              name="Synchronization on interned String could lead to deadlock">
+    The code synchronizes on interned String.
+    Constant Strings are interned and shared across all other classes loaded by the JVM. Thus, this could is locking on
+    something that other code might also be locking. This could result in very strange and hard to diagnose blocking and
+    deadlock behavior.
+  </BugPattern>
+  <BugPattern abbrev="DL" type="DL_SYNCHRONIZATION_ON_BOOLEAN" category="MT_CORRECTNESS"
+              name="Synchronization on Boolean could lead to deadlock">
+    The code synchronizes on a boxed primitive constant, such as an Boolean.
+    Since there normally exist only two Boolean objects, this code could be synchronizing on the same object as other,
+    unrelated code, leading to unresponsiveness and possible deadlock
+  </BugPattern>
+  <BugPattern abbrev="DL" type="DL_SYNCHRONIZATION_ON_BOXED_PRIMITIVE" category="MT_CORRECTNESS"
+              name="Synchronization on boxed primitive could lead to deadlock">
+    The code synchronizes on a boxed primitive constant, such as an Integer.
+    Since Integer objects can be cached and shared, this code could be synchronizing on the same object as other,
+    unrelated code, leading to unresponsiveness and possible deadlock
+  </BugPattern>
+  <BugPattern abbrev="DL" type="DL_SYNCHRONIZATION_ON_UNSHARED_BOXED_PRIMITIVE" category="MT_CORRECTNESS"
+              name="Synchronization on boxed primitive values">
+    The code synchronizes on an apparently unshared boxed primitive, such as an Integer.
+    The existing code might be OK, but it is confusing and a future refactoring, such as the "Remove Boxing" refactoring
+    in IntelliJ, might replace this with the use of an interned Integer object shared throughout the JVM, leading to
+    very confusing behavior and potential deadlock.
+  </BugPattern>
+  <BugPattern abbrev="WL" type="WL_USING_GETCLASS_RATHER_THAN_CLASS_LITERAL" category="MT_CORRECTNESS"
+              name="Sychronization on getClass rather than class literal">
+    This instance method synchronizes on this.getClass(). If this class is subclassed, subclasses will synchronize on
+    the class object for the subclass, which isn't likely what was intended.
+  </BugPattern>
+  <BugPattern abbrev="ESync" type="ESync_EMPTY_SYNC" category="MT_CORRECTNESS" cweid="585"
+              name="Empty synchronized block">
+    The code contains an empty synchronized block. Empty synchronized blocks are far more subtle and hard to use
+    correctly than most people recognize, and empty synchronized blocks are almost never a better solution than less
+    contrived solutions.
+  </BugPattern>
+  <BugPattern abbrev="MSF" type="MSF_MUTABLE_SERVLET_FIELD" category="MT_CORRECTNESS" name="Mutable servlet field">
+    A web server generally only creates one instance of servlet or jsp class (i.e., treats the class as a Singleton),
+    and will have multiple threads invoke methods on that instance to service multiple simultaneous requests. Thus,
+    having a mutable instance field generally creates race conditions.
+  </BugPattern>
+  <BugPattern abbrev="IS" type="IS2_INCONSISTENT_SYNC" category="MT_CORRECTNESS" name="Inconsistent synchronization">
+    The fields of this class appear to be accessed inconsistently with respect to synchronization. This bug report
+    indicates that the bug pattern detector judged that the class contains a mix of locked and unlocked accesses,
+    at least one locked access was performed by one of the class's own methods, and the number of unsynchronized field
+    accesses (reads and writes) was no more than one third of all accesses, with writes being weighed twice as high as
+    reads.
+    A typical bug matching this bug pattern is forgetting to synchronize one of the methods in a class that is intended
+    to be thread-safe.
+  </BugPattern>
+  <BugPattern abbrev="NN" type="NN_NAKED_NOTIFY" category="MT_CORRECTNESS" name="Naked notify">
+    A call to notify() or notifyAll() was made without any (apparent) accompanying modification to mutable object state.
+    In general, calling a notify method on a monitor is done because some condition another thread is waiting for has
+    become true. However, for the condition to be meaningful, it must involve a heap object that is visible to both
+    threads.
+    This bug does not necessarily indicate an error, since the change to mutable object state may have taken place in a
+    method which then called the method containing the notification.
+  </BugPattern>
+  <BugPattern abbrev="MS" type="MS_EXPOSE_REP" category="MALICIOUS_CODE"
+              name="Public static method may expose internal representation by returning array">
+    A public static method returns a reference to an array that is part of the static state of the class. Any code that
+    calls this method can freely modify the underlying array. One fix is to return a copy of the array.
+  </BugPattern>
+  <BugPattern abbrev="EI" type="EI_EXPOSE_REP" category="MALICIOUS_CODE" cweid="374"
+              name="May expose internal representation by returning reference to mutable object">
+    Returning a reference to a mutable object value stored in one of the object's fields exposes the internal
+    representation of the object. If instances are accessed by untrusted code, and unchecked changes to the mutable
+    object would compromise security or other important properties, you will need to do something different. Returning a
+    new copy of the object is better approach in many situations.
+  </BugPattern>
+  <BugPattern abbrev="EI2" type="EI_EXPOSE_REP2" category="MALICIOUS_CODE" cweid="374"
+              name="May expose internal representation by incorporating reference to mutable object">
+    This code stores a reference to an externally mutable object into the internal representation of the object. If
+    instances are accessed by untrusted code, and unchecked changes to the mutable object would compromise security or
+    other important properties, you will need to do something different. Storing a copy of the object is better approach
+    in many situations.
+  </BugPattern>
+  <BugPattern abbrev="MS" type="EI_EXPOSE_STATIC_REP2" category="MALICIOUS_CODE"
+              name="May expose internal static state by storing a mutable object into a static field">
+    This code stores a reference to an externally mutable object into a static field. If unchecked changes to the
+    mutable object would compromise security or other important properties, you will need to do something different.
+    Storing a copy of the object is better approach in many situations.
+  </BugPattern>
+  <BugPattern abbrev="Ru" type="RU_INVOKE_RUN" category="MT_CORRECTNESS" cweid="572"
+              name="Invokes run on a thread (did you mean to start it instead?)">
+    This method explicitly invokes run() on an object. In general, classes implement the Runnable interface because they
+    are going to have their run() method invoked in a new thread, in which case Thread.start() is the right method to
+    call.
+  </BugPattern>
+  <BugPattern abbrev="SP" type="SP_SPIN_ON_FIELD" category="MT_CORRECTNESS" name="Method spins on field">
+    This method spins in a loop which reads a field. The compiler may legally hoist the read out of the loop, turning
+    the code into an infinite loop. The class should be changed so it uses proper synchronization (including wait and
+    notify calls).
+  </BugPattern>
+  <BugPattern abbrev="NS" type="NS_NON_SHORT_CIRCUIT" category="STYLE"
+              name="Questionable use of non-short-circuit logic">
+    This code seems to be using non-short-circuit logic (e.g., &amp or |) rather than short-circuit logic (&amp&amp or
+    ||). Non-short-circuit logic causes both sides of the expression to be evaluated even when the result can be
+    inferred from knowing the left-hand side. This can be less efficient and can result in errors if the left-hand side
+    guards cases when evaluating the right-hand side can generate an error.
+  </BugPattern>
+  <BugPattern abbrev="NS" type="NS_DANGEROUS_NON_SHORT_CIRCUIT" category="STYLE"
+              name="Potentially dangerous use of non-short-circuit logic">
+    This code seems to be using non-short-circuit logic (e.g., &amp or |) rather than short-circuit logic (&amp or ||).
+    In addition, it seem possible that, depending on the value of the left hand side, you might not want to evaluate the
+    right hand side (because it would have side effects, could cause an exception or could be expensive.
+    Non-short-circuit logic causes both sides of the expression to be evaluated even when the result can be inferred
+    from knowing the left-hand side. This can be less efficient and can result in errors if the left-hand side guards
+    cases when evaluating the right-hand side can generate an error.
+  </BugPattern>
+  <BugPattern abbrev="TLW" type="TLW_TWO_LOCK_WAIT" category="MT_CORRECTNESS" name="Wait with two locks held">
+    Waiting on a monitor while two locks are held may cause deadlock. Performing a wait only releases the lock on the
+    object being waited on, not any other locks. This not necessarily a bug, but is worth examining closely.
+  </BugPattern>
+  <!--<BugPattern abbrev="TLW" type="TLW_TWO_LOCK_NOTIFY" category="MT_CORRECTNESS"-->
+  <!--experimental="true">-->
+  <!--</BugPattern>-->
+
+  <!-- has never been generated -->
+  <BugPattern abbrev="UW" type="UW_UNCOND_WAIT" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="UR" type="UR_UNINIT_READ" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="UG" type="UG_SYNC_SET_UNSYNC_GET" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="IC" type="IC_INIT_CIRCULARITY" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="IC" type="IC_SUPERCLASS_USES_SUBCLASS_DURING_INITIALIZATION" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="SI" type="SI_INSTANCE_BEFORE_FINALS_ASSIGNED" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="It" type="IT_NO_SUCH_ELEMENT" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="IS" type="IS_INCONSISTENT_SYNC" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="IS" type="IS_FIELD_NOT_GUARDED" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="ML" type="ML_SYNC_ON_FIELD_TO_GUARD_CHANGING_THAT_FIELD" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="ML" type="ML_SYNC_ON_UPDATED_FIELD" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="MS" type="MS_OOI_PKGPROTECT" category="MALICIOUS_CODE">
+  </BugPattern>
+  <BugPattern abbrev="MS" type="MS_FINAL_PKGPROTECT" category="MALICIOUS_CODE">
+  </BugPattern>
+  <BugPattern abbrev="MS" type="MS_SHOULD_BE_FINAL" category="MALICIOUS_CODE">
+  </BugPattern>
+  <BugPattern abbrev="MS" type="MS_PKGPROTECT" category="MALICIOUS_CODE">
+  </BugPattern>
+  <BugPattern abbrev="MS" type="MS_MUTABLE_HASHTABLE" category="MALICIOUS_CODE">
+  </BugPattern>
+  <BugPattern abbrev="MS" type="MS_MUTABLE_ARRAY" category="MALICIOUS_CODE">
+  </BugPattern>
+  <BugPattern abbrev="MS" type="MS_CANNOT_BE_FINAL" category="MALICIOUS_CODE">
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_METHOD_NAMING_CONVENTION" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_FIELD_NAMING_CONVENTION" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_SAME_SIMPLE_NAME_AS_INTERFACE" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_SAME_SIMPLE_NAME_AS_SUPERCLASS" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_CLASS_NAMING_CONVENTION" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_VERY_CONFUSING" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_VERY_CONFUSING_INTENTIONAL" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_WRONG_PACKAGE" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_WRONG_PACKAGE_INTENTIONAL" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_CONFUSING" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_METHOD_CONSTRUCTOR_CONFUSION" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_LCASE_HASHCODE" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_LCASE_TOSTRING" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_BAD_EQUAL" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="IA" type="IA_AMBIGUOUS_INVOCATION_OF_INHERITED_OR_OUTER_METHOD" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="Nm" type="NM_CLASS_NOT_EXCEPTION" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="RR" type="RR_NOT_CHECKED" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="RR" type="SR_NOT_CHECKED" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_READ_RESOLVE_IS_STATIC" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_PRIVATE_READ_RESOLVE_NOT_INHERITED" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_TRANSIENT_FIELD_OF_NONSERIALIZABLE_CLASS" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_NO_SUITABLE_CONSTRUCTOR" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_NO_SUITABLE_CONSTRUCTOR_FOR_EXTERNALIZATION" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_COMPARATOR_SHOULD_BE_SERIALIZABLE" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="SnVI" type="SE_NO_SERIALVERSIONID" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_READ_RESOLVE_MUST_RETURN_OBJECT" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_TRANSIENT_FIELD_NOT_RESTORED" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="WS" type="WS_WRITEOBJECT_SYNC" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="RS" type="RS_READOBJECT_SYNC" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_NONFINAL_SERIALVERSIONID" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_NONSTATIC_SERIALVERSIONID" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_NONLONG_SERIALVERSIONID" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_METHOD_MUST_BE_PRIVATE" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_BAD_FIELD" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_INNER_CLASS" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_BAD_FIELD_INNER_CLASS" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="Se" type="SE_BAD_FIELD_STORE" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="SC" type="SC_START_IN_CTOR" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="SF" type="SF_SWITCH_FALLTHROUGH" category="STYLE" cweid="484">
+  </BugPattern>
+  <BugPattern abbrev="SF" type="SF_DEAD_STORE_DUE_TO_SWITCH_FALLTHROUGH" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="SS" type="SS_SHOULD_BE_STATIC" category="PERFORMANCE">
+  </BugPattern>
+  <BugPattern abbrev="UuF" type="UUF_UNUSED_FIELD" category="PERFORMANCE">
+  </BugPattern>
+  <BugPattern abbrev="UrF" type="URF_UNREAD_FIELD" category="PERFORMANCE">
+  </BugPattern>
+  <BugPattern abbrev="QF" type="QF_QUESTIONABLE_FOR_LOOP" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR" category="STYLE"
+              experimental="true">
+  </BugPattern>
+
+  <!-- deprecated in favor of UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR -->
+  <BugPattern abbrev="NP" type="NP_UNWRITTEN_FIELD" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="UwF" type="UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="UwF" type="UWF_NULL_FIELD" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="UwF" type="UWF_UNWRITTEN_FIELD" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="SIC" type="SIC_INNER_SHOULD_BE_STATIC" category="PERFORMANCE">
+  </BugPattern>
+  <BugPattern abbrev="SIC" type="SIC_INNER_SHOULD_BE_STATIC_NEEDS_THIS" category="PERFORMANCE">
+  </BugPattern>
+  <BugPattern abbrev="SIC" type="SIC_INNER_SHOULD_BE_STATIC_ANON" category="PERFORMANCE">
+  </BugPattern>
+  <BugPattern abbrev="Wa" type="WA_NOT_IN_LOOP" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="Wa" type="WA_AWAIT_NOT_IN_LOOP" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="No" type="NO_NOTIFY_NOT_NOTIFYALL" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="RV" type="RV_RETURN_VALUE_IGNORED" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="RV" type="RV_RETURN_VALUE_IGNORED_BAD_PRACTICE"
+              category="BAD_PRACTICE" cweid="253">
+  </BugPattern>
+  <BugPattern abbrev="RV" type="RV_EXCEPTION_NOT_THROWN" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="RV" type="RV_RETURN_VALUE_IGNORED2" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="RV" type="RV_CHECK_FOR_POSITIVE_INDEXOF" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="RV" type="RV_DONT_JUST_NULL_CHECK_READLINE" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_ALWAYS_NULL" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_STORE_INTO_NONNULL_FIELD" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_ALWAYS_NULL_EXCEPTION" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_NULL_ON_SOME_PATH_MIGHT_BE_INFEASIBLE" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_NULL_ON_SOME_PATH" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_NULL_ON_SOME_PATH_EXCEPTION" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_NULL_PARAM_DEREF" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_NULL_PARAM_DEREF_NONVIRTUAL" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_NONNULL_PARAM_VIOLATION" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_NONNULL_RETURN_VIOLATION" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_TOSTRING_COULD_RETURN_NULL" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_CLONE_COULD_RETURN_NULL" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_LOAD_OF_KNOWN_NULL_VALUE" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_GUARANTEED_DEREF" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_GUARANTEED_DEREF_ON_EXCEPTION_PATH" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="OS" type="OS_OPEN_STREAM" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="OS" type="OS_OPEN_STREAM_EXCEPTION_PATH" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="PZLA" type="PZLA_PREFER_ZERO_LENGTH_ARRAYS" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="UCF" type="UCF_USELESS_CONTROL_FLOW" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="UCF" type="UCF_USELESS_CONTROL_FLOW_NEXT_LINE" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="RCN" type="RCN_REDUNDANT_NULLCHECK_OF_NULL_VALUE" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="RCN" type="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="RCN" type="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="RCN" type="RCN_REDUNDANT_COMPARISON_TWO_NULL_VALUES" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="RCN" type="RCN_REDUNDANT_COMPARISON_OF_NULL_AND_NONNULL_VALUE" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="UL" type="UL_UNRELEASED_LOCK" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="UL" type="UL_UNRELEASED_LOCK_EXCEPTION_PATH" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="RC" type="RC_REF_COMPARISON" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="VA" type="VA_PRIMITIVE_ARRAY_PASSED_TO_OBJECT_VARARG" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="FS" type="VA_FORMAT_STRING_BAD_CONVERSION" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="FS" type="VA_FORMAT_STRING_BAD_CONVERSION_TO_BOOLEAN" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="FS" type="VA_FORMAT_STRING_BAD_CONVERSION_FROM_ARRAY" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="FS" type="VA_FORMAT_STRING_NO_PREVIOUS_ARGUMENT" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="FS" type="VA_FORMAT_STRING_ARG_MISMATCH" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="FS" type="VA_FORMAT_STRING_BAD_ARGUMENT" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="FS" type="VA_FORMAT_STRING_MISSING_ARGUMENT" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="FS" type="VA_FORMAT_STRING_ILLEGAL" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="FS" type="VA_FORMAT_STRING_EXTRA_ARGUMENTS_PASSED" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="EC" type="EC_UNRELATED_TYPES_USING_POINTER_EQUALITY" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="EC" type="EC_UNRELATED_TYPES" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="EC" type="EC_ARRAY_AND_NONARRAY" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="EC" type="EC_NULL_ARG" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="EC" type="EC_UNRELATED_INTERFACES" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="EC" type="EC_UNRELATED_CLASS_AND_INTERFACE" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="MWN" type="MWN_MISMATCHED_WAIT" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="MWN" type="MWN_MISMATCHED_NOTIFY" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="SA" type="SA_LOCAL_SELF_ASSIGNMENT" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="INT" type="INT_BAD_COMPARISON_WITH_SIGNED_BYTE" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="INT" type="INT_BAD_COMPARISON_WITH_NONNEGATIVE_VALUE" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="INT" type="INT_BAD_REM_BY_1" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="INT" type="INT_VACUOUS_COMPARISON" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="BIT" type="BIT_ADD_OF_SIGNED_BYTE" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="BIT" type="BIT_IOR_OF_SIGNED_BYTE" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="BIT" type="BIT_SIGNED_CHECK" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="BIT" type="BIT_SIGNED_CHECK_HIGH_BIT" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="BIT" type="BIT_AND" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="BIT" type="BIT_AND_ZZ" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="BIT" type="BIT_IOR" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="SA" type="SA_FIELD_SELF_ASSIGNMENT" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="SA" type="SA_LOCAL_DOUBLE_ASSIGNMENT" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="SA" type="SA_FIELD_DOUBLE_ASSIGNMENT" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="SA" type="SA_FIELD_SELF_COMPUTATION" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="SA" type="SA_LOCAL_SELF_COMPUTATION" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="SA" type="SA_FIELD_SELF_COMPARISON" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="SA" type="SA_LOCAL_SELF_COMPARISON" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="LI" type="LI_LAZY_INIT_INSTANCE" category="MT_CORRECTNESS"
+              experimental="true">
+  </BugPattern>
+
+  <!-- has never been generated? -->
+  <BugPattern abbrev="LI" type="LI_LAZY_INIT_STATIC" category="MT_CORRECTNESS" cweid="543">
+  </BugPattern>
+  <BugPattern abbrev="LI" type="LI_LAZY_INIT_UPDATE_STATIC" category="MT_CORRECTNESS" cweid="543">
+  </BugPattern>
+  <BugPattern abbrev="JLM" type="JLM_JSR166_LOCK_MONITORENTER" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="UPM" type="UPM_UNCALLED_PRIVATE_METHOD" category="PERFORMANCE">
+  </BugPattern>
+  <BugPattern abbrev="UMAC" type="UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="ODR" type="ODR_OPEN_DATABASE_RESOURCE" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="ODR" type="ODR_OPEN_DATABASE_RESOURCE_EXCEPTION_PATH" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="SBSC" type="SBSC_USE_STRINGBUFFER_CONCATENATION" category="PERFORMANCE">
+  </BugPattern>
+  <BugPattern abbrev="ITA" type="ITA_INEFFICIENT_TO_ARRAY" category="PERFORMANCE">
+  </BugPattern>
+  <BugPattern abbrev="IJU" type="IJU_ASSERT_METHOD_INVOKED_FROM_RUN_METHOD" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="IJU" type="IJU_BAD_SUITE_METHOD" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="IJU" type="IJU_SETUP_NO_SUPER" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="IJU" type="IJU_TEARDOWN_NO_SUPER" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="IJU" type="IJU_SUITE_NOT_STATIC" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="IJU" type="IJU_NO_TESTS" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="BOA" type="BOA_BADLY_OVERRIDDEN_ADAPTER" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="SQL" type="BRSA_BAD_RESULTSET_ACCESS" category="CORRECTNESS"
+              experimental="true">
+  </BugPattern>
+
+  <!-- deprecated in favor of SQL_BAD_RESULTSET_ACCESS -->
+  <BugPattern abbrev="SQL" type="SQL_BAD_RESULTSET_ACCESS" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="SQL" type="SQL_BAD_PREPARED_STATEMENT_ACCESS" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="SIO" type="SIO_SUPERFLUOUS_INSTANCEOF" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="BAC" type="BAC_BAD_APPLET_CONSTRUCTOR" category="CORRECTNESS"
+              experimental="true">
+  </BugPattern>
+  <BugPattern abbrev="UOE" type="UOE_USE_OBJECT_EQUALS" category="STYLE"
+              experimental="true">
+  </BugPattern>
+  <BugPattern abbrev="EC" type="EC_BAD_ARRAY_COMPARE" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="STI" type="STI_INTERRUPTED_ON_CURRENTTHREAD" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="STI" type="STI_INTERRUPTED_ON_UNKNOWNTHREAD" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="DLS" type="DLS_DEAD_LOCAL_STORE_IN_RETURN" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="DLS" type="DLS_DEAD_STORE_OF_CLASS_LITERAL" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="DLS" type="DLS_DEAD_LOCAL_STORE" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="DLS" type="DLS_DEAD_LOCAL_STORE_OF_NULL" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="IP" type="IP_PARAMETER_IS_DEAD_BUT_OVERWRITTEN" category="CORRECTNESS" cweid="563">
+  </BugPattern>
+  <BugPattern abbrev="MF" type="MF_METHOD_MASKS_FIELD" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="MF" type="MF_CLASS_MASKS_FIELD" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="WMI" type="WMI_WRONG_MAP_ITERATOR" category="PERFORMANCE">
+  </BugPattern>
+  <BugPattern abbrev="ISC" type="ISC_INSTANTIATE_STATIC_CLASS" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="REC" type="REC_CATCH_EXCEPTION" category="STYLE" cweid="396">
+  </BugPattern>
+  <BugPattern abbrev="FE" type="FE_FLOATING_POINT_EQUALITY" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="FE" type="FE_TEST_IF_EQUAL_TO_NOT_A_NUMBER" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="UM" type="UM_UNNECESSARY_MATH" category="PERFORMANCE">
+  </BugPattern>
+  <BugPattern abbrev="CD" type="CD_CIRCULAR_DEPENDENCY" category="STYLE"
+              experimental="true">
+  </BugPattern>
+  <BugPattern abbrev="RI" type="RI_REDUNDANT_INTERFACES" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="MTIA" type="MTIA_SUSPECT_STRUTS_INSTANCE_FIELD" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="MTIA" type="MTIA_SUSPECT_SERVLET_INSTANCE_FIELD" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="PS" type="PS_PUBLIC_SEMAPHORES" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="ICAST" type="ICAST_INTEGER_MULTIPLY_CAST_TO_LONG" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="ICAST" type="ICAST_IDIV_CAST_TO_DOUBLE" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="ICAST" type="ICAST_INT_CAST_TO_DOUBLE_PASSED_TO_CEIL" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="ICAST" type="ICAST_INT_CAST_TO_FLOAT_PASSED_TO_ROUND" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="NP_NULL_INSTANCEOF" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="NP" type="BC_NULL_INSTANCEOF" category="CORRECTNESS"
+              experimental="true">
+  </BugPattern>
+
+  <!-- deprecated in favor of NP_NULL_INSTANCEOF -->
+  <BugPattern abbrev="BC" type="DMI_RANDOM_USED_ONLY_ONCE" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="DMI" type="DMI_LONG_BITS_TO_DOUBLE_INVOKED_ON_INT" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="BC" type="BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="BC" type="BC_BAD_CAST_TO_CONCRETE_COLLECTION" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="BC" type="BC_UNCONFIRMED_CAST" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="BC" type="BC_IMPOSSIBLE_CAST_PRIMITIVE_ARRAY" category="CORRECTNESS">
+  </BugPattern>
+
+  <!-- deprecated in favor of BC_IMPOSSIBLE_CAST -->
+  <BugPattern abbrev="BC" type="BC_IMPOSSIBLE_CAST" category="CORRECTNESS" cweid="570">
+  </BugPattern>
+  <BugPattern abbrev="BC" type="BC_IMPOSSIBLE_INSTANCEOF" category="CORRECTNESS" cweid="570">
+  </BugPattern>
+  <BugPattern abbrev="BC" type="BC_VACUOUS_INSTANCEOF" category="STYLE" cweid="571">
+  </BugPattern>
+  <BugPattern abbrev="BC" type="BC_BAD_CAST_TO_ABSTRACT_COLLECTION" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="RE" type="RE_POSSIBLE_UNINTENDED_PATTERN" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="RE" type="RE_BAD_SYNTAX_FOR_REGULAR_EXPRESSION" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="RE" type="RE_CANT_USE_FILE_SEPARATOR_AS_REGULAR_EXPRESSION" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="DLS" type="DLS_OVERWRITTEN_INCREMENT" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="BSHIFT" type="ICAST_BAD_SHIFT_AMOUNT" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="IM" type="IM_MULTIPLYING_RESULT_OF_IREM" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="IM" type="IM_BAD_CHECK_FOR_ODD" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="IM" type="IM_AVERAGE_COMPUTATION_COULD_OVERFLOW" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="DMI" type="DMI_INVOKING_HASHCODE_ON_ARRAY" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="DMI" type="DMI_INVOKING_TOSTRING_ON_ARRAY" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="DMI" type="DMI_INVOKING_TOSTRING_ON_ANONYMOUS_ARRAY" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="BSHIFT" type="ICAST_QUESTIONABLE_UNSIGNED_RIGHT_SHIFT" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="DMI" type="DMI_HARDCODED_ABSOLUTE_FILENAME" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="DMI" type="DMI_BAD_MONTH" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="DMI" type="DMI_USELESS_SUBSTRING" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="DMI" type="DMI_CALLING_NEXT_FROM_HASNEXT" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="ST" type="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="SWL" type="SWL_SLEEP_WITH_LOCK_HELD" category="MT_CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="J2EE" type="J2EE_STORE_OF_NON_SERIALIZABLE_OBJECT_INTO_SESSION" category="BAD_PRACTICE"
+              cweid="579">
+  </BugPattern>
+  <BugPattern abbrev="DMI" type="DMI_NONSERIALIZABLE_OBJECT_WRITTEN" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="DB" type="DB_DUPLICATE_BRANCHES" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="DB" type="DB_DUPLICATE_SWITCH_CLAUSES" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="IMA" type="IMA_INEFFICIENT_MEMBER_ACCESS" category="PERFORMANCE"
+              experimental="true">
+  </BugPattern>
+  <BugPattern abbrev="XFB" type="XFB_XML_FACTORY_BYPASS" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="USM" type="USM_USELESS_SUBCLASS_METHOD" category="STYLE"
+              experimental="true">
+  </BugPattern>
+  <BugPattern abbrev="USM" type="USM_USELESS_ABSTRACT_METHOD" category="STYLE"
+              experimental="true">
+  </BugPattern>
+  <BugPattern abbrev="CI" type="CI_CONFUSED_INHERITANCE" category="STYLE">
+  </BugPattern>
+  <BugPattern abbrev="QBA" type="QBA_QUESTIONABLE_BOOLEAN_ASSIGNMENT" category="CORRECTNESS" cweid="481">
+  </BugPattern>
+  <BugPattern abbrev="GC" type="GC_UNCHECKED_TYPE_IN_GENERIC_CALL" category="BAD_PRACTICE">
+  </BugPattern>
+  <BugPattern abbrev="GC" type="GC_UNRELATED_TYPES" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="DMI" type="DMI_USING_REMOVEALL_TO_CLEAR_COLLECTION" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="DMI" type="DMI_VACUOUS_SELF_COLLECTION_CALL" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="DMI" type="DMI_COLLECTIONS_SHOULD_NOT_CONTAIN_THEMSELVES" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="TQ" type="TQ_ALWAYS_VALUE_USED_WHERE_NEVER_REQUIRED" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="TQ" type="TQ_NEVER_VALUE_USED_WHERE_ALWAYS_REQUIRED" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="TQ" type="TQ_MAYBE_SOURCE_VALUE_REACHES_ALWAYS_SINK" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="TQ" type="TQ_MAYBE_SOURCE_VALUE_REACHES_NEVER_SINK" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="TQ" type="TQ_EXPLICIT_UNKNOWN_SOURCE_VALUE_REACHES_NEVER_SINK" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="TQ" type="TQ_EXPLICIT_UNKNOWN_SOURCE_VALUE_REACHES_ALWAYS_SINK" category="CORRECTNESS">
+  </BugPattern>
+  <BugPattern abbrev="OBL" type="OBL_UNSATISFIED_OBLIGATION" category="EXPERIMENTAL"
+              experimental="true">
+  </BugPattern>
+
+</Patterns>
+
+  

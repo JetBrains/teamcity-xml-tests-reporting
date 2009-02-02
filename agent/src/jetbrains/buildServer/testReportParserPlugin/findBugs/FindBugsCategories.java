@@ -15,7 +15,12 @@
  */
 package jetbrains.buildServer.testReportParserPlugin.findBugs;
 
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
+
+import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -23,19 +28,20 @@ public class FindBugsCategories {
   public static final Map<String, Category> CATEGORIES = new HashMap<String, Category>();
 
   static {
-    CATEGORIES.put("CORRECTNESS", new Category("Correctness bug",
-      "Probable bug - an apparent coding mistake resulting in code that was probably not what the developer intended. " +
-        "We strive for a low false positive rate."));
-    CATEGORIES.put("BAD_PRACTICE", new Category("Bad Practice", "Violations of recommended and essential coding practice. " +
-      "Examples include hash code and equals problems, cloneable idiom, dropped exceptions, serializable problems, and misuse of finalize. " +
-      "We strive to make this analysis accurate, although some groups may not care about some of the bad practices."));
-    CATEGORIES.put("DODGY", new Category("Dodgy", "Code that is confusing, anomalous, or written in a way that leads itself to errors. " +
-      "Examples include dead local stores, switch fall through, unconfirmed casts, and redundant null check of value " +
-      "known to be null. More false positives accepted. In previous versions of FindBugs, this category was known as Style."));
-    // for old versions support
-    CATEGORIES.put("STYLE", new Category("Dodgy", "Code that is confusing, anomalous, or written in a way that leads itself to errors. " +
-      "Examples include dead local stores, switch fall through, unconfirmed casts, and redundant null check of value " +
-      "known to be null. More false positives accepted. In previous versions of FindBugs, this category was known as Style."));
+    try {
+      final Element root = new SAXBuilder().build(new File("categories.xml")).getRootElement();
+
+      List categories = root.getChildren("Category");
+
+      for (Object o : categories) {
+        final Element c = (Element) o;
+        CATEGORIES.put(c.getAttributeValue("id"),
+          new Category(c.getAttributeValue("name"),
+            c.getText().replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim()));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   public static boolean isCommonCategory(String id) {

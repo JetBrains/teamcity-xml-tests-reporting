@@ -85,7 +85,7 @@ public class TestReportDirectoryWatcher extends Thread {
             continue;
           }
 
-          if (!processedFiles[0].contains(report) && AntJUnitReportParser.isReportFileComplete(report)) {
+          if (!processedFiles[0].contains(report)) {
             processedFiles[0].add(report);
             processedFiles[1].remove(report);
 
@@ -94,7 +94,6 @@ public class TestReportDirectoryWatcher extends Thread {
             } catch (InterruptedException e) {
               myPlugin.getLogger().debugToAgentLog("Directory watcher thread interrupted");
             }
-
           }
         }
         if ((processedFiles[0].size() > 0) || (processedFiles[1].size() > 0)) {
@@ -105,13 +104,12 @@ public class TestReportDirectoryWatcher extends Thread {
   }
 
   private boolean isFileOk(File file) {
-    boolean f = timeConstraintsSatisfied(file);
-    return file.isFile() && file.canRead() && f;
+    return file.isFile() && file.canRead() && timeConstraintsSatisfied(file) && AntJUnitReportParser.isReportFileComplete(file);
   }
 
   private boolean timeConstraintsSatisfied(File file) {
     return myPlugin.getParameters().isParseOutOfDateFiles()
-      || (file.lastModified() > myPlugin.getParameters().getBuildStartTime());
+      || (file.lastModified() >= myPlugin.getParameters().getBuildStartTime());
   }
 
   public void logDirectoriesTotals() {
