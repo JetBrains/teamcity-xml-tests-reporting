@@ -37,6 +37,7 @@ public class FindBugsReportParser implements TestReportParser {
 
   private final Set<String> myReportedInstanceTypes;
   private final Map<String, String> myCategories;
+  private final Map<String, String> myBugPatterns;
 
   private final Map<String, String> myFilePaths;
 
@@ -48,12 +49,19 @@ public class FindBugsReportParser implements TestReportParser {
 
     myReportedInstanceTypes = new HashSet<String>();
     myCategories = new HashMap<String, String>();
+    myBugPatterns = new HashMap<String, String>();
 
     myFilePaths = new HashMap<String, String>();
   }
 
   public void parse(@NotNull File report) {
     myInspectionReporter.markBuildAsInspectionsBuild();
+    try {
+      FindBugsCategories.loadCategories(myLogger, this.getClass().getResourceAsStream("categories.xml"));
+      FindBugsPatterns.loadPatterns(myLogger, this.getClass().getResourceAsStream("patterns.xml"));
+    } catch (Exception e) {
+      myLogger.exception(e);
+    }
     try {
       final Element root = new SAXBuilder().build(report).getRootElement();
 
@@ -110,8 +118,15 @@ public class FindBugsReportParser implements TestReportParser {
         myInspectionInstance.setMessage(bug.getChild("ShortMessage").getText());
       } else if (bug.getChild("LongMessage") != null) {
         myInspectionInstance.setMessage(bug.getChild("LongMessage").getText());
+      } else if (FindBugsPatterns.isCommonPattern(id)) {
+        final String descr = FindBugsPatterns.getDescription(id);
+        myInspectionInstance.setMessage(descr);
+      } else if (myBugPatterns.containsKey(id)) {
+        myInspectionInstance.setMessage(myBugPatterns.get(id));
       } else {
-        myInspectionInstance.setMessage("<no description>");    //TODO take data from other tags
+        myInspectionInstance.setMessage("<No message>");
+        //illegal report
+        return;
       }
 
       final Element classElement = bug.getChild("Class");
@@ -236,7 +251,7 @@ public class FindBugsReportParser implements TestReportParser {
       }
 
       type.setCategory(category);
-
+      myBugPatterns.put(id, details.getText());
       myInspectionReporter.reportInspectionType(type);
       myReportedInstanceTypes.add(id);
     }

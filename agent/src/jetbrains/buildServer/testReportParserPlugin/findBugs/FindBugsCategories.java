@@ -15,10 +15,11 @@
  */
 package jetbrains.buildServer.testReportParserPlugin.findBugs;
 
+import jetbrains.buildServer.testReportParserPlugin.TestReportLogger;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
-import java.io.File;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,9 +28,9 @@ import java.util.Map;
 public class FindBugsCategories {
   public static final Map<String, Category> CATEGORIES = new HashMap<String, Category>();
 
-  static {
+  public static void loadCategories(TestReportLogger logger, InputStream is) {
     try {
-      final Element root = new SAXBuilder().build(new File("categories.xml")).getRootElement();
+      final Element root = new SAXBuilder().build(is).getRootElement();
 
       List categories = root.getChildren("Category");
 
@@ -40,7 +41,10 @@ public class FindBugsCategories {
             c.getText().replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim()));
       }
     } catch (Exception e) {
+      //TODO: remove looger from parameters      
       e.printStackTrace();
+//      logger.error("Couldn't load categories from file " + is.getPath() + ", exception occured: " + e);
+      logger.exception(e);
     }
   }
 

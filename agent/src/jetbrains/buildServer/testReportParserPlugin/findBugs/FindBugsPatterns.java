@@ -15,22 +15,37 @@
  */
 package jetbrains.buildServer.testReportParserPlugin.findBugs;
 
+import jetbrains.buildServer.testReportParserPlugin.TestReportLogger;
+import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
+
+import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 public class FindBugsPatterns {
   public static final Map<String, Pattern> BUG_PATTERNS = new HashMap<String, Pattern>();
 
-  static {
-    BUG_PATTERNS.put("HE_EQUALS_USE_HASHCODE", new Pattern("Class defines equals() and uses Object.hashCode()",
-      "BAD_PRACTICE",
-      "This class overrides equals(Object), but does not override hashCode()."));
-    BUG_PATTERNS.put("NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT",
-      new Pattern("equals() method does not check for null argument", "BAD_PRACTICE",
-        "This implementation of equals(Object) violates the contract defined by java.lang.Object.equals() because " +
-          "it does not check for null being passed as the argument. All equals() methods should return false if " +
-          "passed a null value."));
+  public static void loadPatterns(TestReportLogger logger, InputStream is) {
+    try {
+      final Element root = new SAXBuilder().build(is).getRootElement();
+
+      List categories = root.getChildren("BugPattern");
+
+      for (Object o : categories) {
+        final Element p = (Element) o;
+        BUG_PATTERNS.put(p.getAttributeValue("type"),
+          new Pattern(p.getAttributeValue("name"), p.getAttributeValue("category"),
+            p.getText().replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim()));
+      }
+    } catch (Exception e) {
+      //TODO: remove looger from parameters
+//      logger.error("Couldn't load petterns from file " + is.getPath() + ", exception occured: " + e);
+      logger.exception(e);
+      e.printStackTrace();
+    }
   }
 
   public static boolean isCommonPattern(String id) {
