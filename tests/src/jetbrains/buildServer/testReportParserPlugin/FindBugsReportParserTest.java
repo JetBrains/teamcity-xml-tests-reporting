@@ -17,6 +17,7 @@ package jetbrains.buildServer.testReportParserPlugin;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import static jetbrains.buildServer.testReportParserPlugin.TestUtil.WORKING_DIR;
 import jetbrains.buildServer.testReportParserPlugin.findBugs.FindBugsReportParser;
 import junit.framework.TestCase;
 import org.jdom.input.JDOMParseException;
@@ -73,7 +74,7 @@ public class FindBugsReportParserTest extends TestCase {
     };
     myLogger = createBaseServerLoggerFacade();
     myInspectionReporter = createInspectionReporter();
-    myParser = new FindBugsReportParser(new TestReportLogger(myLogger, true), myInspectionReporter);
+    myParser = new FindBugsReportParser(new TestReportLogger(myLogger, true), myInspectionReporter, WORKING_DIR);
     mySequence = myContext.sequence("Log Sequence");
 //    myContext.checking(new Expectations() {
 //      {

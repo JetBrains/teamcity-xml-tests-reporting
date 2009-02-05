@@ -37,8 +37,7 @@ public class FindBugsCategories {
       for (Object o : categories) {
         final Element c = (Element) o;
         CATEGORIES.put(c.getAttributeValue("id"),
-          new Category(c.getAttributeValue("name"),
-            c.getText().replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim()));
+          new Category(c.getAttributeValue("name"), FindBugsReportParser.formatText(c.getText())));
       }
     } catch (Exception e) {
       //TODO: remove looger from parameters      

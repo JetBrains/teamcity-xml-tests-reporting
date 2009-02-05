@@ -34,24 +34,31 @@ public class FindBugsReportParser implements TestReportParser {
 
   private final TestReportLogger myLogger;
   private final InspectionReporter myInspectionReporter;
+  private final String myCheckoutDirectory;
 
   private final Set<String> myReportedInstanceTypes;
   private final Map<String, String> myCategories;
   private final Map<String, String> myBugPatterns;
 
-  private final Map<String, String> myFilePaths;
+  private Set<String> mySrcDirs;
 
   private InspectionInstance myInspectionInstance = null;
 
-  public FindBugsReportParser(@NotNull final TestReportLogger logger, @NotNull InspectionReporter inspectionReporter) {
+  public static String formatText(@NotNull String s) {
+    return s.replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim();
+  }
+
+  public FindBugsReportParser(@NotNull final TestReportLogger logger,
+                              @NotNull InspectionReporter inspectionReporter,
+                              @NotNull String checkoutDirectory) {
     myLogger = logger;
     myInspectionReporter = inspectionReporter;
+    myCheckoutDirectory = checkoutDirectory;
 
     myReportedInstanceTypes = new HashSet<String>();
     myCategories = new HashMap<String, String>();
     myBugPatterns = new HashMap<String, String>();
-
-    myFilePaths = new HashMap<String, String>();
+    mySrcDirs = new HashSet<String>();
   }
 
   public void parse(@NotNull File report) {
@@ -65,7 +72,7 @@ public class FindBugsReportParser implements TestReportParser {
     try {
       final Element root = new SAXBuilder().build(report).getRootElement();
 
-      processJars(root);
+      processSrcDirs(root);
       processBugCategories(root);
       processBugPatterns(root);
       processBugInstances(root);
@@ -76,27 +83,42 @@ public class FindBugsReportParser implements TestReportParser {
     myInspectionReporter.flush();
   }
 
-  private void processJars(Element root) {
+//  private void processJars(Element root) {
+//    final Element project = root.getChild("Project");
+//    if (project == null) {
+//      //illegal report
+//      myLogger.error("Illegal report");
+//      return;
+//    }
+//    final List jars = project.getChildren("Jar");
+//    for (Object o : jars) {
+//      final Element jar = (Element) o;
+//      final String path = formatText(jar.getText());
+//      final String classname;
+//      if (path.endsWith(".class")) {
+//        classname = path.substring(path.lastIndexOf(File.separator) + 1, path.lastIndexOf('.'));
+//      } else {
+//        //may be illegal report
+//        myLogger.error("Illegal report");
+//        continue;
+//      }
+//
+//      myFilePaths.put(classname, path);
+//    }
+//  }
+
+  private void processSrcDirs(Element root) {
     final Element project = root.getChild("Project");
     if (project == null) {
       //illegal report
       myLogger.error("Illegal report");
       return;
     }
-    final List jars = project.getChildren("Jar");
-    for (Object o : jars) {
-      final Element jar = (Element) o;
-      final String path = jar.getText();
-      final String classname;
-      if (path.endsWith(".class")) {
-        classname = path.substring(path.lastIndexOf(File.separator) + 1, path.lastIndexOf('.'));
-      } else {
-        //may be illegal report
-        myLogger.error("Illegal report");
-        return;
-      }
+    final List srcDirs = project.getChildren("SrcDir");
+    for (Object o : srcDirs) {
+      final Element dir = (Element) o;
 
-      myFilePaths.put(classname, path);
+      mySrcDirs.add(formatText(dir.getText()));
     }
   }
 
@@ -114,92 +136,119 @@ public class FindBugsReportParser implements TestReportParser {
       }
       myInspectionInstance.setInspectionId(id);
 
-      if (bug.getChild("ShortMessage") != null) {
-        myInspectionInstance.setMessage(bug.getChild("ShortMessage").getText());
-      } else if (bug.getChild("LongMessage") != null) {
-        myInspectionInstance.setMessage(bug.getChild("LongMessage").getText());
-      } else if (FindBugsPatterns.isCommonPattern(id)) {
-        final String descr = FindBugsPatterns.getDescription(id);
-        myInspectionInstance.setMessage(descr);
-      } else if (myBugPatterns.containsKey(id)) {
-        myInspectionInstance.setMessage(myBugPatterns.get(id));
-      } else {
-        myInspectionInstance.setMessage("<No message>");
-        //illegal report
-        return;
-      }
+      getBugMessage(bug, id);
 
-      final Element classElement = bug.getChild("Class");
-      if (classElement == null) {
-        //may be illegal report
-        myLogger.error("Illegal report");
-        return;
-      }
-      final String classname = classElement.getAttributeValue("classname");
-      if (classname == null) {
-        //illegal report
-        myLogger.error("Illegal report");
-        return;
-      }
-      String path = myFilePaths.get(classname);
-      if (path == null) {
-        //may be illegal report
-        myLogger.error("Illegal report");
-        return;
-      }
-      myInspectionInstance.setFilePath(path.replace(".class", ".java").replace("\\", "|").replace("/", "|"));
+      if (!processSourceLine(bug)) {
+        final Element classElement = bug.getChild("Class");
 
-      final List lines = bug.getChildren("SourceLine");
-      Element line;
-      if (lines.size() != 0) {
-        line = (Element) lines.get(0);
-        getLocationDetails(line);
-      } else {
-        line = classElement.getChild("SourceLine");
-        if (line == null) {
-          //illegal report
-          myLogger.error("Illegal report");
-          return;
+        if (classElement != null) {
+          if (!processSourceLine(classElement)) {
+            final String classname = classElement.getAttributeValue("classname");
+            if (classname != null) {
+              myInspectionInstance.setFilePath(classname);
+            } else {
+              //illegal report
+              myLogger.error("Illegal report");
+              return;
+            }
+          }
+        } else {
+          //TODO what to do? (may be try method element)
+          myLogger.exception(new Exception("Do not know what to do!"));
         }
-        getLocationDetails(line);
       }
-
-
       myInspectionReporter.reportInspection(myInspectionInstance);
       myInspectionInstance = null;
 
-      if (!myReportedInstanceTypes.contains(id)) {
-        if (FindBugsPatterns.isCommonPattern(id)) {
-          final InspectionTypeInfo type = new InspectionTypeInfo();
+      reportInstanceType(id);
+    }
+  }
 
-          type.setId(id);
-          type.setName(FindBugsPatterns.getName(id));
-          type.setCategory(FindBugsCategories.getName(FindBugsPatterns.getCategory(id)));
-          type.setDescription(FindBugsPatterns.getDescription(id));
+  private void reportInstanceType(String id) {
+    if (!myReportedInstanceTypes.contains(id)) {
+      if (FindBugsPatterns.isCommonPattern(id)) {
+        final InspectionTypeInfo type = new InspectionTypeInfo();
 
-          myInspectionReporter.reportInspectionType(type);
-          myReportedInstanceTypes.add(id);
-        } else {
-          //illegal report          
-          myLogger.error("Illegal report");
-        }
+        type.setId(id);
+        type.setName(FindBugsPatterns.getName(id));
+        type.setCategory(FindBugsCategories.getName(FindBugsPatterns.getCategory(id)));
+        type.setDescription(FindBugsPatterns.getDescription(id));
+
+        myInspectionReporter.reportInspectionType(type);
+        myReportedInstanceTypes.add(id);
+      } else {
+        //illegal report
+        myLogger.error("Illegal report");
       }
     }
   }
 
-  private void getLocationDetails(Element line) {
-    if (line.getAttributeValue("start") != null) {
-      myInspectionInstance.setLine(Integer.parseInt(line.getAttributeValue("start")));
+  private void getBugMessage(Element bug, String id) {
+    if (bug.getChild("ShortMessage") != null) {
+      myInspectionInstance.setMessage(formatText(bug.getChild("ShortMessage").getText()));
+    } else if (bug.getChild("LongMessage") != null) {
+      myInspectionInstance.setMessage(formatText(bug.getChild("LongMessage").getText()));
+    } else if (FindBugsPatterns.isCommonPattern(id)) {
+      final String descr = FindBugsPatterns.getDescription(id);
+      myInspectionInstance.setMessage(descr);
+    } else if (myBugPatterns.containsKey(id)) {
+      myInspectionInstance.setMessage(myBugPatterns.get(id));
     } else {
-      myInspectionInstance.setLine(0);
+      //illegal report
+      myLogger.error("Illegal report");
+      myInspectionInstance.setMessage("<No message>");
     }
+  }
+
+  private boolean processSourceLine(Element e) {
+    final Element sourceLine = e.getChild("SourceLine");
+    if (sourceLine != null) {
+      final String line = sourceLine.getAttributeValue("start");
+      if (line != null) {
+        myInspectionInstance.setLine(Integer.parseInt(line));
+      } else {
+        myInspectionInstance.setLine(0);
+      }
+
+      String path = sourceLine.getAttributeValue("sourcepath");
+      if (path != null) {
+        path = getPath(path);
+        path = path.substring(myCheckoutDirectory.length());
+        path.replace("\\", "|").replace("/", "|");
+        if (path.startsWith("|")) {
+          path = path.substring(1);
+        }
+        myLogger.error(" :: " + path);
+        myInspectionInstance.setFilePath(path);
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private String getPath(String relativePath) {
+    for (String s : mySrcDirs) {
+      final File f = new File(s + File.separator + relativePath);
+      if (f.exists()) {
+        return f.getPath();
+      }
+    }
+    return "";
+  }
+
+//  private void getLocationDetails(Element line) {
+//    if (line.getAttributeValue("start") != null) {
+//      myInspectionInstance.setLine(Integer.parseInt(line.getAttributeValue("start")));
+//    } else {
+//      myInspectionInstance.setLine(0);
+//    }
 // sourcepath attribute deprecated
 //    if (line.getAttributeValue("sourcepath") != null) {
 //      myInspectionInstance.setFilePath(line.getAttributeValue("sourcepath"));
 //    } else {
 //      myInspectionInstance.setFilePath("<file path not available>");
 //    }
-  }
+//  }
 
   private void processBugCategories(Element root) {
     final List categories = root.getChildren("BugCategory");
@@ -213,7 +262,7 @@ public class FindBugsReportParser implements TestReportParser {
         myLogger.error("Illegal report");
         return;
       }
-      myCategories.put(id, description.getText());
+      myCategories.put(id, formatText(description.getText()));
     }
   }
 
@@ -237,8 +286,8 @@ public class FindBugsReportParser implements TestReportParser {
       final InspectionTypeInfo type = new InspectionTypeInfo();
 
       type.setId(id);
-      type.setName(shortDescription.getText());
-      type.setDescription(details.getText());
+      type.setName(formatText(shortDescription.getText()));
+      type.setDescription(formatText(details.getText()));
 
       if (FindBugsCategories.isCommonCategory(category)) {
         category = FindBugsCategories.getName(category);
@@ -251,7 +300,7 @@ public class FindBugsReportParser implements TestReportParser {
       }
 
       type.setCategory(category);
-      myBugPatterns.put(id, details.getText());
+      myBugPatterns.put(id, formatText(details.getText()));
       myInspectionReporter.reportInspectionType(type);
       myReportedInstanceTypes.add(id);
     }

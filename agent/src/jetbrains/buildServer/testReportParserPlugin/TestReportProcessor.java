@@ -55,7 +55,7 @@ public class TestReportProcessor extends Thread {
       myParser = new NUnitReportParser(myPlugin.getLogger(), myPlugin.getParameters().getTmpDir());
 
     } else if (FindBugsReportParser.TYPE.equals(expectedReportType)) {
-      myParser = new FindBugsReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter());
+      myParser = new FindBugsReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getParameters().getRunnerWorkingDir().getPath());
 
     } else {
       myPlugin.getLogger().debugToAgentLog("No parser for " + expectedReportType + " available");
