@@ -15,7 +15,7 @@
  */
 package jetbrains.buildServer.testReportParserPlugin.findBugs;
 
-import jetbrains.buildServer.testReportParserPlugin.TestReportLogger;
+import jetbrains.buildServer.agent.SimpleBuildLogger;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
@@ -28,7 +28,7 @@ import java.util.Map;
 public class FindBugsPatterns {
   public static final Map<String, Pattern> BUG_PATTERNS = new HashMap<String, Pattern>();
 
-  public static void loadPatterns(TestReportLogger logger, InputStream is) {
+  public static void loadPatterns(SimpleBuildLogger logger, InputStream is) {
     try {
       final Element root = new SAXBuilder().build(is).getRootElement();
 

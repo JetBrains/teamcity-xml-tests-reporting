@@ -16,10 +16,10 @@
 
 package jetbrains.buildServer.testReportParserPlugin.findBugs;
 
+import jetbrains.buildServer.agent.SimpleBuildLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionTypeInfo;
-import jetbrains.buildServer.testReportParserPlugin.TestReportLogger;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParser;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
@@ -32,7 +32,7 @@ import java.util.*;
 public class FindBugsReportParser implements TestReportParser {
   public static final String TYPE = "findBugs";
 
-  private final TestReportLogger myLogger;
+  private final SimpleBuildLogger myLogger;
   private final InspectionReporter myInspectionReporter;
   private final String myCheckoutDirectory;
 
@@ -43,12 +43,15 @@ public class FindBugsReportParser implements TestReportParser {
   private Set<String> mySrcDirs;
 
   private InspectionInstance myInspectionInstance = null;
+  private int mySourceLine = 0;
+  private String myFilePath;
+  private String myCurrentClass;
 
   public static String formatText(@NotNull String s) {
     return s.replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim();
   }
 
-  public FindBugsReportParser(@NotNull final TestReportLogger logger,
+  public FindBugsReportParser(@NotNull final SimpleBuildLogger logger,
                               @NotNull InspectionReporter inspectionReporter,
                               @NotNull String checkoutDirectory) {
     myLogger = logger;
@@ -62,14 +65,14 @@ public class FindBugsReportParser implements TestReportParser {
   }
 
   public void parse(@NotNull File report) {
+    mySourceLine = 0;
+    myFilePath = null;
+    myCurrentClass = null;
     myInspectionReporter.markBuildAsInspectionsBuild();
     try {
       FindBugsCategories.loadCategories(myLogger, this.getClass().getResourceAsStream("categories.xml"));
       FindBugsPatterns.loadPatterns(myLogger, this.getClass().getResourceAsStream("patterns.xml"));
-    } catch (Exception e) {
-      myLogger.exception(e);
-    }
-    try {
+
       final Element root = new SAXBuilder().build(report).getRootElement();
 
       processSrcDirs(root);
@@ -79,8 +82,9 @@ public class FindBugsReportParser implements TestReportParser {
 
     } catch (Exception e) {
       myLogger.exception(e);
+    } finally {
+      myInspectionReporter.flush();
     }
-    myInspectionReporter.flush();
   }
 
 //  private void processJars(Element root) {
@@ -137,6 +141,7 @@ public class FindBugsReportParser implements TestReportParser {
       myInspectionInstance.setInspectionId(id);
 
       getBugMessage(bug, id);
+//      processSourceLine(bug);
 
       if (!processSourceLine(bug)) {
         final Element classElement = bug.getChild("Class");
@@ -145,7 +150,7 @@ public class FindBugsReportParser implements TestReportParser {
           if (!processSourceLine(classElement)) {
             final String classname = classElement.getAttributeValue("classname");
             if (classname != null) {
-              myInspectionInstance.setFilePath(classname);
+              myInspectionInstance.setFilePath(classname.replace(".class", ".java"));
             } else {
               //illegal report
               myLogger.error("Illegal report");
@@ -157,12 +162,37 @@ public class FindBugsReportParser implements TestReportParser {
           myLogger.exception(new Exception("Do not know what to do!"));
         }
       }
+//      myInspectionInstance.setLine(mySourceLine);
+//      myInspectionInstance.setFilePath(myFilePath);
       myInspectionReporter.reportInspection(myInspectionInstance);
       myInspectionInstance = null;
 
       reportInstanceType(id);
     }
   }
+
+//  private void processSourceLine(Element bug) {
+//    final Element sourceLine = bug.getChild("SourceLine");
+//    if (sourceLine != null) {
+//      final String line = sourceLine.getAttributeValue("start");
+//      if (line != null) {
+//        myInspectionInstance.setLine(Integer.parseInt(line));
+//      }
+//
+//      String path = sourceLine.getAttributeValue("sourcepath");
+//      if (path != null) {
+//        path = getPath(path);
+//        if (path.startsWith(myCheckoutDirectory)) {
+//          path = path.substring(myCheckoutDirectory.length());
+//        }
+//        path = path.replace("\\", "|").replace("/", "|");
+//        if (path.startsWith("|")) {
+//          path = path.substring(1);
+//        }
+//        myFilePath = path;
+//      }
+//    }
+//  }
 
   private void reportInstanceType(String id) {
     if (!myReportedInstanceTypes.contains(id)) {
@@ -184,27 +214,27 @@ public class FindBugsReportParser implements TestReportParser {
   }
 
   private void getBugMessage(Element bug, String id) {
+    String message = "<No message>";
     if (bug.getChild("ShortMessage") != null) {
-      myInspectionInstance.setMessage(formatText(bug.getChild("ShortMessage").getText()));
+      message = formatText(bug.getChild("ShortMessage").getText());
     } else if (bug.getChild("LongMessage") != null) {
-      myInspectionInstance.setMessage(formatText(bug.getChild("LongMessage").getText()));
+      message = formatText(bug.getChild("LongMessage").getText());
     } else if (FindBugsPatterns.isCommonPattern(id)) {
-      final String descr = FindBugsPatterns.getDescription(id);
-      myInspectionInstance.setMessage(descr);
+      message = FindBugsPatterns.getDescription(id);
     } else if (myBugPatterns.containsKey(id)) {
-      myInspectionInstance.setMessage(myBugPatterns.get(id));
+      message = myBugPatterns.get(id);
     } else {
       //illegal report
       myLogger.error("Illegal report");
-      myInspectionInstance.setMessage("<No message>");
     }
+    myInspectionInstance.setMessage(message);
   }
 
   private boolean processSourceLine(Element e) {
     final Element sourceLine = e.getChild("SourceLine");
     if (sourceLine != null) {
       final String line = sourceLine.getAttributeValue("start");
-      if (line != null) {
+      if ((mySourceLine == 0) && (line != null)) {
         myInspectionInstance.setLine(Integer.parseInt(line));
       } else {
         myInspectionInstance.setLine(0);
@@ -213,12 +243,13 @@ public class FindBugsReportParser implements TestReportParser {
       String path = sourceLine.getAttributeValue("sourcepath");
       if (path != null) {
         path = getPath(path);
-        path = path.substring(myCheckoutDirectory.length());
-        path.replace("\\", "|").replace("/", "|");
+        if (path.startsWith(myCheckoutDirectory)) {
+          path = path.substring(myCheckoutDirectory.length());
+        }
+        path = path.replace("\\", "|").replace("/", "|");
         if (path.startsWith("|")) {
           path = path.substring(1);
         }
-        myLogger.error(" :: " + path);
         myInspectionInstance.setFilePath(path);
         return true;
       }
@@ -235,20 +266,6 @@ public class FindBugsReportParser implements TestReportParser {
     }
     return "";
   }
-
-//  private void getLocationDetails(Element line) {
-//    if (line.getAttributeValue("start") != null) {
-//      myInspectionInstance.setLine(Integer.parseInt(line.getAttributeValue("start")));
-//    } else {
-//      myInspectionInstance.setLine(0);
-//    }
-// sourcepath attribute deprecated
-//    if (line.getAttributeValue("sourcepath") != null) {
-//      myInspectionInstance.setFilePath(line.getAttributeValue("sourcepath"));
-//    } else {
-//      myInspectionInstance.setFilePath("<file path not available>");
-//    }
-//  }
 
   private void processBugCategories(Element root) {
     final List categories = root.getChildren("BugCategory");
