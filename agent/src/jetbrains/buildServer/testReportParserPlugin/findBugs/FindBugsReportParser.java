@@ -259,11 +259,14 @@ public class FindBugsReportParser implements TestReportParser {
 
   private String getPath(String relativePath) {
     for (String s : mySrcDirs) {
+      System.out.println(s);
       final File f = new File(s + File.separator + relativePath);
       if (f.exists()) {
+        System.out.println("FOUND SRC");
         return f.getPath();
       }
     }
+    System.out.println("COULD NOT FIND SRC");
     return "";
   }
 
