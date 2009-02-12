@@ -38,7 +38,7 @@ public class FindBugsPatterns {
         final Element p = (Element) o;
         BUG_PATTERNS.put(p.getAttributeValue("type"),
           new Pattern(p.getAttributeValue("name"), p.getAttributeValue("category"),
-            FindBugsReportParser.formatText(p.getText())));
+            FindBugsReportParserMy.formatText(p.getText())));
       }
     } catch (Exception e) {
       //TODO: remove looger from parameters

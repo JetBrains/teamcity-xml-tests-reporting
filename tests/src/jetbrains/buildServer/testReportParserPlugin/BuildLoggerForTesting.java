@@ -36,6 +36,7 @@ public class BuildLoggerForTesting implements SimpleBuildLogger {
     myText.append("EXCEPTION: ");
     myText.append(th.toString());
     myText.append("\n");
+    th.printStackTrace();
   }
 
   public void progressMessage(final String message) {

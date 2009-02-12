@@ -97,11 +97,19 @@ public class FindBugsReportParserTest extends TestCase {
     runTest("simple.xml");
   }
 
-  public void testPattern() throws Exception {
-    runTest("pattern.xml");
+  public void testJar() throws Exception {
+    runTest("jar.xml");
   }
 
-  public void testcategory() throws Exception {
-    runTest("category.xml");
+  public void testComplex() throws Exception {
+    runTest("complex.xml");
   }
+
+//  public void testPattern() throws Exception {
+//    runTest("pattern.xml");
+//  }
+//
+//  public void testcategory() throws Exception {
+//    runTest("category.xml");
+//  }
 }

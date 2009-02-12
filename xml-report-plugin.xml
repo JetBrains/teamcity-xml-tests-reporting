@@ -86,6 +86,16 @@
     <pathelement location="${path.variable.teamcitydistribution}/lib/servlet-api.jar"/>
   </path>
 
+  <path id="library.findbugs.classpath">
+    <pathelement location="${basedir}/agent/lib/commons-lang-2.4.jar"/>
+    <pathelement location="${basedir}/agent/lib/dom4j-1.6.1.jar"/>
+    <pathelement location="${basedir}/agent/lib/bcel.jar"/>
+    <pathelement location="${basedir}/agent/lib/findbugs.jar"/>
+    <pathelement location="${basedir}/agent/lib"/>
+    <pathelement location="${basedir}/agent/lib/jaxen-1.1.1.jar"/>
+    <pathelement location="${basedir}/agent/lib/jFormatString.jar"/>
+  </path>
+
   <!-- Modules -->
 
 
@@ -230,6 +240,7 @@
     <pathelement location="${common.output.dir}"/>
     <pathelement location="${common.testoutput.dir}"/>
     <path refid="library.jdom.classpath"/>
+    <path refid="library.findbugs.classpath"/>
   </path>
 
   <path id="agent.runtime.module.classpath">
@@ -241,6 +252,7 @@
     <pathelement location="${common.output.dir}"/>
     <pathelement location="${common.testoutput.dir}"/>
     <path refid="library.jdom.classpath"/>
+    <path refid="library.findbugs.classpath"/>
   </path>
 
 
@@ -419,6 +431,7 @@
     <pathelement location="${common.output.dir}"/>
     <pathelement location="${common.testoutput.dir}"/>
     <path refid="library.jdom.classpath"/>
+    <path refid="library.findbugs.classpath"/>
     <pathelement location="${server.output.dir}"/>
     <pathelement location="${server.testoutput.dir}"/>
     <path refid="library.servlet_api.classpath"/>
