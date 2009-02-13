@@ -18,7 +18,6 @@ package jetbrains.buildServer.testReportParserPlugin;
 
 import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParser;
 import jetbrains.buildServer.testReportParserPlugin.findBugs.FindBugsReportParser;
-import jetbrains.buildServer.testReportParserPlugin.findBugs.FindBugsReportParserMy;
 import jetbrains.buildServer.testReportParserPlugin.nUnit.NUnitReportParser;
 import org.jetbrains.annotations.NotNull;
 
@@ -56,7 +55,7 @@ public class TestReportProcessor extends Thread {
       myParser = new NUnitReportParser(myPlugin.getLogger(), myPlugin.getParameters().getTmpDir());
 
     } else if (FindBugsReportParser.TYPE.equals(expectedReportType)) {
-      myParser = new FindBugsReportParserMy(myPlugin.getLogger().getBuildLogger(), myPlugin.getInspectionReporter(), myPlugin.getParameters().getRunnerWorkingDir().getPath());
+      myParser = new FindBugsReportParser(myPlugin.getLogger().getBuildLogger(), myPlugin.getInspectionReporter(), myPlugin.getParameters().getRunnerWorkingDir().getPath());
 
     } else {
       myPlugin.getLogger().debugToAgentLog("No parser for " + expectedReportType + " available");

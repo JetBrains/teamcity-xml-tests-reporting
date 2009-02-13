@@ -23,11 +23,41 @@ import jetbrains.buildServer.agent.inspections.InspectionTypeInfo;
 import jetbrains.buildServer.testReportParserPlugin.findBugs.FindBugsReportParser;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
+import org.junit.Test;
 
 import java.io.*;
 
 
 public class FindBugsReportParserTest extends TestCase {
+//  @BeforeClass
+//  public static void prepareTestData() {
+//    System.out.println("I AM HERE");
+//    final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+//    Transformer transformer = null;
+//    try {
+////      transformer = transformerFactory.newTransformer(new StreamSource(this.getClass().getResourceAsStream("reportPaths.xsl")));
+//
+//      final File testDataDir = new File("tests/testData/findBugs/");
+//      assert testDataDir.isDirectory();
+//
+//      File[] testData = testDataDir.listFiles(new FilenameFilter() {
+//
+//        public boolean accept(File dir, String name) {
+//          return dir.equals(testDataDir) && name.endsWith(".xml");
+//        }
+//      });
+//
+//      for (int i = 0; i < testData.length; ++i) {
+//        final StreamSource source = new StreamSource(testData[i]);
+//        final File newFile = new File(testData[i].getAbsolutePath() + ".trans");
+//        final StreamResult result = new StreamResult(newFile);
+//        transformer.transform(source, result);
+//      }
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//  }
+
   private String getTestDataPath(final String fileName) {
     File file = new File("tests/testData/findBugs/" + fileName);
     return file.getAbsolutePath();
@@ -50,8 +80,9 @@ public class FindBugsReportParserTest extends TestCase {
 
   private void runTest(final String fileName) throws Exception {
     final String prefix = getTestDataPath(fileName);
-    final String resultsFile = prefix + ".tmp";
-    final String expectedFile = prefix + ".exp";
+    final String report = prefix;
+    final String resultsFile = report + ".tmp";
+    final String expectedFile = report + ".exp";
 
     new File(resultsFile).delete();
 
@@ -60,8 +91,8 @@ public class FindBugsReportParserTest extends TestCase {
     final SimpleBuildLogger logger = new BuildLoggerForTesting(results);
     final InspectionReporter reporter = createFakeReporter(results);
 
-    final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, prefix.substring(0, prefix.lastIndexOf(fileName)));
-    parser.parse(new File(prefix));
+    final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, report.substring(0, report.lastIndexOf(fileName)));
+    parser.parse(new File(report));
 //    results.append("Errors: ").append(parser.getErrorsCount()).append("\r\n");
 //    results.append("Warnings: ").append(parser.getWarningsCount()).append("\r\n");
 
@@ -93,23 +124,28 @@ public class FindBugsReportParserTest extends TestCase {
     };
   }
 
+  @Test
   public void testSimple() throws Exception {
     runTest("simple.xml");
   }
 
+  @Test
   public void testJar() throws Exception {
     runTest("jar.xml");
   }
 
-  public void testComplex() throws Exception {
-    runTest("complex.xml");
+  @Test
+  public void testComplexSrc() throws Exception {
+    runTest("complexSrc.xml");
   }
 
-//  public void testPattern() throws Exception {
-//    runTest("pattern.xml");
-//  }
-//
-//  public void testcategory() throws Exception {
-//    runTest("category.xml");
-//  }
+  @Test
+  public void testDir() throws Exception {
+    runTest("dir.xml");
+  }
+
+  @Test
+  public void testInner() throws Exception {
+    runTest("inner.xml");
+  }
 }

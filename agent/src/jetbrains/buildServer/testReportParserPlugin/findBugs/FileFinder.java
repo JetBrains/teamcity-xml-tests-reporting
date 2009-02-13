@@ -34,7 +34,7 @@ public class FileFinder {
   }
 
   public String getVeryFullFilePath(String filePath) {
-    if (filePath.contains("$")) {
+    if (filePath.contains("$") && filePath.endsWith(".java")) {
       filePath = filePath.substring(0, filePath.indexOf("$")) + ".class";
     }
     for (Entry jar : myJars) {
@@ -46,8 +46,16 @@ public class FileFinder {
     return "";
   }
 
+  private static String getOSPath(String path) {
+    return path.replace("\\", File.separator).replace("/", File.separator);
+  }
+
+  private static String getDependentPath(String path, String separator) {
+    return path.replace("\\", separator).replace("/", separator);
+  }
+
   private static interface Entry {
-    public String getFilePath(String fileName);
+    String getFilePath(String fileName);
   }
 
   private static class DirectoryEntry implements Entry {
@@ -58,9 +66,30 @@ public class FileFinder {
     }
 
     public String getFilePath(String fileName) {
-      File file = new File(myRoot + File.separator + fileName);
-      if (file.exists()) {
-        return file.getAbsolutePath();
+//      File file = new File(myRoot + File.separator + fileName);
+//      if (file.exists()) {
+//        return file.getAbsolutePath();
+//      }
+//      return null;
+      return getFilePathRecursive(new File(myRoot).listFiles(), getOSPath(fileName));
+    }
+
+    private String getFilePathRecursive(File[] files, String relativePath) {
+      if (files == null) {
+        return null;
+      }
+      for (int i = 0; i < files.length; ++i) {
+        if (files[i].isFile()) {
+          final String path = files[i].getAbsolutePath();
+          if (path.endsWith(relativePath)) {
+            return path;
+          }
+        } else if (files[i].isDirectory()) {
+          final String path = getFilePathRecursive(files[i].listFiles(), relativePath);
+          if (path != null) {
+            return path;
+          }
+        }
       }
       return null;
     }
@@ -74,28 +103,13 @@ public class FileFinder {
     }
 
     public String getFilePath(String fileName) {
-//      final List<String> pathElements = new ArrayList<String>();
-//      while (true) {
-//        if (!fileName.contains(File.separator)) {
-//          break;
-//        }
-//        pathElements.add(fileName.substring(0, fileName.indexOf(File.separator)));
-//        fileName = fileName.substring(fileName.indexOf(File.separator) + 1);
-//      }
       final Enumeration<? extends ZipEntry> e = myArchive.entries();
       while (e.hasMoreElements()) {
         final String entry = e.nextElement().getName();
-        if (entry.endsWith(fileName.replace(File.separator, "/"))) {
-          return myArchive.getName() + File.separator + entry.replace("/", File.separator);
+        if (entry.endsWith(getDependentPath(fileName, "/"))) {
+          return myArchive.getName() + File.separator + getOSPath(entry);
         }
-//        if (!pathElements.contains(entry.getName())) {
-//           return null;
-//        }
       }
-//      final ZipEntry e = myArchive.getEntry(fileName);
-//      if (e != null) {
-//        return myArchive.getName() + File.separator + e.getName();
-//      }
       return null;
     }
   }
@@ -108,7 +122,7 @@ public class FileFinder {
     }
 
     public String getFilePath(String fileName) {
-      if (myFile.endsWith(fileName)) {
+      if (myFile.endsWith(getOSPath(fileName))) {
         return myFile;
       }
       return null;

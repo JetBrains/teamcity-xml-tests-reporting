@@ -37,7 +37,7 @@ import java.io.FileNotFoundException;
 
 @RunWith(JMock.class)
 public class FindBugsReportParserTextTest extends TestCase {
-  private static final String REPORT_DIR = "Tests/testData/findbugs/";
+  private static final String REPORT_DIR = "Tests/testData/findbugs/others/";
 
   private TestReportParser myParser;
   private BaseServerLoggerFacade myLogger;
