@@ -24,10 +24,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import java.io.File;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
+import java.util.*;
 
 
 public class AntJUnitReportParser extends DefaultHandler implements TestReportParser {
@@ -154,7 +151,7 @@ public class AntJUnitReportParser extends DefaultHandler implements TestReportPa
     return -1;
   }
 
-  public void logReportTotals(File report) {
+  public void logReportTotals(File report, Map<String, String> params) {
     String message = report.getPath() + " report processed";
     if (myLoggedSuites != 0) {
       message = message.concat(": " + myLoggedSuites + " suite(s)");

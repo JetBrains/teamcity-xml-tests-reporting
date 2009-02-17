@@ -8,6 +8,8 @@
 
 <c:set var="displayJUnitSettings"
        value="${not empty propertiesBean.properties['testReportParsing.reportType'] ? true : false}"/>
+<c:set var="displayFindBugsSettings"
+       value="${propertiesBean.properties['testReportParsing.reportType'] == 'findBugs' ? true : false}"/>
 <%--<c:set var="displayNUnitSettings" value="${propertiesBean.properties['testReportParsing.reportType'] == 'nunit' ? true : false}"/>--%>
 
 <l:settingsGroup title="Test Reports Settings">
@@ -62,6 +64,23 @@
     <th><label for="testReportParsing.verboseOutput">Verbose output:</label></th>
     <td>
       <props:checkboxProperty name="testReportParsing.verboseOutput"/>
+    </td>
+  </tr>
+
+  <%--<tr id="testReportParsing.verboseOutput.container" style="${displayFindBugsSettings ? '' : 'display: none;'}">--%>
+  <%--<th><label for="testReportParsing.max.errors">Maximum error limit:</label></th>--%>
+  <%--<td><props:textProperty name="testReportParsing.max.errors" style="width:6em;" maxlength="12"/>--%>
+  <%--<!--<span class="error" id="error_fxcop.fail.error.limit"></span>-->--%>
+  <%--<span class="smallNote">Fail the build if the specified number of errors is exceeded.</span>--%>
+  <%--</td>--%>
+  <%--</tr>--%>
+
+
+  <tr id="testReportParsing.verboseOutput.container" style="${displayFindBugsSettings ? '' : 'display: none;'}">
+    <th class="noBorder"><label for="testReportParsing.max.warnings">Warnings limit:</label></th>
+    <td class="noBorder"><props:textProperty name="testReportParsing.max.warnings" style="width:6em;" maxlength="12"/>
+      <!--<span class="error" id="error_fxcop.fail.warning.limit"></span>-->
+      <span class="smallNote">Fail the build if the specified number of warnings is exceeded. Leave blank if there is no limit.</span>
     </td>
   </tr>
 </l:settingsGroup>

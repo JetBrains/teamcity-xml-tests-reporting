@@ -25,6 +25,7 @@ import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionTypeInfo;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParser;
+import jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -37,7 +38,10 @@ public class FindBugsReportParser implements TestReportParser {
   private final SimpleBuildLogger myLogger;
   private final InspectionReporter myInspectionReporter;
   private final String myCheckoutDirectory;
-  private final Set<String> myReportedInstanceTypes;
+  private Set<String> myReportedInstanceTypes;
+
+  private int myErrors;
+  private int myWarnings;
 
   public static String formatText(@NotNull String s) {
     return s.replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim();
@@ -49,6 +53,8 @@ public class FindBugsReportParser implements TestReportParser {
     myLogger = logger;
     myInspectionReporter = inspectionReporter;
     myCheckoutDirectory = checkoutDirectory;
+    myErrors = 0;
+    myWarnings = 0;
     myReportedInstanceTypes = new HashSet<String>();
   }
 
@@ -78,16 +84,17 @@ public class FindBugsReportParser implements TestReportParser {
 //      end stupid action for preventing \n and Co symbols
 
       for (BugInstance warning : bugs) {
-//          switch (warning.getPriority()) {
-//              case 1:
-//                  priority = Priority.HIGH;
-//                  break;
-//              case 2:
-//                  priority = Priority.NORMAL;
-//                  break;
-//              default:
-//                  priority = Priority.LOW;
-//          }
+        switch (warning.getPriority()) {
+          case 1:
+//                  ++myErrors;
+            ++myWarnings;
+            break;
+          case 2:
+            ++myWarnings;
+            break;
+          default:
+            ++myWarnings;
+        }
 
         SourceLineAnnotation sourceLine = warning.getPrimarySourceLineAnnotation();
         InspectionInstance instance = new InspectionInstance();
@@ -107,6 +114,7 @@ public class FindBugsReportParser implements TestReportParser {
         if (pathSpec.startsWith(File.separator)) {
           pathSpec = pathSpec.substring(1);
         }
+        pathSpec = pathSpec.replace(File.separator, "/");
 
         String path;
         path = fileFinder.getVeryFullFilePath(sourceLine.getSourcePath());
@@ -159,24 +167,28 @@ public class FindBugsReportParser implements TestReportParser {
     return false;
   }
 
-  public void logReportTotals(File report) {
-//    boolean limitReached = false;
-//
-//    final Integer errorLimit = PropertiesUtil.parseInt(runParameters.get(FxCopConstants.SETTINGS_ERROR_LIMIT));
-//    if (errorLimit != null && errors > errorLimit) {
-//      myLogger.error("Errors limit reached: found " + errors + " errors, limit " + errorLimit);
+  public void logReportTotals(File report, Map<String, String> parameters) {
+    boolean limitReached = false;
+
+//    final int errorLimit = TestReportParserPluginUtil.getMaxErrors(parameters);
+//    if ((errorLimit != -1) && (myErrors > errorLimit)) {
+//      myLogger.error("Errors limit reached: found " + myErrors + " errors, limit " + errorLimit);
 //      limitReached = true;
 //    }
-//
-//    final Integer warningLimit = PropertiesUtil.parseInt(runParameters.get(FxCopConstants.SETTINGS_WARNING_LIMIT));
-//    if (warningLimit != null && warnings > warningLimit) {
-//      myLogger.error("Warnings limit reached: found " + warnings + " warnings, limit " + warningLimit);
-//      limitReached = true;
-//    }
-//
-//    final String buildStatus = generateBuildStatus(errors, warnings);
-//    getLogger().message("##teamcity[buildStatus status='" +
-//                        (limitReached ? "FAILURE" : "SUCCESS") +
-//                        "' text='" + buildStatus + "']");
+
+    final int warningLimit = TestReportParserPluginUtil.getMaxWarnings(parameters);
+    if ((warningLimit != -1) && (myWarnings > warningLimit)) {
+      myLogger.error("Warnings limit reached: found " + myWarnings + " warnings, limit " + warningLimit);
+      limitReached = true;
+    }
+
+    final String buildStatus = generateBuildStatus(myErrors, myWarnings);
+    myLogger.message("##teamcity[buildStatus status='" +
+      (limitReached ? "FAILURE" : "SUCCESS") +
+      "' text='" + buildStatus + "']");
+  }
+
+  private String generateBuildStatus(int errors, int warnings) {
+    return "Errors: " + errors + ", warnings: " + warnings;
   }
 }

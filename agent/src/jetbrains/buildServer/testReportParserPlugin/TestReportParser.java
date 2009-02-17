@@ -19,6 +19,7 @@ package jetbrains.buildServer.testReportParserPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.Map;
 
 public interface TestReportParser {
 
@@ -26,5 +27,5 @@ public interface TestReportParser {
 
   boolean abnormalEnd();
 
-  public void logReportTotals(File report);
+  public void logReportTotals(File report, Map<String, String> parameters);
 }

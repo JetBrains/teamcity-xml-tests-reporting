@@ -63,7 +63,7 @@
       <param name="version" expression="${build.number}"/>
     </xslt>
 
-    <rename src="teamcity-plugin_new.xml" dest="teamcity-plugin.xml"/>
+    <move file="teamcity-plugin_new.xml" tofile="teamcity-plugin.xml"/>
   </target>
 
   <target name="deploy" depends="dist" description="deploy plugin to TeamCity">

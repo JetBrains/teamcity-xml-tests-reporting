@@ -16,12 +16,15 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
+import com.intellij.openapi.util.Pair;
 import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParser;
 import jetbrains.buildServer.testReportParserPlugin.findBugs.FindBugsReportParser;
 import jetbrains.buildServer.testReportParserPlugin.nUnit.NUnitReportParser;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -32,42 +35,23 @@ public class TestReportProcessor extends Thread {
 
   private final TestReportParserPlugin myPlugin;
 
-  private final LinkedBlockingQueue<File> myReportQueue;
+  private final LinkedBlockingQueue<Pair<String, File>> myReportQueue;
   private final TestReportDirectoryWatcher myWatcher;
-  private final TestReportParser myParser;
+  private final Map<String, TestReportParser> myParsers;
 
   private ReportData myCurrentReport;
 
   public TestReportProcessor(@NotNull final TestReportParserPlugin plugin,
-                             @NotNull final LinkedBlockingQueue<File> queue,
+                             @NotNull final LinkedBlockingQueue<Pair<String, File>> queue,
                              @NotNull final TestReportDirectoryWatcher watcher) {
     super("xml-report-plugin-ReportProcessor");
     myPlugin = plugin;
     myReportQueue = queue;
     myWatcher = watcher;
-
-    final String expectedReportType = plugin.getParameters().getReportType();
-
-    if (AntJUnitReportParser.TYPE.equals(expectedReportType) || ("surefire".equals(expectedReportType))) {
-      myParser = new AntJUnitReportParser(myPlugin.getLogger());
-
-    } else if (NUnitReportParser.TYPE.equals(expectedReportType)) {
-      myParser = new NUnitReportParser(myPlugin.getLogger(), myPlugin.getParameters().getTmpDir());
-
-    } else if (FindBugsReportParser.TYPE.equals(expectedReportType)) {
-      myParser = new FindBugsReportParser(myPlugin.getLogger().getBuildLogger(), myPlugin.getInspectionReporter(), myPlugin.getParameters().getRunnerWorkingDir().getPath());
-
-    } else {
-      myPlugin.getLogger().debugToAgentLog("No parser for " + expectedReportType + " available");
-      myParser = null;
-    }
+    myParsers = new HashMap<String, TestReportParser>();
   }
 
   public void run() {
-    if (myParser == null) {
-      return;
-    }
-
     myCurrentReport = null;
 
     while (!myPlugin.isStopped()) {
@@ -87,15 +71,15 @@ public class TestReportProcessor extends Thread {
     if (report == null) {
       return;
     }
-
-    final long processedTests = myParser.parse(report.getFile(), report.getProcessedTests());
+    final TestReportParser parser = myParsers.get(report.getType());
+    final long processedTests = parser.parse(report.getFile(), report.getProcessedTests());
     if (processedTests != -1) {
       myCurrentReport.setProcessedTests(processedTests);
 
       if (myCurrentReport.getTriesToParse() == TRIES_TO_PARSE) {
         myPlugin.getLogger().debugToAgentLog("Unable to get full report from " + TRIES_TO_PARSE + " tries. File is supposed to have illegal structure or unsupported format");
 
-        myParser.abnormalEnd();
+        parser.abnormalEnd();
         myPlugin.getLogger().warning(report.getFile().getPath() + " report has unexpected finish or unsupported format");
         myCurrentReport = null;
       } else {
@@ -112,7 +96,7 @@ public class TestReportProcessor extends Thread {
         }
       }
     } else {
-      myParser.logReportTotals(report.getFile());
+      parser.logReportTotals(report.getFile(), myPlugin.getParameters());
       myCurrentReport = null;
     }
   }
@@ -124,17 +108,23 @@ public class TestReportProcessor extends Thread {
     }
 
     try {
-      final File file = myReportQueue.poll(timeout, TimeUnit.MILLISECONDS);
-
-      if (file != null) {
-        myPlugin.getLogger().message("Found report file: " + file.getPath());
-        myCurrentReport = new ReportData(file);
-        return myCurrentReport;
+      final Pair<String, File> pair = myReportQueue.poll(timeout, TimeUnit.MILLISECONDS);
+      if (pair == null) {
+        return null;
       }
+      final String type = pair.getFirst();
+      final File file = pair.getSecond();
+
+      if (!myParsers.containsKey(type)) {
+        initializeParser(type);
+      }
+
+      myPlugin.getLogger().message("Found report file: " + file.getAbsolutePath());
+      myCurrentReport = new ReportData(file, type);
+      return myCurrentReport;
     } catch (InterruptedException e) {
       myPlugin.getLogger().debugToAgentLog("Report processor thread interrupted");
     }
-
     return null;
   }
 
@@ -142,17 +132,34 @@ public class TestReportProcessor extends Thread {
     return (myCurrentReport == null) && myReportQueue.isEmpty();
   }
 
+  private void initializeParser(String type) {
+    if (AntJUnitReportParser.TYPE.equals(type) || ("surefire".equals(type))) {
+      myParsers.put(type, new AntJUnitReportParser(myPlugin.getLogger()));
+
+    } else if (NUnitReportParser.TYPE.equals(type)) {
+      myParsers.put(type, new NUnitReportParser(myPlugin.getLogger(), myPlugin.getTmpDir()));
+
+    } else if (FindBugsReportParser.TYPE.equals(type)) {
+      myParsers.put(type, new FindBugsReportParser(myPlugin.getLogger().getBuildLogger(), myPlugin.getInspectionReporter(), myPlugin.getWorkingDir()));
+
+    } else {
+      myPlugin.getLogger().debugToAgentLog("No parser for " + type + " available");
+    }
+  }
+
   private static final class ReportData {
     private final File myFile;
     private long myProcessedTests;
     private long myPrevLength;
     private int myTriesToParse;
+    private String myType;
 
-    public ReportData(@NotNull final File file) {
+    public ReportData(@NotNull final File file, String type) {
       myFile = file;
       myProcessedTests = 0;
       myTriesToParse = 0;
       myPrevLength = file.length();
+      myType = type;
     }
 
     public File getFile() {
@@ -185,6 +192,10 @@ public class TestReportProcessor extends Thread {
 
     public void setPrevLength(long prevLength) {
       myPrevLength = prevLength;
+    }
+
+    public String getType() {
+      return myType;
     }
   }
 }

@@ -16,17 +16,16 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
+import com.intellij.openapi.util.Pair;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil.getTestReportDirs;
+import static jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil.*;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
@@ -36,7 +35,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
   private TestReportLogger myLogger;
   private InspectionReporter myInspectionReporter;
 
-  private TestReportParsingParameters myParameters;
+  private Map<String, String> myParameters;
 
   private volatile boolean myStopped;
 
@@ -46,63 +45,62 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
     myInspectionReporter = inspectionReporter;
   }
 
-  public void buildStarted(@NotNull AgentRunningBuild agentRunningBuild) {
+  public void buildStarted(@NotNull AgentRunningBuild build) {
     myStopped = false;
-    myParameters = new TestReportParsingParameters(agentRunningBuild);
+    myParameters = new HashMap<String, String>(build.getRunnerParameters());
+    myParameters.put(TEST_REPORT_PARSING_BUILD_START, "" + new Date().getTime());
+    myParameters.put(TEST_REPORT_PARSING_WORKING_DIR, build.getWorkingDirectory().getAbsolutePath());
+    myParameters.put(TEST_REPORT_PARSING_TMP_DIR, build.getBuildTempDirectory().getAbsolutePath());
   }
 
   public void beforeRunnerStart(@NotNull AgentRunningBuild build) {
     obtainLogger(build);
-    if (!myParameters.isParsingEnabled()) {
+    if (!isParsingEnabled(myParameters)) {
       return;
     }
 
-    final String dirProperty = getTestReportDirs(build.getRunnerParameters());
-    final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myParameters.getRunnerWorkingDir());
+    final String dirProperty = getTestReportDirs(myParameters);
+    final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myParameters.get(TEST_REPORT_PARSING_WORKING_DIR));
 
     if (reportDirs.size() == 0) {
       myLogger.warning("No report directories specified");
     }
-    myLogger.debugToAgentLog("Plugin expects reports of type: " + myParameters.getReportType());
-
-    startProcessing(reportDirs);
+    startProcessing(reportDirs, getReportType(myParameters));
   }
 
-  public void processReports(String reportType, List<File> reportDirs) {
-    if (!myParameters.isParsingEnabled()) {
-      myParameters.setParsingEnabled(true);
-      myParameters.setReportType(reportType);
-      startProcessing(reportDirs);
+  private void obtainLogger(AgentRunningBuild agentRunningBuild) {
+    final BuildProgressLogger logger = agentRunningBuild.getBuildLogger();
+    if (logger instanceof BaseServerLoggerFacade) {
+      myLogger = new TestReportLogger((BaseServerLoggerFacade) logger, isOutputVerbose(myParameters));
     } else {
-      if (!myParameters.getReportType().equals(reportType)) {
-        myLogger.error("Report type '" + reportType + "' is illegal");
-      } else {
-        myDirectoryWatcher.addDirectories(reportDirs);
-      }
+      // not expected
     }
   }
 
-  private void startProcessing(List<File> reportDirs) {
-    final LinkedBlockingQueue<File> reportsQueue = new LinkedBlockingQueue<File>();
+  public void processReports(Map<String, String> params, List<File> reportDirs) {
+    myLogger.setVerboseOutput(Boolean.parseBoolean(params.get(TEST_REPORT_PARSING_VERBOSE_OUTPUT)));
+    final boolean wasParsingEnabled = isParsingEnabled(myParameters);
+    final String type = getReportType(params);
+    myParameters.putAll(params);
+    if (!wasParsingEnabled) {
+      startProcessing(reportDirs, type);
+    } else {
+      myDirectoryWatcher.addDirectories(reportDirs, type);
+    }
+  }
 
-    myDirectoryWatcher = new TestReportDirectoryWatcher(this, reportDirs, reportsQueue);
+  private void startProcessing(List<File> reportDirs, String type) {
+    final LinkedBlockingQueue<Pair<String, File>> reportsQueue = new LinkedBlockingQueue<Pair<String, File>>();
+
+    myDirectoryWatcher = new TestReportDirectoryWatcher(this, reportDirs, type, reportsQueue);
     myReportProcessor = new TestReportProcessor(this, reportsQueue, myDirectoryWatcher);
 
     myDirectoryWatcher.start();
     myReportProcessor.start();
   }
 
-  private void obtainLogger(AgentRunningBuild agentRunningBuild) {
-    final BuildProgressLogger logger = agentRunningBuild.getBuildLogger();
-    if (logger instanceof BaseServerLoggerFacade) {
-      myLogger = new TestReportLogger((BaseServerLoggerFacade) logger, myParameters.isVerboseOutput());
-    } else {
-      // not expected
-    }
-  }
-
   //dirs are not supposed to contain ';' in their path, as it is separator
-  private static List<File> getReportDirsFromDirProperty(String dirProperty, final File workingDir) {
+  private static List<File> getReportDirsFromDirProperty(String dirProperty, String workingDir) {
     if (dirProperty == null) {
       return Collections.emptyList();
     }
@@ -118,7 +116,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
     int to = dirProperty.indexOf(separator);
 
     while (to != -1) {
-      dirs.add(FileUtil.resolvePath(workingDir, dirProperty.substring(from, to)));
+      dirs.add(FileUtil.resolvePath(new File(workingDir), dirProperty.substring(from, to)));
       from = to + 1;
       to = dirProperty.indexOf(separator, from);
     }
@@ -128,7 +126,7 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
   public void beforeBuildFinish(@NotNull BuildFinishedStatus buildFinishedStatus) {
     myStopped = true;
 
-    if (!myParameters.isParsingEnabled()) {
+    if (!isParsingEnabled(myParameters)) {
       return;
     }
 
@@ -166,11 +164,31 @@ public class TestReportParserPlugin extends AgentLifeCycleAdapter {
     return myInspectionReporter;
   }
 
-  public TestReportParsingParameters getParameters() {
-    return myParameters;
-  }
-
   public boolean isStopped() {
     return myStopped;
+  }
+
+  public long getBuildStartTime() {
+    return Long.parseLong(myParameters.get(TEST_REPORT_PARSING_BUILD_START));
+  }
+
+  public String getCurrentReportType() {
+    return getReportType(myParameters);
+  }
+
+  public String getTmpDir() {
+    return myParameters.get(TEST_REPORT_PARSING_TMP_DIR);
+  }
+
+  public String getWorkingDir() {
+    return myParameters.get(TEST_REPORT_PARSING_WORKING_DIR);
+  }
+
+  public boolean parseOutOfDate() {
+    return Boolean.parseBoolean(myParameters.get(TEST_REPORT_PARSING_PARSE_OUT_OF_DATE));
+  }
+
+  public Map<String, String> getParameters() {
+    return myParameters;
   }
 }

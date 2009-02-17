@@ -16,12 +16,16 @@
 
 package jetbrains.buildServer.testReportParserPlugin.integration;
 
-import jetbrains.buildServer.agent.*;
+import jetbrains.buildServer.agent.AgentLifeCycleListener;
+import jetbrains.buildServer.agent.AgentRunningBuild;
+import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import jetbrains.buildServer.agent.BuildFinishedStatus;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin;
 import jetbrains.buildServer.testReportParserPlugin.TestReportParserPluginUtil;
 import static jetbrains.buildServer.testReportParserPlugin.TestUtil.*;
 import static jetbrains.buildServer.testReportParserPlugin.TestUtil.WORKING_DIR;
+import jetbrains.buildServer.testReportParserPlugin.XmlReportDataProcessor;
 import static jetbrains.buildServer.testReportParserPlugin.integration.ReportFactory.*;
 import jetbrains.buildServer.util.EventDispatcher;
 import org.jmock.Expectations;
@@ -70,24 +74,24 @@ public class TestReportParserPluginIntegrationTest {
         will(returnValue(workingDirFile));
         allowing(runningBuild).getBuildTempDirectory();
         will(returnValue(workingDirFile));
-        allowing(runningBuild).getBuildParameters();
-        will(returnValue(createBuildParametersMap(myRunnerParams)));
+//        allowing(runningBuild).getBuildParameters();
+//        will(returnValue(createBuildParametersMap(myRunnerParams)));
         ignoring(runningBuild);
       }
     });
     return runningBuild;
   }
 
-  private BuildParametersMap createBuildParametersMap(final Map<String, String> systemProperties) {
-    final BuildParametersMap params = myContext.mock(BuildParametersMap.class);
-    myContext.checking(new Expectations() {
-      {
-        oneOf(params).getSystemProperties();
-        will(returnValue(systemProperties));
-      }
-    });
-    return params;
-  }
+//  private BuildParametersMap createBuildParametersMap(final Map<String, String> systemProperties) {
+//    final BuildParametersMap params = myContext.mock(BuildParametersMap.class);
+//    myContext.checking(new Expectations() {
+//      {
+//        oneOf(params).getSystemProperties();
+//        will(returnValue(systemProperties));
+//      }
+//    });
+//    return params;
+//  }
 
   @Before
   public void setUp() {
@@ -730,6 +734,160 @@ public class TestReportParserPluginIntegrationTest {
       e.printStackTrace();
     }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+
+    myContext.assertIsSatisfied();
+    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+
+    if (myFailures.size() > 0) {
+      throw myFailures.get(0);
+    }
+  }
+
+  @Test
+  public void testParsingFromServiceMessage() {
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, "");
+
+    final List<Object> params = new ArrayList<Object>();
+    params.add(MethodInvokation.ANY_VALUE);
+    myLogSequence.add(new MethodInvokation("message", params));
+
+    final List<Object> param = new ArrayList<Object>();
+    param.add(MethodInvokation.ANY_VALUE);
+    param.add("TestCase1");
+
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", param));
+    myLogSequence.add(new MethodInvokation("logTestStarted", params));
+    myLogSequence.add(new MethodInvokation("logTestFinished", params));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
+    myLogSequence.add(new MethodInvokation("message", params));
+    myLogSequence.add(new MethodInvokation("message", params));
+    myTestLogger.setExpectedSequence(myLogSequence);
+
+    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+
+    createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
+      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+      "  <properties/>\n" +
+      "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
+      "</testsuite>");
+
+    final XmlReportDataProcessor dataProcessor = new XmlReportDataProcessor.JUnitDataProcessor(myPlugin);
+    final Map<String, String> args = new HashMap<String, String>();
+    args.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
+    dataProcessor.processData(new File(WORKING_DIR), args);
+
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+
+    myContext.assertIsSatisfied();
+    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+
+    if (myFailures.size() > 0) {
+      throw myFailures.get(0);
+    }
+  }
+
+  @Test
+  public void testParsingFromServiceMessageSkipOld() {
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, "");
+
+    final List<Object> params = new ArrayList<Object>();
+    params.add(MethodInvokation.ANY_VALUE);
+    myLogSequence.add(new MethodInvokation("message", params));
+    myLogSequence.add(new MethodInvokation("warning", params));
+    myTestLogger.setExpectedSequence(myLogSequence);
+
+    createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
+      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+      "  <properties/>\n" +
+      "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
+      "</testsuite>");
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+
+    final XmlReportDataProcessor dataProcessor = new XmlReportDataProcessor.JUnitDataProcessor(myPlugin);
+    final Map<String, String> args = new HashMap<String, String>();
+    args.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
+    dataProcessor.processData(new File(WORKING_DIR), args);
+
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+
+    myContext.assertIsSatisfied();
+    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+
+    if (myFailures.size() > 0) {
+      throw myFailures.get(0);
+    }
+  }
+
+  @Test
+  public void testParsingFromServiceMessageNotSkipOld() {
+    TestReportParserPluginUtil.enableTestReportParsing(myRunnerParams, "");
+
+    final List<Object> params = new ArrayList<Object>();
+    params.add(MethodInvokation.ANY_VALUE);
+    myLogSequence.add(new MethodInvokation("message", params));
+
+    final List<Object> param = new ArrayList<Object>();
+    param.add(MethodInvokation.ANY_VALUE);
+    param.add("TestCase1");
+
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", param));
+    myLogSequence.add(new MethodInvokation("logTestStarted", params));
+    myLogSequence.add(new MethodInvokation("logTestFinished", params));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
+    myLogSequence.add(new MethodInvokation("message", params));
+    myLogSequence.add(new MethodInvokation("message", params));
+    myTestLogger.setExpectedSequence(myLogSequence);
+
+    createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
+      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+      "  <properties/>\n" +
+      "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
+      "</testsuite>");
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+
+    final XmlReportDataProcessor dataProcessor = new XmlReportDataProcessor.JUnitDataProcessor(myPlugin);
+    final Map<String, String> args = new HashMap<String, String>();
+    args.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
+    args.put(XmlReportDataProcessor.PARSE_OUT_OF_DATE_ARGUMENT, "true");
+    dataProcessor.processData(new File(WORKING_DIR), args);
+
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
 

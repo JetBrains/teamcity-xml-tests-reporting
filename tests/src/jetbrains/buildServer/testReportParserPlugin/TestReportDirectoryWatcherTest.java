@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
+import com.intellij.openapi.util.Pair;
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import org.jmock.Expectations;
@@ -58,7 +59,7 @@ public class TestReportDirectoryWatcherTest {
     return myContext.mock(BaseServerLoggerFacade.class);
   }
 
-  private LinkedBlockingQueue<File> createLinkedBlockingQueue() {
+  private LinkedBlockingQueue<Pair<String, File>> createLinkedBlockingQueue() {
     return myContext.mock(LinkedBlockingQueue.class);
   }
 
@@ -79,7 +80,7 @@ public class TestReportDirectoryWatcherTest {
         never(logger).warning(with(any(String.class)));
       }
     });
-    final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), createLinkedBlockingQueue());
+    final TestReportDirectoryWatcher watcher = new TestReportDirectoryWatcher(createTestReportParserPlugin(), new ArrayList<File>(), "junit", createLinkedBlockingQueue());
     watcher.logDirectoriesTotals();
     myContext.assertIsSatisfied();
   }

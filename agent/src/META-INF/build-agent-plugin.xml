@@ -4,5 +4,13 @@
 <beans default-autowire="constructor" default-lazy-init="false" default-dependency-check="none">
   <bean id="TestReportParserPlugin" class="jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin"
         lazy-init="default" autowire="default" dependency-check="default"/>
-  <bean id="XmlReportDataProcesor" class="jetbrains.buildServer.testReportParserPlugin.XmlReportDataProcessor"/>
+  <!--<bean id="FindBugsDataProcessor" class="jetbrains.buildServer.testReportParserPlugin.dataProcessor.FindBugsDataProcessor"/>-->
+  <bean id="JUnitDataProcessor"
+        class="jetbrains.buildServer.testReportParserPlugin.XmlReportDataProcessor$JUnitDataProcessor"/>
+  <bean id="NUnitDataProcessor"
+        class="jetbrains.buildServer.testReportParserPlugin.XmlReportDataProcessor$NUnitDataProcessor"/>
+  <bean id="SurefireDataProcessor"
+        class="jetbrains.buildServer.testReportParserPlugin.XmlReportDataProcessor$SurefireDataProcessor"/>
+  <bean id="FindBugsDataProcessor"
+        class="jetbrains.buildServer.testReportParserPlugin.XmlReportDataProcessor$FindBugsDataProcessor"/>
 </beans>

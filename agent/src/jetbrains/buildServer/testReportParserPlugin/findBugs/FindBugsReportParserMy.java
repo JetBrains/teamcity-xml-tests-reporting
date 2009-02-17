@@ -359,6 +359,6 @@ public class FindBugsReportParserMy implements TestReportParser {
     return false;
   }
 
-  public void logReportTotals(File report) {
+  public void logReportTotals(File report, Map<String, String> params) {
   }
 }

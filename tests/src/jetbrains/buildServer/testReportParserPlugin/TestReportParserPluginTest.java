@@ -16,7 +16,10 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
-import jetbrains.buildServer.agent.*;
+import jetbrains.buildServer.agent.AgentLifeCycleListener;
+import jetbrains.buildServer.agent.AgentRunningBuild;
+import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import jetbrains.buildServer.agent.BuildFinishedStatus;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import static jetbrains.buildServer.testReportParserPlugin.TestUtil.ANT_JUNIT_REPORT_TYPE;
 import jetbrains.buildServer.util.EventDispatcher;
@@ -53,16 +56,16 @@ public class TestReportParserPluginTest {
     return myContext.mock(InspectionReporter.class);
   }
 
-  private BuildParametersMap createBuildParametersMap(final Map<String, String> systemProperties) {
-    final BuildParametersMap params = myContext.mock(BuildParametersMap.class);
-    myContext.checking(new Expectations() {
-      {
-        oneOf(params).getSystemProperties();
-        will(returnValue(systemProperties));
-      }
-    });
-    return params;
-  }
+//  private BuildParametersMap createBuildParametersMap(final Map<String, String> systemProperties) {
+//    final BuildParametersMap params = myContext.mock(BuildParametersMap.class);
+//    myContext.checking(new Expectations() {
+//      {
+//        oneOf(params).getSystemProperties();
+//        will(returnValue(systemProperties));
+//      }
+//    });
+//    return params;
+//  }
 
   private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams,
                                                     final File workingDirFile) {
@@ -76,9 +79,6 @@ public class TestReportParserPluginTest {
         inSequence(mySequence);
         allowing(runningBuild).getRunnerParameters();
         will(returnValue(runParams));
-        inSequence(mySequence);
-        allowing(runningBuild).getBuildParameters();
-        will(returnValue(createBuildParametersMap(runParams)));
         inSequence(mySequence);
         allowing(runningBuild).getBuildLogger();
         will(returnValue(myLogger));

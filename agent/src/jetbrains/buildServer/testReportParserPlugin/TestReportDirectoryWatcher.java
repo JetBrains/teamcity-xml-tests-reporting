@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.testReportParserPlugin;
 
+import com.intellij.openapi.util.Pair;
 import jetbrains.buildServer.testReportParserPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,19 +30,27 @@ public class TestReportDirectoryWatcher extends Thread {
 
   private final TestReportParserPlugin myPlugin;
 
-  private final LinkedBlockingQueue<File> myReportQueue;
-  private final Set<File> myDirectories;
+  private final LinkedBlockingQueue<Pair<String, File>> myReportQueue;
+  private final Map<String, List<File>> myDirectories;
   private final Map<File, List<File>[]> myActiveDirectories;
 
   public TestReportDirectoryWatcher(@NotNull final TestReportParserPlugin plugin,
                                     @NotNull final List<File> directories,
-                                    @NotNull final LinkedBlockingQueue<File> queue) {
+                                    @NotNull final String type,
+                                    @NotNull final LinkedBlockingQueue<Pair<String, File>> queue) {
     super("xml-report-plugin-DirectoryWatcher");
 
     myPlugin = plugin;
-    myDirectories = new LinkedHashSet<File>(directories);
+    myDirectories = new LinkedHashMap<String, List<File>>();
     myReportQueue = queue;
     myActiveDirectories = new HashMap<File, List<File>[]>();
+
+    if (!TestReportParserPluginUtil.SUPPORTED_REPORT_TYPES.containsKey(type)) {
+      myPlugin.getLogger().error("Illegal report type value specified");
+      return;
+    }
+    myDirectories.put(type, directories);
+
   }
 
   public void run() {
@@ -57,47 +66,57 @@ public class TestReportDirectoryWatcher extends Thread {
     scanDirectories();
   }
 
-  public synchronized void addDirectories(List<File> directories) {
-    myDirectories.addAll(directories);
+  public synchronized void addDirectories(List<File> directories, String type) {
+    if (!TestReportParserPluginUtil.SUPPORTED_REPORT_TYPES.containsKey(type)) {
+      myPlugin.getLogger().error("Illegal report type value specified");
+      return;
+    }
+    if (!myDirectories.containsKey(type)) {
+      myDirectories.put(type, directories);
+    } else {
+      myDirectories.get(type).addAll(directories);
+    }
   }
 
   private synchronized void scanDirectories() {
-    for (File dir : myDirectories) {
-      if (dir.isDirectory()) {
-        final File[] files = dir.listFiles();
-        if ((files == null) || (files.length == 0)) continue;
+    for (String type : myDirectories.keySet()) {
+      for (File dir : myDirectories.get(type)) {
+        if (dir.isDirectory()) {
+          final File[] files = dir.listFiles();
+          if ((files == null) || (files.length == 0)) continue;
 
-        final List<File>[] processedFiles;
+          final List<File>[] processedFiles;
 
-        if (!myActiveDirectories.containsKey(dir)) {
-          processedFiles = new List[2];
-          processedFiles[0] = new ArrayList<File>();
-          processedFiles[1] = new ArrayList<File>();
-        } else {
-          processedFiles = myActiveDirectories.get(dir);
-        }
-
-        for (final File report : files) {
-          if (!isFileOk(report)) {
-            if (!processedFiles[1].contains(report)) {
-              processedFiles[1].add(report);
-            }
-            continue;
+          if (!myActiveDirectories.containsKey(dir)) {
+            processedFiles = new List[2];
+            processedFiles[0] = new ArrayList<File>();
+            processedFiles[1] = new ArrayList<File>();
+          } else {
+            processedFiles = myActiveDirectories.get(dir);
           }
 
-          if (!processedFiles[0].contains(report)) {
-            processedFiles[0].add(report);
-            processedFiles[1].remove(report);
+          for (final File report : files) {
+            if (!isFileOk(report)) {
+              if (!processedFiles[1].contains(report)) {
+                processedFiles[1].add(report);
+              }
+              continue;
+            }
 
-            try {
-              myReportQueue.put(report);
-            } catch (InterruptedException e) {
-              myPlugin.getLogger().debugToAgentLog("Directory watcher thread interrupted");
+            if (!processedFiles[0].contains(report)) {
+              processedFiles[0].add(report);
+              processedFiles[1].remove(report);
+
+              try {
+                myReportQueue.put(new Pair<String, File>(type, report));
+              } catch (InterruptedException e) {
+                myPlugin.getLogger().debugToAgentLog("Directory watcher thread interrupted");
+              }
             }
           }
-        }
-        if ((processedFiles[0].size() > 0) || (processedFiles[1].size() > 0)) {
-          myActiveDirectories.put(dir, processedFiles);
+          if ((processedFiles[0].size() > 0) || (processedFiles[1].size() > 0)) {
+            myActiveDirectories.put(dir, processedFiles);
+          }
         }
       }
     }
@@ -108,14 +127,16 @@ public class TestReportDirectoryWatcher extends Thread {
   }
 
   private boolean timeConstraintsSatisfied(File file) {
-    return myPlugin.getParameters().isParseOutOfDateFiles()
-      || (file.lastModified() >= myPlugin.getParameters().getBuildStartTime());
+    return myPlugin.parseOutOfDate()
+      || (file.lastModified() >= myPlugin.getBuildStartTime());
   }
 
   public void logDirectoriesTotals() {
     if (myDirectories.isEmpty()) return;
-    for (File dir : myDirectories) {
-      logDirectoryTotals(dir);
+    for (String type : myDirectories.keySet()) {
+      for (File dir : myDirectories.get(type)) {
+        logDirectoryTotals(dir);
+      }
     }
   }
 
@@ -156,7 +177,7 @@ public class TestReportDirectoryWatcher extends Thread {
         myPlugin.getLogger().warning(file.getPath() + ": unable to read file");
         continue;
       }
-      if (file.lastModified() < myPlugin.getParameters().getBuildStartTime()) {
+      if (file.lastModified() < myPlugin.getBuildStartTime()) {
         myPlugin.getLogger().warning(file.getPath() + " file has modification date preceding build start time");
       }
     }

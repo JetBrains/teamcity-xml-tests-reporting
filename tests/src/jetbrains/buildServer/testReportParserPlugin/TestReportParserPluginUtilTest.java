@@ -38,13 +38,13 @@ public class TestReportParserPluginUtilTest {
 
   @Test
   public void testIsEnabledOnEmptyParams() {
-    assertFalse("Test report parsing must be disabled", isTestReportParsingEnabled(myRunParams));
+    assertFalse("Test report parsing must be disabled", isParsingEnabled(myRunParams));
   }
 
   @Test
   public void testIsEnabledAfterPuttingTrueToParams() {
     myRunParams.put(TEST_REPORT_PARSING_REPORT_TYPE, TRUE);
-    assertTrue("Test report parsing must be enabled", isTestReportParsingEnabled(myRunParams));
+    assertTrue("Test report parsing must be enabled", isParsingEnabled(myRunParams));
   }
 
   @Test
@@ -63,13 +63,13 @@ public class TestReportParserPluginUtilTest {
   @Test
   public void testIsEnabledAfterEnabling() {
     enableTestReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
-    assertTrue("Test report parsing must be enabled", isTestReportParsingEnabled(myRunParams));
+    assertTrue("Test report parsing must be enabled", isParsingEnabled(myRunParams));
   }
 
   @Test
   public void testIsEnabledAfterDisabling() {
     enableTestReportParsing(myRunParams, EMPTY_REPORT_TYPE);
-    assertFalse("Test report parsing must be disabled", isTestReportParsingEnabled(myRunParams));
+    assertFalse("Test report parsing must be disabled", isParsingEnabled(myRunParams));
   }
 
   @Test

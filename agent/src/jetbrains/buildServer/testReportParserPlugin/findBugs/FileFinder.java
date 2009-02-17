@@ -111,6 +111,18 @@ public class FileFinder {
         }
       }
       return null;
+//        try {
+//          myArchive.close();
+//        } catch (IOException e) {
+//        }
+    }
+
+    public void finalize() {
+      try {
+        myArchive.close();
+        super.finalize();
+      } catch (Throwable throwable) {
+      }
     }
   }
 

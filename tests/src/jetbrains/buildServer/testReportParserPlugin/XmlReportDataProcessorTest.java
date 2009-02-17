@@ -17,17 +17,16 @@
 package jetbrains.buildServer.testReportParserPlugin;
 
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
-import jetbrains.buildServer.agent.AgentRunningBuild;
-import jetbrains.buildServer.agent.SimpleBuildLogger;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
-import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
+import org.junit.Test;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +36,7 @@ public class XmlReportDataProcessorTest extends TestCase {
 
   private static String getTestDataPath(final String fileName) {
     File file = new File("tests/testData/dataProcessor/" + fileName);
-    return file.getAbsolutePath();
+    return file.getPath();
   }
 
   static private String readFile(@NotNull final File file) throws IOException {
@@ -62,15 +61,15 @@ public class XmlReportDataProcessorTest extends TestCase {
   private void runTest(Map<String, String> arguments, String fileName) throws Exception {
     final String prefix = getTestDataPath(fileName);
     final String resultsFile = prefix + ".tmp";
-    final String expectedFile = prefix + ".exp";
+    final String expectedFile = prefix + ".gold";
 
     new File(resultsFile).delete();
 
     final StringBuilder results = new StringBuilder();
     final TestReportParserPlugin plugin = createFakePlugin(results);
 
-    XmlReportDataProcessor processor = new XmlReportDataProcessor(plugin);
-    processor.processData(new File("file"), arguments);
+    final XmlReportDataProcessor processor = new XmlReportDataProcessor.JUnitDataProcessor(plugin);
+    processor.processData(new File(getTestDataPath("Report.xml")), arguments);
 
     final File expected = new File(expectedFile);
     if (!readFile(expected).equals(results.toString())) {
@@ -85,45 +84,36 @@ public class XmlReportDataProcessorTest extends TestCase {
   private TestReportParserPlugin createFakePlugin(final StringBuilder results) {
     final EventDispatcher dispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
     final InspectionReporter reporter = myContext.mock(InspectionReporter.class);
-    final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
-    final SimpleBuildLogger logger = new BuildLoggerForTesting(results);
-
-    myContext.checking(new Expectations() {
-      {
-        allowing(runningBuild).getBuildLogger();
-        will(returnValue(logger));
-        ignoring(runningBuild);
-      }
-    });
-
-    final TestReportParsingParameters parameters = new TestReportParsingParametersForTesting(runningBuild);
     return new TestReportParserPlugin(dispatcher, reporter) {
-      public void processReports(String reportType, List<File> reportDirs) {
-        results.append("TestReportParserPlugin: PROCESSING STARTED");
-      }
-
-      public TestReportParsingParameters getParameters() {
-        return parameters;
-      }
-
-      public StringBuilder getText() {
-        return results.append(((TestReportParsingParametersForTesting) getParameters()).getImportantParametersString());
+      public void processReports(Map<String, String> params, List<File> reportDirs) {
+        for (String key : params.keySet()) {
+          results.append("<").append(key).append(", ").append(params.get(key)).append(">\n");
+        }
+        for (File f : reportDirs) {
+          results.append(f.getPath()).append("\n");
+        }
       }
     };
   }
 
-  private static class TestReportParsingParametersForTesting extends TestReportParsingParameters {
-    public TestReportParsingParametersForTesting(@NotNull AgentRunningBuild build) {
-      super(build);
-    }
 
-    public String getImportantParametersString() {
-      return "<REPORT_TYPE=" + this.getReportType() + " PARSING_ENABLED=" + this.isParsingEnabled() +
-        " VEROSE=" + this.isVerboseOutput() + " PARSE_OLD=" + this.isParseOutOfDateFiles() + ">\n";
-    }
+  @Test
+  public void testDefault() throws Exception {
+    Map<String, String> arguments = new HashMap<String, String>();
+    runTest(arguments, "default");
   }
 
-  public void testEmpty() throws Exception {
-//    runTest(new HashMap<String, String>(), "empty.xml");
+  @Test
+  public void testVerbose() throws Exception {
+    Map<String, String> arguments = new HashMap<String, String>();
+    arguments.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
+    runTest(arguments, "verbose");
+  }
+
+  @Test
+  public void testOutOfDate() throws Exception {
+    Map<String, String> arguments = new HashMap<String, String>();
+    arguments.put(XmlReportDataProcessor.PARSE_OUT_OF_DATE_ARGUMENT, "true");
+    runTest(arguments, "outOfDate");
   }
 }

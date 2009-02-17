@@ -25,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 
 public class FindBugsReportParserText implements TestReportParser {
@@ -483,6 +484,6 @@ public class FindBugsReportParserText implements TestReportParser {
     return false;
   }
 
-  public void logReportTotals(File report) {
+  public void logReportTotals(File report, Map<String, String> params) {
   }
 }

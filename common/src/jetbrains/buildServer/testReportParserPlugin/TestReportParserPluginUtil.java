@@ -35,9 +35,14 @@ public class TestReportParserPluginUtil {
   public static final String TEST_REPORT_PARSING_REPORT_TYPE = "testReportParsing.reportType";
   public static final String TEST_REPORT_PARSING_REPORT_DIRS = "testReportParsing.reportDirs";
   public static final String TEST_REPORT_PARSING_VERBOSE_OUTPUT = "testReportParsing.verboseOutput";
-  public static final String TEST_REPORT_PARSING_PARSE_OUT_OF_DATE = "system.teamcity.xml.tests.reporting.parse.outofdate.reports";
+  public static final String TEST_REPORT_PARSING_PARSE_OUT_OF_DATE = "testReportParsing.parse.outofdate";
+  public static final String TEST_REPORT_PARSING_BUILD_START = "testReportParsing.buildStart";
+  public static final String TEST_REPORT_PARSING_WORKING_DIR = "testReportParsing.workingDir";
+  public static final String TEST_REPORT_PARSING_TMP_DIR = "testReportParsing.tmpDir";
+  public static final String TEST_REPORT_PARSING_MAX_ERRORS = "testReportParsing.max.errors";
+  public static final String TEST_REPORT_PARSING_MAX_WARNINGS = "testReportParsing.max.warnings";
 
-  public static boolean isTestReportParsingEnabled(@NotNull final Map<String, String> runParams) {
+  public static boolean isParsingEnabled(@NotNull final Map<String, String> runParams) {
     return runParams.containsKey(TEST_REPORT_PARSING_REPORT_TYPE) &&
       !runParams.get(TEST_REPORT_PARSING_REPORT_TYPE).equals("");
   }
@@ -55,13 +60,14 @@ public class TestReportParserPluginUtil {
       runParams.remove(TEST_REPORT_PARSING_REPORT_TYPE);
       runParams.remove(TEST_REPORT_PARSING_REPORT_DIRS);
       runParams.remove(TEST_REPORT_PARSING_VERBOSE_OUTPUT);
+      runParams.remove(TEST_REPORT_PARSING_PARSE_OUT_OF_DATE);
     } else {
       runParams.put(TEST_REPORT_PARSING_REPORT_TYPE, reportType);
     }
   }
 
   public static void setVerboseOutput(@NotNull final Map<String, String> runParams, boolean verboseOutput) {
-    if (isTestReportParsingEnabled(runParams)) {
+    if (isParsingEnabled(runParams)) {
       if (verboseOutput) {
         runParams.put(TEST_REPORT_PARSING_VERBOSE_OUTPUT, "true");
       } else {
@@ -79,7 +85,7 @@ public class TestReportParserPluginUtil {
   }
 
   public static void setTestReportDirs(@NotNull final Map<String, String> runParams, String reportDirs) {
-    if (isTestReportParsingEnabled(runParams)) {
+    if (isParsingEnabled(runParams)) {
       runParams.put(TEST_REPORT_PARSING_REPORT_DIRS, reportDirs);
     }
   }
@@ -90,5 +96,45 @@ public class TestReportParserPluginUtil {
 
   public static String getReportType(@NotNull final Map<String, String> runParams) {
     return runParams.get(TEST_REPORT_PARSING_REPORT_TYPE);
+  }
+
+  public static void setReportType(@NotNull final Map<String, String> runParams, String type) {
+    if (isParsingEnabled(runParams)) {
+      runParams.put(TEST_REPORT_PARSING_REPORT_TYPE, type);
+    }
+  }
+
+  public static int getMaxErrors(@NotNull final Map<String, String> runParams) {
+    if (runParams.containsKey(TEST_REPORT_PARSING_MAX_ERRORS)) {
+      try {
+        return Integer.parseInt(runParams.get(TEST_REPORT_PARSING_MAX_ERRORS));
+      } catch (NumberFormatException e) {
+        return -1;
+      }
+    }
+    return -1;
+  }
+
+  public static void setMaxErrors(@NotNull final Map<String, String> runParams, int maxErrors) {
+    if (isParsingEnabled(runParams)) {
+      runParams.put(TEST_REPORT_PARSING_MAX_ERRORS, "" + maxErrors);
+    }
+  }
+
+  public static int getMaxWarnings(@NotNull final Map<String, String> runParams) {
+    if (runParams.containsKey(TEST_REPORT_PARSING_MAX_WARNINGS)) {
+      try {
+        return Integer.parseInt(runParams.get(TEST_REPORT_PARSING_MAX_WARNINGS));
+      } catch (NumberFormatException e) {
+        return -1;
+      }
+    }
+    return -1;
+  }
+
+  public static void setMaxWarnings(@NotNull final Map<String, String> runParams, int maxWarnings) {
+    if (isParsingEnabled(runParams)) {
+      runParams.put(TEST_REPORT_PARSING_MAX_WARNINGS, "" + maxWarnings);
+    }
   }
 }
