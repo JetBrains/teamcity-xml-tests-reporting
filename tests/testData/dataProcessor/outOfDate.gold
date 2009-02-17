@@ -1,0 +1,4 @@
+<testReportParsing.parse.outofdate, true>
+<testReportParsing.verboseOutput, false>
+<testReportParsing.reportType, junit>
+tests\testData\dataProcessor\Report.xml
