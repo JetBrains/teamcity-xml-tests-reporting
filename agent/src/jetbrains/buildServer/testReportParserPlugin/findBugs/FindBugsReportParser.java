@@ -60,6 +60,7 @@ public class FindBugsReportParser implements TestReportParser {
 
   public void parse(@NotNull File file) {
     myInspectionReporter.markBuildAsInspectionsBuild();
+    final FileFinder fileFinder = new FileFinder();
     try {
       FindBugsCategories.loadCategories(myLogger, this.getClass().getResourceAsStream("categories.xml"));
       FindBugsPatterns.loadPatterns(myLogger, this.getClass().getResourceAsStream("patterns.xml"));
@@ -68,7 +69,6 @@ public class FindBugsReportParser implements TestReportParser {
       Project project = new Project();
       collection.readXML(file, project);
       Collection<BugInstance> bugs = collection.getCollection();
-      FileFinder fileFinder = new FileFinder();
 
 //      stupid action for preventing \n and Co symbols
       List<String> files = new ArrayList<String>();
@@ -86,8 +86,7 @@ public class FindBugsReportParser implements TestReportParser {
       for (BugInstance warning : bugs) {
         switch (warning.getPriority()) {
           case 1:
-//                  ++myErrors;
-            ++myWarnings;
+            ++myErrors;
             break;
           case 2:
             ++myWarnings;
@@ -96,7 +95,7 @@ public class FindBugsReportParser implements TestReportParser {
             ++myWarnings;
         }
 
-        SourceLineAnnotation sourceLine = warning.getPrimarySourceLineAnnotation();
+        final SourceLineAnnotation sourceLine = warning.getPrimarySourceLineAnnotation();
         InspectionInstance instance = new InspectionInstance();
         int line = sourceLine.getStartLine();
         if (line < 0) {
@@ -136,6 +135,9 @@ public class FindBugsReportParser implements TestReportParser {
     } catch (Exception e) {
       myLogger.exception(e);
     } finally {
+      if (fileFinder != null) {
+        fileFinder.close();
+      }
       myInspectionReporter.flush();
     }
   }
@@ -170,11 +172,11 @@ public class FindBugsReportParser implements TestReportParser {
   public void logReportTotals(File report, Map<String, String> parameters) {
     boolean limitReached = false;
 
-//    final int errorLimit = TestReportParserPluginUtil.getMaxErrors(parameters);
-//    if ((errorLimit != -1) && (myErrors > errorLimit)) {
-//      myLogger.error("Errors limit reached: found " + myErrors + " errors, limit " + errorLimit);
-//      limitReached = true;
-//    }
+    final int errorLimit = TestReportParserPluginUtil.getMaxErrors(parameters);
+    if ((errorLimit != -1) && (myErrors > errorLimit)) {
+      myLogger.error("Errors limit reached: found " + myErrors + " errors, limit " + errorLimit);
+      limitReached = true;
+    }
 
     final int warningLimit = TestReportParserPluginUtil.getMaxWarnings(parameters);
     if ((warningLimit != -1) && (myWarnings > warningLimit)) {

@@ -46,6 +46,12 @@ public class FileFinder {
     return "";
   }
 
+  public void close() {
+    for (Entry jar : myJars) {
+      jar.close();
+    }
+  }
+
   private static String getOSPath(String path) {
     return path.replace("\\", File.separator).replace("/", File.separator);
   }
@@ -54,11 +60,16 @@ public class FileFinder {
     return path.replace("\\", separator).replace("/", separator);
   }
 
-  private static interface Entry {
-    String getFilePath(String fileName);
+  private static abstract class Entry {
+    public abstract String getFilePath(String fileName);
+
+    public void close() {
+    }
+
+    ;
   }
 
-  private static class DirectoryEntry implements Entry {
+  private static class DirectoryEntry extends Entry {
     private final String myRoot;
 
     public DirectoryEntry(String root) {
@@ -95,7 +106,7 @@ public class FileFinder {
     }
   }
 
-  private static class ArchiveEntry implements Entry {
+  private static class ArchiveEntry extends Entry {
     private final ZipFile myArchive;
 
     public ArchiveEntry(ZipFile archive) {
@@ -103,11 +114,18 @@ public class FileFinder {
     }
 
     public String getFilePath(String fileName) {
-      final Enumeration<? extends ZipEntry> e = myArchive.entries();
-      while (e.hasMoreElements()) {
+//      final Enumeration<? extends ZipEntry> e = myArchive.entries();
+//      while (e.hasMoreElements()) {
+//        final String entry = e.nextElement().getName();
+//        if (entry.endsWith(getDependentPath(fileName, "/"))) {
+//          return myArchive.getName() + File.separator + getOSPath(entry);
+//        }
+//      }
+      for (Enumeration<? extends ZipEntry> e = myArchive.entries(); e.hasMoreElements();) {
         final String entry = e.nextElement().getName();
         if (entry.endsWith(getDependentPath(fileName, "/"))) {
-          return myArchive.getName() + File.separator + getOSPath(entry);
+          final String path = myArchive.getName() + File.separator + getOSPath(entry);
+          return path;
         }
       }
       return null;
@@ -117,16 +135,16 @@ public class FileFinder {
 //        }
     }
 
-    public void finalize() {
+    public void close() {
       try {
         myArchive.close();
-        super.finalize();
-      } catch (Throwable throwable) {
+      } catch (IOException e) {
+        //TODO: log somehow
       }
     }
   }
 
-  private static class ClassEntry implements Entry {
+  private static class ClassEntry extends Entry {
     private final String myFile;
 
     public ClassEntry(String file) {

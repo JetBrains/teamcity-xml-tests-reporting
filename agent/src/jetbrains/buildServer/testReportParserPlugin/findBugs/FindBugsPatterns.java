@@ -16,35 +16,37 @@
 package jetbrains.buildServer.testReportParserPlugin.findBugs;
 
 import jetbrains.buildServer.agent.SimpleBuildLogger;
-import org.jdom.Element;
-import org.jdom.input.SAXBuilder;
+import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
+import org.xml.sax.helpers.XMLReaderFactory;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
 public class FindBugsPatterns {
   public static final Map<String, Pattern> BUG_PATTERNS = new HashMap<String, Pattern>();
 
-  public static void loadPatterns(SimpleBuildLogger logger, InputStream is) {
+  public static void loadPatterns(SimpleBuildLogger logger, InputStream resource) {
     try {
-      final Element root = new SAXBuilder().build(is).getRootElement();
+      XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+      xmlReader.setContentHandler(new Handler());
+      xmlReader.setFeature("http://xml.org/sax/features/validation", false);
 
-      List categories = root.getChildren("BugPattern");
-
-      for (Object o : categories) {
-        final Element p = (Element) o;
-        BUG_PATTERNS.put(p.getAttributeValue("type"),
-          new Pattern(p.getAttributeValue("name"), p.getAttributeValue("category"),
-            FindBugsReportParserMy.formatText(p.getText())));
-      }
+      xmlReader.parse(new InputSource(resource));
     } catch (Exception e) {
-      //TODO: remove looger from parameters
-//      logger.error("Couldn't load petterns from file " + is.getPath() + ", exception occured: " + e);
-      logger.exception(e);
       e.printStackTrace();
+    } finally {
+      try {
+        resource.close();
+      } catch (IOException e) {
+        logger.exception(e);
+      }
     }
   }
 
@@ -53,26 +55,61 @@ public class FindBugsPatterns {
   }
 
   public static String getName(String id) {
-    return BUG_PATTERNS.get(id).NAME;
+    return BUG_PATTERNS.get(id).myName;
   }
 
   public static String getCategory(String id) {
-    return BUG_PATTERNS.get(id).CATEGORY;
+    return BUG_PATTERNS.get(id).myCategory;
   }
 
   public static String getDescription(String id) {
-    return BUG_PATTERNS.get(id).DESCRIPTION;
+    return BUG_PATTERNS.get(id).myDescription;
+  }
+
+  private static final class Handler extends DefaultHandler {
+    public static final String BUG_PATTERN = "BugPattern";
+
+    private String myCurrentType;
+    private Pattern myCurrentPattern;
+    private StringBuffer myCData;
+
+    public void startElement(String uri, String localName,
+                             String qName, Attributes attributes)
+      throws SAXException {
+      if (BUG_PATTERN.equals(localName)) {
+        myCurrentType = attributes.getValue("type");
+        myCurrentPattern = new Pattern(attributes.getValue("name"), attributes.getValue("category"));
+        myCData = new StringBuffer();
+      }
+    }
+
+    public void endElement(String uri, String localName, String qName) throws SAXException {
+      if (BUG_PATTERN.equals(localName)) {
+        myCurrentPattern.setDescription(myCData.toString().trim());
+        BUG_PATTERNS.put(myCurrentType, myCurrentPattern);
+        myCData = null;
+      }
+    }
+
+    public void characters(char ch[], int start, int length) throws SAXException {
+      if (myCData != null) {
+        myCData.append(ch, start, length);
+      }
+    }
   }
 
   private static final class Pattern {
-    public final String NAME;
-    public final String CATEGORY;
-    public final String DESCRIPTION;
+    private final String myName;
+    private final String myCategory;
+    private String myDescription;
 
-    private Pattern(String name, String category, String description) {
-      this.NAME = name;
-      this.CATEGORY = category;
-      this.DESCRIPTION = description;
+    public Pattern(String name, String category) {
+      this.myName = name;
+      this.myCategory = category;
+    }
+
+    public void setDescription(String description) {
+      myDescription = description;
     }
   }
 }

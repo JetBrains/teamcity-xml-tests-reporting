@@ -116,4 +116,18 @@ public class XmlReportDataProcessorTest extends TestCase {
     arguments.put(XmlReportDataProcessor.PARSE_OUT_OF_DATE_ARGUMENT, "true");
     runTest(arguments, "outOfDate");
   }
+
+  @Test
+  public void testErrorsLimit() throws Exception {
+    Map<String, String> arguments = new HashMap<String, String>();
+    arguments.put(XmlReportDataProcessor.ERRORS_LIMIT_ARGUMENT, "10");
+    runTest(arguments, "errorsLimit");
+  }
+
+  @Test
+  public void testWarningsLimit() throws Exception {
+    Map<String, String> arguments = new HashMap<String, String>();
+    arguments.put(XmlReportDataProcessor.WARNINGS_LIMIT_ARGUMENT, "10");
+    runTest(arguments, "warningsLimit");
+  }
 }

@@ -49,6 +49,13 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
     }
     params.put(TestReportParserPluginUtil.TEST_REPORT_PARSING_PARSE_OUT_OF_DATE, parseOutOfDate);
 
+    if (arguments.containsKey(ERRORS_LIMIT_ARGUMENT)) {
+      params.put(TestReportParserPluginUtil.TEST_REPORT_PARSING_MAX_ERRORS, arguments.get(ERRORS_LIMIT_ARGUMENT));
+    }
+    if (arguments.containsKey(WARNINGS_LIMIT_ARGUMENT)) {
+      params.put(TestReportParserPluginUtil.TEST_REPORT_PARSING_MAX_WARNINGS, arguments.get(WARNINGS_LIMIT_ARGUMENT));
+    }
+
     final List<File> reportDirs = new ArrayList<File>();
     reportDirs.add(file);
 

@@ -36,4 +36,31 @@
       </c:otherwise>
     </c:choose>
   </div>
+
+  <c:if test="${propertiesBean.properties['testReportParsing.reportType'] == 'findBugs'}">
+    <div class="parameter">
+      Maximum error limit:
+      <c:choose>
+        <c:when test="${not empty propertiesBean.properties['testReportParsing.max.errors']}">
+          <props:displayValue name="testReportParsing.max.errors"
+                              emptyValue="none specified"/>
+        </c:when>
+        <c:otherwise>
+          <strong>no limit</strong>
+        </c:otherwise>
+      </c:choose>
+    </div>
+    <div class="parameter">
+      Warnings limit:
+      <c:choose>
+        <c:when test="${not empty propertiesBean.properties['testReportParsing.max.warnings']}">
+          <props:displayValue name="testReportParsing.max.warnings"
+                              emptyValue="none specified"/>
+        </c:when>
+        <c:otherwise>
+          <strong>no limit</strong>
+        </c:otherwise>
+      </c:choose>
+    </div>
+  </c:if>
 </c:if>

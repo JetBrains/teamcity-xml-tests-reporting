@@ -229,7 +229,7 @@ public class FindBugsReportParserMy implements TestReportParser {
         type.setId(id);
         type.setName(FindBugsPatterns.getName(id));
         type.setCategory(FindBugsCategories.getName(FindBugsPatterns.getCategory(id)));
-        type.setDescription(FindBugsPatterns.getDescription(id));
+        type.setDescription(FindBugsCategories.getDescription(FindBugsPatterns.getCategory(id)));
 
         myInspectionReporter.reportInspectionType(type);
         myReportedInstanceTypes.add(id);

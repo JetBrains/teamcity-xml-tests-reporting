@@ -38,7 +38,7 @@ public class ReportTypeForm extends RememberState {
     myAvailableReportTypes.add(new ReportTypeInfo("junit", "Ant JUnit reports"));
     myAvailableReportTypes.add(new ReportTypeInfo("nunit", "NUnit reports"));
     myAvailableReportTypes.add(new ReportTypeInfo("surefire", "Surefire reports"));
-//    myAvailableReportTypes.add(new ReportTypeInfo("findBugs", "FindBugs reports"));
+    myAvailableReportTypes.add(new ReportTypeInfo("findBugs", "FindBugs reports"));
   }
 
   public List<ReportTypeInfo> getAvailableReportTypes() {

@@ -28,6 +28,13 @@
         }
         $('testReportParsing.reportDirs.container').disabled = (selectedValue == '');
         $('testReportParsing.verboseOutput.container').disabled = (selectedValue == '');
+        if (selectedValue == 'findBugs') {
+        $('testReportParsing.max.errors.container').style.display = '';
+        $('testReportParsing.max.warnings.container').style.display = '';
+        } else {
+        $('testReportParsing.max.errors.container').style.display = 'none';
+        $('testReportParsing.max.warnings.container').style.display = 'none';
+        }
       </c:set>
       <props:selectProperty name="testReportParsing.reportType"
                             onchange="${onchange}">
@@ -67,16 +74,16 @@
     </td>
   </tr>
 
-  <%--<tr id="testReportParsing.verboseOutput.container" style="${displayFindBugsSettings ? '' : 'display: none;'}">--%>
-  <%--<th><label for="testReportParsing.max.errors">Maximum error limit:</label></th>--%>
-  <%--<td><props:textProperty name="testReportParsing.max.errors" style="width:6em;" maxlength="12"/>--%>
-  <%--<!--<span class="error" id="error_fxcop.fail.error.limit"></span>-->--%>
-  <%--<span class="smallNote">Fail the build if the specified number of errors is exceeded.</span>--%>
-  <%--</td>--%>
-  <%--</tr>--%>
+  <tr id="testReportParsing.max.errors.container" style="${displayFindBugsSettings ? '' : 'display: none;'}">
+    <th><label for="testReportParsing.max.errors">Maximum error limit:</label></th>
+    <td><props:textProperty name="testReportParsing.max.errors" style="width:6em;" maxlength="12"/>
+      <!--<span class="error" id="error_fxcop.fail.error.limit"></span>-->
+      <span class="smallNote">Fail the build if the specified number of errors is exceeded.</span>
+    </td>
+  </tr>
 
 
-  <tr id="testReportParsing.verboseOutput.container" style="${displayFindBugsSettings ? '' : 'display: none;'}">
+  <tr id="testReportParsing.max.warnings.container" style="${displayFindBugsSettings ? '' : 'display: none;'}">
     <th class="noBorder"><label for="testReportParsing.max.warnings">Warnings limit:</label></th>
     <td class="noBorder"><props:textProperty name="testReportParsing.max.warnings" style="width:6em;" maxlength="12"/>
       <!--<span class="error" id="error_fxcop.fail.warning.limit"></span>-->
