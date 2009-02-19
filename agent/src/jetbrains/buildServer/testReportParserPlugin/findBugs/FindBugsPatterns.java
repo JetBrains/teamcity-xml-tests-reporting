@@ -85,7 +85,7 @@ public class FindBugsPatterns {
 
     public void endElement(String uri, String localName, String qName) throws SAXException {
       if (BUG_PATTERN.equals(localName)) {
-        myCurrentPattern.setDescription(myCData.toString().trim());
+        myCurrentPattern.setDescription(FindBugsReportParser.formatText(myCData.toString()));
         BUG_PATTERNS.put(myCurrentType, myCurrentPattern);
         myCData = null;
       }

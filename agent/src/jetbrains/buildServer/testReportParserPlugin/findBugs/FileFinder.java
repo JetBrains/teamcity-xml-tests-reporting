@@ -18,18 +18,22 @@ public class FileFinder {
 
   public void addJars(List<String> jars) {
     for (String jar : jars) {
-      if (jar.endsWith(".zip") || jar.endsWith(".jar")) {
-        try {
-          myJars.add(new ArchiveEntry(new ZipFile(jar)));
-        } catch (IOException e) {
-          //Ignored
-          //TODO: log about this
-        }
-      } else if (jar.endsWith(".class")) {
-        myJars.add(new ClassEntry(jar));
-      } else {
-        myJars.add(new DirectoryEntry(jar));
+      addJar(jar);
+    }
+  }
+
+  public void addJar(String jar) {
+    if (jar.endsWith(".zip") || jar.endsWith(".jar")) {
+      try {
+        myJars.add(new ArchiveEntry(new ZipFile(jar)));
+      } catch (IOException e) {
+        //Ignored
+        //TODO: log about this
       }
+    } else if (jar.endsWith(".class")) {
+      myJars.add(new ClassEntry(jar));
+    } else {
+      myJars.add(new DirectoryEntry(jar));
     }
   }
 

@@ -81,7 +81,7 @@ public class FindBugsCategories {
 
     public void endElement(String uri, String localName, String qName) throws SAXException {
       if (CATEGORY.equals(localName)) {
-        myCurrentCategory.setDescription(myCData.toString().trim());
+        myCurrentCategory.setDescription(FindBugsReportParser.formatText(myCData.toString()));
         CATEGORIES.put(myCurrentType, myCurrentCategory);
         myCData = null;
       }
