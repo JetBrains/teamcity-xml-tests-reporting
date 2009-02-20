@@ -2,15 +2,15 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans default-autowire="constructor" default-lazy-init="false" default-dependency-check="none">
-  <bean id="TestReportParserPlugin" class="jetbrains.buildServer.testReportParserPlugin.TestReportParserPlugin"
+  <bean id="TestReportParserPlugin" class="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin"
         lazy-init="default" autowire="default" dependency-check="default"/>
-  <!--<bean id="FindBugsDataProcessor" class="jetbrains.buildServer.testReportParserPlugin.dataProcessor.FindBugsDataProcessor"/>-->
+  <!--<bean id="FindBugsDataProcessor" class="jetbrains.buildServer.xmlReportPluginocessor.FindBugsDataProcessor"/>-->
   <bean id="JUnitDataProcessor"
-        class="jetbrains.buildServer.testReportParserPlugin.XmlReportDataProcessor$JUnitDataProcessor"/>
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$JUnitDataProcessor"/>
   <bean id="NUnitDataProcessor"
-        class="jetbrains.buildServer.testReportParserPlugin.XmlReportDataProcessor$NUnitDataProcessor"/>
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$NUnitDataProcessor"/>
   <bean id="SurefireDataProcessor"
-        class="jetbrains.buildServer.testReportParserPlugin.XmlReportDataProcessor$SurefireDataProcessor"/>
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$SurefireDataProcessor"/>
   <bean id="FindBugsDataProcessor"
-        class="jetbrains.buildServer.testReportParserPlugin.XmlReportDataProcessor$FindBugsDataProcessor"/>
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$FindBugsDataProcessor"/>
 </beans>
