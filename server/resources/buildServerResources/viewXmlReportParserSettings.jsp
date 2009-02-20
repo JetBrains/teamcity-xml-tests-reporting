@@ -5,7 +5,7 @@
 <div class="parameter">
   Test report monitoring:
   <c:choose>
-    <c:when test="${empty propertiesBean.properties['testReportParsing.reportType']}">
+    <c:when test="${empty propertiesBean.properties['xmlReportParsing.reportType']}">
       <strong>disabled</strong>
     </c:when>
     <c:otherwise>
@@ -14,21 +14,21 @@
   </c:choose>
 </div>
 
-<c:if test="${not empty propertiesBean.properties['testReportParsing.reportType']}">
+<c:if test="${not empty propertiesBean.properties['xmlReportParsing.reportType']}">
   <div class="parameter">
-    Test report type: <props:displayValue name="testReportParsing.reportType"
+    Test report type: <props:displayValue name="xmlReportParsing.reportType"
                                           emptyValue="none specified"/>
   </div>
 
   <div class="parameter">
-    Test report directories: <props:displayValue name="testReportParsing.reportDirs"
+    Test report directories: <props:displayValue name="xmlReportParsing.reportDirs"
                                                  emptyValue="none specified"/>
   </div>
 
   <div class="parameter">
     Verbose output:
     <c:choose>
-      <c:when test="${propertiesBean.properties['testReportParsing.verboseOutput']}">
+      <c:when test="${propertiesBean.properties['xmlReportParsing.verboseOutput']}">
         <strong>enabled</strong>
       </c:when>
       <c:otherwise>
@@ -37,12 +37,12 @@
     </c:choose>
   </div>
 
-  <c:if test="${propertiesBean.properties['testReportParsing.reportType'] == 'findBugs'}">
+  <c:if test="${propertiesBean.properties['xmlReportParsing.reportType'] == 'findBugs'}">
     <div class="parameter">
       Maximum error limit:
       <c:choose>
-        <c:when test="${not empty propertiesBean.properties['testReportParsing.max.errors']}">
-          <props:displayValue name="testReportParsing.max.errors"
+        <c:when test="${not empty propertiesBean.properties['xmlReportParsing.max.errors']}">
+          <props:displayValue name="xmlReportParsing.max.errors"
                               emptyValue="none specified"/>
         </c:when>
         <c:otherwise>
@@ -53,8 +53,8 @@
     <div class="parameter">
       Warnings limit:
       <c:choose>
-        <c:when test="${not empty propertiesBean.properties['testReportParsing.max.warnings']}">
-          <props:displayValue name="testReportParsing.max.warnings"
+        <c:when test="${not empty propertiesBean.properties['xmlReportParsing.max.warnings']}">
+          <props:displayValue name="xmlReportParsing.max.warnings"
                               emptyValue="none specified"/>
         </c:when>
         <c:otherwise>
