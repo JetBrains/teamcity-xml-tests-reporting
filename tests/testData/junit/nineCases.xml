@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="3" hostname="ruspd-student3" name="TestCase" tests="9" time="1.203"
+           timestamp="2008-10-30T17:11:25">
+  <properties/>
+  <testcase classname="TestCase" name="test1" time="0.031"/>
+  <testcase classname="TestCase" name="test2" time="0.031"/>
+  <testcase classname="TestCase" name="test3" time="0.031"/>
+
+  <testcase classname="TestCase" name="test4" time="0.047">
+    <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+      junit.framework.AssertionFailedError: Assertion message form test
+      at TestCase.test4(Unknown Source)
+    </failure>
+  </testcase>
+  <testcase classname="TestCase" name="test5" time="0.047">
+    <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+      junit.framework.AssertionFailedError: Assertion message form test
+      at TestCase.test5(Unknown Source)
+    </failure>
+  </testcase>
+  <testcase classname="TestCase" name="test6" time="0.047">
+    <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
+      junit.framework.AssertionFailedError: Assertion message form test
+      at TestCase.test6(Unknown Source)
+    </failure>
+  </testcase>
+
+  <testcase classname="TestCase" name="test7" time="0.031"/>
+  <testcase classname="TestCase" name="test8" time="0.031"/>
+  <testcase classname="TestCase" name="test9" time="0.031"/>
+</testsuite>

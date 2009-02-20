@@ -1,0 +1,8 @@
+SET TEAMCITY_AGENT_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
+
+echo ##teamcity[importData id='XmlReport' reportType='junit' file='reports0']
+
+mkdir .\reports
+@echo ##teamcity[importData type='XmlReport' reportType='findBugs' file='reports' verbose='true' parseOutOfDate='true']
+copy "C:\work\teamcityworkspace\xml-report-plugin\agent\src\jetbrains\buildServer\testReportParserPlugin\findBugs\findbugsXml.xml" reports
+

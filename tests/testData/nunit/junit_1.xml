@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+<testsuite name="C:\Program Files\NUnit-2.4.8-net-2.0\bin\NUnitTests.nunit" tests="1" time="61.592" failures="0" errors="0" skipped="0">
+<testcase classname="C:\Program Files\NUnit-2.4.8-net-2.0\bin\NUnitTests.nunit" name="NUnit.Framework.Constraints.Tests.AllItemsTests.AllItemsAreInRange" time="0.016" executed="True"/>
+</testsuite>
+</testsuites>

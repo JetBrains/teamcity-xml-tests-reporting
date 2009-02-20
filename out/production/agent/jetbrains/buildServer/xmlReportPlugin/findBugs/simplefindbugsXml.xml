@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="1.2.1" sequence="0" timestamp="1192386210086" analysisTimestamp="1192386210086" release="">
+  <Project filename="&lt;&lt;unnamed project&gt;&gt;" projectName="FindbugsTest">
+    <Jar>C:\svnWork\Google\findbugs\findbugsTestCases\target\classes\UseOfNonHashableClassInHashDataStructure.class</Jar>
+    <!--<Jar>C:\UseOfNonHashableClassInHashDataStructure.class</Jar>-->
+    <AuxClasspathEntry>C:\svnWork\Google\findbugs\findbugsTestCases\target\classes</AuxClasspathEntry>
+  </Project>
+  <BugInstance type="HE_EQUALS_USE_HASHCODE" priority="1" abbrev="HE" category="BAD_PRACTICE">
+    <Class classname="UseOfNonHashableClassInHashDataStructure">
+      <SourceLine classname="UseOfNonHashableClassInHashDataStructure" start="3" end="23"
+                  sourcefile="UseOfNonHashableClassInHashDataStructure.java"
+                  sourcepath="UseOfNonHashableClassInHashDataStructure.java"/>
+    </Class>
+    <Method classname="UseOfNonHashableClassInHashDataStructure" name="equals" signature="(Ljava/lang/Object;)Z"
+            isStatic="false">
+      <SourceLine classname="UseOfNonHashableClassInHashDataStructure" start="14" end="14" startBytecode="0"
+                  endBytecode="40" sourcefile="UseOfNonHashableClassInHashDataStructure.java"
+                  sourcepath="UseOfNonHashableClassInHashDataStructure.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT" priority="2" abbrev="NP" category="BAD_PRACTICE">
+    <Class classname="UseOfNonHashableClassInHashDataStructure">
+      <SourceLine classname="UseOfNonHashableClassInHashDataStructure" start="3" end="23"
+                  sourcefile="UseOfNonHashableClassInHashDataStructure.java"
+                  sourcepath="UseOfNonHashableClassInHashDataStructure.java"/>
+    </Class>
+    <Method classname="UseOfNonHashableClassInHashDataStructure" name="equals" signature="(Ljava/lang/Object;)Z"
+            isStatic="false">
+      <SourceLine classname="UseOfNonHashableClassInHashDataStructure" start="14" end="14" startBytecode="0"
+                  endBytecode="40" sourcefile="UseOfNonHashableClassInHashDataStructure.java"
+                  sourcepath="UseOfNonHashableClassInHashDataStructure.java"/>
+    </Method>
+    <LocalVariable name="?" register="1" pc="4" role="LOCAL_VARIABLE_UNKNOWN"/>
+    <SourceLine classname="UseOfNonHashableClassInHashDataStructure" start="14" end="14" startBytecode="5"
+                endBytecode="5" sourcefile="UseOfNonHashableClassInHashDataStructure.java"
+                sourcepath="UseOfNonHashableClassInHashDataStructure.java" role="SOURCE_LINE_DEREF"/>
+  </BugInstance>
+  <Errors></Errors>
+  <FindBugsSummary timestamp="Sun, 14 Oct 2007 14:23:30 -0400" total_classes="0" total_bugs="0" total_size="0"
+                   num_packages="0" cpu_seconds="11.80" clock_seconds="16.78" peak_mbytes="67.98"
+                   gc_seconds="1.36"></FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History></History>
+</BugCollection>

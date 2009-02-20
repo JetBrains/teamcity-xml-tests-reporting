@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-results name="C:\Program Files\NUnit-2.4.8-net-2.0\bin\NUnitTests.nunit" total="1" failures="0" not-run="0"
+              date="2008-12-23" time="18:33:48">
+  <environment nunit-version="2.4.8.0" clr-version="2.0.50727.1433"
+               os-version="Microsoft Windows NT 5.1.2600 Service Pack 3" platform="Win32NT"
+               cwd="C:\Program Files\NUnit-2.4.8-net-2.0\bin" machine-name="RUSPD-STUDENT3" user="vbedrosova"
+               user-domain="SWIFTTEAMS"/>
+  <culture-info current-culture="ru-RU" current-uiculture="en-US"/>
+  <test-suite name="TestCase" success="True" time="0.016" asserts="0">
+    <results>
+      <test-case name="test" executed="False"/>
+    </results>
+  </test-suite>
+</test-results>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="ruspd-student3" name="jetbrains.buildServer.xmlReportPlugin.FindBugsReportParserTest" tests="7" time="3.656" timestamp="2009-02-20T14:08:31">
+  <properties>
+    <property name="java.vendor" value="Sun Microsystems Inc." />
+    <property name="ant.file.xml-report-plugin-custom" value="C:\work\teamcityworkspace\xml-report-plugin\build.xml" />
+    <property name="compiler.args.server" value="" />
+    <property name="compiler.debug" value="on" />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="sun.management.compiler" value="HotSpot Client Compiler" />
+    <property name="env.COMMANDER_DRIVE" value="C:" />
+    <property name="tests.output.dir" value="C:\work\teamcityworkspace\xml-report-plugin/out/production/tests" />
+    <property name="env.PROMPT" value="$P$G" />
+    <property name="env.COMMANDER_PATH" value="C:\Program Files\Total Commander" />
+    <property name="dist" value="dist" />
+    <property name="os.name" value="Windows XP" />
+    <property name="env.FP_NO_HOST_CHECK" value="NO" />
+    <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.5.0_14\jre\lib\rt.jar;C:\Program Files\Java\jdk1.5.0_14\jre\lib\i18n.jar;C:\Program Files\Java\jdk1.5.0_14\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.5.0_14\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.5.0_14\jre\lib\jce.jar;C:\Program Files\Java\jdk1.5.0_14\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.5.0_14\jre\classes" />
+    <property name="env.COMPUTERNAME" value="RUSPD-STUDENT3" />
+    <property name="compiler.args" value="" />
+    <property name="env.ALLUSERSPROFILE" value="C:\Documents and Settings\All Users" />
+    <property name="build.number" value="${env.BUILD_NUMBER}" />
+    <property name="sun.desktop" value="windows" />
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="ant.home" value="C:\Program Files\JetBrains\IntelliJ IDEA 7.0.4\lib\ant" />
+    <property name="java.runtime.version" value="1.5.0_14-b03" />
+    <property name="env.HOMEPATH" value="\Documents and Settings\vbedrosova" />
+    <property name="compiler.args.common" value="" />
+    <property name="user.name" value="vbedrosova" />
+    <property name="module.server.basedir" value="C:\work\teamcityworkspace\xml-report-plugin" />
+    <property name="compiler.args.xml-report-plugin" value="" />
+    <property name="common.testoutput.dir" value="C:\work\teamcityworkspace\xml-report-plugin/out/test/common" />
+    <property name="module.agent.basedir" value="C:\work\teamcityworkspace\xml-report-plugin" />
+    <property name="dist.unpacked" value="out/dist.tmp/unpacked" />
+    <property name="module.xml-report-plugin.basedir" value="C:\work\teamcityworkspace\xml-report-plugin" />
+    <property name="user.language" value="ru" />
+    <property name="dist.tmp" value="out/dist.tmp" />
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.5.0_14\jre\bin" />
+    <property name="xml-report-plugin.testoutput.dir" value="C:\work\teamcityworkspace\xml-report-plugin/out/test/xml-report-plugin" />
+    <property name="server.output.dir" value="C:\work\teamcityworkspace\xml-report-plugin/out/production/server" />
+    <property name="common.output.dir" value="C:\work\teamcityworkspace\xml-report-plugin/out/production/common" />
+    <property name="ant.project.name" value="xml-report-plugin-custom" />
+    <property name="java.version" value="1.5.0_14" />
+    <property name="env.PROCESSOR_IDENTIFIER" value="x86 Family 15 Model 3 Stepping 4, GenuineIntel" />
+    <property name="user.timezone" value="" />
+    <property name="env.CLIENTNAME" value="Console" />
+    <property name="env.TEMP" value="C:\DOCUME~1\VBEDRO~1\LOCALS~1\Temp" />
+    <property name="sun.arch.data.model" value="32" />
+    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.5.0_14\jre\lib\endorsed" />
+    <property name="sun.cpu.isalist" value="" />
+    <property name="env.HOMEDRIVE" value="C:" />
+    <property name="sun.jnu.encoding" value="Cp1251" />
+    <property name="file.encoding.pkg" value="sun.io" />
+    <property name="file.separator" value="\" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="java.class.version" value="49.0" />
+    <property name="path.variable.teamcitydistribution" value="C:/TeamCity" />
+    <property name="user.country" value="RU" />
+    <property name="java.home" value="C:\Program Files\Java\jdk1.5.0_14\jre" />
+    <property name="env.APPDATA" value="C:\Documents and Settings\vbedrosova\Application Data" />
+    <property name="java.vm.info" value="mixed mode" />
+    <property name="env.ComSpec" value="C:\WINDOWS\system32\cmd.exe" />
+    <property name="env.OS" value="Windows_NT" />
+    <property name="env.CommonProgramFiles" value="C:\Program Files\Common Files" />
+    <property name="ant.file" value="C:\work\teamcityworkspace\xml-report-plugin\build.xml" />
+    <property name="os.version" value="5.1" />
+    <property name="path.separator" value=";" />
+    <property name="java.vm.version" value="1.5.0_14-b03" />
+    <property name="agent.output.dir" value="C:\work\teamcityworkspace\xml-report-plugin/out/production/agent" />
+    <property name="user.variant" value="" />
+    <property name="env.USERPROFILE" value="C:\Documents and Settings\vbedrosova" />
+    <property name="ant.library.dir" value="C:\Program Files\JetBrains\IntelliJ IDEA 7.0.4\lib\ant\lib" />
+    <property name="env.JAVA_HOME" value="C:\Program Files\Java\jdk1.5.0_14" />
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob" />
+    <property name="env.TMP" value="C:\DOCUME~1\VBEDRO~1\LOCALS~1\Temp" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
+    <property name="compiler.max.memory" value="128m" />
+    <property name="user.home" value="C:\Documents and Settings\vbedrosova" />
+    <property name="env.SESSIONNAME" value="Console" />
+    <property name="server.testoutput.dir" value="C:\work\teamcityworkspace\xml-report-plugin/out/test/server" />
+    <property name="java.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="tests.testoutput.dir" value="C:\work\teamcityworkspace\xml-report-plugin/out/test/tests" />
+    <property name="dist.output.agent" value="out/dist.tmp/unpacked/agent" />
+    <property name="env.VS80COMNTOOLS" value="C:\Program Files\Microsoft Visual Studio 8\Common7\Tools\" />
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.5.0_14\jre\bin;.;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\Intel\DMIX;C:\Program Files\apache-ant-1.7.1\bin;c:\Program Files\Microsoft SQL Server\90\Tools\binn\" />
+    <property name="java.vendor.url" value="http://java.sun.com/" />
+    <property name="env.NUMBER_OF_PROCESSORS" value="2" />
+    <property name="env.USERDNSDOMAIN" value="SWIFTTEAMS.LOCAL" />
+    <property name="TeamCityDistribution" value="C:\TeamCity" />
+    <property name="java.vm.vendor" value="Sun Microsystems Inc." />
+    <property name="compiler.args.tests" value="" />
+    <property name="java.runtime.name" value="Java(TM) 2 Runtime Environment, Standard Edition" />
+    <property name="java.class.path" value="C:\work\teamcityworkspace\xml-report-plugin\out\test\tests;C:\work\teamcityworkspace\xml-report-plugin\Tests\lib\objenesis-1.0.jar;C:\work\teamcityworkspace\xml-report-plugin\Tests\lib\jmock-junit4-2.5.1.jar;C:\work\teamcityworkspace\xml-report-plugin\Tests\lib\hamcrest-library-1.1.jar;C:\work\teamcityworkspace\xml-report-plugin\Tests\lib\jmock-legacy-2.5.1.jar;C:\work\teamcityworkspace\xml-report-plugin\Tests\lib\jmock-2.5.1.jar;C:\work\teamcityworkspace\xml-report-plugin\Tests\lib\hamcrest-core-1.1.jar;C:\work\teamcityworkspace\xml-report-plugin\Tests\lib\cglib-nodep-2.1_3.jar;C:\work\teamcityworkspace\xml-report-plugin\Tests\lib\junit-4.5.jar;C:\work\teamcityworkspace\xml-report-plugin\out\production\agent;C:\TeamCity\devPackage\server-api.jar;C:\TeamCity\devPackage\agent-api.jar;C:\TeamCity\devPackage\common-api.jar;C:\TeamCity\buildAgent\lib\runtime-util.jar;C:\TeamCity\buildAgent\lib\server-logging.jar;C:\TeamCity\webapps\ROOT\WEB-INF\lib\annotations.jar;C:\TeamCity\webapps\ROOT\WEB-INF\lib\util.jar;C:\work\teamcityworkspace\xml-report-plugin\out\production\common;C:\TeamCity\webapps\ROOT\WEB-INF\lib\jdom.jar;C:\work\teamcityworkspace\xml-report-plugin\agent\lib\commons-lang-2.4.jar;C:\work\teamcityworkspace\xml-report-plugin\agent\lib\dom4j-1.6.1.jar;C:\work\teamcityworkspace\xml-report-plugin\agent\lib\bcel.jar;C:\work\teamcityworkspace\xml-report-plugin\agent\lib\findbugs.jar;C:\work\teamcityworkspace\xml-report-plugin\agent\lib\jaxen-1.1.1.jar;C:\work\teamcityworkspace\xml-report-plugin\agent\lib\jFormatString.jar;C:\work\teamcityworkspace\xml-report-plugin\agent\lib\asm-tree-3.1.jar;C:\work\teamcityworkspace\xml-report-plugin\agent\lib\asm-3.1.jar;C:\work\teamcityworkspace\xml-report-plugin\out\production\server;C:\TeamCity\lib\servlet-api.jar;C:\TeamCity\webapps\ROOT\WEB-INF\lib\log4j-1.2.12.jar;C:\Program Files\JetBrains\IntelliJ IDEA 7.0.4\lib\ant\lib\ant-launcher.jar;C:\Program Files\JetBrains\IntelliJ IDEA 7.0.4\lib\ant\lib\ant.jar;C:\Program Files\JetBrains\IntelliJ IDEA 7.0.4\lib\ant\lib\ant-junit.jar" />
+    <property name="ant.version" value="Apache Ant version 1.7.0 compiled on December 13 2006" />
+    <property name="compiler.args.agent" value="" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="env.LOGONSERVER" value="\\ST-SERVER" />
+    <property name="env.windir" value="C:\WINDOWS" />
+    <property name="java.vm.specification.version" value="1.0" />
+    <property name="env.PROCESSOR_ARCHITECTURE" value="x86" />
+    <property name="sun.os.patch.level" value="Service Pack 3" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="env.ProgramFiles" value="C:\Program Files" />
+    <property name="env.ANT_HOME" value="c:\Program Files\apache-ant-1.7.1" />
+    <property name="ant.file.xml-report-plugin" value="C:\work\teamcityworkspace\xml-report-plugin\xml-report-plugin.xml" />
+    <property name="java.io.tmpdir" value="C:\DOCUME~1\VBEDRO~1\LOCALS~1\Temp\" />
+    <property name="env.PROCESSOR_REVISION" value="0304" />
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi" />
+    <property name="env.SystemRoot" value="C:\WINDOWS" />
+    <property name="xml-report-plugin.output.dir" value="C:\work\teamcityworkspace\xml-report-plugin/out/production/xml-report-plugin" />
+    <property name="os.arch" value="x86" />
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment" />
+    <property name="compiler.generate.no.warnings" value="off" />
+    <property name="module.tests.basedir" value="C:\work\teamcityworkspace\xml-report-plugin" />
+    <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.5.0_14\jre\lib\ext" />
+    <property name="module.common.basedir" value="C:\work\teamcityworkspace\xml-report-plugin" />
+    <property name="user.dir" value="C:\work\teamcityworkspace\xml-report-plugin" />
+    <property name="line.separator" value="
+" />
+    <property name="java.vm.name" value="Java HotSpot(TM) Client VM" />
+    <property name="env.PATHEXT" value=".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH" />
+    <property name="env.Path" value="C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\Intel\DMIX;C:\Program Files\apache-ant-1.7.1\bin;c:\Program Files\Microsoft SQL Server\90\Tools\binn\" />
+    <property name="basedir" value="C:\work\teamcityworkspace\xml-report-plugin" />
+    <property name="ant.java.version" value="1.5" />
+    <property name="ant.core.lib" value="C:\Program Files\JetBrains\IntelliJ IDEA 7.0.4\lib\ant\lib\ant.jar" />
+    <property name="env.USERNAME" value="vbedrosova" />
+    <property name="env.SystemDrive" value="C:" />
+    <property name="file.encoding" value="Cp1251" />
+    <property name="env.USERDOMAIN" value="SWIFTTEAMS" />
+    <property name="agent.testoutput.dir" value="C:\work\teamcityworkspace\xml-report-plugin/out/test/agent" />
+    <property name="env.COMMANDER_INI" value="C:\Program Files\Total Commander\wincmd.ini" />
+    <property name="java.specification.version" value="1.5" />
+    <property name="env.PROCESSOR_LEVEL" value="15" />
+  </properties>
+  <testcase classname="jetbrains.buildServer.xmlReportPlugin.FindBugsReportParserTest" name="testSimple" time="0.875" />
+  <testcase classname="jetbrains.buildServer.xmlReportPlugin.FindBugsReportParserTest" name="testJar" time="0.313" />
+  <testcase classname="jetbrains.buildServer.xmlReportPlugin.FindBugsReportParserTest" name="testComplexSrc" time="0.344" />
+  <testcase classname="jetbrains.buildServer.xmlReportPlugin.FindBugsReportParserTest" name="testDir" time="0.328" />
+  <testcase classname="jetbrains.buildServer.xmlReportPlugin.FindBugsReportParserTest" name="testInner" time="0.641" />
+  <testcase classname="jetbrains.buildServer.xmlReportPlugin.FindBugsReportParserTest" name="testPattern" time="0.25" />
+  <testcase classname="jetbrains.buildServer.xmlReportPlugin.FindBugsReportParserTest" name="testCategory" time="0.328" />
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
