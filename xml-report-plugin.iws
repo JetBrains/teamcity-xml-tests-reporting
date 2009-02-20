@@ -36,15 +36,15 @@
     <SELECTED_AGENT id="bt37:" />
     <SELECTED_AGENT id="bt134:" />
     <SELECTED_AGENT id="bt141:" />
-    <SELECTED_AGENT id="bt138:" />
     <SELECTED_AGENT id="bt109:" />
+    <SELECTED_AGENT id="bt138:" />
     <SELECTED_AGENT id="bt25:" />
     <SELECTED_AGENT id="bt113:" />
     <SELECTED_AGENT id="bt41:" />
     <SELECTED_AGENT id="bt38:" />
     <SELECTED_AGENT id="bt15:" />
-    <SELECTED_AGENT id="bt133:" />
     <SELECTED_AGENT id="bt30:" />
+    <SELECTED_AGENT id="bt133:" />
     <SELECTED_AGENT id="bt19:" />
     <SELECTED_AGENT id="bt34:" />
     <SELECTED_AGENT id="bt6:" />
@@ -73,9 +73,9 @@
     <SELECTED_AGENT id="bt32:" />
     <SELECTED_AGENT id="bt135:" />
     <SELECTED_AGENT id="bt121:" />
-    <SELECTED_AGENT id="bt140:" />
-    <SELECTED_AGENT id="bt131:" />
     <SELECTED_AGENT id="bt125:" />
+    <SELECTED_AGENT id="bt131:" />
+    <SELECTED_AGENT id="bt140:" />
     <SELECTED_AGENT id="bt4:" />
     <TreeState key="changes">
       <PATH>
@@ -126,18 +126,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/jetbrains/buildServer/xmlReportPlugin/ReportTypeForm.java" afterPath="$PROJECT_DIR$/server/src/jetbrains/buildServer/xmlReportPlugin/ReportTypeForm.java" />
-      <change type="MOVED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\server\resources\buildServerResources\testReportParserSettings.jsp" afterPath="$PROJECT_DIR$/server/resources/buildServerResources/xmlReportParserSettings.jsp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/integration/XmlReportPluginIntegrationTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/testData/findBugs/pattern/org/jetbrains/testProject/BuggyClass.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/agent/src/jetbrains/buildServer/xmlReportPlugin/XmlReportDataProcessor.java" afterPath="$PROJECT_DIR$/agent/src/jetbrains/buildServer/xmlReportPlugin/XmlReportDataProcessor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/XmlReportDirectoryWatcherTest.java" />
-      <change type="MOVED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\tests\src\jetbrains\buildServer\testReportParserPlugin" afterPath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginSettings.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginUtilTest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/XmlReportPluginTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/src/META-INF/build-server-plugin.xml" afterPath="$PROJECT_DIR$/server/src/META-INF/build-server-plugin.xml" />
-      <change type="MOVED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\server\src\jetbrains\buildServer\testReportParserPlugin" afterPath="$PROJECT_DIR$/server/src/jetbrains/buildServer/xmlReportPlugin" />
+      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\dist\xml-report-plugin.zip" afterPath="" />
+      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\nunit-report.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist" afterPath="" />
+      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\junit-report.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xml-report-plugin.iws" afterPath="$PROJECT_DIR$/xml-report-plugin.iws" />
+      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\1.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\teamcity-vcs.log" afterPath="" />
+      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\agent\src\jetbrains\buildServer\xmlReportPlugin\findBugs\findbugs.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\teamcity-server.log" afterPath="" />
+      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\agent\src\jetbrains\buildServer\xmlReportPlugin\findBugs\simplefindbugsXml.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\agent\src\jetbrains\buildServer\xmlReportPlugin\findBugs\findbugsXml.xml" afterPath="" />
     </list>
     <list name="Failed commit: Default (3)" comment="" />
     <list name="Failed commit: Default" comment="" />
@@ -153,37 +152,8 @@
     <list name="Failed commit: Default (2)" comment="" />
     <list name="Failed commit: Failed commit: Default (10)" comment="refactoring&#10;my sax parser for findbugs&#10;added new categories in categories.xml&#10;removed tests for findbugs text parser and test parser itself&#10;" />
     <list name="Failed commit: Default (11)" comment="refactoring&#10;my sax parser for findbugs&#10;added new categories in categories.xml&#10;removed tests for findbugs text parser and test parser itself&#10;" />
-    <list name="Failed commit: Default (10)" comment="refactoring&#10;my sax parser for findbugs&#10;added new categories in categories.xml&#10;removed tests for findbugs text parser and test parser itself&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/testData/dataProcessor/outOfDate.gold" afterPath="$PROJECT_DIR$/tests/testData/dataProcessor/outOfDate.gold" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/testData/findBugs/category/org/jetbrains/testProject" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/testData/findBugs/pattern.sample.xml" afterPath="$PROJECT_DIR$/tests/testData/findBugs/pattern.sample.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/testData/dataProcessor/verbose.gold" afterPath="$PROJECT_DIR$/tests/testData/dataProcessor/verbose.gold" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/testData/findBugs/pattern/org" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/testData/findBugs/category" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/testData/findBugs/category/org/jetbrains" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/testData/findBugs/pattern/org/jetbrains/testProject" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/testData/findBugs/category.sample.xml" afterPath="$PROJECT_DIR$/tests/testData/findBugs/category.sample.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/testData/dataProcessor/warningsLimit.gold" afterPath="$PROJECT_DIR$/tests/testData/dataProcessor/warningsLimit.gold" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/testData/findBugs/category/org" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/testData/findBugs/pattern/org/jetbrains" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/testData/dataProcessor/default.gold" afterPath="$PROJECT_DIR$/tests/testData/dataProcessor/default.gold" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/testData/dataProcessor/errorsLimit.gold" afterPath="$PROJECT_DIR$/tests/testData/dataProcessor/errorsLimit.gold" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/testData/findBugs/pattern/org/jetbrains/testProject/BuggyClass.class" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/testData/findBugs/pattern" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/testData/findBugs/category/org/jetbrains/testProject/BuggyClass.java" />
-    </list>
-    <list name="Failed commit: Failed commit: Default (10) (2)" comment="refactoring&#10;my sax parser for findbugs&#10;added new categories in categories.xml&#10;removed tests for findbugs text parser and test parser itself&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/integration/UnexpectedInvokationException.java" afterPath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/integration/UnexpectedInvokationException.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/integration/MethodInvokation.java" afterPath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/integration/MethodInvokation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/integration/ReportFactory.java" afterPath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/integration/ReportFactory.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/AntJUnitReportParserTest.java" afterPath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/AntJUnitReportParserTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/TestUtil.java" afterPath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/TestUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/integration/BaseServerLoggerFacadeForTesting.java" afterPath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/integration/BaseServerLoggerFacadeForTesting.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/BuildLoggerForTesting.java" afterPath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/BuildLoggerForTesting.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/FindBugsReportParserTest.java" afterPath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/FindBugsReportParserTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/XmlReportDataProcessorTest.java" afterPath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/XmlReportDataProcessorTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/NUnitReportParserTest.java" afterPath="$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/NUnitReportParserTest.java" />
-    </list>
+    <list name="Failed commit: Default (10)" comment="refactoring&#10;my sax parser for findbugs&#10;added new categories in categories.xml&#10;removed tests for findbugs text parser and test parser itself&#10;" />
+    <list name="Failed commit: Failed commit: Default (10) (2)" comment="refactoring&#10;my sax parser for findbugs&#10;added new categories in categories.xml&#10;removed tests for findbugs text parser and test parser itself&#10;" />
     <list name="Failed commit: Default (12)" comment="refactoring&#10;my sax parser for findbugs&#10;added new categories in categories.xml&#10;removed tests for findbugs text parser and test parser itself&#10;" />
     <ignored path="xml-report-plugin.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -265,8 +235,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="exception_breakpoints_groupByClasses" value="true" />
+      <property name="field_breakpoints_viewId" value="TABLE" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -279,10 +249,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FindBugsReportParserTest.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="FindBugsReportParserTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/FindBugsReportParserTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="4" selection-start="2435" selection-end="2435" vertical-scroll-proportion="0.0327553">
+            <state line="64" column="4" selection-start="2435" selection-end="2435" vertical-scroll-proportion="0.85213035">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FindBugsReportParser.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/agent/src/jetbrains/buildServer/xmlReportPlugin/findBugs/FindBugsReportParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="34" column="13" selection-start="1199" selection-end="1199" vertical-scroll-proportion="-3.8145363">
               <folding />
             </state>
           </provider>
@@ -958,8 +937,8 @@
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
-    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2" value="2" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="false" />
+    <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2" value="2" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder0" value="0" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="TEMP_MODULE_EXPLODED_DIR_FOR_TestReportParserPluginServer/web/TestReportParserPlugin" value="C:\Documents and Settings\vbedrosova\Local Settings\Temp\webExplodedDir12779tmp" />
@@ -1143,6 +1122,14 @@
   </component>
   <component name="ScopeViewComponent">
     <subPane subId="Problems" />
+    <subPane subId="Tests">
+      <PATH>
+        <PATH_ELEMENT USER_OBJECT="Root">
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="" />
+        </PATH_ELEMENT>
+      </PATH>
+    </subPane>
     <subPane subId="Production">
       <PATH>
         <PATH_ELEMENT USER_OBJECT="Root">
@@ -1196,14 +1183,6 @@
           <option name="myItemType" value="" />
         </PATH_ELEMENT>
         <PATH_ELEMENT USER_OBJECT="jetbrains/buildServer/testReportParserPlugin">
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="" />
-        </PATH_ELEMENT>
-      </PATH>
-    </subPane>
-    <subPane subId="Tests">
-      <PATH>
-        <PATH_ELEMENT USER_OBJECT="Root">
           <option name="myItemId" value="" />
           <option name="myItemType" value="" />
         </PATH_ELEMENT>
@@ -1273,7 +1252,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="3" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286385" order="7" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="2" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24433658" order="8" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24429968" order="8" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32629108" order="1" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32629108" order="5" />
       <window_info id="TeamCity" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32821724" order="10" />
@@ -1281,13 +1260,12 @@
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928804" order="3" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286385" order="12" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32109004" order="17" />
-      <window_info id="SVN Repositories" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3222749" order="16" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286385" order="6" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="0" />
       <window_info id="Maven projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="6" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2679153" order="0" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2679153" order="0" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="13" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="4" />
@@ -1295,6 +1273,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4225352" order="18" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="4" />
       <window_info id="Dataflow to this" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
+      <window_info id="SVN Repositories" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3222749" order="16" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="3" />
       <window_info id="SVN Properties" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32819906" order="15" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="0" />
@@ -1488,7 +1467,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/FindBugsReportParserTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="4" selection-start="2435" selection-end="2435" vertical-scroll-proportion="0.0327553">
+        <state line="64" column="4" selection-start="2435" selection-end="2435" vertical-scroll-proportion="0.85213035">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/agent/src/jetbrains/buildServer/xmlReportPlugin/findBugs/FindBugsReportParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="13" selection-start="1199" selection-end="1199" vertical-scroll-proportion="-3.8145363">
           <folding />
         </state>
       </provider>
