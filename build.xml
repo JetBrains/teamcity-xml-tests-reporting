@@ -9,7 +9,7 @@
   <property name="dist.output.agent" value="${dist.unpacked}/agent"/>
   <property name="build.number" value="${env.BUILD_NUMBER}"/>
 
-  <target name="all" depends="check,xml-report-plugin.all"/>
+  <target name="all" depends="check, xml-report-plugin.all"/>
 
   <target name="pack.agent" description="pack agent part of plugin">
     <delete dir="${dist.output.agent}" quiet="true"/>
@@ -24,9 +24,6 @@
          basedir="${agent.output.dir}" update="true"/>
     <jar destfile="${dist.tmp.agent.content}/xml-report-plugin-common.jar"
          basedir="${common.output.dir}" update="true"/>
-    <copy todir="${dist.tmp.agent.content}">
-      <fileset dir="${basedir}/agent/lib"/>
-    </copy>
     <zip destfile="${dist.output.agent}/xml-report-plugin.zip"
          basedir="${dist.tmp.agent}"
          update="true"/>
