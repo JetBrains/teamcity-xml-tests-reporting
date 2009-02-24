@@ -86,16 +86,7 @@
     <pathelement location="${path.variable.teamcitydistribution}/lib/servlet-api.jar"/>
   </path>
 
-  <path id="library.findbugs.classpath">
-    <pathelement location="${basedir}/agent/lib/commons-lang-2.4.jar"/>
-    <pathelement location="${basedir}/agent/lib/dom4j-1.6.1.jar"/>
-    <pathelement location="${basedir}/agent/lib/bcel.jar"/>
-    <pathelement location="${basedir}/agent/lib/findbugs.jar"/>
-    <pathelement location="${basedir}/agent/lib/jaxen-1.1.1.jar"/>
-    <pathelement location="${basedir}/agent/lib/jFormatString.jar"/>
-    <pathelement location="${basedir}/agent/lib/asm-tree-3.1.jar"/>
-    <pathelement location="${basedir}/agent/lib/asm-3.1.jar"/>
-  </path>
+  <path id="library.findbugs.classpath"/>
 
   <!-- Modules -->
 

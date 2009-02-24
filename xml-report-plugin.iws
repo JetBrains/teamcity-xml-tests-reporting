@@ -36,15 +36,15 @@
     <SELECTED_AGENT id="bt37:" />
     <SELECTED_AGENT id="bt134:" />
     <SELECTED_AGENT id="bt141:" />
-    <SELECTED_AGENT id="bt109:" />
     <SELECTED_AGENT id="bt138:" />
+    <SELECTED_AGENT id="bt109:" />
     <SELECTED_AGENT id="bt25:" />
     <SELECTED_AGENT id="bt113:" />
     <SELECTED_AGENT id="bt41:" />
     <SELECTED_AGENT id="bt38:" />
     <SELECTED_AGENT id="bt15:" />
-    <SELECTED_AGENT id="bt30:" />
     <SELECTED_AGENT id="bt133:" />
+    <SELECTED_AGENT id="bt30:" />
     <SELECTED_AGENT id="bt19:" />
     <SELECTED_AGENT id="bt34:" />
     <SELECTED_AGENT id="bt6:" />
@@ -73,9 +73,9 @@
     <SELECTED_AGENT id="bt32:" />
     <SELECTED_AGENT id="bt135:" />
     <SELECTED_AGENT id="bt121:" />
-    <SELECTED_AGENT id="bt125:" />
-    <SELECTED_AGENT id="bt131:" />
     <SELECTED_AGENT id="bt140:" />
+    <SELECTED_AGENT id="bt131:" />
+    <SELECTED_AGENT id="bt125:" />
     <SELECTED_AGENT id="bt4:" />
     <TreeState key="changes">
       <PATH>
@@ -85,26 +85,6 @@
         </PATH_ELEMENT>
         <PATH_ELEMENT>
           <option name="myItemId" value="ChangesGroup::Older" />
-          <option name="myItemType" value="jetbrains.buildServer.tree.descriptors.ChangesGroupDescriptor" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Root" />
-          <option name="myItemType" value="jetbrains.buildServer.tree.descriptors.RootDescriptor" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="ChangesGroup::Yesterday" />
-          <option name="myItemType" value="jetbrains.buildServer.tree.descriptors.ChangesGroupDescriptor" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="Root" />
-          <option name="myItemType" value="jetbrains.buildServer.tree.descriptors.RootDescriptor" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="ChangesGroup::Today" />
           <option name="myItemType" value="jetbrains.buildServer.tree.descriptors.ChangesGroupDescriptor" />
         </PATH_ELEMENT>
       </PATH>
@@ -126,17 +106,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" readonly="true" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\dist\xml-report-plugin.zip" afterPath="" />
-      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\nunit-report.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/dist" afterPath="" />
-      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\junit-report.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xml-report-plugin.xml" afterPath="$PROJECT_DIR$/xml-report-plugin.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xml-report-plugin.iws" afterPath="$PROJECT_DIR$/xml-report-plugin.iws" />
-      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\1.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\teamcity-vcs.log" afterPath="" />
-      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\agent\src\jetbrains\buildServer\xmlReportPlugin\findBugs\findbugs.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\teamcity-server.log" afterPath="" />
-      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\agent\src\jetbrains\buildServer\xmlReportPlugin\findBugs\simplefindbugsXml.xml" afterPath="" />
-      <change type="DELETED" beforePath="C:\work\teamcityworkspace\xml-report-plugin\agent\src\jetbrains\buildServer\xmlReportPlugin\findBugs\findbugsXml.xml" afterPath="" />
     </list>
     <list name="Failed commit: Default (3)" comment="" />
     <list name="Failed commit: Default" comment="" />
@@ -235,8 +206,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="field_breakpoints_viewId" value="TABLE" />
+      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -252,7 +223,7 @@
       <file leaf-file-name="FindBugsReportParserTest.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/FindBugsReportParserTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="4" selection-start="2435" selection-end="2435" vertical-scroll-proportion="0.85213035">
+            <state line="64" column="4" selection-start="2435" selection-end="2435" vertical-scroll-proportion="0.021303259">
               <folding />
             </state>
           </provider>
@@ -261,7 +232,7 @@
       <file leaf-file-name="FindBugsReportParser.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/agent/src/jetbrains/buildServer/xmlReportPlugin/findBugs/FindBugsReportParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="13" selection-start="1199" selection-end="1199" vertical-scroll-proportion="-3.8145363">
+            <state line="254" column="43" selection-start="9076" selection-end="9076" vertical-scroll-proportion="0.5538847">
               <folding />
             </state>
           </provider>
@@ -937,8 +908,8 @@
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder4" value="4" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder1" value="1" />
-    <property name="GenerateAntBuildDialog.forceTargetJdk" value="false" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder2" value="2" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="false" />
     <property name="FileHistory.org.jetbrains.idea.svn.history.SvnHistoryProvider_treeOrder0" value="0" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="TEMP_MODULE_EXPLODED_DIR_FOR_TestReportParserPluginServer/web/TestReportParserPlugin" value="C:\Documents and Settings\vbedrosova\Local Settings\Temp\webExplodedDir12779tmp" />
@@ -955,6 +926,26 @@
     </key>
   </component>
   <component name="RunManager" selected="JUnit.Tests">
+    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -984,13 +975,6 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -1002,19 +986,6 @@
       <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit" enabled="false" merge="false">
       <module name="" />
@@ -1122,14 +1093,6 @@
   </component>
   <component name="ScopeViewComponent">
     <subPane subId="Problems" />
-    <subPane subId="Tests">
-      <PATH>
-        <PATH_ELEMENT USER_OBJECT="Root">
-          <option name="myItemId" value="" />
-          <option name="myItemType" value="" />
-        </PATH_ELEMENT>
-      </PATH>
-    </subPane>
     <subPane subId="Production">
       <PATH>
         <PATH_ELEMENT USER_OBJECT="Root">
@@ -1183,6 +1146,14 @@
           <option name="myItemType" value="" />
         </PATH_ELEMENT>
         <PATH_ELEMENT USER_OBJECT="jetbrains/buildServer/testReportParserPlugin">
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="" />
+        </PATH_ELEMENT>
+      </PATH>
+    </subPane>
+    <subPane subId="Tests">
+      <PATH>
+        <PATH_ELEMENT USER_OBJECT="Root">
           <option name="myItemId" value="" />
           <option name="myItemType" value="" />
         </PATH_ELEMENT>
@@ -1291,7 +1262,7 @@
     <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
     <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="broken" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed ignored files" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
@@ -1303,7 +1274,6 @@
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <confirmMoveToFailedCommit value="2" />
-    <MESSAGE value="surefire report parsing turned on&#10;ui bug with showing fields, parsing is turned off fixed&#10;added plugin objects clearing on build finish&#10;added FindBugs processing with logging text results to build log" />
     <MESSAGE value="FindBugs report parser tests" />
     <MESSAGE value="added new libraries to build.xml" />
     <MESSAGE value="added simple FindBugs logging (results displayed on Inspections tab)&#10;refactoring, tests" />
@@ -1328,6 +1298,7 @@
     <MESSAGE value="refactoring&#10;my sax parser for findbugs&#10;added new categories in categories.xml&#10;removed tests for findbugs text parser and test parser itself&#10;" />
     <MESSAGE value="&#10;" />
     <MESSAGE value="broken" />
+    <MESSAGE value="removed ignored files" />
   </component>
   <component name="VssConfiguration">
     <option name="CLIENT_PATH" value="" />
@@ -1467,14 +1438,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/src/jetbrains/buildServer/xmlReportPlugin/FindBugsReportParserTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="4" selection-start="2435" selection-end="2435" vertical-scroll-proportion="0.85213035">
+        <state line="64" column="4" selection-start="2435" selection-end="2435" vertical-scroll-proportion="0.021303259">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/agent/src/jetbrains/buildServer/xmlReportPlugin/findBugs/FindBugsReportParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="13" selection-start="1199" selection-end="1199" vertical-scroll-proportion="-3.8145363">
+        <state line="254" column="43" selection-start="9076" selection-end="9076" vertical-scroll-proportion="0.5538847">
           <folding />
         </state>
       </provider>
