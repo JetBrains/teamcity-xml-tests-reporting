@@ -100,7 +100,7 @@ public class FindBugsReportParserTest extends TestCase {
     XmlReportPluginUtil.enableXmlReportParsing(params, FindBugsReportParser.TYPE);
     XmlReportPluginUtil.setMaxErrors(params, 5);
     XmlReportPluginUtil.setMaxWarnings(params, 5);
-    parser.logReportTotals(report, params);
+    parser.logParsingTotals(params);
 
     final File expected = new File(expectedFile);
     if (!readFile(expected).equals(results.toString())) {

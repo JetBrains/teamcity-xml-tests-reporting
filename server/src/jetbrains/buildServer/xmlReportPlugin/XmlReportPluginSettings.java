@@ -32,13 +32,13 @@ public class XmlReportPluginSettings {
     EditBuildRunnerSettingsExtension editSettingsExtension =
       new EditBuildRunnerSettingsExtension(pagePlaces, supportedRunTypes);
     editSettingsExtension.setPluginName("xml-report-plugin");
-    editSettingsExtension.setIncludeUrl("testReportParserSettings.jsp");
+    editSettingsExtension.setIncludeUrl("xmlReportParserSettings.jsp");
     editSettingsExtension.register();
 
     ViewBuildRunnerSettingsExtension viewSettingsExtension =
       new ViewBuildRunnerSettingsExtension(projectManager, pagePlaces, supportedRunTypes);
     viewSettingsExtension.setPluginName("xml-report-plugin");
-    viewSettingsExtension.setIncludeUrl("viewTestReportParserSettings.jsp");
+    viewSettingsExtension.setIncludeUrl("viewXmlReportParserSettings.jsp");
     viewSettingsExtension.register();
   }
 }

@@ -64,8 +64,10 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
 
     if (reportDirs.size() == 0) {
       myLogger.warning("No report directories specified");
+      enableXmlReportParsing(myParameters, ""); //can avoid this by adding paths presence in the web IU
+    } else { //can avoid this by adding paths presence in the web IU
+      startProcessing(reportDirs, getReportType(myParameters));
     }
-    startProcessing(reportDirs, getReportType(myParameters));
   }
 
   private void obtainLogger(AgentRunningBuild agentRunningBuild) {

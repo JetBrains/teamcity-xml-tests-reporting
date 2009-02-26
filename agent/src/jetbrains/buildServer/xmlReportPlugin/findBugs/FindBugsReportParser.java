@@ -212,6 +212,7 @@ public class FindBugsReportParser extends DefaultHandler implements XmlReportPar
   private void processPriority(int priority) {
     InspectionSeverityValues level;
     switch (priority) {
+
       case 1:
         ++myErrors;
         level = InspectionSeverityValues.ERROR;
@@ -291,7 +292,10 @@ public class FindBugsReportParser extends DefaultHandler implements XmlReportPar
     return false;
   }
 
-  public void logReportTotals(File report, Map<String, String> parameters) {
+  public void logReportTotals(File report) {
+  }
+
+  public void logParsingTotals(Map<String, String> parameters) {
     boolean limitReached = false;
 
     final int errorLimit = XmlReportPluginUtil.getMaxErrors(parameters);

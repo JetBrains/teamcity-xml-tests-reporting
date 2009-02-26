@@ -147,7 +147,7 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
     return -1;
   }
 
-  public void logReportTotals(File report, Map<String, String> params) {
+  public void logReportTotals(File report) {
     String message = report.getPath() + " report processed";
     if (myLoggedSuites > 0) {
       message = message.concat(": " + myLoggedSuites + " suite(s)");
@@ -161,6 +161,9 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
       message = message.concat(", " + mySkippedSuites + " suite(s) skipped");
     }
     myLogger.message(message);
+  }
+
+  public void logParsingTotals(Map<String, String> params) {
   }
 
   public boolean abnormalEnd() {

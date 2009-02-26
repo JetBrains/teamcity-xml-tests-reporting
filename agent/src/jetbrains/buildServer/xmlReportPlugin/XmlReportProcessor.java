@@ -65,6 +65,9 @@ public class XmlReportProcessor extends Thread {
     while (!allReportsProcessed()) {
       processReport(takeNextReport(1));
     }
+    for (String type : myParsers.keySet()) {
+      myParsers.get(type).logParsingTotals(myPlugin.getParameters());
+    }
   }
 
   private void processReport(ReportData report) {
@@ -95,7 +98,7 @@ public class XmlReportProcessor extends Thread {
         }
       }
     } else {
-      parser.logReportTotals(report.getFile(), myPlugin.getParameters());
+      parser.logReportTotals(report.getFile());
       myCurrentReport = null;
     }
   }

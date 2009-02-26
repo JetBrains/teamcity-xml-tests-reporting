@@ -35,6 +35,8 @@
         $('xmlReportParsing.max.errors.container').style.display = 'none';
         $('xmlReportParsing.max.warnings.container').style.display = 'none';
         }
+        $('xmlReportParsing.max.errors.container').disabled = (selectedValue == 'findbugs');
+        $('xmlReportParsing.max.warnings.container').disabled = (selectedValue == 'findbugs');
       </c:set>
       <props:selectProperty name="xmlReportParsing.reportType"
                             onchange="${onchange}">

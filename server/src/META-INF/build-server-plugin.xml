@@ -4,8 +4,5 @@
 <beans default-autowire="constructor">
   <bean id="testReportParserPluginSettings"
         class="jetbrains.buildServer.xmlReportPlugin.XmlReportPluginSettings"/>
-  <bean id="findBugsReporttTab"
-        class="jetbrains.buildServer.xmlReportPlugin.FindBugsReportTab"/>
-  <!--<bean id="reportTypeForm"-->
-  <!--class="jetbrains.buildServer.xmlReportPluginTypeForm"></bean>-->
+  <!--<bean id="reportTypeForm" class="jetbrains.buildServer.xmlReportPlugin.ReportTypeForm"/>-->
 </beans>

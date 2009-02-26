@@ -27,5 +27,7 @@ public interface XmlReportParser {
 
   boolean abnormalEnd();
 
-  public void logReportTotals(File report, Map<String, String> parameters);
+  void logReportTotals(File report);
+
+  void logParsingTotals(Map<String, String> parameters);
 }
