@@ -78,7 +78,6 @@ public class XmlReportProcessor extends Thread {
 
       if (myCurrentReport.getTriesToParse() == TRIES_TO_PARSE) {
         myPlugin.getLogger().debugToAgentLog("Unable to get full report from " + TRIES_TO_PARSE + " tries. File is supposed to have illegal structure or unsupported format");
-
         parser.abnormalEnd();
         myPlugin.getLogger().warning(report.getFile().getPath() + " report has unexpected finish or unsupported format");
         myCurrentReport = null;
@@ -112,15 +111,15 @@ public class XmlReportProcessor extends Thread {
       if (pair == null) {
         return null;
       }
-      final String type = pair.getFirst();
-      final File file = pair.getSecond();
+      final String reportType = pair.getFirst();
+      final File report = pair.getSecond();
 
-      if (!myParsers.containsKey(type)) {
-        initializeParser(type);
+      if (!myParsers.containsKey(reportType)) {
+        initializeParser(reportType);
       }
 
-      myPlugin.getLogger().message("Found report file: " + file.getAbsolutePath());
-      myCurrentReport = new ReportData(file, type);
+      myPlugin.getLogger().message("Found report file: " + report.getAbsolutePath());
+      myCurrentReport = new ReportData(report, reportType);
       return myCurrentReport;
     } catch (InterruptedException e) {
       myPlugin.getLogger().debugToAgentLog("Report processor thread interrupted");

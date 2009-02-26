@@ -76,10 +76,10 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
       myXMLReader.setErrorHandler(this);
       myXMLReader.setFeature("http://xml.org/sax/features/validation", false);
     } catch (SAXException e) {
-      myLogger.warning("Ant JUnit report parser couldn't get default XMLReader");
+      myLogger.error("Ant JUnit report parser couldn't get default XMLReader");
     }
-
     myPreviouslyLoggedSuits = new HashSet<String>();
+    myCData = new StringBuffer();
     myLoggedSuites = 0;
     mySkippedSuites = 0;
   }
@@ -130,18 +130,14 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
   public long parse(@NotNull final File report, long testsToSkip) {
     myLoggedTests = 0;
     myTestsToSkip = testsToSkip;
-
+    myCData = myCData.delete(0, myCData.length());
+    myTests = new Stack<TestData>();
     try {
       myXMLReader.parse(new InputSource(report.toURI().toString()));
     } catch (SAXParseException e) {
-      if (myTests != null) {
-        myTests.clear();
-      }
-
+      myTests.clear();
       myLogger.debugToAgentLog("Couldn't completely parse " + report.getPath() + " report - SAXParseException occured: " + e.toString());
-
       return myLoggedTests;
-
     } catch (Exception e) {
       myLogger.exception(e);
     }
@@ -153,14 +149,15 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
 
   public void logReportTotals(File report, Map<String, String> params) {
     String message = report.getPath() + " report processed";
-    if (myLoggedSuites != 0) {
+    if (myLoggedSuites > 0) {
       message = message.concat(": " + myLoggedSuites + " suite(s)");
-      if (myLoggedTests != 0) {
+      if (myLoggedTests > 0) {
         message = message.concat(", " + myLoggedTests + " test(s)");
       } else {
+        //uncorrect report case
         myLogger.debugToAgentLog(report.getPath() + " contains no suits, but " + myLoggedTests + " tests");
       }
-    } else if (mySkippedSuites != 0) {
+    } else if (mySkippedSuites > 0) {
       message = message.concat(", " + mySkippedSuites + " suite(s) skipped");
     }
     myLogger.message(message);
@@ -172,7 +169,6 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
       myLogger.debugToAgentLog("Abnormal end called. Log ending of started suite.");
       return true;
     }
-
     return false;
   }
 
@@ -192,10 +188,6 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
       startTest(attributes);
     } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
       startFailure(attributes);
-    } else if (SYSTEM_OUT.equals(localName) || SYSTEM_ERR.equals(localName)) {
-      myCData = new StringBuffer();
-    } else if (TIME.equals(localName)) {
-      myCData = new StringBuffer();
     }
   }
 
@@ -218,27 +210,23 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
       if (trimmedCData.length() > 0) {
         mySystemOut = trimmedCData;
       }
-      myCData = null;
     } else if (SYSTEM_ERR.equals(localName)) {
       final String trimmedCData = getTrimmedCData();
       if (trimmedCData.length() > 0) {
         mySystemErr = trimmedCData;
       }
-      myCData = null;
     } else if (TIME.equals(localName)) {
       if (myTests.size() != 0) {
-        final TestData test = myTests.peek();
-        test.setDuration(getExecutionTime(getTrimmedCData()));
+        myTests.peek().setDuration(getExecutionTime(getTrimmedCData()));
       }
-      myCData = null;
     }
+    myCData.delete(0, myCData.length());
   }
 
   private void startSuite(Attributes attributes) {
     if (myCurrentSuite != null) {
       return;
     }
-
     String name = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
     final String pack = attributes.getValue(DEFAULT_NAMESPACE, PACKAGE_ATTR);
     final long testNumber = getTestNumber(attributes.getValue(DEFAULT_NAMESPACE, TESTS_ATTR));
@@ -251,14 +239,13 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
     }
 
     if (myPreviouslyLoggedSuits.contains(name + timestamp)) {
-      myLogger.debugToAgentLog(name + " suite has been already logged from other report");
+      myLogger.debugToAgentLog(name + " suite is skipped, as it has been already logged from other report");
       mySkippedSuites = mySkippedSuites + 1;
       myTestsToSkip = myLoggedTests + testNumber;
       return;
     }
 
     myCurrentSuite = new SuiteData(name, startTime.getTime(), duration);
-    myTests = new Stack<TestData>();
     myLogger.getBuildLogger().logSuiteStarted(name, startTime);
     myPreviouslyLoggedSuits.add(name + timestamp);
   }
@@ -267,7 +254,6 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
     if (myCurrentSuite == null) {
       return;
     }
-
     if (myCurrentSuite.isFailure()) {
       myLogger.error(myCurrentSuite.getFailureType() + ": " + myCurrentSuite.getFailureMessage());
     }
@@ -282,8 +268,11 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
     myLogger.getBuildLogger().logSuiteFinished(myCurrentSuite.getName(), new Date(myCurrentSuite.getStartTime() + myCurrentSuite.getDuraion()));
     myLoggedSuites = myLoggedSuites + 1;
 
+    if (myTests.size() != 0) {
+      myLogger.debugToAgentLog("Some tests were not logged in suite " + myCurrentSuite);
+      myTests.clear();
+    }
     myCurrentSuite = null;
-    myTests = null;
   }
 
   private void startTest(Attributes attributes) {
@@ -320,7 +309,6 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
             failureMessage = failureMessage.concat(": " + test.getFailureMessage());
           }
         }
-
         myLogger.getBuildLogger().logTestFailed(testFullName, failureMessage, test.getFailureStackTrace());
       }
       if (mySystemOut != null) {
@@ -348,24 +336,19 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
       myCurrentSuite.setFailureMessage(failureMessage);
       myCurrentSuite.setFailureType(failureType);
     }
-    myCData = new StringBuffer();
   }
 
   private void endFailure() {
     if (myTests.size() != 0) {
-      final TestData test = myTests.peek();
-      test.setFailureStackTrace(getTrimmedCData());
+      myTests.peek().setFailureStackTrace(getTrimmedCData());
     }
-    myCData = null;
   }
 
   public void characters(char ch[], int start, int length) throws SAXException {
     if (testSkipped()) {
       return;
     }
-    if (myCData != null) {
-      myCData.append(ch, start, length);
-    }
+    myCData.append(ch, start, length);
   }
 
   private long getTestNumber(String testNumStr) {

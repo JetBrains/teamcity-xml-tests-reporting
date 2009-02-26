@@ -33,7 +33,6 @@ public class NUnitReportParser extends AntJUnitReportParser {
 
   public NUnitReportParser(XmlReportLogger logger, String workingDir) {
     super(logger);
-    myReportTransformer = null;
     try {
       myReportTransformer = new NUnitToJUnitReportTransformer();
     } catch (TransformerConfigurationException e) {

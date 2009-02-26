@@ -22,8 +22,6 @@ import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.BuildFinishedStatus;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.WORKING_DIR;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil;
@@ -45,6 +43,10 @@ import java.util.Map;
 @RunWith(JMock.class)
 public class XmlReportPluginIntegrationTest {
   private static final String REPORTS_DIR = "reportsDir";
+  private static final String ANT_JUNIT_REPORT_TYPE = "junit";
+  private static final String NUNIT_REPORT_TYPE = "nunit";
+  private static final String EMPTY_REPORT_TYPE = "";
+  private static final String WORKING_DIR = "workingDirForTesting";
 
   private XmlReportPlugin myPlugin;
   private AgentRunningBuild myRunningBuild;
@@ -74,24 +76,11 @@ public class XmlReportPluginIntegrationTest {
         will(returnValue(workingDirFile));
         allowing(runningBuild).getBuildTempDirectory();
         will(returnValue(workingDirFile));
-//        allowing(runningBuild).getBuildParameters();
-//        will(returnValue(createBuildParametersMap(myRunnerParams)));
         ignoring(runningBuild);
       }
     });
     return runningBuild;
   }
-
-//  private BuildParametersMap createBuildParametersMap(final Map<String, String> systemProperties) {
-//    final BuildParametersMap params = myContext.mock(BuildParametersMap.class);
-//    myContext.checking(new Expectations() {
-//      {
-//        oneOf(params).getSystemProperties();
-//        will(returnValue(systemProperties));
-//      }
-//    });
-//    return params;
-//  }
 
   @Before
   public void setUp() {
@@ -127,6 +116,10 @@ public class XmlReportPluginIntegrationTest {
     for (int i = 0; i < subDirs.length; ++i) {
       removeDir(subDirs[i]);
     }
+  }
+
+  private static File getFileInWorkingDir(String name) {
+    return new File("workingDirForTesting/" + name);
   }
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
@@ -177,7 +170,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     List<Object> params = new ArrayList<Object>();
-    params.add(MethodInvokation.ANY_VALUE);
+    params.add(getFileInWorkingDir("reports").getAbsolutePath() + " directory didn't appear on disk during the build");
     myLogSequence.add(new MethodInvokation("warning", params));
     myTestLogger.setExpectedSequence(myLogSequence);
 
@@ -204,7 +197,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final List<Object> params = new ArrayList<Object>();
-    params.add(MethodInvokation.ANY_VALUE);
+    params.add(getFileInWorkingDir("reports").getAbsolutePath() + " is not actually a directory");
     myLogSequence.add(new MethodInvokation("warning", params));
     myTestLogger.setExpectedSequence(myLogSequence);
 
@@ -232,7 +225,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final List<Object> params = new ArrayList<Object>();
-    params.add(MethodInvokation.ANY_VALUE);
+    params.add(getFileInWorkingDir(REPORTS_DIR).getAbsolutePath() + ": no reports found in directory");
     myLogSequence.add(new MethodInvokation("warning", params));
     myTestLogger.setExpectedSequence(myLogSequence);
   }
@@ -243,11 +236,16 @@ public class XmlReportPluginIntegrationTest {
     myRunnerParams.put(XmlReportPluginUtil.REPORT_DIRS, REPORTS_DIR);
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
-    final List<Object> params = new ArrayList<Object>();
-    params.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("message", params));
-    myLogSequence.add(new MethodInvokation("warning", params));
-    myLogSequence.add(new MethodInvokation("message", params));
+    final List<Object> params1 = new ArrayList<Object>();
+    final List<Object> params2 = new ArrayList<Object>();
+    final List<Object> params3 = new ArrayList<Object>();
+    final String report = getFileInWorkingDir(REPORTS_DIR + "/somefile").getAbsolutePath();
+    params1.add("Found report file: " + report);
+    myLogSequence.add(new MethodInvokation("message", params1));
+    params2.add(report + " report has unexpected finish or unsupported format");
+    myLogSequence.add(new MethodInvokation("warning", params2));
+    params3.add(getFileInWorkingDir(REPORTS_DIR).getAbsolutePath() + " directory: 1 files(s) found");
+    myLogSequence.add(new MethodInvokation("message", params3));
     myTestLogger.setExpectedSequence(myLogSequence);
   }
 
@@ -340,17 +338,27 @@ public class XmlReportPluginIntegrationTest {
     myRunnerParams.put(XmlReportPluginUtil.REPORT_DIRS, REPORTS_DIR);
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
-    final List<Object> params = new ArrayList<Object>();
-    params.add(MethodInvokation.ANY_VALUE);
+    final List<Object> params1 = new ArrayList<Object>();
+    params1.add("Found report file: " + getFileInWorkingDir(REPORTS_DIR + "/report").getAbsolutePath());
+    final List<Object> twoAnyParams = new ArrayList<Object>();
+    twoAnyParams.add(MethodInvokation.ANY_VALUE);
+    twoAnyParams.add(MethodInvokation.ANY_VALUE);
 
-    myLogSequence.add(new MethodInvokation("message", params));
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestFailed", params));
-    myLogSequence.add(new MethodInvokation("logTestFinished", params));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", params));
-    myLogSequence.add(new MethodInvokation("warning", params));
-    myLogSequence.add(new MethodInvokation("message", params));
+    final List<Object> threeAnyParams = new ArrayList<Object>();
+    threeAnyParams.add(MethodInvokation.ANY_VALUE);
+    threeAnyParams.add(MethodInvokation.ANY_VALUE);
+    threeAnyParams.add(MethodInvokation.ANY_VALUE);
+
+    myLogSequence.add(new MethodInvokation("message", params1));
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", twoAnyParams));
+    final List<Object> params2 = new ArrayList<Object>();
+    params2.add(getFileInWorkingDir(REPORTS_DIR + "/report").getAbsolutePath() + " report has unexpected finish or unsupported format");
+    myLogSequence.add(new MethodInvokation("warning", params2));
+    myLogSequence.add(new MethodInvokation("message", twoAnyParams));
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
@@ -405,6 +413,7 @@ public class XmlReportPluginIntegrationTest {
 
     final List<Object> params = new ArrayList<Object>();
     params.add(MethodInvokation.ANY_VALUE);
+    params.add(MethodInvokation.ANY_VALUE);
     myLogSequence.add(new MethodInvokation("logSuiteStarted", params));
     myLogSequence.add(new MethodInvokation("logTestStarted", params));
     myLogSequence.add(new MethodInvokation("logTestFinished", params));
@@ -449,38 +458,47 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
     XmlReportPluginUtil.setXmlReportDirs(myRunnerParams, "");
 
-    final List<Object> params = new ArrayList<Object>();
-    params.add(MethodInvokation.ANY_VALUE);
+    final List<Object> twoAnyParams = new ArrayList<Object>();
+    twoAnyParams.add(MethodInvokation.ANY_VALUE);
+    twoAnyParams.add(MethodInvokation.ANY_VALUE);
 
-    final List<Object> param = new ArrayList<Object>();
-    param.add("TestCase1");
+    final List<Object> threeAnyParams = new ArrayList<Object>();
+    threeAnyParams.add(MethodInvokation.ANY_VALUE);
+    threeAnyParams.add(MethodInvokation.ANY_VALUE);
+    threeAnyParams.add(MethodInvokation.ANY_VALUE);
 
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param));
-    myLogSequence.add(new MethodInvokation("logTestStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestFinished", params));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
+    final List<Object> param1 = new ArrayList<Object>();
+    param1.add("TestCase1");
+    param1.add(MethodInvokation.ANY_VALUE);
 
-    param.remove("TestCase1");
-    param.add("TestCase2");
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", param1));
+    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", param1));
 
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param));
-    myLogSequence.add(new MethodInvokation("logTestStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestFinished", params));
-    myLogSequence.add(new MethodInvokation("logTestStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestFailed", params));
-    myLogSequence.add(new MethodInvokation("logTestFinished", params));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
+    final List<Object> param2 = new ArrayList<Object>();
+    param2.add("TestCase2");
+    param2.add(MethodInvokation.ANY_VALUE);
 
-    param.remove("TestCase2");
-    param.add("TestCase3");
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", param2));
+    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", param2));
 
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param));
-    myLogSequence.add(new MethodInvokation("logTestStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestFinished", params));
-    myLogSequence.add(new MethodInvokation("logTestStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestFailed", params));
-    myLogSequence.add(new MethodInvokation("logTestFinished", params));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
+    final List<Object> param3 = new ArrayList<Object>();
+    param3.add("TestCase3");
+    param3.add(MethodInvokation.ANY_VALUE);
+
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", param3));
+    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", param3));
 
     myTestLogger.setExpectedSequence(myLogSequence);
     myTestLogger.addNotControlledMethod("message");
@@ -545,38 +563,47 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
     XmlReportPluginUtil.setXmlReportDirs(myRunnerParams, "");
 
-    final List<Object> params = new ArrayList<Object>();
-    params.add(MethodInvokation.ANY_VALUE);
+    final List<Object> twoAnyParams = new ArrayList<Object>();
+    twoAnyParams.add(MethodInvokation.ANY_VALUE);
+    twoAnyParams.add(MethodInvokation.ANY_VALUE);
 
-    final List<Object> param = new ArrayList<Object>();
-    param.add("TestCase1");
+    final List<Object> threeAnyParams = new ArrayList<Object>();
+    threeAnyParams.add(MethodInvokation.ANY_VALUE);
+    threeAnyParams.add(MethodInvokation.ANY_VALUE);
+    threeAnyParams.add(MethodInvokation.ANY_VALUE);
 
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param));
-    myLogSequence.add(new MethodInvokation("logTestStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestFinished", params));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
+    final List<Object> param1 = new ArrayList<Object>();
+    param1.add("TestCase1");
+    param1.add(MethodInvokation.ANY_VALUE);
 
-    param.remove("TestCase1");
-    param.add("TestCase2");
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", param1));
+    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", param1));
 
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param));
-    myLogSequence.add(new MethodInvokation("logTestStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestFinished", params));
-    myLogSequence.add(new MethodInvokation("logTestStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestFailed", params));
-    myLogSequence.add(new MethodInvokation("logTestFinished", params));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
+    final List<Object> param2 = new ArrayList<Object>();
+    param2.add("TestCase2");
+    param2.add(MethodInvokation.ANY_VALUE);
 
-    param.remove("TestCase2");
-    param.add("TestCase3");
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", param2));
+    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", param2));
 
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param));
-    myLogSequence.add(new MethodInvokation("logTestStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestFinished", params));
-    myLogSequence.add(new MethodInvokation("logTestStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestFailed", params));
-    myLogSequence.add(new MethodInvokation("logTestFinished", params));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
+    final List<Object> param3 = new ArrayList<Object>();
+    param3.add("TestCase3");
+    param3.add(MethodInvokation.ANY_VALUE);
+
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", param3));
+    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", param3));
 
     myTestLogger.setExpectedSequence(myLogSequence);
     myTestLogger.addNotControlledMethod("message");
@@ -704,20 +731,27 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setXmlReportDirs(myRunnerParams, "");
     XmlReportPluginUtil.setParseOutOfDateReports(myRunnerParams, true);
 
-    final List<Object> params = new ArrayList<Object>();
-    params.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("message", params));
+    final List<Object> param1 = new ArrayList<Object>();
+    param1.add("Found report file: " + getFileInWorkingDir("suite1").getAbsolutePath());
+    myLogSequence.add(new MethodInvokation("message", param1));
 
-    final List<Object> param = new ArrayList<Object>();
-    param.add(MethodInvokation.ANY_VALUE);
-    param.add("TestCase1");
+    final List<Object> twoAnyParams = new ArrayList<Object>();
+    twoAnyParams.add(MethodInvokation.ANY_VALUE);
+    twoAnyParams.add(MethodInvokation.ANY_VALUE);
 
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param));
-    myLogSequence.add(new MethodInvokation("logTestStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestFinished", params));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
-    myLogSequence.add(new MethodInvokation("message", params));
-    myLogSequence.add(new MethodInvokation("message", params));
+    final List<Object> param2 = new ArrayList<Object>();
+    param2.add("TestCase1");
+    param2.add(MethodInvokation.ANY_VALUE);
+
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", param2));
+    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", param2));
+
+    final List<Object> param3 = new ArrayList<Object>();
+    param3.add(MethodInvokation.ANY_VALUE);
+    myLogSequence.add(new MethodInvokation("message", param3));
+    myLogSequence.add(new MethodInvokation("message", param3));
     myTestLogger.setExpectedSequence(myLogSequence);
 
     createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
@@ -749,20 +783,27 @@ public class XmlReportPluginIntegrationTest {
   public void testParsingFromServiceMessage() {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, "");
 
-    final List<Object> params = new ArrayList<Object>();
-    params.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("message", params));
+    final List<Object> param1 = new ArrayList<Object>();
+    param1.add("Found report file: " + getFileInWorkingDir("suite1").getAbsolutePath());
+    myLogSequence.add(new MethodInvokation("message", param1));
 
-    final List<Object> param = new ArrayList<Object>();
-    param.add(MethodInvokation.ANY_VALUE);
-    param.add("TestCase1");
+    final List<Object> twoAnyParams = new ArrayList<Object>();
+    twoAnyParams.add(MethodInvokation.ANY_VALUE);
+    twoAnyParams.add(MethodInvokation.ANY_VALUE);
 
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param));
-    myLogSequence.add(new MethodInvokation("logTestStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestFinished", params));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
-    myLogSequence.add(new MethodInvokation("message", params));
-    myLogSequence.add(new MethodInvokation("message", params));
+    final List<Object> param2 = new ArrayList<Object>();
+    param2.add("TestCase1");
+    param2.add(MethodInvokation.ANY_VALUE);
+
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", param2));
+    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", param2));
+
+    final List<Object> oneAnyParam = new ArrayList<Object>();
+    oneAnyParam.add(MethodInvokation.ANY_VALUE);
+    myLogSequence.add(new MethodInvokation("message", oneAnyParam));
+    myLogSequence.add(new MethodInvokation("message", oneAnyParam));
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
@@ -846,20 +887,26 @@ public class XmlReportPluginIntegrationTest {
   public void testParsingFromServiceMessageNotSkipOld() {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, "");
 
-    final List<Object> params = new ArrayList<Object>();
-    params.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("message", params));
+    final List<Object> param1 = new ArrayList<Object>();
+    param1.add("Found report file: " + getFileInWorkingDir("suite1").getAbsolutePath());
+    myLogSequence.add(new MethodInvokation("message", param1));
 
-    final List<Object> param = new ArrayList<Object>();
-    param.add(MethodInvokation.ANY_VALUE);
-    param.add("TestCase1");
+    final List<Object> twoAnyParams = new ArrayList<Object>();
+    twoAnyParams.add(MethodInvokation.ANY_VALUE);
+    twoAnyParams.add(MethodInvokation.ANY_VALUE);
 
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param));
-    myLogSequence.add(new MethodInvokation("logTestStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestFinished", params));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
-    myLogSequence.add(new MethodInvokation("message", params));
-    myLogSequence.add(new MethodInvokation("message", params));
+    final List<Object> param2 = new ArrayList<Object>();
+    param2.add("TestCase1");
+    param2.add(MethodInvokation.ANY_VALUE);
+
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", param2));
+    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", param2));
+    final List<Object> oneAnyParam = new ArrayList<Object>();
+    oneAnyParam.add(MethodInvokation.ANY_VALUE);
+    myLogSequence.add(new MethodInvokation("message", oneAnyParam));
+    myLogSequence.add(new MethodInvokation("message", oneAnyParam));
     myTestLogger.setExpectedSequence(myLogSequence);
 
     createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +

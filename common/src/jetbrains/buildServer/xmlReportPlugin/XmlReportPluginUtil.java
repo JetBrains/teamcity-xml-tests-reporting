@@ -43,8 +43,7 @@ public class XmlReportPluginUtil {
   public static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
 
   public static boolean isParsingEnabled(@NotNull final Map<String, String> runParams) {
-    return runParams.containsKey(REPORT_TYPE) &&
-      !runParams.get(REPORT_TYPE).equals("");
+    return runParams.containsKey(REPORT_TYPE) && !runParams.get(REPORT_TYPE).equals("");
   }
 
   public static boolean isOutputVerbose(@NotNull final Map<String, String> runParams) {
@@ -105,14 +104,7 @@ public class XmlReportPluginUtil {
   }
 
   public static int getMaxErrors(@NotNull final Map<String, String> runParams) {
-    if (runParams.containsKey(MAX_ERRORS)) {
-      try {
-        return Integer.parseInt(runParams.get(MAX_ERRORS));
-      } catch (NumberFormatException e) {
-        return -1;
-      }
-    }
-    return -1;
+    return getMaxErrorsOrWarnings(runParams, MAX_ERRORS);
   }
 
   public static void setMaxErrors(@NotNull final Map<String, String> runParams, int maxErrors) {
@@ -122,19 +114,23 @@ public class XmlReportPluginUtil {
   }
 
   public static int getMaxWarnings(@NotNull final Map<String, String> runParams) {
-    if (runParams.containsKey(MAX_WARNINGS)) {
-      try {
-        return Integer.parseInt(runParams.get(MAX_WARNINGS));
-      } catch (NumberFormatException e) {
-        return -1;
-      }
-    }
-    return -1;
+    return getMaxErrorsOrWarnings(runParams, MAX_WARNINGS);
   }
 
   public static void setMaxWarnings(@NotNull final Map<String, String> runParams, int maxWarnings) {
     if (isParsingEnabled(runParams)) {
       runParams.put(MAX_WARNINGS, "" + maxWarnings);
     }
+  }
+
+  private static int getMaxErrorsOrWarnings(@NotNull final Map<String, String> runParams, String what) {
+    if (runParams.containsKey(what)) {
+      try {
+        return Integer.parseInt(runParams.get(what));
+      } catch (NumberFormatException e) {
+        return -1;
+      }
+    }
+    return -1;
   }
 }

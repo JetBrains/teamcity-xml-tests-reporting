@@ -99,34 +99,34 @@ public class XmlReportDataProcessorTest extends TestCase {
 
   @Test
   public void testDefault() throws Exception {
-    Map<String, String> arguments = new HashMap<String, String>();
+    final Map<String, String> arguments = new HashMap<String, String>();
     runTest(arguments, "default");
   }
 
   @Test
   public void testVerbose() throws Exception {
-    Map<String, String> arguments = new HashMap<String, String>();
+    final Map<String, String> arguments = new HashMap<String, String>();
     arguments.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
     runTest(arguments, "verbose");
   }
 
   @Test
   public void testOutOfDate() throws Exception {
-    Map<String, String> arguments = new HashMap<String, String>();
+    final Map<String, String> arguments = new HashMap<String, String>();
     arguments.put(XmlReportDataProcessor.PARSE_OUT_OF_DATE_ARGUMENT, "true");
     runTest(arguments, "outOfDate");
   }
 
   @Test
   public void testErrorsLimit() throws Exception {
-    Map<String, String> arguments = new HashMap<String, String>();
+    final Map<String, String> arguments = new HashMap<String, String>();
     arguments.put(XmlReportDataProcessor.ERRORS_LIMIT_ARGUMENT, "10");
     runTest(arguments, "errorsLimit");
   }
 
   @Test
   public void testWarningsLimit() throws Exception {
-    Map<String, String> arguments = new HashMap<String, String>();
+    final Map<String, String> arguments = new HashMap<String, String>();
     arguments.put(XmlReportDataProcessor.WARNINGS_LIMIT_ARGUMENT, "10");
     runTest(arguments, "warningsLimit");
   }

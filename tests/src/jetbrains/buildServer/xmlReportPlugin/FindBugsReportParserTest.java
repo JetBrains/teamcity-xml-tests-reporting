@@ -26,6 +26,8 @@ import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class FindBugsReportParserTest extends TestCase {
@@ -79,9 +81,9 @@ public class FindBugsReportParserTest extends TestCase {
   }
 
   private void runTest(final String fileName) throws Exception {
-    final String report = getTestDataPath(fileName);
-    final String resultsFile = report + ".tmp";
-    final String expectedFile = report + ".gold";
+    final String reportName = getTestDataPath(fileName);
+    final String resultsFile = reportName + ".tmp";
+    final String expectedFile = reportName + ".gold";
 
     new File(resultsFile).delete();
 
@@ -90,11 +92,15 @@ public class FindBugsReportParserTest extends TestCase {
     final SimpleBuildLogger logger = new BuildLoggerForTesting(results);
     final InspectionReporter reporter = createFakeReporter(results);
 
-    final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, report.substring(0, report.lastIndexOf(fileName)));
-    parser.parse(new File(report), 0);
-//    parser.logReportTotals();
-//    results.append("Errors: ").append(parser.getErrorsCount()).append("\r\n");
-//    results.append("Warnings: ").append(parser.getWarningsCount()).append("\r\n");
+    final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, reportName.substring(0, reportName.lastIndexOf(fileName)));
+
+    final File report = new File(reportName);
+    parser.parse(report, 0);
+    final Map<String, String> params = new HashMap<String, String>();
+    XmlReportPluginUtil.enableXmlReportParsing(params, FindBugsReportParser.TYPE);
+    XmlReportPluginUtil.setMaxErrors(params, 5);
+    XmlReportPluginUtil.setMaxWarnings(params, 5);
+    parser.logReportTotals(report, params);
 
     final File expected = new File(expectedFile);
     if (!readFile(expected).equals(results.toString())) {
@@ -157,5 +163,15 @@ public class FindBugsReportParserTest extends TestCase {
   @Test
   public void testCategory() throws Exception {
     runTest("category.xml");
+  }
+
+  @Test
+  public void testBuildFailsErrors() throws Exception {
+    runTest("failureErr.xml");
+  }
+
+  @Test
+  public void testBuildFailsWarnings() throws Exception {
+    runTest("failureWarn.xml");
   }
 }

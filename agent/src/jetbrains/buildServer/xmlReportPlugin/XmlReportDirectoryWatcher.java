@@ -50,7 +50,6 @@ public class XmlReportDirectoryWatcher extends Thread {
       return;
     }
     myDirectories.put(type, directories);
-
   }
 
   public void run() {
@@ -62,7 +61,6 @@ public class XmlReportDirectoryWatcher extends Thread {
         myPlugin.getLogger().exception(e);
       }
     }
-
     scanDirectories();
   }
 
@@ -158,7 +156,6 @@ public class XmlReportDirectoryWatcher extends Thread {
     final int fileNumber = processedFiles.size() + unprocessedFiles.size();
 
     String message = dir.getPath() + " directory: " + fileNumber + " files(s) found";
-
     if (unprocessedFiles.size() > 0) {
       message = message.concat(", " + unprocessedFiles.size() + " of them unprocessed (see reasons below):");
     }

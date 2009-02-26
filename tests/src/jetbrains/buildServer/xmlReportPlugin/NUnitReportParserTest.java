@@ -17,7 +17,6 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.WORKING_DIR;
 import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -64,7 +63,7 @@ public class NUnitReportParserTest extends TestCase {
       }
     };
     myLogger = createBaseServerLoggerFacade();
-    myParser = new NUnitReportParser(new XmlReportLogger(myLogger, true), WORKING_DIR);
+    myParser = new NUnitReportParser(new XmlReportLogger(myLogger, true), "workingDirForTesting");
     mySequence = myContext.sequence("Log Sequence");
   }
 

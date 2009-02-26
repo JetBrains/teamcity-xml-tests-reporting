@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="1.3.7" sequence="0" timestamp="1235656984360" analysisTimestamp="1235656986781" release="">
+  <Project filename="&lt;&lt;unnamed project&gt;&gt;" projectName="">
+    <Jar>
+      C:\work\teamcityworkspace\xml-report-plugin\tests\testData\findBugs\failure\org\jetbrains\testProject\BuggyClass.class
+    </Jar>
+    <SrcDir>C:\work\teamcityworkspace\xml-report-plugin\tests\testData\findBugs\failure</SrcDir>
+  </Project>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE" priority="2" abbrev="DLS" category="STYLE">
+    <Class classname="org.jetbrains.testProject.BuggyClass">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="4" end="31" sourcefile="BuggyClass.java"
+                  sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Class>
+    <Method classname="org.jetbrains.testProject.BuggyClass" name="withLocalSelfAssignment1" signature="()V"
+            isStatic="false">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="17" end="19" startBytecode="0" endBytecode="4"
+                  sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Method>
+    <LocalVariable name="i" register="1" pc="4" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="18" end="18" startBytecode="3" endBytecode="3"
+                sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="i"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.TWO_STORES_MULTIPLE_LOADS" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.COPY_VALUE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.BASE_VALUE" value="true"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE" priority="2" abbrev="DLS" category="STYLE">
+    <Class classname="org.jetbrains.testProject.BuggyClass">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="4" end="31" sourcefile="BuggyClass.java"
+                  sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Class>
+    <Method classname="org.jetbrains.testProject.BuggyClass" name="withLocalSelfAssignment2" signature="()V"
+            isStatic="false">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="22" end="24" startBytecode="0" endBytecode="4"
+                  sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Method>
+    <LocalVariable name="i" register="1" pc="4" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="23" end="23" startBytecode="3" endBytecode="3"
+                sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="i"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.TWO_STORES_MULTIPLE_LOADS" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.COPY_VALUE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.BASE_VALUE" value="true"/>
+  </BugInstance>
+  <BugInstance type="DLS_DEAD_LOCAL_STORE" priority="2" abbrev="DLS" category="STYLE">
+    <Class classname="org.jetbrains.testProject.BuggyClass">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="4" end="31" sourcefile="BuggyClass.java"
+                  sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Class>
+    <Method classname="org.jetbrains.testProject.BuggyClass" name="withLocalSelfAssignment3" signature="()V"
+            isStatic="false">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="27" end="29" startBytecode="0" endBytecode="4"
+                  sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Method>
+    <LocalVariable name="i" register="1" pc="4" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="28" end="28" startBytecode="3" endBytecode="3"
+                sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.LOCAL_NAME" value="i"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.TWO_STORES_MULTIPLE_LOADS" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.COPY_VALUE" value="true"/>
+    <Property name="edu.umd.cs.findbugs.detect.DeadLocalStoreProperty.BASE_VALUE" value="true"/>
+  </BugInstance>
+  <BugInstance type="NM_BAD_EQUAL" priority="1" abbrev="Nm" category="CORRECTNESS">
+    <Class classname="org.jetbrains.testProject.BuggyClass">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="4" end="31" sourcefile="BuggyClass.java"
+                  sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Class>
+    <Method classname="org.jetbrains.testProject.BuggyClass" name="equal" signature="(Ljava/lang/Object;)Z"
+            isStatic="false">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="9" end="9" startBytecode="0" endBytecode="53"
+                  sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Method>
+  </BugInstance>
+  <BugInstance type="SA_LOCAL_SELF_ASSIGNMENT" priority="2" abbrev="SA" category="STYLE">
+    <Class classname="org.jetbrains.testProject.BuggyClass">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="4" end="31" sourcefile="BuggyClass.java"
+                  sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Class>
+    <Method classname="org.jetbrains.testProject.BuggyClass" name="withLocalSelfAssignment1" signature="()V"
+            isStatic="false">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="17" end="19" startBytecode="0"
+                  endBytecode="64" sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Method>
+    <LocalVariable name="i" register="1" pc="3" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="18" end="18" startBytecode="3" endBytecode="3"
+                sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+  </BugInstance>
+  <BugInstance type="SA_LOCAL_SELF_ASSIGNMENT" priority="2" abbrev="SA" category="STYLE">
+    <Class classname="org.jetbrains.testProject.BuggyClass">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="4" end="31" sourcefile="BuggyClass.java"
+                  sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Class>
+    <Method classname="org.jetbrains.testProject.BuggyClass" name="withLocalSelfAssignment2" signature="()V"
+            isStatic="false">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="22" end="24" startBytecode="0"
+                  endBytecode="64" sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Method>
+    <LocalVariable name="i" register="1" pc="3" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="23" end="23" startBytecode="3" endBytecode="3"
+                sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+  </BugInstance>
+  <BugInstance type="SA_LOCAL_SELF_ASSIGNMENT" priority="2" abbrev="SA" category="STYLE">
+    <Class classname="org.jetbrains.testProject.BuggyClass">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="4" end="31" sourcefile="BuggyClass.java"
+                  sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Class>
+    <Method classname="org.jetbrains.testProject.BuggyClass" name="withLocalSelfAssignment3" signature="()V"
+            isStatic="false">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="27" end="29" startBytecode="0"
+                  endBytecode="64" sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Method>
+    <LocalVariable name="i" register="1" pc="3" role="LOCAL_VARIABLE_NAMED"/>
+    <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="28" end="28" startBytecode="3" endBytecode="3"
+                sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+  </BugInstance>
+  <BugInstance type="UUF_UNUSED_FIELD" priority="2" abbrev="UuF" category="PERFORMANCE">
+    <Class classname="org.jetbrains.testProject.BuggyClass">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="4" end="31" sourcefile="BuggyClass.java"
+                  sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Class>
+    <Field classname="org.jetbrains.testProject.BuggyClass" name="str" signature="Ljava/lang/String;" isStatic="false">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass" sourcefile="BuggyClass.java"
+                  sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Field>
+  </BugInstance>
+  <BugInstance type="SIC_INNER_SHOULD_BE_STATIC" priority="2" abbrev="SIC" category="PERFORMANCE">
+    <Class classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass" start="31" end="35"
+                  sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Class>
+  </BugInstance>
+  <BugInstance type="UUF_UNUSED_FIELD" priority="2" abbrev="UuF" category="PERFORMANCE">
+    <Class classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass" start="31" end="35"
+                  sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Class>
+    <Field classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass" name="i" signature="I" isStatic="false">
+      <SourceLine classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass" sourcefile="BuggyClass.java"
+                  sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+    </Field>
+  </BugInstance>
+  <BugInstance type="NM_BAD_EQUAL" priority="1" abbrev="Nm" category="CORRECTNESS">
+    <Class classname="org.jetbrains.testProject.ExampleClass">
+      <SourceLine classname="org.jetbrains.testProject.ExampleClass" start="5" end="31" sourcefile="ExampleClass.java"
+                  sourcepath="org/jetbrains/testProject/ExampleClass.java"/>
+    </Class>
+    <Method classname="org.jetbrains.testProject.ExampleClass" name="equal" signature="(Ljava/lang/Object;)Z"
+            isStatic="false">
+      <SourceLine classname="org.jetbrains.testProject.ExampleClass" start="31" end="31" startBytecode="0"
+                  endBytecode="53" sourcefile="ExampleClass.java"
+                  sourcepath="org/jetbrains/testProject/ExampleClass.java"/>
+    </Method>
+  </BugInstance>
+  <Errors>
+    <MissingClass>junit.framework.TestCase</MissingClass>
+  </Errors>
+  <FindBugsSummary timestamp="Thu, 26 Feb 2009 17:03:04 +0300" total_classes="4" total_bugs="11" total_size="81"
+                   num_packages="1" vm_version="1.5.0_14-b03" cpu_seconds="3.52" clock_seconds="3.80"
+                   peak_mbytes="23.58" alloc_mbytes="63.56" gc_seconds="0.60" priority_2="9" priority_1="2">
+    <PackageStats package="org.jetbrains.testProject" total_bugs="11" total_types="4" total_size="81" priority_2="9"
+                  priority_1="2">
+      <ClassStats class="org.jetbrains.testProject.BuggyClass" sourceFile="BuggyClass.java" interface="false" size="22"
+                  bugs="8" priority_2="7" priority_1="1"/>
+      <ClassStats class="org.jetbrains.testProject.BuggyClass$BuggyInnerClass" sourceFile="BuggyClass.java"
+                  interface="false" size="9" bugs="2" priority_2="2"/>
+      <ClassStats class="org.jetbrains.testProject.ExampleClass" sourceFile="ExampleClass.java" interface="false"
+                  size="21" bugs="1" priority_1="1"/>
+      <ClassStats class="org.jetbrains.testProject.TestGenerator" sourceFile="TestGenerator.java" interface="false"
+                  size="29" bugs="0"/>
+    </PackageStats>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History></History>
+</BugCollection>

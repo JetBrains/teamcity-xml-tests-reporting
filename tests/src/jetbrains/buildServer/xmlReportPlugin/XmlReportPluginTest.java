@@ -22,7 +22,6 @@ import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.BuildFinishedStatus;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.ANT_JUNIT_REPORT_TYPE;
 import junit.framework.Assert;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -55,17 +54,6 @@ public class XmlReportPluginTest {
   private InspectionReporter createInspectionReporter() {
     return myContext.mock(InspectionReporter.class);
   }
-
-//  private BuildParametersMap createBuildParametersMap(final Map<String, String> systemProperties) {
-//    final BuildParametersMap params = myContext.mock(BuildParametersMap.class);
-//    myContext.checking(new Expectations() {
-//      {
-//        oneOf(params).getSystemProperties();
-//        will(returnValue(systemProperties));
-//      }
-//    });
-//    return params;
-//  }
 
   private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams,
                                                     final File workingDirFile) {
@@ -113,7 +101,7 @@ public class XmlReportPluginTest {
   }
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
-    XmlReportPluginUtil.enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
+    XmlReportPluginUtil.enableXmlReportParsing(myRunParams, "junit");
 
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
@@ -121,6 +109,7 @@ public class XmlReportPluginTest {
     myEventDispatcher.getMulticaster().buildStarted(runningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
     myEventDispatcher.getMulticaster().beforeBuildFinish(status);
+    myEventDispatcher.getMulticaster().buildFinished(status);
     myContext.assertIsSatisfied();
   }
 
@@ -144,8 +133,7 @@ public class XmlReportPluginTest {
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
     myContext.checking(new Expectations() {
       {
-        oneOf(myLogger).warning(with(any(String.class)));
-        ignoring(myLogger);
+        oneOf(myLogger).warning(with("No report directories specified"));
         inSequence(mySequence);
       }
     });
@@ -153,12 +141,14 @@ public class XmlReportPluginTest {
 
     myEventDispatcher.getMulticaster().buildStarted(runningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
   }
 
   @Test
   public void testWarningWhenReportDirsNull() {
-    XmlReportPluginUtil.enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
+    XmlReportPluginUtil.enableXmlReportParsing(myRunParams, "junit");
     XmlReportPluginUtil.setVerboseOutput(myRunParams, true);
 
     warningWhenZeroReportDirsSize();
@@ -166,7 +156,7 @@ public class XmlReportPluginTest {
 
   @Test
   public void testIsStoppedWhenDisabled() {
-    XmlReportPluginUtil.enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
+    XmlReportPluginUtil.enableXmlReportParsing(myRunParams, "junit");
 
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
@@ -174,6 +164,7 @@ public class XmlReportPluginTest {
     myEventDispatcher.getMulticaster().buildStarted(runningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
 
     Assert.assertTrue("Plugin must be stopped", myPlugin.isStopped());
@@ -192,6 +183,7 @@ public class XmlReportPluginTest {
     myEventDispatcher.getMulticaster().buildStarted(runningBuild);
     myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
 
     Assert.assertTrue("Plugin must be stopped", myPlugin.isStopped());
@@ -199,14 +191,14 @@ public class XmlReportPluginTest {
 
   @Test
   public void testIsStoppedWhenReportDirsEmpty() {
-    XmlReportPluginUtil.enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
+    XmlReportPluginUtil.enableXmlReportParsing(myRunParams, "junit");
 
     isStoppedWhenZeroReportDirsSize();
   }
 
   @Test
   public void testIsStoppedWhenReportDirsNull() {
-    XmlReportPluginUtil.enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
+    XmlReportPluginUtil.enableXmlReportParsing(myRunParams, "junit");
 
     isStoppedWhenZeroReportDirsSize();
   }

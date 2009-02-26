@@ -41,13 +41,5 @@ public class NUnitToJUnitReportTransformer {
     final StreamSource source = new StreamSource(nUnitReport);
     final StreamResult result = new StreamResult(jUnitReport);
     myTransformer.transform(source, result);
-//    try {
-//      source.getInputStream().close();
-//      source.getReader().close();
-//      result.getOutputStream().close();
-//      result.getWriter().close();
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
   }
 }

@@ -1,7 +1,5 @@
 package jetbrains.buildServer.xmlReportPlugin.integration;
 
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.ANT_JUNIT_REPORT_TYPE;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.NUNIT_REPORT_TYPE;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -49,7 +47,7 @@ public final class ReportFactory {
     final File f = new File(WORKING_DIR + "\\" + name);
     try {
       final FileWriter fw = new FileWriter(f);
-      if (ANT_JUNIT_REPORT_TYPE.equals(type)) {
+      if ("junit".equals(type)) {
         fw.write("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
           "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase\" tests=\"2\" time=\"0.062\"\n" +
           "           timestamp=\"2008-10-30T17:11:25\">\n" +
@@ -62,7 +60,7 @@ public final class ReportFactory {
           "  </testcase>\n" +
           "  <testcase classname=\"TestCase\" name=\"test2\" time=\"0.031\">\n" +
           "    <error message=\"Error messag");
-      } else if (NUNIT_REPORT_TYPE.equals(type)) {
+      } else if ("nunit".equals(type)) {
         fw.write("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"no\"?>\n" +
           "<test-results name=\"C:\\Program Files\\NUnit-2.4.8-net-2.0\\bin\\NUnitTests.nunit\" total=\"1\" failures=\"0\" not-run=\"0\"\n" +
           "              date=\"2008-12-23\" time=\"18:33:48\">\n" +

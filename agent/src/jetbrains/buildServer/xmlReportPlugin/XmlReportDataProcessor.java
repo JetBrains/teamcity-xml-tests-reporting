@@ -18,8 +18,8 @@ import java.util.Map;
 
 //"##teamcity[importData type='fundBugs' file='somedir' errorLimit='100' warningLimit='200']"
 //starts watching somedir directory for FindBugs reports, buils will fail if some report has
-
 //more than errorLimit errors or more than warningLimit warnings
+
 public abstract class XmlReportDataProcessor implements DataProcessor {
   public static final String VERBOSE_ARGUMENT = "verbose";
   public static final String PARSE_OUT_OF_DATE_ARGUMENT = "parseOutOfDate";
