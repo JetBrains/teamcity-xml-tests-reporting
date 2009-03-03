@@ -29,7 +29,8 @@ public class XmlReportPluginUtil {
     SUPPORTED_REPORT_TYPES.put("junit", "Ant JUnit reports");
     SUPPORTED_REPORT_TYPES.put("nunit", "NUnit reports");
     SUPPORTED_REPORT_TYPES.put("surefire", "Surefire reports");
-    SUPPORTED_REPORT_TYPES.put("findBugs", "FindBugs reports");
+    SUPPORTED_REPORT_TYPES.put("findBugs", "FindBugs inspections reports");
+    SUPPORTED_REPORT_TYPES.put("pmd", "PMD inspections reports");
   }
 
   public static final String REPORT_TYPE = "xmlReportParsing.reportType";

@@ -86,7 +86,7 @@ public class FileFinder {
     }
   }
 
-  private static class DirectoryEntry extends Entry {
+  private static final class DirectoryEntry extends Entry {
     private final String myRoot;
 
     public DirectoryEntry(String root) {
@@ -120,7 +120,7 @@ public class FileFinder {
     }
   }
 
-  private static class ArchiveEntry extends Entry {
+  private static final class ArchiveEntry extends Entry {
     private final ZipFile myArchive;
 
     public ArchiveEntry(ZipFile archive) {
@@ -147,7 +147,7 @@ public class FileFinder {
     }
   }
 
-  private static class ClassEntry extends Entry {
+  private static final class ClassEntry extends Entry {
     private final String myFile;
 
     public ClassEntry(String file) {

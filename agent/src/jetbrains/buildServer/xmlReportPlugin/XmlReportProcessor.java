@@ -20,6 +20,7 @@ import com.intellij.openapi.util.Pair;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
+import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -75,7 +76,7 @@ public class XmlReportProcessor extends Thread {
       return;
     }
     final XmlReportParser parser = myParsers.get(report.getType());
-    final long processedTests = parser.parse(report.getFile(), report.getProcessedTests());
+    final int processedTests = parser.parse(report.getFile(), report.getProcessedTests());
     if (processedTests != -1) {
       myCurrentReport.setProcessedTests(processedTests);
 
@@ -143,7 +144,8 @@ public class XmlReportProcessor extends Thread {
 
     } else if (FindBugsReportParser.TYPE.equals(type)) {
       myParsers.put(type, new FindBugsReportParser(myPlugin.getLogger().getBuildLogger(), myPlugin.getInspectionReporter(), myPlugin.getWorkingDir()));
-
+    } else if (PmdReportParser.TYPE.equals(type)) {
+      myParsers.put(type, new PmdReportParser(myPlugin.getLogger().getBuildLogger(), myPlugin.getInspectionReporter(), myPlugin.getWorkingDir()));
     } else {
       myPlugin.getLogger().debugToAgentLog("No parser for " + type + " available");
     }
@@ -151,7 +153,7 @@ public class XmlReportProcessor extends Thread {
 
   private static final class ReportData {
     private final File myFile;
-    private long myProcessedTests;
+    private int myProcessedTests;
     private long myPrevLength;
     private int myTriesToParse;
     private String myType;
@@ -168,11 +170,11 @@ public class XmlReportProcessor extends Thread {
       return myFile;
     }
 
-    public long getProcessedTests() {
+    public int getProcessedTests() {
       return myProcessedTests;
     }
 
-    public void setProcessedTests(long tests) {
+    public void setProcessedTests(int tests) {
       myProcessedTests = tests;
     }
 

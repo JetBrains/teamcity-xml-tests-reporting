@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
+import static jetbrains.buildServer.xmlReportPlugin.XmlParserUtil.formatText;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportLogger;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import org.jetbrains.annotations.NotNull;
@@ -59,10 +60,10 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
   private String mySystemErr;
   private StringBuffer myCData;
 
-  private long myLoggedSuites;
-  private long mySkippedSuites;
-  private long myLoggedTests;
-  private long myTestsToSkip;
+  private int myLoggedSuites;
+  private int mySkippedSuites;
+  private int myLoggedTests;
+  private int myTestsToSkip;
 
   private Set<String> myPreviouslyLoggedSuits;
 
@@ -127,7 +128,7 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
 
 <!ELEMENT system-out (#PCDATA)> */
 
-  public long parse(@NotNull final File report, long testsToSkip) {
+  public int parse(@NotNull final File report, int testsToSkip) {
     myLoggedTests = 0;
     myTestsToSkip = testsToSkip;
     myCData = myCData.delete(0, myCData.length());
@@ -209,18 +210,18 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
     } else if (FAILURE.equals(localName)) {
       endFailure();
     } else if (SYSTEM_OUT.equals(localName)) {
-      final String trimmedCData = getTrimmedCData();
+      final String trimmedCData = myCData.toString().trim();
       if (trimmedCData.length() > 0) {
         mySystemOut = trimmedCData;
       }
     } else if (SYSTEM_ERR.equals(localName)) {
-      final String trimmedCData = getTrimmedCData();
+      final String trimmedCData = myCData.toString().trim();
       if (trimmedCData.length() > 0) {
         mySystemErr = trimmedCData;
       }
     } else if (TIME.equals(localName)) {
       if (myTests.size() != 0) {
-        myTests.peek().setDuration(getExecutionTime(getTrimmedCData()));
+        myTests.peek().setDuration(getExecutionTime(formatText(myCData)));
       }
     }
     myCData.delete(0, myCData.length());
@@ -232,7 +233,7 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
     }
     String name = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
     final String pack = attributes.getValue(DEFAULT_NAMESPACE, PACKAGE_ATTR);
-    final long testNumber = getTestNumber(attributes.getValue(DEFAULT_NAMESPACE, TESTS_ATTR));
+    final int testNumber = getTestNumber(attributes.getValue(DEFAULT_NAMESPACE, TESTS_ATTR));
     final Date startTime = new Date();
     final String timestamp = getTimetamp(attributes.getValue(DEFAULT_NAMESPACE, TIMESTAMP_ATTR));
     final long duration = getExecutionTime(attributes.getValue(DEFAULT_NAMESPACE, TIME_ATTR));
@@ -343,7 +344,7 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
 
   private void endFailure() {
     if (myTests.size() != 0) {
-      myTests.peek().setFailureStackTrace(getTrimmedCData());
+      myTests.peek().setFailureStackTrace(formatText(myCData));
     }
   }
 
@@ -354,14 +355,14 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
     myCData.append(ch, start, length);
   }
 
-  private long getTestNumber(String testNumStr) {
+  private int getTestNumber(String testNumStr) {
     if (testNumStr == null) {
-      return 0L;
+      return 0;
     }
     try {
-      return (Long.parseLong(testNumStr));
+      return (Integer.parseInt(testNumStr));
     } catch (NumberFormatException e) {
-      return 0L;
+      return 0;
     }
   }
 
@@ -389,9 +390,5 @@ public class AntJUnitReportParser extends DefaultHandler implements XmlReportPar
 
   private boolean testSkipped() {
     return (myLoggedTests < myTestsToSkip);
-  }
-
-  private String getTrimmedCData() {
-    return myCData.toString().trim();
   }
 }

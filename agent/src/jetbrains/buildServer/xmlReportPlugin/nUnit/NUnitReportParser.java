@@ -42,7 +42,7 @@ public class NUnitReportParser extends AntJUnitReportParser {
     myTmpReportDir.mkdirs();
   }
 
-  public long parse(@NotNull final File report, long testsToSkip) {
+  public int parse(@NotNull final File report, int testsToSkip) {
     final File junitReport = new File(myTmpReportDir.getPath() + "/" + report.getName());
     try {
       myReportTransformer.transform(report, junitReport);

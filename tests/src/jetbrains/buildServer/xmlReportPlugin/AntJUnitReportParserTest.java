@@ -172,7 +172,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   private void singleCaseIn2PartsCaseAndSuiteFrom2Try(String unfinishedReportName) {
-    long testsLogged = myParser.parse(report(unfinishedReportName), 0);
+    int testsLogged = myParser.parse(report(unfinishedReportName), 0);
     myContext.assertIsSatisfied();
     myContext.checking(new Expectations() {
       {
@@ -209,7 +209,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    long testsLogged = myParser.parse(report(unfinishedReportName), 0);
+    int testsLogged = myParser.parse(report(unfinishedReportName), 0);
     myContext.assertIsSatisfied();
     myContext.checking(new Expectations() {
       {
@@ -256,7 +256,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    long testsLogged = myParser.parse(report("singleCaseBreakAfter.xml"), 0);
+    int testsLogged = myParser.parse(report("singleCaseBreakAfter.xml"), 0);
     myContext.assertIsSatisfied();
     myContext.checking(new Expectations() {
       {
@@ -371,7 +371,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    long testsLogged = myParser.parse(report(unfinishedReportName), 0);
+    int testsLogged = myParser.parse(report(unfinishedReportName), 0);
     myContext.assertIsSatisfied();
     myContext.checking(new Expectations() {
       {
@@ -423,7 +423,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    long testsLogged = myParser.parse(report(unfinishedReportName), 0);
+    int testsLogged = myParser.parse(report(unfinishedReportName), 0);
     myContext.assertIsSatisfied();
     myContext.checking(new Expectations() {
       {
@@ -491,7 +491,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    long testsLogged = myParser.parse(report("twoCasesBreakAfterSecond.xml"), 0);
+    int testsLogged = myParser.parse(report("twoCasesBreakAfterSecond.xml"), 0);
     myContext.assertIsSatisfied();
     myContext.checking(new Expectations() {
       {
@@ -504,7 +504,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   private void twoCasesIn2PartsBothAndSuiteFrom2Try(String unfinishedReportName) {
-    long testsLogged = myParser.parse(report(unfinishedReportName), 0);
+    int testsLogged = myParser.parse(report(unfinishedReportName), 0);
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -556,7 +556,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    long testsLogged = myParser.parse(report("nineCasesBreakAfterThird.xml"), 0);
+    int testsLogged = myParser.parse(report("nineCasesBreakAfterThird.xml"), 0);
     myContext.assertIsSatisfied();
     myContext.checking(new Expectations() {
       {

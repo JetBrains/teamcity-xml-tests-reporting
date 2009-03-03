@@ -126,7 +126,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    long testsLogged = myParser.parse(report("singleCaseBreak.xml"), 0);
+    int testsLogged = myParser.parse(report("singleCaseBreak.xml"), 0);
     myParser.parse(report("singleCaseSuccess.xml"), testsLogged);
     myContext.assertIsSatisfied();
   }

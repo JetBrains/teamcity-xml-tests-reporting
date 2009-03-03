@@ -18,16 +18,24 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.util.Map;
 
-public interface XmlReportParser {
+public final class XmlParserUtil {
+  public static String formatText(@NotNull StringBuffer s) {
+    return s.toString().replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim();
+  }
 
-  int parse(@NotNull final File report, int testsToSkip);
+  public static int getNumber(String number) {
+    if (number != null) {
+      try {
+        return Integer.parseInt(number);
+      } catch (NumberFormatException e) {
+        return 0;
+      }
+    }
+    return 0;
+  }
 
-  boolean abnormalEnd();
-
-  void logReportTotals(File report);
-
-  void logParsingTotals(Map<String, String> parameters);
+  public static String generateBuildStatus(int errors, int warnings) {
+    return "Errors: " + errors + ", warnings: " + warnings;
+  }
 }

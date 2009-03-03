@@ -18,6 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
 import jetbrains.buildServer.agent.SimpleBuildLogger;
 import jetbrains.buildServer.agent.inspections.*;
+import static jetbrains.buildServer.xmlReportPlugin.XmlParserUtil.*;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil;
 import org.jetbrains.annotations.NotNull;
@@ -62,10 +63,6 @@ public class FindBugsReportParser extends DefaultHandler implements XmlReportPar
   private List<InspectionInstance> myWaitingForTypeBugs;
 
   private boolean myDataLoaded;
-
-  public static String formatText(@NotNull StringBuffer s) {
-    return s.toString().replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim();
-  }
 
   public FindBugsReportParser(@NotNull final SimpleBuildLogger logger,
                               @NotNull InspectionReporter inspectionReporter,
@@ -186,17 +183,6 @@ public class FindBugsReportParser extends DefaultHandler implements XmlReportPar
     myReportedInstanceTypes.add(id);
   }
 
-  private static int getNumber(String number) {
-    if (number != null) {
-      try {
-        return Integer.parseInt(number);
-      } catch (NumberFormatException e) {
-        return 0;
-      }
-    }
-    return 0;
-  }
-
   private static boolean hasNoMessage(InspectionInstance i) {
     return DEFAULT_MESSAGE.equals(i.getMessage());
   }
@@ -212,7 +198,6 @@ public class FindBugsReportParser extends DefaultHandler implements XmlReportPar
   private void processPriority(int priority) {
     InspectionSeverityValues level;
     switch (priority) {
-
       case 1:
         ++myErrors;
         level = InspectionSeverityValues.ERROR;
@@ -255,7 +240,7 @@ public class FindBugsReportParser extends DefaultHandler implements XmlReportPar
     return pathSpec;
   }
 
-  public long parse(@NotNull File report, long testsToSkip) {
+  public int parse(@NotNull File report, int testsToSkip) {
     myInspectionReporter.markBuildAsInspectionsBuild();
     myFileFinder = new FileFinder();
     myCData = new StringBuffer();
@@ -314,9 +299,5 @@ public class FindBugsReportParser extends DefaultHandler implements XmlReportPar
     myLogger.message("##teamcity[buildStatus status='" +
       (limitReached ? "FAILURE" : "SUCCESS") +
       "' text='" + buildStatus + "']");
-  }
-
-  private String generateBuildStatus(int errors, int warnings) {
-    return "Errors: " + errors + ", warnings: " + warnings;
   }
 }

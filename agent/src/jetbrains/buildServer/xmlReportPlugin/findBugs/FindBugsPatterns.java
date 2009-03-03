@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
 import jetbrains.buildServer.agent.SimpleBuildLogger;
+import jetbrains.buildServer.xmlReportPlugin.XmlParserUtil;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -73,7 +74,7 @@ public class FindBugsPatterns {
 
     public void endElement(String uri, String localName, String qName) throws SAXException {
       if (BUG_PATTERN.equals(localName)) {
-        myCurrentPattern.setDescription(FindBugsReportParser.formatText(myCData));
+        myCurrentPattern.setDescription(XmlParserUtil.formatText(myCData));
         myBugPatterns.put(myCurrentType, myCurrentPattern);
       }
       myCData.delete(0, myCData.length());
