@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd version="4.2.4" timestamp="2009-03-03T12:15:22.940">
+  <file name="C:\work\teamcityworkspace\xml-report-plugin\tests\testData\pmd\org\jetbrains\testProject\BuggyClass.java">
+    <violation beginline="6" endline="6" begincolumn="18" endcolumn="20" rule="UnusedPrivateField"
+               ruleset="Unused Code Rules" package="org.jetbrains.testProject" class="BuggyClass" variable="str"
+               externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedPrivateField" priority="3">
+      Avoid unused private fields such as 'str'.
+    </violation>
+    <violation beginline="12" endline="12" begincolumn="14" endcolumn="23" rule="OverrideBothEqualsAndHashcode"
+               ruleset="Basic Rules" package="org.jetbrains.testProject" class="BuggyClass" method="hashCode"
+               externalInfoUrl="http://pmd.sourceforge.net/rules/basic.html#OverrideBothEqualsAndHashcode" priority="3">
+      Ensure you override both equals() and hashCode()
+    </violation>
+    <violation beginline="35" endline="35" begincolumn="13" endcolumn="28" rule="UnusedFormalParameter"
+               ruleset="Unused Code Rules" package="org.jetbrains.testProject" class="BuggyClass$BuggyInnerClass"
+               externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedFormalParameter" priority="3">
+      Avoid unused method parameters such as 'i'.
+    </violation>
+  </file>
+  <file
+    name="C:\work\teamcityworkspace\xml-report-plugin\tests\testData\pmd\org\jetbrains\testProject\TestGenerator.java">
+    <violation beginline="23" endline="61" begincolumn="8" endcolumn="1" rule="CyclomaticComplexity"
+               ruleset="Code Size Rules" package="org.jetbrains.testProject"
+               externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#CyclomaticComplexity" priority="3">
+      The class 'TestGenerator' has a Cyclomatic Complexity of 6 (Highest = 5).
+    </violation>
+    <violation beginline="29" endline="60" begincolumn="17" endcolumn="3" rule="CyclomaticComplexity"
+               ruleset="Code Size Rules" package="org.jetbrains.testProject" class="TestGenerator"
+               externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#CyclomaticComplexity" priority="3">
+      The method 'main' has a Cyclomatic Complexity of 5.
+    </violation>
+  </file>
+</pmd>

@@ -19,13 +19,15 @@ package jetbrains.buildServer.xmlReportPlugin;
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getTestDataPath;
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
 import junit.framework.TestCase;
-import org.jetbrains.annotations.NotNull;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,32 +36,12 @@ import java.util.Map;
 public class XmlReportDataProcessorTest extends TestCase {
   private Mockery myContext;
 
-  private static String getTestDataPath(final String fileName) {
-    File file = new File("tests/testData/dataProcessor/" + fileName);
-    return file.getPath();
-  }
-
-  static private String readFile(@NotNull final File file) throws IOException {
-    final FileInputStream inputStream = new FileInputStream(file);
-    try {
-      final BufferedInputStream bis = new BufferedInputStream(inputStream);
-      final byte[] bytes = new byte[(int) file.length()];
-      bis.read(bytes);
-      bis.close();
-
-      return new String(bytes);
-    }
-    finally {
-      inputStream.close();
-    }
-  }
-
   public void setUp() {
     myContext = new JUnit4Mockery();
   }
 
   private void runTest(Map<String, String> arguments, String fileName) throws Exception {
-    final String prefix = getTestDataPath(fileName);
+    final String prefix = getTestDataPath(fileName, "dataProcessor");
     final String resultsFile = prefix + ".tmp";
     final String expectedFile = prefix + ".gold";
 
@@ -69,7 +51,7 @@ public class XmlReportDataProcessorTest extends TestCase {
     final XmlReportPlugin plugin = createFakePlugin(results);
 
     final XmlReportDataProcessor processor = new XmlReportDataProcessor.JUnitDataProcessor(plugin);
-    processor.processData(new File(getTestDataPath("Report.xml")), arguments);
+    processor.processData(new File(getTestDataPath("Report.xml", "dataProcessor")), arguments);
 
     final File expected = new File(expectedFile);
     if (!readFile(expected).equals(results.toString())) {

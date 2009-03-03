@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2009 JetBrains s.r.o.
+ * Copyright 2008 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
+import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
 import junit.framework.TestCase;
 import org.junit.Test;
 
@@ -30,37 +31,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class FindBugsReportParserTest extends TestCase {
-//  @BeforeClass
-//  public static void prepareTestData() {
-//    final TransformerFactory transformerFactory = TransformerFactory.newInstance();
-//    Transformer transformer = null;
-//    try {
-////      transformer = transformerFactory.newTransformer(new StreamSource(this.getClass().getResourceAsStream("reportPaths.xsl")));
-//
-//      final File testDataDir = new File("tests/testData/findBugs/");
-//      assert testDataDir.isDirectory();
-//
-//      File[] testData = testDataDir.listFiles(new FilenameFilter() {
-//
-//        public boolean accept(File dir, String name) {
-//          return dir.equals(testDataDir) && name.endsWith(".xml");
-//        }
-//      });
-//
-//      for (int i = 0; i < testData.length; ++i) {
-//        final StreamSource source = new StreamSource(testData[i]);
-//        final File newFile = new File(testData[i].getAbsolutePath() + ".trans");
-//        final StreamResult result = new StreamResult(newFile);
-//        transformer.transform(source, result);
-//      }
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
-
-  //  }
+public class PmdReportParserTest extends TestCase {
   private void runTest(final String fileName) throws Exception {
-    final String reportName = getAbsoluteTestDataPath(fileName, "findBugs");
+    final String reportName = getAbsoluteTestDataPath(fileName, "pmd");
     final String resultsFile = reportName + ".tmp";
     final String expectedFile = reportName + ".gold";
 
@@ -71,7 +44,7 @@ public class FindBugsReportParserTest extends TestCase {
     final SimpleBuildLogger logger = new BuildLoggerForTesting(results);
     final InspectionReporter reporter = TestUtil.createFakeReporter(results);
 
-    final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, reportName.substring(0, reportName.lastIndexOf(fileName)));
+    final PmdReportParser parser = new PmdReportParser(logger, reporter, reportName.substring(0, reportName.lastIndexOf(fileName)));
 
     final File report = new File(reportName);
     parser.parse(report, 0);
@@ -97,42 +70,7 @@ public class FindBugsReportParserTest extends TestCase {
   }
 
   @Test
-  public void testJar() throws Exception {
-    runTest("jar.xml");
-  }
-
-  @Test
-  public void testComplexSrc() throws Exception {
-    runTest("complexSrc.xml");
-  }
-
-  @Test
-  public void testDir() throws Exception {
-    runTest("dir.xml");
-  }
-
-  @Test
   public void testInner() throws Exception {
     runTest("inner.xml");
-  }
-
-  @Test
-  public void testPattern() throws Exception {
-    runTest("pattern.xml");
-  }
-
-  @Test
-  public void testCategory() throws Exception {
-    runTest("category.xml");
-  }
-
-  @Test
-  public void testBuildFailsErrors() throws Exception {
-    runTest("failureErr.xml");
-  }
-
-  @Test
-  public void testBuildFailsWarnings() throws Exception {
-    runTest("failureWarn.xml");
   }
 }

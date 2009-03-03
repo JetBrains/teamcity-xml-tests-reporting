@@ -1,0 +1,11 @@
+InspectionTypeInfo{myId='UnusedPrivateField', myName='UnusedPrivateField', myDescription='Unused Code Rules', myCategory='Unused Code Rules'}
+InspectionInstance{myInspectionId='UnusedPrivateField', myMessage='Avoid unused private fields such as 'str'.', myFilePath='org/jetbrains/testProject/BuggyClass.class :: org|jetbrains|testProject|BuggyClass.java', myLine=6, myAttributes={<SEVERITY>: INFO }}
+InspectionTypeInfo{myId='OverrideBothEqualsAndHashcode', myName='OverrideBothEqualsAndHashcode', myDescription='Basic Rules', myCategory='Basic Rules'}
+InspectionInstance{myInspectionId='OverrideBothEqualsAndHashcode', myMessage='Ensure you override both equals() and hashCode()', myFilePath='org/jetbrains/testProject/BuggyClass.class :: org|jetbrains|testProject|BuggyClass.java', myLine=12, myAttributes={<SEVERITY>: INFO }}
+InspectionTypeInfo{myId='UnusedFormalParameter', myName='UnusedFormalParameter', myDescription='Unused Code Rules', myCategory='Unused Code Rules'}
+InspectionInstance{myInspectionId='UnusedFormalParameter', myMessage='Avoid unused method parameters such as 'i'.', myFilePath='org/jetbrains/testProject/BuggyClass$BuggyInnerClass.class :: org|jetbrains|testProject|BuggyClass.java', myLine=35, myAttributes={<SEVERITY>: INFO }}
+InspectionTypeInfo{myId='CyclomaticComplexity', myName='CyclomaticComplexity', myDescription='Code Size Rules', myCategory='Code Size Rules'}
+InspectionInstance{myInspectionId='CyclomaticComplexity', myMessage='The class 'TestGenerator' has a Cyclomatic Complexity of 6 (Highest = 5).', myFilePath='org/jetbrains/testProject :: org|jetbrains|testProject|TestGenerator.java', myLine=23, myAttributes={<SEVERITY>: INFO }}
+InspectionTypeInfo{myId='CyclomaticComplexity', myName='CyclomaticComplexity', myDescription='Code Size Rules', myCategory='Code Size Rules'}
+InspectionInstance{myInspectionId='CyclomaticComplexity', myMessage='The method 'main' has a Cyclomatic Complexity of 5.', myFilePath='org/jetbrains/testProject/TestGenerator.class :: org|jetbrains|testProject|TestGenerator.java', myLine=29, myAttributes={<SEVERITY>: INFO }}
+MESSAGE: ##teamcity[buildStatus status='SUCCESS' text='Errors: 0, warnings: 0']

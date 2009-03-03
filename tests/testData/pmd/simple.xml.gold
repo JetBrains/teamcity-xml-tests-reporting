@@ -1,0 +1,3 @@
+InspectionTypeInfo{myId='OverrideBothEqualsAndHashcode', myName='OverrideBothEqualsAndHashcode', myDescription='Basic Rules', myCategory='Basic Rules'}
+InspectionInstance{myInspectionId='OverrideBothEqualsAndHashcode', myMessage='Ensure you override both equals() and hashCode()', myFilePath='org/jetbrains/testProject/BuggyClass.class :: org|jetbrains|testProject|BuggyClass.java', myLine=12, myAttributes={<SEVERITY>: INFO }}
+MESSAGE: ##teamcity[buildStatus status='SUCCESS' text='Errors: 0, warnings: 0']

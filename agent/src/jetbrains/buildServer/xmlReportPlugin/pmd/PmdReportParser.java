@@ -91,7 +91,7 @@ public class PmdReportParser extends DefaultHandler implements XmlReportParser {
       final String className = attributes.getValue("class");
       filePathSpec = filePathSpec.replace(".", "/");
       if (className != null) {
-        filePathSpec = filePathSpec + "/" + className + ".class'";
+        filePathSpec = filePathSpec + "/" + className + ".class";
       }
       if (myCurrentFile.length() > 0) {
         filePathSpec = filePathSpec + " :: " + myCurrentFile;
