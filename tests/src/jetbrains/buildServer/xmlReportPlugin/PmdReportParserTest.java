@@ -44,7 +44,7 @@ public class PmdReportParserTest extends TestCase {
     final SimpleBuildLogger logger = new BuildLoggerForTesting(results);
     final InspectionReporter reporter = TestUtil.createFakeReporter(results);
 
-    final PmdReportParser parser = new PmdReportParser(logger, reporter, reportName.substring(0, reportName.lastIndexOf(fileName)));
+    final PmdReportParser parser = new PmdReportParser(logger, reporter, "C://work/teamcityworkspace/xml-report-plugin/tests/testData/pmd");
 
     final File report = new File(reportName);
     parser.parse(report, 0);
