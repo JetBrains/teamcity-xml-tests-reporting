@@ -63,7 +63,7 @@ public class NUnitReportParserTest extends TestCase {
       }
     };
     myLogger = createBaseServerLoggerFacade();
-    myParser = new NUnitReportParser(new XmlReportLogger(myLogger, true), "workingDirForTesting");
+    myParser = new NUnitReportParser(myLogger, "workingDirForTesting");
     mySequence = myContext.sequence("Log Sequence");
   }
 

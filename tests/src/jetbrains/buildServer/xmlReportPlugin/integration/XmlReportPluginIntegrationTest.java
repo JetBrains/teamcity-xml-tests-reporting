@@ -354,7 +354,6 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
     myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
     myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", twoAnyParams));
     final List<Object> params2 = new ArrayList<Object>();
     params2.add(getFileInWorkingDir(REPORTS_DIR + "/report").getAbsolutePath() + " report has unexpected finish or unsupported format");
     myLogSequence.add(new MethodInvokation("warning", params2));
@@ -751,7 +750,6 @@ public class XmlReportPluginIntegrationTest {
     final List<Object> param3 = new ArrayList<Object>();
     param3.add(MethodInvokation.ANY_VALUE);
     myLogSequence.add(new MethodInvokation("message", param3));
-    myLogSequence.add(new MethodInvokation("message", param3));
     myTestLogger.setExpectedSequence(myLogSequence);
 
     createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
@@ -802,7 +800,6 @@ public class XmlReportPluginIntegrationTest {
 
     final List<Object> oneAnyParam = new ArrayList<Object>();
     oneAnyParam.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("message", oneAnyParam));
     myLogSequence.add(new MethodInvokation("message", oneAnyParam));
     myTestLogger.setExpectedSequence(myLogSequence);
 
@@ -905,7 +902,6 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("logSuiteFinished", param2));
     final List<Object> oneAnyParam = new ArrayList<Object>();
     oneAnyParam.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("message", oneAnyParam));
     myLogSequence.add(new MethodInvokation("message", oneAnyParam));
     myTestLogger.setExpectedSequence(myLogSequence);
 

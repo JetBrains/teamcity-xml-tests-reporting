@@ -70,7 +70,7 @@ public class AntJUnitReportParserTest extends TestCase {
       }
     };
     myLogger = createBaseServerLoggerFacade();
-    myParser = new AntJUnitReportParser(new XmlReportLogger(myLogger, true));
+    myParser = new AntJUnitReportParser(myLogger);
     mySequence = myContext.sequence("Log Sequence");
   }
 

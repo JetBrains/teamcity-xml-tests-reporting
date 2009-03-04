@@ -16,10 +16,11 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.SimpleBuildLogger;
+import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import jetbrains.buildServer.messages.BuildMessage1;
 import org.jetbrains.annotations.NotNull;
 
-public class BuildLoggerForTesting implements SimpleBuildLogger {
+public class BuildLoggerForTesting extends BaseServerLoggerFacade {
   private final StringBuilder myText;
 
   public BuildLoggerForTesting(final StringBuilder text) {
@@ -37,6 +38,12 @@ public class BuildLoggerForTesting implements SimpleBuildLogger {
     myText.append(th.toString());
     myText.append("\n");
     th.printStackTrace();
+  }
+
+  public void flush() {
+  }
+
+  protected void log(BuildMessage1 buildMessage1) {
   }
 
   public void progressMessage(final String message) {

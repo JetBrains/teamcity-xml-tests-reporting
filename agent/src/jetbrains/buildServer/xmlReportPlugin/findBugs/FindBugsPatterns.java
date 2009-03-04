@@ -16,14 +16,12 @@
 
 package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
-import jetbrains.buildServer.agent.SimpleBuildLogger;
-import jetbrains.buildServer.xmlReportPlugin.XmlParserUtil;
+import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.DefaultHandler;
-import org.xml.sax.helpers.XMLReaderFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,13 +32,10 @@ import java.util.Map;
 public class FindBugsPatterns {
   public final Map<String, Pattern> myBugPatterns = new HashMap<String, Pattern>();
 
-  public void loadPatterns(SimpleBuildLogger logger, InputStream resource) {
+  public void loadPatterns(BaseServerLoggerFacade logger, InputStream resource) {
     try {
-      XMLReader xmlReader = XMLReaderFactory.createXMLReader();
-      xmlReader.setContentHandler(new Handler());
-      xmlReader.setFeature("http://xml.org/sax/features/validation", false);
-
-      xmlReader.parse(new InputSource(resource));
+      final Handler handler = new Handler();
+      XmlReportParser.createXmlReader(handler, handler, false).parse(new InputSource(resource));
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -74,7 +69,7 @@ public class FindBugsPatterns {
 
     public void endElement(String uri, String localName, String qName) throws SAXException {
       if (BUG_PATTERN.equals(localName)) {
-        myCurrentPattern.setDescription(XmlParserUtil.formatText(myCData));
+        myCurrentPattern.setDescription(XmlReportParser.formatText(myCData));
         myBugPatterns.put(myCurrentType, myCurrentPattern);
       }
       myCData.delete(0, myCData.length());

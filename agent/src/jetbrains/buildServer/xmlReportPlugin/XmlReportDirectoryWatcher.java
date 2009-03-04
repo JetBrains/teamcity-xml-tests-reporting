@@ -17,7 +17,6 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.util.Pair;
-import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -108,7 +107,7 @@ public class XmlReportDirectoryWatcher extends Thread {
               try {
                 myReportQueue.put(new Pair<String, File>(type, report));
               } catch (InterruptedException e) {
-                myPlugin.getLogger().debugToAgentLog("Directory watcher thread interrupted");
+//                myPlugin.getLogger().debugToAgentLog("Directory watcher thread interrupted");
               }
             }
           }
@@ -121,7 +120,7 @@ public class XmlReportDirectoryWatcher extends Thread {
   }
 
   private boolean isFileOk(File file) {
-    return file.isFile() && file.canRead() && timeConstraintsSatisfied(file) && AntJUnitReportParser.isReportFileComplete(file);
+    return file.isFile() && file.canRead() && timeConstraintsSatisfied(file);
   }
 
   private boolean timeConstraintsSatisfied(File file) {

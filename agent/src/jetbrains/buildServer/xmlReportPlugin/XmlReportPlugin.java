@@ -32,7 +32,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class XmlReportPlugin extends AgentLifeCycleAdapter {
   private XmlReportDirectoryWatcher myDirectoryWatcher;
   private XmlReportProcessor myReportProcessor;
-  private XmlReportLogger myLogger;
+  private BaseServerLoggerFacade myLogger;
   private InspectionReporter myInspectionReporter;
 
   private Map<String, String> myParameters;
@@ -73,14 +73,14 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
   private void obtainLogger(AgentRunningBuild agentRunningBuild) {
     final BuildProgressLogger logger = agentRunningBuild.getBuildLogger();
     if (logger instanceof BaseServerLoggerFacade) {
-      myLogger = new XmlReportLogger((BaseServerLoggerFacade) logger, isOutputVerbose(myParameters));
+      myLogger = (BaseServerLoggerFacade) logger;
     } else {
       // not expected
     }
   }
 
   public void processReports(Map<String, String> params, List<File> reportDirs) {
-    myLogger.setVerboseOutput(Boolean.parseBoolean(params.get(VERBOSE_OUTPUT)));
+//    myLogger.setVerboseOutput(Boolean.parseBoolean(params.get(VERBOSE_OUTPUT)));
     final boolean wasParsingEnabled = isParsingEnabled(myParameters);
     final String type = getReportType(params);
     myParameters.putAll(params);
@@ -141,7 +141,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
           try {
             myReportProcessor.join();
           } catch (InterruptedException e) {
-            myLogger.debugToAgentLog("Plugin thread interrupted");
+//            myLogger.debugToAgentLog("Plugin thread interrupted");
           }
         }
         myDirectoryWatcher.logDirectoriesTotals();
@@ -158,7 +158,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     myStopped = true;
   }
 
-  public XmlReportLogger getLogger() {
+  public BaseServerLoggerFacade getLogger() {
     return myLogger;
   }
 

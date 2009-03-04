@@ -15,7 +15,7 @@
  */
 package jetbrains.buildServer.xmlReportPlugin.nUnit;
 
-import jetbrains.buildServer.xmlReportPlugin.XmlReportLogger;
+import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,23 +31,23 @@ public class NUnitReportParser extends AntJUnitReportParser {
   private NUnitToJUnitReportTransformer myReportTransformer;
   private File myTmpReportDir;
 
-  public NUnitReportParser(XmlReportLogger logger, String workingDir) {
+  public NUnitReportParser(BaseServerLoggerFacade logger, String workingDir) {
     super(logger);
     try {
       myReportTransformer = new NUnitToJUnitReportTransformer();
     } catch (TransformerConfigurationException e) {
-      getLogger().warning("NUnit report parser couldn't instantiate transformer");
+      myLogger.warning("NUnit report parser couldn't instantiate transformer");
     }
     myTmpReportDir = new File(workingDir + TMP_REPORT_DIRECTORY);
     myTmpReportDir.mkdirs();
   }
 
-  public int parse(@NotNull final File report, int testsToSkip) {
+  public int parse(@NotNull File report, int testsToSkip) {
     final File junitReport = new File(myTmpReportDir.getPath() + "/" + report.getName());
     try {
       myReportTransformer.transform(report, junitReport);
     } catch (TransformerException e) {
-      getLogger().debugToAgentLog("Couldn't transform NUnit report, report may be uncomplete");
+//      myLogger.debugToAgentLog("Couldn't transform NUnit report, report may be uncomplete");
       junitReport.delete();
       return 0;
     }

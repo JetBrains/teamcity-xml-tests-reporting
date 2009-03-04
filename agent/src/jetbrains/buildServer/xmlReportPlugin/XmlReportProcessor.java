@@ -61,7 +61,7 @@ public class XmlReportProcessor extends Thread {
     try {
       myWatcher.join();
     } catch (InterruptedException e) {
-      myPlugin.getLogger().debugToAgentLog("Report processor thread interrupted");
+//      myPlugin.getLogger().debugToAgentLog("Report processor thread interrupted");
     }
     while (!allReportsProcessed()) {
       processReport(takeNextReport(1));
@@ -81,7 +81,7 @@ public class XmlReportProcessor extends Thread {
       myCurrentReport.setProcessedTests(processedTests);
 
       if (myCurrentReport.getTriesToParse() == TRIES_TO_PARSE) {
-        myPlugin.getLogger().debugToAgentLog("Unable to get full report from " + TRIES_TO_PARSE + " tries. File is supposed to have illegal structure or unsupported format");
+//        myPlugin.getLogger().debugToAgentLog("Unable to get full report from " + TRIES_TO_PARSE + " tries. File is supposed to have illegal structure or unsupported format");
         parser.abnormalEnd();
         myPlugin.getLogger().warning(report.getFile().getPath() + " report has unexpected finish or unsupported format");
         myCurrentReport = null;
@@ -95,7 +95,7 @@ public class XmlReportProcessor extends Thread {
         try {
           Thread.sleep(SCAN_INTERVAL);
         } catch (InterruptedException e) {
-          myPlugin.getLogger().debugToAgentLog("Report processor thread interrupted");
+//          myPlugin.getLogger().debugToAgentLog("Report processor thread interrupted");
         }
       }
     } else {
@@ -126,7 +126,7 @@ public class XmlReportProcessor extends Thread {
       myCurrentReport = new ReportData(report, reportType);
       return myCurrentReport;
     } catch (InterruptedException e) {
-      myPlugin.getLogger().debugToAgentLog("Report processor thread interrupted");
+//      myPlugin.getLogger().debugToAgentLog("Report processor thread interrupted");
     }
     return null;
   }
@@ -143,11 +143,11 @@ public class XmlReportProcessor extends Thread {
       myParsers.put(type, new NUnitReportParser(myPlugin.getLogger(), myPlugin.getTmpDir()));
 
     } else if (FindBugsReportParser.TYPE.equals(type)) {
-      myParsers.put(type, new FindBugsReportParser(myPlugin.getLogger().getBuildLogger(), myPlugin.getInspectionReporter(), myPlugin.getWorkingDir()));
+      myParsers.put(type, new FindBugsReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getWorkingDir()));
     } else if (PmdReportParser.TYPE.equals(type)) {
-      myParsers.put(type, new PmdReportParser(myPlugin.getLogger().getBuildLogger(), myPlugin.getInspectionReporter(), myPlugin.getWorkingDir()));
+      myParsers.put(type, new PmdReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getWorkingDir()));
     } else {
-      myPlugin.getLogger().debugToAgentLog("No parser for " + type + " available");
+//      myPlugin.getLogger().debugToAgentLog("No parser for " + type + " available");
     }
   }
 
