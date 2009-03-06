@@ -2,19 +2,11 @@
 <BugCollection version="1.3.7" sequence="0" timestamp="1234280318000" analysisTimestamp="1234280319586" release="">
   <Project filename="&lt;&lt;unnamed project&gt;&gt;" projectName="">
     <Jar>C:\work\teamcityworkspace\xml-report-plugin\tests\testData\findBugs\jar\TestProject.jar</Jar>
-    <SrcDir>C:\work\teamcityworkspace\xml-report-plugin\tests\testData\findBugs\jar</SrcDir>
   </Project>
   <BugInstance type="NM_BAD_EQUAL" priority="1" abbrev="Nm" category="CORRECTNESS">
-    <Class classname="org.jetbrains.testProject.ExampleClass">
-      <SourceLine classname="org.jetbrains.testProject.ExampleClass" start="5" end="31" sourcefile="ExampleClass.java"
-                  sourcepath="org/jetbrains/testProject/ExampleClass.java"/>
-    </Class>
+    <Class classname="org.jetbrains.testProject.ExampleClass"/>
     <Method classname="org.jetbrains.testProject.ExampleClass" name="equal" signature="(Ljava/lang/Object;)Z"
-            isStatic="false">
-      <SourceLine classname="org.jetbrains.testProject.ExampleClass" start="31" end="31" startBytecode="0"
-                  endBytecode="53" sourcefile="ExampleClass.java"
-                  sourcepath="org/jetbrains/testProject/ExampleClass.java"/>
-    </Method>
+            isStatic="false"/>
   </BugInstance>
   <Errors>
     <MissingClass>junit.framework.TestCase</MissingClass>

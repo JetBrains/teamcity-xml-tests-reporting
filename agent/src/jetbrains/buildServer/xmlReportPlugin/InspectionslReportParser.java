@@ -39,7 +39,7 @@ public abstract class InspectionslReportParser extends XmlReportParser {
                                   @NotNull String checkoutDirectory) {
     super(logger);
     myInspectionReporter = inspectionReporter;
-    myCheckoutDirectory = checkoutDirectory;
+    myCheckoutDirectory = checkoutDirectory.replace("\\", File.separator).replace("/", File.separator);
     myReportedInstanceTypes = new HashSet<String>();
     myErrors = 0;
     myWarnings = 0;

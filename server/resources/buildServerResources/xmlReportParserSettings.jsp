@@ -12,9 +12,9 @@
        value="${propertiesBean.properties['xmlReportParsing.reportType'] == 'findBugs' ? true : false}"/>
 <%--<c:set var="displayNUnitSettings" value="${propertiesBean.properties['xmlReportParsing.reportType'] == 'nunit' ? true : false}"/>--%>
 
-<l:settingsGroup title="Test Reports Settings">
+<l:settingsGroup title="XML Report Processing">
 
-  <tr id="xmlReportParsing.reportType.container">
+  <tr class="noBorder" id="xmlReportParsing.reportType.container">
     <th><label for="xmlReportParsing.reportType">Import data from:</label></th>
     <td>
       <c:set var="onchange">
@@ -44,7 +44,7 @@
         <c:if test="${empty propertiesBean.properties['xmlReportParsing.reportType']}">
           <c:set var="selected" value="true"/>
         </c:if>
-        <props:option value="" selected="${selected}">--Choose report type--</props:option>
+        <props:option value="" selected="${selected}">&lt;Do not import&gt;</props:option>
         <c:forEach var="reportType" items="${reportTypeForm.availableReportTypes}">
           <c:set var="selected" value="false"/>
           <c:if test="${reportType.type == propertiesBean.properties['xmlReportParsing.reportType']}">
@@ -58,8 +58,9 @@
     </td>
   </tr>
 
-  <tr id="xmlReportParsing.reportDirs.container" style="${displayJUnitSettings ? '' : 'display: none;'}">
-    <th><label for="xmlReportParsing.reportDirs">Test report directories:</label></th>
+  <tr class="noBorder" id="xmlReportParsing.reportDirs.container"
+      style="${displayJUnitSettings ? '' : 'display: none;'}">
+    <th><label for="xmlReportParsing.reportDirs">Report directories:</label></th>
     <td>
       <props:textProperty name="xmlReportParsing.reportDirs" className="longField"/>
           <span class="smallNote">
@@ -69,14 +70,16 @@
     </td>
   </tr>
 
-  <tr id="xmlReportParsing.verboseOutput.container" style="${displayJUnitSettings ? '' : 'display: none;'}">
+  <tr class="noBorder" id="xmlReportParsing.verboseOutput.container"
+      style="${displayJUnitSettings ? '' : 'display: none;'}">
     <th><label for="xmlReportParsing.verboseOutput">Verbose output:</label></th>
     <td>
       <props:checkboxProperty name="xmlReportParsing.verboseOutput"/>
     </td>
   </tr>
 
-  <tr id="xmlReportParsing.max.errors.container" style="${displayFindBugsSettings ? '' : 'display: none;'}">
+  <tr class="noBorder" id="xmlReportParsing.max.errors.container"
+      style="${displayFindBugsSettings ? '' : 'display: none;'}">
     <th><label for="xmlReportParsing.max.errors">Maximum error limit:</label></th>
     <td><props:textProperty name="xmlReportParsing.max.errors" style="width:6em;" maxlength="12"/>
       <span class="smallNote">Fail the build if the specified number of errors is exceeded.</span>
@@ -84,9 +87,10 @@
   </tr>
 
 
-  <tr id="xmlReportParsing.max.warnings.container" style="${displayFindBugsSettings ? '' : 'display: none;'}">
-    <th class="noBorder"><label for="xmlReportParsing.max.warnings">Warnings limit:</label></th>
-    <td class="noBorder"><props:textProperty name="xmlReportParsing.max.warnings" style="width:6em;" maxlength="12"/>
+  <tr class="noBorder" id="xmlReportParsing.max.warnings.container"
+      style="${displayFindBugsSettings ? '' : 'display: none;'}">
+    <th><label for="xmlReportParsing.max.warnings">Warnings limit:</label></th>
+    <td><props:textProperty name="xmlReportParsing.max.warnings" style="width:6em;" maxlength="12"/>
       <span class="smallNote">Fail the build if the specified number of warnings is exceeded. Leave blank if there is no limit.</span>
     </td>
   </tr>

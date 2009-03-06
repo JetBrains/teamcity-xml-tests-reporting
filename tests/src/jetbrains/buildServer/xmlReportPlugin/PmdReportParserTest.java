@@ -44,7 +44,7 @@ public class PmdReportParserTest extends TestCase {
     final BaseServerLoggerFacade logger = new BuildLoggerForTesting(results);
     final InspectionReporter reporter = TestUtil.createFakeReporter(results);
 
-    final PmdReportParser parser = new PmdReportParser(logger, reporter, "C://work/teamcityworkspace/xml-report-plugin/tests/testData/pmd");
+    final PmdReportParser parser = new PmdReportParser(logger, reporter, "C:\\work\\teamcityworkspace\\xml-report-plugin\\tests\\testData\\pmd");
 
     final File report = new File(reportName);
     parser.parse(report, 0);
@@ -66,11 +66,11 @@ public class PmdReportParserTest extends TestCase {
 
   @Test
   public void testSimple() throws Exception {
-//    runTest("simple.xml");
+    runTest("simple.xml");
   }
 
   @Test
   public void testInner() throws Exception {
-//    runTest("inner.xml");
+    runTest("inner.xml");
   }
 }

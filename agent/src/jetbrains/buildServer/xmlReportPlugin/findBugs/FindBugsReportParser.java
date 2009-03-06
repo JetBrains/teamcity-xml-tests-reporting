@@ -97,15 +97,15 @@ public class FindBugsReportParser extends InspectionslReportParser {
 
 //  Handler methods
 
-  public void startElement(String uri, String localName,
+  public void startElement(String uri, String name,
                            String qName, Attributes attributes) throws SAXException {
-    if ("BugCategory".equals(localName)) {
+    if ("BugCategory".equals(name)) {
       myCurrentCategory = attributes.getValue("category");
       myCategories.getCategories().put(myCurrentCategory, new FindBugsCategories.Category());
-    } else if ("BugPattern".equals(localName)) {
+    } else if ("BugPattern".equals(name)) {
       myCurrentPattern = attributes.getValue("type");
       myBugPatterns.getPatterns().put(myCurrentPattern, new FindBugsPatterns.Pattern(attributes.getValue("category")));
-    } else if ("BugInstance".equals(localName)) {
+    } else if ("BugInstance".equals(name)) {
       myCurrentBug = new InspectionInstance();
       myCurrentBug.setInspectionId(attributes.getValue("type"));
       myCurrentBug.setMessage(DEFAULT_MESSAGE);
@@ -113,9 +113,9 @@ public class FindBugsReportParser extends InspectionslReportParser {
       myCurrentBug.setFilePath("");
 
       processPriority(getNumber(attributes.getValue("priority")));
-    } else if ("Class".equals(localName) && (myCurrentClass == null)) {
+    } else if ("Class".equals(name) && (myCurrentClass == null)) {
       myCurrentClass = attributes.getValue("classname");
-    } else if ("SourceLine".equals(localName) && attributes.getValue("classname").equals(myCurrentClass)) {
+    } else if ("SourceLine".equals(name) && attributes.getValue("classname").equals(myCurrentClass)) {
       myCurrentBug.setLine(getNumber(attributes.getValue("start")));
       if (hasNoFilePath(myCurrentBug)) {
         myCurrentBug.setFilePath(createPathSpec(attributes));
@@ -123,14 +123,14 @@ public class FindBugsReportParser extends InspectionslReportParser {
     }
   }
 
-  public void endElement(String uri, String localName, String qName) throws SAXException {
-    if ("Jar".equals(localName) || "SrcDir".equals(localName)) {
+  public void endElement(String uri, String name, String qName) throws SAXException {
+    if ("Jar".equals(name) || "SrcDir".equals(name)) {
       myFileFinder.addJar(formatText(myCData));
-    } else if ("BugCategory".equals(localName)) {
+    } else if ("BugCategory".equals(name)) {
       myCurrentCategory = null;
-    } else if ("BugPattern".equals(localName)) {
+    } else if ("BugPattern".equals(name)) {
       myCurrentPattern = null;
-    } else if ("BugInstance".equals(localName)) {
+    } else if ("BugInstance".equals(name)) {
       if (isTypeKnown(myCurrentBug)) {
         if (hasNoMessage(myCurrentBug)) {
           myCurrentBug.setMessage(getPattern(myCurrentBug.getInspectionId()).getDescription());
@@ -144,24 +144,26 @@ public class FindBugsReportParser extends InspectionslReportParser {
       myCurrentClass = null;
     } else if (myCData.length() > 0) {
       final String text = formatText(myCData);
-      if ("Description".equals(localName)) {
+      if ("Description".equals(name)) {
         if (myCurrentCategory != null) {
           getCategory(myCurrentCategory).setName(text);
         }
-      } else if ("Details".equals(localName) && (myCData.length() > 0)) {
+      } else if ("Details".equals(name) && (myCData.length() > 0)) {
         if (myCurrentCategory != null) {
           getCategory(myCurrentCategory).setDescription(text);
         } else if (myCurrentPattern != null) {
           getPattern(myCurrentPattern).setDescription(text);
         }
-      } else if ("ShortDescription".equals(localName) && (myCData.length() > 0)) {
+      } else if ("ShortDescription".equals(name) && (myCData.length() > 0)) {
         if (myCurrentPattern != null) {
           getPattern(myCurrentPattern).setName(text);
         }
-      } else if ("ShortMessage".equals(localName) || "LongMessage".equals(localName)) {
+      } else if ("ShortMessage".equals(name) || "LongMessage".equals(name)) {
         if ((myCurrentBug != null) && hasNoMessage(myCurrentBug)) {
           myCurrentBug.setMessage(text);
         }
+      } else if ("MissingClass".equals(name)) {
+        myLogger.warning("Missing class " + text);
       }
     }
     myCData.delete(0, myCData.length());
@@ -187,7 +189,11 @@ public class FindBugsReportParser extends InspectionslReportParser {
   }
 
   private String createPathSpec(Attributes attributes) {
-    String pathSpec = myFileFinder.getVeryFullFilePath(myCurrentClass.replace(".", File.separator) + ".class");
+    String pathSpec;
+    pathSpec = myFileFinder.getVeryFullFilePath(attributes.getValue("sourcepath"));
+    if (pathSpec.length() == 0) {
+      pathSpec = myFileFinder.getVeryFullFilePath(myCurrentClass.replace(".", File.separator) + ".class");
+    }
     if (pathSpec.startsWith(myCheckoutDirectory)) {
       pathSpec = pathSpec.substring(myCheckoutDirectory.length());
     }
@@ -195,20 +201,6 @@ public class FindBugsReportParser extends InspectionslReportParser {
       pathSpec = pathSpec.substring(1);
     }
     pathSpec = pathSpec.replace(File.separator, "/");
-
-    String path;
-    path = myFileFinder.getVeryFullFilePath(attributes.getValue("sourcepath"));
-
-    if (path.startsWith(myCheckoutDirectory)) {
-      path = path.substring(myCheckoutDirectory.length());
-    }
-    path = path.replace("\\", "|").replace("/", "|");
-    if (path.startsWith("|")) {
-      path = path.substring(1);
-    }
-    if (path.length() > 0) {
-      pathSpec += " :: " + path;
-    }
     return pathSpec;
   }
 }

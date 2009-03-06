@@ -3,7 +3,7 @@
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
 
 <div class="parameter">
-  Test report monitoring:
+  XML report processing:
   <c:choose>
     <c:when test="${empty propertiesBean.properties['xmlReportParsing.reportType']}">
       <strong>disabled</strong>
@@ -16,13 +16,13 @@
 
 <c:if test="${not empty propertiesBean.properties['xmlReportParsing.reportType']}">
   <div class="parameter">
-    Test report type: <props:displayValue name="xmlReportParsing.reportType"
-                                          emptyValue="none specified"/>
+    Report type: <props:displayValue name="xmlReportParsing.reportType"
+                                     emptyValue="none specified"/>
   </div>
 
   <div class="parameter">
-    Test report directories: <props:displayValue name="xmlReportParsing.reportDirs"
-                                                 emptyValue="none specified"/>
+    Report directories: <props:displayValue name="xmlReportParsing.reportDirs"
+                                            emptyValue="none specified"/>
   </div>
 
   <div class="parameter">

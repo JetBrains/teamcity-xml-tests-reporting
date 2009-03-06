@@ -107,7 +107,6 @@ public class XmlReportDirectoryWatcher extends Thread {
               try {
                 myReportQueue.put(new Pair<String, File>(type, report));
               } catch (InterruptedException e) {
-//                myPlugin.getLogger().debugToAgentLog("Directory watcher thread interrupted");
               }
             }
           }

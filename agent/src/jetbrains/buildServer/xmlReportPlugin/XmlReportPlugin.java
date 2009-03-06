@@ -63,7 +63,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myParameters.get(WORKING_DIR));
 
     if (reportDirs.size() == 0) {
-      myLogger.warning("No report directories specified");
+      myLogger.warning("No report directories specified");//TODO: can avoid this by adding paths presence in the web IU
       enableXmlReportParsing(myParameters, ""); //can avoid this by adding paths presence in the web IU
     } else { //can avoid this by adding paths presence in the web IU
       startProcessing(reportDirs, getReportType(myParameters));
@@ -134,14 +134,12 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
 
     switch (buildFinishedStatus) {
       case INTERRUPTED:
-        myLogger.warning("Build interrupted, plugin may not finish it's work");
       case FINISHED_SUCCESS:
       case FINISHED_FAILED:
         synchronized (myReportProcessor) {
           try {
             myReportProcessor.join();
           } catch (InterruptedException e) {
-//            myLogger.debugToAgentLog("Plugin thread interrupted");
           }
         }
         myDirectoryWatcher.logDirectoriesTotals();

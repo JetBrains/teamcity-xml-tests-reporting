@@ -61,7 +61,6 @@ public class XmlReportProcessor extends Thread {
     try {
       myWatcher.join();
     } catch (InterruptedException e) {
-//      myPlugin.getLogger().debugToAgentLog("Report processor thread interrupted");
     }
     while (!allReportsProcessed()) {
       processReport(takeNextReport(1));

@@ -59,25 +59,26 @@ public class PmdReportParser extends InspectionslReportParser {
       if (myCurrentFile.startsWith(myCheckoutDirectory)) {
         myCurrentFile = myCurrentFile.substring(myCheckoutDirectory.length());
       }
-      myCurrentFile = myCurrentFile.replace("\\", "|").replace("/", "|");
-      if (myCurrentFile.startsWith("|")) {
+      if (myCurrentFile.startsWith(File.separator)) {
         myCurrentFile = myCurrentFile.substring(1);
       }
+      myCurrentFile = myCurrentFile.replace(File.separator, "/");
     } else if ("violation".equals(localName)) {
       myCurrentBug = new InspectionInstance();
       myCurrentBug.setLine(getNumber(attributes.getValue("beginline")));
       myCurrentBug.setInspectionId(attributes.getValue("rule"));
       myCurrentBug.setMessage(DEFAULT_MESSAGE);
-      String filePathSpec = attributes.getValue("package");
-      final String className = attributes.getValue("class");
-      filePathSpec = filePathSpec.replace(".", "/");
-      if (className != null) {
-        filePathSpec = filePathSpec + "/" + className + ".class";
-      }
-      if (myCurrentFile.length() > 0) {
-        filePathSpec = filePathSpec + " :: " + myCurrentFile;
-      }
-      myCurrentBug.setFilePath(filePathSpec);
+//      String filePathSpec = attributes.getValue("package");
+//      final String className = attributes.getValue("class");
+//      filePathSpec = filePathSpec.replace(".", "/");
+//      if (className != null) {
+//        filePathSpec = filePathSpec + "/" + className + ".class";
+//      }
+//      if (myCurrentFile.length() > 0) {
+//        filePathSpec = filePathSpec + " :: " + myCurrentFile;
+//      }
+//      myCurrentBug.setFilePath(filePathSpec);
+      myCurrentBug.setFilePath(myCurrentFile);
       reportInspectionType(attributes);
       processPriority(getNumber(attributes.getValue("priority")));
     }

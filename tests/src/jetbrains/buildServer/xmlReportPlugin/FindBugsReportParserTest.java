@@ -98,7 +98,12 @@ public class FindBugsReportParserTest extends TestCase {
   }
 
   @Test
-  public void testJar() throws Exception {
+  public void testNoSrcSimple() throws Exception {
+    runTest("noSrcSimple.xml");
+  }
+
+  @Test
+  public void testNoSrcJar() throws Exception {
     runTest("jar.xml");
   }
 
@@ -108,7 +113,7 @@ public class FindBugsReportParserTest extends TestCase {
   }
 
   @Test
-  public void testDir() throws Exception {
+  public void testNoSrcDir() throws Exception {
     runTest("dir.xml");
   }
 

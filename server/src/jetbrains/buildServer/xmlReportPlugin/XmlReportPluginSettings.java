@@ -27,15 +27,16 @@ import java.util.List;
 
 public class XmlReportPluginSettings {
   public XmlReportPluginSettings(@NotNull final PagePlaces pagePlaces, @NotNull final ProjectManager projectManager) {
-    List<String> supportedRunTypes = Arrays.asList("simpleRunner");
+    //TODO: add all runners except FxCop, Inspections, Duplicates
+    List<String> supportedRunTypes = Arrays.asList("simpleRunner", "Ant", "Ipr");
 
-    EditBuildRunnerSettingsExtension editSettingsExtension =
+    final EditBuildRunnerSettingsExtension editSettingsExtension =
       new EditBuildRunnerSettingsExtension(pagePlaces, supportedRunTypes);
     editSettingsExtension.setPluginName("xml-report-plugin");
     editSettingsExtension.setIncludeUrl("xmlReportParserSettings.jsp");
     editSettingsExtension.register();
 
-    ViewBuildRunnerSettingsExtension viewSettingsExtension =
+    final ViewBuildRunnerSettingsExtension viewSettingsExtension =
       new ViewBuildRunnerSettingsExtension(projectManager, pagePlaces, supportedRunTypes);
     viewSettingsExtension.setPluginName("xml-report-plugin");
     viewSettingsExtension.setIncludeUrl("viewXmlReportParserSettings.jsp");

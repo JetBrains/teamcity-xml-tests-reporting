@@ -53,6 +53,9 @@ public class FileFinder {
   }
 
   public String getVeryFullFilePath(String filePath) {
+    if (filePath == null) {
+      return "";
+    }
     if (filePath.contains("$") && filePath.endsWith(".java")) {
       filePath = filePath.substring(0, filePath.indexOf("$")) + ".class";
     }
