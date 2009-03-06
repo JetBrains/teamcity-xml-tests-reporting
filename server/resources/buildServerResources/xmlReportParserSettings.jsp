@@ -60,13 +60,21 @@
 
   <tr class="noBorder" id="xmlReportParsing.reportDirs.container"
       style="${displayJUnitSettings ? '' : 'display: none;'}">
-    <th><label for="xmlReportParsing.reportDirs">Report directories:</label></th>
+    <th><label for="xmlReportParsing.reportDirs">Report paths:</label></th>
+      <%--<td>--%>
+      <%--<props:textProperty name="xmlReportParsing.reportDirs" className="longField"/>--%>
+      <%--<span class="smallNote">--%>
+      <%--";" separated paths to directories where reports are expected to appear.--%>
+      <%--Specified paths can be absolute or relative to the working directory.--%>
+      <%--</span>--%>
+      <%--</td>--%>
     <td>
-      <props:textProperty name="xmlReportParsing.reportDirs" className="longField"/>
-          <span class="smallNote">
-          ";" separated paths to directories where reports are expected to appear.
-              Specified paths can be absolute or relative to the working directory.
-          </span>
+      <props:multilineProperty name="xmlReportParsing.reportDirs" expanded="true" rows="5" cols="50"
+                               linkTitle="Type report directories"/>
+        <span class="smallNote">
+          New line or comma separated paths to reports.
+      <!--Support ant-style wildcards like dir/**/*.zip and target directories like *.zip => winFiles,unix/distro.tgz => linuxFiles, where winFiles and linuxFiles are target directories.-->
+        </span>
     </td>
   </tr>
 

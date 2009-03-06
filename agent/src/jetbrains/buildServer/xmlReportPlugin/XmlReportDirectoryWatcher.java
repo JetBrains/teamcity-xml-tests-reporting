@@ -30,25 +30,23 @@ public class XmlReportDirectoryWatcher extends Thread {
   private final XmlReportPlugin myPlugin;
 
   private final LinkedBlockingQueue<Pair<String, File>> myReportQueue;
-  private final Map<String, List<File>> myDirectories;
+  private final Map<String, List<File>> myFiles;
   private final Map<File, List<File>[]> myActiveDirectories;
 
   public XmlReportDirectoryWatcher(@NotNull final XmlReportPlugin plugin,
-                                   @NotNull final List<File> directories,
+                                   @NotNull final List<File> files,
                                    @NotNull final String type,
                                    @NotNull final LinkedBlockingQueue<Pair<String, File>> queue) {
     super("xml-report-plugin-DirectoryWatcher");
 
     myPlugin = plugin;
-    myDirectories = new LinkedHashMap<String, List<File>>();
+    myFiles = new LinkedHashMap<String, List<File>>();
     myReportQueue = queue;
     myActiveDirectories = new HashMap<File, List<File>[]>();
 
-    if (!XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.containsKey(type)) {
-      myPlugin.getLogger().error("Illegal report type value specified");
-      return;
+    if (isTypeValid(type)) {
+      myFiles.put(type, files);
     }
-    myDirectories.put(type, directories);
   }
 
   public void run() {
@@ -64,34 +62,32 @@ public class XmlReportDirectoryWatcher extends Thread {
   }
 
   public synchronized void addDirectories(List<File> directories, String type) {
-    if (!XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.containsKey(type)) {
-      myPlugin.getLogger().error("Illegal report type value specified");
-      return;
-    }
-    if (!myDirectories.containsKey(type)) {
-      myDirectories.put(type, directories);
+    if (!isTypeValid(type)) return;
+    if (!myFiles.containsKey(type)) {
+      myFiles.put(type, directories);
     } else {
-      myDirectories.get(type).addAll(directories);
+      myFiles.get(type).addAll(directories);
     }
   }
 
   private synchronized void scanDirectories() {
-    for (String type : myDirectories.keySet()) {
-      for (File dir : myDirectories.get(type)) {
-        if (dir.isDirectory()) {
-          final File[] files = dir.listFiles();
+    for (String type : myFiles.keySet()) {
+      for (File f : myFiles.get(type)) {
+        if (f.isFile()) {
+
+        } else if (f.isDirectory()) {
+          final File[] files = f.listFiles();
           if ((files == null) || (files.length == 0)) continue;
 
           final List<File>[] processedFiles;
 
-          if (!myActiveDirectories.containsKey(dir)) {
+          if (!myActiveDirectories.containsKey(f)) {
             processedFiles = new List[2];
             processedFiles[0] = new ArrayList<File>();
             processedFiles[1] = new ArrayList<File>();
           } else {
-            processedFiles = myActiveDirectories.get(dir);
+            processedFiles = myActiveDirectories.get(f);
           }
-
           for (final File report : files) {
             if (!isFileOk(report)) {
               if (!processedFiles[1].contains(report)) {
@@ -99,11 +95,9 @@ public class XmlReportDirectoryWatcher extends Thread {
               }
               continue;
             }
-
             if (!processedFiles[0].contains(report)) {
               processedFiles[0].add(report);
               processedFiles[1].remove(report);
-
               try {
                 myReportQueue.put(new Pair<String, File>(type, report));
               } catch (InterruptedException e) {
@@ -111,11 +105,19 @@ public class XmlReportDirectoryWatcher extends Thread {
             }
           }
           if ((processedFiles[0].size() > 0) || (processedFiles[1].size() > 0)) {
-            myActiveDirectories.put(dir, processedFiles);
+            myActiveDirectories.put(f, processedFiles);
           }
         }
       }
     }
+  }
+
+  private boolean isTypeValid(String type) {
+    if (XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.containsKey(type)) {
+      return true;
+    }
+    myPlugin.getLogger().error("Illegal report type value specified");
+    return false;
   }
 
   private boolean isFileOk(File file) {
@@ -128,9 +130,8 @@ public class XmlReportDirectoryWatcher extends Thread {
   }
 
   public void logDirectoriesTotals() {
-    if (myDirectories.isEmpty()) return;
-    for (String type : myDirectories.keySet()) {
-      for (File dir : myDirectories.get(type)) {
+    for (String type : myFiles.keySet()) {
+      for (File dir : myFiles.get(type)) {
         logDirectoryTotals(dir);
       }
     }
@@ -158,7 +159,6 @@ public class XmlReportDirectoryWatcher extends Thread {
       message = message.concat(", " + unprocessedFiles.size() + " of them unprocessed (see reasons below):");
     }
     myPlugin.getLogger().message(message);
-
     logUnprocessedFilesTotals(unprocessedFiles);
   }
 

@@ -22,6 +22,7 @@ import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
+import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -30,6 +31,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class XmlReportPlugin extends AgentLifeCycleAdapter {
+  @NonNls
+  private static final Collection<String> SILENT_PATHS = Arrays.asList("");
   private XmlReportDirectoryWatcher myDirectoryWatcher;
   private XmlReportProcessor myReportProcessor;
   private BaseServerLoggerFacade myLogger;
@@ -101,27 +104,15 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     myReportProcessor.start();
   }
 
-  //dirs are not supposed to contain ';' in their path, as it is separator
   private static List<File> getReportDirsFromDirProperty(String dirProperty, String workingDir) {
-    if (dirProperty == null) {
-      return Collections.emptyList();
-    }
-
-    final String separator = ";";
     final List<File> dirs = new ArrayList<File>();
-
-    if (!dirProperty.endsWith(separator)) {
-      dirProperty += separator;
+    if (dirProperty != null) {
+      final String[] paths = dirProperty.split(" *[,\n\r] *");
+      for (int i = 0; i < paths.length; ++i) {
+        dirs.add(FileUtil.resolvePath(new File(workingDir), paths[i]));
+      }
     }
-
-    int from = 0;
-    int to = dirProperty.indexOf(separator);
-
-    while (to != -1) {
-      dirs.add(FileUtil.resolvePath(new File(workingDir), dirProperty.substring(from, to)));
-      from = to + 1;
-      to = dirProperty.indexOf(separator, from);
-    }
+    dirs.removeAll(SILENT_PATHS);
     return dirs;
   }
 
@@ -186,6 +177,10 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
 
   public boolean parseOutOfDate() {
     return Boolean.parseBoolean(myParameters.get(PARSE_OUT_OF_DATE));
+  }
+
+  public boolean isVerbose() {
+    return Boolean.parseBoolean(myParameters.get(VERBOSE_OUTPUT));
   }
 
   public Map<String, String> getParameters() {

@@ -121,7 +121,9 @@ public class XmlReportProcessor extends Thread {
         initializeParser(reportType);
       }
 
-      myPlugin.getLogger().message("Found report file: " + report.getAbsolutePath());
+      if (myPlugin.isVerbose()) {
+        myPlugin.getLogger().message("Found report file: " + report.getAbsolutePath());
+      }
       myCurrentReport = new ReportData(report, reportType);
       return myCurrentReport;
     } catch (InterruptedException e) {
