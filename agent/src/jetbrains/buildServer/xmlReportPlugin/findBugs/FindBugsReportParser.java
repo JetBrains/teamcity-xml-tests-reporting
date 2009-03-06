@@ -118,7 +118,7 @@ public class FindBugsReportParser extends InspectionslReportParser {
     } else if ("SourceLine".equals(name) && attributes.getValue("classname").equals(myCurrentClass)) {
       myCurrentBug.setLine(getNumber(attributes.getValue("start")));
       if (hasNoFilePath(myCurrentBug)) {
-        myCurrentBug.setFilePath(createPathSpec(attributes));
+        myCurrentBug.setFilePath(createPathSpec(attributes.getValue("sourcepath")));
       }
     }
   }
@@ -132,6 +132,9 @@ public class FindBugsReportParser extends InspectionslReportParser {
       myCurrentPattern = null;
     } else if ("BugInstance".equals(name)) {
       if (isTypeKnown(myCurrentBug)) {
+        if (hasNoFilePath(myCurrentBug)) {
+          myCurrentBug.setFilePath(createPathSpec(""));
+        }
         if (hasNoMessage(myCurrentBug)) {
           myCurrentBug.setMessage(getPattern(myCurrentBug.getInspectionId()).getDescription());
         }
@@ -188,9 +191,11 @@ public class FindBugsReportParser extends InspectionslReportParser {
     return (getPattern(bug.getInspectionId()) != null);
   }
 
-  private String createPathSpec(Attributes attributes) {
-    String pathSpec;
-    pathSpec = myFileFinder.getVeryFullFilePath(attributes.getValue("sourcepath"));
+  private String createPathSpec(String sourcepath) {
+    String pathSpec = "";
+    if (sourcepath.length() > 0) {
+      pathSpec = myFileFinder.getVeryFullFilePath(sourcepath);
+    }
     if (pathSpec.length() == 0) {
       pathSpec = myFileFinder.getVeryFullFilePath(myCurrentClass.replace(".", File.separator) + ".class");
     }

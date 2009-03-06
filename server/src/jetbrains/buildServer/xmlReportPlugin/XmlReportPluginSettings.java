@@ -27,8 +27,8 @@ import java.util.List;
 
 public class XmlReportPluginSettings {
   public XmlReportPluginSettings(@NotNull final PagePlaces pagePlaces, @NotNull final ProjectManager projectManager) {
-    //TODO: add all runners except FxCop, Inspections, Duplicates
-    List<String> supportedRunTypes = Arrays.asList("simpleRunner", "Ant", "Ipr");
+    List<String> supportedRunTypes = Arrays.asList("Ant", "simpleRunner", "Ipr", "Maven2", "MSBuild", "NAnt",
+      "rake-runner", "sln2003", "sln2005", "sln2008");
 
     final EditBuildRunnerSettingsExtension editSettingsExtension =
       new EditBuildRunnerSettingsExtension(pagePlaces, supportedRunTypes);
