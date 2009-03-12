@@ -34,9 +34,7 @@ public class XmlReportDirectoryWatcher extends Thread {
   private final LinkedBlockingQueue<Pair<String, File>> myReportQueue;
   private final Map<String, List<File>> myInput;
 
-  private final Map<File, FileEntry> myFiles;
-  private final Map<File, DirEntry> myDirs;
-  private final Map<File, MaskEntry> myMasks;
+  private final Map<File, Entry> myEntries;
 
   public XmlReportDirectoryWatcher(@NotNull final XmlReportPlugin plugin,
                                    @NotNull final List<File> input,
@@ -51,9 +49,7 @@ public class XmlReportDirectoryWatcher extends Thread {
     }
     myReportQueue = queue;
 
-    myFiles = new HashMap<File, FileEntry>();
-    myDirs = new HashMap<File, DirEntry>();
-    myMasks = new HashMap<File, MaskEntry>();
+    myEntries = new HashMap<File, Entry>();
   }
 
   public void run() {
@@ -83,16 +79,19 @@ public class XmlReportDirectoryWatcher extends Thread {
     for (String type : myInput.keySet()) {
       final List<File> input = myInput.get(type);
       for (File f : input) {
-        if (f.isFile() && !myFiles.containsKey(f)) {
-          myFiles.put(f, new FileEntry(type));
-        } else if (f.isDirectory() && !myDirs.containsKey(f)) {
-          myDirs.put(f, new DirEntry(type));
+        if (myEntries.containsKey(f)) {
+          continue;
+        }
+        if (f.isFile()) {
+          myEntries.put(f, new FileEntry(type));
+        } else if (f.isDirectory()) {
+          myEntries.put(f, new DirEntry(type));
         } else {
           final String mask = f.getAbsolutePath();
-          if ((mask.contains("*") || mask.contains("?")) && !myMasks.containsKey(f)) {
+          if ((mask.contains("*") || mask.contains("?"))) {
             final File baseDir = new File(getDirWithoutPattern(mask));
             final Pattern pattern = Pattern.compile(FileUtil.convertAntToRegexp(FileUtil.getRelativePath(baseDir, f)));
-            myMasks.put(f, new MaskEntry(type, baseDir, pattern));
+            myEntries.put(f, new MaskEntry(type, baseDir, pattern));
           }
         }
       }
@@ -100,14 +99,17 @@ public class XmlReportDirectoryWatcher extends Thread {
   }
 
   private synchronized void processEntries() {
-    processFiles();
-    processDirs();
-    processMasks();
-  }
-
-  private void processFiles() {
-    for (Map.Entry f : myFiles.entrySet()) {
-      processFile((File) f.getKey(), (FileEntry) f.getValue());
+    for (Map.Entry f : myEntries.entrySet()) {
+      final File k = (File) f.getKey();
+      final Entry e = (Entry) f.getValue();
+      final String type = e.getEntryType();
+      if (FileEntry.TYPE.equals(type)) {
+        processFile(k, (FileEntry) e);
+      } else if (DirEntry.TYPE.equals(type)) {
+        processDir(k, (DirEntry) e);
+      } else if (MaskEntry.TYPE.equals(type)) {
+        processMask(k, (MaskEntry) e);
+      }
     }
   }
 
@@ -123,12 +125,6 @@ public class XmlReportDirectoryWatcher extends Thread {
         myReportQueue.put(new Pair<String, File>(fe.getType(), f));
       } catch (InterruptedException e) {
       }
-    }
-  }
-
-  private void processDirs() {
-    for (Map.Entry d : myDirs.entrySet()) {
-      processDir((File) d.getKey(), (DirEntry) d.getValue());
     }
   }
 
@@ -151,12 +147,6 @@ public class XmlReportDirectoryWatcher extends Thread {
       de.setActive(true);
     }
     processFile(f, fe);
-  }
-
-  private void processMasks() {
-    for (Map.Entry m : myMasks.entrySet()) {
-      processMask((File) m.getKey(), (MaskEntry) m.getValue());
-    }
   }
 
   private void processMask(File m, MaskEntry me) {
@@ -191,14 +181,23 @@ public class XmlReportDirectoryWatcher extends Thread {
   }
 
   private boolean timeConstraintsSatisfied(File file) {
-    return myPlugin.parseOutOfDate()
-      || (file.lastModified() >= myPlugin.getBuildStartTime());
+    return myPlugin.parseOutOfDate() || (file.lastModified() >= myPlugin.getBuildStartTime());
   }
 
   public void logTotals() {
-    logFilesTotals();
-    logDirsTotals();
-    logMasksTotals();
+    for (Map.Entry f : myEntries.entrySet()) {
+      final File k = (File) f.getKey();
+      final Entry e = (Entry) f.getValue();
+      final String type = e.getEntryType();
+      if (FileEntry.TYPE.equals(type)) {
+        logFileTotals(k, (FileEntry) e);
+      } else if (DirEntry.TYPE.equals(type)) {
+        logDirTotals(k, (DirEntry) e);
+      } else if (MaskEntry.TYPE.equals(type)) {
+        logMaskTotals(k, (MaskEntry) e);
+      }
+      myInput.get(e.getType()).remove(k);
+    }
     logUnknownTotals();
   }
 
@@ -210,24 +209,8 @@ public class XmlReportDirectoryWatcher extends Thread {
     }
   }
 
-  private void logMasksTotals() {
-    for (File m : myMasks.keySet()) {
-      final MaskEntry me = myMasks.get(m);
-      logMaskTotals(m, me);
-      myInput.get(me.getType()).remove(m);
-    }
-  }
-
   private void logMaskTotals(File m, MaskEntry me) {
     if (!me.isActive()) {
-      //TODO: remove
-      if (me.getFiles().values().size() > 0) {
-        myPlugin.getLogger().exception(new Exception("MUST BE ACTIVE"));
-      }
-      //TODO: remove
-      if (me.getDirs().values().size() > 0) {
-        myPlugin.getLogger().exception(new Exception("MUST BE ACTIVE"));
-      }
       myPlugin.getLogger().warning(m.getAbsolutePath() + ": nothing matching found");
     } else {
       final Map<File, DirEntry> dirs = me.getDirs();
@@ -249,20 +232,8 @@ public class XmlReportDirectoryWatcher extends Thread {
     }
   }
 
-  private void logDirsTotals() {
-    for (File d : myDirs.keySet()) {
-      final DirEntry de = myDirs.get(d);
-      logDirTotals(d, de);
-      myInput.get(de.getType()).remove(d);
-    }
-  }
-
   private void logDirTotals(File d, DirEntry de) {
     if (!de.isActive()) {
-      //TODO: remove
-      if (de.getFiles().values().size() > 0) {
-        myPlugin.getLogger().exception(new Exception("MUST BE ACTIVE"));
-      }
       myPlugin.getLogger().warning(d.getAbsolutePath() + ": no reports found in directory");
     } else {
       final Map<File, FileEntry> files = de.getFiles();
@@ -271,14 +242,6 @@ public class XmlReportDirectoryWatcher extends Thread {
         final FileEntry fe = files.get(f);
         logFileTotals(f, fe);
       }
-    }
-  }
-
-  private void logFilesTotals() {
-    for (File f : myFiles.keySet()) {
-      final FileEntry fe = myFiles.get(f);
-      logFileTotals(f, fe);
-      myInput.get(fe.getType()).remove(f);
     }
   }
 
@@ -305,64 +268,13 @@ public class XmlReportDirectoryWatcher extends Thread {
     return files;
   }
 
-//  private void logDirectoryTotals(File dir) {
-//    if (!dir.exists()) {
-//      myPlugin.getLogger().warning(dir.getPath() + " directory didn't appear on disk during the build");
-//    } else if (!dir.isDirectory()) {
-//      myPlugin.getLogger().warning(dir.getPath() + " is not actually a directory");
-//    } else if (!myActiveDirectories.containsKey(dir)) {
-//      myPlugin.getLogger().warning(dir.getPath() + ": no reports found in directory");
-//    } else {
-//      logActiveDirectoryTotals(dir);
-//    }
-//  }
-//
-//  private void logActiveDirectoryTotals(File dir) {
-//    final List<File> processedFiles = myActiveDirectories.get(dir)[0];
-//    final List<File> unprocessedFiles = myActiveDirectories.get(dir)[1];
-//    final int fileNumber = processedFiles.size() + unprocessedFiles.size();
-//
-//    String message = dir.getPath() + " directory: " + fileNumber + " files(s) found";
-//    if (unprocessedFiles.size() > 0) {
-//      message = message.concat(", " + unprocessedFiles.size() + " of them unprocessed (see reasons below):");
-//    }
-//    myPlugin.getLogger().message(message);
-//    logUnprocessedFilesTotals(unprocessedFiles);
-//  }
-//
-//  private void logUnprocessedFilesTotals(List<File> unprocessedFiles) {
-//    for (File file : unprocessedFiles) {
-//      if (!file.isFile()) {
-//        myPlugin.getLogger().warning(file.getPath() + " is not actually a file");
-//        continue;
-//      }
-//      if (!file.canRead()) {
-//        myPlugin.getLogger().warning(file.getPath() + ": unable to read file");
-//        continue;
-//      }
-//      if (file.lastModified() < myPlugin.getBuildStartTime()) {
-//        myPlugin.getLogger().warning(file.getPath() + " file has modification date preceding build start time");
-//      }
-//    }
-//  }
-
-  private static class FileEntry {
+  private static abstract class Entry {
     private final String myType;
     private boolean myActive;
-    private String myMessage;
 
-    public FileEntry(String type) {
+    public Entry(String type) {
       myType = type;
       myActive = false;
-      myMessage = "";
-    }
-
-    public String getMessage() {
-      return myMessage;
-    }
-
-    public void setMessage(String message) {
-      myMessage = message;
     }
 
     public boolean isActive() {
@@ -376,14 +288,46 @@ public class XmlReportDirectoryWatcher extends Thread {
     public String getType() {
       return myType;
     }
+
+    public abstract String getEntryType();
   }
 
-  private static class DirEntry extends FileEntry {
+  private static class FileEntry extends Entry {
+    public static final String TYPE = "FILE";
+
+    private String myMessage;
+
+    public FileEntry(String type) {
+      super(type);
+      myMessage = "";
+    }
+
+    public String getEntryType() {
+      return TYPE;
+    }
+
+    public String getMessage() {
+      return myMessage;
+    }
+
+    public void setMessage(String message) {
+      myMessage = message;
+    }
+
+  }
+
+  private static class DirEntry extends Entry {
+    public static final String TYPE = "DIR";
+
     private final Map<File, FileEntry> myFiles;
 
     public DirEntry(String type) {
       super(type);
       myFiles = new HashMap<File, FileEntry>();
+    }
+
+    public String getEntryType() {
+      return TYPE;
     }
 
     public Map<File, FileEntry> getFiles() {
@@ -392,6 +336,8 @@ public class XmlReportDirectoryWatcher extends Thread {
   }
 
   private static class MaskEntry extends DirEntry {
+    public static final String TYPE = "MASK";
+
     private final Map<File, DirEntry> myDirs;
     private final File myBaseDir;
     private final Pattern myPattern;
@@ -401,6 +347,10 @@ public class XmlReportDirectoryWatcher extends Thread {
       myDirs = new HashMap<File, DirEntry>();
       myBaseDir = baseDir;
       myPattern = pattern;
+    }
+
+    public String getEntryType() {
+      return TYPE;
     }
 
     public Map<File, DirEntry> getDirs() {
