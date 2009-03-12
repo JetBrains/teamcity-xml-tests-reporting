@@ -170,7 +170,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     List<Object> params = new ArrayList<Object>();
-    params.add(getFileInWorkingDir("reports").getAbsolutePath() + " directory didn't appear on disk during the build");
+    params.add(getFileInWorkingDir("reports").getAbsolutePath() + " didn't appear on disk during the build");
     myLogSequence.add(new MethodInvokation("warning", params));
     myTestLogger.setExpectedSequence(myLogSequence);
 
@@ -190,33 +190,33 @@ public class XmlReportPluginIntegrationTest {
     }
   }
 
-  @Test
-  public void testWarningWhenDirectoryWasNotActuallyDirectory() {
-    XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
-    myRunnerParams.put(XmlReportPluginUtil.REPORT_DIRS, "reports");
-    XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
-
-    final List<Object> params = new ArrayList<Object>();
-    params.add(getFileInWorkingDir("reports").getAbsolutePath() + " is not actually a directory");
-    myLogSequence.add(new MethodInvokation("warning", params));
-    myTestLogger.setExpectedSequence(myLogSequence);
-
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    ReportFactory.createFile("reports");
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-    myContext.assertIsSatisfied();
-    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
-
-    if (myFailures.size() > 0) {
-      throw myFailures.get(0);
-    }
-  }
+//  @Test
+//  public void testWarningWhenDirectoryWasNotActuallyDirectory() {
+//    XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
+//    myRunnerParams.put(XmlReportPluginUtil.REPORT_DIRS, "reports");
+//    XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
+//
+//    final List<Object> params = new ArrayList<Object>();
+//    params.add(getFileInWorkingDir("reports").getAbsolutePath() + " is not actually a directory");
+//    myLogSequence.add(new MethodInvokation("warning", params));
+//    myTestLogger.setExpectedSequence(myLogSequence);
+//
+//    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+//    try {
+//      Thread.sleep(1000);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
+//    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+//    ReportFactory.createFile("reports");
+//    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+//    myContext.assertIsSatisfied();
+//    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+//
+//    if (myFailures.size() > 0) {
+//      throw myFailures.get(0);
+//    }
+//  }
 
   private void warningWhenNoReportsFoundInDirectory(String reportType) {
     createDir(REPORTS_DIR);

@@ -56,6 +56,7 @@ public class PmdReportParser extends InspectionslReportParser {
                            String qName, Attributes attributes) throws SAXException {
     if ("file".equals(localName)) {
       myCurrentFile = attributes.getValue("name");
+      myCurrentFile = myCurrentFile.replace("\\", File.separator).replace("/", File.separator);
       if (myCurrentFile.startsWith(myCheckoutDirectory)) {
         myCurrentFile = myCurrentFile.substring(myCheckoutDirectory.length());
       }

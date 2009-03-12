@@ -72,7 +72,7 @@
       <props:multilineProperty name="xmlReportParsing.reportDirs" expanded="true" rows="5" cols="50"
                                linkTitle="Type report directories"/>
         <span class="smallNote">
-          New line or comma separated paths to reports.
+          New line or comma separated paths to reports. Specified paths can be absolute or relative to the working directory.
       <!--Support ant-style wildcards like dir/**/*.zip and target directories like *.zip => winFiles,unix/distro.tgz => linuxFiles, where winFiles and linuxFiles are target directories.-->
         </span>
     </td>

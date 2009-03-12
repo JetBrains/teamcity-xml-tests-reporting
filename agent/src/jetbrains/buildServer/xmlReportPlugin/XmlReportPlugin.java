@@ -90,7 +90,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     if (!wasParsingEnabled) {
       startProcessing(reportDirs, type);
     } else {
-      myDirectoryWatcher.addDirectories(reportDirs, type);
+      myDirectoryWatcher.addParams(reportDirs, type);
     }
   }
 
@@ -133,7 +133,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
           } catch (InterruptedException e) {
           }
         }
-        myDirectoryWatcher.logDirectoriesTotals();
+        myDirectoryWatcher.logTotals();
         break;
     }
   }
