@@ -1,58 +1,28 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="xml-report-plugin-custom" basedir="." default="all">
+
+  <property file="build.properties"/>
   <import file="${basedir}/xml-report-plugin.xml"/>
 
+  <property name="plugin.name" value="xml-report-plugin"/>
+
+  <import file="${basedir}/teamcity-common.xml"/>
+
   <property environment="env"/>
-  <property name="dist" value="dist"/>
-  <property name="dist.tmp" value="out/dist.tmp"/>
-  <property name="dist.unpacked" value="${dist.tmp}/unpacked"/>
-  <property name="dist.output.agent" value="${dist.unpacked}/agent"/>
   <property name="build.number" value="${env.BUILD_NUMBER}"/>
 
-  <target name="all" depends="check, xml-report-plugin.all"/>
-
-  <target name="pack.agent" description="pack agent part of plugin">
-    <delete dir="${dist.output.agent}" quiet="true"/>
-    <mkdir dir="${dist.output.agent}"/>
-
-    <property name="dist.tmp.agent" value="${dist.tmp}/agent"/>
-    <property name="dist.tmp.agent.content" value="${dist.tmp.agent}/xml-report-plugin/lib"/>
-    <delete dir="${dist.tmp.agent}" quiet="true"/>
-    <mkdir dir="${dist.tmp.agent.content}"/>
-
-    <jar destfile="${dist.tmp.agent.content}/xml-report-plugin.jar"
-         basedir="${agent.output.dir}" update="true"/>
-    <jar destfile="${dist.tmp.agent.content}/xml-report-plugin-common.jar"
-         basedir="${common.output.dir}" update="true"/>
-    <zip destfile="${dist.output.agent}/xml-report-plugin.zip"
-         basedir="${dist.tmp.agent}"
-         update="true"/>
-    <delete dir="${dist.tmp.agent}"/>
-  </target>
-
-  <target name="pack.server" description="pack server part of plugin">
-    <property name="dist.output.server" value="${dist.unpacked}/server"/>
-    <mkdir dir="${dist.output.server}"/>
-    <jar destfile="${dist.output.server}/xml-report-plugin.jar"
-         basedir="${server.output.dir}" update="true"/>
-  </target>
+  <target name="all" depends="check.teamcitydistribution, xml-report-plugin.all"/>
 
   <target name="dist" depends="all">
-    <delete dir="${dist}" quiet="true"/>
-    <mkdir dir="${dist}"/>
-
-    <delete dir="${dist.unpacked}" quiet="true"/>
-    <mkdir dir="${dist.unpacked}"/>
-    <antcall target="pack.agent"/>
-    <antcall target="pack.server"/>
-
     <antcall target="update.version.in.plugin.descriptor"/>
-    <copy todir="${dist.unpacked}" file="${basedir}/teamcity-plugin.xml"/>
 
-    <zip destfile="${dist}/xml-report-plugin.zip"
-         basedir="${dist.unpacked}"
-         update="true"/>
-    <delete dir="${dist.tmp}"/>
+    <package.teamcity.plugin name="${plugin.name}"
+                             server.output="${server.output.dir}"
+                             agent.output="${agent.output.dir}"
+                             common.output="${common.output.dir}"
+                             out="dist"
+        />
+
   </target>
 
   <target name="update.version.in.plugin.descriptor">
@@ -64,29 +34,9 @@
   </target>
 
   <target name="deploy" depends="dist" description="deploy plugin to TeamCity">
-    <copy todir="${user.home}/.BuildServer/plugins">
-      <fileset dir="${dist}"/>
-    </copy>
+    <deploy.teamcity.plugin name="${plugin.name}"/>
   </target>
 
-  <target name="deploy.agent" depends="dist.agent" description="deploy agent part of plugin to TeamCity">
-    <copy todir="${path.variable.teamcitydistribution}/webapps/ROOT/update/plugins">
-      <fileset dir="${dist}"/>
-    </copy>
-  </target>
-
-  <target name="dist.agent" depends="all">
-    <delete dir="${dist}" quiet="true"/>
-    <mkdir dir="${dist}"/>
-
-    <delete dir="${dist.unpacked}" quiet="true"/>
-    <mkdir dir="${dist.unpacked}"/>
-
-    <antcall target="pack.agent"/>
-    <copy todir="${dist}">
-      <fileset dir="${dist.output.agent}"/>
-    </copy>
-  </target>
 
   <target name="copy.log4j.configuration">
     <property name="tests.testdata" value="${basedir}/tests/testData"/>
@@ -140,20 +90,6 @@
 
   <target name="check_failures" if="failure_found">
     <fail message="Failures found"/>
-  </target>
-
-  <target name="check">
-    <condition property="not.configured">
-      <not>
-        <and>
-          <isset property="path.variable.teamcitydistribution"/>
-          <length string="${path.variable.teamcitydistribution}" when="greater" length="0"/>
-          <available file="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib"/>
-        </and>
-      </not>
-    </condition>
-    <fail if="not.configured"
-          message="Please define 'path.variable.teamcitydistribution' property in xml-report-plugin.properties file. The property should point to unpacked TeamCity .tar.gz or .exe distribution."/>
   </target>
 
 </project>
