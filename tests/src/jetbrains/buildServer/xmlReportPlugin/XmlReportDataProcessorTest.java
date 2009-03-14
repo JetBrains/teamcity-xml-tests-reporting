@@ -44,7 +44,7 @@ public class XmlReportDataProcessorTest extends TestCase {
     final File expectedFile = TestUtil.getTestDataFile(fileName + ".gold", "dataProcessor");
 
     final StringBuilder results = new StringBuilder();
-    final XmlReportPlugin plugin = createFakePlugin(results, TestUtil.getTestDataFile(null, null).getParentFile().getParentFile());
+    final XmlReportPlugin plugin = createFakePlugin(results, TestUtil.getTestDataFile(null, null).getAbsoluteFile().getParentFile().getParentFile());
 
     final XmlReportDataProcessor processor = new XmlReportDataProcessor.JUnitDataProcessor(plugin);
     processor.processData(new File(getTestDataPath("Report.xml", "dataProcessor")), arguments);
