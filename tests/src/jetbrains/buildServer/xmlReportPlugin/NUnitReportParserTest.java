@@ -16,6 +16,9 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Date;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
 import junit.framework.Assert;
@@ -30,13 +33,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
-import java.util.Date;
-
 
 @RunWith(JMock.class)
 public class NUnitReportParserTest extends TestCase {
-  private static final String REPORT_DIR = "Tests/testData/nunit/";
+  private static final String REPORT_DIR = "nunit";
   private static final String SUITE_NAME = "TestCase";
   private static final String CASE_CLASSNAME = "TestCase";
   private static final String CASE_NAME = CASE_CLASSNAME + ".test";
@@ -51,8 +51,8 @@ public class NUnitReportParserTest extends TestCase {
     return myContext.mock(BaseServerLoggerFacade.class);
   }
 
-  private File report(String name) {
-    return new File(REPORT_DIR + name);
+  private File report(String fileName) throws FileNotFoundException {
+    return TestUtil.getTestDataFile(fileName, REPORT_DIR);
   }
 
   @Before
@@ -68,14 +68,14 @@ public class NUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void testEmptyReport() {
+  public void testEmptyReport() throws Exception {
     long testsLogged = myParser.parse(report("empty.xml"), 0);
     Assert.assertTrue("Empty report contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
     myContext.assertIsSatisfied();
   }
 
   @Test
-  public void testSingleCaseSuccess() {
+  public void testSingleCaseSuccess() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -93,7 +93,7 @@ public class NUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test1CaseFailure() {
+  public void test1CaseFailure() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -113,7 +113,7 @@ public class NUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test1CaseIn2Parts() {
+  public void test1CaseIn2Parts() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -132,7 +132,7 @@ public class NUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test2CasesSuccess() {
+  public void test2CasesSuccess() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -154,7 +154,7 @@ public class NUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test2CasesFirstSuccess() {
+  public void test2CasesFirstSuccess() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -178,7 +178,7 @@ public class NUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test2CasesSecondSuccess() {
+  public void test2CasesSecondSuccess() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -202,7 +202,7 @@ public class NUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test2CasesFailed() {
+  public void test2CasesFailed() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -228,7 +228,7 @@ public class NUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test1CaseIgnored() {
+  public void test1CaseIgnored() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -244,7 +244,7 @@ public class NUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test1CaseIgnoredFailed() {
+  public void test1CaseIgnoredFailed() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
