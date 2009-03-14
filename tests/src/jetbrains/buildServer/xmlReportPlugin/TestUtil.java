@@ -48,8 +48,8 @@ public final class TestUtil {
     return getTestDataFile(fileName, folderName).getAbsolutePath();
   }
 
-  public static File getTestDataFile(@Nullable final String fileName, @NotNull final String folderName) throws FileNotFoundException {
-    final String relativeFileName = "tests/testData/" + folderName + "/" + fileName;
+  public static File getTestDataFile(final String fileName, final String folderName) throws FileNotFoundException {
+    final String relativeFileName = "tests/testData" + (folderName != null ? "/" + folderName : "" ) + (fileName != null ? "/" + fileName : "");
 
     File file1 = new File(relativeFileName);
 
@@ -62,7 +62,7 @@ public final class TestUtil {
       return file2;
     }
 
-    throw new FileNotFoundException("Either " + file1.getAbsolutePath() + " or file" + file2.getAbsolutePath() + " should exist.");
+    throw new FileNotFoundException("Either " + file1.getAbsolutePath() + " or file " + file2.getAbsolutePath() + " should exist.");
   }
 
   public static InspectionReporter createFakeReporter(final StringBuilder results) {

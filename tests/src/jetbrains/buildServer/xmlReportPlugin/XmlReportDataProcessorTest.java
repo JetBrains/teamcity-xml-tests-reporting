@@ -16,6 +16,11 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
@@ -26,12 +31,6 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 
 public class XmlReportDataProcessorTest extends TestCase {
   private Mockery myContext;
@@ -41,29 +40,25 @@ public class XmlReportDataProcessorTest extends TestCase {
   }
 
   private void runTest(Map<String, String> arguments, String fileName) throws Exception {
-    final String prefix = getTestDataPath(fileName, "dataProcessor");
-    final String resultsFile = prefix + ".tmp";
-    final String expectedFile = prefix + ".gold";
-
-    new File(resultsFile).delete();
+    final File resultsFile = File.createTempFile(fileName,".tmp");
+    final File expectedFile = TestUtil.getTestDataFile(fileName + ".gold", "dataProcessor");
 
     final StringBuilder results = new StringBuilder();
-    final XmlReportPlugin plugin = createFakePlugin(results);
+    final XmlReportPlugin plugin = createFakePlugin(results, TestUtil.getTestDataFile(null, null).getParentFile().getParentFile());
 
     final XmlReportDataProcessor processor = new XmlReportDataProcessor.JUnitDataProcessor(plugin);
     processor.processData(new File(getTestDataPath("Report.xml", "dataProcessor")), arguments);
 
-    final File expected = new File(expectedFile);
-    if (!readFile(expected).equals(results.toString())) {
+    if (!readFile(expectedFile).equals(results.toString())) {
       final FileWriter resultsWriter = new FileWriter(resultsFile);
       resultsWriter.write(results.toString());
       resultsWriter.close();
 
-      assertEquals(readFile(expected), results.toString());
+      assertEquals(readFile(expectedFile), results.toString());
     }
   }
 
-  private XmlReportPlugin createFakePlugin(final StringBuilder results) {
+  private XmlReportPlugin createFakePlugin(final StringBuilder results, final File base) {
     final EventDispatcher dispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
     final InspectionReporter reporter = myContext.mock(InspectionReporter.class);
     return new XmlReportPlugin(dispatcher, reporter) {
@@ -72,12 +67,18 @@ public class XmlReportDataProcessorTest extends TestCase {
           results.append("<").append(key).append(", ").append(params.get(key)).append(">\n");
         }
         for (File f : reportDirs) {
-          results.append(f.getPath()).append("\n");
+          results.append(getRelativePath(f, base)).append("\n");
         }
       }
     };
   }
 
+  private String getRelativePath(final File f, final File base) {
+    if (f.getAbsolutePath().startsWith(base.getAbsolutePath())){
+      return f.getAbsolutePath().substring(base.getAbsolutePath().length() + 1);  //+1 for truncating trasiling "/"
+    }
+    return f.getAbsolutePath();
+  }
 
   @Test
   public void testDefault() throws Exception {
