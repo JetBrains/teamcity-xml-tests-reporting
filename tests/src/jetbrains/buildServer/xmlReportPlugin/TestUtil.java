@@ -16,15 +16,12 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.*;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionTypeInfo;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import org.jetbrains.annotations.Nullable;
 
 
 public final class TestUtil {
@@ -43,14 +40,29 @@ public final class TestUtil {
     }
   }
 
-  public static String getTestDataPath(final String fileName, final String folderName) {
-    final File file = new File("tests/testData/" + folderName + "/" + fileName);
-    return file.getPath();
+  public static String getTestDataPath(final String fileName, final String folderName) throws FileNotFoundException {
+    return getTestDataFile(fileName, folderName).getPath();
   }
 
-  public static String getAbsoluteTestDataPath(final String fileName, final String folderName) {
-    final File file = new File("tests/testData/" + folderName + "/" + fileName);
-    return file.getAbsolutePath();
+  public static String getAbsoluteTestDataPath(@Nullable final String fileName, @NotNull final String folderName) throws FileNotFoundException {
+    return getTestDataFile(fileName, folderName).getAbsolutePath();
+  }
+
+  public static File getTestDataFile(@Nullable final String fileName, @NotNull final String folderName) throws FileNotFoundException {
+    final String relativeFileName = "tests/testData/" + folderName + "/" + fileName;
+
+    File file1 = new File(relativeFileName);
+
+    if (file1.exists()) {
+      return file1;
+    }
+
+    File file2 = new File("svnrepo/xml-tests-reporting/" + relativeFileName);
+    if (file2.exists()){
+      return file2;
+    }
+
+    throw new FileNotFoundException("Either " + file1.getAbsolutePath() + " or file" + file2.getAbsolutePath() + " should exist.");
   }
 
   public static InspectionReporter createFakeReporter(final StringBuilder results) {

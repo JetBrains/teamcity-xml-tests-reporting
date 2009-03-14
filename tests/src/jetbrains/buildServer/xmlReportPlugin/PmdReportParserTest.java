@@ -16,6 +16,10 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.Map;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
@@ -24,11 +28,6 @@ import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
 import junit.framework.TestCase;
 import org.junit.Test;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class PmdReportParserTest extends TestCase {
@@ -44,7 +43,7 @@ public class PmdReportParserTest extends TestCase {
     final BaseServerLoggerFacade logger = new BuildLoggerForTesting(results);
     final InspectionReporter reporter = TestUtil.createFakeReporter(results);
 
-    final PmdReportParser parser = new PmdReportParser(logger, reporter, "C:\\work\\teamcityworkspace\\xml-report-plugin\\tests\\testData\\pmd");
+    final PmdReportParser parser = new PmdReportParser(logger, reporter, TestUtil.getAbsoluteTestDataPath(null, "pmd"));
 
     final File report = new File(reportName);
     parser.parse(report, 0);

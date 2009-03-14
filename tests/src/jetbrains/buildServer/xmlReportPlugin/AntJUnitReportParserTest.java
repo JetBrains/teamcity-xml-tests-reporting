@@ -16,10 +16,14 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Date;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import junit.framework.Assert;
 import junit.framework.TestCase;
+import org.jetbrains.annotations.NotNull;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.Sequence;
@@ -30,14 +34,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Date;
-
 
 @RunWith(JMock.class)
 public class AntJUnitReportParserTest extends TestCase {
-  private static final String REPORT_DIR = "Tests/testData/junit/";
+  private static final String REPORT_DIR = "junit";
   private static final String SUITE_NAME = "TestCase";
   private static final String CASE_CLASSNAME = "TestCase";
   private static final String CASE_NAME = CASE_CLASSNAME + ".test";
@@ -58,8 +58,8 @@ public class AntJUnitReportParserTest extends TestCase {
     return myContext.mock(BaseServerLoggerFacade.class);
   }
 
-  private File report(String name) {
-    return new File(REPORT_DIR + name);
+  private File report(@NotNull final String fileName) throws FileNotFoundException {
+    return TestUtil.getTestDataFile(fileName, REPORT_DIR);
   }
 
   @Before
@@ -87,20 +87,20 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void testEmptyReport() {
+  public void testEmptyReport() throws Exception {
     long testsLogged = myParser.parse(report("empty.xml"), 0);
     Assert.assertTrue("Empty report contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
     myContext.assertIsSatisfied();
   }
 
   @Test
-  public void testWrongFormatReport() {
+  public void testWrongFormatReport() throws Exception {
     myParser.parse(report("wrongFormat"), 0);
     myContext.assertIsSatisfied();
   }
 
   @Test
-  public void testNoCases() {
+  public void testNoCases() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -114,7 +114,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void testSingleCaseSuccess() {
+  public void testSingleCaseSuccess() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -132,7 +132,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test1CaseFailure() {
+  public void test1CaseFailure() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -152,7 +152,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test1CaseError() {
+  public void test1CaseError() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -171,7 +171,7 @@ public class AntJUnitReportParserTest extends TestCase {
     myContext.assertIsSatisfied();
   }
 
-  private void singleCaseIn2PartsCaseAndSuiteFrom2Try(String unfinishedReportName) {
+  private void singleCaseIn2PartsCaseAndSuiteFrom2Try(String unfinishedReportName) throws Exception {
     int testsLogged = myParser.parse(report(unfinishedReportName), 0);
     myContext.assertIsSatisfied();
     myContext.checking(new Expectations() {
@@ -193,16 +193,16 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test1CaseIn2PartsBreakTestSuiteBetweenAttrs() {
+  public void test1CaseIn2PartsBreakTestSuiteBetweenAttrs() throws Exception {
     singleCaseIn2PartsCaseAndSuiteFrom2Try("singleCaseBreakTestSuiteBetweenAttrs.xml");
   }
 
   @Test
-  public void test1CaseIn2PartsBreakTestSuiteAfterAttrs() {
+  public void test1CaseIn2PartsBreakTestSuiteAfterAttrs() throws Exception {
     singleCaseIn2PartsCaseAndSuiteFrom2Try("singleCaseBreakTestSuiteAfterAttrs.xml");
   }
 
-  private void singleCaseIn2PartsFrom2TrySuiteFrom1(String unfinishedReportName) {
+  private void singleCaseIn2PartsFrom2TrySuiteFrom1(String unfinishedReportName) throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -228,22 +228,22 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test1CaseIn2PartsBreakAfterTestSuite() {
+  public void test1CaseIn2PartsBreakAfterTestSuite() throws Exception {
     singleCaseIn2PartsFrom2TrySuiteFrom1("singleCaseBreakAfterTestSuite.xml");
   }
 
   @Test
-  public void test1CaseIn2PartsBreakAfterAttrs() {
+  public void test1CaseIn2PartsBreakAfterAttrs() throws Exception {
     singleCaseIn2PartsFrom2TrySuiteFrom1("singleCaseBreakAfterAttrs.xml");
   }
 
   @Test
-  public void test1CaseIn2PartsBreakClosing() {
+  public void test1CaseIn2PartsBreakClosing() throws Exception {
     singleCaseIn2PartsFrom2TrySuiteFrom1("singleCaseBreakClosing.xml");
   }
 
   @Test
-  public void test1CaseIn2PartsFrom1TrySuiteFrom2() {
+  public void test1CaseIn2PartsFrom1TrySuiteFrom2() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -269,7 +269,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test2CasesSuccess() {
+  public void test2CasesSuccess() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -291,7 +291,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test2CasesFirstSuccess() {
+  public void test2CasesFirstSuccess() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -315,7 +315,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test2CasesSecondSuccess() {
+  public void test2CasesSecondSuccess() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -339,7 +339,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test2CasesFailed() {
+  public void test2CasesFailed() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -364,7 +364,7 @@ public class AntJUnitReportParserTest extends TestCase {
     myContext.assertIsSatisfied();
   }
 
-  private void twoCasesIn2PartsBothFrom2TrySuiteFrom1(String unfinishedReportName) {
+  private void twoCasesIn2PartsBothFrom2TrySuiteFrom1(String unfinishedReportName) throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -396,21 +396,21 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test2CasesIn2PartsFirstBreakBetweenAttrs() {
+  public void test2CasesIn2PartsFirstBreakBetweenAttrs() throws Exception {
     twoCasesIn2PartsBothFrom2TrySuiteFrom1("twoCasesFirstBreakBetweenAttrs.xml");
   }
 
   @Test
-  public void test2CasesIn2PartsFirstBreakFailureST() {
+  public void test2CasesIn2PartsFirstBreakFailureST() throws Exception {
     twoCasesIn2PartsBothFrom2TrySuiteFrom1("twoCasesFirstBreakFailureST.xml");
   }
 
   @Test
-  public void test2CasesIn2PartsFirstBreakAfterFailure() {
+  public void test2CasesIn2PartsFirstBreakAfterFailure() throws Exception {
     twoCasesIn2PartsBothFrom2TrySuiteFrom1("twoCasesFirstBreakAfterFailure.xml");
   }
 
-  private void twoCasesIn2PartsSecondFrom2Try(String unfinishedReportName) {
+  private void twoCasesIn2PartsSecondFrom2Try(String unfinishedReportName) throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -442,37 +442,37 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test2CasesIn2PartsBreakAfterFirst() {
+  public void test2CasesIn2PartsBreakAfterFirst() throws Exception {
     twoCasesIn2PartsSecondFrom2Try("twoCasesBreakAfterFirst.xml");
   }
 
   @Test
-  public void test2CasesIn2PartsSecondBreakBetweenAttrs() {
+  public void test2CasesIn2PartsSecondBreakBetweenAttrs() throws Exception {
     twoCasesIn2PartsSecondFrom2Try("twoCasesSecondBreakBetweenAttrs.xml");
   }
 
   @Test
-  public void test2CasesIn2PartsSecondBreakFailureMessage() {
+  public void test2CasesIn2PartsSecondBreakFailureMessage() throws Exception {
     twoCasesIn2PartsSecondFrom2Try("twoCasesSecondBreakErrorMessage.xml");
   }
 
   @Test
-  public void test2CasesIn2PartsSecondBreakFailureST() {
+  public void test2CasesIn2PartsSecondBreakFailureST() throws Exception {
     twoCasesIn2PartsSecondFrom2Try("twoCasesSecondBreakErrorST.xml");
   }
 
   @Test
-  public void test2CasesIn2PartsSecondBreakErrorClosing() {
+  public void test2CasesIn2PartsSecondBreakErrorClosing() throws Exception {
     twoCasesIn2PartsSecondFrom2Try("twoCasesSecondBreakErrorClosing.xml");
   }
 
   @Test
-  public void test2CasesIn2PartsSecondBreakClosing() {
+  public void test2CasesIn2PartsSecondBreakClosing() throws Exception {
     twoCasesIn2PartsSecondFrom2Try("twoCasesSecondBreakClosing.xml");
   }
 
   @Test
-  public void test2CasesIn2PartsBothFrom1TrySuiteFrom2() {
+  public void test2CasesIn2PartsBothFrom1TrySuiteFrom2() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -503,7 +503,7 @@ public class AntJUnitReportParserTest extends TestCase {
     myContext.assertIsSatisfied();
   }
 
-  private void twoCasesIn2PartsBothAndSuiteFrom2Try(String unfinishedReportName) {
+  private void twoCasesIn2PartsBothAndSuiteFrom2Try(String unfinishedReportName) throws Exception {
     int testsLogged = myParser.parse(report(unfinishedReportName), 0);
     myContext.checking(new Expectations() {
       {
@@ -530,22 +530,22 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void test2CasesIn2PartsBreakHeading() {
+  public void test2CasesIn2PartsBreakHeading() throws Exception {
     twoCasesIn2PartsBothAndSuiteFrom2Try("twoCasesBreakHeading.xml");
   }
 
   @Test
-  public void test2CasesIn2PartsBreakTestSuite() {
+  public void test2CasesIn2PartsBreakTestSuite() throws Exception {
     twoCasesIn2PartsBothAndSuiteFrom2Try("twoCasesBreakTestSuite.xml");
   }
 
   @Test
-  public void test2CasesIn2PartsBreakTestSuiteInAttr() {
+  public void test2CasesIn2PartsBreakTestSuiteInAttr() throws Exception {
     twoCasesIn2PartsBothAndSuiteFrom2Try("twoCasesBreakTestSuiteInAttr.xml");
   }
 
   @Test
-  public void test9CasesIn3Parts() {
+  public void test9CasesIn3Parts() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -582,7 +582,7 @@ public class AntJUnitReportParserTest extends TestCase {
     myContext.assertIsSatisfied();
   }
 
-  private void oneLineSystemOut(String reportName) {
+  private void oneLineSystemOut(String reportName) throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -602,16 +602,16 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void testPrintSystemOut() {
+  public void testPrintSystemOut() throws Exception {
     oneLineSystemOut("printSystemOut.xml");
   }
 
   @Test
-  public void testPrintlnSystemOut() {
+  public void testPrintlnSystemOut() throws Exception {
     oneLineSystemOut("printlnSystemOut.xml");
   }
 
-  private void oneLineSystemErr(String reportName) {
+  private void oneLineSystemErr(String reportName) throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -631,16 +631,16 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void testPrintSystemErr() {
+  public void testPrintSystemErr() throws Exception {
     oneLineSystemErr("printSystemErr.xml");
   }
 
   @Test
-  public void testPrintlnSystemErr() {
+  public void testPrintlnSystemErr() throws Exception {
     oneLineSystemErr("printlnSystemErr.xml");
   }
 
-  private void fiveLineSystemOut(String reportName) {
+  private void fiveLineSystemOut(String reportName) throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -661,16 +661,16 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void testPrintFiveLineSystemOut() {
+  public void testPrintFiveLineSystemOut() throws Exception {
     fiveLineSystemOut("printFiveLineSystemOut.xml");
   }
 
   @Test
-  public void testPrintlnFiveLineSystemOut() {
+  public void testPrintlnFiveLineSystemOut() throws Exception {
     fiveLineSystemOut("printlnFiveLineSystemOut.xml");
   }
 
-  private void fiveLineSystemErr(String reportName) {
+  private void fiveLineSystemErr(String reportName) throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -691,17 +691,17 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void testPrintFiveLineSystemErr() {
+  public void testPrintFiveLineSystemErr() throws Exception {
     fiveLineSystemErr("printFiveLineSystemErr.xml");
   }
 
   @Test
-  public void testPrintlnFiveLineSystemErr() {
+  public void testPrintlnFiveLineSystemErr() throws Exception {
     fiveLineSystemErr("printlnFiveLineSystemErr.xml");
   }
 
   @Test
-  public void fiveLineSystemOutAndErr() {
+  public void fiveLineSystemOutAndErr() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -724,7 +724,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void testLogCaseSystemOut() {
+  public void testLogCaseSystemOut() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -744,7 +744,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void testLogCaseSystemErr() {
+  public void testLogCaseSystemErr() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -764,7 +764,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void testLog2CasesSystemOut() {
+  public void testLog2CasesSystemOut() throws Exception {
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
