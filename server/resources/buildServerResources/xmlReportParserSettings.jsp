@@ -20,23 +20,25 @@
       <c:set var="onchange">
         var selectedValue = this.options[this.selectedIndex].value;
         if (selectedValue == '') {
-        $('xmlReportParsing.reportDirs.container').style.display = 'none';
-        $('xmlReportParsing.verboseOutput.container').style.display = 'none';
+          BS.Util.hide($('xmlReportParsing.reportDirs.container'));
+          BS.Util.hide($('xmlReportParsing.verboseOutput.container'));
         } else {
-        $('xmlReportParsing.reportDirs.container').style.display = '';
-        $('xmlReportParsing.verboseOutput.container').style.display = '';
+          BS.Util.show($('xmlReportParsing.reportDirs.container'));
+          BS.Util.show($('xmlReportParsing.verboseOutput.container'));
         }
         $('xmlReportParsing.reportDirs.container').disabled = (selectedValue == '');
         $('xmlReportParsing.verboseOutput.container').disabled = (selectedValue == '');
         if (selectedValue == 'findBugs') {
-        $('xmlReportParsing.max.errors.container').style.display = '';
-        $('xmlReportParsing.max.warnings.container').style.display = '';
+          BS.Util.show($('xmlReportParsing.max.errors.container'));
+          BS.Util.show($('xmlReportParsing.max.warnings.container'));
         } else {
-        $('xmlReportParsing.max.errors.container').style.display = 'none';
-        $('xmlReportParsing.max.warnings.container').style.display = 'none';
+          BS.Util.hide($('xmlReportParsing.max.errors.container'));
+          BS.Util.hide($('xmlReportParsing.max.warnings.container'));
         }
         $('xmlReportParsing.max.errors.container').disabled = (selectedValue == 'findbugs');
         $('xmlReportParsing.max.warnings.container').disabled = (selectedValue == 'findbugs');
+
+        BS.MultilineProperties.updateVisible();
       </c:set>
       <props:selectProperty name="xmlReportParsing.reportType"
                             onchange="${onchange}">
