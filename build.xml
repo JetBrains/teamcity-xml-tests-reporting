@@ -21,7 +21,7 @@
                              agent.output="${agent.output.dir}"
                              common.output="${common.output.dir}"
                              out="dist"
-        />
+      />
 
   </target>
 
@@ -60,6 +60,9 @@
     <delete>
       <fileset dir="${test.data.dir}" includes="*.sample.trans"/>
     </delete>
+
+    <replace dir="${basedir}/tests/testData/watcher" includes="*.gold"
+             token="C:\work\teamcityworkspace\xml-report-plugin" value="${basedir}"/>
 
   </target>
 

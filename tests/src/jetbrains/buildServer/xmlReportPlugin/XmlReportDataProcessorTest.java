@@ -16,11 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
@@ -31,6 +26,12 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class XmlReportDataProcessorTest extends TestCase {
   private Mockery myContext;
@@ -40,7 +41,7 @@ public class XmlReportDataProcessorTest extends TestCase {
   }
 
   private void runTest(Map<String, String> arguments, String fileName) throws Exception {
-    final File resultsFile = File.createTempFile(fileName,".tmp");
+    final File resultsFile = File.createTempFile(fileName, ".tmp");
     final File expectedFile = TestUtil.getTestDataFile(fileName + ".gold", "dataProcessor");
 
     final StringBuilder results = new StringBuilder();
@@ -67,17 +68,10 @@ public class XmlReportDataProcessorTest extends TestCase {
           results.append("<").append(key).append(", ").append(params.get(key)).append(">\n");
         }
         for (File f : reportDirs) {
-          results.append(getRelativePath(f, base)).append("\n");
+          results.append(TestUtil.getRelativePath(f, base)).append("\n");
         }
       }
     };
-  }
-
-  private String getRelativePath(final File f, final File base) {
-    if (f.getAbsolutePath().startsWith(base.getAbsolutePath())){
-      return f.getAbsolutePath().substring(base.getAbsolutePath().length() + 1);  //+1 for truncating trasiling "/"
-    }
-    return f.getAbsolutePath();
   }
 
   @Test

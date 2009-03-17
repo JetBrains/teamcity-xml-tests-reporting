@@ -16,12 +16,13 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.*;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionTypeInfo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.*;
 
 
 public final class TestUtil {
@@ -49,7 +50,7 @@ public final class TestUtil {
   }
 
   public static File getTestDataFile(final String fileName, final String folderName) throws FileNotFoundException {
-    final String relativeFileName = "tests/testData" + (folderName != null ? "/" + folderName : "" ) + (fileName != null ? "/" + fileName : "");
+    final String relativeFileName = "tests/testData" + (folderName != null ? "/" + folderName : "") + (fileName != null ? "/" + fileName : "");
 
     File file1 = new File(relativeFileName);
 
@@ -58,11 +59,18 @@ public final class TestUtil {
     }
 
     File file2 = new File("svnrepo/xml-tests-reporting/" + relativeFileName);
-    if (file2.exists()){
+    if (file2.exists()) {
       return file2;
     }
 
     throw new FileNotFoundException("Either " + file1.getAbsolutePath() + " or file " + file2.getAbsolutePath() + " should exist.");
+  }
+
+  public static String getRelativePath(final File f, final File base) {
+    if (f.getAbsolutePath().startsWith(base.getAbsolutePath())) {
+      return f.getAbsolutePath().substring(base.getAbsolutePath().length() + 1);  //+1 for truncating trasiling "/"
+    }
+    return f.getAbsolutePath();
   }
 
   public static InspectionReporter createFakeReporter(final StringBuilder results) {
