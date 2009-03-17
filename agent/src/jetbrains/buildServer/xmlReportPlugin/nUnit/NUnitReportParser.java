@@ -31,14 +31,14 @@ public class NUnitReportParser extends AntJUnitReportParser {
   private NUnitToJUnitReportTransformer myReportTransformer;
   private File myTmpReportDir;
 
-  public NUnitReportParser(BaseServerLoggerFacade logger, String workingDir) {
+  public NUnitReportParser(BaseServerLoggerFacade logger, String checkoutDir) {
     super(logger);
     try {
       myReportTransformer = new NUnitToJUnitReportTransformer();
     } catch (TransformerConfigurationException e) {
       myLogger.warning("NUnit report parser couldn't instantiate transformer");
     }
-    myTmpReportDir = new File(workingDir + TMP_REPORT_DIRECTORY);
+    myTmpReportDir = new File(checkoutDir + TMP_REPORT_DIRECTORY);
     myTmpReportDir.mkdirs();
   }
 

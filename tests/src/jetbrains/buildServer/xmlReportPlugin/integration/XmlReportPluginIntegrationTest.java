@@ -46,12 +46,12 @@ public class XmlReportPluginIntegrationTest {
   private static final String ANT_JUNIT_REPORT_TYPE = "junit";
   private static final String NUNIT_REPORT_TYPE = "nunit";
   private static final String EMPTY_REPORT_TYPE = "";
-  private static final String WORKING_DIR = "workingDirForTesting";
+  private static final String CHECKOUT_DIR = "workingDirForTesting";
 
   private XmlReportPlugin myPlugin;
   private AgentRunningBuild myRunningBuild;
   private Map<String, String> myRunnerParams;
-  private File myWorkingDir;
+  private File myCheckoutDir;
   private EventDispatcher<AgentLifeCycleListener> myEventDispatcher;
   private BaseServerLoggerFacadeForTesting myTestLogger;
   private List<MethodInvokation> myLogSequence;
@@ -64,7 +64,7 @@ public class XmlReportPluginIntegrationTest {
     return myContext.mock(InspectionReporter.class);
   }
 
-  private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final File workingDirFile, final BaseServerLoggerFacade logger) {
+  private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final File checkoutDirFile, final BaseServerLoggerFacade logger) {
     final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
     myContext.checking(new Expectations() {
       {
@@ -72,10 +72,10 @@ public class XmlReportPluginIntegrationTest {
         will(returnValue(logger));
         allowing(runningBuild).getRunnerParameters();
         will(returnValue(runParams));
-        allowing(runningBuild).getWorkingDirectory();
-        will(returnValue(workingDirFile));
+        allowing(runningBuild).getCheckoutDirectory();
+        will(returnValue(checkoutDirFile));
         allowing(runningBuild).getBuildTempDirectory();
-        will(returnValue(workingDirFile));
+        will(returnValue(checkoutDirFile));
         ignoring(runningBuild);
       }
     });
@@ -98,13 +98,13 @@ public class XmlReportPluginIntegrationTest {
     myTestLogger = new BaseServerLoggerFacadeForTesting(myFailures);
 
     myRunnerParams = new HashMap<String, String>();
-    myWorkingDir = new File(WORKING_DIR);
-    removeDir(myWorkingDir);
-    myWorkingDir.mkdir();
-    myRunningBuild = createAgentRunningBuild(myRunnerParams, myWorkingDir, myTestLogger);
+    myCheckoutDir = new File(CHECKOUT_DIR);
+    removeDir(myCheckoutDir);
+    myCheckoutDir.mkdir();
+    myRunningBuild = createAgentRunningBuild(myRunnerParams, myCheckoutDir, myTestLogger);
     myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
-    ReportFactory.setWorkingDir(WORKING_DIR);
+    ReportFactory.setCheckoutDir(CHECKOUT_DIR);
   }
 
   private void removeDir(File dir) {
@@ -118,7 +118,7 @@ public class XmlReportPluginIntegrationTest {
     }
   }
 
-  private static File getFileInWorkingDir(String name) {
+  private static File getFileInCheckoutDir(String name) {
     return new File("workingDirForTesting/" + name);
   }
 
@@ -170,7 +170,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     List<Object> params = new ArrayList<Object>();
-    params.add(getFileInWorkingDir("reports").getAbsolutePath() + " didn't appear on disk during the build");
+    params.add(getFileInCheckoutDir("reports").getAbsolutePath() + " didn't appear on disk during the build");
     myLogSequence.add(new MethodInvokation("warning", params));
     myTestLogger.setExpectedSequence(myLogSequence);
 
@@ -225,7 +225,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final List<Object> params = new ArrayList<Object>();
-    params.add(getFileInWorkingDir(REPORTS_DIR).getAbsolutePath() + ": no reports found");
+    params.add(getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath() + ": no reports found");
     myLogSequence.add(new MethodInvokation("warning", params));
     myTestLogger.setExpectedSequence(myLogSequence);
   }
@@ -239,12 +239,12 @@ public class XmlReportPluginIntegrationTest {
     final List<Object> params1 = new ArrayList<Object>();
     final List<Object> params2 = new ArrayList<Object>();
     final List<Object> params3 = new ArrayList<Object>();
-    final String report = getFileInWorkingDir(REPORTS_DIR + "/somefile").getAbsolutePath();
+    final String report = getFileInCheckoutDir(REPORTS_DIR + "/somefile").getAbsolutePath();
     params1.add("Found report file: " + report);
     myLogSequence.add(new MethodInvokation("message", params1));
     params2.add(report + " report has unexpected finish or unsupported format");
     myLogSequence.add(new MethodInvokation("warning", params2));
-    params3.add(getFileInWorkingDir(REPORTS_DIR).getAbsolutePath() + ": 1 files(s) found");
+    params3.add(getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath() + ": 1 files(s) found");
     myLogSequence.add(new MethodInvokation("message", params3));
     myTestLogger.setExpectedSequence(myLogSequence);
   }
@@ -339,7 +339,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final List<Object> params1 = new ArrayList<Object>();
-    params1.add("Found report file: " + getFileInWorkingDir(REPORTS_DIR + "/report").getAbsolutePath());
+    params1.add("Found report file: " + getFileInCheckoutDir(REPORTS_DIR + "/report").getAbsolutePath());
     final List<Object> twoAnyParams = new ArrayList<Object>();
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
@@ -355,7 +355,7 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
     myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
     final List<Object> params2 = new ArrayList<Object>();
-    params2.add(getFileInWorkingDir(REPORTS_DIR + "/report").getAbsolutePath() + " report has unexpected finish or unsupported format");
+    params2.add(getFileInCheckoutDir(REPORTS_DIR + "/report").getAbsolutePath() + " report has unexpected finish or unsupported format");
     myLogSequence.add(new MethodInvokation("warning", params2));
     myLogSequence.add(new MethodInvokation("message", twoAnyParams));
     myTestLogger.setExpectedSequence(myLogSequence);
@@ -731,7 +731,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setParseOutOfDateReports(myRunnerParams, true);
 
     final List<Object> param1 = new ArrayList<Object>();
-    param1.add("Found report file: " + getFileInWorkingDir("suite1").getAbsolutePath());
+    param1.add("Found report file: " + getFileInCheckoutDir("suite1").getAbsolutePath());
     myLogSequence.add(new MethodInvokation("message", param1));
 
     final List<Object> twoAnyParams = new ArrayList<Object>();
@@ -782,7 +782,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, "");
 
     final List<Object> param1 = new ArrayList<Object>();
-    param1.add("Found report file: " + getFileInWorkingDir("suite1").getAbsolutePath());
+    param1.add("Found report file: " + getFileInCheckoutDir("suite1").getAbsolutePath());
     myLogSequence.add(new MethodInvokation("message", param1));
 
     final List<Object> twoAnyParams = new ArrayList<Object>();
@@ -821,7 +821,7 @@ public class XmlReportPluginIntegrationTest {
     final XmlReportDataProcessor dataProcessor = new XmlReportDataProcessor.JUnitDataProcessor(myPlugin);
     final Map<String, String> args = new HashMap<String, String>();
     args.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
-    dataProcessor.processData(new File(WORKING_DIR), args);
+    dataProcessor.processData(new File(CHECKOUT_DIR), args);
 
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
@@ -867,7 +867,7 @@ public class XmlReportPluginIntegrationTest {
     final XmlReportDataProcessor dataProcessor = new XmlReportDataProcessor.JUnitDataProcessor(myPlugin);
     final Map<String, String> args = new HashMap<String, String>();
     args.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
-    dataProcessor.processData(new File(WORKING_DIR), args);
+    dataProcessor.processData(new File(CHECKOUT_DIR), args);
 
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
@@ -885,7 +885,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, "");
 
     final List<Object> param1 = new ArrayList<Object>();
-    param1.add("Found report file: " + getFileInWorkingDir("suite1").getAbsolutePath());
+    param1.add("Found report file: " + getFileInCheckoutDir("suite1").getAbsolutePath());
     myLogSequence.add(new MethodInvokation("message", param1));
 
     final List<Object> twoAnyParams = new ArrayList<Object>();
@@ -929,7 +929,7 @@ public class XmlReportPluginIntegrationTest {
     final Map<String, String> args = new HashMap<String, String>();
     args.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
     args.put(XmlReportDataProcessor.PARSE_OUT_OF_DATE_ARGUMENT, "true");
-    dataProcessor.processData(new File(WORKING_DIR), args);
+    dataProcessor.processData(new File(CHECKOUT_DIR), args);
 
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);

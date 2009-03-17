@@ -72,16 +72,6 @@ public class PmdReportParser extends InspectionslReportParser {
       myCurrentBug.setLine(getNumber(attributes.getValue("beginline")));
       myCurrentBug.setInspectionId(attributes.getValue("rule"));
       myCurrentBug.setMessage(DEFAULT_MESSAGE);
-//      String filePathSpec = attributes.getValue("package");
-//      final String className = attributes.getValue("class");
-//      filePathSpec = filePathSpec.replace(".", "/");
-//      if (className != null) {
-//        filePathSpec = filePathSpec + "/" + className + ".class";
-//      }
-//      if (myCurrentFile.length() > 0) {
-//        filePathSpec = filePathSpec + " :: " + myCurrentFile;
-//      }
-//      myCurrentBug.setFilePath(filePathSpec);
       myCurrentBug.setFilePath(myCurrentFile);
       reportInspectionType(attributes);
       processPriority(getNumber(attributes.getValue("priority")));

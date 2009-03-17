@@ -7,18 +7,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public final class ReportFactory {
-  private static String WORKING_DIR;
+  private static String CHECKOUT_DIR;
 
-  public static void setWorkingDir(@NotNull String workingDir) {
-    WORKING_DIR = workingDir;
+  public static void setCheckoutDir(@NotNull String checkoutDir) {
+    CHECKOUT_DIR = checkoutDir;
   }
 
   public static void createDir(String name) {
-    (new File(WORKING_DIR + "\\" + name)).mkdir();
+    (new File(CHECKOUT_DIR + "\\" + name)).mkdir();
   }
 
   public static void createFile(String name) {
-    final File f = new File(WORKING_DIR + "\\" + name);
+    final File f = new File(CHECKOUT_DIR + "\\" + name);
     try {
       final FileWriter fw = new FileWriter(f);
       fw.write("File content");
@@ -29,7 +29,7 @@ public final class ReportFactory {
   }
 
   public static void createFile(String name, String content) {
-    final File f = new File(WORKING_DIR + "\\" + name);
+    final File f = new File(CHECKOUT_DIR + "\\" + name);
     try {
       final FileWriter fw = new FileWriter(f);
       fw.write(content);
@@ -40,11 +40,11 @@ public final class ReportFactory {
   }
 
   public static File getFileByName(String name) {
-    return new File(WORKING_DIR + "\\" + name);
+    return new File(CHECKOUT_DIR + "\\" + name);
   }
 
   public static void createUnfinishedReport(String name, String type) {
-    final File f = new File(WORKING_DIR + "\\" + name);
+    final File f = new File(CHECKOUT_DIR + "\\" + name);
     try {
       final FileWriter fw = new FileWriter(f);
       if ("junit".equals(type)) {

@@ -152,9 +152,6 @@ public class XmlReportDirectoryWatcher extends Thread {
     for (File f : collectFiles(me.getPattern(), me.getBaseDir())) {
       if (f.isFile()) {
         processFileInDir(me, f);
-      } else if (f.isDirectory()) {
-        //TODO remove
-        throw new RuntimeException("UNEXPECTED: DIRECTORY SATISFIES MASK");
       }
     }
   }
@@ -172,6 +169,7 @@ public class XmlReportDirectoryWatcher extends Thread {
   }
 
   public void logTotals() {
+    myPlugin.getLogger().targetStarted("XML reports monitoring totals");
     for (Map.Entry f : myEntries.entrySet()) {
       final File k = (File) f.getKey();
       final Entry e = (Entry) f.getValue();
@@ -184,6 +182,7 @@ public class XmlReportDirectoryWatcher extends Thread {
       myInput.get(e.getType()).remove(k);
     }
     logUnknownTotals();
+    myPlugin.getLogger().targetFinished("XML report monitoring totals");
   }
 
   private void logUnknownTotals() {
@@ -201,6 +200,9 @@ public class XmlReportDirectoryWatcher extends Thread {
       final Map<File, FileEntry> files = de.getFiles();
       if (files.size() > 0) {
         myPlugin.getLogger().message(d.getAbsolutePath() + ": " + files.size() + " files(s) found");
+      }
+      if (!myPlugin.isVerbose()) {
+        return;
       }
       for (File f : files.keySet()) {
         final FileEntry fe = files.get(f);

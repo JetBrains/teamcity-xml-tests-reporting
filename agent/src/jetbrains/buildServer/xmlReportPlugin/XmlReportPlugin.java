@@ -52,7 +52,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     myStopped = false;
     myParameters = new HashMap<String, String>(build.getRunnerParameters());
     myParameters.put(BUILD_START, "" + new Date().getTime());
-    myParameters.put(WORKING_DIR, build.getWorkingDirectory().getAbsolutePath());
+    myParameters.put(CHECKOUT_DIR, build.getCheckoutDirectory().getAbsolutePath());
     myParameters.put(TMP_DIR, build.getBuildTempDirectory().getAbsolutePath());
   }
 
@@ -63,7 +63,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     }
 
     final String dirProperty = getXmlReportDirs(myParameters);
-    final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myParameters.get(WORKING_DIR));
+    final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myParameters.get(CHECKOUT_DIR));
 
     if (reportDirs.size() == 0) {
       myLogger.warning("No report directories specified");//TODO: can avoid this by adding paths presence in the web IU
@@ -104,12 +104,12 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     myReportProcessor.start();
   }
 
-  private static List<File> getReportDirsFromDirProperty(String dirProperty, String workingDir) {
+  private static List<File> getReportDirsFromDirProperty(String dirProperty, String checkoutDir) {
     final List<File> dirs = new ArrayList<File>();
     if (dirProperty != null) {
       final String[] paths = dirProperty.split(" *[,\n\r] *");
       for (int i = 0; i < paths.length; ++i) {
-        dirs.add(FileUtil.resolvePath(new File(workingDir), paths[i]));
+        dirs.add(FileUtil.resolvePath(new File(checkoutDir), paths[i]));
       }
     }
     dirs.removeAll(SILENT_PATHS);
@@ -171,8 +171,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     return myParameters.get(TMP_DIR);
   }
 
-  public String getWorkingDir() {
-    return myParameters.get(WORKING_DIR);
+  public String getCheckoutDir() {
+    return myParameters.get(CHECKOUT_DIR);
   }
 
   public boolean parseOutOfDate() {

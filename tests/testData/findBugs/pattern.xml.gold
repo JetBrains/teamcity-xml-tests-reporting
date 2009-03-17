@@ -2,4 +2,4 @@ InspectionTypeInfo{myId='NM_BAD_EQUAL', myName='Class defines equal(Object); sho
 InspectionInstance{myInspectionId='NM_BAD_EQUAL', myMessage='This class defines a method equal(Object). This method does not override the equals(Object) method in java.lang.Object, which is probably what was intended.', myFilePath='pattern/org/jetbrains/testProject/BuggyClass.java', myLine=9, myAttributes={<SEVERITY>: ERROR }}
 InspectionInstance{myInspectionId='NEW_PATTERN', myMessage='New bug pattern details', myFilePath='pattern/org/jetbrains/testProject/BuggyClass.java', myLine=0, myAttributes={<SEVERITY>: WARNING }}
 InspectionTypeInfo{myId='NEW_PATTERN', myName='New bug pattern short description', myDescription='Experimental and not fully vetted bug patterns.', myCategory='Experimental'}
-MESSAGE: ##teamcity[buildStatus status='SUCCESS' text='Errors: 1, warnings: 1']
+MESSAGE: ##teamcity[buildStatus status='SUCCESS' text='Errors: 1, warnings: 1, information: 0']

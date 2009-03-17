@@ -31,6 +31,7 @@ public abstract class InspectionslReportParser extends XmlReportParser {
 
   private int myErrors;
   private int myWarnings;
+  private int myInfos;
 
   protected InspectionInstance myCurrentBug;
 
@@ -43,6 +44,7 @@ public abstract class InspectionslReportParser extends XmlReportParser {
     myReportedInstanceTypes = new HashSet<String>();
     myErrors = 0;
     myWarnings = 0;
+    myInfos = 0;
   }
 
   protected void logParsingTotals(@NotNull Map<String, String> parameters) {
@@ -60,7 +62,7 @@ public abstract class InspectionslReportParser extends XmlReportParser {
       limitReached = true;
     }
 
-    final String buildStatus = generateBuildStatus(myErrors, myWarnings);
+    final String buildStatus = generateBuildStatus(myErrors, myWarnings, myInfos);
     myLogger.message("##teamcity[buildStatus status='" +
       (limitReached ? "FAILURE" : "SUCCESS") +
       "' text='" + buildStatus + "']");
@@ -78,6 +80,7 @@ public abstract class InspectionslReportParser extends XmlReportParser {
         level = InspectionSeverityValues.WARNING;
         break;
       default:
+        ++myInfos;
         level = InspectionSeverityValues.INFO;
     }
     final Collection<String> attrValue = new Vector<String>();

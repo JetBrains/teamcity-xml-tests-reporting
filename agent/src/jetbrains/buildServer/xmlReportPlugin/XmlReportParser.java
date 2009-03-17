@@ -47,8 +47,8 @@ public abstract class XmlReportParser extends DefaultHandler {
     return 0;
   }
 
-  public static String generateBuildStatus(int errors, int warnings) {
-    return "Errors: " + errors + ", warnings: " + warnings;
+  public static String generateBuildStatus(int errors, int warnings, int infos) {
+    return "Errors: " + errors + ", warnings: " + warnings + ", information: " + infos;
   }
 
   public static XMLReader createXmlReader(ContentHandler contentHandler, ErrorHandler errHandler, boolean validate) throws Exception {

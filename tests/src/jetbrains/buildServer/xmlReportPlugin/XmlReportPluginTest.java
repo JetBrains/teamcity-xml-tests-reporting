@@ -39,11 +39,11 @@ import java.util.Map;
 
 @RunWith(JMock.class)
 public class XmlReportPluginTest {
-  private static final String WORKING_DIR = "workingDir";
+  private static final String CHECKOUT_DIR = "workingDir";
 
   private XmlReportPlugin myPlugin;
   private Map<String, String> myRunParams;
-  private File myWorkingDir;
+  private File myCheckoutDir;
   private BaseServerLoggerFacade myLogger;
   private EventDispatcher<AgentLifeCycleListener> myEventDispatcher;
 
@@ -56,12 +56,12 @@ public class XmlReportPluginTest {
   }
 
   private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams,
-                                                    final File workingDirFile) {
+                                                    final File checkoutDirFile) {
     final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
     myContext.checking(new Expectations() {
       {
-        allowing(runningBuild).getWorkingDirectory();
-        will(returnValue(workingDirFile));
+        allowing(runningBuild).getCheckoutDirectory();
+        will(returnValue(checkoutDirFile));
         inSequence(mySequence);
         allowing(runningBuild).getBuildTempDirectory();
         inSequence(mySequence);
@@ -90,7 +90,7 @@ public class XmlReportPluginTest {
     mySequence = myContext.sequence("Log Sequence");
     myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
     myRunParams = new HashMap<String, String>();
-    myWorkingDir = new File(WORKING_DIR);
+    myCheckoutDir = new File(CHECKOUT_DIR);
     myLogger = createBaseServerLoggerFacade();
     myInspectionReporter = createInspectionReporter();
     myContext.checking(new Expectations() {
@@ -103,7 +103,7 @@ public class XmlReportPluginTest {
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
     XmlReportPluginUtil.enableXmlReportParsing(myRunParams, "");
 
-    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
+    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myCheckoutDir);
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
 
     myEventDispatcher.getMulticaster().buildStarted(runningBuild);
@@ -130,7 +130,7 @@ public class XmlReportPluginTest {
   }
 
   private void warningWhenZeroReportDirsSize() {
-    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
+    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myCheckoutDir);
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).warning(with("No report directories specified"));
@@ -158,7 +158,7 @@ public class XmlReportPluginTest {
   public void testIsStoppedWhenDisabled() {
     XmlReportPluginUtil.enableXmlReportParsing(myRunParams, "");
 
-    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
+    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myCheckoutDir);
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
 
     myEventDispatcher.getMulticaster().buildStarted(runningBuild);
@@ -171,7 +171,7 @@ public class XmlReportPluginTest {
   }
 
   private void isStoppedWhenZeroReportDirsSize() {
-    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
+    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myCheckoutDir);
     myContext.checking(new Expectations() {
       {
         ignoring(runningBuild);

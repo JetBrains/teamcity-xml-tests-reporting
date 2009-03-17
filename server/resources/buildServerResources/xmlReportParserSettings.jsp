@@ -8,9 +8,9 @@
 
 <c:set var="displayJUnitSettings"
        value="${not empty propertiesBean.properties['xmlReportParsing.reportType'] ? true : false}"/>
-<c:set var="displayFindBugsSettings"
-       value="${propertiesBean.properties['xmlReportParsing.reportType'] == 'findBugs' ? true : false}"/>
-<%--<c:set var="displayNUnitSettings" value="${propertiesBean.properties['xmlReportParsing.reportType'] == 'nunit' ? true : false}"/>--%>
+<c:set var="displayInspectionsSettings"
+       value="${propertiesBean.properties['xmlReportParsing.reportType'] == 'findBugs' ||
+                propertiesBean.properties['xmlReportParsing.reportType'] == 'pmd' ? true : false}"/>
 
 <l:settingsGroup title="XML Report Processing">
 
@@ -28,15 +28,16 @@
         }
         $('xmlReportParsing.reportDirs.container').disabled = (selectedValue == '');
         $('xmlReportParsing.verboseOutput.container').disabled = (selectedValue == '');
-        if (selectedValue == 'findBugs') {
+        var isInspection = (selectedValue == 'findBugs' || selectedValue == 'pmd');
+        if (isInspection) {
         BS.Util.show($('xmlReportParsing.max.errors.container'));
         BS.Util.show($('xmlReportParsing.max.warnings.container'));
         } else {
         BS.Util.hide($('xmlReportParsing.max.errors.container'));
         BS.Util.hide($('xmlReportParsing.max.warnings.container'));
         }
-        $('xmlReportParsing.max.errors.container').disabled = (selectedValue == 'findbugs');
-        $('xmlReportParsing.max.warnings.container').disabled = (selectedValue == 'findbugs');
+        $('xmlReportParsing.max.errors.container').disabled = (isInspection);
+        $('xmlReportParsing.max.warnings.container').disabled = (isInspection);
 
         BS.MultilineProperties.updateVisible();
       </c:set>
@@ -63,18 +64,11 @@
   <tr class="noBorder" id="xmlReportParsing.reportDirs.container"
       style="${displayJUnitSettings ? '' : 'display: none;'}">
     <th><label for="xmlReportParsing.reportDirs">Report paths:</label></th>
-      <%--<td>--%>
-      <%--<props:textProperty name="xmlReportParsing.reportDirs" className="longField"/>--%>
-      <%--<span class="smallNote">--%>
-      <%--";" separated paths to directories where reports are expected to appear.--%>
-      <%--Specified paths can be absolute or relative to the working directory.--%>
-      <%--</span>--%>
-      <%--</td>--%>
     <td>
       <props:multilineProperty name="xmlReportParsing.reportDirs" expanded="true" rows="5" cols="50"
                                linkTitle="Type report directories"/>
         <span class="smallNote">
-          New line or comma separated paths to reports. Specified paths can be absolute or relative to the working directory.
+          New line or comma separated paths to reports. Specified paths can be absolute or relative to the checkout directory.
           Support ant-style wildcards like <b>dir/**/*.zip</b>. To ensure monitoring swiftness specify more concrete paths.
         </span>
     </td>
@@ -88,7 +82,7 @@
   </tr>
 
   <tr class="noBorder" id="xmlReportParsing.max.errors.container"
-      style="${displayFindBugsSettings ? '' : 'display: none;'}">
+      style="${displayInspectionsSettings ? '' : 'display: none;'}">
     <th><label for="xmlReportParsing.max.errors">Maximum error limit:</label></th>
     <td><props:textProperty name="xmlReportParsing.max.errors" style="width:6em;" maxlength="12"/>
       <span class="smallNote">Fail the build if the specified number of errors is exceeded.</span>
@@ -97,7 +91,7 @@
 
 
   <tr class="noBorder" id="xmlReportParsing.max.warnings.container"
-      style="${displayFindBugsSettings ? '' : 'display: none;'}">
+      style="${displayInspectionsSettings ? '' : 'display: none;'}">
     <th><label for="xmlReportParsing.max.warnings">Warnings limit:</label></th>
     <td><props:textProperty name="xmlReportParsing.max.warnings" style="width:6em;" maxlength="12"/>
       <span class="smallNote">Fail the build if the specified number of warnings is exceeded. Leave blank if there is no limit.</span>

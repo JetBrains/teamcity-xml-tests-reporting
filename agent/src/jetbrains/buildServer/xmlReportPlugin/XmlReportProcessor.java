@@ -98,7 +98,9 @@ public class XmlReportProcessor extends Thread {
         }
       }
     } else {
-      parser.logReportTotals(report.getFile());
+      if (myPlugin.isVerbose()) {
+        parser.logReportTotals(report.getFile());
+      }
       myCurrentReport = null;
     }
   }
@@ -144,9 +146,9 @@ public class XmlReportProcessor extends Thread {
       myParsers.put(type, new NUnitReportParser(myPlugin.getLogger(), myPlugin.getTmpDir()));
 
     } else if (FindBugsReportParser.TYPE.equals(type)) {
-      myParsers.put(type, new FindBugsReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getWorkingDir()));
+      myParsers.put(type, new FindBugsReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getCheckoutDir()));
     } else if (PmdReportParser.TYPE.equals(type)) {
-      myParsers.put(type, new PmdReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getWorkingDir()));
+      myParsers.put(type, new PmdReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getCheckoutDir()));
     } else {
 //      myPlugin.getLogger().debugToAgentLog("No parser for " + type + " available");
     }
