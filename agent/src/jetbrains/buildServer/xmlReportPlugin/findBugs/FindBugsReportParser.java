@@ -23,6 +23,7 @@ import jetbrains.buildServer.xmlReportPlugin.InspectionslReportParser;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -84,6 +85,8 @@ public class FindBugsReportParser extends InspectionslReportParser {
         myInspectionReporter.reportInspection(bug);
         reportInspectionType(bug.getInspectionId());
       }
+    } catch (SAXParseException spe) {
+      myLogger.error(report.getAbsolutePath() + " is not parsable by FindBugs parser");
     } catch (Exception e) {
       myLogger.exception(e);
     } finally {

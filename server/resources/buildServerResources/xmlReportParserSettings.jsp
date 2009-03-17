@@ -20,20 +20,20 @@
       <c:set var="onchange">
         var selectedValue = this.options[this.selectedIndex].value;
         if (selectedValue == '') {
-          BS.Util.hide($('xmlReportParsing.reportDirs.container'));
-          BS.Util.hide($('xmlReportParsing.verboseOutput.container'));
+        BS.Util.hide($('xmlReportParsing.reportDirs.container'));
+        BS.Util.hide($('xmlReportParsing.verboseOutput.container'));
         } else {
-          BS.Util.show($('xmlReportParsing.reportDirs.container'));
-          BS.Util.show($('xmlReportParsing.verboseOutput.container'));
+        BS.Util.show($('xmlReportParsing.reportDirs.container'));
+        BS.Util.show($('xmlReportParsing.verboseOutput.container'));
         }
         $('xmlReportParsing.reportDirs.container').disabled = (selectedValue == '');
         $('xmlReportParsing.verboseOutput.container').disabled = (selectedValue == '');
         if (selectedValue == 'findBugs') {
-          BS.Util.show($('xmlReportParsing.max.errors.container'));
-          BS.Util.show($('xmlReportParsing.max.warnings.container'));
+        BS.Util.show($('xmlReportParsing.max.errors.container'));
+        BS.Util.show($('xmlReportParsing.max.warnings.container'));
         } else {
-          BS.Util.hide($('xmlReportParsing.max.errors.container'));
-          BS.Util.hide($('xmlReportParsing.max.warnings.container'));
+        BS.Util.hide($('xmlReportParsing.max.errors.container'));
+        BS.Util.hide($('xmlReportParsing.max.warnings.container'));
         }
         $('xmlReportParsing.max.errors.container').disabled = (selectedValue == 'findbugs');
         $('xmlReportParsing.max.warnings.container').disabled = (selectedValue == 'findbugs');
@@ -75,11 +75,10 @@
                                linkTitle="Type report directories"/>
         <span class="smallNote">
           New line or comma separated paths to reports. Specified paths can be absolute or relative to the working directory.
-      <!--Support ant-style wildcards like dir/**/*.zip and target directories like *.zip => winFiles,unix/distro.tgz => linuxFiles, where winFiles and linuxFiles are target directories.-->
+          Support ant-style wildcards like <b>dir/**/*.zip</b>. To ensure monitoring swiftness specify more concrete paths.
         </span>
     </td>
   </tr>
-
   <tr class="noBorder" id="xmlReportParsing.verboseOutput.container"
       style="${displayJUnitSettings ? '' : 'display: none;'}">
     <th><label for="xmlReportParsing.verboseOutput">Verbose output:</label></th>

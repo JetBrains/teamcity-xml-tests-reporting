@@ -101,7 +101,7 @@ public class XmlReportPluginTest {
   }
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
-    XmlReportPluginUtil.enableXmlReportParsing(myRunParams, "junit");
+    XmlReportPluginUtil.enableXmlReportParsing(myRunParams, "");
 
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
@@ -156,7 +156,7 @@ public class XmlReportPluginTest {
 
   @Test
   public void testIsStoppedWhenDisabled() {
-    XmlReportPluginUtil.enableXmlReportParsing(myRunParams, "junit");
+    XmlReportPluginUtil.enableXmlReportParsing(myRunParams, "");
 
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myWorkingDir);
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);

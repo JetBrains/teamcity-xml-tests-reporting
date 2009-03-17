@@ -225,7 +225,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final List<Object> params = new ArrayList<Object>();
-    params.add(getFileInWorkingDir(REPORTS_DIR).getAbsolutePath() + ": no reports found in directory");
+    params.add(getFileInWorkingDir(REPORTS_DIR).getAbsolutePath() + ": no reports found");
     myLogSequence.add(new MethodInvokation("warning", params));
     myTestLogger.setExpectedSequence(myLogSequence);
   }
@@ -244,7 +244,7 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("message", params1));
     params2.add(report + " report has unexpected finish or unsupported format");
     myLogSequence.add(new MethodInvokation("warning", params2));
-    params3.add(getFileInWorkingDir(REPORTS_DIR).getAbsolutePath() + " directory: 1 files(s) found");
+    params3.add(getFileInWorkingDir(REPORTS_DIR).getAbsolutePath() + ": 1 files(s) found");
     myLogSequence.add(new MethodInvokation("message", params3));
     myTestLogger.setExpectedSequence(myLogSequence);
   }
