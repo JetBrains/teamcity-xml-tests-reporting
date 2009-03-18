@@ -75,7 +75,7 @@
                                linkTitle="Type report directories"/>
         <span class="smallNote">
           New line or comma separated paths to reports. Specified paths can be absolute or relative to the checkout directory.
-          Support ant-style wildcards like <b>dir/**/*.zip</b>. To ensure monitoring swiftness specify more concrete paths.
+          Support ant-style wildcards like <strong>dir/**/*.zip</strong>. To ensure monitoring swiftness specify more concrete paths.
         </span>
     </td>
   </tr>
