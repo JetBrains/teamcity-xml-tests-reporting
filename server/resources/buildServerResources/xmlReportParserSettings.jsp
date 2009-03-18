@@ -2,7 +2,7 @@
 <%@ taglib prefix="l" tagdir="/WEB-INF/tags/layout" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="forms" tagdir="/WEB-INF/tags/forms" %>
-
+<jsp:useBean id="buildForm" type="jetbrains.buildServer.controllers.admin.projects.BuildTypeForm" scope="request"/>
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
 <jsp:useBean id="reportTypeForm" scope="request" class="jetbrains.buildServer.xmlReportPlugin.ReportTypeForm"/>
 
@@ -13,7 +13,13 @@
                 propertiesBean.properties['xmlReportParsing.reportType'] == 'pmd' ? true : false}"/>
 
 <l:settingsGroup title="XML Report Processing">
-
+  <c:if test="${buildForm.buildRunnerBean.runnerType != 'simpleRunner'}">
+  <tr class="noBorder" id="xmlReportParsing.reportType.container">
+    <td colspan="2">
+    Choose a report type to import. You only need to import tests reports if automatic tests reporting fails to detect your tests.
+    </td>
+  </tr>
+  </c:if>
   <tr class="noBorder" id="xmlReportParsing.reportType.container">
     <th><label for="xmlReportParsing.reportType">Import data from:</label></th>
     <td>
