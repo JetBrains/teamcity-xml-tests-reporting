@@ -17,6 +17,13 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.util.Pair;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
+import jetbrains.buildServer.TempFiles;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
@@ -26,20 +33,16 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.LinkedBlockingQueue;
-
 @RunWith(JMock.class)
 public class XmlReportDirectoryWatcherTest extends TestCase {
   private Mockery myContext;
+  private TempFiles myTempFiles;
+  private File myWorkDir;
 
   private XmlReportPlugin createTestReportParserPlugin(final BaseServerLoggerFacade logger) {
     final XmlReportPlugin plugin = myContext.mock(XmlReportPlugin.class);
@@ -56,13 +59,21 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
   }
 
   @Before
-  public void setUp() {
+  public void setUp() throws IOException {
     myContext = new JUnit4Mockery() {
       {
         setImposteriser(ClassImposteriser.INSTANCE);
       }
     };
-    new File("workingDirForTesting").delete();
+
+    myTempFiles = new TempFiles();
+    myWorkDir = myTempFiles.createTempDir();
+  }
+
+  @After
+  public void tearDown() throws Exception {
+    myTempFiles.cleanup();
+    super.tearDown();
   }
 
   private static class LinkedBlockingQueueMock<E> extends LinkedBlockingQueue<E> {
@@ -85,11 +96,12 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     }
   }
 
-  private static File getFile(String name) {
-    return new File("workingDirForTesting" + File.separator + name);
+  private File getFile(String name) {
+    File file = new File(myWorkDir, name);
+    return file;
   }
 
-  private static File createFile(String name) {
+  private File createFile(String name) {
     final File f = getFile(name);
     try {
       f.createNewFile();
@@ -99,7 +111,7 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     return f;
   }
 
-  private static File createDir(String name) {
+  private File createDir(String name) {
     final File f = getFile(name);
     f.mkdir();
     return f;
@@ -148,12 +160,15 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     watcher.logTotals();
 
     final File expected = new File(expectedFile);
-    if (!readFile(expected).equals(results.toString())) {
+    String baseDir = myWorkDir.getCanonicalPath();
+    String actual = results.toString().replace(baseDir, "##BASE_DIR##").trim();
+    String expectedContent = readFile(expected).trim();
+    if (!expectedContent.equals(actual)) {
       final FileWriter resultsWriter = new FileWriter(resultsFile);
-      resultsWriter.write(results.toString());
+      resultsWriter.write(actual);
       resultsWriter.close();
 
-      assertEquals(readFile(expected), results.toString());
+      assertEquals(actual, expectedContent, actual);
     }
   }
 

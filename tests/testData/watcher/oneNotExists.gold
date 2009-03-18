@@ -1,1 +1,1 @@
-WARNING: C:\work\teamcityworkspace\xml-report-plugin\workingDirForTesting\smth didn't appear on disk during the build
+WARNING: ##BASE_DIR##\smth didn't appear on disk during the build
