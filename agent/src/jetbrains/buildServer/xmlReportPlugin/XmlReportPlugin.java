@@ -16,9 +16,11 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.Pair;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.log.Loggers;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
@@ -33,6 +35,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class XmlReportPlugin extends AgentLifeCycleAdapter {
   @NonNls
   private static final Collection<String> SILENT_PATHS = Arrays.asList("");
+  public static final Logger LOGGER = Loggers.AGENT;
+
   private XmlReportDirectoryWatcher myDirectoryWatcher;
   private XmlReportProcessor myReportProcessor;
   private BaseServerLoggerFacade myLogger;
@@ -61,15 +65,15 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     if (!isParsingEnabled(myParameters)) {
       return;
     }
-
-    final String dirProperty = getXmlReportDirs(myParameters);
-    final List<File> reportDirs = getReportDirsFromDirProperty(dirProperty, myParameters.get(CHECKOUT_DIR));
-
-    if (reportDirs.size() == 0) {
-      myLogger.warning("No report directories specified");//TODO: can avoid this by adding paths presence in the web IU
+    final String pathsStr = getXmlReportPaths(myParameters);
+    final List<File> reportPaths = getReportPathsFromDirProperty(pathsStr, myParameters.get(CHECKOUT_DIR));
+    final String type = getReportType(myParameters);
+    logWatchingPaths(reportPaths, type);
+    //TODO: can avoid this if by adding paths presence in the web IU
+    if (reportPaths.size() == 0) {
       enableXmlReportParsing(myParameters, ""); //can avoid this by adding paths presence in the web IU
     } else { //can avoid this by adding paths presence in the web IU
-      startProcessing(reportDirs, getReportType(myParameters));
+      startProcessing(reportPaths, type);
     }
   }
 
@@ -82,15 +86,15 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     }
   }
 
-  public void processReports(Map<String, String> params, List<File> reportDirs) {
-//    myLogger.setVerboseOutput(Boolean.parseBoolean(params.get(VERBOSE_OUTPUT)));
+  public void processReports(Map<String, String> params, List<File> reportPaths) {
     final boolean wasParsingEnabled = isParsingEnabled(myParameters);
     final String type = getReportType(params);
     myParameters.putAll(params);
+    logWatchingPaths(reportPaths, type);
     if (!wasParsingEnabled) {
-      startProcessing(reportDirs, type);
+      startProcessing(reportPaths, type);
     } else {
-      myDirectoryWatcher.addParams(reportDirs, type);
+      myDirectoryWatcher.addParams(reportPaths, type);
     }
   }
 
@@ -104,10 +108,30 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     myReportProcessor.start();
   }
 
-  private static List<File> getReportDirsFromDirProperty(String dirProperty, String checkoutDir) {
+  private void logWatchingPaths(List<File> paths, String type) {
+    if (!SUPPORTED_REPORT_TYPES.containsKey(type)) {
+      error("Illegal report type: " + type);
+      return;
+    }
+    final String target = SUPPORTED_REPORT_TYPES.get(type) + " report watcher";
+    myLogger.targetStarted(target);
+    String message = "Watching paths: ";
+    if (paths.size() == 0) {
+      message += "<no paths>";
+      error(message);
+    } else {
+      message(message);
+      for (File f : paths) {
+        message(f.getAbsolutePath());
+      }
+    }
+    myLogger.targetFinished(target);
+  }
+
+  private static List<File> getReportPathsFromDirProperty(String pathsStr, String checkoutDir) {
     final List<File> dirs = new ArrayList<File>();
-    if (dirProperty != null) {
-      final String[] paths = dirProperty.split(" *[,\n\r] *");
+    if (pathsStr != null) {
+      final String[] paths = pathsStr.split(" *[,\n\r] *");
       for (int i = 0; i < paths.length; ++i) {
         dirs.add(FileUtil.resolvePath(new File(checkoutDir), paths[i]));
       }
@@ -116,25 +140,26 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     return dirs;
   }
 
+  private void error(String message) {
+    myLogger.error(message);
+    LOGGER.debug(message);
+  }
+
+  private void message(String message) {
+    myLogger.message(message);
+    LOGGER.debug(message);
+  }
+
   public void beforeBuildFinish(@NotNull BuildFinishedStatus buildFinishedStatus) {
     myStopped = true;
-
-    if (!isParsingEnabled(myParameters)) {
-      return;
-    }
-
-    switch (buildFinishedStatus) {
-      case INTERRUPTED:
-      case FINISHED_SUCCESS:
-      case FINISHED_FAILED:
-        synchronized (myReportProcessor) {
-          try {
-            myReportProcessor.join();
-          } catch (InterruptedException e) {
-          }
+    if (isParsingEnabled(myParameters)) {
+      synchronized (myReportProcessor) {
+        try {
+          myReportProcessor.join();
+        } catch (InterruptedException e) {
         }
-        myDirectoryWatcher.logTotals();
-        break;
+      }
+      myDirectoryWatcher.logTotals();
     }
   }
 

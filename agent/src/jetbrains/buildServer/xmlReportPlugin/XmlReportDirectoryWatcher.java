@@ -44,9 +44,7 @@ public class XmlReportDirectoryWatcher extends Thread {
 
     myPlugin = plugin;
     myInput = new LinkedHashMap<String, List<File>>();
-    if (isTypeValid(type)) {
-      myInput.put(type, input);
-    }
+    myInput.put(type, input);
     myReportQueue = queue;
     myEntries = new HashMap<File, Entry>();
   }
@@ -66,7 +64,6 @@ public class XmlReportDirectoryWatcher extends Thread {
   }
 
   public synchronized void addParams(List<File> params, String type) {
-    if (!isTypeValid(type)) return;
     if (!myInput.containsKey(type)) {
       myInput.put(type, params);
     } else {
@@ -131,7 +128,11 @@ public class XmlReportDirectoryWatcher extends Thread {
     final File[] files = d.listFiles();
     if ((files == null) || (files.length == 0)) return;
     for (File f : files) {
-      processFileInDir(de, f);
+      if (f.isFile()) {
+        processFileInDir(de, f);
+      } else {
+        // now recursive directory processing not performed
+      }
     }
   }
 
@@ -154,14 +155,6 @@ public class XmlReportDirectoryWatcher extends Thread {
         processFileInDir(me, f);
       }
     }
-  }
-
-  private boolean isTypeValid(String type) {
-    if (XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.containsKey(type)) {
-      return true;
-    }
-    myPlugin.getLogger().error("Illegal report type value specified");
-    return false;
   }
 
   private boolean timeConstraintsSatisfied(File file) {
@@ -196,7 +189,7 @@ public class XmlReportDirectoryWatcher extends Thread {
   private void logDirTotals(File d, DirEntry de) {
     if (!de.isActive()) {
       myPlugin.getLogger().warning(d.getAbsolutePath() + ": no reports found");
-    } else {
+    } else if (myPlugin.isVerbose()) {
       final Map<File, FileEntry> files = de.getFiles();
       if (files.size() > 0) {
         myPlugin.getLogger().message(d.getAbsolutePath() + ": " + files.size() + " files(s) found");

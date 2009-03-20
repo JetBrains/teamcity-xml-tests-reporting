@@ -133,7 +133,11 @@ public class XmlReportPluginTest {
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myCheckoutDir);
     myContext.checking(new Expectations() {
       {
-        oneOf(myLogger).warning(with("No report directories specified"));
+        oneOf(myLogger).targetStarted(with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).error(with("Watching paths: <no paths>"));
+        inSequence(mySequence);
+        oneOf(myLogger).targetFinished(with(any(String.class)));
         inSequence(mySequence);
       }
     });

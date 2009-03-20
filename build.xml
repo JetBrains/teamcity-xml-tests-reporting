@@ -61,8 +61,8 @@
       <fileset dir="${test.data.dir}" includes="*.sample.trans"/>
     </delete>
 
-    <replace dir="${basedir}/tests/testData/watcher" includes="*.gold"
-             token="C:\work\teamcityworkspace\xml-report-plugin" value="${basedir}"/>
+    <!--<replace dir="${basedir}/tests/testData/watcher" includes="*.gold"-->
+    <!--token="${basedir}" value="##BASE_DIR##"/>-->
 
   </target>
 

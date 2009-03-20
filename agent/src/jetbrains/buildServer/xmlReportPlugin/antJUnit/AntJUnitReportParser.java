@@ -18,6 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOGGER;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -159,14 +160,12 @@ public class AntJUnitReportParser extends XmlReportParser {
       message = message.concat(": " + myLoggedSuites + " suite(s)");
       if (myLoggedTests > 0) {
         message = message.concat(", " + myLoggedTests + " test(s)");
-      } else {
-        //uncorrect report case
-//        myLogger.debugToAgentLog(report.getPath() + " contains no suits, but " + myLoggedTests + " tests");
       }
     } else if (mySkippedSuites > 0) {
       message = message.concat(", " + mySkippedSuites + " suite(s) skipped");
     }
     myLogger.message(message);
+    LOGGER.debug(message);
   }
 
   public boolean abnormalEnd() {

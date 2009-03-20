@@ -79,10 +79,12 @@ public class XmlReportProcessor extends Thread {
     if (processedTests != -1) {
       myCurrentReport.setProcessedTests(processedTests);
 
-      if (myCurrentReport.getTriesToParse() == TRIES_TO_PARSE) {
-//        myPlugin.getLogger().debugToAgentLog("Unable to get full report from " + TRIES_TO_PARSE + " tries. File is supposed to have illegal structure or unsupported format");
+      if ((myCurrentReport.getTriesToParse() == TRIES_TO_PARSE) || myPlugin.isStopped()) {
         parser.abnormalEnd();
-        myPlugin.getLogger().warning(report.getFile().getPath() + " report has unexpected finish or unsupported format");
+        if (myPlugin.isVerbose()) {
+          myPlugin.getLogger().error(report.getFile().getAbsolutePath() + ": failed to parse with " +
+            XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(report.getType()) + " parser");
+        }
         myCurrentReport = null;
       } else {
         final long currLength = myCurrentReport.getFile().length();
@@ -118,13 +120,8 @@ public class XmlReportProcessor extends Thread {
       }
       final String reportType = pair.getFirst();
       final File report = pair.getSecond();
-
       if (!myParsers.containsKey(reportType)) {
         initializeParser(reportType);
-      }
-
-      if (myPlugin.isVerbose()) {
-        myPlugin.getLogger().message("Found report file: " + report.getAbsolutePath());
       }
       myCurrentReport = new ReportData(report, reportType);
       return myCurrentReport;
@@ -141,10 +138,8 @@ public class XmlReportProcessor extends Thread {
   private void initializeParser(String type) {
     if (AntJUnitReportParser.TYPE.equals(type) || ("surefire".equals(type))) {
       myParsers.put(type, new AntJUnitReportParser(myPlugin.getLogger()));
-
     } else if (NUnitReportParser.TYPE.equals(type)) {
       myParsers.put(type, new NUnitReportParser(myPlugin.getLogger(), myPlugin.getTmpDir()));
-
     } else if (FindBugsReportParser.TYPE.equals(type)) {
       myParsers.put(type, new FindBugsReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getCheckoutDir()));
     } else if (PmdReportParser.TYPE.equals(type)) {

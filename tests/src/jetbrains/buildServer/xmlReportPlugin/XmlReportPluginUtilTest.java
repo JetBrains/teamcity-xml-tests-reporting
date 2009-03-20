@@ -76,7 +76,7 @@ public class XmlReportPluginUtilTest {
   public void testSetReportDirsAfterPuttingToParams() {
     final String reportDirs = "reportDirs";
     myRunParams.put(REPORT_TYPE, ANT_JUNIT_REPORT_TYPE);
-    setXmlReportDirs(myRunParams, reportDirs);
+    setXmlReportPaths(myRunParams, reportDirs);
     assertEquals("Unexpected value in parameters", myRunParams.get(REPORT_DIRS), reportDirs);
   }
 
@@ -84,7 +84,7 @@ public class XmlReportPluginUtilTest {
   public void testSetReportDirsAfterDisabling() {
     final String reportDirs = "reportDirs";
     enableXmlReportParsing(myRunParams, EMPTY_REPORT_TYPE);
-    setXmlReportDirs(myRunParams, reportDirs);
+    setXmlReportPaths(myRunParams, reportDirs);
     assertNull("ReportDirs parameter must be null", myRunParams.get(REPORT_DIRS));
   }
 

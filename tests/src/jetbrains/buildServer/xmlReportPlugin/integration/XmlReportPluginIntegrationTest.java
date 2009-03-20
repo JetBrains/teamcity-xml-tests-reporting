@@ -169,9 +169,19 @@ public class XmlReportPluginIntegrationTest {
     myRunnerParams.put(XmlReportPluginUtil.REPORT_DIRS, "reports");
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
-    List<Object> params = new ArrayList<Object>();
-    params.add(getFileInCheckoutDir("reports").getAbsolutePath() + " didn't appear on disk during the build");
-    myLogSequence.add(new MethodInvokation("warning", params));
+    final String path = getFileInCheckoutDir("reports").getAbsolutePath();
+
+    List<Object> params1 = new ArrayList<Object>();
+    params1.add("Watching paths: ");
+    myLogSequence.add(new MethodInvokation("message", params1));
+
+    List<Object> params2 = new ArrayList<Object>();
+    params2.add(path);
+    myLogSequence.add(new MethodInvokation("message", params2));
+
+    List<Object> params3 = new ArrayList<Object>();
+    params3.add(path + " didn't appear on disk during the build");
+    myLogSequence.add(new MethodInvokation("warning", params3));
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
@@ -224,9 +234,20 @@ public class XmlReportPluginIntegrationTest {
     myRunnerParams.put(XmlReportPluginUtil.REPORT_DIRS, REPORTS_DIR);
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
-    final List<Object> params = new ArrayList<Object>();
-    params.add(getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath() + ": no reports found");
-    myLogSequence.add(new MethodInvokation("warning", params));
+    final String path = getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath();
+    final String report = path + File.separator + "somefile";
+
+    List<Object> params1 = new ArrayList<Object>();
+    params1.add("Watching paths: ");
+    myLogSequence.add(new MethodInvokation("message", params1));
+
+    List<Object> params2 = new ArrayList<Object>();
+    params2.add(path);
+    myLogSequence.add(new MethodInvokation("message", params2));
+
+    final List<Object> params3 = new ArrayList<Object>();
+    params3.add(getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath() + ": no reports found");
+    myLogSequence.add(new MethodInvokation("warning", params3));
     myTestLogger.setExpectedSequence(myLogSequence);
   }
 
@@ -236,16 +257,26 @@ public class XmlReportPluginIntegrationTest {
     myRunnerParams.put(XmlReportPluginUtil.REPORT_DIRS, REPORTS_DIR);
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
-    final List<Object> params1 = new ArrayList<Object>();
-    final List<Object> params2 = new ArrayList<Object>();
-    final List<Object> params3 = new ArrayList<Object>();
-    final String report = getFileInCheckoutDir(REPORTS_DIR + "/somefile").getAbsolutePath();
-    params1.add("Found report file: " + report);
+    final String path = getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath();
+    final String report = path + File.separator + "somefile";
+
+    List<Object> params1 = new ArrayList<Object>();
+    params1.add("Watching paths: ");
     myLogSequence.add(new MethodInvokation("message", params1));
-    params2.add(report + " report has unexpected finish or unsupported format");
-    myLogSequence.add(new MethodInvokation("warning", params2));
-    params3.add(getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath() + ": 1 files(s) found");
-    myLogSequence.add(new MethodInvokation("message", params3));
+
+    List<Object> params2 = new ArrayList<Object>();
+    params2.add(path);
+    myLogSequence.add(new MethodInvokation("message", params2));
+
+    final List<Object> params3 = new ArrayList<Object>();
+    params3.add(report + ": failed to parse with " +
+      XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(reportType) + " parser");
+    myLogSequence.add(new MethodInvokation("error", params3));
+
+    final List<Object> params4 = new ArrayList<Object>();
+    params4.add(path + ": 1 files(s) found");
+    myLogSequence.add(new MethodInvokation("message", params4));
+
     myTestLogger.setExpectedSequence(myLogSequence);
   }
 
@@ -338,8 +369,17 @@ public class XmlReportPluginIntegrationTest {
     myRunnerParams.put(XmlReportPluginUtil.REPORT_DIRS, REPORTS_DIR);
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
-    final List<Object> params1 = new ArrayList<Object>();
-    params1.add("Found report file: " + getFileInCheckoutDir(REPORTS_DIR + "/report").getAbsolutePath());
+    final String path = getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath();
+    final String report = path + File.separator + "report";
+
+    List<Object> params1 = new ArrayList<Object>();
+    params1.add("Watching paths: ");
+    myLogSequence.add(new MethodInvokation("message", params1));
+
+    List<Object> params2 = new ArrayList<Object>();
+    params2.add(path);
+    myLogSequence.add(new MethodInvokation("message", params2));
+
     final List<Object> twoAnyParams = new ArrayList<Object>();
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
@@ -349,15 +389,19 @@ public class XmlReportPluginIntegrationTest {
     threeAnyParams.add(MethodInvokation.ANY_VALUE);
     threeAnyParams.add(MethodInvokation.ANY_VALUE);
 
-    myLogSequence.add(new MethodInvokation("message", params1));
     myLogSequence.add(new MethodInvokation("logSuiteStarted", twoAnyParams));
     myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
     myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
     myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
-    final List<Object> params2 = new ArrayList<Object>();
-    params2.add(getFileInCheckoutDir(REPORTS_DIR + "/report").getAbsolutePath() + " report has unexpected finish or unsupported format");
-    myLogSequence.add(new MethodInvokation("warning", params2));
-    myLogSequence.add(new MethodInvokation("message", twoAnyParams));
+
+    final List<Object> params3 = new ArrayList<Object>();
+    params3.add(report + ": failed to parse with " + XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(ANT_JUNIT_REPORT_TYPE) + " parser");
+    myLogSequence.add(new MethodInvokation("error", params3));
+
+    final List<Object> params4 = new ArrayList<Object>();
+    params4.add(path + ": 1 files(s) found");
+    myLogSequence.add(new MethodInvokation("message", params4));
+
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
@@ -384,7 +428,7 @@ public class XmlReportPluginIntegrationTest {
 
     final List<Object> params = new ArrayList<Object>();
     params.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("warning", params));
+    myLogSequence.add(new MethodInvokation("error", params));
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
@@ -404,11 +448,12 @@ public class XmlReportPluginIntegrationTest {
   }
 
   //test for Gradle bug after fixing
+  //TW-6467: Tests can be reported twice with xml tests reporter (Gradle case)
   @Test
   public void testLogSuiteWhenAppearsIn2Files() {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
-    XmlReportPluginUtil.setXmlReportDirs(myRunnerParams, "");
+    XmlReportPluginUtil.setXmlReportPaths(myRunnerParams, "");
 
     final List<Object> params = new ArrayList<Object>();
     params.add(MethodInvokation.ANY_VALUE);
@@ -451,11 +496,12 @@ public class XmlReportPluginIntegrationTest {
   }
 
   //test for Gradle bug after fixing
+  //TW-6467: Tests can be reported twice with xml tests reporter (Gradle case)
   @Test
   public void testLogSuiteWhenAppearsIn2FilesOthersMustBeLogged() {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
-    XmlReportPluginUtil.setXmlReportDirs(myRunnerParams, "");
+    XmlReportPluginUtil.setXmlReportPaths(myRunnerParams, "");
 
     final List<Object> twoAnyParams = new ArrayList<Object>();
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
@@ -556,11 +602,12 @@ public class XmlReportPluginIntegrationTest {
   }
 
   //test for Gradle bug after fixing
+  //TW-6467: Tests can be reported twice with xml tests reporter (Gradle case)
   @Test
   public void testLogSuiteWhenAppearsIn2FilesOthersMustBeLoggedInTwoTries() {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
-    XmlReportPluginUtil.setXmlReportDirs(myRunnerParams, "");
+    XmlReportPluginUtil.setXmlReportPaths(myRunnerParams, "");
 
     final List<Object> twoAnyParams = new ArrayList<Object>();
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
@@ -684,13 +731,28 @@ public class XmlReportPluginIntegrationTest {
   public void testSkipsOldFiles() {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
-    XmlReportPluginUtil.setXmlReportDirs(myRunnerParams, "");
+    XmlReportPluginUtil.setXmlReportPaths(myRunnerParams, "");
     XmlReportPluginUtil.setParseOutOfDateReports(myRunnerParams, false);
 
-    final List<Object> params = new ArrayList<Object>();
-    params.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("message", params));
-    myLogSequence.add(new MethodInvokation("warning", params));
+    final String path = getFileInCheckoutDir("").getAbsolutePath();
+    final String report = path + File.separator + "suite1";
+
+    List<Object> params1 = new ArrayList<Object>();
+    params1.add("Watching paths: ");
+    myLogSequence.add(new MethodInvokation("message", params1));
+
+    List<Object> params2 = new ArrayList<Object>();
+    params2.add(path);
+    myLogSequence.add(new MethodInvokation("message", params2));
+
+    final List<Object> params3 = new ArrayList<Object>();
+    params3.add(path + ": 1 files(s) found");
+    myLogSequence.add(new MethodInvokation("message", params3));
+
+    final List<Object> params4 = new ArrayList<Object>();
+    params4.add(report + " has modification date preceding build start time");
+    myLogSequence.add(new MethodInvokation("warning", params4));
+
     myTestLogger.setExpectedSequence(myLogSequence);
 
     createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
@@ -727,29 +789,36 @@ public class XmlReportPluginIntegrationTest {
   public void testNotSkipsOldFiles() {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
-    XmlReportPluginUtil.setXmlReportDirs(myRunnerParams, "");
+    XmlReportPluginUtil.setXmlReportPaths(myRunnerParams, "");
     XmlReportPluginUtil.setParseOutOfDateReports(myRunnerParams, true);
 
-    final List<Object> param1 = new ArrayList<Object>();
-    param1.add("Found report file: " + getFileInCheckoutDir("suite1").getAbsolutePath());
-    myLogSequence.add(new MethodInvokation("message", param1));
+    final String path = getFileInCheckoutDir("").getAbsolutePath();
+
+    List<Object> params1 = new ArrayList<Object>();
+    params1.add("Watching paths: ");
+    myLogSequence.add(new MethodInvokation("message", params1));
+
+    List<Object> params2 = new ArrayList<Object>();
+    params2.add(path);
+    myLogSequence.add(new MethodInvokation("message", params2));
 
     final List<Object> twoAnyParams = new ArrayList<Object>();
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
 
-    final List<Object> param2 = new ArrayList<Object>();
-    param2.add("TestCase1");
-    param2.add(MethodInvokation.ANY_VALUE);
+    final List<Object> param = new ArrayList<Object>();
+    param.add("TestCase1");
+    param.add(MethodInvokation.ANY_VALUE);
 
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param2));
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", param));
     myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
     myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param2));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
 
-    final List<Object> param3 = new ArrayList<Object>();
-    param3.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("message", param3));
+    final List<Object> params3 = new ArrayList<Object>();
+    params3.add(path + ": 1 files(s) found");
+    myLogSequence.add(new MethodInvokation("message", params3));
+
     myTestLogger.setExpectedSequence(myLogSequence);
 
     createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
@@ -781,26 +850,33 @@ public class XmlReportPluginIntegrationTest {
   public void testParsingFromServiceMessage() {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, "");
 
-    final List<Object> param1 = new ArrayList<Object>();
-    param1.add("Found report file: " + getFileInCheckoutDir("suite1").getAbsolutePath());
-    myLogSequence.add(new MethodInvokation("message", param1));
+    final String path = getFileInCheckoutDir("").getAbsolutePath();
+
+    List<Object> params1 = new ArrayList<Object>();
+    params1.add("Watching paths: ");
+    myLogSequence.add(new MethodInvokation("message", params1));
+
+    List<Object> params2 = new ArrayList<Object>();
+    params2.add(path);
+    myLogSequence.add(new MethodInvokation("message", params2));
 
     final List<Object> twoAnyParams = new ArrayList<Object>();
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
 
-    final List<Object> param2 = new ArrayList<Object>();
-    param2.add("TestCase1");
-    param2.add(MethodInvokation.ANY_VALUE);
+    final List<Object> param = new ArrayList<Object>();
+    param.add("TestCase1");
+    param.add(MethodInvokation.ANY_VALUE);
 
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param2));
+    myLogSequence.add(new MethodInvokation("logSuiteStarted", param));
     myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
     myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param2));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
 
-    final List<Object> oneAnyParam = new ArrayList<Object>();
-    oneAnyParam.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("message", oneAnyParam));
+    final List<Object> params3 = new ArrayList<Object>();
+    params3.add(path + ": 1 files(s) found");
+    myLogSequence.add(new MethodInvokation("message", params3));
+
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
@@ -838,10 +914,25 @@ public class XmlReportPluginIntegrationTest {
   public void testParsingFromServiceMessageSkipOld() {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, "");
 
-    final List<Object> params = new ArrayList<Object>();
-    params.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("message", params));
-    myLogSequence.add(new MethodInvokation("warning", params));
+    final String path = getFileInCheckoutDir("").getAbsolutePath();
+    final String report = path + File.separator + "suite1";
+
+    List<Object> params1 = new ArrayList<Object>();
+    params1.add("Watching paths: ");
+    myLogSequence.add(new MethodInvokation("message", params1));
+
+    List<Object> params2 = new ArrayList<Object>();
+    params2.add(path);
+    myLogSequence.add(new MethodInvokation("message", params2));
+
+    final List<Object> params3 = new ArrayList<Object>();
+    params3.add(path + ": 1 files(s) found");
+    myLogSequence.add(new MethodInvokation("message", params3));
+
+    final List<Object> params4 = new ArrayList<Object>();
+    params4.add(report + " has modification date preceding build start time");
+    myLogSequence.add(new MethodInvokation("warning", params4));
+
     myTestLogger.setExpectedSequence(myLogSequence);
 
     createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
@@ -884,9 +975,16 @@ public class XmlReportPluginIntegrationTest {
   public void testParsingFromServiceMessageNotSkipOld() {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, "");
 
-    final List<Object> param1 = new ArrayList<Object>();
-    param1.add("Found report file: " + getFileInCheckoutDir("suite1").getAbsolutePath());
-    myLogSequence.add(new MethodInvokation("message", param1));
+    final String path = getFileInCheckoutDir("").getAbsolutePath();
+    final String report = path + File.separator + "suite1";
+
+    List<Object> params1 = new ArrayList<Object>();
+    params1.add("Watching paths: ");
+    myLogSequence.add(new MethodInvokation("message", params1));
+
+    List<Object> params2 = new ArrayList<Object>();
+    params2.add(path);
+    myLogSequence.add(new MethodInvokation("message", params2));
 
     final List<Object> twoAnyParams = new ArrayList<Object>();
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
@@ -900,9 +998,11 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
     myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
     myLogSequence.add(new MethodInvokation("logSuiteFinished", param2));
-    final List<Object> oneAnyParam = new ArrayList<Object>();
-    oneAnyParam.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("message", oneAnyParam));
+
+    final List<Object> params3 = new ArrayList<Object>();
+    params3.add(path + ": 1 files(s) found");
+    myLogSequence.add(new MethodInvokation("message", params3));
+
     myTestLogger.setExpectedSequence(myLogSequence);
 
     createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +

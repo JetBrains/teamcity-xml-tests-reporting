@@ -18,6 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.*;
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOGGER;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -45,6 +46,22 @@ public abstract class InspectionslReportParser extends XmlReportParser {
     myErrors = 0;
     myWarnings = 0;
     myInfos = 0;
+  }
+
+  public static String generateBuildStatus(int errors, int warnings, int infos) {
+    return "Errors: " + errors + ", warnings: " + warnings + ", information: " + infos;
+  }
+
+  void logReportTotals(@NotNull File report) {
+    String message = report.getPath() + " report processed";
+    if (myErrors > 0) {
+      message = message.concat(": " + myErrors + " errors(s)");
+    }
+    if (myWarnings > 0) {
+      message = message.concat(": " + myWarnings + " warnings(s)");
+    }
+    myLogger.message(message);
+    LOGGER.debug(message);
   }
 
   protected void logParsingTotals(@NotNull Map<String, String> parameters) {

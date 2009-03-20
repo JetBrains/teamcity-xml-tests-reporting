@@ -147,6 +147,16 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
     }
   }
 
+  public void error(java.lang.String s) {
+    List<Object> params = new ArrayList();
+    params.add(s);
+    final String message = getFailureIfOccurs(params);
+    if (message != null) {
+      myFailures.add(new UnexpectedInvokationException(message));
+    }
+  }
+
+
   public void logSuiteStarted(java.lang.String s, java.util.Date date) {
     List<Object> params = new ArrayList();
     params.add(s);
@@ -212,8 +222,6 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   public void progressFinished() { /* compiled code */ }
 
   public void progressMessage(java.lang.String s) { /* compiled code */ }
-
-  public void error(java.lang.String s) { /* compiled code */ }
 
   public void buildFailureDescription(java.lang.String s) { /* compiled code */ }
 

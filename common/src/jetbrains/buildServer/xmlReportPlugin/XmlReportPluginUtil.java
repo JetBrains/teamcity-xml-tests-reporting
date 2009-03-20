@@ -26,11 +26,11 @@ public class XmlReportPluginUtil {
   public static final Map<String, String> SUPPORTED_REPORT_TYPES = new HashMap<String, String>();
 
   static {
-    SUPPORTED_REPORT_TYPES.put("junit", "Ant JUnit reports");
-    SUPPORTED_REPORT_TYPES.put("nunit", "NUnit reports");
-    SUPPORTED_REPORT_TYPES.put("surefire", "Surefire reports");
-    SUPPORTED_REPORT_TYPES.put("findBugs", "FindBugs inspections reports");
-    SUPPORTED_REPORT_TYPES.put("pmd", "PMD inspections reports");
+    SUPPORTED_REPORT_TYPES.put("junit", "Ant JUnit");
+    SUPPORTED_REPORT_TYPES.put("nunit", "NUnit");
+    SUPPORTED_REPORT_TYPES.put("surefire", "Surefire");
+    SUPPORTED_REPORT_TYPES.put("findBugs", "FindBugs");
+    SUPPORTED_REPORT_TYPES.put("pmd", "PMD");
   }
 
   public static final String REPORT_TYPE = "xmlReportParsing.reportType";
@@ -84,13 +84,13 @@ public class XmlReportPluginUtil {
     }
   }
 
-  public static void setXmlReportDirs(@NotNull final Map<String, String> runParams, String reportDirs) {
+  public static void setXmlReportPaths(@NotNull final Map<String, String> runParams, String reportDirs) {
     if (isParsingEnabled(runParams)) {
       runParams.put(REPORT_DIRS, reportDirs);
     }
   }
 
-  public static String getXmlReportDirs(@NotNull final Map<String, String> runParams) {
+  public static String getXmlReportPaths(@NotNull final Map<String, String> runParams) {
     return runParams.get(REPORT_DIRS);
   }
 

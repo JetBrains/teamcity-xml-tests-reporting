@@ -17,12 +17,6 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.util.Pair;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.LinkedBlockingQueue;
 import jetbrains.buildServer.TempFiles;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
@@ -38,6 +32,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
+
 @RunWith(JMock.class)
 public class XmlReportDirectoryWatcherTest extends TestCase {
   private Mockery myContext;
@@ -52,6 +53,8 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
         will(returnValue(true));
         allowing(plugin).getLogger();
         will(returnValue(logger));
+        allowing(plugin).isVerbose();
+        will(returnValue(true));
         ignoring(plugin);
       }
     });
