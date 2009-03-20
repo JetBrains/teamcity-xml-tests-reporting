@@ -133,6 +133,8 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
   private void runTest(final String fileName, List<File> input) throws Exception {
     final String expectedFile = getAbsoluteTestDataPath(fileName + ".gold", "watcher");
     final String resultsFile = expectedFile.replace(".gold", ".tmp");
+    System.out.println("expected file: " + expectedFile);
+    System.out.println("results file: " + resultsFile);
 
     new File(resultsFile).delete();
 
@@ -166,6 +168,10 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     String baseDir = myWorkDir.getCanonicalPath();
     String actual = results.toString().replace(baseDir, "##BASE_DIR##").trim();
     String expectedContent = readFile(expected).trim();
+    System.out.println("base dir: " + baseDir);
+    System.out.println("actual: " + actual);
+    System.out.println("expected: " + expected);
+
     if (!expectedContent.equals(actual)) {
       final FileWriter resultsWriter = new FileWriter(resultsFile);
       resultsWriter.write(actual);
