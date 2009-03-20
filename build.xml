@@ -60,10 +60,6 @@
     <delete>
       <fileset dir="${test.data.dir}" includes="*.sample.trans"/>
     </delete>
-
-    <!--<replace dir="${basedir}/tests/testData/watcher" includes="*.gold"-->
-    <!--token="${basedir}" value="##BASE_DIR##"/>-->
-
   </target>
 
   <target name="test" depends="test-nofail, check_failures"/>
