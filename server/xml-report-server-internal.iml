@@ -27,8 +27,7 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/../out/production/server" />
-    <output-test url="file://$MODULE_DIR$/../out/test/server" />
+    <output url="file://$MODULE_DIR$/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
