@@ -41,15 +41,6 @@
     <orderEntry type="module" module-name="utils" />
     <orderEntry type="module" module-name="server-logging" />
     <orderEntry type="module" module-name="runtime-util" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$APPLICATION_HOME_DIR$/lib/j2ee.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
   </component>
 </module>
 
