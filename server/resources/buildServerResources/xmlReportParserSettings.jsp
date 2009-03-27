@@ -14,11 +14,12 @@
 
 <l:settingsGroup title="XML Report Processing">
   <c:if test="${buildForm.buildRunnerBean.runnerType != 'simpleRunner'}">
-  <tr class="noBorder" id="xmlReportParsing.reportType.container">
-    <td colspan="2">
-    Choose a report type to import. You only need to import tests reports if automatic tests reporting fails to detect your tests.
-    </td>
-  </tr>
+    <tr class="noBorder" id="xmlReportParsing.reportType.container">
+      <td colspan="2">
+        Choose a report type to import. You only need to import tests reports if automatic tests reporting fails to
+        detect your tests.
+      </td>
+    </tr>
   </c:if>
   <tr class="noBorder" id="xmlReportParsing.reportType.container">
     <th><label for="xmlReportParsing.reportType">Import data from:</label></th>
@@ -44,7 +45,6 @@
         }
         $('xmlReportParsing.max.errors.container').disabled = (isInspection);
         $('xmlReportParsing.max.warnings.container').disabled = (isInspection);
-
         BS.MultilineProperties.updateVisible();
       </c:set>
       <props:selectProperty name="xmlReportParsing.reportType"

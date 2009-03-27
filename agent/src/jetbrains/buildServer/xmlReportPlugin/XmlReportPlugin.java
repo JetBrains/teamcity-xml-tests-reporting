@@ -18,9 +18,6 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.util.Pair;
-import java.io.File;
-import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.log.Loggers;
@@ -29,6 +26,10 @@ import jetbrains.buildServer.util.FileUtil;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class XmlReportPlugin extends AgentLifeCycleAdapter {
@@ -64,16 +65,14 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     if (!isParsingEnabled(myParameters)) {
       return;
     }
-    final String pathsStr = getXmlReportPaths(myParameters);
-    final List<File> reportPaths = getReportPathsFromDirProperty(pathsStr, myParameters.get(CHECKOUT_DIR));
+    final Set<File> reportPaths = getReportPathsFromDirProperty(getXmlReportPaths(myParameters),
+      myParameters.get(CHECKOUT_DIR));
     final String type = getReportType(myParameters);
-    logWatchingPaths(reportPaths, type);
     //TODO: can avoid this if by adding paths presence in the web IU
     if (reportPaths.size() == 0) {
       enableXmlReportParsing(myParameters, ""); //can avoid this by adding paths presence in the web IU
-    } else { //can avoid this by adding paths presence in the web IU
-      startProcessing(reportPaths, type);
     }
+    startProcessing(reportPaths, type);
   }
 
   private void obtainLogger(AgentRunningBuild agentRunningBuild) {
@@ -85,19 +84,18 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     }
   }
 
-  public void processReports(Map<String, String> params, List<File> reportPaths) {
+  public void processReports(Map<String, String> params, Set<File> reportPaths) {
     final boolean wasParsingEnabled = isParsingEnabled(myParameters);
     final String type = getReportType(params);
     myParameters.putAll(params);
-    logWatchingPaths(reportPaths, type);
     if (!wasParsingEnabled) {
       startProcessing(reportPaths, type);
     } else {
-      myDirectoryWatcher.addParams(reportPaths, type);
+      myDirectoryWatcher.addPaths(reportPaths, type);
     }
   }
 
-  private void startProcessing(List<File> reportDirs, String type) {
+  private void startProcessing(Set<File> reportDirs, String type) {
     final LinkedBlockingQueue<Pair<String, File>> reportsQueue = new LinkedBlockingQueue<Pair<String, File>>();
 
     myDirectoryWatcher = new XmlReportDirectoryWatcher(this, reportDirs, type, reportsQueue);
@@ -107,28 +105,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     myReportProcessor.start();
   }
 
-  private void logWatchingPaths(List<File> paths, String type) {
-    if (!SUPPORTED_REPORT_TYPES.containsKey(type)) {
-      error("Illegal report type: " + type);
-      return;
-    }
-    final String target = SUPPORTED_REPORT_TYPES.get(type) + " report watcher";
-    myLogger.targetStarted(target);
-    String message = "Watching paths: ";
-    if (paths.size() == 0) {
-      message += "<no paths>";
-      error(message);
-    } else {
-      message(message);
-      for (File f : paths) {
-        message(f.getAbsolutePath());
-      }
-    }
-    myLogger.targetFinished(target);
-  }
-
-  private static List<File> getReportPathsFromDirProperty(String pathsStr, String checkoutDir) {
-    final List<File> dirs = new ArrayList<File>();
+  private static Set<File> getReportPathsFromDirProperty(String pathsStr, String checkoutDir) {
+    final Set<File> dirs = new HashSet<File>();
     if (pathsStr != null) {
       final String[] paths = pathsStr.split(" *[,\n\r] *");
       for (int i = 0; i < paths.length; ++i) {
@@ -137,16 +115,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     }
     dirs.removeAll(SILENT_PATHS);
     return dirs;
-  }
-
-  private void error(String message) {
-    myLogger.error(message);
-    LOGGER.debug(message);
-  }
-
-  private void message(String message) {
-    myLogger.message(message);
-    LOGGER.debug(message);
   }
 
   public void beforeBuildFinish(@NotNull BuildFinishedStatus buildFinishedStatus) {

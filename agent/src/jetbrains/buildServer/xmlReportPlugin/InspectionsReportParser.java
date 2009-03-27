@@ -16,15 +16,16 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.util.*;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.*;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOGGER;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.util.*;
 
-public abstract class InspectionslReportParser extends XmlReportParser {
+
+public abstract class InspectionsReportParser extends XmlReportParser {
   protected final InspectionReporter myInspectionReporter;
   protected final String myCheckoutDirectory;
   private Set<String> myReportedInstanceTypes;
@@ -35,9 +36,9 @@ public abstract class InspectionslReportParser extends XmlReportParser {
 
   protected InspectionInstance myCurrentBug;
 
-  public InspectionslReportParser(@NotNull final BaseServerLoggerFacade logger,
-                                  @NotNull InspectionReporter inspectionReporter,
-                                  @NotNull String checkoutDirectory) {
+  public InspectionsReportParser(@NotNull final BaseServerLoggerFacade logger,
+                                 @NotNull InspectionReporter inspectionReporter,
+                                 @NotNull String checkoutDirectory) {
     super(logger);
     myInspectionReporter = inspectionReporter;
     myCheckoutDirectory = checkoutDirectory.replace("\\", File.separator).replace("/", File.separator);
@@ -51,13 +52,16 @@ public abstract class InspectionslReportParser extends XmlReportParser {
     return "Errors: " + errors + ", warnings: " + warnings + ", information: " + infos;
   }
 
-  void logReportTotals(@NotNull File report) {
+  public void logReportTotals(@NotNull File report) {
     String message = report.getPath() + " report processed";
     if (myErrors > 0) {
-      message = message.concat(": " + myErrors + " errors(s)");
+      message = message.concat(": " + myErrors + " error(s)");
     }
     if (myWarnings > 0) {
-      message = message.concat(": " + myWarnings + " warnings(s)");
+      message = message.concat(": " + myWarnings + " warning(s)");
+    }
+    if (myInfos > 0) {
+      message = message.concat(": " + myInfos + " info message(s)");
     }
     myLogger.message(message);
     LOGGER.debug(message);

@@ -17,12 +17,16 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.util.Pair;
+import jetbrains.buildServer.util.FileUtil;
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOGGER;
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.SUPPORTED_REPORT_TYPES;
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.isInspection;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Pattern;
-import jetbrains.buildServer.util.FileUtil;
-import org.jetbrains.annotations.NotNull;
 
 
 public class XmlReportDirectoryWatcher extends Thread {
@@ -31,181 +35,278 @@ public class XmlReportDirectoryWatcher extends Thread {
   private final XmlReportPlugin myPlugin;
 
   private final LinkedBlockingQueue<Pair<String, File>> myReportQueue;
-  private final Map<String, List<File>> myInput;
+  private final Map<String, Set<File>> myPaths;
+  private final Map<File, MaskData> myMaskHash;
+  private final Map<String, TypeStatistics> myStatistics;
 
-  private final Map<File, Entry> myEntries;
 
   public XmlReportDirectoryWatcher(@NotNull final XmlReportPlugin plugin,
-                                   @NotNull final List<File> input,
+                                   @NotNull final Set<File> input,
                                    @NotNull final String type,
                                    @NotNull final LinkedBlockingQueue<Pair<String, File>> queue) {
     super("xml-report-plugin-DirectoryWatcher");
 
     myPlugin = plugin;
-    myInput = new LinkedHashMap<String, List<File>>();
-    myInput.put(type, input);
+    myPaths = new HashMap<String, Set<File>>();
     myReportQueue = queue;
-    myEntries = new HashMap<File, Entry>();
+    myMaskHash = new HashMap<File, MaskData>();
+    myStatistics = new HashMap<String, TypeStatistics>();
+    addPaths(input, type);
+  }
+
+  private static boolean isAntMask(File f) {
+    final String mask = f.getAbsolutePath();
+    return (mask.contains("*") || mask.contains("?"));
   }
 
   public void run() {
     while (!myPlugin.isStopped()) {
       try {
         scanInput();
-        processEntries();
         Thread.sleep(SCAN_INTERVAL);
       } catch (Throwable e) {
         myPlugin.getLogger().exception(e);
       }
     }
     scanInput();
-    processEntries();
   }
 
-  public synchronized void addParams(List<File> params, String type) {
-    if (!myInput.containsKey(type)) {
-      myInput.put(type, params);
-    } else {
-      myInput.get(type).addAll(params);
-    }
+  private void message(String message) {
+    myPlugin.getLogger().message(message);
+    LOGGER.debug(message);
   }
 
-  private synchronized void scanInput() {
-    for (String type : myInput.keySet()) {
-      final List<File> input = myInput.get(type);
-      for (File f : input) {
-        if (myEntries.containsKey(f)) {
-          continue;
+  private void warning(String message) {
+    myPlugin.getLogger().warning(message);
+    LOGGER.debug(message);
+  }
+
+  private void error(String message) {
+    myPlugin.getLogger().error(message);
+    LOGGER.debug(message);
+  }
+
+  public synchronized void addPaths(Set<File> paths, String type) {
+    if (!myPaths.containsKey(type)) {
+      if (isInspection(type) && hasInspections()) {
+        warning("Two different inspections can not be processed during one build, skip " + SUPPORTED_REPORT_TYPES.get(type) + " reports");
+        if (paths.size() > 0) {
+          final String target = SUPPORTED_REPORT_TYPES.get(type) + " report watcher";
+          myPlugin.getLogger().targetStarted(target);
+          warning("Skip watching:");
+          for (File f : paths) {
+            warning(f.getAbsolutePath());
+          }
+          myPlugin.getLogger().targetFinished(target);
         }
-        if (f.isFile()) {
-          myEntries.put(f, new FileEntry(type));
-        } else if (f.isDirectory()) {
-          myEntries.put(f, new DirEntry(type));
-        } else {
-          final String mask = f.getAbsolutePath();
-          if ((mask.contains("*") || mask.contains("?"))) {
-            final File baseDir = new File(getDirWithoutPattern(mask));
-            final Pattern pattern = Pattern.compile(FileUtil.convertAntToRegexp(FileUtil.getRelativePath(baseDir, f)));
-            myEntries.put(f, new MaskEntry(type, baseDir, pattern));
+        return;
+      }
+      myStatistics.put(type, new TypeStatistics());
+      myPaths.put(type, paths);
+    } else {
+      paths.removeAll(myPaths.get(type));
+      myPaths.get(type).addAll(paths);
+    }
+    logWatchingPaths(paths, type);
+    checkExistingPaths(paths, type);
+  }
+
+  private boolean hasInspections() {
+    for (String type : myPaths.keySet()) {
+      if (isInspection(type)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private void logWatchingPaths(Set<File> paths, String type) {
+    if (!SUPPORTED_REPORT_TYPES.containsKey(type)) {
+      error("Illegal report type: " + type);
+      return;
+    }
+    final String target = SUPPORTED_REPORT_TYPES.get(type) + " report watcher";
+    myPlugin.getLogger().targetStarted(target);
+    String message = "Watching paths: ";
+    if (paths.size() == 0) {
+      message += "<no paths>";
+      error(message);
+    } else {
+      message(message);
+      for (File f : paths) {
+        message(f.getAbsolutePath());
+      }
+    }
+    myPlugin.getLogger().targetFinished(target);
+  }
+
+  private void checkExistingPaths(Set<File> paths, String type) {
+    if (!myPlugin.isVerbose()) {
+      return;
+    }
+    final Set<File> existingPaths = new HashSet<File>();
+    for (File f : paths) {
+      if (f.isFile() && isOutOfDate(f)) {
+        existingPaths.add(f);
+      } else if (f.isDirectory()) {
+        final File[] files = f.listFiles();
+        if ((files == null) || (files.length == 0)) return;
+        for (File file : files) {
+          if (file.isFile() && isOutOfDate(file)) {
+            existingPaths.add(file);
+          }
+        }
+      } else if (isAntMask(f)) {
+        final MaskData md = getMask(f);
+        for (File file : collectFiles(md.getPattern(), md.getBaseDir())) {
+          if (isOutOfDate(file)) {
+            existingPaths.add(file);
           }
         }
       }
     }
-  }
-
-  private synchronized void processEntries() {
-    for (Map.Entry f : myEntries.entrySet()) {
-      final File k = (File) f.getKey();
-      final Entry e = (Entry) f.getValue();
-      final String type = e.getEntryType();
-      if (FileEntry.TYPE.equals(type)) {
-        processFile(k, (FileEntry) e);
-      } else if (DirEntry.TYPE.equals(type)) {
-        processDir(k, (DirEntry) e);
-      } else if (MaskEntry.TYPE.equals(type)) {
-        processMask(k, (MaskEntry) e);
+    if (existingPaths.size() > 0) {
+      final String target = SUPPORTED_REPORT_TYPES.get(type) + " report watcher";
+      myPlugin.getLogger().targetStarted(target);
+      warning("Found existing files:");
+      for (File f : existingPaths) {
+        warning(f.getAbsolutePath());
       }
+      myPlugin.getLogger().targetFinished(target);
     }
   }
 
-  private void processFile(File f, FileEntry fe) {
-    if (fe.isActive()) return;
-    if (!f.canRead()) {
-      fe.setMessage(": unable to read file");
-    } else if (!timeConstraintsSatisfied(f)) {
-      fe.setMessage(" has modification date preceding build start time");
+  private MaskData getMask(File f) {
+    MaskData md;
+    if (!myMaskHash.containsKey(f)) {
+      final File baseDir = new File(getDirWithoutPattern(f.getAbsolutePath()));
+      final Pattern pattern = Pattern.compile(FileUtil.convertAntToRegexp(FileUtil.getRelativePath(baseDir, f)));
+      md = new MaskData(baseDir, pattern);
+      myMaskHash.put(f, md);
     } else {
-      fe.setActive(true);
-      try {
-        myReportQueue.put(new Pair<String, File>(fe.getType(), f));
-      } catch (InterruptedException e) {
+      md = myMaskHash.get(f);
+    }
+    return md;
+  }
+
+  private synchronized void scanInput() {
+    for (String type : myPaths.keySet()) {
+      final TypeStatistics s = myStatistics.get(type);
+      for (File f : myPaths.get(type)) {
+        if (isGoodFile(f) && !s.getFiles().contains(f)) {
+          s.getFiles().add(f);
+          sendToQueue(type, f);
+        } else if (f.isDirectory()) {
+          final File[] files = f.listFiles();
+          final Set<File> filesInDir = new HashSet<File>();
+          if ((files != null) && (files.length > 0)) {
+            for (File file : files) {
+              if (isGoodFile(file)) {
+                if (!s.getFiles().contains(file)) {
+                  sendToQueue(type, file);
+                }
+                s.getFiles().add(file);
+                filesInDir.add(file);
+              }
+            }
+          }
+          addToStatistics(s.getDirs(), f, filesInDir);
+        } else if (isAntMask(f)) {
+          final Set<File> filesForMask = new HashSet<File>();
+          final MaskData md = getMask(f);
+          for (File file : collectFiles(md.getPattern(), md.getBaseDir())) {
+            if (isGoodFile(file)) {
+              if (!s.getFiles().contains(file)) {
+                sendToQueue(type, file);
+              }
+              s.getFiles().add(file);
+              filesForMask.add(file);
+            }
+          }
+          addToStatistics(s.getMasks(), f, filesForMask);
+        }
       }
     }
   }
 
-  private void processDir(File d, DirEntry de) {
-    final File[] files = d.listFiles();
-    if ((files == null) || (files.length == 0)) return;
-    for (File f : files) {
-      if (f.isFile()) {
-        processFileInDir(de, f);
-      } else {
-        // now recursive directory processing not performed
-      }
+  private boolean isGoodFile(File f) {
+    return f.isFile() && f.canRead() && timeConstraintsSatisfied(f);
+  }
+
+  private void sendToQueue(String type, File f) {
+    try {
+      myReportQueue.put(new Pair<String, File>(type, f));
+    } catch (InterruptedException e) {
     }
   }
 
-  private void processFileInDir(DirEntry de, File f) {
-    final String type = de.getType();
-    if (myInput.get(type).contains(f)) return;
-    FileEntry fe = new FileEntry(type);
-    if (de.getFiles().containsKey(f)) {
-      fe = de.getFiles().get(f);
+  private void addToStatistics(Map<File, Set<File>> paths, File keyFile, Set<File> files) {
+    if (paths.containsKey(keyFile)) {
+      paths.get(keyFile).addAll(files);
     } else {
-      de.getFiles().put(f, fe);
-      de.setActive(true);
-    }
-    processFile(f, fe);
-  }
-
-  private void processMask(File m, MaskEntry me) {
-    for (File f : collectFiles(me.getPattern(), me.getBaseDir())) {
-      if (f.isFile()) {
-        processFileInDir(me, f);
-      }
+      paths.put(keyFile, files);
     }
   }
 
   private boolean timeConstraintsSatisfied(File file) {
-    return myPlugin.parseOutOfDate() || (file.lastModified() >= myPlugin.getBuildStartTime());
+    return myPlugin.parseOutOfDate() || !isOutOfDate(file);
+  }
+
+  private boolean isOutOfDate(File k) {
+    return k.lastModified() < myPlugin.getBuildStartTime();
   }
 
   public void logTotals() {
-    myPlugin.getLogger().targetStarted("XML reports monitoring totals");
-    for (Map.Entry f : myEntries.entrySet()) {
-      final File k = (File) f.getKey();
-      final Entry e = (Entry) f.getValue();
-      final String type = e.getEntryType();
-      if (FileEntry.TYPE.equals(type)) {
-        logFileTotals(k, (FileEntry) e);
-      } else if (DirEntry.TYPE.equals(type) || MaskEntry.TYPE.equals(type)) {
-        logDirTotals(k, (DirEntry) e);
+    for (String type : myPaths.keySet()) {
+      final TypeStatistics s = myStatistics.get(type);
+      final String target = SUPPORTED_REPORT_TYPES.get(type) + " report watcher";
+      myPlugin.getLogger().targetStarted(target);
+      if (s.getFiles().size() > 0) {
+        message(s.getFiles().size() + " file(s) found");
+      } else {
+        warning("no files found");
       }
-      myInput.get(e.getType()).remove(k);
+      for (File d : s.getDirs().keySet()) {
+        logFiles(s, d, s.getDirs().get(d));
+        if (myPlugin.isVerbose()) {
+          for (File f : s.getDirs().get(d)) {
+            message(f.getAbsolutePath() + " found");
+          }
+        }
+        myPaths.get(type).removeAll(s.getDirs().get(d));
+        myPaths.get(type).remove(d);
+      }
+      for (File m : s.getMasks().keySet()) {
+        logFiles(s, m, s.getMasks().get(m));
+        if (myPlugin.isVerbose()) {
+          for (File f : s.getMasks().get(m)) {
+            message(f.getAbsolutePath() + " found");
+          }
+        }
+        myPaths.get(type).removeAll(s.getMasks().get(m));
+        myPaths.get(type).remove(m);
+      }
+      for (File f : s.getFiles()) {
+        if (myPlugin.isVerbose()) {
+          message(f.getAbsolutePath() + " found");
+        }
+        myPaths.get(type).remove(f);
+      }
+      for (File f : myPaths.get(type)) {
+        warning(f.getAbsolutePath() + " couldn't find any matching files");
+      }
+      myPlugin.getLogger().targetFinished(target);
     }
-    logUnknownTotals();
-    myPlugin.getLogger().targetFinished("XML report monitoring totals");
   }
 
-  private void logUnknownTotals() {
-    for (String type : myInput.keySet()) {
-      for (File f : myInput.get(type)) {
-        myPlugin.getLogger().warning(f.getAbsolutePath() + " didn't appear on disk during the build");
+  private void logFiles(TypeStatistics s, File d, Set<File> files) {
+    if (files.size() > 0) {
+      if (myPlugin.isVerbose()) {
+        message(d.getAbsolutePath() + ": " + files.size() + " file(s) found");
       }
-    }
-  }
-
-  private void logDirTotals(File d, DirEntry de) {
-    if (!de.isActive()) {
-      myPlugin.getLogger().warning(d.getAbsolutePath() + ": no reports found");
-    } else if (myPlugin.isVerbose()) {
-      final Map<File, FileEntry> files = de.getFiles();
-      if (files.size() > 0) {
-        myPlugin.getLogger().message(d.getAbsolutePath() + ": " + files.size() + " files(s) found");
-      }
-      if (!myPlugin.isVerbose()) {
-        return;
-      }
-      for (File f : files.keySet()) {
-        final FileEntry fe = files.get(f);
-        logFileTotals(f, fe);
-      }
-    }
-  }
-
-  private void logFileTotals(File f, FileEntry fe) {
-    if (!fe.isActive()) {
-      myPlugin.getLogger().warning(f.getAbsolutePath() + fe.getMessage());
+      s.getFiles().removeAll(files);
+    } else {
+      warning(d.getAbsolutePath() + ": no files found");
     }
   }
 
@@ -226,87 +327,37 @@ public class XmlReportDirectoryWatcher extends Thread {
     return files;
   }
 
-  private static abstract class Entry {
-    private final String myType;
-    private boolean myActive;
+  private static class TypeStatistics {
+    private final Set<File> myFiles;
+    private final Map<File, Set<File>> myDirs;
+    private final Map<File, Set<File>> myMasks;
 
-    public Entry(String type) {
-      myType = type;
-      myActive = false;
+    public TypeStatistics() {
+      myFiles = new HashSet<File>();
+      myDirs = new HashMap<File, Set<File>>();
+      myMasks = new HashMap<File, Set<File>>();
     }
 
-    public boolean isActive() {
-      return myActive;
-    }
-
-    public void setActive(boolean active) {
-      myActive = active;
-    }
-
-    public String getType() {
-      return myType;
-    }
-
-    public abstract String getEntryType();
-  }
-
-  private static class FileEntry extends Entry {
-    public static final String TYPE = "FILE";
-
-    private String myMessage;
-
-    public FileEntry(String type) {
-      super(type);
-      myMessage = "";
-    }
-
-    public String getEntryType() {
-      return TYPE;
-    }
-
-    public String getMessage() {
-      return myMessage;
-    }
-
-    public void setMessage(String message) {
-      myMessage = message;
-    }
-
-  }
-
-  private static class DirEntry extends Entry {
-    public static final String TYPE = "DIR";
-
-    private final Map<File, FileEntry> myFiles;
-
-    public DirEntry(String type) {
-      super(type);
-      myFiles = new HashMap<File, FileEntry>();
-    }
-
-    public String getEntryType() {
-      return TYPE;
-    }
-
-    public Map<File, FileEntry> getFiles() {
+    public Set<File> getFiles() {
       return myFiles;
     }
+
+    public Map<File, Set<File>> getDirs() {
+      return myDirs;
+    }
+
+    public Map<File, Set<File>> getMasks() {
+      return myMasks;
+    }
   }
 
-  private static class MaskEntry extends DirEntry {
-    public static final String TYPE = "MASK";
-
+  private static class MaskData {
     private final File myBaseDir;
     private final Pattern myPattern;
 
-    public MaskEntry(String type, File baseDir, Pattern pattern) {
-      super(type);
+    public MaskData(File baseDir, Pattern pattern) {
       myBaseDir = baseDir;
       myPattern = pattern;
-    }
-
-    public String getEntryType() {
-      return TYPE;
     }
 
     public File getBaseDir() {

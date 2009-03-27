@@ -17,16 +17,17 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.util.Pair;
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
 import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class XmlReportProcessor extends Thread {
   private static final long FILE_WAIT_TIMEOUT = 500;
@@ -77,13 +78,14 @@ public class XmlReportProcessor extends Thread {
     final int processedTests = parser.parse(report.getFile(), report.getProcessedTests());
     if (processedTests != -1) {
       myCurrentReport.setProcessedTests(processedTests);
-
       if ((myCurrentReport.getTriesToParse() == TRIES_TO_PARSE) || myPlugin.isStopped()) {
         parser.abnormalEnd();
         if (myPlugin.isVerbose()) {
           myPlugin.getLogger().error(report.getFile().getAbsolutePath() + ": failed to parse with " +
             XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(report.getType()) + " parser");
         }
+        XmlReportPlugin.LOGGER.info("Unable to parse " + myCurrentReport.getFile().getAbsolutePath() +
+          " from " + myCurrentReport.getTriesToParse() + " ties");
         myCurrentReport = null;
       } else {
         final long currLength = myCurrentReport.getFile().length();
@@ -125,7 +127,6 @@ public class XmlReportProcessor extends Thread {
       myCurrentReport = new ReportData(report, reportType);
       return myCurrentReport;
     } catch (InterruptedException e) {
-//      myPlugin.getLogger().debugToAgentLog("Report processor thread interrupted");
     }
     return null;
   }
@@ -144,7 +145,7 @@ public class XmlReportProcessor extends Thread {
     } else if (PmdReportParser.TYPE.equals(type)) {
       myParsers.put(type, new PmdReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getCheckoutDir()));
     } else {
-//      myPlugin.getLogger().debugToAgentLog("No parser for " + type + " available");
+      XmlReportPlugin.LOGGER.debug("No parser for " + type + " available");
     }
   }
 

@@ -1,1 +1,5 @@
+MESSAGE: Watching paths: 
+MESSAGE: ##BASE_DIR##\file
 ##BASE_DIR##\file
+MESSAGE: 1 file(s) found
+MESSAGE: ##BASE_DIR##\file found

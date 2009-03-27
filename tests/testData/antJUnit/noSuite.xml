@@ -1,0 +1,1376 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="rebuild3" name="api.brightcove.catalog.AudioFacadeReadServletTest"
+           tests="0" time="0.021" timestamp="2009-03-25T19:56:05">
+  <properties>
+    <property name="base.src.dtds" value="/home/buildacct/work/r1.20/dev/origin/src/web/dtds"></property>
+    <property name="env.SHELL" value="/bin/bash"></property>
+    <property name="master.config.dir" value="/home/buildacct/work/r1.20/dev/origin/config/build"></property>
+    <property name="ivy.module" value="origin"></property>
+    <property name="upload.finger2.active" value="1"></property>
+    <property name="jetfire.bctomcat.server.http.port" value="58080"></property>
+    <property name="ant.file" value="/home/buildacct/work/r1.20/dev/origin/build.xml"></property>
+    <property name="TSTAMP" value="1554"></property>
+    <property name="gobbles.bctomcat.server.http.port" value="38080"></property>
+    <property name="federatedVideoUI.classes"
+              value="VideoPlayer; ComboBoxWidget; TileList; List; TabBar; TextButton; TitleLabel; TextRegion;"></property>
+    <property name="comment.start" value="&lt;!--"></property>
+    <property name="ivy.organisation" value="brightcove"></property>
+    <property name="keyname.prefix" value="bc."></property>
+    <property name="java.vm.name" value="Java HotSpot(TM) Server VM"></property>
+    <property name="ivy.cache.dir" value="/home/buildacct/work/r1.20/dev/ivy-cache"></property>
+    <property name="player.as2.secure.origin.amf.url" value="http://rebuild3:8080/services/amfgateway"></property>
+    <property name="ivy.publish.src.artifacts.pattern"
+              value="/home/buildacct/work/r1.20/dev/origin/distrib/[type]s/[artifact]-[revision](-[classifier]).[ext]"></property>
+    <property name="maitred.hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver"></property>
+    <property name="second.level.cache.enabled" value="true"></property>
+    <property name="eventserver.eventWaitTimeout" value="30000"></property>
+    <property name="gobbles.bctomcat.server.http.protocol"
+              value="org.apache.coyote.http11.Http11NioProtocol"></property>
+    <property name="services.swc"
+              value="/home/buildacct/work/r1.20/dev/flexshared/services/bin/services.swc"></property>
+    <property name="java.vendor.ivy.instance" value="Sun Microsystems Inc."></property>
+    <property name="env.JAVA_HOME" value="/usr/java/latest"></property>
+    <property name="tomcat.original" value="/home/buildacct/work/tools/tomcat/5.5.20"></property>
+    <property name="experiencemanager.debug" value="false"></property>
+    <property name="flash.buildtype" value="noflash"></property>
+    <property name="gobbles.edge.backend.content.url" value="http://rebuild3:38090"></property>
+    <property name="ivy.home" value="/home/buildacct/.ivy2"></property>
+    <property name="jetfire.bctomcat.profile.port" value="59876"></property>
+    <property name="ant.library.dir.ivy.instance" value="/opt/packages/ant/lib"></property>
+    <property name="bctomcat.snmp.managers" value="localhost"></property>
+    <property name="flex2.home" value="/home/buildacct/work/tools/flex-sdk/2.0.1"></property>
+    <property name="java.runtime.version" value="1.6.0_07-b06"></property>
+    <property name="player.as2.search.amf.url" value="http://rebuild3:8080/services/amfgateway"></property>
+    <property name="lucene.remove" value="/bin/rm -rf"></property>
+    <property name="softrax.billing.data.servlet.url"
+              value="http://rebuild3:8080/services/secure/billingdata"></property>
+    <property name="compile.optimize" value="on"></property>
+    <property name="player.as3.origin.amf.url" value="http://rebuild3:8080/services/messagebroker/amf"></property>
+    <property name="origin.build.dir" value="/home/buildacct/work/r1.20/dev/origin/build"></property>
+    <property name="omniture.account" value="brightcovedevglobal"></property>
+    <property name="adherence.test.build"
+              value="/home/buildacct/work/r1.20/dev/origin/build/adherence-test-build"></property>
+    <property name="mockas3.swc"
+              value="/home/buildacct/work/r1.20/dev/origin/../flexshared/lib/mockas3/build/mockas3.swc"></property>
+    <property name="env.WORK" value="/home/buildacct/work/r1.20"></property>
+    <property name="upload.finger1.enabled" value="1"></property>
+    <property name="base.experience.src"
+              value="/home/buildacct/work/r1.20/dev/origin/../experience/main/src"></property>
+    <property name="build.config" value="/home/buildacct/work/r1.20/dev/origin/build/config"></property>
+    <property name="upload.trans1.password" value="tom-skanky1"></property>
+    <property name="player.as3.cache.services.url" value="http://rebuild3:8080/services"></property>
+    <property name="java.specification.vendor.ivy.instance" value="Sun Microsystems Inc."></property>
+    <property name="tps.reporting.state.db.connection.password" value="testuser"></property>
+    <property name="coherence.yaml"
+              value="/home/buildacct/work/r1.20/dev/origin/config/coherence/cache_config.yaml"></property>
+    <property name="public.facades.write"
+              value="api.brightcove.catalog.VideoFacadeWrite,api.brightcove.catalog.PlaylistFacadeWrite"></property>
+    <property name="bcfs.default.provider" value="NAS2"></property>
+    <property name="playerapi.cdn.home" value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/playerapi"></property>
+    <property name="fms.js.scriptlibpath" value="/usr/local/brightcove/server/fms/scriptlib"></property>
+    <property name="mail.smtp.port" value="25"></property>
+    <property name="EventServer.sleepTime" value="200"></property>
+    <property name="ivy.lib.dir" value="/home/buildacct/work/r1.20/dev/origin/${build.dir}/ivy-lib"></property>
+    <property name="tps.llfms.remote.password" value=""></property>
+    <property name="java.sdk.build.dir" value="/home/buildacct/work/r1.20/dev/origin/build/api/java"></property>
+    <property name="java.vendor.url.ivy.instance" value="http://java.sun.com/"></property>
+    <property name="hosttype" value="development"></property>
+    <property name="tests.actionscript.src"
+              value="/home/buildacct/work/r1.20/dev/origin/tests/src/actionscript"></property>
+    <property name="java.vendor.url" value="http://java.sun.com/"></property>
+    <property name="bctomcat.startup.user" value="buildacct"></property>
+    <property name="unison.build" value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/unison"></property>
+    <property name="flexunit.opt.swc"
+              value="/home/buildacct/work/tools/FlexUnitOptional/Update4/dist/FlexUnitOptional.swc"></property>
+    <property name="cache.enabled.true" value=""></property>
+    <property name="mediaUtils.build" value="/home/buildacct/work/r1.20/dev/origin/build/mediaUtils-build"></property>
+    <property name="maitred.hibernate.db.password" value="hibuser3_m"></property>
+    <property name="ivy.distrib.dir" value="/home/buildacct/work/r1.20/dev/origin/distrib"></property>
+    <property name="experience.dir" value="/home/buildacct/work/r1.20/dev/origin/../experience/main"></property>
+    <property name="upload.assets.from.data.loader" value="true"></property>
+    <property name="services2.secureAMF.url" value="http://rebuild3:8080/services/messagebroker/amf"></property>
+    <property name="tc.p4.dist.label" value="teamcity-dev-dist-label"></property>
+    <property name="subdirs"
+              value="shared/java/common,shared/java/geo,shared/java/openamf,shared/java/amf,shared/java/webapp,shared/java/persistence,shared/java/maitred/serializer,shared/java/maitred/client,pods,origin,origin-client,dashboard,gobbles,jetfire,reporting/common,reporting/db,reporting/tps"></property>
+    <property name="ivy.resolver.default.check.modified.ivy.instance" value="false"></property>
+    <property name="ivy.settings.dir.ivy.instance" value="/home/buildacct/work/r1.20/dev"></property>
+    <property name="billing.data.servlet.enabled" value="true"></property>
+    <property name="dashboard.bctomcat.server.http.redirectPort" value="28443"></property>
+    <property name="fms.dev.media.dir" value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/"></property>
+    <property name="flash.compileDestination.off" value="true"></property>
+    <property name="mediaUtils.url" value="http://rebuild3:8080"></property>
+    <property name="adpolicyswf.cdn.home"
+              value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/adpolicy"></property>
+    <property name="adherence.dist" value="/home/buildacct/work/r1.20/dev/origin/build/adherence-dist"></property>
+    <property name="build.number" value="50"></property>
+    <property name="ivy.configurations.ivy.instance" value="*"></property>
+    <property name="dashboard.admin.cache.ttl.milliseconds" value="10800000"></property>
+    <property name="tests.ext.results"
+              value="/home/buildacct/work/r1.20/dev/origin/build/tests/ext/test-results"></property>
+    <property name="jetfire.working.dir" value="/home/buildacct/work/r1.20/temp/jetfire-working"></property>
+    <property name="player.as2.cgm.pl.upload.url" value="http://rebuild3:8080/services/cgmupload"></property>
+    <property name="tps.reporting.state.db.connection.url"
+              value="jdbc:mysql://xi-mayhem2.vidmark.local/reporting_test_hibuser3"></property>
+    <property name="adherence.test.dist"
+              value="/home/buildacct/work/r1.20/dev/origin/build/adherence-test-dist"></property>
+    <property name="user.dir" value="/home/buildacct/work/r1.20/dev"></property>
+    <property name="eventserver.socketConnectionTimeout" value="100000"></property>
+    <property name="adtranslator.home.zip"
+              value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/adtranslator/AdTranslatorDevKit.zip"></property>
+    <property name="FlashEventServer.port" value="7363"></property>
+    <property name="java.vendor" value="Sun Microsystems Inc."></property>
+    <property name="ant.file.flex-include"
+              value="/home/buildacct/work/r1.20/dev/flexshared/ant/flex-build-include.xml"></property>
+    <property name="user.dir.ivy.instance" value="/home/buildacct/work/r1.20/dev"></property>
+    <property name="modules.origin.amf.url" value="http://rebuild3:8080/services/messagebroker/amf"></property>
+    <property name="sun.boot.class.path.ivy.instance"
+              value="/usr/java/jdk1.6.0_07/jre/lib/resources.jar:/usr/java/jdk1.6.0_07/jre/lib/rt.jar:/usr/java/jdk1.6.0_07/jre/lib/sunrsasign.jar:/usr/java/jdk1.6.0_07/jre/lib/jsse.jar:/usr/java/jdk1.6.0_07/jre/lib/jce.jar:/usr/java/jdk1.6.0_07/jre/lib/charsets.jar:/usr/java/jdk1.6.0_07/jre/classes"></property>
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"></property>
+    <property name="bctomcat.server.http.minSpareThreads" value="25"></property>
+    <property name="ivy.buildlist.ivyfilepath.ivy.instance" value="ivy.xml"></property>
+    <property name="java.specification.name.ivy.instance" value="Java Platform API Specification"></property>
+    <property name="transcoder.flix.install.symlink.name" value="flix"></property>
+    <property name="ant.file.origin-flex" value="/home/buildacct/work/r1.20/dev/origin/flex-build.xml"></property>
+    <property name="bctomcat.server.http.emptySessionPath" value="false"></property>
+    <property name="compile.output.file" value="ExperienceTestRunner_50.swf"></property>
+    <property name="checkout.usr.local" value="/home/buildacct/work/r1.20/dev/../usr-local"></property>
+    <property name="sun.boot.library.path.ivy.instance" value="/usr/java/jdk1.6.0_07/jre/lib/i386"></property>
+    <property name="scissorhands.main.dir"
+              value="/home/buildacct/work/r1.20/dev/origin/../scissorhands/main"></property>
+    <property name="ads.app.path" value="/ads"></property>
+    <property name="player.url.host" value="http://rebuild3:8080"></property>
+    <property name="pod.deploy.path" value="/home/buildacct/work/r1.20/dev/../usr-local/podtools"></property>
+    <property name="downloader.home" value="/home/buildacct/work/r1.20/dev/origin/../client/downloader"></property>
+    <property name="federated.slim.swf" value="/viewer/federated_slim_50.swf"></property>
+    <property name="experiencemanager.main.assets"
+              value="/home/buildacct/work/r1.20/dev/origin/../experiencemanager/main/assets"></property>
+    <property name="ant.file.api" value="/home/buildacct/work/r1.20/dev/origin/api-build.xml"></property>
+    <property name="line.separator.ivy.instance" value="
+"></property>
+    <property name="hibernate.quiet" value="no"></property>
+    <property name="ivy.resolver.default.check.modified" value="false"></property>
+    <property name="browseragent.target.flash.version.exact" value=""></property>
+    <property name="jmeter.version" value="2.3.2"></property>
+    <property name="destination.admin.src"
+              value="/home/buildacct/work/r1.20/dev/origin/../destination/site-admin/src"></property>
+    <property name="build.javadoc" value="/home/buildacct/work/r1.20/dev/origin/build/javadoc"></property>
+    <property name="bctomcat.server.http.connectionTimeout" value="20000"></property>
+    <property name="test.methods" value="${test.methods}"></property>
+    <property name="browser.path" value="C:/Program Files/Internet Explorer/iexplore.exe"></property>
+    <property name="softrax.billing.data.file.sync.job.enabled" value="true"></property>
+    <property name="toolbelt.groovy.home" value="/home/buildacct/work/tools/groovy/1.5.6"></property>
+    <property name="takeover.adtrack.params" value=";trad=4"></property>
+    <property name="experiencemanager.swf" value="experiencemanager_50.swf"></property>
+    <property name="transcoder.codec.install.dir" value="/usr/local/lib/codecs"></property>
+    <property name="geo.config.dir" value="/home/buildacct/work/r1.20/dev/shared/java/geo/src/war/WEB-INF/"></property>
+    <property name="upload.trans2.password" value="tom-skanky2"></property>
+    <property name="java.vm.version" value="10.0-b23"></property>
+    <property name="EventServer.port" value="7362"></property>
+    <property name="services.home" value="/home/buildacct/work/r1.20/tomcat/webapps/services"></property>
+    <property name="stage" value="2"></property>
+    <property name="env.NLSPATH" value="/usr/dt/lib/nls/msg/%L/%N.cat"></property>
+    <property name="softrax.bctomcat.snmp.trap" value="6162"></property>
+    <property name="player.alwaysSendParam" value="false"></property>
+    <property name="junitHtmlReportDir" value="/home/buildacct/work/r1.20/dev/origin/build/tests/junit"></property>
+    <property name="sun.java.launcher" value="SUN_STANDARD"></property>
+    <property name="upload.default.cdn.http" value="3"></property>
+    <property name="ivy.home.ivy.instance" value="/home/buildacct/.ivy2"></property>
+    <property name="bctomcat.debug.port" value="19444"></property>
+    <property name="base.ads.config" value="/home/buildacct/work/r1.20/dev/origin/config/ads"></property>
+    <property name="federated.video.swf" value="/viewer/federated_video_50.swf"></property>
+    <property name="toolbelt.start.node" value="localhost:9004"></property>
+    <property name="hibernate.bytecode.provider" value="cglib"></property>
+    <property name="tps.llhttp.remote.username" value=""></property>
+    <property name="upload.fingerprint.responseURL" value="http://rebuild3:8080/services/uploadmanager"></property>
+    <property name="ivy.conf.url" value="file:/home/buildacct/work/r1.20/dev/ivysettings.xml"></property>
+    <property name="sdk.facades.write"
+              value="api.brightcove.catalog.VideoFacadeWrite,api.brightcove.catalog.PlaylistFacadeWrite"></property>
+    <property name="username" value="buildacct"></property>
+    <property name="build.hibernate" value="/home/buildacct/work/r1.20/dev/origin/build/hibernate"></property>
+    <property name="coherence.ttl" value="0"></property>
+    <property name="ivy.retrieve.pattern"
+              value="/home/buildacct/work/r1.20/dev/origin/${build.dir}/ivy-lib/[artifact]-[revision](-[classifier]).[ext]"></property>
+    <property name="fms.server.gid" value="782"></property>
+    <property name="bctomcat.snmp.trap" value="2162"></property>
+    <property name="ivy.resolved.file" value="/home/buildacct/work/r1.20/dev/origin/ivy.xml"></property>
+    <property name="java.specification.version.ivy.instance" value="1.6"></property>
+    <property name="base.lib" value="/home/buildacct/work/r1.20/dev/origin/lib"></property>
+    <property name="omniture.swf.url"
+              value="http://rebuild3:8080/cdn/viewer/reporting-resources/OmnitureActionSource.swf"></property>
+    <property name="transcoder.codec.dir" value="essential-20071007"></property>
+    <property name="EventServer.debug" value="false"></property>
+    <property name="cdn.home" value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn"></property>
+    <property name="reporting.services.url" value="http://rebuild3:8080/services"></property>
+    <property name="tps.bctomcat.debug.port" value="49445"></property>
+    <property name="manager.username" value="manager"></property>
+    <property name="java.home" value="/usr/java/jdk1.6.0_07/jre"></property>
+    <property name="fms.server.active.profile" value="150.pro"></property>
+    <property name="exec.HOSTNAME" value="rebuild3"></property>
+    <property name="player.as3.cache.amf.url" value="http://rebuild3:8080/services/messagebroker/amf"></property>
+    <property name="browseragent.target.flash.version.minimum" value=""></property>
+    <property name="dashboard.tomcat.home" value="/home/buildacct/work/r1.20/dev/../usr-local/dashboard"></property>
+    <property name="tests.ext.src" value="/home/buildacct/work/r1.20/dev/origin/tests/src/ext"></property>
+    <property name="admanager.dir" value="/home/buildacct/work/r1.20/dev/origin/../admanager"></property>
+    <property name="scripts.java.home" value=""></property>
+    <property name="build.generated.java.lib"
+              value="/home/buildacct/work/r1.20/dev/origin/build/generated/lib"></property>
+    <property name="experiencemanager.build"
+              value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/experiencemanager"></property>
+    <property name="api.write.classname" value="LibraryWriteApi"></property>
+    <property name="java.version" value="1.6.0_07"></property>
+    <property name="tps.llhttp.remote.server.url" value=""></property>
+    <property name="ant.file.base-common" value="/home/buildacct/work/r1.20/dev/buildshared/base-common.xml"></property>
+    <property name="geo.quova.file"
+              value="/home/buildacct/work/r1.20/dev/shared/java/geo/src/war/WEB-INF/GeoDirectoryAPI.properties"></property>
+    <property name="ivy.checksums" value="sha1,md5"></property>
+    <property name="EventServer.socketConnectionTimeout" value="100000"></property>
+    <property name="flexunit.output.object" value="ExperienceFlexUnit_50"></property>
+    <property name="base.experience.projects"
+              value="/home/buildacct/work/r1.20/dev/origin/../experience/main/experience"></property>
+    <property name="base.flex.config" value="/home/buildacct/work/r1.20/dev/origin/config/flex"></property>
+    <property name="env.LANG" value="en_US.UTF-8"></property>
+    <property name="bctomcat.jmx.port" value="19004"></property>
+    <property name="flash.home" value="C:/Program Files/Macromedia/Flash 8"></property>
+    <property name="base.tests.src.as3" value="/home/buildacct/work/r1.20/dev/origin/tests/src/as3"></property>
+    <property name="player.as2.cache.amf.url" value="http://rebuild3:8080/services/amfgateway"></property>
+    <property name="flex.logging.level" value="off"></property>
+    <property name="softrax.billing.data.download.dir"
+              value="/home/buildacct/work/r1.20/temp/reporting/softrax/download"></property>
+    <property name="tps.llhttp.log.discovery.job.enabled" value="true"></property>
+    <property name="adapi.build.zip"
+              value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/adapi/AdAPIExamples.zip"></property>
+    <property name="asset.url.path" value="/media/"></property>
+    <property name="public.facades.read"
+              value="api.brightcove.catalog.AudioPlaylistFacadeRead,api.brightcove.catalog.AudioFacadeRead,api.brightcove.catalog.VideoFacadeRead,api.brightcove.catalog.PlaylistFacadeRead"></property>
+    <property name="dashboard.catalog.services.AMF.url"
+              value="http://rebuild3:8080/services/messagebroker/amf"></property>
+    <property name="flash.player.app" value="C:/Program Files/Flash9Players/Players/Debug/FlashPlayer.exe"></property>
+    <property name="consumer.account.url" value="http://rebuild3:8080/cdn/viewer/download/account.html"></property>
+    <property name="ivy.report.output.pattern.ivy.instance" value="[organisation]-[module]-[conf].[ext]"></property>
+    <property name="jetfire.bctomcat.server.port" value="58005"></property>
+    <property name="base.java.src" value="/home/buildacct/work/r1.20/dev/origin/src/java"></property>
+    <property name="file.encoding.pkg" value="sun.io"></property>
+    <property name="experiencemanager.tests.dir"
+              value="/home/buildacct/work/r1.20/dev/origin/../experiencemanager/tests"></property>
+    <property name="reporting.temp" value="/home/buildacct/work/r1.20/temp/reporting"></property>
+    <property name="bctomcat.proxy.host" value="rebuild3"></property>
+    <property name="gobbles.aws.backend.content.url" value="http://rebuild3:38090"></property>
+    <property name="compile.nowarn" value="on"></property>
+    <property name="jetfire.bctomcat.server.http.redirectPort" value="58443"></property>
+    <property name="ivy.status" value="integration"></property>
+    <property name="softrax.bctomcat.server.port" value="58005"></property>
+    <property name="fms.admin.username" value="fmsadmin"></property>
+    <property name="upload.finger1.hostname" value="finger1-devel.vidmark.local"></property>
+    <property name="tools.build" value="/home/buildacct/work/tools/brightcove/build"></property>
+    <property name="ant.file.brightcove-origin" value="/home/buildacct/work/r1.20/dev/origin/build.xml"></property>
+    <property name="tests.utils.results"
+              value="/home/buildacct/work/r1.20/dev/origin/build/tests/utils/test-results"></property>
+    <property name="gobbles.seed.bctomcat.server.http.redirectPort" value="38453"></property>
+    <property name="build.services.config"
+              value="/home/buildacct/work/r1.20/dev/origin/build/config/services"></property>
+    <property name="dashboard.maitred.enabled" value="false"></property>
+    <property name="src.web" value="/home/buildacct/work/r1.20/dev/experience/tests/experienceT/web"></property>
+    <property name="gobbles.seed.bctomcat.snmp.trap" value="4172"></property>
+    <property name="java.vm.vendor.ivy.instance" value="Sun Microsystems Inc."></property>
+    <property name="EventServer.browser" value="C:/Program Files/Internet Explorer/iexplore.exe"></property>
+    <property name="sun.cpu.isalist.ivy.instance" value=""></property>
+    <property name="browseragent.locator" value="autoclient01.vidmark.local"></property>
+    <property name="run.devtests" value="1"></property>
+    <property name="dest.services.url" value="http://rebuild3:8080/services"></property>
+    <property name="dashboard.bctomcat.debug.port" value="29444"></property>
+    <property name="java.runtime.name.ivy.instance" value="Java(TM) SE Runtime Environment"></property>
+    <property name="softrax.billing.data.servlet.token" value="465dcf80-9fab-11dd-ad8b-0800200c9a66"></property>
+    <property name="sun.cpu.isalist" value=""></property>
+    <property name="federated.base.swf" value="/viewer/federated_base_50.swf"></property>
+    <property name="upload.default.cdn.flv.ttlmillis" value="3600000"></property>
+    <property name="base.tests.src" value="/home/buildacct/work/r1.20/dev/origin/tests/src"></property>
+    <property name="maitred.bctomcat.jmx.port" value="20004"></property>
+    <property name="ivy.resolve.default.type.filter" value="*"></property>
+    <property name="destination.admin.dist"
+              value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/bcadmin/destination"></property>
+    <property name="experiencemanager.main.dir"
+              value="/home/buildacct/work/r1.20/dev/origin/../experiencemanager/main"></property>
+    <property name="destination.cdn.dist"
+              value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/destination"></property>
+    <property name="ivy.default.settings.dir"
+              value="jar:file:/home/buildacct/work/tools/ivy/2.0.0/ivy-2.0.0.jar!/org/apache/ivy/core/settings"></property>
+    <property name="tps.parsed.logs.output.dir"
+              value="/home/buildacct/work/r1.20/temp/reporting/tps/parsed_logs"></property>
+    <property name="gobbles.aws.backend.api.url" value="http://rebuild3:38090"></property>
+    <property name="tests.selenium.results"
+              value="/home/buildacct/work/r1.20/dev/origin/build/tests/selenium/test-results"></property>
+    <property name="tps.llfms.remote.server.url" value=""></property>
+    <property name="admin.home" value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/bcadmin"></property>
+    <property name="cache.enabled.start" value=""></property>
+    <property name="build.build" value="/home/buildacct/work/r1.20/dev/origin/build/build"></property>
+    <property name="tps.goku.log.processing.job.enabled" value="true"></property>
+    <property name="tomcat.home" value="/home/buildacct/work/r1.20/tomcat"></property>
+    <property name="upload.default.cdn.wmv" value="3"></property>
+    <property name="upload.transcode.fake" value="false"></property>
+    <property name="bcadmin.url" value="http://rebuild3:8080/bcadmin/admin/"></property>
+    <property name="upload.fingerprint.enabled" value="false"></property>
+    <property name="playerswc.home.zip"
+              value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/playerapi/PlayerAPISWC.zip"></property>
+    <property name="groovy.home" value="/home/buildacct/work/tools/groovy/1.5.6"></property>
+    <property name="federatedVideoUI.imports"
+              value="import com.brightcove.player.ui.widgets.*; import com.brightcove.ui.controls.buttons.*; import com.brightcove.ui.controls.text.*;"></property>
+    <property name="mail.smtp.port.test" value="2500"></property>
+    <property name="velocity.check.interval" value="2"></property>
+    <property name="tools.dir" value="/home/buildacct/work/tools"></property>
+    <property name="corporate.searcher.ttl" value="900"></property>
+    <property name="tests.hibernate" value="/home/buildacct/work/r1.20/dev/origin/tests/hibernate"></property>
+    <property name="cache.server.host" value="http://rebuild3:8080"></property>
+    <property name="build.web.src" value="/home/buildacct/work/r1.20/dev/origin/build/src/web"></property>
+    <property name="dba.user" value="system"></property>
+    <property name="keygrabber.output.dir" value="/home/buildacct/work/r1.20/temp/hotkeys"></property>
+    <property name="ivy.default.conf.dir"
+              value="jar:file:/home/buildacct/work/tools/ivy/2.0.0/ivy-2.0.0.jar!/org/apache/ivy/core/settings"></property>
+    <property name="omniture.container.swf.url"
+              value="http://rebuild3:8080/cdn/viewer/reporting-resources/omniture.swf"></property>
+    <property name="ant.file.brightcove-as3players"
+              value="/home/buildacct/work/r1.20/dev/experience/build.xml"></property>
+    <property name="cache.enabled.end" value=""></property>
+    <property name="user.country.ivy.instance" value="US"></property>
+    <property name="bctomcat.catalina.opt.MaxNewSize" value="128m"></property>
+    <property name="upload.trans2.active" value="1"></property>
+    <property name="env.BUILD_VCS_NUMBER_r1_20" value="61952"></property>
+    <property name="drm.db.username" value="cjohnson2"></property>
+    <property name="link.url.path" value="/services/link"></property>
+    <property name="base.jsp.src" value="/home/buildacct/work/r1.20/dev/origin/src/jsp"></property>
+    <property name="synflow.home" value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/syndication/"></property>
+    <property name="isWindows" value="false"></property>
+    <property name="prepare.tomcat" value="true"></property>
+    <property name="extra.args" value=""></property>
+    <property name="ivy.version" value="2.0.0"></property>
+    <property name="tps.bctomcat.server.http.port" value="48080"></property>
+    <property name="unison.flex.swf" value="unison_50.swf"></property>
+    <property name="video.adtrack.params" value=";trad=0"></property>
+    <property name="user.language" value="en"></property>
+    <property name="connectionpoolProxool" value="#"></property>
+    <property name="ant.file.origin-common-properties"
+              value="/home/buildacct/work/r1.20/dev/origin/config/build/build-common-properties.xml"></property>
+    <property name="os.name.ivy.instance" value="Linux"></property>
+    <property name="maitred.bctomcat.server.http.port" value="20080"></property>
+    <property name="hibernate.db.url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+    <property name="fms.dev.nas1" value="/usr/local/brightcove/server/fms/fakenas"></property>
+    <property name="maitred-domain.defaultPod.loginDomain" value="http://rebuild3:28080"></property>
+    <property name="ivy.settings.dir" value="/home/buildacct/work/r1.20/dev"></property>
+    <property name="upload.finger2.hostname" value="finger1-devel.vidmark.local"></property>
+    <property name="upload.finger2.directory" value=""></property>
+    <property name="env.TEAMCITY_PROJECT_NAME" value="R1.20 - JUnit"></property>
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."></property>
+    <property name="ant.file.dev" value="/home/buildacct/work/r1.20/dev/build.xml"></property>
+    <property name="checkout.temp" value="/home/buildacct/work/r1.20/temp"></property>
+    <property name="env.TERM" value="vt100"></property>
+    <property name="as3.player.swc"
+              value="/home/buildacct/work/r1.20/dev/origin/build/src/experience/as3-player-swc/as3-player.swc"></property>
+    <property name="console.trace.debug" value="false"></property>
+    <property name="jetfire.bctomcat.debug.port" value="59445"></property>
+    <property name="publishpod.mac.version" value="1.0 (b0007)"></property>
+    <property name="sforce.login.username" value="dwang@brightcove.com.ci"></property>
+    <property name="services.secureAMF.url" value="http://rebuild3:8080/services/amfgateway"></property>
+    <property name="eventserver.port" value="7362"></property>
+    <property name="clusterpump.services.home" value="/home/buildacct/work/r1.20/tomcat/webapps/services"></property>
+    <property name="bctomcat.server.port" value="18005"></property>
+    <property name="target" value="test"></property>
+    <property name="reporting.amf.url" value="http://rebuild3:8080/services/messagebroker/amf"></property>
+    <property name="tests.flexrunner.results"
+              value="/home/buildacct/work/r1.20/dev/origin/build/tests/flexrunner/test-results"></property>
+    <property name="geo.location.file"
+              value="/home/buildacct/work/r1.20/dev/shared/java/geo/src/war/WEB-INF/IPCountry-US-CA-UK-only.csv"></property>
+    <property name="junction.home" value="/home/buildacct/work/tools/junction/junction-v1.5"></property>
+    <property name="adherence.debug" value="false"></property>
+    <property name="hibernate.db.username" value="hibuser3"></property>
+    <property name="junit.jar" value="/home/buildacct/work/tools/JUnit/4.5/junit-4.5.jar"></property>
+    <property name="upload.default.cdn.flv.vdir" value="media"></property>
+    <property name="flexshared.dir" value="/home/buildacct/work/r1.20/dev/origin/../flexshared"></property>
+    <property name="tps.ncftp.client.bin.dir" value=""></property>
+    <property name="base.devlib" value="/home/buildacct/work/r1.20/dev/origin/devlib"></property>
+    <property name="ivy.configurations" value="test"></property>
+    <property name="upload.drm1.active" value="1"></property>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"></property>
+    <property name="dashboard.deployment.services.url"
+              value="http://s3iD.brightcove.com/services/messagebroker/amf"></property>
+    <property name="eventserver.sleeptime" value="200"></property>
+    <property name="sun.os.patch.level.ivy.instance" value="unknown"></property>
+    <property name="fms.home" value="${env.FMS_HOME}"></property>
+    <property name="base.flexunit.flex2.tests.src"
+              value="/home/buildacct/work/r1.20/dev/origin/tests/src/flexunit/flex2"></property>
+    <property name="gobbles.backend.redirect.url" value="http://rebuild3:8080"></property>
+    <property name="flash.compileViewers.off" value="true"></property>
+    <property name="softrax.billing.data.servlet.timeout" value="5000"></property>
+    <property name="base.tools" value="/home/buildacct/work/tools"></property>
+    <property name="player.as3.secure.origin.amf.url"
+              value="http://rebuild3:8080/services/messagebroker/amf"></property>
+    <property name="ivy.distrib.dir.ivy.instance" value="/home/buildacct/work/r1.20/dev/origin/distrib"></property>
+    <property name="env.PATH"
+              value="/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/opt/bin:/home/buildacct/bin"></property>
+    <property name="sun.boot.library.path" value="/usr/java/jdk1.6.0_07/jre/lib/i386"></property>
+    <property name="ant.file.team-city"
+              value="/home/buildacct/work/r1.20/dev/origin/tests/teamcity-build.xml"></property>
+    <property name="coherence.localstorage" value="true"></property>
+    <property name="ivy.dep.file.ivy.instance" value="ivy.xml"></property>
+    <property name="scissorhands.main.src"
+              value="/home/buildacct/work/r1.20/dev/origin/../scissorhands/main/src"></property>
+    <property name="xmaxwarns.arg" value="-Xmaxwarns 10000"></property>
+    <property name="upload.mdb.cdn.http" value="2"></property>
+    <property name="ivy.settings.url.ivy.instance"
+              value="file:/home/buildacct/work/r1.20/dev/ivysettings.xml"></property>
+    <property name="velocity.file.src" value="/home/buildacct/work/r1.20/dev/origin/templates"></property>
+    <property name="flash.compileMediaUtils.off" value="true"></property>
+    <property name="flexApp.endTag.testing"
+              value="&lt;test:FlexEventTest xmlns:test=&apos;com.brightcove.utils.flextest.*&apos;  visible=&apos;false&apos;/&gt; &lt;uitest:PathProducer xmlns:uitest=&apos;com.brightcove.utils.uitest.*&apos; mainView=&apos;{eval(&quot;_level0&quot;)}&apos;/&gt;  &lt;/mx:Application&gt;"></property>
+    <property name="manager.url" value="http://rebuild3:8080/manager"></property>
+    <property name="upload.dir.value" value="/home/buildacct/work/r1.20/temp/uploads"></property>
+    <property name="env.USER" value="buildacct"></property>
+    <property name="env.TEMP" value="/home/buildacct/temp/buildTmp"></property>
+    <property name="gobbles.edge.backend.crossdomain.url" value="http://rebuild3:38090"></property>
+    <property name="sdk.seed.dir" value="/home/buildacct/work/r1.20/dev/origin/api/sdk/seed"></property>
+    <property name="unison.dist" value="/home/buildacct/work/r1.20/dev/origin/build/unison-dist"></property>
+    <property name="xlint.arg" value="-Xlint:-unchecked"></property>
+    <property name="bctomcat.java.home" value="/usr/java/jdk1.6.0_07/jre"></property>
+    <property name="pods.dns.key" value="+UNFku8/headrPxPvvfJDw=="></property>
+    <property name="jetfire.upload.dir" value="/home/buildacct/work/r1.20/temp/uploads/jetfire"></property>
+    <property name="tc.p4.client" value="teamcity-dev-${env.COMPUTERNAME}"></property>
+    <property name="unison.test.flex.swf" value="unisontest_50.swf"></property>
+    <property name="adherence.version.number" value="0.01"></property>
+    <property name="viewer.build" value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/viewer"></property>
+    <property name="upload.default.cdn.http.username" value=""></property>
+    <property name="services.app.ver" value="1.0"></property>
+    <property name="syndicationflow.flex.swf" value="syndicationflow_app_50.swf"></property>
+    <property name="publishpod.url" value="/publishpod/pp.jsp"></property>
+    <property name="antiresource.locking.enabled" value="false"></property>
+    <property name="java.specification.name" value="Java Platform API Specification"></property>
+    <property name="browseragent" value=""></property>
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi"></property>
+    <property name="host.url" value="http://localhost:80"></property>
+    <property name="bctomcat.home" value="/home/buildacct/work/r1.20/dev/../usr-local/tomcat"></property>
+    <property name="tests.src" value="/home/buildacct/work/r1.20/dev/origin/tests/src/junit"></property>
+    <property name="pods.domains.link" value="link.$pubcode$.$zoneprefix$$zone$"></property>
+    <property name="output.dir" value="/home/buildacct/work/r1.20/dev/experience/tests/experienceT/bin"></property>
+    <property name="dtds.deploy.location" value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/dtds"></property>
+    <property name="upload.golden.src" value="p:/data-src/"></property>
+    <property name="ivy.default.always.check.exact.revision" value="false"></property>
+    <property name="player.as2.cgm.secure.amf.url" value="http://rebuild3:8080/services/amfgateway"></property>
+    <property name="gobbles.seed.bctomcat.server.port" value="38015"></property>
+    <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect"></property>
+    <property name="jetfire.bctomcat.jmx.port" value="59004"></property>
+    <property name="broot" value="/home/buildacct/work/r1.20/dev/origin/build"></property>
+    <property name="drm.db.type" value="oracle"></property>
+    <property name="ant.java.version" value="1.6"></property>
+    <property name="subdir" value="origin"></property>
+    <property name="transcoder.flix.pid.file" value="/var/run/flixd/flixd.pid"></property>
+    <property name="destination.jsp.build"
+              value="/home/buildacct/work/r1.20/dev/origin/../destination/build/destination-jsp-build"></property>
+    <property name="dashboard.default.url" value="http://rebuild3:28080"></property>
+    <property name="java.runtime.version.ivy.instance" value="1.6.0_07-b06"></property>
+    <property name="mediamanager.main.dir"
+              value="/home/buildacct/work/r1.20/dev/origin/../mediamanager/main"></property>
+    <property name="pods.remoteMaitred" value="false"></property>
+    <property name="tps.goku.log.archival.job.enabled" value="true"></property>
+    <property name="java.vendor.url.bug.ivy.instance" value="http://java.sun.com/cgi-bin/bugreport.cgi"></property>
+    <property name="tests.priority" value=""></property>
+    <property name="ivy.checksums.ivy.instance" value="sha1,md5"></property>
+    <property name="softrax.billing.data.file.import.job.enabled" value="true"></property>
+    <property name="hibernate.connection.password" value="hibuser3"></property>
+    <property name="upload.trans1.hostname" value="trans1-devel.vidmark.local"></property>
+    <property name="publisher.home" value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/console"></property>
+    <property name="transcoder.codec.tarball" value="essential-20071007.tar.bz2"></property>
+    <property name="console.test.dist" value="/home/buildacct/work/r1.20/dev/origin/build/console-test-dist"></property>
+    <property name="bc.adtrackserver.url" value="http://ad.doubleclick.net/N3876"></property>
+    <property name="java.vm.info.ivy.instance" value="mixed mode"></property>
+    <property name="flash.compileThemes.off" value="true"></property>
+    <property name="ivy.status.ivy.instance" value="integration"></property>
+    <property name="velocity.cache.enabled" value="false"></property>
+    <property name="geo.location.full.file.raw"
+              value="/home/buildacct/work/r1.20/dev/shared/java/geo/src/war/WEB-INF//IPCountry.csv"></property>
+    <property name="jetfire.url" value="http://rebuild3:58080"></property>
+    <property name="mayhem.subdirs"
+              value="shared,origin-client,dashboard,gobbles,reporting/common,reporting/tps,reporting/hadoop,reporting/goku"></property>
+    <property name="env.TEAMCITY_BUILDCONF_NAME" value="r1.20 stage2 tests"></property>
+    <property name="experience.designtime.swc"
+              value="/home/buildacct/work/r1.20/dev/origin/../experience/main/swc/designtime/bin/designtime.swc"></property>
+    <property name="ivy.cache.ttl.default" value="10s"></property>
+    <property name="flex.compile.arg" value=""></property>
+    <property name="region.name" value="us"></property>
+    <property name="upload.trans2.enabled" value="1"></property>
+    <property name="upload.default.cdn.flv.urlbase" value="rtmp://qacdn2.qanet.local"></property>
+    <property name="transcoder.flix.install.dir" value="/usr/local/brightcove/flix-8.0.14.0"></property>
+    <property name="ant.file.quality" value="/home/buildacct/work/r1.20/dev/origin/quality-build.xml"></property>
+    <property name="shared.content.enabled.accounts" value=""></property>
+    <property name="publishpod.mac.install.url" value="/publishpod/bin/BrightcovePublishPod.dmg"></property>
+    <property name="basedir.ivy.instance" value="/home/buildacct/work/r1.20/dev/origin"></property>
+    <property name="ant.hibernate.properties" value="/home/buildacct/work/r1.20/dev/origin/build.properties"></property>
+    <property name="api.host.name" value="rebuild3"></property>
+    <property name="gobbles.backend.crossdomain.url" value="http://rebuild3:8080"></property>
+    <property name="java.io.tmpdir.ivy.instance" value="/tmp"></property>
+    <property name="locale2" value="${src.locale2}"></property>
+    <property name="tomcat.local" value="true"></property>
+    <property name="upload.default.cdn.flv.provider" value="21"></property>
+    <property name="bctomcat.server.http.maxSpareThreads" value="75"></property>
+    <property name="tests.actionscript.results"
+              value="/home/buildacct/work/r1.20/dev/origin/build/tests/actionscript/test-results"></property>
+    <property name="dbclk.dfp.server" value="dfpapitest.doubleclick.net"></property>
+    <property name="ivy.lib.dir.ivy.instance" value="/home/buildacct/work/r1.20/dev/origin/lib"></property>
+    <property name="adapi.cdn.build" value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/adapi"></property>
+    <property name="java.home.ivy.instance" value="/usr/java/jdk1.6.0_07/jre"></property>
+    <property name="bc.impressionserver.url" value="http://localhost:8080/ads/impressionserver"></property>
+    <property name="cdn.dirname" value="SomeApplication"></property>
+    <property name="jetfire.bctomcat.snmp.trap" value="6162"></property>
+    <property name="hibernate.connection.url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+    <property name="tests.flexrunner.src" value="/home/buildacct/work/r1.20/dev/origin/tests/src/flexrunner"></property>
+    <property name="ant.project.name" value="brightcove-origin"></property>
+    <property name="compile.input.file" value="ExperienceTestRunner.mxml"></property>
+    <property name="maitred.bctomcat.snmp.port" value="20163"></property>
+    <property name="tps.reporting.state.db.connection.username" value="testuser"></property>
+    <property name="ivy.basedir.ivy.instance" value="/home/buildacct/work/r1.20/dev/origin"></property>
+    <property name="tps.goku.local.dir" value="/home/buildacct/work/r1.20/temp/reporting/tps/raw_logs/goku"></property>
+    <property name="build.addev.src"
+              value="/home/buildacct/work/r1.20/dev/origin/build/src/experience/addev/"></property>
+    <property name="python.home" value="c:/Python25"></property>
+    <property name="jimmy.java.home" value=""></property>
+    <property name="ant.file.swf" value="/home/buildacct/work/r1.20/dev/flexshared/ant/base-swf-build.xml"></property>
+    <property name="gobbles.edge.backend.redirect.url" value="http://rebuild3:38090"></property>
+    <property name="transcoder.testing.callback.host.port" value="rebuild3:8080"></property>
+    <property name="application.close.tag" value="&lt;/mx:Application&gt;"></property>
+    <property name="java.io.tmpdir" value="/tmp"></property>
+    <property name="mediamanager.main.locale"
+              value="/home/buildacct/work/r1.20/dev/origin/../mediamanager/main/locale"></property>
+    <property name="experiencemanager.tests.src"
+              value="/home/buildacct/work/r1.20/dev/origin/../experiencemanager/tests/src"></property>
+    <property name="syndication_management.flex.swf" value="syndication_management_app.swf"></property>
+    <property name="softrax.bctomcat.server.http.port" value="58080"></property>
+    <property name="publisher.build" value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/console"></property>
+    <property name="base.common" value="/home/buildacct/work/r1.20/dev/origin/common"></property>
+    <property name="dashboard.bctomcat.snmp.trap" value="3162"></property>
+    <property name="flexunit.output.file"
+              value="/home/buildacct/work/r1.20/dev/experience/tests/experienceT/bin/ExperienceFlexUnit_50.swf"></property>
+    <property name="php.sdk.build.dir" value="/home/buildacct/work/r1.20/dev/origin/build/api/php"></property>
+    <property name="cobertura.dir" value="/home/buildacct/work/tools/cobertura/1.9"></property>
+    <property name="player.as2.origin.amf.url" value="http://rebuild3:8080/services/amfgateway"></property>
+    <property name="ivy.conf.file.ivy.instance" value="/home/buildacct/work/r1.20/dev/ivysettings.xml"></property>
+    <property name="os.arch" value="i386"></property>
+    <property name="adswf.cdn.build" value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/adswf"></property>
+    <property name="ivy.revision" value="working@rebuild3"></property>
+    <property name="transcoder.flix.basename" value="flix-engine-installer-linux-8.0.14.0"></property>
+    <property name="upload.finger2.enabled" value="1"></property>
+    <property name="line.separator" value="
+"></property>
+    <property name="custom.host.help.url"
+              value="http://studio.brightcove.com/library/help/custom-domain-urls.cfm"></property>
+    <property name="transcoder.flix.auth.dir" value="/usr/local/brightcove/flix-8.0.14.0/.on2"></property>
+    <property name="adherence.build" value="/home/buildacct/work/r1.20/dev/origin/build/adherence-build"></property>
+    <property name="platform.player.archive.zip.dir" value="c:/as3_player_backup"></property>
+    <property name="maitred.bctomcat.server.port" value="20005"></property>
+    <property name="tests.aftermix.srcdir" value="/home/buildacct/work/r1.20/temp/Mixes"></property>
+    <property name="ivy.deliver.ivy.pattern"
+              value="/home/buildacct/work/r1.20/dev/origin/distrib/[type]s/[artifact]-[revision](-[classifier]).[ext]"></property>
+    <property name="user.name.ivy.instance" value="buildacct"></property>
+    <property name="upload.default.cdn.http.directory" value=""></property>
+    <property name="upload.trans2.hostname" value="trans1-devel.vidmark.local"></property>
+    <property name="ivy.tools.home" value="/home/buildacct/work/tools"></property>
+    <property name="build.java.src" value="/home/buildacct/work/r1.20/dev/origin/build/src/java"></property>
+    <property name="DSTAMP" value="20090325"></property>
+    <property name="fms.nas2" value="/mnt/nas2/production"></property>
+    <property name="playerapi.home.zip"
+              value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/playerapi/PlayerAPIExamples.zip"></property>
+    <property name="fms.nas1" value="/mnt/nas1/production"></property>
+    <property name="build.flex.config" value="/home/buildacct/work/r1.20/dev/origin/build/config/flex"></property>
+    <property name="upload.default.cdn.crossdomain"
+              value="/home/buildacct/work/r1.20/dev/origin/config/services/WEB-INF/media-crossdomain.xml"></property>
+    <property name="playerapi.cdn.build"
+              value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/playerapi"></property>
+    <property name="jmeter.original" value="/home/buildacct/work/tools/jmeter/2.3.2"></property>
+    <property name="gobbles.backend.amf.url" value="http://rebuild3:8080"></property>
+    <property name="java.version.ivy.instance" value="1.6.0_07"></property>
+    <property name="gobbles.seed.bctomcat.server.http.host" value="rebuild3"></property>
+    <property name="maitred.hibernate.db.url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+    <property name="java.ext.dirs" value="/usr/java/jdk1.6.0_07/jre/lib/ext:/usr/java/packages/lib/ext"></property>
+    <property name="experiencemanager.main.src"
+              value="/home/buildacct/work/r1.20/dev/origin/../experiencemanager/main/src"></property>
+    <property name="omniture.enabled" value="true"></property>
+    <property name="upload.default.cdn.flv.directory" value="/my/flv/media"></property>
+    <property name="sun.io.unicode.encoding.ivy.instance" value="UnicodeLittle"></property>
+    <property name="upload.trans1.directory" value=""></property>
+    <property name="dbIsOracle" value=""></property>
+    <property name="services.app.path" value="/services"></property>
+    <property name="mediamanager.main.tests.src"
+              value="/home/buildacct/work/r1.20/dev/origin/../mediamanager/main/test"></property>
+    <property name="ivy.default.settings.dir.ivy.instance"
+              value="jar:file:/home/buildacct/work/tools/ivy/2.0.0/ivy-2.0.0.jar!/org/apache/ivy/core/settings"></property>
+    <property name="use.remote.browsers" value="false"></property>
+    <property name="services.url" value="http://rebuild3:8080/services"></property>
+    <property name="api.dir" value="/home/buildacct/work/r1.20/dev/origin/api"></property>
+    <property name="gobbles.aws.backend.crossdomain.url" value="http://rebuild3:38090"></property>
+    <property name="touch.time" value="03/25/2009 03:54 PM"></property>
+    <property name="dashboard.admin.url.mgr.ad" value="advertising"></property>
+    <property name="jetfire.passphrase" value="qwert"></property>
+    <property name="java.vm.specification.version.ivy.instance" value="1.0"></property>
+    <property name="tomcat.cmd.start" value="/home/buildacct/work/r1.20/tomcat/bin/startup.sh"></property>
+    <property name="tests.adtraffic.src" value="/home/buildacct/work/r1.20/dev/origin/tests/src/adtraffic"></property>
+    <property name="destination.actionscript.src"
+              value="/home/buildacct/work/r1.20/dev/origin/../destination/src/actionscript"></property>
+    <property name="ocp.dir" value="/home/buildacct/work/r1.20/dev/origin/config/build"></property>
+    <property name="tools.src" value="/home/buildacct/work/tools/brightcove/src"></property>
+    <property name="mediamanager.main.web"
+              value="/home/buildacct/work/r1.20/dev/origin/../mediamanager/main/web"></property>
+    <property name="mediamanager.common.dir"
+              value="/home/buildacct/work/r1.20/dev/origin/../mediamanager/common"></property>
+    <property name="tests.ext.build" value="/home/buildacct/work/r1.20/dev/origin/build/tests/ext/build"></property>
+    <property name="compile.debug" value="on"></property>
+    <property name="ivy.project.dir" value="/home/buildacct/work/r1.20/dev/origin"></property>
+    <property name="upload.default.cdn.flv.ttlenabled" value="1"></property>
+    <property name="path.separator" value=":"></property>
+    <property name="java.library.path.ivy.instance"
+              value="/usr/java/jdk1.6.0_07/jre/lib/i386/server:/usr/java/jdk1.6.0_07/jre/lib/i386:/usr/java/jdk1.6.0_07/jre/../lib/i386::.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:/usr/java/packages/lib/i386:/lib:/usr/lib"></property>
+    <property name="dbIsMySQL" value="#"></property>
+    <property name="adherence.home" value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/adherence"></property>
+    <property name="abacus.version.number" value="0.01"></property>
+    <property name="brightcove.category.url" value="http://www.brightcove.com/category.jsp"></property>
+    <property name="brightcove.base.install.dir" value="/usr/local/brightcove"></property>
+    <property name="java.vm.vendor" value="Sun Microsystems Inc."></property>
+    <property name="scissorhands.dir" value="/home/buildacct/work/r1.20/dev/origin/../scissorhands"></property>
+    <property name="adherence.test.home"
+              value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/testableadherence"></property>
+    <property name="upload.drm1.directory" value=""></property>
+    <property name="platform.player.debug" value="false"></property>
+    <property name="abacus.dist" value="/home/buildacct/work/r1.20/dev/origin/build/abacus-dist"></property>
+    <property name="scissorhands.tests.dir"
+              value="/home/buildacct/work/r1.20/dev/origin/../scissorhands/tests"></property>
+    <property name="file.encoding" value="UTF-8"></property>
+    <property name="tps.bctomcat.server.port" value="48005"></property>
+    <property name="ad.assets.src" value="p:/data-src/ads-deploy-assets"></property>
+    <property name="bctomcat.catalina.opt.Xmx" value="512m"></property>
+    <property name="tomcat.jmx.host" value="rebuild3:9004"></property>
+    <property name="ivy.dev.dir" value="/home/buildacct/work/r1.20/dev"></property>
+    <property name="search.AMF.url" value="http://rebuild3:8080/services/amfgateway"></property>
+    <property name="bctomcat.catalina.opt.Xms" value="512m"></property>
+    <property name="pods.dns.address" value="172.20.7.64"></property>
+    <property name="sdk.facades.read"
+              value="api.brightcove.catalog.VideoFacadeRead,api.brightcove.catalog.PlaylistFacadeRead,api.brightcove.catalog.AudioFacadeRead,api.brightcove.catalog.AudioPlaylistFacadeRead"></property>
+    <property name="tests.actionscript.build"
+              value="/home/buildacct/work/r1.20/dev/origin/build/tests/actionscript/build"></property>
+    <property name="lucene.move" value="/bin/mv"></property>
+    <property name="gobbles.bctomcat.snmp.port" value="4163"></property>
+    <property name="link.url.host" value="http://rebuild3:8080"></property>
+    <property name="pods.dns.keyName" value="ddns_key"></property>
+    <property name="java.ext.dirs.ivy.instance"
+              value="/usr/java/jdk1.6.0_07/jre/lib/ext:/usr/java/packages/lib/ext"></property>
+    <property name="destination.player.debug" value="false"></property>
+    <property name="sdk.tests.dir" value="/home/buildacct/work/r1.20/dev/origin/api/sdk/tests"></property>
+    <property name="webtrends.host" value="wt01devlma"></property>
+    <property name="tps.goku.discovery.dir"
+              value="/home/buildacct/work/r1.20/temp/reporting/tps/raw_logs/goku_staging"></property>
+    <property name="goku.url" value="http://goku.brightcove.com/1pix.gif"></property>
+    <property name="ivy.deps.changed" value="true"></property>
+    <property name="force.asdto.compile" value="false"></property>
+    <property name="softrax.db.connection.driver_class" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
+    <property name="checkout.host" value="rebuild3"></property>
+    <property name="env.INPUTRC" value="/etc/inputrc"></property>
+    <property name="global.config.override.file"
+              value="/home/buildacct/work/r1.20/dev/origin/config/services/WEB-INF/LocalConfig.properties"></property>
+    <property name="cache.enabled.false" value="#"></property>
+    <property name="build.common" value="/home/buildacct/work/r1.20/dev/origin/build/common"></property>
+    <property name="player.as3.secure.services.url" value="http://rebuild3:8080/services"></property>
+    <property name="java.class.version.ivy.instance" value="50.0"></property>
+    <property name="scissorhands.debug" value="false"></property>
+    <property name="admanager.tests.dir" value="/home/buildacct/work/r1.20/dev/origin/../admanager/tests"></property>
+    <property name="publishpod.win.install.url" value="/publishpod/bin/BrightcovePublishPodSetup.msi"></property>
+    <property name="synmanagement.dist"
+              value="/home/buildacct/work/r1.20/dev/origin/build/syndication_management-dist"></property>
+    <property name="tps.summary.output.dir" value="/home/buildacct/work/r1.20/temp/reporting/tps/summaries"></property>
+    <property name="toolbelt.genders.home" value="/usr/local/brightcove/genders"></property>
+    <property name="destination.home" value="/home/buildacct/work/r1.20/dev/origin/../destination"></property>
+    <property name="transcoder.codec.version" value="20071007"></property>
+    <property name="adtranslator.build.zip"
+              value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/adtranslator/AdTranslatorDevKit.zip"></property>
+    <property name="env.LD_LIBRARY_PATH"
+              value="/usr/java/jdk1.6.0_07/jre/lib/i386/server:/usr/java/jdk1.6.0_07/jre/lib/i386:/usr/java/jdk1.6.0_07/jre/../lib/i386::.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:."></property>
+    <property name="softrax.db.connection.password" value="Password!"></property>
+    <property name="scissorhands.main.locale"
+              value="/home/buildacct/work/r1.20/dev/origin/../scissorhands/main/locale"></property>
+    <property name="gobbles.bctomcat.server.http.maxSpareThreads" value="300"></property>
+    <property name="softrax.bctomcat.debug.port" value="59445"></property>
+    <property name="ivy.basedir" value="/home/buildacct/work/r1.20/dev/origin"></property>
+    <property name="tests.selenium.build"
+              value="/home/buildacct/work/r1.20/dev/origin/build/tests/selenium/build"></property>
+    <property name="user.country" value="US"></property>
+    <property name="python.exe" value="python"></property>
+    <property name="tomcat.cmd.stop" value="/home/buildacct/work/r1.20/tomcat/bin/shutdown.sh"></property>
+    <property name="java.class.version" value="50.0"></property>
+    <property name="api.lib.dir" value="/home/buildacct/work/r1.20/dev/origin/api/lib"></property>
+    <property name="ant.file.origin-asdto" value="/home/buildacct/work/r1.20/dev/origin/asdto-build.xml"></property>
+    <property name="transcoder.flix.java.jar"
+              value="/home/buildacct/work/tools/flixengine/8.0.14.0/flixengine2.jar"></property>
+    <property name="adherence.test.flex.swf" value="adherence50.swf"></property>
+    <property name="build.generated.as3"
+              value="/home/buildacct/work/r1.20/dev/origin/build/src/generated/as3"></property>
+    <property name="pods.maitredEndpointUrl" value="http://rebuild3:8080/maitred/userDirectory.csv"></property>
+    <property name="java.vm.info" value="mixed mode"></property>
+    <property name="upload.finger1.active" value="1"></property>
+    <property name="upload.default.cdn.flv.dir" value=""></property>
+    <property name="env.MAIL" value="/var/spool/mail/buildacct"></property>
+    <property name="env.TEAMCITY_VERSION" value="4.1 EAP (build 8804)"></property>
+    <property name="console.test.flex.swf" value="console50.swf"></property>
+    <property name="mediaUtils.dist" value="/home/buildacct/work/r1.20/dev/origin/build/mediaUtils-dist"></property>
+    <property name="os.name" value="Linux"></property>
+    <property name="tps.bctomcat.snmp.port" value="5163"></property>
+    <property name="tests.bugged.only" value="false"></property>
+    <property name="base.tests.src.flex2" value="/home/buildacct/work/r1.20/dev/origin/tests/src/flex2"></property>
+    <property name="upload.finger1.username" value="tom-skanky1"></property>
+    <property name="docs.dir" value="/home/buildacct/work/r1.20/dev/origin/../docs"></property>
+    <property name="lucene.root.directory" value="/home/buildacct/work/r1.20/temp/lucene/index"></property>
+    <property name="flasheventserver.port" value="7363"></property>
+    <property name="ivy.default.conf.dir.ivy.instance"
+              value="jar:file:/home/buildacct/work/tools/ivy/2.0.0/ivy-2.0.0.jar!/org/apache/ivy/core/settings"></property>
+    <property name="destination.build" value="/home/buildacct/work/r1.20/dev/origin/../destination/build"></property>
+    <property name="gobbles.edge.backend.api.url" value="http://rebuild3:38090"></property>
+    <property name="api.host.port" value=":8080"></property>
+    <property name="federated.video.ui.swf" value="/viewer/federated_video_ui_50.swf"></property>
+    <property name="com.mchange.v2.log.MLog" value="com.mchange.v2.log.FallbackMLog"></property>
+    <property name="build.actionscript.src"
+              value="/home/buildacct/work/r1.20/dev/origin/build/src/actionscript"></property>
+    <property name="tests.stages" value=""></property>
+    <property name="ivy.default.ivy.user.dir.ivy.instance" value="/home/buildacct/.ivy2"></property>
+    <property name="pods.domains.cached" value="c.$pubcode$.$zoneprefix$$zone$"></property>
+    <property name="lucene.copy" value="/bin/cp -lR"></property>
+    <property name="toolbelt.output.dir" value="/home/buildacct/work/r1.20/temp/toolbelt"></property>
+    <property name="bctp.dir" value="/home/buildacct/work/r1.20/dev/origin/config/build"></property>
+    <property name="build.coherence" value="/home/buildacct/work/r1.20/dev/origin/build/coherence"></property>
+    <property name="ocp.parentdir" value="/home/buildacct/work/r1.20/dev/origin/config"></property>
+    <property name="geo.location.full.file"
+              value="/home/buildacct/work/r1.20/dev/shared/java/geo/src/war/WEB-INF/IPCountry.csv"></property>
+    <property name="ivy.conf.dir" value="/home/buildacct/work/r1.20/dev"></property>
+    <property name="env.BUILD_NUMBER" value="413"></property>
+    <property name="api.logging.dump.dir" value="/home/buildacct/work/r1.20/temp/api-logging"></property>
+    <property name="velocity.templates.dir" value="/home/buildacct/work/r1.20/dev/origin/templates"></property>
+    <property name="user.timezone.ivy.instance" value="America/New_York"></property>
+    <property name="tomcat.version" value="5.5.20"></property>
+    <property name="toolbelt.jimmy.home" value="/home/buildacct/work/r1.20/dev/../usr-local/jimmy"></property>
+    <property name="upload.transcode.enabled" value="false"></property>
+    <property name="java.class.path.ivy.instance"
+              value="/opt/packages/ant/lib/ant-launcher.jar:/opt/packages/ant/lib/ant-netrexx.jar:/opt/packages/ant/lib/ant-stylebook.jar:/opt/packages/ant/lib/ant-jmf.jar:/opt/packages/ant/lib/ant-apache-resolver.jar:/opt/packages/ant/lib/ant-apache-bcel.jar:/opt/packages/ant/lib/ant-antlr.jar:/opt/packages/ant/lib/ant-commons-net.jar:/opt/packages/ant/lib/ant-testutil.jar:/opt/packages/ant/lib/ant-jdepend.jar:/opt/packages/ant/lib/ant-trax.jar:/opt/packages/ant/lib/ant-apache-regexp.jar:/opt/packages/ant/lib/ant-javamail.jar:/opt/packages/ant/lib/ant-apache-oro.jar:/opt/packages/ant/lib/xml-apis.jar:/opt/packages/ant/lib/ant.jar:/opt/packages/ant/lib/ant-nodeps.jar:/opt/packages/ant/lib/ant-apache-log4j.jar:/opt/packages/ant/lib/ant-commons-logging.jar:/opt/packages/ant/lib/ant-junit.jar:/opt/packages/ant/lib/xercesImpl.jar:/opt/packages/ant/lib/ant-weblogic.jar:/opt/packages/ant/lib/ant-starteam.jar:/opt/packages/ant/lib/ant-launcher.jar:/opt/packages/ant/lib/ant-jsch.jar:/opt/packages/ant/lib/ant-jai.jar:/opt/packages/ant/lib/ant-swing.jar:/opt/packages/ant/lib/ant-apache-bsf.jar:/usr/java/jdk1.6.0_07/lib/tools.jar"></property>
+    <property name="java.vm.specification.vendor.ivy.instance" value="Sun Microsystems Inc."></property>
+    <property name="transcoder.flix.install.dir.symlink" value="/usr/local/brightcove/flix"></property>
+    <property name="sql.delimitertype" value="row"></property>
+    <property name="upload.default.cdn.flv" value="1"></property>
+    <property name="ivy.build.artifacts.dir.ivy.instance"
+              value="/home/buildacct/work/r1.20/dev/origin/build/artifacts"></property>
+    <property name="ivy.default.ivy.user.dir" value="/home/buildacct/.ivy2"></property>
+    <property name="fail.undeploy.failures" value="true"></property>
+    <property name="oracle.express.home" value="${env.ORACLE_HOME}"></property>
+    <property name="upload.finger1.capacity" value="2"></property>
+    <property name="db.type" value="oracle"></property>
+    <property name="tangosol.coherence.hibernate.cacheconfig" value="coherence-cache-config.xml"></property>
+    <property name="gobbles.seed.bctomcat.jmx.port" value="39014"></property>
+    <property name="dashboard.bctomcat.server.port" value="28005"></property>
+    <property name="java.class.path"
+              value="/home/buildacct/work/r1.20/dev/origin/build/config/services/WEB-INF/classes:/home/buildacct/work/r1.20/dev/origin/build/tests/hibernate:/home/buildacct/work/r1.20/dev/origin/build/tests/junit/build:/home/buildacct/work/r1.20/dev/origin/build/tests/common/build:/home/buildacct/work/r1.20/dev/origin/build/tests/utils/build:/home/buildacct/work/r1.20/dev/origin/build/tests/actionscript/build:/home/buildacct/work/r1.20/dev/origin/build/tests/flash/build:/home/buildacct/work/r1.20/dev/origin/build/build:/home/buildacct/work/r1.20/dev/origin/lib/OpenForecast-0.4.0.jar:/home/buildacct/work/r1.20/dev/origin/lib/Verisign.jar:/home/buildacct/work/r1.20/dev/origin/lib/activation.jar:/home/buildacct/work/r1.20/dev/origin/lib/antlr-2.7.5H3.jar:/home/buildacct/work/r1.20/dev/origin/lib/asm-attrs.jar:/home/buildacct/work/r1.20/dev/origin/lib/asm.jar:/home/buildacct/work/r1.20/dev/origin/lib/aspectjrt.jar:/home/buildacct/work/r1.20/dev/origin/lib/aspectjweaver.jar:/home/buildacct/work/r1.20/dev/origin/lib/axis.jar:/home/buildacct/work/r1.20/dev/origin/lib/backport-util-concurrent.jar:/home/buildacct/work/r1.20/dev/origin/lib/bcmail-jdk14-128.jar:/home/buildacct/work/r1.20/dev/origin/lib/bcprov-jdk16-137.jar:/home/buildacct/work/r1.20/dev/origin/lib/c3p0-0.9.0.2.jar:/home/buildacct/work/r1.20/dev/origin/lib/castor-0.9.3.21.jar:/home/buildacct/work/r1.20/dev/origin/lib/cfgatewayadapter.jar:/home/buildacct/work/r1.20/dev/origin/lib/cglib-2.1.3.jar:/home/buildacct/work/r1.20/dev/origin/lib/coherence-hibernate.jar:/home/buildacct/work/r1.20/dev/origin/lib/coherence.jar:/home/buildacct/work/r1.20/dev/origin/lib/commons-beanutils.jar:/home/buildacct/work/r1.20/dev/origin/lib/commons-codec-1.3.jar:/home/buildacct/work/r1.20/dev/origin/lib/commons-collections-2.1.1.jar:/home/buildacct/work/r1.20/dev/origin/lib/commons-dbcp-1.1.jar:/home/buildacct/work/r1.20/dev/origin/lib/commons-digester.jar:/home/buildacct/work/r1.20/dev/origin/lib/commons-discovery.jar:/home/buildacct/work/r1.20/dev/origin/lib/commons-httpclient-3.0.1.jar:/home/buildacct/work/r1.20/dev/origin/lib/commons-lang-2.3.jar:/home/buildacct/work/r1.20/dev/origin/lib/commons-modeler.jar:/home/buildacct/work/r1.20/dev/origin/lib/commons-net-1.4.0.jar:/home/buildacct/work/r1.20/dev/origin/lib/contenttools.jar:/home/buildacct/work/r1.20/dev/origin/lib/cos.jar:/home/buildacct/work/r1.20/dev/origin/lib/dartapi.jar:/home/buildacct/work/r1.20/dev/origin/lib/dist-objects.jar:/home/buildacct/work/r1.20/dev/origin/lib/dom4j-1.6.jar:/home/buildacct/work/r1.20/dev/origin/lib/ehcache-1.2.3.jar:/home/buildacct/work/r1.20/dev/origin/lib/ejb-3.0-edr1.jar:/home/buildacct/work/r1.20/dev/origin/lib/facebook.jar:/home/buildacct/work/r1.20/dev/origin/lib/flex-messaging-common.jar:/home/buildacct/work/r1.20/dev/origin/lib/flex-messaging-core.jar:/home/buildacct/work/r1.20/dev/origin/lib/flex-messaging-opt.jar:/home/buildacct/work/r1.20/dev/origin/lib/flex-messaging-proxy.jar:/home/buildacct/work/r1.20/dev/origin/lib/flex-messaging-remoting.jar:/home/buildacct/work/r1.20/dev/origin/lib/gdata-blogger-2.0.jar:/home/buildacct/work/r1.20/dev/origin/lib/gdata-core-1.0.jar:/home/buildacct/work/r1.20/dev/origin/lib/gdata-media-1.0.jar:/home/buildacct/work/r1.20/dev/origin/lib/geodirectoryapi.jar:/home/buildacct/work/r1.20/dev/origin/lib/groovy-all-1.5.6.jar:/home/buildacct/work/r1.20/dev/origin/lib/hibernate-commons-annotations.jar:/home/buildacct/work/r1.20/dev/origin/lib/hibernate-validator.jar:/home/buildacct/work/r1.20/dev/origin/lib/hibernate3.jar:/home/buildacct/work/r1.20/dev/origin/lib/jakarta-oro.jar:/home/buildacct/work/r1.20/dev/origin/lib/javassist.jar:/home/buildacct/work/r1.20/dev/origin/lib/jaxb-api.jar:/home/buildacct/work/r1.20/dev/origin/lib/jaxb-impl.jar:/home/buildacct/work/r1.20/dev/origin/lib/jaxb-libs.jar:/home/buildacct/work/r1.20/dev/origin/lib/jaxen-1.1-beta-4.jar:/home/buildacct/work/r1.20/dev/origin/lib/jaxrpc.jar:/home/buildacct/work/r1.20/dev/origin/lib/jcert.jar:/home/buildacct/work/r1.20/dev/origin/lib/jdbc2_0-stdext.jar:/home/buildacct/work/r1.20/dev/origin/lib/jgroups-2.2.7.jar:/home/buildacct/work/r1.20/dev/origin/lib/jnet.jar:/home/buildacct/work/r1.20/dev/origin/lib/jsch-0.1.28.jar:/home/buildacct/work/r1.20/dev/origin/lib/json.jar:/home/buildacct/work/r1.20/dev/origin/lib/jsonrpc-1.0.jar:/home/buildacct/work/r1.20/dev/origin/lib/jsse.jar:/home/buildacct/work/r1.20/dev/origin/lib/lucene-analyzers-2.3.2.jar:/home/buildacct/work/r1.20/dev/origin/lib/lucene-core-2.3.2.jar:/home/buildacct/work/r1.20/dev/origin/lib/lucene-misc-2.3.2.jar:/home/buildacct/work/r1.20/dev/origin/lib/mail.jar:/home/buildacct/work/r1.20/dev/origin/lib/mp3spi1.9.4.jar:/home/buildacct/work/r1.20/dev/origin/lib/nagios_bc.jar:/home/buildacct/work/r1.20/dev/origin/lib/netsuite-objects.jar:/home/buildacct/work/r1.20/dev/origin/lib/netsuite2_5.jar:/home/buildacct/work/r1.20/dev/origin/lib/ojdbc6.jar:/home/buildacct/work/r1.20/dev/origin/lib/paypal_base.jar:/home/buildacct/work/r1.20/dev/origin/lib/paypal_stubs.jar:/home/buildacct/work/r1.20/dev/origin/lib/quartz.jar:/home/buildacct/work/r1.20/dev/origin/lib/relaxngDatatype.jar:/home/buildacct/work/r1.20/dev/origin/lib/rest-objects.jar:/home/buildacct/work/r1.20/dev/origin/lib/rss-objects.jar:/home/buildacct/work/r1.20/dev/origin/lib/saaj.jar:/home/buildacct/work/r1.20/dev/origin/lib/sforce.jar:/home/buildacct/work/r1.20/dev/origin/lib/taglibs-cache.jar:/home/buildacct/work/r1.20/dev/origin/lib/tangosol.jar:/home/buildacct/work/r1.20/dev/origin/lib/urlrewrite-2.6.0.jar:/home/buildacct/work/r1.20/dev/origin/lib/velocity-1.4.jar:/home/buildacct/work/r1.20/dev/origin/lib/velocity-tools-1.2.jar:/home/buildacct/work/r1.20/dev/origin/lib/ws-commons-util-1.0.1.jar:/home/buildacct/work/r1.20/dev/origin/lib/wsdl4j-1.5.1.jar:/home/buildacct/work/r1.20/dev/origin/lib/xerces-2.6.2.jar:/home/buildacct/work/r1.20/dev/origin/lib/xmlrpc-client-3.0.jar:/home/buildacct/work/r1.20/dev/origin/lib/xmlrpc-common-3.0.jar:/home/buildacct/work/r1.20/dev/origin/lib/xsdlib.jar:/home/buildacct/work/r1.20/dev/origin/devlib/brightcove-generated.jar:/home/buildacct/work/r1.20/dev/origin/devlib/cacheomatic.jar:/home/buildacct/work/r1.20/dev/origin/devlib/hibernate-tools.jar:/home/buildacct/work/r1.20/dev/origin/devlib/jvyaml.jar:/home/buildacct/work/r1.20/tomcat/common/lib/commons-el.jar:/home/buildacct/work/r1.20/tomcat/common/lib/commons-logging-1.0.4.jar:/home/buildacct/work/r1.20/tomcat/common/lib/concurrent.jar:/home/buildacct/work/r1.20/tomcat/common/lib/connector-1_5.jar:/home/buildacct/work/r1.20/tomcat/common/lib/howl.jar:/home/buildacct/work/r1.20/tomcat/common/lib/jasper-compiler-jdt.jar:/home/buildacct/work/r1.20/tomcat/common/lib/jasper-compiler.jar:/home/buildacct/work/r1.20/tomcat/common/lib/jasper-runtime.jar:/home/buildacct/work/r1.20/tomcat/common/lib/jgroups.jar:/home/buildacct/work/r1.20/tomcat/common/lib/jotm.jar:/home/buildacct/work/r1.20/tomcat/common/lib/jotm_jrmp_stubs.jar:/home/buildacct/work/r1.20/tomcat/common/lib/jsp-api.jar:/home/buildacct/work/r1.20/tomcat/common/lib/jstl.jar:/home/buildacct/work/r1.20/tomcat/common/lib/jta-spec1_0_1.jar:/home/buildacct/work/r1.20/tomcat/common/lib/jts1_0.jar:/home/buildacct/work/r1.20/tomcat/common/lib/log4j-1.2.15.jar:/home/buildacct/work/r1.20/tomcat/common/lib/mysql-connector-java-5.0.8-bin.jar:/home/buildacct/work/r1.20/tomcat/common/lib/naming-factory-dbcp.jar:/home/buildacct/work/r1.20/tomcat/common/lib/naming-factory.jar:/home/buildacct/work/r1.20/tomcat/common/lib/naming-resources.jar:/home/buildacct/work/r1.20/tomcat/common/lib/objectweb-datasource.jar:/home/buildacct/work/r1.20/tomcat/common/lib/ow_carol.jar:/home/buildacct/work/r1.20/tomcat/common/lib/servlet-api.jar:/home/buildacct/work/r1.20/tomcat/common/lib/standard.jar:/home/buildacct/work/r1.20/tomcat/common/lib/xapool.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/aopalliance.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/astranslator.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/bc-common.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/brightcove-amf-openamf.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/brightcove-geo.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/commons-pool.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/dnsjava.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/maitred-client.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/maitred-serializer.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/openamf.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/quovaclient.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/quovacommon.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/spring-aop.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/spring-beans.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/spring-context.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/spring-core.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/spring-jdbc.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/spring-orm.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/spring-tx.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/spring-web.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-lib/spring-webmvc.jar:/home/buildacct/work/tools/cobertura/1.9/lib/asm-2.2.1.jar:/home/buildacct/work/tools/cobertura/1.9/lib/asm-tree-2.2.1.jar:/home/buildacct/work/tools/cobertura/1.9/lib/cobertura-1.9.jar:/home/buildacct/work/tools/cobertura/1.9/lib/jakarta-oro-2.0.8.jar:/home/buildacct/work/tools/cobertura/1.9/lib/log4j-1.2.9.jar:/home/buildacct/work/tools/clover-ant/2.4.2/lib/clover.jar:/home/buildacct/work/tools/JUnit/4.5/junit-4.5-src.jar:/home/buildacct/work/tools/JUnit/4.5/junit-4.5.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/MockFtpServer-1.2.4.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/Tidy.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/brightcove_common.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/brightcove_read_library.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/brightcove_write_library.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/commons-beanutils-1.7.0.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/commons-digester.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/dtdparser121.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/hamcrest-library-1.1.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/httpunit.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/jmock-2.4.0.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/jmock-junit4-2.4.0.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/objenesis-1.0.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/subetha-smtp.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/subetha-wiser.jar:/home/buildacct/work/r1.20/dev/origin/tests/lib/xmlunit1.0.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-test-lib/bc-common-test.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-test-lib/brightcove-amf-openamf-test.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-test-lib/brightcove-geo-test.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-test-lib/selenium-java-client-driver.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-test-lib/selenium-server.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-test-lib/spring-aop.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-test-lib/spring-beans.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-test-lib/spring-context.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-test-lib/spring-core.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-test-lib/spring-jdbc.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-test-lib/spring-orm.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-test-lib/spring-test.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-test-lib/spring-tx.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-test-lib/spring-web.jar:/home/buildacct/work/r1.20/dev/origin/build/ivy-test-lib/spring-webmvc.jar:/opt/packages/apache-ant-1.7.0/lib/ant-launcher.jar:/opt/packages/ant/lib/ant.jar:/opt/packages/ant/lib/ant-junit.jar"></property>
+    <property name="ads.app.name" value="ads"></property>
+    <property name="compile.input.dir" value="/home/buildacct/work/r1.20/dev/experience/tests/experienceT"></property>
+    <property name="ivy.resolved.configurations" value="test"></property>
+    <property name="softrax.bctomcat.profile.port" value="59876"></property>
+    <property name="mediamanager.main.src"
+              value="/home/buildacct/work/r1.20/dev/origin/../mediamanager/main/src"></property>
+    <property name="consumer.searcher.ttl" value="900"></property>
+    <property name="tps.reporting.state.db.connection.driver_class" value="com.mysql.jdbc.Driver"></property>
+    <property name="lucene.copy.default" value="/bin/cp -lR"></property>
+    <property name="clusterpump.num.threads" value="10"></property>
+    <property name="build.javadoc.test" value="/home/buildacct/work/r1.20/dev/origin/build/javadoctest"></property>
+    <property name="dest.omniture.source" value="brightcovedev"></property>
+    <property name="origin.app.local.scratch.dir" value="/home/buildacct/work/r1.20/temp/origin-scratch"></property>
+    <property name="lucene.remove.default" value="/bin/rm -rf"></property>
+    <property name="transcoder.codec.release" value="1"></property>
+    <property name="os.version.ivy.instance" value="2.6.18-53.1.13.el5"></property>
+    <property name="player.as2.origin.services.url" value="http://rebuild3:8080/services"></property>
+    <property name="bctomcat.profile.port" value="19876"></property>
+    <property name="user.timezone" value=""></property>
+    <property name="dbclk.username" value="tkawaf@brightcove"></property>
+    <property name="gwt.sdk.home" value="/home/buildacct/work/tools/gwt-windows/1.3.3"></property>
+    <property name="base.as3.src" value="/home/buildacct/work/r1.20/dev/origin/src/as3"></property>
+    <property name="fms.root.dir" value="/usr/local/brightcove/server/fms"></property>
+    <property name="compile.deprecation" value="on"></property>
+    <property name="fms.dev.build" value="true"></property>
+    <property name="flex.build" value="/home/buildacct/work/r1.20/dev/origin/build/flex-build"></property>
+    <property name="java.vm.version.ivy.instance" value="10.0-b23"></property>
+    <property name="renaun.logger.swc"
+              value="/home/buildacct/work/tools/renaun_com_Logger/2007.03.22/bin/renaun_com_Logger.swc"></property>
+    <property name="bctomcat.proxy.port" value="8888"></property>
+    <property name="dba.password" value="brightcove"></property>
+    <property name="adapi.cdn.home" value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/adapi"></property>
+    <property name="sun.boot.class.path"
+              value="/usr/java/jdk1.6.0_07/jre/lib/resources.jar:/usr/java/jdk1.6.0_07/jre/lib/rt.jar:/usr/java/jdk1.6.0_07/jre/lib/sunrsasign.jar:/usr/java/jdk1.6.0_07/jre/lib/jsse.jar:/usr/java/jdk1.6.0_07/jre/lib/jce.jar:/usr/java/jdk1.6.0_07/jre/lib/charsets.jar:/usr/java/jdk1.6.0_07/jre/classes"></property>
+    <property name="FLEX_HOME" value="/home/buildacct/work/tools/flex-sdk/3.0.0.477-fast"></property>
+    <property name="upload.finger2.username" value="tom-skanky2"></property>
+    <property name="sforce.ws.url" value="https://test.salesforce.com/services/Soap/c/12.0"></property>
+    <property name="tests.results"
+              value="/home/buildacct/work/r1.20/dev/origin/build/tests/junit/test-results"></property>
+    <property name="upload.drm1.password" value="tom-skanky1"></property>
+    <property name="cache.distributed.enabled" value="true"></property>
+    <property name="adswf.cdn.home" value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/adswf"></property>
+    <property name="flash.use.precompiled" value="true"></property>
+    <property name="env.HOME" value="/home/buildacct"></property>
+    <property name="DTDDoc.dir" value="/home/buildacct/work/tools/DTDDoc"></property>
+    <property name="base.precompiled"
+              value="/home/buildacct/work/r1.20/dev/origin/viewer-WAR/compiled-flash"></property>
+    <property name="tests.priorities" value=""></property>
+    <property name="ivy.settings.file" value="ivysettings.xml"></property>
+    <property name="tests.hibernate.build"
+              value="/home/buildacct/work/r1.20/dev/origin/build/tests/hibernate"></property>
+    <property name="tests.halt" value="no"></property>
+    <property name="mediaUtils.path" value="/mediaUtils/"></property>
+    <property name="base.services.config" value="/home/buildacct/work/r1.20/dev/origin/config/services"></property>
+    <property name="flex3.home" value="/home/buildacct/work/tools/flex-sdk/3.0.0.477-fast"></property>
+    <property name="upload.drm1.hostname" value="drm1-devel.vidmark.local"></property>
+    <property name="common.as" value="/home/buildacct/work/r1.20/dev/origin/build/common/actionscript"></property>
+    <property name="tests.adtraffic.results"
+              value="/home/buildacct/work/r1.20/dev/origin/build/tests/adtraffic/test-results"></property>
+    <property name="coherence.loglevel" value="5"></property>
+    <property name="upload.default.cdn.flv.password" value="the_password"></property>
+    <property name="geo.location.file.raw"
+              value="/home/buildacct/work/r1.20/dev/shared/java/geo/src/war/WEB-INF//IPCountry-US-CA-UK-only.csv"></property>
+    <property name="paypal.certificates.file" value="brightcove_paypal_api6.p12"></property>
+    <property name="capture.url" value="rtmp://rebuild3"></property>
+    <property name="upload.default.cdn.crossdomain.raw"
+              value="/home/buildacct/work/r1.20/dev/origin/config/services/WEB-INF/media-crossdomain.xml"></property>
+    <property name="mediamanager.common.swc"
+              value="/home/buildacct/work/r1.20/dev/mediamanager/common/bin/mediamanager-common.swc"></property>
+    <property name="ivy.report.dir" value="/home/buildacct/work/r1.20/dev/dependency-reports"></property>
+    <property name="synd.omniture.source" value="brightcovedev"></property>
+    <property name="synmanagement.build"
+              value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/syndication_management"></property>
+    <property name="tests.utils.build" value="/home/buildacct/work/r1.20/dev/origin/build/tests/utils/build"></property>
+    <property name="api.host.write.path" value="/services/post"></property>
+    <property name="tests.lib" value="/home/buildacct/work/r1.20/dev/origin/tests/lib"></property>
+    <property name="dashboard.maitred.host" value="http://rebuild3:20080"></property>
+    <property name="connectionpoolBuiltin" value="#"></property>
+    <property name="keep.generated" value="false"></property>
+    <property name="upload.default.cdn.flv.hostname" value="rebuild3"></property>
+    <property name="upload.finger2.capacity" value="2"></property>
+    <property name="transcoder.flix.install.base.dir" value="/usr/local/brightcove"></property>
+    <property name="net.sourceforge.cobertura.datafile"
+              value="/home/buildacct/work/r1.20/dev/origin/cobertura.ser"></property>
+    <property name="flex3.args"
+              value="-compatibility-version=2.0.1 -library-path+=/home/buildacct/work/r1.20/dev/flexshared/lib/Flex3ResourceBundle.swc"></property>
+    <property name="env.LS_COLORS"
+              value="no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:ex=01;32:*.cmd=01;32:*.exe=01;32:*.com=01;32:*.btm=01;32:*.bat=01;32:*.sh=01;32:*.csh=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.bz=01;31:*.tz=01;31:*.rpm=01;31:*.cpio=01;31:*.jpg=01;35:*.gif=01;35:*.bmp=01;35:*.xbm=01;35:*.xpm=01;35:*.png=01;35:*.tif=01;35:"></property>
+    <property name="abacus.debug" value="false"></property>
+    <property name="com.mchange.v2.log.FallbackMLog.DEFAULT_CUTOFF_LEVEL" value="OFF"></property>
+    <property name="sdk.build.dir" value="/home/buildacct/work/r1.20/dev/origin/build/api"></property>
+    <property name="pods.podEnabled" value="false"></property>
+    <property name="softrax.db.connection.url"
+              value="jdbc:sqlserver://tushara-lt.vidmark.local;port=1433;databaseName=softrax_unit_tests_hibuser3"></property>
+    <property name="upload.drm1.enabled" value="1"></property>
+    <property name="simulate.cdn" value="true"></property>
+    <property name="experience.swc.dir" value="/home/buildacct/work/r1.20/dev/origin/../experience/main/swc"></property>
+    <property name="dashboard.bctomcat.server.http.port" value="28080"></property>
+    <property name="ant.home.ivy.instance" value="/opt/packages/ant"></property>
+    <property name="ivy.buildlist.ivyfilepath" value="ivy.xml"></property>
+    <property name="maitred.bctomcat.debug.port" value="20444"></property>
+    <property name="src.locale2" value="/home/buildacct/work/r1.20/dev/origin"></property>
+    <property name="dashboard.bctomcat.profile.port" value="29876"></property>
+    <property name="mail.smtp.host" value="bonechipper.vidmark.local"></property>
+    <property name="gobbles.aws.backend.amf.url" value="http://rebuild3:38090"></property>
+    <property name="destination.jsp.src"
+              value="/home/buildacct/work/r1.20/dev/origin/../destination/src/jsp"></property>
+    <property name="publishpod.build"
+              value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/publishpod"></property>
+    <property name="drm.config.enabled" value="#"></property>
+    <property name="publishpod.win.version" value="1.5"></property>
+    <property name="aftermix.dir" value="/home/buildacct/work/r1.20/dev/origin/../aftermix"></property>
+    <property name="pods.domains.api" value="api.$pubcode$.$zoneprefix$$zone$"></property>
+    <property name="upload.default.cdn.http.urlbase" value="http://rebuild3:8080/"></property>
+    <property name="env.LESSOPEN" value="|/usr/bin/lesspipe.sh %s"></property>
+    <property name="player.as3.search.amf.url" value="http://rebuild3:8080/services/messagebroker/amf"></property>
+    <property name="jetfire.origin.services.url" value="http://rebuild3:8080/services"></property>
+    <property name="maitred-domain.defaultPod.loginPath" value="/login"></property>
+    <property name="lucene.move.default" value="/bin/mv"></property>
+    <property name="tests.adtraffic.build"
+              value="/home/buildacct/work/r1.20/dev/origin/build/tests/adtraffic/build"></property>
+    <property name="env.HOSTNAME" value="rebuild3"></property>
+    <property name="dest.services.secureAMF.url" value="http://rebuild3:8080/services"></property>
+    <property name="player.searcher.ttl" value="900"></property>
+    <property name="transcoder.flix.64bit.libs" value="/home/buildacct/work/tools/flixengine/8.0.14.0/lib64"></property>
+    <property name="upload.dir" value="/home/buildacct/work/r1.20/temp/uploads"></property>
+    <property name="src.test" value="/home/buildacct/work/r1.20/dev/experience/tests/experienceT"></property>
+    <property name="sun.jnu.encoding" value="UTF-8"></property>
+    <property name="java.specification.version" value="1.6"></property>
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"></property>
+    <property name="mediamanager.common.src"
+              value="/home/buildacct/work/r1.20/dev/origin/../mediamanager/common/src"></property>
+    <property name="tests.flexrunner.build"
+              value="/home/buildacct/work/r1.20/dev/origin/build/tests/flexrunner/build"></property>
+    <property name="flash.compile.off" value="true"></property>
+    <property name="tests.methods" value="${tests.methods}"></property>
+    <property name="overlay.adtrack.params" value=";trad=1"></property>
+    <property name="transcoder.flix.group" value="trancode"></property>
+    <property name="clover.dir" value="/home/buildacct/work/tools/clover-ant/2.4.2"></property>
+    <property name="browseragent.target.browser.version" value=""></property>
+    <property name="env.TeamCity.AgentUrl.cdc51fb1-1a81-4792-8831-3a5a69c3af76"
+              value="http://localhost:9091/RPC2"></property>
+    <property name="ads.build" value="/home/buildacct/work/r1.20/dev/origin/build/ads-WAR-build"></property>
+    <property name="ivy.project.dir.ivy.instance" value="/home/buildacct/work/r1.20/dev/origin"></property>
+    <property name="upload.default.cdn.http.transport" value="2"></property>
+    <property name="scissorhands.main.assets"
+              value="/home/buildacct/work/r1.20/dev/origin/../scissorhands/main/assets"></property>
+    <property name="publisher.flex.swf" value="publisher_app_50.swf"></property>
+    <property name="tests.jsp.src" value="/home/buildacct/work/r1.20/dev/origin/tests/src/jsp"></property>
+    <property name="env.BUILD_VCS_NUMBER" value="61952"></property>
+    <property name="ivy.deliver.ivy.pattern.ivy.instance"
+              value="/home/buildacct/work/r1.20/dev/origin/distrib/[type]s/[artifact]-[revision](-[classifier]).[ext]"></property>
+    <property name="ads.dist" value="/home/buildacct/work/r1.20/dev/origin/build/ads-WAR-dist"></property>
+    <property name="env.TeamCity.BuildId.cdc51fb1-1a81-4792-8831-3a5a69c3af76" value="17970"></property>
+    <property name="upload.default.cdn.flv.brightcovemainasc" value="1"></property>
+    <property name="browseragent.jar"
+              value="/home/buildacct/work/r1.20/dev/browseragent/lib/browseragent.jar"></property>
+    <property name="ivy.conf.url.ivy.instance" value="file:/home/buildacct/work/r1.20/dev/ivysettings.xml"></property>
+    <property name="federated.audio.swf" value="/viewer/federated_audio_50.swf"></property>
+    <property name="scissorhands.tests.src"
+              value="/home/buildacct/work/r1.20/dev/origin/../scissorhands/tests/src"></property>
+    <property name="upload.trans1.username" value="tom-skanky1"></property>
+    <property name="softrax.bctomcat.snmp.port" value="6163"></property>
+    <property name="jimmy.groovy.home" value="/home/buildacct/work/tools/groovy/1.5.6"></property>
+    <property name="bctomcat.server.http.redirectPort" value="18443"></property>
+    <property name="services.build" value="/home/buildacct/work/r1.20/dev/origin/build/services-WAR-build"></property>
+    <property name="platform.player.archive.dir" value="c:/as3_player_backup/files"></property>
+    <property name="softrax.bctomcat.jmx.port" value="59004"></property>
+    <property name="upload.default.cdn.flv.ttlsalt" value="qOk8H0f5h@j#LO7g%vDtr"></property>
+    <property name="upload.default.cdn.flv.transport" value="2"></property>
+    <property name="become.pub.url.path" value="http://rebuild3:8080/cdn/testing/enablepub.html"></property>
+    <property name="bctomcat.reloadable" value="true"></property>
+    <property name="EventServer.eventWaitTimeout" value="30000"></property>
+    <property name="ivy.log.modules.in.use.ivy.instance" value="false"></property>
+    <property name="gobbles.bctomcat.server.http.redirectPort" value="38443"></property>
+    <property name="flex.compile.debug" value="false"></property>
+    <property name="deploy.dir" value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/SomeApplication"></property>
+    <property name="tests.common.src" value="/home/buildacct/work/r1.20/dev/origin/tests/src/common"></property>
+    <property name="ivy.default.always.check.exact.revision.ivy.instance" value="false"></property>
+    <property name="cache.usage" value="read-write"></property>
+    <property name="base.hibernate" value="/home/buildacct/work/r1.20/dev/origin/hibernate"></property>
+    <property name="tps.llfms.remote.username" value=""></property>
+    <property name="env.ANT_OPTS"
+              value="-Xmx2048m -XX:MaxPermSize=128m -XX:-UseGCOverheadLimit -Xmx512m -XX:MaxPermSize=356m"></property>
+    <property name="ivy.cache.dir.ivy.instance" value="/home/buildacct/work/r1.20/dev/ivy-cache"></property>
+    <property name="destination.player.omniture.dev" value="true"></property>
+    <property name="flexunit.swc" value="/home/buildacct/work/tools/flexunit/0.9/bin/flexunit.swc"></property>
+    <property name="unison.home" value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/unison"></property>
+    <property name="adtranslator.cdn.build"
+              value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/adtranslator"></property>
+    <property name="bctomcat.snmp.port" value="2163"></property>
+    <property name="maitred.hibernate.db.username" value="hibuser3_m"></property>
+    <property name="env.SHLVL" value="11"></property>
+    <property name="bctomcat.server.http.maxThreads" value="150"></property>
+    <property name="link.assets.host" value="http://rebuild3:8080/cdn"></property>
+    <property name="sun.management.compiler.ivy.instance" value="HotSpot Tiered Compilers"></property>
+    <property name="ant.home" value="/opt/packages/ant"></property>
+    <property name="sun.os.patch.level" value="unknown"></property>
+    <property name="second.level.enabled" value="true"></property>
+    <property name="flexrunner.home" value="/home/buildacct/work/r1.20/dev/flexrunner"></property>
+    <property name="upload.trans2.directory" value=""></property>
+    <property name="prefix.user.name" value="false"></property>
+    <property name="cpdHtmlReportDir" value="/home/buildacct/work/r1.20/dev/origin"></property>
+    <property name="upload.trans1.capacity" value="2"></property>
+    <property name="destination.cdn.build"
+              value="/home/buildacct/work/r1.20/dev/origin/../destination/build/destination-cdn-build/destination"></property>
+    <property name="pods.podName" value="default"></property>
+    <property name="syncbanner.adtrack.params" value=";trad=2"></property>
+    <property name="dashboard.maitred.login.path" value="/maitred/login"></property>
+    <property name="EventServer.startBrowser" value="true"></property>
+    <property name="src.locale" value="/home/buildacct/work/r1.20/dev/origin/locale"></property>
+    <property name="base.flash.src" value="/home/buildacct/work/r1.20/dev/origin/src/flash"></property>
+    <property name="tps.goku.log.discovery.job.enabled" value="true"></property>
+    <property name="env.TMP" value="/home/buildacct/temp/buildTmp"></property>
+    <property name="connection.pool.type" value="c3p0"></property>
+    <property name="cdn.url" value="http://rebuild3:8080/cdn"></property>
+    <property name="tps.bctomcat.jmx.port" value="49004"></property>
+    <property name="gobbles.bctomcat.server.http.maxThreads" value="800"></property>
+    <property name="fms.dev.app.dir" value="${env.FMS_HOME}/applications/dev"></property>
+    <property name="federated.audio.ui.swf" value="/viewer/federated_audio_ui_50.swf"></property>
+    <property name="src.business.classes"
+              value="**/com/brightcove/annotations/APIClassAnnotation.java,**/com/brightcove/annotations/ExcludeFromSDK.java,**/com/brightcove/authentication/SharingAccountGroupEntry.java,**/com/brightcove/catalog/audio/AudioTrack.java,**/com/brightcove/catalog/audio/AudioTrackPlaylist.java,**/com/brightcove/catalog/CGMCustomMetadata.java,**/com/brightcove/catalog/CGMSubmissionMetadata.java,**/com/brightcove/catalog/EconomicsEnum.java,**/com/brightcove/catalog/ItemStateEnum.java,**/com/brightcove/catalog/photo/Photo.java,**/com/brightcove/catalog/playlist/LineupTypeEnum.java,**/com/brightcove/catalog/playlist/Playlist.java,**/com/brightcove/catalog/Video.java,**/com/brightcove/catalog/VideoCuePoint.java,**/com/brightcove/catalog/asset/VideoAsset.java,**/com/brightcove/catalog/VideoCodecEnum.java,**/com/brightcove/catalog/asset/AssetTypeEnum.java,**/com/brightcove/catalog/asset/ImageAsset.java"></property>
+    <property name="tools.lib" value="/home/buildacct/work/tools/brightcove/lib"></property>
+    <property name="tests.flash.results"
+              value="/home/buildacct/work/r1.20/dev/origin/build/tests/flash/test-results"></property>
+    <property name="services.dist" value="/home/buildacct/work/r1.20/dev/origin/build/services-WAR-dist"></property>
+    <property name="ivy.build.artifacts.dir" value="/home/buildacct/work/r1.20/dev/origin/build/artifacts"></property>
+    <property name="softrax.billing.data.file.download.job.enabled" value="true"></property>
+    <property name="synd.player.searcher.ttl" value="900"></property>
+    <property name="origin.dir" value="/home/buildacct/work/r1.20/dev/origin"></property>
+    <property name="tests.flash.build" value="/home/buildacct/work/r1.20/dev/origin/build/tests/flash/build"></property>
+    <property name="oracle.express.installed" value="false"></property>
+    <property name="ant.file.db" value="/home/buildacct/work/r1.20/dev/origin/db-build.xml"></property>
+    <property name="admin.build" value="/home/buildacct/work/r1.20/dev/origin/build/admin-build"></property>
+    <property name="flexunit.flex2.swc" value="/home/buildacct/work/tools/flexunit/0.85/bin/flexunit.swc"></property>
+    <property name="ivy.conf.dir.ivy.instance" value="/home/buildacct/work/r1.20/dev"></property>
+    <property name="transcoder.flix.tarball"
+              value="/home/buildacct/work/tools/flixengine/flix-engine-installer-linux-8.0.14.0.tar.gz"></property>
+    <property name="env.LOGNAME" value="buildacct"></property>
+    <property name="eventserver.startbrowser" value="true"></property>
+    <property name="gobbles.bctomcat.profile.port" value="39876"></property>
+    <property name="upload.default.cdn.http.provider" value="20"></property>
+    <property name="console.test.build"
+              value="/home/buildacct/work/r1.20/dev/origin/build/console-test-build"></property>
+    <property name="sdk.templates.dir" value="/home/buildacct/work/r1.20/dev/origin/api/sdk/templates"></property>
+    <property name="console.test.home"
+              value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/testableconsole"></property>
+    <property name="computer.name" value="rebuild3"></property>
+    <property name="preview.url.path" value="/services/preview"></property>
+    <property name="dashboard.admin.url.mgr.experience" value="publishing"></property>
+    <property name="tests.base" value="/home/buildacct/work/r1.20/dev/origin/tests/src"></property>
+    <property name="destination.admin.build"
+              value="/home/buildacct/work/r1.20/dev/origin/../destination/build/destination-admin-build"></property>
+    <property name="dest.site.url" value="http://rebuild3:8080/services"></property>
+    <property name="tests.bugged" value="false"></property>
+    <property name="flash.player.log"
+              value="C:/Documents and Settings/${env.USERNAME}/Application Data/Macromedia/Flash Player/Logs/flashlog.txt"></property>
+    <property name="sun.arch.data.model" value="32"></property>
+    <property name="java.endorsed.dirs.ivy.instance" value="/usr/java/jdk1.6.0_07/jre/lib/endorsed"></property>
+    <property name="comment.end" value="--&gt;"></property>
+    <property name="destination.jspTag.src"
+              value="/home/buildacct/work/r1.20/dev/origin/../destination/src/jspTag"></property>
+    <property name="user.home" value="/home/buildacct"></property>
+    <property name="transcoder.flix.install.dirname" value="flix-8.0.14.0"></property>
+    <property name="ant.file.origin-flash" value="/home/buildacct/work/r1.20/dev/origin/flash-build.xml"></property>
+    <property name="tests.full" value="foobar"></property>
+    <property name="upload.trans1.active" value="1"></property>
+    <property name="modules.secure.origin.amf.url" value="http://rebuild3:8080/services/messagebroker/amf"></property>
+    <property name="fms.server.uid" value="782"></property>
+    <property name="upload.trans2.username" value="tom-skanky2"></property>
+    <property name="tps.bctomcat.server.http.redirectPort" value="48443"></property>
+    <property name="file.encoding.ivy.instance" value="UTF-8"></property>
+    <property name="lucene.copy.win" value="XCOPY /I /Y "></property>
+    <property name="cdn.dist" value="/home/buildacct/work/r1.20/dev/origin/build/cdn-dist"></property>
+    <property name="hibernate.connection.driver_class" value="oracle.jdbc.driver.OracleDriver"></property>
+    <property name="webtrends.dcsid" value="dcslw3l0doikmva7mwi0039yn_5s4h"></property>
+    <property name="ivy.cache.ttl.default.ivy.instance" value="10s"></property>
+    <property name="console.url" value="http://rebuild3:8080/cdn/console/"></property>
+    <property name="softrax.bctomcat.server.http.redirectPort" value="58443"></property>
+    <property name="flexrunner.serve.master.policy" value="false"></property>
+    <property name="brightcove.channel.url" value="http://www.brightcove.com/channel.jsp"></property>
+    <property name="sun.cpu.endian" value="little"></property>
+    <property name="dashboard.bctomcat.jmx.port" value="29004"></property>
+    <property name="install.dir" value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/viewer"></property>
+    <property name="junit.home" value="/home/buildacct/work/tools/JUnit/4.5"></property>
+    <property name="firefox.path" value="C:/Program Files/Mozilla Firefox/firefox.exe"></property>
+    <property name="abacus.build" value="/home/buildacct/work/r1.20/dev/origin/build/abacus-build"></property>
+    <property name="gobbles.seed.bctomcat.snmp.port" value="4173"></property>
+    <property name="federated.ui.swf" value="/viewer/federated_ui_50.swf"></property>
+    <property name="ivy.nb.targets.copied" value="0"></property>
+    <property name="java.awt.printerjob.ivy.instance" value="sun.print.PSPrinterJob"></property>
+    <property name="fms.imagecapture.url" value="rtmp://qacdn2.qanet.local/devimagecapture"></property>
+    <property name="tps.llhttp.remote.password" value=""></property>
+    <property name="api.read.classname" value="LibraryApi"></property>
+    <property name="bctomcat.server.http.disableUploadTimeout" value="true"></property>
+    <property name="base.precompiled.local"
+              value="/home/buildacct/work/r1.20/dev/origin/viewer-WAR/locally-compiled-flash"></property>
+    <property name="EventServer.eventWaitSleep" value="250"></property>
+    <property name="tps.llfms.local.dir"
+              value="/home/buildacct/work/r1.20/temp/reporting/tps/raw_logs/ll_fms"></property>
+    <property name="base.flexunit.tests.src"
+              value="/home/buildacct/work/r1.20/dev/origin/tests/src/flexunit"></property>
+    <property name="experience.dto.swc"
+              value="/home/buildacct/work/r1.20/dev/origin/../experience/main/swc/dto/bin/dto.swc"></property>
+    <property name="lucene.remove.win" value="CMD /C DEL /Q"></property>
+    <property name="bctomcat.server.http.port" value="18080"></property>
+    <property name="ivy.dep.file" value="ivy.xml"></property>
+    <property name="upload.trans2.capacity" value="2"></property>
+    <property name="sun.jnu.encoding.ivy.instance" value="UTF-8"></property>
+    <property name="build.src" value="/home/buildacct/work/r1.20/dev/origin/build/src"></property>
+    <property name="ant.file.base-master" value="/home/buildacct/work/r1.20/dev/buildshared/base-master.xml"></property>
+    <property name="drm.db.driver_class" value="oracle.jdbc.driver.OracleDriver"></property>
+    <property name="fms.imagecapture.verifyswfs" value="true"></property>
+    <property name="ocp.basedir" value="/home/buildacct/work/r1.20/dev/origin"></property>
+    <property name="file.encoding.pkg.ivy.instance" value="sun.io"></property>
+    <property name="manager.password" value="manager"></property>
+    <property name="hostname" value="rebuild3"></property>
+    <property name="eventserver.debug" value="false"></property>
+    <property name="flash.compileFederated.off" value="true"></property>
+    <property name="build.sql" value="/home/buildacct/work/r1.20/dev/origin/build/sql"></property>
+    <property name="services.AMF.url" value="http://rebuild3:8080/services/amfgateway"></property>
+    <property name="build.experience.src" value="/home/buildacct/work/r1.20/dev/origin/build/src/experience"></property>
+    <property name="tools.home" value="/home/buildacct/work/tools"></property>
+    <property name="sforce.properties.out" value=""></property>
+    <property name="flexApp.endTag.normal" value="&lt;/mx:Application&gt;"></property>
+    <property name="brightcoveURL" value="brightcove"></property>
+    <property name="ivy.conf.file" value="/home/buildacct/work/r1.20/dev/ivysettings.xml"></property>
+    <property name="ant.file.ivy-include" value="/home/buildacct/work/r1.20/dev/buildshared/ivy-include.xml"></property>
+    <property name="services2.secure.url" value="http://rebuild3:8080/services"></property>
+    <property name="flexrunner.reuse.browser.window" value="false"></property>
+    <property name="adherence.flex.swf" value="adherence50.swf"></property>
+    <property name="fms.server.licenseinfo" value="1373-5004-4449-8881-7878-8284"></property>
+    <property name="user.home.ivy.instance" value="/home/buildacct"></property>
+    <property name="java.specification.vendor" value="Sun Microsystems Inc."></property>
+    <property name="base.jdk" value="/home/buildacct/work/r1.20/dev/origin/jdk"></property>
+    <property name="tests.selenium.src" value="/home/buildacct/work/r1.20/dev/origin/tests/src/selenium"></property>
+    <property name="sun.arch.data.model.ivy.instance" value="32"></property>
+    <property name="reportform.url" value="http://studio.brightcove.com/abuse-form.cfm"></property>
+    <property name="env.XFILESEARCHPATH" value="/usr/dt/app-defaults/%L/Dt"></property>
+    <property name="business.classes"
+              value="com.brightcove.annotations.APIClassAnnotation,com.brightcove.annotations.ExcludeFromSDK,com.brightcove.authentication.SharingAccountGroupEntry,com.brightcove.catalog.audio.AudioTrack,com.brightcove.catalog.audio.AudioTrackPlaylist,com.brightcove.catalog.CGMCustomMetadata,com.brightcove.catalog.CGMSubmissionMetadata,com.brightcove.catalog.EconomicsEnum,com.brightcove.catalog.ItemStateEnum,com.brightcove.catalog.photo.Photo,com.brightcove.catalog.playlist.LineupTypeEnum,com.brightcove.catalog.playlist.Playlist,com.brightcove.catalog.Video,com.brightcove.catalog.VideoCuePoint,com.brightcove.catalog.asset.VideoAsset,com.brightcove.catalog.VideoCodecEnum,com.brightcove.catalog.asset.AssetTypeEnum,com.brightcove.catalog.asset.ImageAsset"></property>
+    <property name="maitred.bctomcat.snmp.trap" value="20162"></property>
+    <property name="playerswc.build.zip"
+              value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/playerapi/PlayerAPISWC.zip"></property>
+    <property name="brightcove.image.url" value="http://rebuild3:8080/cdn/destination/images/"></property>
+    <property name="user.language.ivy.instance" value="en"></property>
+    <property name="upload.default.cdn.flv.appname" value="fakecdn"></property>
+    <property name="mediamanager.video.swc"
+              value="/home/buildacct/work/r1.20/dev/mediamanager/video/bin/mediamanager-video.swc"></property>
+    <property name="tps.bctomcat.profile.port" value="49876"></property>
+    <property name="base.unison.src" value="/home/buildacct/work/r1.20/dev/origin/../unison/main/src"></property>
+    <property name="gobbles.seed.bctomcat.server.http.port" value="38090"></property>
+    <property name="upload.default.cdn.http.urlpath" value="/media/"></property>
+    <property name="tools.dir.ivy.instance" value="/home/buildacct/work/tools"></property>
+    <property name="admin.dist" value="/home/buildacct/work/r1.20/dev/origin/build/admin-dist"></property>
+    <property name="sun.cpu.endian.ivy.instance" value="little"></property>
+    <property name="path.separator.ivy.instance" value=":"></property>
+    <property name="fms.admin.password" value="fms@brightcove!"></property>
+    <property name="bctomcat.yourkit.home" value="/home/buildacct/work/tools/yjp"></property>
+    <property name="drm.db.url" value="jdbc:oracle:thin:@db1-devel.vidmark.local:1521:develdb"></property>
+    <property name="ocp.basebasedir" value="/home/buildacct/work/r1.20/dev"></property>
+    <property name="java.vm.specification.name.ivy.instance" value="Java Virtual Machine Specification"></property>
+    <property name="ant.file.origin-unison" value="/home/buildacct/work/r1.20/dev/unison/build.xml"></property>
+    <property name="app.name" value="brightcove-origin"></property>
+    <property name="dashboard.admin.url" value="http://rebuild3:8080/cdn"></property>
+    <property name="toolbelt.install.location" value="/home/buildacct/work/r1.20/dev/../usr-local/toolbelt"></property>
+    <property name="ivy.targets.copied" value="false"></property>
+    <property name="abacus.home" value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/abacus"></property>
+    <property name="tests.utils.src" value="/home/buildacct/work/r1.20/dev/origin/tests/src/utils"></property>
+    <property name="sun.management.compiler" value="HotSpot Tiered Compilers"></property>
+    <property name="ivy.settings.url" value="file:/home/buildacct/work/r1.20/dev/ivysettings.xml"></property>
+    <property name="java.vm.name.ivy.instance" value="Java HotSpot(TM) Server VM"></property>
+    <property name="transcoder.flix.username" value="Brightcove"></property>
+    <property name="transcoder.java.home" value="/usr/java/jdk1.6.0_07/jre"></property>
+    <property name="dto.swc" value="/home/buildacct/work/r1.20/dev/origin/build/src/as3/DTOs.swc"></property>
+    <property name="softrax.db.connection.username" value="test1"></property>
+    <property name="experiencemanager.home"
+              value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/experiencemanager"></property>
+    <property name="tests.stage" value="2"></property>
+    <property name="ivy.report.output.pattern" value="[organisation]-[module]-[conf].[ext]"></property>
+    <property name="services.prepare.config.utd" value="true"></property>
+    <property name="gobbles.domain_restriction.whitelist"
+              value="http://localhost,http://rebuild3:8080/cdn/console/,http://rebuild3:8080/bcadmin/admin/,http://rebuild3:8080"></property>
+    <property name="base.src" value="/home/buildacct/work/r1.20/dev/origin/src"></property>
+    <property name="omniture.actionsource.swc"
+              value="/home/buildacct/work/tools/omniture/2.1.0/ActionSource.swc"></property>
+    <property name="house.adtrack.params" value=";trad=7"></property>
+    <property name="eventserver.eventWaitSleep" value="250"></property>
+    <property name="player.url.path" value="/services/player"></property>
+    <property name="scripts.groovy.home" value="/home/buildacct/work/tools/groovy/1.5.6"></property>
+    <property name="file.separator.ivy.instance" value="/"></property>
+    <property name="java.library.path"
+              value="/usr/java/jdk1.6.0_07/jre/lib/i386/server:/usr/java/jdk1.6.0_07/jre/lib/i386:/usr/java/jdk1.6.0_07/jre/../lib/i386::.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:.:/usr/java/packages/lib/i386:/lib:/usr/lib"></property>
+    <property name="build.flash.src" value="/home/buildacct/work/r1.20/dev/origin/build/src/flash"></property>
+    <property name="admanager.main.dir" value="/home/buildacct/work/r1.20/dev/origin/../admanager/main"></property>
+    <property name="os.arch.ivy.instance" value="i386"></property>
+    <property name="syndication_program_edit_app.flex.swf" value="syndication_program_edit_app.swf"></property>
+    <property name="base.sql" value="/home/buildacct/work/r1.20/dev/origin/sql"></property>
+    <property name="ivy.settings.file.ivy.instance" value="/home/buildacct/work/r1.20/dev/ivysettings.xml"></property>
+    <property name="ruby.sdk.build.dir" value="/home/buildacct/work/r1.20/dev/origin/build/api/ruby"></property>
+    <property name="upload.transcode.fake.dir" value="p:/data-src/fake-transcode-assets"></property>
+    <property name="geo.quova.file.raw"
+              value="/home/buildacct/work/r1.20/dev/shared/java/geo/src/war/WEB-INF//GeoDirectoryAPI.properties"></property>
+    <property name="base.web.src" value="/home/buildacct/work/r1.20/dev/origin/src/web"></property>
+    <property name="transcoder.flix.user" value="trancode"></property>
+    <property name="tps.llhttp.log.processing.job.enabled" value="true"></property>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"></property>
+    <property name="yourkit.home" value="/home/buildacct/work/tools/yjp"></property>
+    <property name="build.generated.java.src"
+              value="/home/buildacct/work/r1.20/dev/origin/build/src/generated/java"></property>
+    <property name="bc.adserver.url" value="http://ad.doubleclick.net/N3876/pfadx"></property>
+    <property name="tps.llfms.log.processing.job.enabled" value="true"></property>
+    <property name="env.PWD" value="/home/buildacct/work/r1.20/dev"></property>
+    <property name="dtd.url.path" value="http://rebuild3:8080/cdn/dtds"></property>
+    <property name="upload.finger1.password" value="tom-skanky1"></property>
+    <property name="file.separator" value="/"></property>
+    <property name="synmanagement.home"
+              value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/syndication_management/"></property>
+    <property name="ant.file.origin-tomcat" value="/home/buildacct/work/r1.20/dev/origin/tomcat-build.xml"></property>
+    <property name="banner.adtrack.params" value=";trad=6"></property>
+    <property name="upload.src" value="/vidfs/bcfs1/Public/data-src"></property>
+    <property name="upload.simulate.cdn" value="true"></property>
+    <property name="transcoder.flix.version" value="8.0.14.0"></property>
+    <property name="pods.domains.cached.secure" value="secure.$pubcode$.$zoneprefix$$zone$"></property>
+    <property name="junitHtmlReportDirNew" value="/home/buildacct/work/r1.20/dev/origin/build/tests/report"></property>
+    <property name="ant.file.origin-tests" value="/home/buildacct/work/r1.20/dev/origin/tests/build.xml"></property>
+    <property name="unison.dir" value="/home/buildacct/work/r1.20/dev/origin/../unison/main"></property>
+    <property name="gwt.addonlib.gwttk" value="/home/buildacct/work/tools/gwttk/gwttk-0.2.1.jar"></property>
+    <property name="abacus.flex.swf" value="abacus50.swf"></property>
+    <property name="ant.file.common-include"
+              value="/home/buildacct/work/r1.20/dev/buildshared/common-include.xml"></property>
+    <property name="player.as2.cgm.upload.url" value="http://rebuild3:8080/services/fileupload"></property>
+    <property name="checkout.port" value=":8080"></property>
+    <property name="cdn.build" value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build"></property>
+    <property name="webtrends.enabled" value="true"></property>
+    <property name="billing.data.servlet.token" value="465dcf80-9fab-11dd-ad8b-0800200c9a66"></property>
+    <property name="clusterpump.coherence.mode" value="dev"></property>
+    <property name="tests.build" value="/home/buildacct/work/r1.20/dev/origin/build/tests/junit/build"></property>
+    <property name="drm.db.password" value="cjohnson2"></property>
+    <property name="api.host.path" value="/services/library"></property>
+    <property name="policy.urls"
+              value="http://brightcove.vo.llnwd.net/d2/unsecured/media/crossdomain.xml,http://brightcove.vo.llnwd.net/d3/unsecured/media/crossdomain.xml,http://brightcove.vo.llnwd.net/o2/unsecured/media/crossdomain.xml,http://brightcove.vo.llnwd.net/d4/unsecured/media/crossdomain.xml,http://brightcove.vo.llnwd.net/d5/unsecured/media/crossdomain.xml,http://brightcove.vo.llnwd.net/d6/unsecured/media/crossdomain.xml"></property>
+    <property name="jmeter.home" value="/home/buildacct/work/r1.20/dev/../jmeter"></property>
+    <property name="ivy.resolve.default.type.filter.ivy.instance" value="*"></property>
+    <property name="transcoder.flix.license" value="FLIXENGINE8LNX 1045 1896 3703 5418 6742 9415"></property>
+    <property name="generated.code.is.uptodate" value="true"></property>
+    <property name="common.swc" value="/home/buildacct/work/r1.20/dev/flexshared/common/bin/common.swc"></property>
+    <property name="coherence.localhost" value="localhost"></property>
+    <property name="build.jsp.src" value="/home/buildacct/work/r1.20/dev/origin/build/src/jsp"></property>
+    <property name="ant.file.origin-coherence" value="/home/buildacct/work/r1.20/dev/origin/cache-build.xml"></property>
+    <property name="dev.dir.ivy.instance" value="/home/buildacct/work/r1.20/dev"></property>
+    <property name="env.TEAMCITY_BUILD_PROPERTIES_FILE"
+              value="/opt/packages/teamcity-4.0.1/temp/agentTmp/teamcity.build55586.properties"></property>
+    <property name="player.as2.cache.services.url" value="http://rebuild3:8080/services"></property>
+    <property name="dashboard.services2.url" value="http://rebuild3:8080/services"></property>
+    <property name="ivy.log.modules.in.use" value="false"></property>
+    <property name="gobbles.bctomcat.snmp.trap" value="4162"></property>
+    <property name="flex.home" value="/home/buildacct/work/tools/flex"></property>
+    <property name="gobbles.backend.content.url" value="http://rebuild3:8080"></property>
+    <property name="pods.bucketId" value="1"></property>
+    <property name="base.experience.tests"
+              value="/home/buildacct/work/r1.20/dev/origin/../experience/main/../tests"></property>
+    <property name="services.app.name" value="services"></property>
+    <property name="adswf.build.zip"
+              value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/adswf/AdSwfDevKit.zip"></property>
+    <property name="env.G_BROKEN_FILENAMES" value="1"></property>
+    <property name="flexshared.ant.dir" value="/home/buildacct/work/r1.20/dev/flexshared/ant"></property>
+    <property name="synflow.build" value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/syndication"></property>
+    <property name="dev.dir" value="/home/buildacct/work/r1.20/dev"></property>
+    <property name="bctomcat.server.http.protocol" value="org.apache.coyote.http11.Http11Protocol"></property>
+    <property name="brightcove.title.url" value="http://www.brightcove.com/title.jsp"></property>
+    <property name="gobbles.bctomcat.server.http.minSpareThreads" value="300"></property>
+    <property name="drm.ddl.enabled" value="--"></property>
+    <property name="hibernate.db.name" value="xe"></property>
+    <property name="experiencemanager.main.locale"
+              value="/home/buildacct/work/r1.20/dev/origin/../experiencemanager/main/locale"></property>
+    <property name="admin.flex.swf" value="admin_app_50.swf"></property>
+    <property name="tests.api.src" value="/home/buildacct/work/r1.20/dev/origin/tests/src/api-junit"></property>
+    <property name="src.main" value="/home/buildacct/work/r1.20/dev/experience/main/src"></property>
+    <property name="sforce.login.password" value="Password!"></property>
+    <property name="TODAY" value="March 25 2009"></property>
+    <property name="user.name" value="buildacct"></property>
+    <property name="gobbles.bctomcat.server.port" value="38005"></property>
+    <property name="tests.runlong" value="foobar"></property>
+    <property name="flexrunner.swc" value="/home/buildacct/work/r1.20/dev/flexrunner/lib/flexrunner.swc"></property>
+    <property name="mail.smtp.host.test" value="rebuild3"></property>
+    <property name="console.reporting.amf.url" value="http://rebuild3:8080/services/amfgateway"></property>
+    <property name="base.experience.build"
+              value="/home/buildacct/work/r1.20/dev/origin/../experience/main/.."></property>
+    <property name="playerapi.build.zip"
+              value="/home/buildacct/work/r1.20/dev/origin/build/cdn-build/playerapi/PlayerAPIExamples.zip"></property>
+    <property name="dbclk.password" value="password2"></property>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"></property>
+    <property name="syndication.url" value="http://rebuild3:8080/cdn/syndication/"></property>
+    <property name="dashboard.swf.version.wrapper" value="1"></property>
+    <property name="build.generated.java" value="/home/buildacct/work/r1.20/dev/origin/build/generated/java"></property>
+    <property name="services2.url" value="http://rebuild3:8080/services"></property>
+    <property name="services2.AMF.url" value="http://rebuild3:8080/services/messagebroker/amf"></property>
+    <property name="hibernate.db.password" value="hibuser3"></property>
+    <property name="base.config.src" value="/home/buildacct/work/r1.20/dev/origin/src/config"></property>
+    <property name="build.as3.src" value="/home/buildacct/work/r1.20/dev/origin/build/src/as3"></property>
+    <property name="os.version" value="2.6.18-53.1.13.el5"></property>
+    <property name="gobbles.seed.bctomcat.debug.port" value="39454"></property>
+    <property name="experiencemanager.dir"
+              value="/home/buildacct/work/r1.20/dev/origin/../experiencemanager"></property>
+    <property name="coherence.clustername" value="buildacct "></property>
+    <property name="upload.drm1.username" value="tom-skanky1"></property>
+    <property name="java.awt.graphicsenv.ivy.instance" value="sun.awt.X11GraphicsEnvironment"></property>
+    <property name="maitred.bctomcat.server.http.redirectPort" value="20443"></property>
+    <property name="env.TeamCity.Agent.NET.root.cdc51fb1-1a81-4792-8831-3a5a69c3af76"
+              value="/opt/packages/teamcity-4.0.1/plugins/dotnetPlugin/bin"></property>
+    <property name="dashboard.admin.url.mgr.media" value="media"></property>
+    <property name="upload.finger2.password" value="tom-skanky2"></property>
+    <property name="platform.player.archive.zip.name" value="as3-players-r1.14"></property>
+    <property name="cairngorm.21.swc" value="/home/buildacct/work/tools/cairngorm/2.2/bin/Cairngorm.swc"></property>
+    <property name="basedir" value="/home/buildacct/work/r1.20/dev/origin"></property>
+    <property name="tests.common.build"
+              value="/home/buildacct/work/r1.20/dev/origin/build/tests/common/build"></property>
+    <property name="transcoder.flix.log.file" value="/var/log/flixd/flixd.log"></property>
+    <property name="tps.bctomcat.snmp.trap" value="5162"></property>
+    <property name="gobbles.aws.backend.redirect.url" value="http://rebuild3:38090"></property>
+    <property name="jetfire.bctomcat.snmp.port" value="6163"></property>
+    <property name="pods.dns.zone" value="saucetown.local"></property>
+    <property name="transcoder.flix.release" value="3"></property>
+    <property name="upload.poll.active" value=""></property>
+    <property name="base.config" value="/home/buildacct/work/r1.20/dev/origin/config"></property>
+    <property name="ant.file.origin-tests-flex"
+              value="/home/buildacct/work/r1.20/dev/origin/tests/flextest-build.xml"></property>
+    <property name="velocity.resource.loader" value="file"></property>
+    <property name="gobbles.edge.backend.amf.url" value="http://rebuild3:38090"></property>
+    <property name="upload.default.cdn.flv.username" value="the_username"></property>
+    <property name="flexrunner.jar" value="/home/buildacct/work/r1.20/dev/flexrunner/lib/flexrunner.jar"></property>
+    <property name="env.path.separator" value=":"></property>
+    <property name="tests.flash.src" value="/home/buildacct/work/r1.20/dev/origin/tests/src/flash"></property>
+    <property name="maitred.hibernate.db.name" value="xe"></property>
+    <property name="globalConfig" value="/home/buildacct/work/r1.20/dev/origin/build/tests/junit/build"></property>
+    <property name="base.actionscript.src" value="/home/buildacct/work/r1.20/dev/origin/src/actionscript"></property>
+    <property name="java.endorsed.dirs" value="/usr/java/jdk1.6.0_07/jre/lib/endorsed"></property>
+    <property name="bc.fonts.url" value="http://brightcove.vo.lowlight.local/unsecured/fonts/"></property>
+    <property name="flash.compileEditors.off" value="true"></property>
+    <property name="bctomcat.catalina.opt.NewSize" value="128m"></property>
+    <property name="ant.file.build-common-test-properties"
+              value="/home/buildacct/work/r1.20/dev/origin/config/build/build-common-test-properties.xml"></property>
+    <property name="adapi.home.zip"
+              value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/adapi/AdAPIExamples.zip"></property>
+    <property name="coherence.jointimeout" value="1000"></property>
+    <property name="cache.bigclear.enabled" value="true"></property>
+    <property name="preview.url.host" value="http://rebuild3:8080"></property>
+    <property name="dashboard.bctomcat.snmp.port" value="3163"></property>
+    <property name="base.tests" value="/home/buildacct/work/r1.20/dev/origin/tests"></property>
+    <property name="upload.default.cdn.http.password" value=""></property>
+    <property name="upload.drm1.capacity" value="2"></property>
+    <property name="build.common.certs" value="/home/buildacct/work/r1.20/dev/origin/build/common/certs"></property>
+    <property name="destination.web.src"
+              value="/home/buildacct/work/r1.20/dev/origin/../destination/src/web"></property>
+    <property name="ant.library.dir" value="/opt/packages/ant/lib"></property>
+    <property name="adswf.home.zip"
+              value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/adswf/AdSwfDevKit.zip"></property>
+    <property name="upload.finger1.directory" value=""></property>
+    <property name="tps.llfms.log.discovery.job.enabled" value="true"></property>
+    <property name="tps.llhttp.local.dir"
+              value="/home/buildacct/work/r1.20/temp/reporting/tps/raw_logs/ll_http"></property>
+    <property name="gobbles.bctomcat.jmx.port" value="39004"></property>
+    <property name="destination.src" value="/home/buildacct/work/r1.20/dev/origin/../destination/src"></property>
+    <property name="connectionpoolC3p0" value=""></property>
+    <property name="sun.java.launcher.ivy.instance" value="SUN_STANDARD"></property>
+    <property name="tests.api.build" value="/home/buildacct/work/r1.20/dev/origin/build/tests/api/build"></property>
+    <property name="gobbles.tomcat.version" value="6.0.18"></property>
+    <property name="upload.default.cdn.http.hostname" value=""></property>
+    <property name="upload.trans1.enabled" value="1"></property>
+    <property name="mediamanager.dir" value="/home/buildacct/work/r1.20/dev/origin/../mediamanager"></property>
+    <property name="gobbles.bctomcat.debug.port" value="39444"></property>
+    <property name="tomcat.overrides" value="/home/buildacct/work/r1.20/dev/origin/tools/tomcat"></property>
+    <property name="env.ANT_HOME" value="/opt/packages/ant"></property>
+    <property name="adtranslator.cdn.home"
+              value="/home/buildacct/work/r1.20/tomcat/webapps/ROOT/cdn/adtranslator"></property>
+    <property name="java.vm.specification.version" value="1.0"></property>
+    <property name="clusterpump.batch.size" value="1000"></property>
+    <property name="gobbles.seed.bctomcat.profile.port" value="39886"></property>
+    <property name="pods.dns.zonePrefix" value="rebuild3."></property>
+    <property name="hibernate.connection.username" value="hibuser3"></property>
+    <property name="asset.url.base" value="http://rebuild3:8080/"></property>
+    <property name="lucene.move.win" value="CMD /C MOVE"></property>
+    <property name="maitred.bctomcat.profile.port" value="20876"></property>
+    <property name="flash.cache.on" value="true"></property>
+    <property name="env.HISTSIZE" value="1000"></property>
+    <property name="ivy.retrieve.pattern.ivy.instance"
+              value="/home/buildacct/work/r1.20/dev/origin/${build.dir}/ivy-lib/[artifact]-[revision](-[classifier]).[ext]"></property>
+    <property name="ivy.publish.src.artifacts.pattern.ivy.instance"
+              value="/home/buildacct/work/r1.20/dev/origin/distrib/[type]s/[artifact]-[revision](-[classifier]).[ext]"></property>
+    <property name="gobbles.backend.api.url" value="http://rebuild3:8080"></property>
+    <property name="aftermix.server" value="rebuild3"></property>
+  </properties>
+  <system-out><![CDATA[Tangosol 3.3.1/389p7 Info 2009-03-25 15:55:59.296  (thread=main, member=n/a): Loaded operational configuration from resource "jar:file:/home/buildacct/work/r1.20/dev/origin/lib/coherence.jar!/tangosol-coherence.xml"
+Tangosol 3.3.1/389p7 Info 2009-03-25 15:55:59.314  (thread=main, member=n/a): Loaded operational overrides from resource "file:/home/buildacct/work/r1.20/dev/origin/build/config/services/WEB-INF/classes/tangosol-coherence-override-dev.xml"
+Tangosol 3.3.1/389p7 D5 2009-03-25 15:55:59.315  (thread=main, member=n/a): Optional configuration override "tangosol-coherence-override.xml" is not specified
+
+Oracle Coherence Version 3.3.1/389p7
+ Standard Edition: Development mode
+Copyright (c) 2000-2007 Oracle. All rights reserved.
+
+Tangosol 3.3.1/389p7 D5 2009-03-25 15:56:00.312  (thread=Cluster, member=n/a): Service Cluster joined the cluster with senior service member n/a
+Tangosol 3.3.1/389p7 Info 2009-03-25 15:56:01.519  (thread=Cluster, member=n/a): Created a new cluster "buildacct" with Member(Id=1, Timestamp=2009-03-25 15:55:59.891, Address=192.168.255.236:8088, MachineId=38892, Location=process:4899@rebuild3, Edition=Standard Edition, Mode=Development, CpuCount=4, SocketCount=1) UID=0xC0A8FFEC000001203F34181397EC1F98
+Tangosol 3.3.1/389p7 Info 2009-03-25 15:56:01.692  (thread=main, member=1): Loaded cache configuration from resource "file:/home/buildacct/work/r1.20/dev/origin/build/config/services/WEB-INF/classes/coherence-cache-config.xml"
+Tangosol 3.3.1/389p7 D5 2009-03-25 15:56:02.077  (thread=DistributedCache:PartitionedCache, member=1): Service PartitionedCache joined the cluster with senior service member 1
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

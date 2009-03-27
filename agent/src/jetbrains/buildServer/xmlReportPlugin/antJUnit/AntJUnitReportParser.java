@@ -16,18 +16,20 @@
 
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
-import java.io.File;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
+import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOGGER;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
+import java.io.File;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Stack;
 
 
 public class AntJUnitReportParser extends XmlReportParser {
@@ -135,26 +137,26 @@ public class AntJUnitReportParser extends XmlReportParser {
 <!ELEMENT system-out (#PCDATA)> */
 
   public int parse(@NotNull final File report, int testsToSkip) {
+    myLoggedSuites = 0;
     myLoggedTests = 0;
+    mySkippedSuites = 0;
     myTestsToSkip = testsToSkip;
     myTests = new Stack<TestData>();
     try {
       parse(report);
     } catch (SAXParseException e) {
       myTests.clear();
-//      myLogger.debugToAgentLog("Couldn't completely parse " + report.getPath() + " report - SAXParseException occured: " + e.toString());
+      XmlReportPlugin.LOGGER.info("Couldn't completely parse " + report.getPath() + " report - SAXParseException occured: " + e.toString());
       return myLoggedTests;
     } catch (Exception e) {
       myLogger.exception(e);
     }
     myCurrentSuite = null;
-    myLoggedSuites = 0;
-    mySkippedSuites = 0;
     return -1;
   }
 
-  public void logReportTotals(File report) {
-    String message = report.getPath() + " report processed";
+  public void logReportTotals(@NotNull File report) {
+    String message = report.getAbsolutePath() + " report processed";
     if (myLoggedSuites > 0) {
       message = message.concat(": " + myLoggedSuites + " suite(s)");
       if (myLoggedTests > 0) {

@@ -16,9 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Date;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import junit.framework.Assert;
@@ -33,6 +30,10 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Date;
 
 
 @RunWith(JMock.class)
@@ -786,6 +787,23 @@ public class AntJUnitReportParserTest extends TestCase {
       }
     });
     myParser.parse(report("twoCasesWithSystemOut.xml"), 0);
+    myContext.assertIsSatisfied();
+  }
+
+  // TW-7649: junit tests results being ignored
+  @Test
+  public void testNoSuites() throws Exception {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with("api.brightcove.catalog.AudioFacadeReadServletTest"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).message(with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with("api.brightcove.catalog.AudioFacadeReadServletTest"), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    assertEquals(-1, myParser.parse(TestUtil.getTestDataFile("noSuite.xml", "antJUnit"), 0));
     myContext.assertIsSatisfied();
   }
 }

@@ -16,13 +16,14 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.util.Map;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
+
+import java.io.File;
+import java.util.Map;
 
 
 public abstract class XmlReportParser extends DefaultHandler {
@@ -64,11 +65,11 @@ public abstract class XmlReportParser extends DefaultHandler {
     }
   }
 
-  boolean abnormalEnd() {
+  public boolean abnormalEnd() {
     return false;
   }
 
-  void logReportTotals(@NotNull File report) {
+  public void logReportTotals(@NotNull File report) {
   }
 
   void logParsingTotals(@NotNull Map<String, String> parameters) {

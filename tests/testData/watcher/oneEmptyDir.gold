@@ -1,1 +1,4 @@
-WARNING: ##BASE_DIR##\dir: no reports found
+MESSAGE: Watching paths: 
+MESSAGE: ##BASE_DIR##\dir
+WARNING: no files found
+WARNING: ##BASE_DIR##\dir: no files found

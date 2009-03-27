@@ -29,8 +29,8 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 public class XmlReportDataProcessorTest extends TestCase {
@@ -63,7 +63,7 @@ public class XmlReportDataProcessorTest extends TestCase {
     final EventDispatcher dispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
     final InspectionReporter reporter = myContext.mock(InspectionReporter.class);
     return new XmlReportPlugin(dispatcher, reporter) {
-      public void processReports(Map<String, String> params, List<File> reportDirs) {
+      public void processReports(Map<String, String> params, Set<File> reportDirs) {
         for (String key : params.keySet()) {
           results.append("<").append(key).append(", ").append(params.get(key)).append(">\n");
         }

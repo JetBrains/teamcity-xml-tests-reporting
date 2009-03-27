@@ -1,4 +1,10 @@
+MESSAGE: Watching paths: 
+MESSAGE: ##BASE_DIR##\dir
 ##BASE_DIR##\dir\f1
 ##BASE_DIR##\dir\f2
 ##BASE_DIR##\dir\f3
-MESSAGE: ##BASE_DIR##\dir: 3 files(s) found
+MESSAGE: 3 file(s) found
+MESSAGE: ##BASE_DIR##\dir: 3 file(s) found
+MESSAGE: ##BASE_DIR##\dir\f2 found
+MESSAGE: ##BASE_DIR##\dir\f3 found
+MESSAGE: ##BASE_DIR##\dir\f1 found

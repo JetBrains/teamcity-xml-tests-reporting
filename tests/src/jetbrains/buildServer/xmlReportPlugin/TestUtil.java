@@ -16,12 +16,13 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.*;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionTypeInfo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.*;
 
 
 public final class TestUtil {

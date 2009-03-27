@@ -16,13 +16,14 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import jetbrains.buildServer.agent.DataProcessor;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 //"##teamcity[importData type='sometype' file='somedir']"
 // service message activates watching "somedir" directory for reports of sometype type
@@ -71,7 +72,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
       params.put(XmlReportPluginUtil.MAX_WARNINGS, arguments.get(WARNINGS_LIMIT_ARGUMENT));
     }
 
-    final List<File> reportDirs = new ArrayList<File>();
+    final Set<File> reportDirs = new HashSet<File>();
     reportDirs.add(file);
 
     myPlugin.processReports(params, reportDirs);

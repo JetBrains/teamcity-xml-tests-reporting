@@ -16,11 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin.integration;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
@@ -38,6 +33,12 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RunWith(JMock.class)
 public class XmlReportPluginIntegrationTest {
@@ -179,8 +180,12 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("message", params2));
 
     List<Object> params3 = new ArrayList<Object>();
-    params3.add(path + " didn't appear on disk during the build");
+    params3.add("no files found");
     myLogSequence.add(new MethodInvokation("warning", params3));
+
+    List<Object> params4 = new ArrayList<Object>();
+    params4.add(path + " couldn't find any matching files");
+    myLogSequence.add(new MethodInvokation("warning", params4));
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
@@ -245,8 +250,12 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("message", params2));
 
     final List<Object> params3 = new ArrayList<Object>();
-    params3.add(getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath() + ": no reports found");
+    params3.add("no files found");
     myLogSequence.add(new MethodInvokation("warning", params3));
+
+    final List<Object> params4 = new ArrayList<Object>();
+    params4.add(getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath() + ": no files found");
+    myLogSequence.add(new MethodInvokation("warning", params4));
     myTestLogger.setExpectedSequence(myLogSequence);
   }
 
@@ -273,8 +282,16 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("error", params3));
 
     final List<Object> params4 = new ArrayList<Object>();
-    params4.add(path + ": 1 files(s) found");
+    params4.add("1 file(s) found");
     myLogSequence.add(new MethodInvokation("message", params4));
+
+    final List<Object> params5 = new ArrayList<Object>();
+    params5.add(path + ": 1 file(s) found");
+    myLogSequence.add(new MethodInvokation("message", params5));
+
+    List<Object> params6 = new ArrayList<Object>();
+    params6.add(report + " found");
+    myLogSequence.add(new MethodInvokation("message", params6));
 
     myTestLogger.setExpectedSequence(myLogSequence);
   }
@@ -392,14 +409,23 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
     myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
     myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+    myLogSequence.add(new MethodInvokation("logSuiteFinished", twoAnyParams));
 
     final List<Object> params3 = new ArrayList<Object>();
     params3.add(report + ": failed to parse with " + XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(ANT_JUNIT_REPORT_TYPE) + " parser");
     myLogSequence.add(new MethodInvokation("error", params3));
 
     final List<Object> params4 = new ArrayList<Object>();
-    params4.add(path + ": 1 files(s) found");
+    params4.add("1 file(s) found");
     myLogSequence.add(new MethodInvokation("message", params4));
+
+    final List<Object> params5 = new ArrayList<Object>();
+    params5.add(path + ": 1 file(s) found");
+    myLogSequence.add(new MethodInvokation("message", params5));
+
+    List<Object> params6 = new ArrayList<Object>();
+    params6.add(report + " found");
+    myLogSequence.add(new MethodInvokation("message", params6));
 
     myTestLogger.setExpectedSequence(myLogSequence);
 
@@ -744,13 +770,21 @@ public class XmlReportPluginIntegrationTest {
     params2.add(path);
     myLogSequence.add(new MethodInvokation("message", params2));
 
-    final List<Object> params3 = new ArrayList<Object>();
-    params3.add(path + ": 1 files(s) found");
-    myLogSequence.add(new MethodInvokation("message", params3));
+    List<Object> params3 = new ArrayList<Object>();
+    params3.add("Found existing files:");
+    myLogSequence.add(new MethodInvokation("warning", params3));
 
-    final List<Object> params4 = new ArrayList<Object>();
-    params4.add(report + " has modification date preceding build start time");
+    List<Object> params4 = new ArrayList<Object>();
+    params4.add(report);
     myLogSequence.add(new MethodInvokation("warning", params4));
+
+    final List<Object> params5 = new ArrayList<Object>();
+    params5.add("no files found");
+    myLogSequence.add(new MethodInvokation("warning", params5));
+
+    final List<Object> params6 = new ArrayList<Object>();
+    params6.add(path + ": no files found");
+    myLogSequence.add(new MethodInvokation("warning", params6));
 
     myTestLogger.setExpectedSequence(myLogSequence);
 
@@ -762,7 +796,7 @@ public class XmlReportPluginIntegrationTest {
       "</testsuite>");
 
     try {
-      Thread.sleep(1000);
+      Thread.sleep(3000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
@@ -792,6 +826,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setParseOutOfDateReports(myRunnerParams, true);
 
     final String path = getFileInCheckoutDir("").getAbsolutePath();
+    final String report = path + File.separator + "suite1";
 
     List<Object> params1 = new ArrayList<Object>();
     params1.add("Watching paths: ");
@@ -800,6 +835,14 @@ public class XmlReportPluginIntegrationTest {
     List<Object> params2 = new ArrayList<Object>();
     params2.add(path);
     myLogSequence.add(new MethodInvokation("message", params2));
+
+    List<Object> params3 = new ArrayList<Object>();
+    params3.add("Found existing files:");
+    myLogSequence.add(new MethodInvokation("warning", params3));
+
+    List<Object> params4 = new ArrayList<Object>();
+    params4.add(report);
+    myLogSequence.add(new MethodInvokation("warning", params4));
 
     final List<Object> twoAnyParams = new ArrayList<Object>();
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
@@ -814,9 +857,21 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
     myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
 
-    final List<Object> params3 = new ArrayList<Object>();
-    params3.add(path + ": 1 files(s) found");
-    myLogSequence.add(new MethodInvokation("message", params3));
+    final List<Object> params5 = new ArrayList<Object>();
+    params5.add(report + " report processed: 1 suite(s), 1 test(s)");
+    myLogSequence.add(new MethodInvokation("message", params5));
+
+    final List<Object> params6 = new ArrayList<Object>();
+    params6.add("1 file(s) found");
+    myLogSequence.add(new MethodInvokation("message", params6));
+
+    final List<Object> params7 = new ArrayList<Object>();
+    params7.add(path + ": 1 file(s) found");
+    myLogSequence.add(new MethodInvokation("message", params7));
+
+    List<Object> params8 = new ArrayList<Object>();
+    params8.add(report + " found");
+    myLogSequence.add(new MethodInvokation("message", params8));
 
     myTestLogger.setExpectedSequence(myLogSequence);
 
@@ -827,6 +882,11 @@ public class XmlReportPluginIntegrationTest {
       "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
       "</testsuite>");
 
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
     try {
       Thread.sleep(1000);
@@ -850,6 +910,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, "");
 
     final String path = getFileInCheckoutDir("").getAbsolutePath();
+    final String report = path + File.separator + "suite1";
 
     List<Object> params1 = new ArrayList<Object>();
     params1.add("Watching paths: ");
@@ -873,8 +934,20 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("logSuiteFinished", param));
 
     final List<Object> params3 = new ArrayList<Object>();
-    params3.add(path + ": 1 files(s) found");
+    params3.add(report + " report processed: 1 suite(s), 1 test(s)");
     myLogSequence.add(new MethodInvokation("message", params3));
+
+    final List<Object> params4 = new ArrayList<Object>();
+    params4.add("1 file(s) found");
+    myLogSequence.add(new MethodInvokation("message", params4));
+
+    final List<Object> params5 = new ArrayList<Object>();
+    params5.add(path + ": 1 file(s) found");
+    myLogSequence.add(new MethodInvokation("message", params5));
+
+    List<Object> params6 = new ArrayList<Object>();
+    params6.add(report + " found");
+    myLogSequence.add(new MethodInvokation("message", params6));
 
     myTestLogger.setExpectedSequence(myLogSequence);
 
@@ -924,13 +997,21 @@ public class XmlReportPluginIntegrationTest {
     params2.add(path);
     myLogSequence.add(new MethodInvokation("message", params2));
 
-    final List<Object> params3 = new ArrayList<Object>();
-    params3.add(path + ": 1 files(s) found");
-    myLogSequence.add(new MethodInvokation("message", params3));
+    List<Object> params3 = new ArrayList<Object>();
+    params3.add("Found existing files:");
+    myLogSequence.add(new MethodInvokation("warning", params3));
 
-    final List<Object> params4 = new ArrayList<Object>();
-    params4.add(report + " has modification date preceding build start time");
+    List<Object> params4 = new ArrayList<Object>();
+    params4.add(report);
     myLogSequence.add(new MethodInvokation("warning", params4));
+
+    final List<Object> params5 = new ArrayList<Object>();
+    params5.add("no files found");
+    myLogSequence.add(new MethodInvokation("warning", params5));
+
+    final List<Object> params6 = new ArrayList<Object>();
+    params6.add(path + ": no files found");
+    myLogSequence.add(new MethodInvokation("warning", params6));
 
     myTestLogger.setExpectedSequence(myLogSequence);
 
@@ -985,6 +1066,14 @@ public class XmlReportPluginIntegrationTest {
     params2.add(path);
     myLogSequence.add(new MethodInvokation("message", params2));
 
+    List<Object> params3 = new ArrayList<Object>();
+    params3.add("Found existing files:");
+    myLogSequence.add(new MethodInvokation("warning", params3));
+
+    List<Object> params4 = new ArrayList<Object>();
+    params4.add(report);
+    myLogSequence.add(new MethodInvokation("warning", params4));
+
     final List<Object> twoAnyParams = new ArrayList<Object>();
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
@@ -998,9 +1087,21 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
     myLogSequence.add(new MethodInvokation("logSuiteFinished", param2));
 
-    final List<Object> params3 = new ArrayList<Object>();
-    params3.add(path + ": 1 files(s) found");
-    myLogSequence.add(new MethodInvokation("message", params3));
+    final List<Object> params5 = new ArrayList<Object>();
+    params5.add(report + " report processed: 1 suite(s), 1 test(s)");
+    myLogSequence.add(new MethodInvokation("message", params5));
+
+    final List<Object> params6 = new ArrayList<Object>();
+    params6.add("1 file(s) found");
+    myLogSequence.add(new MethodInvokation("message", params6));
+
+    final List<Object> params7 = new ArrayList<Object>();
+    params7.add(path + ": 1 file(s) found");
+    myLogSequence.add(new MethodInvokation("message", params7));
+
+    List<Object> params8 = new ArrayList<Object>();
+    params8.add(report + " found");
+    myLogSequence.add(new MethodInvokation("message", params8));
 
     myTestLogger.setExpectedSequence(myLogSequence);
 

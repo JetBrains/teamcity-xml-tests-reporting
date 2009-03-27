@@ -16,13 +16,17 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.util.HashMap;
-import java.util.Map;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class XmlReportPluginUtil {
   public static final Map<String, String> SUPPORTED_REPORT_TYPES = new HashMap<String, String>();
+  public static final List<String> INSPECTIONS_TYPES = new ArrayList<String>();
 
   static {
     SUPPORTED_REPORT_TYPES.put("junit", "Ant JUnit");
@@ -30,6 +34,9 @@ public class XmlReportPluginUtil {
     SUPPORTED_REPORT_TYPES.put("surefire", "Surefire");
     SUPPORTED_REPORT_TYPES.put("findBugs", "FindBugs");
     SUPPORTED_REPORT_TYPES.put("pmd", "PMD");
+
+    INSPECTIONS_TYPES.add("findBugs");
+    INSPECTIONS_TYPES.add("pmd");
   }
 
   public static final String REPORT_TYPE = "xmlReportParsing.reportType";
@@ -132,5 +139,9 @@ public class XmlReportPluginUtil {
       }
     }
     return -1;
+  }
+
+  public static boolean isInspection(String type) {
+    return INSPECTIONS_TYPES.contains(type);
   }
 }

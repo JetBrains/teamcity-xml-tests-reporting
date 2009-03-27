@@ -17,12 +17,6 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.util.Pair;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.LinkedBlockingQueue;
 import jetbrains.buildServer.TempFiles;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
@@ -37,6 +31,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.LinkedBlockingQueue;
 
 @RunWith(JMock.class)
 public class XmlReportDirectoryWatcherTest extends TestCase {
@@ -129,7 +130,7 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     return f;
   }
 
-  private void runTest(final String fileName, List<File> input) throws Exception {
+  private void runTest(final String fileName, Set<File> input) throws Exception {
     final String expectedFile = getAbsoluteTestDataPath(fileName + ".gold", "watcher");
     final String resultsFile = expectedFile.replace(".gold", ".tmp");
 
@@ -176,48 +177,48 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
 
   @Test
   public void testEmpty() throws Exception {
-    runTest("empty", new ArrayList<File>());
+    runTest("empty", new HashSet<File>());
   }
 
   @Test
   public void testOneFile() throws Exception {
-//    final List<File> files = new ArrayList<File>();
-//    final File f = createFile("file");
-//    files.add(f);
-//    runTest("oneFile", files);
-//    f.delete();
+    final Set<File> files = new HashSet<File>();
+    final File f = createFile("file");
+    files.add(f);
+    runTest("oneFile", files);
+    f.delete();
   }
 
   @Test
   public void testOneEmptyDir() throws Exception {
-//    final List<File> files = new ArrayList<File>();
-//    final File f = createDir("dir");
-//    files.add(f);
-//    runTest("oneEmptyDir", files);
-//    f.delete();
+    final Set<File> files = new HashSet<File>();
+    final File f = createDir("dir");
+    files.add(f);
+    runTest("oneEmptyDir", files);
+    f.delete();
   }
 
   @Test
   public void testOneNotExists() throws Exception {
-//    final List<File> files = new ArrayList<File>();
-//    final File f = getFile("smth");
-//    files.add(f);
-//    runTest("oneNotExists", files);
-//    f.delete();
+    final Set<File> files = new HashSet<File>();
+    final File f = getFile("smth");
+    files.add(f);
+    runTest("oneNotExists", files);
+    f.delete();
   }
 
   @Test
   public void testOneEmptyMask() throws Exception {
-//    final List<File> files = new ArrayList<File>();
-//    final File f = getFile("mask*");
-//    files.add(f);
-//    runTest("oneEmptyMask", files);
-//    f.delete();
+    final Set<File> files = new HashSet<File>();
+    final File f = getFile("mask*");
+    files.add(f);
+    runTest("oneEmptyMask", files);
+    f.delete();
   }
 
   @Test
   public void testOneDirWithFiles() throws Exception {
-//    final List<File> files = new ArrayList<File>();
+//    final Set<File> files = new HashSet<File>();
 //    final File f = createDir("dir");
 //    files.add(f);
 //    final File f1 = createFileInDir(f, "f1");

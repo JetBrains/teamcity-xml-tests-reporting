@@ -16,20 +16,21 @@
 
 package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import jetbrains.buildServer.xmlReportPlugin.InspectionslReportParser;
+import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-public class FindBugsReportParser extends InspectionslReportParser {
+
+public class FindBugsReportParser extends InspectionsReportParser {
   public static final String TYPE = "findBugs";
 
   private static final String DEFAULT_MESSAGE = "No message";
