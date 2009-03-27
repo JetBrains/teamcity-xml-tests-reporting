@@ -1,5 +1,5 @@
 /*
- * Copyright 2008 JetBrains s.r.o.
+ * Copyright 2000-2009 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,13 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.util.Arrays;
+import java.util.List;
 import jetbrains.buildServer.serverSide.ProjectManager;
 import jetbrains.buildServer.web.openapi.PagePlaces;
 import jetbrains.buildServer.web.openapi.buildType.EditBuildRunnerSettingsExtension;
 import jetbrains.buildServer.web.openapi.buildType.ViewBuildRunnerSettingsExtension;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class XmlReportPluginSettings {
   public XmlReportPluginSettings(@NotNull final PagePlaces pagePlaces, @NotNull final ProjectManager projectManager) {

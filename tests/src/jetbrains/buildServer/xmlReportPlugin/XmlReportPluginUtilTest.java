@@ -1,5 +1,5 @@
 /*
- * Copyright 2008 JetBrains s.r.o.
+ * Copyright 2000-2009 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.util.HashMap;
+import java.util.Map;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
 import static junit.framework.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class XmlReportPluginUtilTest {

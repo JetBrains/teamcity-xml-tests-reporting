@@ -1,5 +1,5 @@
 /*
- * Copyright 2008 JetBrains s.r.o.
+ * Copyright 2000-2009 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,14 @@
 
 package jetbrains.buildServer.xmlReportPlugin.nUnit;
 
-import org.jetbrains.annotations.NotNull;
-
+import java.io.File;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import java.io.File;
+import org.jetbrains.annotations.NotNull;
 
 
 public class NUnitToJUnitReportTransformer {

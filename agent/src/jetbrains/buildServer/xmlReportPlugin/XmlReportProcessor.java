@@ -1,5 +1,5 @@
 /*
- * Copyright 2008 JetBrains s.r.o.
+ * Copyright 2000-2009 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,16 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.util.Pair;
-import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
-import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
-import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
-import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
+import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
+import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
+import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
+import org.jetbrains.annotations.NotNull;
 
 public class XmlReportProcessor extends Thread {
   private static final long FILE_WAIT_TIMEOUT = 500;
