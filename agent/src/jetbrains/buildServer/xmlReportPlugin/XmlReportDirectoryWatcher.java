@@ -16,7 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import com.intellij.openapi.util.Pair;
 import jetbrains.buildServer.util.FileUtil;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOGGER;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.SUPPORTED_REPORT_TYPES;
@@ -34,7 +33,7 @@ public class XmlReportDirectoryWatcher extends Thread {
 
   private final XmlReportPlugin myPlugin;
 
-  private final LinkedBlockingQueue<Pair<String, File>> myReportQueue;
+  private final LinkedBlockingQueue<ReportData> myReportQueue;
   private final Map<String, Set<File>> myPaths;
   private final Map<File, MaskData> myMaskHash;
   private final Map<String, TypeStatistics> myStatistics;
@@ -43,7 +42,7 @@ public class XmlReportDirectoryWatcher extends Thread {
   public XmlReportDirectoryWatcher(@NotNull final XmlReportPlugin plugin,
                                    @NotNull final Set<File> input,
                                    @NotNull final String type,
-                                   @NotNull final LinkedBlockingQueue<Pair<String, File>> queue) {
+                                   @NotNull final LinkedBlockingQueue<ReportData> queue) {
     super("xml-report-plugin-DirectoryWatcher");
 
     myPlugin = plugin;
@@ -235,7 +234,7 @@ public class XmlReportDirectoryWatcher extends Thread {
 
   private void sendToQueue(String type, File f) {
     try {
-      myReportQueue.put(new Pair<String, File>(type, f));
+      myReportQueue.put(new ReportData(f, type));
     } catch (InterruptedException e) {
     }
   }

@@ -65,17 +65,13 @@ public abstract class XmlReportParser extends DefaultHandler {
     }
   }
 
-  public boolean abnormalEnd() {
-    return false;
-  }
-
   public void logReportTotals(@NotNull File report) {
   }
 
   void logParsingTotals(@NotNull Map<String, String> parameters) {
   }
 
-  public final void parse(@NotNull File report) throws SAXParseException {
+  protected final void parse(@NotNull File report) throws SAXParseException {
     try {
       myXmlReader.parse(new InputSource(report.toURI().toString()));
     } catch (SAXParseException se) {
@@ -89,5 +85,5 @@ public abstract class XmlReportParser extends DefaultHandler {
     myCData.append(ch, start, length);
   }
 
-  public abstract int parse(@NotNull File report, int testsToSkip);
+  public abstract int parse(@NotNull final ReportData data);
 }

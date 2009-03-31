@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import com.intellij.openapi.util.io.FileUtil;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import junit.framework.Assert;
@@ -49,6 +50,11 @@ public class AntJUnitReportParserTest extends TestCase {
   private static final String SYSO_MESSAGE1 = "from test1";
   private static final String SYSO_MESSAGE2 = "from test2";
 
+  private static final String REPORT_1 = "report.xml";
+  private static final String REPORT_2 = "report1.xml";
+  private static final String REPORT_3 = "report2.xml";
+  private static final String REPORT_4 = "report3.xml";
+
   private XmlReportParser myParser;
   private BaseServerLoggerFacade myLogger;
 
@@ -59,7 +65,11 @@ public class AntJUnitReportParserTest extends TestCase {
     return myContext.mock(BaseServerLoggerFacade.class);
   }
 
-  private File report(@NotNull final String fileName) throws FileNotFoundException {
+  private ReportData reportData(@NotNull final String fileName) throws FileNotFoundException {
+    return new ReportData(TestUtil.getTestDataFile(fileName, REPORT_DIR), "junit");
+  }
+
+  private File file(@NotNull final String fileName) throws FileNotFoundException {
     return TestUtil.getTestDataFile(fileName, REPORT_DIR);
   }
 
@@ -83,20 +93,20 @@ public class AntJUnitReportParserTest extends TestCase {
       }
     });
 
-    myParser.parse(new File("unexisting"), 0);
+    myParser.parse(new ReportData(new File("unexisting"), "junit"));
     myContext.assertIsSatisfied();
   }
 
   @Test
   public void testEmptyReport() throws Exception {
-    long testsLogged = myParser.parse(report("empty.xml"), 0);
-    Assert.assertTrue("Empty report contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
+    long testsLogged = myParser.parse(reportData("empty.xml"));
+    Assert.assertTrue("Empty reportData contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
     myContext.assertIsSatisfied();
   }
 
   @Test
   public void testWrongFormatReport() throws Exception {
-    myParser.parse(report("wrongFormat"), 0);
+    myParser.parse(reportData("wrongFormat"));
     myContext.assertIsSatisfied();
   }
 
@@ -110,7 +120,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("noCase.xml"), 0);
+    myParser.parse(reportData("noCase.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -128,7 +138,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("singleCaseSuccess.xml"), 0);
+    myParser.parse(reportData("singleCaseSuccess.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -148,7 +158,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("singleCaseFailure.xml"), 0);
+    myParser.parse(reportData("singleCaseFailure.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -168,12 +178,14 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("singleCaseError.xml"), 0);
+    myParser.parse(reportData("singleCaseError.xml"));
     myContext.assertIsSatisfied();
   }
 
   private void singleCaseIn2PartsCaseAndSuiteFrom2Try(String unfinishedReportName) throws Exception {
-    int testsLogged = myParser.parse(report(unfinishedReportName), 0);
+    final ReportData data = reportData(REPORT_1);
+    FileUtil.copy(file(unfinishedReportName), data.getFile());
+    myParser.parse(data);
     myContext.assertIsSatisfied();
     myContext.checking(new Expectations() {
       {
@@ -189,7 +201,8 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("singleCaseFailure.xml"), testsLogged);
+    FileUtil.copy(file("singleCaseFailure.xml"), data.getFile());
+    myParser.parse(data);
     myContext.assertIsSatisfied();
   }
 
@@ -204,16 +217,22 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   private void singleCaseIn2PartsFrom2TrySuiteFrom1(String unfinishedReportName) throws Exception {
+    final ReportData data = reportData(REPORT_1);
+    FileUtil.copy(file(unfinishedReportName), data.getFile());
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
       }
     });
-    int testsLogged = myParser.parse(report(unfinishedReportName), 0);
+    myParser.parse(data);
     myContext.assertIsSatisfied();
     myContext.checking(new Expectations() {
       {
+        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
         oneOf(myLogger).logTestStarted(with(CASE_NAME), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logTestFailed(with(CASE_NAME), with(FAILURE_MESSAGE), with(any(String.class)));
@@ -224,7 +243,8 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("singleCaseFailure.xml"), testsLogged);
+    FileUtil.copy(file("singleCaseFailure.xml"), data.getFile());
+    myParser.parse(data);
     myContext.assertIsSatisfied();
   }
 
@@ -255,17 +275,24 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
         inSequence(mySequence);
-      }
-    });
-    int testsLogged = myParser.parse(report("singleCaseBreakAfter.xml"), 0);
-    myContext.assertIsSatisfied();
-    myContext.checking(new Expectations() {
-      {
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("singleCaseFailure.xml"), testsLogged);
+    final ReportData data = reportData(REPORT_1);
+    FileUtil.copy(file("singleCaseBreakAfter.xml"), data.getFile());
+    myParser.parse(data);
+    myContext.assertIsSatisfied();
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    FileUtil.copy(file("singleCaseFailure.xml"), data.getFile());
+    myParser.parse(data);
     myContext.assertIsSatisfied();
   }
 
@@ -287,7 +314,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("twoCasesSuccess.xml"), 0);
+    myParser.parse(reportData("twoCasesSuccess.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -311,7 +338,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("twoCasesFirstSuccess.xml"), 0);
+    myParser.parse(reportData("twoCasesFirstSuccess.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -335,7 +362,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("twoCasesSecondSuccess.xml"), 0);
+    myParser.parse(reportData("twoCasesSecondSuccess.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -361,7 +388,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("twoCasesFailed.xml"), 0);
+    myParser.parse(reportData("twoCasesFailed.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -370,12 +397,18 @@ public class AntJUnitReportParserTest extends TestCase {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
       }
     });
-    int testsLogged = myParser.parse(report(unfinishedReportName), 0);
+    final ReportData data = reportData(REPORT_1);
+    FileUtil.copy(file(unfinishedReportName), data.getFile());
+    myParser.parse(data);
     myContext.assertIsSatisfied();
     myContext.checking(new Expectations() {
       {
+        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
         oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logTestFailed(with(CASE_NAME + "1"), with(FAILURE_MESSAGE), with(any(String.class)));
@@ -392,7 +425,8 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("twoCasesFailed.xml"), testsLogged);
+    FileUtil.copy(file("twoCasesFailed.xml"), data.getFile());
+    myParser.parse(data);
     myContext.assertIsSatisfied();
   }
 
@@ -422,12 +456,18 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
         inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
       }
     });
-    int testsLogged = myParser.parse(report(unfinishedReportName), 0);
+    final ReportData data = reportData(REPORT_1);
+    FileUtil.copy(file(unfinishedReportName), data.getFile());
+    myParser.parse(data);
     myContext.assertIsSatisfied();
     myContext.checking(new Expectations() {
       {
+        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
         oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logTestFailed(with(CASE_NAME + "2"), with(ERROR_MESSAGE), with(any(String.class)));
@@ -438,7 +478,8 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("twoCasesFailed.xml"), testsLogged);
+    FileUtil.copy(file("twoCasesFailed.xml"), data.getFile());
+    myParser.parse(data);
     myContext.assertIsSatisfied();
   }
 
@@ -490,22 +531,31 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
         inSequence(mySequence);
-      }
-    });
-    int testsLogged = myParser.parse(report("twoCasesBreakAfterSecond.xml"), 0);
-    myContext.assertIsSatisfied();
-    myContext.checking(new Expectations() {
-      {
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("twoCasesFailed.xml"), testsLogged);
+    final ReportData data = reportData(REPORT_1);
+    FileUtil.copy(file("twoCasesBreakAfterSecond.xml"), data.getFile());
+    myParser.parse(data);
+    myContext.assertIsSatisfied();
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    FileUtil.copy(file("twoCasesFailed.xml"), data.getFile());
+    myParser.parse(data);
     myContext.assertIsSatisfied();
   }
 
   private void twoCasesIn2PartsBothAndSuiteFrom2Try(String unfinishedReportName) throws Exception {
-    int testsLogged = myParser.parse(report(unfinishedReportName), 0);
+    final ReportData data = reportData(REPORT_1);
+    FileUtil.copy(file(unfinishedReportName), data.getFile());
+    myParser.parse(data);
     myContext.checking(new Expectations() {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
@@ -526,7 +576,8 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("twoCasesFailed.xml"), testsLogged);
+    FileUtil.copy(file("twoCasesFailed.xml"), data.getFile());
+    myParser.parse(data);
     myContext.assertIsSatisfied();
   }
 
@@ -551,35 +602,45 @@ public class AntJUnitReportParserTest extends TestCase {
       {
         oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
-
         exactly(3).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
         exactly(3).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
         inSequence(mySequence);
-      }
-    });
-    int testsLogged = myParser.parse(report("nineCasesBreakAfterThird.xml"), 0);
-    myContext.assertIsSatisfied();
-    myContext.checking(new Expectations() {
-      {
-        exactly(3).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
-        exactly(3).of(myLogger).logTestFailed(with(any(String.class)), with(FAILURE_MESSAGE), with(any(String.class)));
-        exactly(3).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    testsLogged = myParser.parse(report("nineCasesBreakAfterSixth.xml"), testsLogged);
-    myContext.assertIsSatisfied();
-    myContext.checking(new Expectations() {
-      {
-        exactly(3).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
-        exactly(3).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
-        inSequence(mySequence);
-
         oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("nineCases.xml"), testsLogged);
+    final ReportData data = reportData(REPORT_1);
+    FileUtil.copy(file("nineCasesBreakAfterThird.xml"), data.getFile());
+    myParser.parse(data);
+    myContext.assertIsSatisfied();
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        exactly(3).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
+        exactly(3).of(myLogger).logTestFailed(with(any(String.class)), with(FAILURE_MESSAGE), with(any(String.class)));
+        exactly(3).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    FileUtil.copy(file("nineCasesBreakAfterSixth.xml"), data.getFile());
+    myParser.parse(data);
+    myContext.assertIsSatisfied();
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        exactly(3).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
+        exactly(3).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    FileUtil.copy(file("nineCases.xml"), data.getFile());
+    myParser.parse(data);
     myContext.assertIsSatisfied();
   }
 
@@ -598,7 +659,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report(reportName), 0);
+    myParser.parse(reportData(reportName));
     myContext.assertIsSatisfied();
   }
 
@@ -627,7 +688,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report(reportName), 0);
+    myParser.parse(reportData(reportName));
     myContext.assertIsSatisfied();
   }
 
@@ -657,7 +718,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report(reportName), 0);
+    myParser.parse(reportData(reportName));
     myContext.assertIsSatisfied();
   }
 
@@ -687,7 +748,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report(reportName), 0);
+    myParser.parse(reportData(reportName));
     myContext.assertIsSatisfied();
   }
 
@@ -720,7 +781,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("fiveLineSystemOutAndErr.xml"), 0);
+    myParser.parse(reportData("fiveLineSystemOutAndErr.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -740,7 +801,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("caseWithSystemOut.xml"), 0);
+    myParser.parse(reportData("caseWithSystemOut.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -760,7 +821,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("caseWithSystemErr.xml"), 0);
+    myParser.parse(reportData("caseWithSystemErr.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -786,7 +847,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("twoCasesWithSystemOut.xml"), 0);
+    myParser.parse(reportData("twoCasesWithSystemOut.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -803,7 +864,126 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    assertEquals(-1, myParser.parse(TestUtil.getTestDataFile("noSuite.xml", "antJUnit"), 0));
+    assertEquals(-1, myParser.parse(reportData("noSuite.xml")));
+    myContext.assertIsSatisfied();
+  }
+
+  @Test
+  public void testManyCasesInManyFilesFromManyTries() throws Exception {
+    final ReportData data1 = reportData(REPORT_1);
+    FileUtil.copy(file("TestClass0_0_500.xml"), data1.getFile());
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with("org.jetbrains.testProject.TestClass0_0"), with(any(Date.class)));
+        inSequence(mySequence);
+        exactly(500).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
+        exactly(500).of(myLogger).logTestFailed(with(any(String.class)), with(any(String.class)), with(any(String.class)));
+        exactly(500).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with("org.jetbrains.testProject.TestClass0_0"), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(data1);
+    myContext.assertIsSatisfied();
+
+    final ReportData data2 = reportData(REPORT_2);
+    FileUtil.copy(file("TestClass1_0.xml"), data2.getFile());
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with("org.jetbrains.testProject.TestClass1_0"), with(any(Date.class)));
+        inSequence(mySequence);
+        exactly(1000).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
+        exactly(1000).of(myLogger).logTestFailed(with(any(String.class)), with(any(String.class)), with(any(String.class)));
+        exactly(1000).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with("org.jetbrains.testProject.TestClass1_0"), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(data2);
+    myContext.assertIsSatisfied();
+
+    final ReportData data3 = reportData(REPORT_3);
+    FileUtil.copy(file("TestClass0_1_700.xml"), data3.getFile());
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with("org.jetbrains.testProject.TestClass0_1"), with(any(Date.class)));
+        inSequence(mySequence);
+        exactly(700).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
+        exactly(700).of(myLogger).logTestFailed(with(any(String.class)), with(any(String.class)), with(any(String.class)));
+        exactly(700).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with("org.jetbrains.testProject.TestClass0_1"), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(data3);
+    myContext.assertIsSatisfied();
+
+    FileUtil.copy(file("TestClass0_0_800.xml"), data1.getFile());
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with("org.jetbrains.testProject.TestClass0_0"), with(any(Date.class)));
+        inSequence(mySequence);
+        exactly(300).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
+        exactly(300).of(myLogger).logTestFailed(with(any(String.class)), with(any(String.class)), with(any(String.class)));
+        exactly(300).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with("org.jetbrains.testProject.TestClass0_0"), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(data1);
+    myContext.assertIsSatisfied();
+
+    final ReportData data4 = reportData(REPORT_4);
+    FileUtil.copy(file("TestClass1_1.xml"), data4.getFile());
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with("org.jetbrains.testProject.TestClass1_1"), with(any(Date.class)));
+        inSequence(mySequence);
+        exactly(1000).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
+        exactly(1000).of(myLogger).logTestFailed(with(any(String.class)), with(any(String.class)), with(any(String.class)));
+        exactly(1000).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with("org.jetbrains.testProject.TestClass1_1"), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(data4);
+    myContext.assertIsSatisfied();
+
+    FileUtil.copy(file("TestClass0_1.xml"), data3.getFile());
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with("org.jetbrains.testProject.TestClass0_1"), with(any(Date.class)));
+        inSequence(mySequence);
+        exactly(300).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
+        exactly(300).of(myLogger).logTestFailed(with(any(String.class)), with(any(String.class)), with(any(String.class)));
+        exactly(300).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with("org.jetbrains.testProject.TestClass0_1"), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(data3);
+    myContext.assertIsSatisfied();
+
+    FileUtil.copy(file("TestClass0_0.xml"), data1.getFile());
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with("org.jetbrains.testProject.TestClass0_0"), with(any(Date.class)));
+        inSequence(mySequence);
+        exactly(200).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
+        exactly(200).of(myLogger).logTestFailed(with(any(String.class)), with(any(String.class)), with(any(String.class)));
+        exactly(200).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with("org.jetbrains.testProject.TestClass0_0"), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(data1);
     myContext.assertIsSatisfied();
   }
 }

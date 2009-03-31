@@ -121,5 +121,5 @@ public abstract class InspectionsReportParser extends XmlReportParser {
     myReportedInstanceTypes.add(id);
   }
 
-  public abstract int parse(@NotNull File report, int testsToSkip);
+  public abstract int parse(@NotNull final ReportData data);
 }

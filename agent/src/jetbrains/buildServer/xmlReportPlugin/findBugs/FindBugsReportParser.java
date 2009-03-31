@@ -20,6 +20,7 @@ import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
+import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -66,11 +67,11 @@ public class FindBugsReportParser extends InspectionsReportParser {
     return "".equals(i.getFilePath());
   }
 
-  public int parse(@NotNull File report, int testsToSkip) {
+  public int parse(@NotNull final ReportData data) {
     myInspectionReporter.markBuildAsInspectionsBuild();
     myFileFinder = new FileFinder();
     myWaitingForTypeBugs = new ArrayList<InspectionInstance>();
-
+    final File report = data.getFile();
     try {
       if (!myDataLoaded) {
         myDataLoaded = true;

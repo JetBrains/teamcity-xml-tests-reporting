@@ -21,14 +21,16 @@ public final class SuiteData {
   private final String myName;
   private final long myStartTime;
   private final long myDuration;
+  private final String myTimestamp;
 
   private String myFailureType;
   private String myFailureMessage;
 
-  public SuiteData(final String name, long startTime, long duration) {
+  public SuiteData(final String name, long startTime, long duration, String timestamp) {
     myName = name;
     myStartTime = startTime;
     myDuration = duration;
+    myTimestamp = timestamp;
   }
 
   public String getName() {
@@ -41,6 +43,10 @@ public final class SuiteData {
 
   public long getDuraion() {
     return myDuration;
+  }
+
+  public String getTimestamp() {
+    return myTimestamp;
   }
 
   public String getFailureMessage() {

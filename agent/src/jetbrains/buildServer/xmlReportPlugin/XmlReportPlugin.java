@@ -17,7 +17,6 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.util.Pair;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.log.Loggers;
@@ -96,7 +95,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
   }
 
   private void startProcessing(Set<File> reportDirs, String type) {
-    final LinkedBlockingQueue<Pair<String, File>> reportsQueue = new LinkedBlockingQueue<Pair<String, File>>();
+    final LinkedBlockingQueue<ReportData> reportsQueue = new LinkedBlockingQueue<ReportData>();
 
     myDirectoryWatcher = new XmlReportDirectoryWatcher(this, reportDirs, type, reportsQueue);
     myReportProcessor = new XmlReportProcessor(this, reportsQueue, myDirectoryWatcher);

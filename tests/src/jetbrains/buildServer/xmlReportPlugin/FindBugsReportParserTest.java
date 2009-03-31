@@ -75,7 +75,7 @@ public class FindBugsReportParserTest extends TestCase {
     final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, reportName.substring(0, reportName.lastIndexOf(fileName)));
 
     final File report = new File(reportName);
-    parser.parse(report, 0);
+    parser.parse(new ReportData(report, "findBugs"));
     final Map<String, String> params = new HashMap<String, String>();
     XmlReportPluginUtil.enableXmlReportParsing(params, FindBugsReportParser.TYPE);
     XmlReportPluginUtil.setMaxErrors(params, 5);

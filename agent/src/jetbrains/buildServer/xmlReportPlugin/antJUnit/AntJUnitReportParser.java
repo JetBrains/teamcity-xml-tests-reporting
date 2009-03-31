@@ -17,13 +17,13 @@
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOGGER;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
 import java.io.File;
 import java.util.Date;
@@ -79,7 +79,7 @@ public class AntJUnitReportParser extends XmlReportParser {
     }
   }
 
-  private static String getTimetamp(String timestampStr) {
+  private static String getTimestamp(String timestampStr) {
     if (timestampStr == null) {
       return "";
     }
@@ -95,6 +95,7 @@ public class AntJUnitReportParser extends XmlReportParser {
     myPreviouslyLoggedSuits = new HashSet<String>();
     myLoggedSuites = 0;
     mySkippedSuites = 0;
+    myTests = new Stack<TestData>();
   }
 
   /*  As of now the DTD is:
@@ -136,18 +137,30 @@ public class AntJUnitReportParser extends XmlReportParser {
 
 <!ELEMENT system-out (#PCDATA)> */
 
-  public int parse(@NotNull final File report, int testsToSkip) {
+  public int parse(@NotNull final ReportData data) {
     myLoggedSuites = 0;
     myLoggedTests = 0;
     mySkippedSuites = 0;
-    myTestsToSkip = testsToSkip;
-    myTests = new Stack<TestData>();
+    myTestsToSkip = data.getProcessedEvents();
+    myTests.clear();
+    final File report = data.getFile();
     try {
       parse(report);
-    } catch (SAXParseException e) {
-      myTests.clear();
-      XmlReportPlugin.LOGGER.info("Couldn't completely parse " + report.getPath() + " report - SAXParseException occured: " + e.toString());
-      return myLoggedTests;
+    } catch (SAXException e) {
+      if (myCurrentSuite != null) {
+        myPreviouslyLoggedSuits.remove(myCurrentSuite.getName() + myCurrentSuite.getTimestamp());
+      }
+      endSuite();
+      XmlReportPlugin.LOGGER.debug("Couldn't completely parse " + report.getPath()
+        + " report - SAXParseException occured: " + e.toString() + ", "
+        + myLoggedTests + " events logged");
+//      myLogger.error("Couldn't completely parse " + report.getPath());
+//      myLogger.error(e.getClass() + ": " + e.toString());
+//      myLogger.error(myLoggedTests + " events processed");
+//      myLogger.error(myTestsToSkip + " tests to skip");
+      final int processedEvents = (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip;
+      data.setProcessedEvents(processedEvents);
+      return processedEvents;
     } catch (Exception e) {
       myLogger.exception(e);
     }
@@ -169,29 +182,19 @@ public class AntJUnitReportParser extends XmlReportParser {
     LOGGER.debug(message);
   }
 
-  public boolean abnormalEnd() {
-    if (myCurrentSuite != null) {
-      endSuite();
-//      myLogger.debugToAgentLog("Abnormal end called. Log ending of started suite.");
-      return true;
-    }
-    return false;
-  }
-
   //  Handler methods
 
   public void startElement(String uri, String localName,
                            String qName, Attributes attributes)
     throws SAXException {
-    if (testSkipped()) {
-      return;
-    }
     if (TEST_SUITE.equals(localName)) {
       startSuite(attributes);
-    } else if (TEST_CASE.equals(localName)) {
-      startTest(attributes);
-    } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
-      startFailure(attributes);
+    } else if (!testSkipped()) {
+      if (TEST_CASE.equals(localName)) {
+        startTest(attributes);
+      } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
+        startFailure(attributes);
+      }
     }
   }
 
@@ -236,7 +239,7 @@ public class AntJUnitReportParser extends XmlReportParser {
     final String pack = attributes.getValue(DEFAULT_NAMESPACE, PACKAGE_ATTR);
     final int testNumber = getNumber(attributes.getValue(DEFAULT_NAMESPACE, TESTS_ATTR));
     final Date startTime = new Date();
-    final String timestamp = getTimetamp(attributes.getValue(DEFAULT_NAMESPACE, TIMESTAMP_ATTR));
+    final String timestamp = getTimestamp(attributes.getValue(DEFAULT_NAMESPACE, TIMESTAMP_ATTR));
     final long duration = getExecutionTime(attributes.getValue(DEFAULT_NAMESPACE, TIME_ATTR));
 
     if ((pack != null) && (!name.startsWith(pack))) {
@@ -245,12 +248,12 @@ public class AntJUnitReportParser extends XmlReportParser {
 
     if (myPreviouslyLoggedSuits.contains(name + timestamp)) {
 //      myLogger.debugToAgentLog(name + " suite is skipped, as it has been already logged from other report");
-      mySkippedSuites = mySkippedSuites + 1;
+      mySkippedSuites += 1;
       myTestsToSkip = myLoggedTests + testNumber;
       return;
     }
 
-    myCurrentSuite = new SuiteData(name, startTime.getTime(), duration);
+    myCurrentSuite = new SuiteData(name, startTime.getTime(), duration, timestamp);
     myLogger.logSuiteStarted(name, startTime);
     myPreviouslyLoggedSuits.add(name + timestamp);
   }

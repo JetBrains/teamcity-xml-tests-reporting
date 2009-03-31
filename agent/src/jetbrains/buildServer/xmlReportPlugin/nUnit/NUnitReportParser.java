@@ -16,12 +16,14 @@
 
 package jetbrains.buildServer.xmlReportPlugin.nUnit;
 
-import java.io.File;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
+
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import java.io.File;
 
 
 public class NUnitReportParser extends AntJUnitReportParser {
@@ -42,15 +44,15 @@ public class NUnitReportParser extends AntJUnitReportParser {
     myTmpReportDir.mkdirs();
   }
 
-  public int parse(@NotNull File report, int testsToSkip) {
+  public int parse(@NotNull final ReportData data) {
+    final File report = data.getFile();
     final File junitReport = new File(myTmpReportDir.getPath() + "/" + report.getName());
     try {
       myReportTransformer.transform(report, junitReport);
     } catch (TransformerException e) {
-//      myLogger.debugToAgentLog("Couldn't transform NUnit report, report may be uncomplete");
       junitReport.delete();
       return 0;
     }
-    return super.parse(junitReport, testsToSkip);
+    return super.parse(new ReportData(junitReport, "nunit"));
   }
 }

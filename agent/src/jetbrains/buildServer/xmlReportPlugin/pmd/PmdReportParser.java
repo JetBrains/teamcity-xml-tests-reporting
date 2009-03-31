@@ -20,6 +20,7 @@ import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
+import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -40,7 +41,8 @@ public class PmdReportParser extends InspectionsReportParser {
     super(logger, inspectionReporter, checkoutDirectory);
   }
 
-  public int parse(@NotNull File report, int testsToSkip) {
+  public int parse(@NotNull final ReportData data) {
+    final File report = data.getFile();
     try {
       parse(report);
     } catch (SAXParseException spe) {

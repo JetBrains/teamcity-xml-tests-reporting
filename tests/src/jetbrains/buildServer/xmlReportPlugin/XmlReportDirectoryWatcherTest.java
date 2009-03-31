@@ -16,7 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import com.intellij.openapi.util.Pair;
 import jetbrains.buildServer.TempFiles;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
@@ -88,9 +87,9 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
 
     public void put(E o) throws InterruptedException {
       final File f;
-      if (o instanceof Pair) {
-        final Pair<String, File> p = (Pair<String, File>) o;
-        f = p.getSecond();
+      if (o instanceof ReportData) {
+        final ReportData d = (ReportData) o;
+        f = d.getFile();
       } else {
         myBuffer.append("Trying to put illegal object to queue: ").append(o.toString());
         return;
@@ -139,7 +138,7 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     final StringBuilder results = new StringBuilder();
     final BuildLoggerForTesting logger = new BuildLoggerForTesting(results);
     final XmlReportPlugin plugin = createTestReportParserPlugin(logger);
-    final LinkedBlockingQueue<Pair<String, File>> queue = new LinkedBlockingQueueMock<Pair<String, File>>(results);
+    final LinkedBlockingQueue<ReportData> queue = new LinkedBlockingQueueMock<ReportData>(results);
 
     final XmlReportDirectoryWatcher watcher = new XmlReportDirectoryWatcher(plugin, input, "junit", queue);
 
