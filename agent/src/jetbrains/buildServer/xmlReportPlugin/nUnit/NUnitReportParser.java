@@ -44,15 +44,19 @@ public class NUnitReportParser extends AntJUnitReportParser {
     myTmpReportDir.mkdirs();
   }
 
-  public int parse(@NotNull final ReportData data) {
+  public void parse(@NotNull final ReportData data) {
     final File report = data.getFile();
     final File junitReport = new File(myTmpReportDir.getPath() + "/" + report.getName());
     try {
       myReportTransformer.transform(report, junitReport);
     } catch (TransformerException e) {
+      myLogger.exception(e);
       junitReport.delete();
-      return 0;
+      data.setProcessedEvents(-1);
+      return;
     }
-    return super.parse(new ReportData(junitReport, "nunit"));
+    final ReportData jUnitData = new ReportData(junitReport, "nunit");
+    super.parse(jUnitData);
+    data.setProcessedEvents(jUnitData.getProcessedEvents());
   }
 }

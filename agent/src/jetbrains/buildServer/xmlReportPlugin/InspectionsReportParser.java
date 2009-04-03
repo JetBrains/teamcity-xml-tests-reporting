@@ -34,6 +34,10 @@ public abstract class InspectionsReportParser extends XmlReportParser {
   private int myWarnings;
   private int myInfos;
 
+//  private int myTotalErrors;
+//  private int myTotalWarnings;
+//  private int myTotalInfos;
+
   protected InspectionInstance myCurrentBug;
 
   public InspectionsReportParser(@NotNull final BaseServerLoggerFacade logger,
@@ -121,5 +125,5 @@ public abstract class InspectionsReportParser extends XmlReportParser {
     myReportedInstanceTypes.add(id);
   }
 
-  public abstract int parse(@NotNull final ReportData data);
+  public abstract void parse(@NotNull final ReportData data);
 }

@@ -137,7 +137,7 @@ public class AntJUnitReportParser extends XmlReportParser {
 
 <!ELEMENT system-out (#PCDATA)> */
 
-  public int parse(@NotNull final ReportData data) {
+  public void parse(@NotNull final ReportData data) {
     myLoggedSuites = 0;
     myLoggedTests = 0;
     mySkippedSuites = 0;
@@ -160,12 +160,12 @@ public class AntJUnitReportParser extends XmlReportParser {
 //      myLogger.error(myTestsToSkip + " tests to skip");
       final int processedEvents = (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip;
       data.setProcessedEvents(processedEvents);
-      return processedEvents;
+      return;
     } catch (Exception e) {
       myLogger.exception(e);
     }
     myCurrentSuite = null;
-    return -1;
+    data.setProcessedEvents(-1);
   }
 
   public void logReportTotals(@NotNull File report) {

@@ -41,7 +41,7 @@ public class PmdReportParser extends InspectionsReportParser {
     super(logger, inspectionReporter, checkoutDirectory);
   }
 
-  public int parse(@NotNull final ReportData data) {
+  public void parse(@NotNull final ReportData data) {
     final File report = data.getFile();
     try {
       parse(report);
@@ -52,7 +52,7 @@ public class PmdReportParser extends InspectionsReportParser {
     } finally {
       myInspectionReporter.flush();
     }
-    return -1;
+    data.setProcessedEvents(-1);
   }
 
   //  Handler methods

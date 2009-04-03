@@ -67,7 +67,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
     return "".equals(i.getFilePath());
   }
 
-  public int parse(@NotNull final ReportData data) {
+  public void parse(@NotNull final ReportData data) {
     myInspectionReporter.markBuildAsInspectionsBuild();
     myFileFinder = new FileFinder();
     myWaitingForTypeBugs = new ArrayList<InspectionInstance>();
@@ -96,7 +96,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
       }
       myInspectionReporter.flush();
     }
-    return -1;
+    data.setProcessedEvents(-1);
   }
 
 //  Handler methods

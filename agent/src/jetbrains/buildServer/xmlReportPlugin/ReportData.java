@@ -24,15 +24,11 @@ import java.io.File;
 public final class ReportData {
   private final File myFile;
   private int myProcessedEvents;
-  private long myPrevLength;
-  private int myTriesToParse;
   private String myType;
 
   public ReportData(@NotNull final File file, String type) {
     myFile = file;
     myProcessedEvents = 0;
-    myTriesToParse = 0;
-    myPrevLength = file.length();
     myType = type;
   }
 
@@ -46,26 +42,6 @@ public final class ReportData {
 
   public void setProcessedEvents(int tests) {
     myProcessedEvents = tests;
-  }
-
-  public int getTriesToParse() {
-    return myTriesToParse;
-  }
-
-  public void setTriesToParse(int triesToParse) {
-    myTriesToParse = triesToParse;
-  }
-
-  public void parsedOnceMore() {
-    ++myTriesToParse;
-  }
-
-  public long getPrevLength() {
-    return myPrevLength;
-  }
-
-  public void setPrevLength(long prevLength) {
-    myPrevLength = prevLength;
   }
 
   public String getType() {

@@ -29,7 +29,6 @@ import java.util.concurrent.TimeUnit;
 
 public class XmlReportProcessor extends Thread {
   private static final long FILE_WAIT_TIMEOUT = 500;
-  private static final int TRIES_TO_PARSE = 1000;
   private static final long SCAN_INTERVAL = 500;
 
   private final XmlReportPlugin myPlugin;
@@ -69,22 +68,15 @@ public class XmlReportProcessor extends Thread {
       return;
     }
     final XmlReportParser parser = myParsers.get(data.getType());
-    final int processedEvents = parser.parse(data);
-    if (processedEvents != -1) {
-      if ((data.getTriesToParse() == TRIES_TO_PARSE) || myPlugin.isStopped()) {
+    parser.parse(data);
+    if (data.getProcessedEvents() != -1) {
+      if (myPlugin.isStopped()) {
         if (myPlugin.isVerbose()) {
           myPlugin.getLogger().error(data.getFile().getAbsolutePath() + ": failed to parse with " +
             XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(data.getType()) + " parser");
         }
-        XmlReportPlugin.LOGGER.info("Unable to parse " + data.getFile().getAbsolutePath() +
-          " from " + data.getTriesToParse() + " ties");
+        XmlReportPlugin.LOGGER.info("Unable to parse " + data.getFile().getAbsolutePath());
       } else {
-        final long currLength = data.getFile().length();
-        final long prevLength = data.getPrevLength();
-        if (currLength > prevLength) {
-          data.setPrevLength(currLength);
-          data.setTriesToParse(0);
-        }
         try {
           myReportQueue.put(data);
           Thread.sleep(SCAN_INTERVAL);

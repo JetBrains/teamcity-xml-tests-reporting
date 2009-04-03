@@ -99,7 +99,9 @@ public class AntJUnitReportParserTest extends TestCase {
 
   @Test
   public void testEmptyReport() throws Exception {
-    long testsLogged = myParser.parse(reportData("empty.xml"));
+    final ReportData data = reportData("empty.xml");
+    myParser.parse(data);
+    final int testsLogged = data.getProcessedEvents();
     Assert.assertTrue("Empty reportData contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
     myContext.assertIsSatisfied();
   }
@@ -864,7 +866,9 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    assertEquals(-1, myParser.parse(reportData("noSuite.xml")));
+    final ReportData data = reportData("noSuite.xml");
+    myParser.parse(data);
+    assertEquals(-1, data.getProcessedEvents());
     myContext.assertIsSatisfied();
   }
 

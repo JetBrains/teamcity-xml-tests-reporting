@@ -69,8 +69,16 @@ public class NUnitReportParserTest extends TestCase {
 
   @Test
   public void testEmptyReport() throws Exception {
-    long testsLogged = myParser.parse(report("empty.xml"));
-    Assert.assertTrue("Empty report contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).exception(with(any(Throwable.class)));
+        inSequence(mySequence);
+      }
+    });
+    final ReportData data = report("empty.xml");
+    myParser.parse(data);
+    final int testsLogged = data.getProcessedEvents();
+    Assert.assertTrue("Empty report contains 0 tests, but " + testsLogged + " tests logged", testsLogged == -1);
     myContext.assertIsSatisfied();
   }
 
