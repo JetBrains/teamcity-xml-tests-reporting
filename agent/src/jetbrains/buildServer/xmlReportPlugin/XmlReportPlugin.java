@@ -35,13 +35,14 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
   @NonNls
   private static final Collection<String> SILENT_PATHS = Arrays.asList("");
   public static final Logger LOGGER = Loggers.AGENT;
+  public static final String CHECKOUT_DIR = "teamcity.build.checkoutDir";
 
   private XmlReportDirectoryWatcher myDirectoryWatcher;
   private XmlReportProcessor myReportProcessor;
   private BaseServerLoggerFacade myLogger;
   private InspectionReporter myInspectionReporter;
 
-  private Map<String, String> myParameters;
+  private volatile Map<String, String> myParameters;
 
   private volatile boolean myStopped;
 
@@ -55,7 +56,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     myStopped = false;
     myParameters = new HashMap<String, String>(build.getRunnerParameters());
     myParameters.put(BUILD_START, "" + new Date().getTime());
-    myParameters.put(CHECKOUT_DIR, build.getCheckoutDirectory().getAbsolutePath());
     myParameters.put(TMP_DIR, build.getBuildTempDirectory().getAbsolutePath());
   }
 

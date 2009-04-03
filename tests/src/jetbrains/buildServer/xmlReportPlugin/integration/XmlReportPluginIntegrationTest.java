@@ -72,8 +72,6 @@ public class XmlReportPluginIntegrationTest {
         will(returnValue(logger));
         allowing(runningBuild).getRunnerParameters();
         will(returnValue(runParams));
-        allowing(runningBuild).getCheckoutDirectory();
-        will(returnValue(checkoutDirFile));
         allowing(runningBuild).getBuildTempDirectory();
         will(returnValue(checkoutDirFile));
         ignoring(runningBuild);
@@ -101,6 +99,7 @@ public class XmlReportPluginIntegrationTest {
     myCheckoutDir = new File(CHECKOUT_DIR);
     removeDir(myCheckoutDir);
     myCheckoutDir.mkdir();
+    myRunnerParams.put(XmlReportPlugin.CHECKOUT_DIR, myCheckoutDir.getAbsolutePath());
     myRunningBuild = createAgentRunningBuild(myRunnerParams, myCheckoutDir, myTestLogger);
     myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
@@ -166,7 +165,7 @@ public class XmlReportPluginIntegrationTest {
   @Test
   public void testWarningWhenNoReportDirAppears() {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
-    myRunnerParams.put(XmlReportPluginUtil.REPORT_DIRS, "reports");
+    XmlReportPluginUtil.setXmlReportPaths(myRunnerParams, "reports");
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final String path = getFileInCheckoutDir("reports").getAbsolutePath();

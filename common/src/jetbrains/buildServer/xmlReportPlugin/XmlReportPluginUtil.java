@@ -44,7 +44,6 @@ public class XmlReportPluginUtil {
   public static final String VERBOSE_OUTPUT = "xmlReportParsing.verboseOutput";
   public static final String PARSE_OUT_OF_DATE = "xmlReportParsing.parse.outofdate";
   public static final String BUILD_START = "xmlReportParsing.buildStart";
-  public static final String CHECKOUT_DIR = "xmlReportParsing.checkoutDir";
   public static final String TMP_DIR = "xmlReportParsing.tmpDir";
   public static final String MAX_ERRORS = "xmlReportParsing.max.errors";
   public static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
