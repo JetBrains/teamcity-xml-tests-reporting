@@ -81,7 +81,9 @@ public class FindBugsReportParser extends InspectionsReportParser {
       parse(report);
       for (InspectionInstance bug : myWaitingForTypeBugs) {
         if (hasNoMessage(bug)) {
-          bug.setMessage(getPattern(bug.getInspectionId()).getDescription());
+          if (isTypeKnown(bug)) {
+            bug.setMessage(getPattern(bug.getInspectionId()).getDescription());
+          }
         }
         myInspectionReporter.reportInspection(bug);
         reportInspectionType(bug.getInspectionId());
@@ -197,7 +199,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
 
   private String createPathSpec(String sourcepath) {
     String pathSpec = "";
-    if (sourcepath.length() > 0) {
+    if ((sourcepath != null) && (sourcepath.length() > 0)) {
       pathSpec = myFileFinder.getVeryFullFilePath(sourcepath);
     }
     if (pathSpec.length() == 0) {

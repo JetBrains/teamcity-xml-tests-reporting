@@ -62,6 +62,6 @@ public class NUnitReportParser extends AntJUnitReportParser {
     final ReportData jUnitData = new ReportData(junitReport, "nunit");
     super.parse(jUnitData);
     data.setProcessedEvents(jUnitData.getProcessedEvents());
-    jUnitData.getFile().delete();
+    //jUnitData.getFile().delete();
   }
 }

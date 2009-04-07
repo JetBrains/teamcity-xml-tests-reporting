@@ -5,8 +5,9 @@
     This code directly writes an HTTP parameter to a Server error page (using HttpServletResponse.sendError). Echoing
     this untrusted input allows for a reflected cross site scripting vulnerability.
   </BugPattern>
-  <!--<BugPattern abbrev="SKIPPED" type="SKIPPED_CLASS_TOO_BIG" category="DODGY">-->
-  <!--</BugPattern>-->
+  <BugPattern abbrev="SKIPPED" type="SKIPPED_CLASS_TOO_BIG" category="DODGY"
+              name="Skipped class, as it is too big">
+  </BugPattern>
   <BugPattern abbrev="XSS" type="XSS_REQUEST_PARAMETER_TO_SERVLET_WRITER" category="SECURITY"
               name="Servlet reflected cross site scripting vulnerability">
     This code directly writes an HTTP parameter to Servlet output, which allows for a reflected cross site scripting
