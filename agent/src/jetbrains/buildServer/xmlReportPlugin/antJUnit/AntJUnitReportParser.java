@@ -168,7 +168,7 @@ public class AntJUnitReportParser extends XmlReportParser {
     data.setProcessedEvents(-1);
   }
 
-  public void logReportTotals(@NotNull File report) {
+  public void logReportTotals(@NotNull File report, boolean verbose) {
     String message = report.getAbsolutePath() + " report processed";
     if (myLoggedSuites > 0) {
       message = message.concat(": " + myLoggedSuites + " suite(s)");
@@ -178,7 +178,9 @@ public class AntJUnitReportParser extends XmlReportParser {
     } else if (mySkippedSuites > 0) {
       message = message.concat(", " + mySkippedSuites + " suite(s) skipped");
     }
-    myLogger.message(message);
+    if (verbose) {
+      myLogger.message(message);
+    }
     LOGGER.debug(message);
   }
 

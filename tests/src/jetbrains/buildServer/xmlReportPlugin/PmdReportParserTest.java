@@ -36,6 +36,7 @@ public class PmdReportParserTest extends TestCase {
     final String reportName = getAbsoluteTestDataPath(fileName, "pmd");
     final String resultsFile = reportName + ".tmp";
     final String expectedFile = reportName + ".gold";
+    final String baseDir = getAbsoluteTestDataPath(null, "pmd");
 
     new File(resultsFile).delete();
 
@@ -47,20 +48,22 @@ public class PmdReportParserTest extends TestCase {
     final PmdReportParser parser = new PmdReportParser(logger, reporter, "C:\\work\\teamcityworkspace\\xml-report-plugin\\tests\\testData\\pmd");
 
     final File report = new File(reportName);
-    parser.parse(new ReportData(report, "pmd"));
     final Map<String, String> params = new HashMap<String, String>();
     XmlReportPluginUtil.enableXmlReportParsing(params, FindBugsReportParser.TYPE);
     XmlReportPluginUtil.setMaxErrors(params, 5);
     XmlReportPluginUtil.setMaxWarnings(params, 5);
-    parser.logParsingTotals(params);
+    parser.parse(new ReportData(report, "pmd"));
+    parser.logReportTotals(report, true);
+    parser.logParsingTotals(params, true);
 
     final File expected = new File(expectedFile);
-    if (!readFile(expected).equals(results.toString())) {
+    final String actual = results.toString().replace(baseDir, "##BASE_DIR##").trim();
+    if (!readFile(expected).equals(actual)) {
       final FileWriter resultsWriter = new FileWriter(resultsFile);
-      resultsWriter.write(results.toString());
+      resultsWriter.write(actual);
       resultsWriter.close();
 
-      assertEquals(readFile(expected), results.toString());
+      assertEquals(readFile(expected), actual);
     }
   }
 

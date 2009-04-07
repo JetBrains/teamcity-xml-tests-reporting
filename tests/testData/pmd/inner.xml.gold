@@ -7,4 +7,5 @@ InspectionInstance{myInspectionId='UnusedFormalParameter', myMessage='Avoid unus
 InspectionTypeInfo{myId='CyclomaticComplexity', myName='CyclomaticComplexity', myDescription='Code Size Rules', myCategory='Code Size Rules'}
 InspectionInstance{myInspectionId='CyclomaticComplexity', myMessage='The class 'TestGenerator' has a Cyclomatic Complexity of 6 (Highest = 5).', myFilePath='org/jetbrains/testProject/TestGenerator.java', myLine=23, myAttributes={<SEVERITY>: INFO }}
 InspectionInstance{myInspectionId='CyclomaticComplexity', myMessage='The method 'main' has a Cyclomatic Complexity of 5.', myFilePath='org/jetbrains/testProject/TestGenerator.java', myLine=29, myAttributes={<SEVERITY>: INFO }}
+MESSAGE: ##BASE_DIR##\inner.xml report processed: 5 info message(s)
 MESSAGE: ##teamcity[buildStatus status='SUCCESS' text='Errors: 0, warnings: 0, information: 5']

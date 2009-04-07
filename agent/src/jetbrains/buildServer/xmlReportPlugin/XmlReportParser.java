@@ -65,10 +65,10 @@ public abstract class XmlReportParser extends DefaultHandler {
     }
   }
 
-  public void logReportTotals(@NotNull File report) {
+  public void logReportTotals(@NotNull File report, boolean verbose) {
   }
 
-  void logParsingTotals(@NotNull Map<String, String> parameters) {
+  void logParsingTotals(@NotNull Map<String, String> parameters, boolean verbose) {
   }
 
   protected final void parse(@NotNull File report) throws SAXParseException {

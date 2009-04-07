@@ -34,9 +34,9 @@ public abstract class InspectionsReportParser extends XmlReportParser {
   private int myWarnings;
   private int myInfos;
 
-//  private int myTotalErrors;
-//  private int myTotalWarnings;
-//  private int myTotalInfos;
+  private int myTotalErrors;
+  private int myTotalWarnings;
+  private int myTotalInfos;
 
   protected InspectionInstance myCurrentBug;
 
@@ -47,16 +47,13 @@ public abstract class InspectionsReportParser extends XmlReportParser {
     myInspectionReporter = inspectionReporter;
     myCheckoutDirectory = checkoutDirectory.replace("\\", File.separator).replace("/", File.separator);
     myReportedInstanceTypes = new HashSet<String>();
-    myErrors = 0;
-    myWarnings = 0;
-    myInfos = 0;
   }
 
   public static String generateBuildStatus(int errors, int warnings, int infos) {
     return "Errors: " + errors + ", warnings: " + warnings + ", information: " + infos;
   }
 
-  public void logReportTotals(@NotNull File report) {
+  public void logReportTotals(@NotNull File report, boolean verbose) {
     String message = report.getPath() + " report processed";
     if (myErrors > 0) {
       message = message.concat(": " + myErrors + " error(s)");
@@ -67,26 +64,34 @@ public abstract class InspectionsReportParser extends XmlReportParser {
     if (myInfos > 0) {
       message = message.concat(": " + myInfos + " info message(s)");
     }
-    myLogger.message(message);
+    if (verbose) {
+      myLogger.message(message);
+    }
     LOGGER.debug(message);
+    myTotalErrors += myErrors;
+    myTotalWarnings += myWarnings;
+    myTotalInfos += myInfos;
+    myErrors = 0;
+    myWarnings = 0;
+    myInfos = 0;
   }
 
-  protected void logParsingTotals(@NotNull Map<String, String> parameters) {
+  protected void logParsingTotals(@NotNull Map<String, String> parameters, boolean verbose) {
     boolean limitReached = false;
 
     final int errorLimit = XmlReportPluginUtil.getMaxErrors(parameters);
-    if ((errorLimit != -1) && (myErrors > errorLimit)) {
-      myLogger.error("Errors limit reached: found " + myErrors + " errors, limit " + errorLimit);
+    if ((errorLimit != -1) && (myTotalErrors > errorLimit)) {
+      myLogger.error("Errors limit reached: found " + myTotalErrors + " errors, limit " + errorLimit);
       limitReached = true;
     }
 
     final int warningLimit = XmlReportPluginUtil.getMaxWarnings(parameters);
-    if ((warningLimit != -1) && (myWarnings > warningLimit)) {
-      myLogger.error("Warnings limit reached: found " + myWarnings + " warnings, limit " + warningLimit);
+    if ((warningLimit != -1) && (myTotalWarnings > warningLimit)) {
+      myLogger.error("Warnings limit reached: found " + myTotalWarnings + " warnings, limit " + warningLimit);
       limitReached = true;
     }
 
-    final String buildStatus = generateBuildStatus(myErrors, myWarnings, myInfos);
+    final String buildStatus = generateBuildStatus(myTotalErrors, myTotalWarnings, myTotalInfos);
     myLogger.message("##teamcity[buildStatus status='" +
       (limitReached ? "FAILURE" : "SUCCESS") +
       "' text='" + buildStatus + "']");

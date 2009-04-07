@@ -15,5 +15,6 @@ InspectionInstance{myInspectionId='SIC_INNER_SHOULD_BE_STATIC', myMessage='This 
 InspectionInstance{myInspectionId='UUF_UNUSED_FIELD', myMessage='This field is never used. Consider removing it from the class.', myFilePath='failure/org/jetbrains/testProject/BuggyClass.java', myLine=0, myAttributes={<SEVERITY>: WARNING }}
 InspectionInstance{myInspectionId='NM_BAD_EQUAL', myMessage='This class defines a method equal(Object). This method does not override the equals(Object) method in java.lang.Object, which is probably what was intended.', myFilePath='', myLine=31, myAttributes={<SEVERITY>: ERROR }}
 WARNING: Missing class junit.framework.TestCase
+MESSAGE: ##BASE_DIR##\failureErr.xml report processed: 8 error(s): 3 warning(s)
 ERROR: Errors limit reached: found 8 errors, limit 5
 MESSAGE: ##teamcity[buildStatus status='FAILURE' text='Errors: 8, warnings: 3, information: 0']

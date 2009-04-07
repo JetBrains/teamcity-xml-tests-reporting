@@ -62,10 +62,11 @@ public class FindBugsReportParserTest extends TestCase {
 
   private void runTest(final String fileName) throws Exception {
     final String reportName = getAbsoluteTestDataPath(fileName, "findBugs");
-    final String resultsFile = reportName + ".tmp";
-    final String expectedFile = reportName + ".gold";
+    final String resultsFileName = reportName + ".tmp";
+    final String expectedFileName = reportName + ".gold";
+    final String baseDir = getAbsoluteTestDataPath(null, "findBugs");
 
-    new File(resultsFile).delete();
+    new File(resultsFileName).delete();
 
     final StringBuilder results = new StringBuilder();
 
@@ -75,20 +76,22 @@ public class FindBugsReportParserTest extends TestCase {
     final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, reportName.substring(0, reportName.lastIndexOf(fileName)));
 
     final File report = new File(reportName);
-    parser.parse(new ReportData(report, "findBugs"));
     final Map<String, String> params = new HashMap<String, String>();
     XmlReportPluginUtil.enableXmlReportParsing(params, FindBugsReportParser.TYPE);
     XmlReportPluginUtil.setMaxErrors(params, 5);
     XmlReportPluginUtil.setMaxWarnings(params, 5);
-    parser.logParsingTotals(params);
+    parser.parse(new ReportData(report, "findBugs"));
+    parser.logReportTotals(report, true);
+    parser.logParsingTotals(params, true);
 
-    final File expected = new File(expectedFile);
-    if (!readFile(expected).equals(results.toString())) {
-      final FileWriter resultsWriter = new FileWriter(resultsFile);
-      resultsWriter.write(results.toString());
+    final File expectedFile = new File(expectedFileName);
+    final String actual = results.toString().replace(baseDir, "##BASE_DIR##").trim();
+    if (!readFile(expectedFile).equals(actual)) {
+      final FileWriter resultsWriter = new FileWriter(resultsFileName);
+      resultsWriter.write(actual);
       resultsWriter.close();
 
-      assertEquals(readFile(expected), results.toString());
+      assertEquals(readFile(expectedFile), actual);
     }
   }
 

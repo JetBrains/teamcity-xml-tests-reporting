@@ -59,7 +59,7 @@ public class XmlReportProcessor extends Thread {
       processReport(takeNextReport(1));
     }
     for (String type : myParsers.keySet()) {
-      myParsers.get(type).logParsingTotals(myPlugin.getParameters());
+      myParsers.get(type).logParsingTotals(myPlugin.getParameters(), myPlugin.isVerbose());
     }
   }
 
@@ -84,9 +84,7 @@ public class XmlReportProcessor extends Thread {
         }
       }
     } else {
-      if (myPlugin.isVerbose()) {
-        parser.logReportTotals(data.getFile());
-      }
+      parser.logReportTotals(data.getFile(), myPlugin.isVerbose());
     }
   }
 
