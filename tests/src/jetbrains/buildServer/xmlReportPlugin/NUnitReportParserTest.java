@@ -247,4 +247,54 @@ public class NUnitReportParserTest extends TestCase {
     myParser.parse(report("singleCaseIgnoredFailure.xml"));
     myContext.assertIsSatisfied();
   }
+
+  //TW-7573: XML Report plugin not reporting correct results for NUnit results
+  @Test
+  public void testNegativePassedTestNumberObserved() throws Exception {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_A_For_Basic_Testing"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_A_For_Basic_Testing"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_B_For_Basic_Testing"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_C_For_Basic_Testing"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Update_A_Trade_For_Basic_Testing"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Delete_A_Trade_For_Basic_Testing"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_Staff_Member_And_Try_To_Delete_The_Trade"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_SectionStaff_Member_And_Try_To_Make_The_Trade_Inactive"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Two_Trades_With_The_Same_Code_To_Display_The_Message_Cannot_Insert_Duplicate"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_New_Trade_With_No_Value_In_Rates"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests"), with(any(Date.class)));
+        inSequence(mySequence);
+
+        oneOf(myLogger).logSuiteStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Load_Existing_Staff_Member_To_Check_Edit_Grid_Functionality_And_Cancel_Changes"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Insert_And_Validate_New_Staff_Member"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Delete_New_Staff_Member"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Click_The_Navigation_Buttons_On_The_Staff_Members_Browse_Screen"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Click_The_Navigation_Buttons_On_The_Staff_Members_Browse_Screen"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests"), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(report("Pragma.OnKey5.Tests.OCL.dll.TestResult.xml"));
+    myContext.assertIsSatisfied();
+  }
 }

@@ -83,7 +83,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     }
   }
 
-  public void processReports(Map<String, String> params, Set<File> reportPaths) {
+  public synchronized void processReports(Map<String, String> params, Set<File> reportPaths) {
     final boolean wasParsingEnabled = isParsingEnabled(myParameters);
     final String type = getReportType(params);
     myParameters.putAll(params);

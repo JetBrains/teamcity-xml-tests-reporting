@@ -16,14 +16,14 @@
 
 package jetbrains.buildServer.xmlReportPlugin.nUnit;
 
-import java.io.File;
+import org.jetbrains.annotations.NotNull;
+
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import org.jetbrains.annotations.NotNull;
+import java.io.*;
 
 
 public class NUnitToJUnitReportTransformer {
@@ -36,9 +36,13 @@ public class NUnitToJUnitReportTransformer {
     myTransformer = transformerFactory.newTransformer(new StreamSource(this.getClass().getResourceAsStream(NUNIT_TO_JUNIT_XSL)));
   }
 
-  public void transform(@NotNull File nUnitReport, @NotNull File jUnitReport) throws TransformerException {
-    final StreamSource source = new StreamSource(nUnitReport);
-    final StreamResult result = new StreamResult(jUnitReport);
+  public void transform(@NotNull File nUnitReport, @NotNull File jUnitReport) throws Exception {
+    final InputStream nUnitInputStream = new FileInputStream(nUnitReport);
+    final OutputStream jUnitOutputStream = new FileOutputStream(jUnitReport);
+    final StreamSource source = new StreamSource(nUnitInputStream);
+    final StreamResult result = new StreamResult(jUnitOutputStream);
     myTransformer.transform(source, result);
+    nUnitInputStream.close();
+    jUnitOutputStream.close();
   }
 }

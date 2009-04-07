@@ -17,10 +17,12 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 
-import java.util.ArrayList;
-import java.util.List;
 import jetbrains.buildServer.controllers.RememberState;
 import jetbrains.buildServer.controllers.StateField;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 public class ReportTypeForm extends RememberState {
@@ -28,18 +30,11 @@ public class ReportTypeForm extends RememberState {
   private List<ReportTypeInfo> myAvailableReportTypes;
 
   public ReportTypeForm() {
-//    myAvailableReportTypes = new ArrayList<ReportTypeInfo>(TestReportParserPluginUtil.SUPPORTED_REPORT_TYPES.size());
-//
-//    for (Map.Entry<String, String> reportInfo: TestReportParserPluginUtil.SUPPORTED_REPORT_TYPES.entrySet()) {
-//      myAvailableReportTypes.add(new ReportTypeInfo(reportInfo.getKey(), reportInfo.getValue()));
-//    }
+    myAvailableReportTypes = new ArrayList<ReportTypeInfo>(XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.size());
 
-    myAvailableReportTypes = new ArrayList<ReportTypeInfo>();
-    myAvailableReportTypes.add(new ReportTypeInfo("junit", "Ant JUnit"));
-    myAvailableReportTypes.add(new ReportTypeInfo("nunit", "NUnit"));
-    myAvailableReportTypes.add(new ReportTypeInfo("surefire", "Surefire"));
-    myAvailableReportTypes.add(new ReportTypeInfo("findBugs", "FindBugs"));
-    myAvailableReportTypes.add(new ReportTypeInfo("pmd", "PMD"));
+    for (Map.Entry<String, String> reportInfo : XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.entrySet()) {
+      myAvailableReportTypes.add(new ReportTypeInfo(reportInfo.getKey(), reportInfo.getValue()));
+    }
   }
 
   public List<ReportTypeInfo> getAvailableReportTypes() {

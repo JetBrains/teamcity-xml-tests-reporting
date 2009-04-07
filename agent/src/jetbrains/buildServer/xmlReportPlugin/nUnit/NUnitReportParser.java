@@ -22,8 +22,8 @@ import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
 
 import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.File;
+import java.io.IOException;
 
 
 public class NUnitReportParser extends AntJUnitReportParser {
@@ -33,14 +33,14 @@ public class NUnitReportParser extends AntJUnitReportParser {
   private NUnitToJUnitReportTransformer myReportTransformer;
   private File myTmpReportDir;
 
-  public NUnitReportParser(BaseServerLoggerFacade logger, String checkoutDir) {
+  public NUnitReportParser(BaseServerLoggerFacade logger, String tmpDir) {
     super(logger);
     try {
       myReportTransformer = new NUnitToJUnitReportTransformer();
     } catch (TransformerConfigurationException e) {
       myLogger.warning("NUnit report parser couldn't instantiate transformer");
     }
-    myTmpReportDir = new File(checkoutDir + TMP_REPORT_DIRECTORY);
+    myTmpReportDir = new File(tmpDir + TMP_REPORT_DIRECTORY);
     myTmpReportDir.mkdirs();
   }
 
@@ -49,7 +49,11 @@ public class NUnitReportParser extends AntJUnitReportParser {
     final File junitReport = new File(myTmpReportDir.getPath() + "/" + report.getName());
     try {
       myReportTransformer.transform(report, junitReport);
-    } catch (TransformerException e) {
+    } catch (IOException ioe) {
+      myLogger.exception(ioe);
+      data.setProcessedEvents(-1);
+      return;
+    } catch (Exception e) {
       myLogger.exception(e);
       junitReport.delete();
       data.setProcessedEvents(-1);
@@ -58,5 +62,6 @@ public class NUnitReportParser extends AntJUnitReportParser {
     final ReportData jUnitData = new ReportData(junitReport, "nunit");
     super.parse(jUnitData);
     data.setProcessedEvents(jUnitData.getProcessedEvents());
+    jUnitData.getFile().delete();
   }
 }
