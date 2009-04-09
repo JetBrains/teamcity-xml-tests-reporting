@@ -306,11 +306,10 @@ public class AntJUnitReportParser extends XmlReportParser {
     final TestData test = myTests.pop();
     final String testFullName = test.getClassName() + "." + test.getTestName();
 
+    myLogger.logTestStarted(testFullName, new Date(test.getStartTime()));
     if (!test.isExecuted()) {
       myLogger.logTestIgnored(testFullName, "");
     } else {
-      myLogger.logTestStarted(testFullName, new Date(test.getStartTime()));
-
       if (test.isFailure()) {
         String failureMessage = "";
         if (test.getFailureType() != null) {
@@ -329,8 +328,8 @@ public class AntJUnitReportParser extends XmlReportParser {
         myLogger.logTestStdErr(testFullName, mySystemErr);
         mySystemErr = null;
       }
-      myLogger.logTestFinished(testFullName, new Date(test.getStartTime() + test.getDuration()));
     }
+    myLogger.logTestFinished(testFullName, new Date(test.getStartTime() + test.getDuration()));
     myLoggedTests = myLoggedTests + 1;
   }
 
@@ -350,7 +349,7 @@ public class AntJUnitReportParser extends XmlReportParser {
 
   private void endFailure() {
     if (myTests.size() != 0) {
-      myTests.peek().setFailureStackTrace(formatText(myCData));
+      myTests.peek().setFailureStackTrace(formatTextWithouNewLine(myCData));
     }
   }
 

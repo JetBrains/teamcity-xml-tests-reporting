@@ -36,6 +36,10 @@ public abstract class XmlReportParser extends DefaultHandler {
     return s.toString().replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim();
   }
 
+  public static String formatTextWithouNewLine(@NotNull StringBuffer s) {
+    return s.toString().replace("\r", "").replaceAll("\\s+", " ").trim();
+  }
+
   public static int getNumber(String number) {
     if (number != null) {
       try {
