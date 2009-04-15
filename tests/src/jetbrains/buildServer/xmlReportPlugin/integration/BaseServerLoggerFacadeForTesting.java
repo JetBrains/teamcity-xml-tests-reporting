@@ -232,10 +232,6 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   public void log(jetbrains.buildServer.messages.BuildMessage1 buildMessage1) {
   }
 
-  protected java.lang.String getFlowId() {
-    return super.getFlowId();
-  }
-
   public void flowStarted(java.lang.String s, java.lang.String s1) { /* compiled code */ }
 
   public void flowFinished(java.lang.String s) { /* compiled code */ }
