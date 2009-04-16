@@ -25,18 +25,26 @@ import jetbrains.buildServer.web.openapi.buildType.ViewBuildRunnerSettingsExtens
 import org.jetbrains.annotations.NotNull;
 
 public class XmlReportPluginSettings {
-  public XmlReportPluginSettings(@NotNull final PagePlaces pagePlaces, @NotNull final ProjectManager projectManager) {
-    List<String> supportedRunTypes = Arrays.asList("Ant", "simpleRunner", "Ipr", "Maven2", "MSBuild", "NAnt",
-      "rake-runner", "sln2003", "sln2005", "sln2008");
+  private List<String> mySupportedRunTypes = Arrays.asList("Ant", "simpleRunner");
+  private final PagePlaces myPagePlaces;
+  private final ProjectManager myProjectManager;
 
-    final EditBuildRunnerSettingsExtension editSettingsExtension =
-      new EditBuildRunnerSettingsExtension(pagePlaces, supportedRunTypes);
+  public XmlReportPluginSettings(@NotNull final PagePlaces pagePlaces, @NotNull final ProjectManager projectManager) {
+    myPagePlaces = pagePlaces;
+    myProjectManager = projectManager;
+  }
+
+  public void setSupportedRunTypes(final List<String> supportedRunTypes) {
+    mySupportedRunTypes = supportedRunTypes;
+  }
+
+  public void registerExtensions() {
+    final EditBuildRunnerSettingsExtension editSettingsExtension = new EditBuildRunnerSettingsExtension(myPagePlaces, mySupportedRunTypes);
     editSettingsExtension.setPluginName("xml-report-plugin");
     editSettingsExtension.setIncludeUrl("xmlReportParserSettings.jsp");
     editSettingsExtension.register();
 
-    final ViewBuildRunnerSettingsExtension viewSettingsExtension =
-      new ViewBuildRunnerSettingsExtension(projectManager, pagePlaces, supportedRunTypes);
+    final ViewBuildRunnerSettingsExtension viewSettingsExtension = new ViewBuildRunnerSettingsExtension(myProjectManager, myPagePlaces, mySupportedRunTypes);
     viewSettingsExtension.setPluginName("xml-report-plugin");
     viewSettingsExtension.setIncludeUrl("viewXmlReportParserSettings.jsp");
     viewSettingsExtension.register();

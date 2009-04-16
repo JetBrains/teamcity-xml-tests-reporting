@@ -22,7 +22,18 @@
             <attribute name="method" value="4" />
             <attribute name="URI" value="&lt;N/A&gt;" />
           </containerElement>
+          <containerElement type="module" name="xml-report-common-internal">
+            <attribute name="method" value="5" />
+            <attribute name="URI" value="/WEB-INF/plugins/xml-report-plugin/server/xml-report-common-internal.jar" />
+          </containerElement>
         </packaging>
+      </configuration>
+    </facet>
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset1" name="XmlReport Fileset" removed="false">
+          <file>file://$MODULE_DIR$/src/META-INF/build-server-plugin.xml</file>
+        </fileset>
       </configuration>
     </facet>
   </component>
