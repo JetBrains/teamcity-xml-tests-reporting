@@ -51,18 +51,14 @@ public final class TestUtil {
 
   public static File getTestDataFile(final String fileName, final String folderName) throws FileNotFoundException {
     final String relativeFileName = "tests/testData" + (folderName != null ? "/" + folderName : "") + (fileName != null ? "/" + fileName : "");
-
-    File file1 = new File(relativeFileName);
-
+    final File file1 = new File(relativeFileName);
     if (file1.exists()) {
       return file1;
     }
-
-    File file2 = new File("svnrepo/xml-tests-reporting/" + relativeFileName);
+    final File file2 = new File("svnrepo/xml-tests-reporting/" + relativeFileName);
     if (file2.exists()) {
       return file2;
     }
-
     throw new FileNotFoundException("Either " + file1.getAbsolutePath() + " or file " + file2.getAbsolutePath() + " should exist.");
   }
 
