@@ -28,7 +28,7 @@ import java.io.IOException;
 
 public class NUnitReportParser extends AntJUnitReportParser {
   public static final String TYPE = "nunit";
-  private static final String TMP_REPORT_DIRECTORY = "/junit_reports";
+  private static final String TMP_REPORT_DIRECTORY = File.separator + "junit_reports";
 
   private NUnitToJUnitReportTransformer myReportTransformer;
   private File myTmpReportDir;
@@ -46,7 +46,7 @@ public class NUnitReportParser extends AntJUnitReportParser {
 
   public void parse(@NotNull final ReportData data) {
     final File report = data.getFile();
-    final File junitReport = new File(myTmpReportDir.getPath() + "/" + report.getName());
+    final File junitReport = new File(myTmpReportDir.getPath() + File.separator + report.getName());
     try {
       myReportTransformer.transform(report, junitReport);
     } catch (IOException ioe) {

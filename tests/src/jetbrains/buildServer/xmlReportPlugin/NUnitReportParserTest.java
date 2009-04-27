@@ -349,4 +349,31 @@ public class NUnitReportParserTest extends TestCase {
     myParser.parse(report("Pragma.OnKey5.Tests.OCL.dll.TestResult.xml"));
     myContext.assertIsSatisfied();
   }
+
+  @Test
+  public void test1CaseFailureWithMultiline() throws Exception {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStarted(with(CASE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFailed(with(CASE_NAME), with(any(String.class)), with("MESSAGE:\n" +
+          "                        Assertion message form test\n" +
+          "                        +++++++++++++++++++\n" +
+          "                        STACK TRACE:\n" +
+          "                        junit.framework.AssertionFailedError: Assertion message form test\n" +
+          "            at TestCase.test(Unknown Source)\n" +
+          "            at TestCase1.test(Unknown Source)\n" +
+          "            at TestCase2.test(Unknown Source)"));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(report("singleCaseFailureWithMultiline.xml"));
+    myContext.assertIsSatisfied();
+  }
 }

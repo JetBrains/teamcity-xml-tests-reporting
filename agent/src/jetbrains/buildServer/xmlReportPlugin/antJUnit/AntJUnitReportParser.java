@@ -349,7 +349,7 @@ public class AntJUnitReportParser extends XmlReportParser {
 
   private void endFailure() {
     if (myTests.size() != 0) {
-      myTests.peek().setFailureStackTrace(formatTextWithouNewLine(myCData));
+      myTests.peek().setFailureStackTrace(myCData.toString().trim());
     }
   }
 
