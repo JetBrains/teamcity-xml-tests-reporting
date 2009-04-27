@@ -376,4 +376,96 @@ public class NUnitReportParserTest extends TestCase {
     myParser.parse(report("singleCaseFailureWithMultiline.xml"));
     myContext.assertIsSatisfied();
   }
+
+  @Test
+  public void test1CaseFailureinManyLines() throws Exception {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with("MCNTest"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStarted(with("MCNTest.Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFailed(with("MCNTest.Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(String.class)), with("MESSAGE:\n" +
+          "                        Input and Output of test case are not equal. See .\\testCases\\EDI\\Invalid\\\n" +
+          "                        +++++++++++++++++++\n" +
+          "                        STACK TRACE:\n" +
+          "                        Input: \n" +
+          "UNA:+.? '\n" +
+          "UNB+UNOC:3+9903214000009:500+4038777000004:500+090421:1134+00000002154600'\n" +
+          "UNH+00000002154600+REMADV:D:06A:UN:2.2'\n" +
+          "BGM+239+DH0005631+9'\n" +
+          "DTM+137:20090401:102'\n" +
+          "FII+PB+984362uzt:Werthelsmann+90874:25:131::::Landesbank'\n" +
+          "NAD+MS+9903214000009::293'\n" +
+          "NAD+MR+4038777000004::293'\n" +
+          "CUX+2:EUR:11'\n" +
+          "DOC+380+DH7965542'\n" +
+          "MOA+9:50'\n" +
+          "MOA+12:0'\n" +
+          "DTM+137:20090101:102'\n" +
+          "RFF+IT:dh675543'\n" +
+          "AJT+9'\n" +
+          "FTX+ABO+1++Falscher Abrechnungszeitraum Grund 1:'\n" +
+          "DOC+380+DH5437867'\n" +
+          "MOA+9:50'\n" +
+          "MOA+12:0'\n" +
+          "DTM+137:20090101:102'\n" +
+          "RFF+IT:dh650987'\n" +
+          "AJT+Z06'\n" +
+          "FTX+ABO+1++Artikel unbekannt Grund 1'\n" +
+          "UNS+S'\n" +
+          "MOA+9:100'\n" +
+          "MOA+12:0'\n" +
+          "UNT+25+00000002154600'\n" +
+          "UNZ+1+00000002154600'\n" +
+          "\n" +
+          "\n" +
+          "Output:\n" +
+          "UNA:+.? '\n" +
+          "UNB+UNOC:3+9903214000009:500+4038777000004:500+090421:1134+00000002154600'\n" +
+          "UNH+00000002154600+REMADV:D:06A:UN:2.2'\n" +
+          "BGM+239+DH0005631+9'\n" +
+          "DTM+137:20090401:102'\n" +
+          "FII+PB+984362uzt:Werthelsmann+90874:25:131::::Landesbank'\n" +
+          "NAD+MS+9903214000009::293'\n" +
+          "NAD+MR+4038777000004::293'\n" +
+          "CUX+2:EUR:11'\n" +
+          "DOC+380+DH7965542'\n" +
+          "MOA+9:50'\n" +
+          "MOA+12:0'\n" +
+          "DTM+137:20090101:102'\n" +
+          "RFF+IT:dh675543'\n" +
+          "DOC+380+DH5437867'\n" +
+          "MOA+9:50'\n" +
+          "MOA+12:0'\n" +
+          "DTM+137:20090101:102'\n" +
+          "RFF+IT:dh650987'\n" +
+          "UNS+S'\n" +
+          "MOA+9:100'\n" +
+          "MOA+12:0'\n" +
+          "UNT+21+00000002154600'\n" +
+          "UNZ+1+00000002154600'"));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with("MCNTest.Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStarted(with("MCNTest.Test2 - REMADV_9903214000009_9907027000008_20090417_1.txt"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with("MCNTest.Test2 - REMADV_9903214000009_9907027000008_20090417_1.txt"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStarted(with("MCNTest.Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFailed(with("MCNTest.Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(String.class)), with("MESSAGE:\n" +
+          "                        Could not export testcase\n" +
+          "                        +++++++++++++++++++\n" +
+          "                        STACK TRACE:"));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with("MCNTest.Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with("MCNTest"), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(report("TestResults.xml"));
+    myContext.assertIsSatisfied();
+  }
 }
