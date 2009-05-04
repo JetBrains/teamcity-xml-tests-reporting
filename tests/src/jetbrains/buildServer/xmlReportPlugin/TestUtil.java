@@ -19,6 +19,7 @@ package jetbrains.buildServer.xmlReportPlugin;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionTypeInfo;
+import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -83,6 +84,9 @@ public final class TestUtil {
       }
 
       public void flush() {
+      }
+
+      public void addListener(@NotNull final InspectionReporterListener listener) {
       }
     };
   }
