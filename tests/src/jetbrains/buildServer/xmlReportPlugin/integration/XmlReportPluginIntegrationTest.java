@@ -74,6 +74,8 @@ public class XmlReportPluginIntegrationTest {
         will(returnValue(runParams));
         allowing(runningBuild).getBuildTempDirectory();
         will(returnValue(checkoutDirFile));
+        allowing(runningBuild).getCheckoutDirectory();
+        will(returnValue(checkoutDirFile));
         ignoring(runningBuild);
       }
     });
