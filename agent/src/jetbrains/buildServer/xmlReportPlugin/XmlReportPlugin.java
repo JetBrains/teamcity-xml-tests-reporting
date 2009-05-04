@@ -40,7 +40,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
   private XmlReportDirectoryWatcher myDirectoryWatcher;
   private XmlReportProcessor myReportProcessor;
   private BaseServerLoggerFacade myLogger;
-  private InspectionReporter myInspectionReporter;
+  private final InspectionReporter myInspectionReporter;
 
   private volatile Map<String, String> myParameters;
 
@@ -52,6 +52,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     myInspectionReporter = inspectionReporter;
   }
 
+  @Override
   public void buildStarted(@NotNull AgentRunningBuild build) {
     myStopped = false;
     myParameters = new HashMap<String, String>(build.getRunnerParameters());
@@ -59,13 +60,13 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     myParameters.put(TMP_DIR, build.getBuildTempDirectory().getAbsolutePath());
   }
 
+  @Override
   public void beforeRunnerStart(@NotNull AgentRunningBuild build) {
     obtainLogger(build);
     if (!isParsingEnabled(myParameters)) {
       return;
     }
-    final Set<File> reportPaths = getReportPathsFromDirProperty(getXmlReportPaths(myParameters),
-      myParameters.get(CHECKOUT_DIR));
+    final Set<File> reportPaths = getReportPathsFromDirProperty(getXmlReportPaths(myParameters), build.getCheckoutDirectory());
     final String type = getReportType(myParameters);
     //TODO: can avoid this if by adding paths presence in the web IU
     if (reportPaths.size() == 0) {
@@ -104,31 +105,32 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     myReportProcessor.start();
   }
 
-  private static Set<File> getReportPathsFromDirProperty(String pathsStr, String checkoutDir) {
+  private static Set<File> getReportPathsFromDirProperty(String pathsStr, File checkoutDir) {
     final Set<File> dirs = new HashSet<File>();
     if (pathsStr != null) {
       final String[] paths = pathsStr.split(" *[,\n\r] *");
-      for (int i = 0; i < paths.length; ++i) {
-        dirs.add(FileUtil.resolvePath(new File(checkoutDir), paths[i]));
+      for (String path : paths) {
+        dirs.add(FileUtil.resolvePath(checkoutDir, path));
       }
     }
     dirs.removeAll(SILENT_PATHS);
     return dirs;
   }
 
+  @Override
   public void beforeBuildFinish(@NotNull BuildFinishedStatus buildFinishedStatus) {
     myStopped = true;
     if (isParsingEnabled(myParameters)) {
-      synchronized (myReportProcessor) {
-        try {
-          myReportProcessor.join();
-        } catch (InterruptedException e) {
-        }
+      try {
+        myReportProcessor.join();
+      } catch (InterruptedException e) {
+        LOGGER.warn(e.toString(), e);
       }
       myDirectoryWatcher.logTotals();
     }
   }
 
+  @Override
   public void buildFinished(@NotNull final BuildFinishedStatus buildStatus) {
     myDirectoryWatcher = null;
     myReportProcessor = null;

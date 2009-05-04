@@ -58,6 +58,7 @@ public class XmlReportDirectoryWatcher extends Thread {
     return (mask.contains("*") || mask.contains("?"));
   }
 
+  @Override
   public void run() {
     while (!myPlugin.isStopped()) {
       try {
@@ -314,7 +315,7 @@ public class XmlReportDirectoryWatcher extends Thread {
     final int firstStar = t.indexOf('*');
     final int firstQuest = t.indexOf('?');
     int mark = firstStar < 0 ? firstQuest :
-      (firstStar < firstQuest || firstQuest < 0 ? firstStar : firstQuest);
+      ((firstStar < firstQuest || firstQuest < 0) ? firstStar : firstQuest);
 
     final int lastSlash = t.lastIndexOf('/', mark);
     return lastSlash > 0 ? pathWithWildCard.substring(0, lastSlash) : "";
