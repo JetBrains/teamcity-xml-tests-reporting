@@ -17,12 +17,16 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 
@@ -67,6 +71,24 @@ public abstract class XmlReportParser extends DefaultHandler {
     } catch (Exception e) {
       myLogger.exception(e);
     }
+  }
+
+  public boolean isReportComplete(@NotNull File report, @NotNull String trailingTag) {
+    List<String> reportContent = Collections.emptyList();
+    try {
+      reportContent = FileUtil.readFile(report);
+    } catch (IOException e) {
+      myLogger.exception(e);
+    }
+    final int size = reportContent.size();
+    if (size <= 0) {
+      return false;
+    }
+    return reportContent.get(size - 1).endsWith(trailingTag);
+  }
+
+  public BaseServerLoggerFacade getLogger() {
+    return myLogger;
   }
 
   public void logReportTotals(@NotNull File report, boolean verbose) {

@@ -54,6 +54,7 @@ public class XmlReportProcessor extends Thread {
     try {
       myWatcher.join();
     } catch (InterruptedException e) {
+      myPlugin.interrupted(e);
     }
     while (!myReportQueue.isEmpty()) {
       processReport(takeNextReport(1));
@@ -72,8 +73,11 @@ public class XmlReportProcessor extends Thread {
     if (data.getProcessedEvents() != -1) {
       if (myPlugin.isStopped()) {
         if (myPlugin.isVerbose()) {
-          myPlugin.getLogger().error(data.getFile().getAbsolutePath() + ": failed to parse with " +
-            XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(data.getType()) + " parser");
+          myPlugin.getLogger().message("##teamcity[buildStatus status='FAILURE' text='" + data.getFile().getAbsolutePath() + ": failed to parse with " +
+            XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(data.getType()) + " parser']");
+//
+//          myPlugin.getLogger().error(data.getFile().getAbsolutePath() + ": failed to parse with " +
+//            XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(data.getType()) + " parser");
         }
         XmlReportPlugin.LOGGER.info("Unable to parse " + data.getFile().getAbsolutePath());
       } else {
@@ -81,6 +85,7 @@ public class XmlReportProcessor extends Thread {
           myReportQueue.put(data);
           Thread.sleep(SCAN_INTERVAL);
         } catch (InterruptedException e) {
+          myPlugin.interrupted(e);
         }
       }
     } else {
@@ -99,6 +104,7 @@ public class XmlReportProcessor extends Thread {
         return data;
       }
     } catch (InterruptedException e) {
+      myPlugin.interrupted(e);
     }
     return null;
   }

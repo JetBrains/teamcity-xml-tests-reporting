@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 
 
 public class XmlReportDirectoryWatcher extends Thread {
-  private static final int SCAN_INTERVAL = 50;
+  private static final int SCAN_INTERVAL = 100;
 
   private final XmlReportPlugin myPlugin;
 
@@ -91,13 +91,7 @@ public class XmlReportDirectoryWatcher extends Thread {
       if (isInspection(type) && hasInspections()) {
         warning("Two different inspections can not be processed during one build, skip " + SUPPORTED_REPORT_TYPES.get(type) + " reports");
         if (paths.size() > 0) {
-          final String target = SUPPORTED_REPORT_TYPES.get(type) + " report watcher";
-          myPlugin.getLogger().targetStarted(target);
-          warning("Skip watching:");
-          for (File f : paths) {
-            warning(f.getAbsolutePath());
-          }
-          myPlugin.getLogger().targetFinished(target);
+          logPathsInTarget(paths, type, "Skip watching:");
         }
         return;
       }
@@ -109,6 +103,15 @@ public class XmlReportDirectoryWatcher extends Thread {
     }
     logWatchingPaths(paths, type);
     checkExistingPaths(paths, type);
+  }
+
+  private void logPathsInTarget(Set<File> paths, String type, String header) {
+    final String target = startTarget(type);
+    warning(header);
+    for (File f : paths) {
+      warning(f.getAbsolutePath());
+    }
+    myPlugin.getLogger().targetFinished(target);
   }
 
   private boolean hasInspections() {
@@ -125,8 +128,7 @@ public class XmlReportDirectoryWatcher extends Thread {
       error("Illegal report type: " + type);
       return;
     }
-    final String target = SUPPORTED_REPORT_TYPES.get(type) + " report watcher";
-    myPlugin.getLogger().targetStarted(target);
+    final String target = startTarget(type);
     String message = "Watching paths: ";
     if (paths.size() == 0) {
       message += "<no paths>";
@@ -166,13 +168,7 @@ public class XmlReportDirectoryWatcher extends Thread {
       }
     }
     if (existingPaths.size() > 0) {
-      final String target = SUPPORTED_REPORT_TYPES.get(type) + " report watcher";
-      myPlugin.getLogger().targetStarted(target);
-      warning("Found existing files:");
-      for (File f : existingPaths) {
-        warning(f.getAbsolutePath());
-      }
-      myPlugin.getLogger().targetFinished(target);
+      logPathsInTarget(existingPaths, type, "Found existing files:");
     }
   }
 
@@ -201,13 +197,7 @@ public class XmlReportDirectoryWatcher extends Thread {
           final Set<File> filesInDir = new HashSet<File>();
           if ((files != null) && (files.length > 0)) {
             for (File file : files) {
-              if (isGoodFile(file)) {
-                if (!s.getFiles().contains(file)) {
-                  sendToQueue(type, file);
-                }
-                s.getFiles().add(file);
-                filesInDir.add(file);
-              }
+              processFile(type, s, filesInDir, file);
             }
           }
           addToStatistics(s.getDirs(), f, filesInDir);
@@ -215,17 +205,21 @@ public class XmlReportDirectoryWatcher extends Thread {
           final Set<File> filesForMask = new HashSet<File>();
           final MaskData md = getMask(f);
           for (File file : collectFiles(md.getPattern(), md.getBaseDir())) {
-            if (isGoodFile(file)) {
-              if (!s.getFiles().contains(file)) {
-                sendToQueue(type, file);
-              }
-              s.getFiles().add(file);
-              filesForMask.add(file);
-            }
+            processFile(type, s, filesForMask, file);
           }
           addToStatistics(s.getMasks(), f, filesForMask);
         }
       }
+    }
+  }
+
+  private void processFile(String type, TypeStatistics s, Set<File> files, File file) {
+    if (isGoodFile(file)) {
+      if (!s.getFiles().contains(file)) {
+        sendToQueue(type, file);
+      }
+      s.getFiles().add(file);
+      files.add(file);
     }
   }
 
@@ -237,6 +231,7 @@ public class XmlReportDirectoryWatcher extends Thread {
     try {
       myReportQueue.put(new ReportData(f, type));
     } catch (InterruptedException e) {
+      myPlugin.interrupted(e);
     }
   }
 
@@ -259,8 +254,7 @@ public class XmlReportDirectoryWatcher extends Thread {
   public void logTotals() {
     for (String type : myPaths.keySet()) {
       final TypeStatistics s = myStatistics.get(type);
-      final String target = SUPPORTED_REPORT_TYPES.get(type) + " report watcher";
-      myPlugin.getLogger().targetStarted(target);
+      final String target = startTarget(type);
       if (s.getFiles().size() > 0) {
         message(s.getFiles().size() + " file(s) found");
       } else {
@@ -297,6 +291,12 @@ public class XmlReportDirectoryWatcher extends Thread {
       }
       myPlugin.getLogger().targetFinished(target);
     }
+  }
+
+  private String startTarget(String type) {
+    final String target = SUPPORTED_REPORT_TYPES.get(type) + " report watcher";
+    myPlugin.getLogger().targetStarted(target);
+    return target;
   }
 
   private void logFiles(TypeStatistics s, File d, Set<File> files) {

@@ -95,6 +95,11 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     }
   }
 
+  public void interrupted(InterruptedException e) {
+    myLogger.exception(e);
+    LOGGER.warn(e.toString(), e);
+  }
+
   private void startProcessing(Set<File> reportDirs, String type) {
     final LinkedBlockingQueue<ReportData> reportsQueue = new LinkedBlockingQueue<ReportData>();
 

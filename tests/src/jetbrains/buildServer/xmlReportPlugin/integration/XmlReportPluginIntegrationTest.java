@@ -278,9 +278,9 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("message", params2));
 
     final List<Object> params3 = new ArrayList<Object>();
-    params3.add(report + ": failed to parse with " +
-      XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(reportType) + " parser");
-    myLogSequence.add(new MethodInvokation("error", params3));
+    params3.add("##teamcity[buildStatus status='FAILURE' text='" + report + ": failed to parse with " +
+      XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(reportType) + " parser']");
+    myLogSequence.add(new MethodInvokation("message", params3));
 
     final List<Object> params4 = new ArrayList<Object>();
     params4.add("1 file(s) found");
@@ -413,8 +413,8 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("logSuiteFinished", twoAnyParams));
 
     final List<Object> params3 = new ArrayList<Object>();
-    params3.add(report + ": failed to parse with " + XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(ANT_JUNIT_REPORT_TYPE) + " parser");
-    myLogSequence.add(new MethodInvokation("error", params3));
+    params3.add("##teamcity[buildStatus status='FAILURE' text='" + report + ": failed to parse with " + XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(ANT_JUNIT_REPORT_TYPE) + " parser']");
+    myLogSequence.add(new MethodInvokation("message", params3));
 
     final List<Object> params4 = new ArrayList<Object>();
     params4.add("1 file(s) found");

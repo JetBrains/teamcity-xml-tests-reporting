@@ -154,10 +154,6 @@ public class AntJUnitReportParser extends XmlReportParser {
       XmlReportPlugin.LOGGER.debug("Couldn't completely parse " + report.getPath()
         + " report - SAXParseException occured: " + e.toString() + ", "
         + myLoggedTests + " events logged");
-//      myLogger.error("Couldn't completely parse " + report.getPath());
-//      myLogger.error(e.getClass() + ": " + e.toString());
-//      myLogger.error(myLoggedTests + " events processed");
-//      myLogger.error(myTestsToSkip + " tests to skip");
       final int processedEvents = (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip;
       data.setProcessedEvents(processedEvents);
       return;

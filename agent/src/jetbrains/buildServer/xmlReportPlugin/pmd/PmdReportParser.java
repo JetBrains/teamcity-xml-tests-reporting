@@ -43,6 +43,10 @@ public class PmdReportParser extends InspectionsReportParser {
 
   public void parse(@NotNull final ReportData data) {
     final File report = data.getFile();
+    if (!isReportComplete(report, "</pmd>")) {
+      data.setProcessedEvents(0);
+      return;
+    }
     try {
       parse(report);
     } catch (SAXParseException spe) {

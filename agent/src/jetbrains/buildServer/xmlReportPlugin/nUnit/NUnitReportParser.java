@@ -46,6 +46,10 @@ public class NUnitReportParser extends AntJUnitReportParser {
 
   public void parse(@NotNull final ReportData data) {
     final File report = data.getFile();
+    if (!isReportComplete(report, "</test-results>")) {
+      data.setProcessedEvents(0);
+      return;
+    }
     final File junitReport = new File(myTmpReportDir.getPath() + File.separator + report.getName());
     try {
       myReportTransformer.transform(report, junitReport);

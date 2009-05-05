@@ -69,9 +69,13 @@ public class FindBugsReportParser extends InspectionsReportParser {
 
   public void parse(@NotNull final ReportData data) {
     myInspectionReporter.markBuildAsInspectionsBuild();
+    final File report = data.getFile();
+    if (!isReportComplete(report, "</BugCollection>")) {
+      data.setProcessedEvents(0);
+      return;
+    }
     myFileFinder = new FileFinder();
     myWaitingForTypeBugs = new ArrayList<InspectionInstance>();
-    final File report = data.getFile();
     try {
       if (!myDataLoaded) {
         myDataLoaded = true;

@@ -48,17 +48,17 @@
                   <failure>
                     <xsl:choose>
                       <xsl:when test="$failstack &gt; 0 or not($generalfailure)">
-                        MESSAGE:
+                        <!--MESSAGE:-->
                         <xsl:value-of select="./failure/message"/>
-                        +++++++++++++++++++
-                        STACK TRACE:
+                        <!--+++++++++++++++++++-->
+                        <!--STACK TRACE:-->
                         <xsl:value-of select="./failure/stack-trace"/>
                       </xsl:when>
                       <xsl:otherwise>
-                        MESSAGE:
+                        <!--MESSAGE:-->
                         <xsl:value-of select="$generalfailure/message"/>
-                        +++++++++++++++++++
-                        STACK TRACE:
+                        <!--+++++++++++++++++++-->
+                        <!--STACK TRACE:-->
                         <xsl:value-of select="$generalfailure/stack-trace"/>
                       </xsl:otherwise>
                     </xsl:choose>

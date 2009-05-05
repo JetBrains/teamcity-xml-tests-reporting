@@ -69,16 +69,10 @@ public class NUnitReportParserTest extends TestCase {
 
   @Test
   public void testEmptyReport() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).exception(with(any(Throwable.class)));
-        inSequence(mySequence);
-      }
-    });
     final ReportData data = report("empty.xml");
     myParser.parse(data);
     final int testsLogged = data.getProcessedEvents();
-    Assert.assertTrue("Empty report contains 0 tests, but " + testsLogged + " tests logged", testsLogged == -1);
+    Assert.assertTrue("Empty report contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
     myContext.assertIsSatisfied();
   }
 
@@ -358,11 +352,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logTestStarted(with(CASE_NAME), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME), with(any(String.class)), with("MESSAGE:\n" +
-          "                        Assertion message form test\n" +
-          "                        +++++++++++++++++++\n" +
-          "                        STACK TRACE:\n" +
-          "                        junit.framework.AssertionFailedError: Assertion message form test\n" +
+        oneOf(myLogger).logTestFailed(with(CASE_NAME), with(any(String.class)), with("Assertion message form testjunit.framework.AssertionFailedError: Assertion message form test\n" +
           "            at TestCase.test(Unknown Source)\n" +
           "            at TestCase1.test(Unknown Source)\n" +
           "            at TestCase2.test(Unknown Source)"));
@@ -385,11 +375,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logTestStarted(with("MCNTest.Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with("MCNTest.Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(String.class)), with("MESSAGE:\n" +
-          "                        Input and Output of test case are not equal. See .\\testCases\\EDI\\Invalid\\\n" +
-          "                        +++++++++++++++++++\n" +
-          "                        STACK TRACE:\n" +
-          "                        Input: \n" +
+        oneOf(myLogger).logTestFailed(with("MCNTest.Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(String.class)), with("Input and Output of test case are not equal. See .\\testCases\\EDI\\Invalid\\Input:\n" +
           "UNA:+.? '\n" +
           "UNB+UNOC:3+9903214000009:500+4038777000004:500+090421:1134+00000002154600'\n" +
           "UNH+00000002154600+REMADV:D:06A:UN:2.2'\n" +
@@ -454,10 +440,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logTestStarted(with("MCNTest.Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with("MCNTest.Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(String.class)), with("MESSAGE:\n" +
-          "                        Could not export testcase\n" +
-          "                        +++++++++++++++++++\n" +
-          "                        STACK TRACE:"));
+        oneOf(myLogger).logTestFailed(with("MCNTest.Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(String.class)), with("Could not export testcase"));
         inSequence(mySequence);
         oneOf(myLogger).logTestFinished(with("MCNTest.Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(Date.class)));
         inSequence(mySequence);
@@ -466,6 +449,31 @@ public class NUnitReportParserTest extends TestCase {
       }
     });
     myParser.parse(report("TestResults.xml"));
+    myContext.assertIsSatisfied();
+  }
+
+  //TW-8140 (TW-8120)
+  @Test
+  public void testReportWithPrematureEndOfFileFull() throws Exception {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with("MCNTest"), with(any(Date.class)));
+        inSequence(mySequence);
+        exactly(15).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
+        exactly(15).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with("MCNTest"), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(report("TestResults_TW8120.xml"));
+    myContext.assertIsSatisfied();
+  }
+
+  //TW-8140 (TW-8120)
+  @Test
+  public void testReportWithPrematureEndOfFilePart() throws Exception {
+    myParser.parse(report("TestResults_TW8120_part.xml"));
     myContext.assertIsSatisfied();
   }
 }

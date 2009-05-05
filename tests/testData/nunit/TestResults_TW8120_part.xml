@@ -1,0 +1,23 @@
+<!--
+NUNIT test results - created by FAKE F# Make 0.4.125.110
+-->
+<test-results name="MCNTest" total="15" errors="0" not-run="0" ignored="0" date="29.04.2009 00:00:00"
+              time="16:27:50.3137500">
+  <test-suite name="MCNTest" executed="True" success="False" time="71,985">
+    <results>
+      <test-case name="INVOIC_9903214000009_4029684000003_20090429_1.txt" executed="True" success="True" time="1.157"/>
+      <test-case name="MSCONS_LG_9907027000008_9903323000007_20090106_200927_1.txt" executed="True" success="True"
+                 time="30.25"/>
+      <test-case name="MSCONS_LG_9907027000008_9903323000007_20090106_200927_2.txt" executed="True" success="True"
+                 time="30.031"/>
+      <test-case name="MSCONS_VL_9907027000008_9903169000005_20090428_20552.txt" executed="True" success="True"
+                 time="0.329"/>
+      <test-case name="MSCONS_VL_9907027000008_9903169000005_20090428_20553.txt" executed="True" success="True"
+                 time="0.343"/>
+      <test-case name="MSCONS_VL_9907027000008_9903169000005_20090428_20554.txt" executed="True" success="True"
+                 time="0.344"/>
+      <test-case name="MSCONS_VL_9907027000008_9903169000005_20090428_20555.txt" executed="True" success="True"
+                 time="0.328"/>
+      <test-case name="REMADV_9903214000009_4038777000004_20090421_3.txt" executed="True" success="True" time="0.313"/>
+      <test-case name="REMADV_9903214000009_9907027000008_20090417_1.txt" executed="True" success="True" time="0.343"/>
+      <test-case name="UTILMD_9800043600002_9800043600002_20090428_5.txt" executed="True" success="True" time="0.516"/>
