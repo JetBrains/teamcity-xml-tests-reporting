@@ -18,10 +18,12 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
 import jetbrains.buildServer.util.EventDispatcher;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getTestDataPath;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
 import junit.framework.TestCase;
+import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
@@ -62,6 +64,11 @@ public class XmlReportDataProcessorTest extends TestCase {
   private XmlReportPlugin createFakePlugin(final StringBuilder results, final File base) {
     final EventDispatcher dispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
     final InspectionReporter reporter = myContext.mock(InspectionReporter.class);
+    myContext.checking(new Expectations() {
+      {
+        allowing(reporter).addListener(with(any(InspectionReporterListener.class)));
+      }
+    });
     return new XmlReportPlugin(dispatcher, reporter) {
       public void processReports(Map<String, String> params, Set<File> reportDirs) {
         for (String key : params.keySet()) {

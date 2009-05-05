@@ -19,6 +19,7 @@ package jetbrains.buildServer.xmlReportPlugin;
 import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
 import jetbrains.buildServer.log.Loggers;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
@@ -31,7 +32,7 @@ import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 
-public class XmlReportPlugin extends AgentLifeCycleAdapter {
+public class XmlReportPlugin extends AgentLifeCycleAdapter implements InspectionReporterListener {
   @NonNls
   private static final Collection<String> SILENT_PATHS = Arrays.asList("");
   public static final Logger LOGGER = Loggers.AGENT;
@@ -50,6 +51,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
                          @NotNull final InspectionReporter inspectionReporter) {
     agentDispatcher.addListener(this);
     myInspectionReporter = inspectionReporter;
+    myInspectionReporter.addListener(this);
   }
 
   @Override
@@ -124,12 +126,18 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
 
   @Override
   public void beforeBuildFinish(@NotNull BuildFinishedStatus buildFinishedStatus) {
+    if (!myStopped) {
+      finishWork();
+    }
+  }
+
+  private void finishWork() {
     myStopped = true;
     if (isParsingEnabled(myParameters)) {
       try {
         myReportProcessor.join();
       } catch (InterruptedException e) {
-        LOGGER.warn(e.toString(), e);
+        interrupted(e);
       }
       myDirectoryWatcher.logTotals();
     }
@@ -141,8 +149,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
     myReportProcessor = null;
     myLogger = null;
     myParameters = null;
-
-    myStopped = true;
   }
 
   public BaseServerLoggerFacade getLogger() {
@@ -183,5 +189,9 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter {
 
   public Map<String, String> getParameters() {
     return myParameters;
+  }
+
+  public void beforeInspectionsSent(@NotNull AgentRunningBuild build) {
+    finishWork();
   }
 }

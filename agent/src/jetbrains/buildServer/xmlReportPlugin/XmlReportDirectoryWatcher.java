@@ -176,7 +176,7 @@ public class XmlReportDirectoryWatcher extends Thread {
     MaskData md;
     if (!myMaskHash.containsKey(f)) {
       final File baseDir = new File(getDirWithoutPattern(f.getAbsolutePath()));
-      final Pattern pattern = Pattern.compile(FileUtil.convertAntToRegexp(FileUtil.getRelativePath(baseDir, f)));
+      final Pattern pattern = Pattern.compile(FileUtil.convertAntToRegexp(f.getAbsolutePath().replace(baseDir.getAbsolutePath(), "")));
       md = new MaskData(baseDir, pattern);
       myMaskHash.put(f, md);
     } else {
