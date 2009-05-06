@@ -133,6 +133,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
   private void finishWork() {
     myStopped = true;
+    if (myReportProcessor == null) return; // beforeRunnerStart was not called, i.e. build has failed before runner started
     if (isParsingEnabled(myParameters)) {
       try {
         myReportProcessor.join();
