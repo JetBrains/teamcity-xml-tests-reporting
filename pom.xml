@@ -25,6 +25,25 @@
     <module>server</module>
     <module>tests</module>
   </modules>
+  <repositories>
+    <repository>
+      <id>jetbrains-snapshots</id>
+      <url>http://maven.labs.intellij.net:8081/nexus/content/repositories/snapshots</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>jetbrains-releases</id>
+      <url>http://maven.labs.intellij.net:8081/nexus/content/repositories/releases</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+    </repository>
+  </repositories>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <outputDirectory>classes</outputDirectory>
