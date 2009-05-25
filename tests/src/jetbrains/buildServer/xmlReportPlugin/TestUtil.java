@@ -18,8 +18,8 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import jetbrains.buildServer.agent.inspections.InspectionTypeInfo;
 import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
+import jetbrains.buildServer.agent.inspections.InspectionTypeInfo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -54,8 +54,8 @@ public final class TestUtil {
 
     final String baseDataDir = System.getProperty("jetbrains.buildServer.xmlReportPlugin.testDataPath", "tests/testData");
 
-    final String relativeFileName = baseDataDir + (folderName != null ? "/" + folderName : "") + (fileName != null ? "/" + fileName : "");
-    final File file1 = new File(relativeFileName);
+    final String relativeFileName = (folderName != null ? "/" + folderName : "") + (fileName != null ? "/" + fileName : "");
+    final File file1 = new File(baseDataDir + relativeFileName);
     if (file1.exists()) {
       return file1;
     }
