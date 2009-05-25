@@ -52,7 +52,7 @@ public class XmlReportDataProcessorTest extends TestCase {
     final XmlReportDataProcessor processor = new XmlReportDataProcessor.JUnitDataProcessor(plugin);
     processor.processData(new File(getTestDataPath("Report.xml", "dataProcessor")), arguments);
 
-    if (!readFile(expectedFile).equals(results.toString())) {
+    if (!readFile(expectedFile).replace("/", File.separator).replace("\\", File.separator).trim().equals(results.toString())) {
       final FileWriter resultsWriter = new FileWriter(resultsFile);
       resultsWriter.write(results.toString());
       resultsWriter.close();
