@@ -53,12 +53,13 @@ public class XmlReportDataProcessorTest extends TestCase {
     processor.processData(new File(getTestDataPath("Report.xml", "dataProcessor")), arguments);
 
     final String expectedContent = readFile(expectedFile).replace("/", File.separator).replace("\\", File.separator).trim();
-    if (!expectedContent.equals(results.toString())) {
+    final String actual = results.toString().trim();
+    if (!expectedContent.equals(actual)) {
       final FileWriter resultsWriter = new FileWriter(resultsFile);
       resultsWriter.write(results.toString());
       resultsWriter.close();
 
-      assertEquals(expectedContent, results.toString());
+      assertEquals(expectedContent, actual);
     }
   }
 
