@@ -52,14 +52,14 @@ public final class TestUtil {
 
   public static File getTestDataFile(final String fileName, final String folderName) throws FileNotFoundException {
 
-    final String baseDataDir = System.getProperty("jetbrains.buildServer.xmlReportPlugin.testDataPath", "tests/testData");
+    final String baseDataDir = System.getProperty("jetbrains.buildServer.xmlReportPlugin.testDataPath", "tests" + File.separator + "testData");
 
-    final String relativeFileName = baseDataDir + (folderName != null ? "/" + folderName : "") + (fileName != null ? "/" + fileName : "");
+    final String relativeFileName = baseDataDir + (folderName != null ? File.separator + folderName : "") + (fileName != null ? File.separator + fileName : "");
     final File file1 = new File(relativeFileName);
     if (file1.exists()) {
       return file1;
     }
-    final File file2 = new File("svnrepo/xml-tests-reporting/" + relativeFileName);
+    final File file2 = new File("svnrepo" + File.separator + "xml-tests-reporting" + File.separator + relativeFileName);
     if (file2.exists()) {
       return file2;
     }
