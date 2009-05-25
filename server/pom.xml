@@ -9,6 +9,17 @@
   <name>server</name>
   <packaging>jar</packaging>
   <dependencies>
+    <dependency>
+      <groupId>com.jetbrains.buildserver.xmlReportPlugin</groupId>
+      <artifactId>common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.jetbrains.buildserver</groupId>
+      <artifactId>server-openapi</artifactId>
+      <version>5.0-SNAPSHOT</version>
+    </dependency>
   </dependencies>
   <build>
     <resources>
