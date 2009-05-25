@@ -54,8 +54,8 @@ public final class TestUtil {
 
     final String baseDataDir = System.getProperty("jetbrains.buildServer.xmlReportPlugin.testDataPath", "tests/testData");
 
-    final String relativeFileName = (folderName != null ? "/" + folderName : "") + (fileName != null ? "/" + fileName : "");
-    final File file1 = new File(baseDataDir + relativeFileName);
+    final String relativeFileName = baseDataDir + (folderName != null ? "/" + folderName : "") + (fileName != null ? "/" + fileName : "");
+    final File file1 = new File(relativeFileName);
     if (file1.exists()) {
       return file1;
     }

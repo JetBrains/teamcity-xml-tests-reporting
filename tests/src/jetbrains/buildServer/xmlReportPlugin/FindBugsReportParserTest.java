@@ -85,7 +85,7 @@ public class FindBugsReportParserTest extends TestCase {
     parser.logParsingTotals(params, true);
 
     final File expectedFile = new File(expectedFileName);
-    final String actual = results.toString().replace(baseDir, "##BASE_DIR##").trim();
+    final String actual = results.toString().replace(baseDir, "##BASE_DIR##").replace("/", File.separator).replace("\\", File.separator).trim();
     final String expectedContent = readFile(expectedFile).replace("/", File.separator).replace("\\", File.separator).trim();
     if (!expectedContent.equals(actual)) {
       final FileWriter resultsWriter = new FileWriter(resultsFileName);
