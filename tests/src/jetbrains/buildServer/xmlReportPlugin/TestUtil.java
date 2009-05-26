@@ -52,7 +52,7 @@ public final class TestUtil {
 
   public static File getTestDataFile(final String fileName, final String folderName) throws FileNotFoundException {
     final String defaultBaseDataDir = "tests" + File.separator + "testData";
-    final String fileInFolder = File.separator + (folderName != null ? File.separator + folderName : "") + (fileName != null ? File.separator + fileName : "");
+    final String fileInFolder = (folderName != null ? File.separator + folderName : "") + (fileName != null ? File.separator + fileName : "");
 
     final File file1 = new File(System.getProperty("jetbrains.buildServer.xmlReportPlugin.testDataPath", defaultBaseDataDir + fileInFolder));
     if (file1.exists()) {
