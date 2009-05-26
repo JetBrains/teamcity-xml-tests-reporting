@@ -16,11 +16,12 @@
 
 package jetbrains.buildServer.xmlReportPlugin.integration;
 
+import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 
 public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   private List<MethodInvokation> myMethodSequence = null;
@@ -29,6 +30,8 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
 
   private Iterator<MethodInvokation> myCurrent = null;
   private final List<UnexpectedInvokationException> myFailures;
+
+  private String myCurrentMethodName;
 
   public BaseServerLoggerFacadeForTesting(List<UnexpectedInvokationException> failures) {
     myFailures = failures;
@@ -43,13 +46,13 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
     myNotControlledMethods.add(method);
   }
 
-  public static String currentMethod() {
-    final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
-//        for (int i = 0; i < ste.length; ++i) {
-//            System.out.println(ste[i]);
-//        }
-    return ste[4].getMethodName();
-  }
+//  public static String currentMethod() {
+//    final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+////        for (int i = 0; i < ste.length; ++i) {
+////            System.out.println(ste[i]);
+////        }
+//    return ste[4].getMethodName();
+//  }
 
   private MethodInvokation getNextExpectedInvokation() {
     if (myCurrent.hasNext()) {
@@ -73,15 +76,14 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   }
 
   private String getFailureIfOccurs(List<Object> params) {
-    final String name = currentMethod();
-    if (!isMethodUnderControl(name)) {
+    if (!isMethodUnderControl(myCurrentMethodName)) {
       return null;
     }
 //    System.out.println("call " + name);
     final MethodInvokation expected = getNextExpectedInvokation();
-    if ((expected == null) || (!currentMethod().equals(expected.getMethodName()))) {
+    if ((expected == null) || (!myCurrentMethodName.equals(expected.getMethodName()))) {
 //      System.out.println("unexpected " + name);
-      return "Unexpected method invokation: " + name;
+      return "Unexpected method invokation: " + myCurrentMethodName;
     }
     expected.setInvoked();
     final List<Object> expectedParams = expected.getMethodParams();
@@ -92,8 +94,8 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
         continue;
       }
       if (!actualParam.equals(expectedParam)) {
-        System.out.println("wrong param in " + name);
-        return "Unexpected parameter value: <" + actualParam + "> in method: " + name;
+        System.out.println("wrong param in " + myCurrentMethodName);
+        return "Unexpected parameter value: <" + actualParam + "> in method: " + myCurrentMethodName;
       }
     }
     return null;
@@ -109,6 +111,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   }
 
   public void message(java.lang.String s) {
+    myCurrentMethodName = "message";
     List<Object> params = new ArrayList();
     params.add(s);
     final String message = getFailureIfOccurs(params);
@@ -118,6 +121,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   }
 
   public void logTestStarted(java.lang.String s, java.util.Date date) {
+    myCurrentMethodName = "logTestStarted";
     List<Object> params = new ArrayList();
     params.add(s);
     params.add(date);
@@ -128,6 +132,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   }
 
   public void logTestFinished(java.lang.String s, java.util.Date date) {
+    myCurrentMethodName = "logTestFinished";
     List<Object> params = new ArrayList();
     params.add(s);
     params.add(date);
@@ -138,6 +143,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   }
 
   public void warning(java.lang.String s) {
+    myCurrentMethodName = "warning";
     List<Object> params = new ArrayList();
     params.add(s);
     final String message = getFailureIfOccurs(params);
@@ -147,6 +153,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   }
 
   public void error(java.lang.String s) {
+    myCurrentMethodName = "error";
     List<Object> params = new ArrayList();
     params.add(s);
     final String message = getFailureIfOccurs(params);
@@ -157,6 +164,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
 
 
   public void logSuiteStarted(java.lang.String s, java.util.Date date) {
+    myCurrentMethodName = "logSuiteStarted";
     List<Object> params = new ArrayList();
     params.add(s);
     params.add(date);
@@ -167,6 +175,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   }
 
   public void logSuiteFinished(java.lang.String s, java.util.Date date) {
+    myCurrentMethodName = "logSuiteFinished";
     List<Object> params = new ArrayList();
     params.add(s);
     params.add(date);
@@ -177,6 +186,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   }
 
   public void logTestFailed(java.lang.String s, java.lang.String s1, java.lang.String s2) {
+    myCurrentMethodName = "logTestFailed";
     List<Object> params = new ArrayList();
     params.add(s);
     params.add(s1);

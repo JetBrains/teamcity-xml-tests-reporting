@@ -16,10 +16,11 @@
 
 package jetbrains.buildServer.xmlReportPlugin.integration;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import org.jetbrains.annotations.NotNull;
 
 public final class ReportFactory {
   private static String CHECKOUT_DIR;
@@ -29,11 +30,11 @@ public final class ReportFactory {
   }
 
   public static void createDir(String name) {
-    (new File(CHECKOUT_DIR + "\\" + name)).mkdir();
+    (new File(CHECKOUT_DIR + File.separator + name)).mkdir();
   }
 
   public static void createFile(String name) {
-    final File f = new File(CHECKOUT_DIR + "\\" + name);
+    final File f = new File(CHECKOUT_DIR + File.separator + name);
     try {
       final FileWriter fw = new FileWriter(f);
       fw.write("File content");
@@ -44,7 +45,7 @@ public final class ReportFactory {
   }
 
   public static void createFile(String name, String content) {
-    final File f = new File(CHECKOUT_DIR + "\\" + name);
+    final File f = new File(CHECKOUT_DIR + File.separator + name);
     try {
       final FileWriter fw = new FileWriter(f);
       fw.write(content);
@@ -55,11 +56,11 @@ public final class ReportFactory {
   }
 
   public static File getFileByName(String name) {
-    return new File(CHECKOUT_DIR + "\\" + name);
+    return new File(CHECKOUT_DIR + File.separator + name);
   }
 
   public static void createUnfinishedReport(String name, String type) {
-    final File f = new File(CHECKOUT_DIR + "\\" + name);
+    final File f = new File(CHECKOUT_DIR + File.separator + name);
     try {
       final FileWriter fw = new FileWriter(f);
       if ("junit".equals(type)) {
