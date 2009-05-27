@@ -16,9 +16,10 @@
 
 package jetbrains.buildServer.xmlReportPlugin.nUnit;
 
+import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 
-import javax.xml.transform.Transformer;
+import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
@@ -29,20 +30,23 @@ import java.io.*;
 public class NUnitToJUnitReportTransformer {
   private static final String NUNIT_TO_JUNIT_XSL = "nunit-to-junit.xsl";
 
-  private final Transformer myTransformer;
+  private final Templates myTemplates;
 
   public NUnitToJUnitReportTransformer() throws TransformerConfigurationException {
     final TransformerFactory transformerFactory = TransformerFactory.newInstance();
-    myTransformer = transformerFactory.newTransformer(new StreamSource(this.getClass().getResourceAsStream(NUNIT_TO_JUNIT_XSL)));
+    myTemplates = transformerFactory.newTemplates(new StreamSource(getClass().getResourceAsStream(NUNIT_TO_JUNIT_XSL)));
   }
 
   public void transform(@NotNull File nUnitReport, @NotNull File jUnitReport) throws Exception {
     final InputStream nUnitInputStream = new FileInputStream(nUnitReport);
     final OutputStream jUnitOutputStream = new FileOutputStream(jUnitReport);
-    final StreamSource source = new StreamSource(nUnitInputStream);
-    final StreamResult result = new StreamResult(jUnitOutputStream);
-    myTransformer.transform(source, result);
-    nUnitInputStream.close();
-    jUnitOutputStream.close();
+    try {
+      final StreamSource source = new StreamSource(nUnitInputStream);
+      final StreamResult result = new StreamResult(jUnitOutputStream);
+      myTemplates.newTransformer().transform(source, result);
+    } finally {
+      FileUtil.close(nUnitInputStream);
+      FileUtil.close(jUnitOutputStream);
+    }
   }
 }

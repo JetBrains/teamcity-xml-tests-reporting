@@ -84,7 +84,7 @@ public abstract class XmlReportParser extends DefaultHandler {
     if (size <= 0) {
       return false;
     }
-    return reportContent.get(size - 1).endsWith(trailingTag);
+    return reportContent.get(size - 1).trim().endsWith(trailingTag);
   }
 
   public BaseServerLoggerFacade getLogger() {
