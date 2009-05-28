@@ -1,60 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <BugCollection version="1.3.7" sequence="0" timestamp="1234450862849" analysisTimestamp="1234450865271" release="">
-  <Project filename="&lt;&lt;unnamed project&gt;&gt;" projectName="">
-    <Jar>C:\work\teamcityworkspace\xml-report-plugin\tests\testData\findBugs\inner</Jar>
-    <SrcDir>C:\work\teamcityworkspace\xml-report-plugin\tests\testData\findBugs\inner</SrcDir>
-  </Project>
-  <BugInstance type="NM_BAD_EQUAL" priority="1" abbrev="Nm" category="CORRECTNESS">
-    <Class classname="org.jetbrains.testProject.BuggyClass">
-      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="4" end="16" sourcefile="BuggyClass.java"
-                  sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
-    </Class>
-    <Method classname="org.jetbrains.testProject.BuggyClass" name="equal" signature="(Ljava/lang/Object;)Z"
-            isStatic="false">
-      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="9" end="9" startBytecode="0" endBytecode="53"
-                  sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
-    </Method>
-  </BugInstance>
-  <BugInstance type="UUF_UNUSED_FIELD" priority="2" abbrev="UuF" category="PERFORMANCE">
-    <Class classname="org.jetbrains.testProject.BuggyClass">
-      <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="4" end="16" sourcefile="BuggyClass.java"
-                  sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
-    </Class>
-    <Field classname="org.jetbrains.testProject.BuggyClass" name="str" signature="Ljava/lang/String;" isStatic="false">
-      <SourceLine classname="org.jetbrains.testProject.BuggyClass" sourcefile="BuggyClass.java"
-                  sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
-    </Field>
-  </BugInstance>
-  <BugInstance type="SIC_INNER_SHOULD_BE_STATIC" priority="2" abbrev="SIC" category="PERFORMANCE">
-    <Class classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass">
-      <SourceLine classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass" start="16" end="20"
-                  sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
-    </Class>
-  </BugInstance>
-  <BugInstance type="UUF_UNUSED_FIELD" priority="2" abbrev="UuF" category="PERFORMANCE">
-    <Class classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass">
-      <SourceLine classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass" start="16" end="20"
-                  sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
-    </Class>
-    <Field classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass" name="i" signature="I" isStatic="false">
-      <SourceLine classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass" sourcefile="BuggyClass.java"
-                  sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
-    </Field>
-  </BugInstance>
-  <Errors>
-    <MissingClass>junit.framework.TestCase</MissingClass>
-  </Errors>
-  <FindBugsSummary timestamp="Thu, 12 Feb 2009 18:01:02 +0300" total_classes="2" total_bugs="4" total_size="69"
-                   num_packages="1" vm_version="1.5.0_14-b03" cpu_seconds="3.25" clock_seconds="3.26"
-                   peak_mbytes="23.46" alloc_mbytes="63.56" gc_seconds="0.51" priority_2="3" priority_1="2">
-    <PackageStats package="org.jetbrains.testProject" total_bugs="5" total_types="4" total_size="69" priority_2="3"
-                  priority_1="2">
-      <ClassStats class="org.jetbrains.testProject.BuggyClass" sourceFile="BuggyClass.java" interface="false" size="10"
-                  bugs="2" priority_2="1" priority_1="1"/>
-      <ClassStats class="org.jetbrains.testProject.BuggyClass$BuggyInnerClass" sourceFile="BuggyClass.java"
-                  interface="false" size="9" bugs="2" priority_2="2"/>
-    </PackageStats>
-  </FindBugsSummary>
-  <ClassFeatures/>
-  <History/>
+    <Project filename="&lt;&lt;unnamed project&gt;&gt;" projectName="">
+        <Jar>##BASE_DIR##\inner</Jar>
+        <SrcDir>##BASE_DIR##\inner</SrcDir>
+    </Project>
+    <BugInstance type="NM_BAD_EQUAL" priority="1" abbrev="Nm" category="CORRECTNESS">
+        <Class classname="org.jetbrains.testProject.BuggyClass">
+            <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="4" end="16" sourcefile="BuggyClass.java"
+                        sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+        </Class>
+        <Method classname="org.jetbrains.testProject.BuggyClass" name="equal" signature="(Ljava/lang/Object;)Z"
+                isStatic="false">
+            <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="9" end="9" startBytecode="0"
+                        endBytecode="53"
+                        sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+        </Method>
+    </BugInstance>
+    <BugInstance type="UUF_UNUSED_FIELD" priority="2" abbrev="UuF" category="PERFORMANCE">
+        <Class classname="org.jetbrains.testProject.BuggyClass">
+            <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="4" end="16" sourcefile="BuggyClass.java"
+                        sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+        </Class>
+        <Field classname="org.jetbrains.testProject.BuggyClass" name="str" signature="Ljava/lang/String;"
+               isStatic="false">
+            <SourceLine classname="org.jetbrains.testProject.BuggyClass" sourcefile="BuggyClass.java"
+                        sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+        </Field>
+    </BugInstance>
+    <BugInstance type="SIC_INNER_SHOULD_BE_STATIC" priority="2" abbrev="SIC" category="PERFORMANCE">
+        <Class classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass">
+            <SourceLine classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass" start="16" end="20"
+                        sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+        </Class>
+    </BugInstance>
+    <BugInstance type="UUF_UNUSED_FIELD" priority="2" abbrev="UuF" category="PERFORMANCE">
+        <Class classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass">
+            <SourceLine classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass" start="16" end="20"
+                        sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+        </Class>
+        <Field classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass" name="i" signature="I" isStatic="false">
+            <SourceLine classname="org.jetbrains.testProject.BuggyClass$BuggyInnerClass" sourcefile="BuggyClass.java"
+                        sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+        </Field>
+    </BugInstance>
+    <Errors>
+        <MissingClass>junit.framework.TestCase</MissingClass>
+    </Errors>
+    <FindBugsSummary timestamp="Thu, 12 Feb 2009 18:01:02 +0300" total_classes="2" total_bugs="4" total_size="69"
+                     num_packages="1" vm_version="1.5.0_14-b03" cpu_seconds="3.25" clock_seconds="3.26"
+                     peak_mbytes="23.46" alloc_mbytes="63.56" gc_seconds="0.51" priority_2="3" priority_1="2">
+        <PackageStats package="org.jetbrains.testProject" total_bugs="5" total_types="4" total_size="69" priority_2="3"
+                      priority_1="2">
+            <ClassStats class="org.jetbrains.testProject.BuggyClass" sourceFile="BuggyClass.java" interface="false"
+                        size="10"
+                        bugs="2" priority_2="1" priority_1="1"/>
+            <ClassStats class="org.jetbrains.testProject.BuggyClass$BuggyInnerClass" sourceFile="BuggyClass.java"
+                        interface="false" size="9" bugs="2" priority_2="2"/>
+        </PackageStats>
+    </FindBugsSummary>
+    <ClassFeatures/>
+    <History/>
 </BugCollection>

@@ -7,6 +7,7 @@
       <antReference projectDefault="true" />
       <customJdkName value="" />
       <maximumHeapSize value="128" />
+      <maximumStackSize value="32" />
       <properties />
     </buildFile>
   </component>
@@ -42,6 +43,9 @@
       <entry name="*?.jsp" />
       <entry name="*?.xsl" />
     </wildcardResourcePatterns>
+  </component>
+  <component name="CopyrightManager" default="">
+    <module2copyright />
   </component>
   <component name="DependenciesAnalyzeManager">
     <option name="myForwardDirection" value="false" />
@@ -133,6 +137,13 @@
     <option name="GENERATE_NO_WARNINGS" value="false" />
     <option name="IS_EMACS_ERRORS_MODE" value="true" />
     <option name="ADDITIONAL_OPTIONS_STRING" value="" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
   </component>
   <component name="Palette2">
     <group name="Swing">
@@ -256,9 +267,12 @@
     </group>
   </component>
   <component name="ProjectDetails">
-    <option name="projectName" value="TestReportParserPlugin" />
+    <option name="projectName" value="xml-report-plugin" />
   </component>
   <component name="ProjectFileVersion" converted="true" />
+  <component name="ProjectKey">
+    <option name="state" value="http://svn.jetbrains.org/teamcity/plugins/xml-tests-reporting/trunk/xml-report-plugin.ipr" />
+  </component>
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/agent/agent.iml" filepath="$PROJECT_DIR$/agent/agent.iml" />
@@ -268,8 +282,8 @@
       <module fileurl="file://$PROJECT_DIR$/xml-report-plugin.iml" filepath="$PROJECT_DIR$/xml-report-plugin.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="true" project-jdk-name="1.5" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/out" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.5" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/classes" />
   </component>
   <component name="ResourceManagerContainer">
     <option name="myResourceBundles">
@@ -293,8 +307,8 @@
             <SvnBranchConfiguration>
               <option name="branchUrls">
                 <list>
-                  <option value="http://svn.jetbrains.org/teamcity/plugins/xml-tests-reporting/xml-tests-reporting" />
                   <option value="http://svn.jetbrains.org/teamcity/plugins/xml-tests-reporting/branches" />
+                  <option value="http://svn.jetbrains.org/teamcity/plugins/xml-tests-reporting/xml-tests-reporting" />
                 </list>
               </option>
               <option name="trunkUrl" value="http://svn.jetbrains.org/teamcity/plugins/xml-tests-reporting/trunk" />
@@ -303,7 +317,7 @@
         </entry>
       </map>
     </option>
-    <option name="myVersion" value="123" />
+    <option name="myVersion" value="124" />
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="svn" />
@@ -382,6 +396,7 @@
     </library>
   </component>
   <UsedPathMacros>
+    <macro name="TEMPLATE" />
     <macro name="TeamCityDistribution" />
   </UsedPathMacros>
 </project>

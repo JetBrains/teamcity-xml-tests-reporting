@@ -42,6 +42,19 @@ public final class TestUtil {
     }
   }
 
+  static public void writeFile(@NotNull final File file, @NotNull final String str) throws IOException {
+    final FileOutputStream outputStream = new FileOutputStream(file);
+    try {
+      final BufferedOutputStream bos = new BufferedOutputStream(outputStream);
+      final byte[] bytes = str.getBytes();
+      bos.write(bytes);
+      bos.close();
+    }
+    finally {
+      outputStream.close();
+    }
+  }
+
   public static String getTestDataPath(final String fileName, final String folderName) throws FileNotFoundException {
     return getTestDataFile(fileName, folderName).getPath();
   }
@@ -56,12 +69,10 @@ public final class TestUtil {
     final String relativeFileName = baseDataDir + (folderName != null ? File.separator + folderName : "") + (fileName != null ? File.separator + fileName : "");
     final File file1 = new File(relativeFileName);
     if (file1.exists()) {
-      System.out.println("User file1: " + file1.getAbsolutePath());
       return file1;
     }
     final File file2 = new File("svnrepo" + File.separator + "xml-tests-reporting" + File.separator + relativeFileName);
     if (file2.exists()) {
-      System.out.println("User file2: " + file2.getAbsolutePath());
       return file2;
     }
     throw new FileNotFoundException("Either " + file1.getAbsolutePath() + " or file " + file2.getAbsolutePath() + " should exist.");

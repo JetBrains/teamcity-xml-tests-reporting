@@ -1,95 +1,95 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="xml-report-plugin-custom" basedir="." default="all">
 
-  <property file="build.properties"/>
-  <import file="${basedir}/xml-report-plugin.xml"/>
+    <property file="build.properties"/>
+    <import file="${basedir}/xml-report-plugin.xml"/>
 
-  <property name="plugin.name" value="xml-report-plugin"/>
+    <property name="plugin.name" value="xml-report-plugin"/>
 
-  <import file="${basedir}/teamcity-common.xml"/>
+    <import file="${basedir}/teamcity-common.xml"/>
 
-  <property environment="env"/>
-  <property name="build.number" value="${env.BUILD_NUMBER}"/>
+    <property environment="env"/>
+    <property name="build.number" value="${env.BUILD_NUMBER}"/>
 
-  <target name="all" depends="check.teamcitydistribution, xml-report-plugin.all"/>
+    <target name="all" depends="check.teamcitydistribution, xml-report-plugin.all"/>
 
-  <target name="dist" depends="all">
-    <antcall target="update.version.in.plugin.descriptor"/>
+    <target name="dist" depends="all">
+        <antcall target="update.version.in.plugin.descriptor"/>
 
-    <package.teamcity.plugin name="${plugin.name}"
-                             server.output="${server.output.dir}"
-                             agent.output="${agent.output.dir}"
-                             common.output="${common.output.dir}"
-                             out="dist"
-      />
+        <package.teamcity.plugin name="${plugin.name}"
+                                 server.output="${server.output.dir}"
+                                 agent.output="${agent.output.dir}"
+                                 common.output="${common.output.dir}"
+                                 out="dist"
+                />
 
-  </target>
+    </target>
 
-  <target name="update.version.in.plugin.descriptor">
-    <xslt in="teamcity-plugin.xml" out="teamcity-plugin_new.xml" style="teamcity-plugin.xsl">
-      <param name="version" expression="${build.number}"/>
-    </xslt>
+    <target name="update.version.in.plugin.descriptor">
+        <xslt in="teamcity-plugin.xml" out="teamcity-plugin_new.xml" style="teamcity-plugin.xsl">
+            <param name="version" expression="${build.number}"/>
+        </xslt>
 
-    <move file="teamcity-plugin_new.xml" tofile="teamcity-plugin.xml"/>
-  </target>
+        <move file="teamcity-plugin_new.xml" tofile="teamcity-plugin.xml"/>
+    </target>
 
-  <target name="deploy" depends="dist" description="deploy plugin to TeamCity">
-    <deploy.teamcity.plugin name="${plugin.name}"/>
-  </target>
+    <target name="deploy" depends="dist" description="deploy plugin to TeamCity">
+        <deploy.teamcity.plugin name="${plugin.name}"/>
+    </target>
 
 
-  <target name="copy.log4j.configuration">
-    <property name="tests.testdata" value="${basedir}/tests/testData"/>
-    <copy todir="${tests.testoutput.dir}" file="${tests.testdata}/log4j.xml"/>
-  </target>
+    <target name="copy.log4j.configuration">
+        <property name="tests.testdata" value="${basedir}/tests/testData"/>
+        <copy todir="${tests.testoutput.dir}" file="${tests.testdata}/log4j.xml"/>
+    </target>
 
-  <target name="prepare.test.data">
-    <property name="test.data.dir" value="${basedir}/tests/testData/findBugs"/>
+    <target name="prepare.test.data">
+        <property name="test.data.dir" value="${basedir}/tests/testData/findBugs"/>
 
-    <xslt basedir="${test.data.dir}" destdir="${test.data.dir}"
-          includes="*.sample.xml" extension=".trans" style="reportPaths.xsl">
-      <param name="path" expression="${basedir}"/>
-    </xslt>
-    <move todir="${test.data.dir}" includeemptydirs="false">
-      <fileset dir="${test.data.dir}">
-        <include name="*.trans"/>
-      </fileset>
-      <mapper type="glob" from="*.sample.trans" to="*.xml"/>
-    </move>
+        <xslt basedir="${test.data.dir}" destdir="${test.data.dir}"
+              includes="*.sample.xml" extension=".trans" style="reportPaths.xsl">
+            <param name="path" expression="${basedir}"/>
+        </xslt>
+        <move todir="${test.data.dir}" includeemptydirs="false">
+            <fileset dir="${test.data.dir}">
+                <include name="*.trans"/>
+            </fileset>
+            <mapper type="glob" from="*.sample.trans" to="*.xml"/>
+        </move>
 
-    <delete>
-      <fileset dir="${test.data.dir}" includes="*.sample.trans"/>
-    </delete>
-  </target>
+        <delete>
+            <fileset dir="${test.data.dir}" includes="*.sample.trans"/>
+        </delete>
+    </target>
 
-  <target name="test" depends="test-nofail, check_failures"/>
+    <target name="test" depends="test-nofail, check_failures"/>
 
-  <target name="test-nofail">
-    <delete dir="test-reports" quiet="true"/>
-    <mkdir dir="test-reports"/>
+    <target name="test-nofail">
+        <delete dir="test-reports" quiet="true"/>
+        <mkdir dir="test-reports"/>
 
-    <antcall target="copy.log4j.configuration"/>
-    <antcall target="prepare.test.data"/>
+        <antcall target="copy.log4j.configuration"/>
+        <!--<antcall target="prepare.test.data"/>-->
 
-    <junit printsummary="on" fork="true" haltonfailure="false" haltonerror="false" failureproperty="failure_found"
-           showoutput="true">
-      <classpath>
-        <pathelement location="${agent.home.dir}/lib/runtime-util.jar"/>
-        <path refid="tests.runtime.module.classpath"/>
-      </classpath>
+        <junit printsummary="on" fork="true" haltonfailure="false" haltonerror="false" failureproperty="failure_found"
+               showoutput="true">
+            <classpath>
+                <pathelement location="${agent.home.dir}/lib/runtime-util.jar"/>
+                <path refid="tests.runtime.module.classpath"/>
+            </classpath>
 
-      <formatter type="xml"/>
+            <formatter type="xml"/>
 
-      <batchtest todir="test-reports">
-        <fileset dir="${tests.testoutput.dir}">
-          <include name="**/*Test.class"/>
-        </fileset>
-      </batchtest>
-    </junit>
-  </target>
+            <batchtest todir="test-reports">
+                <fileset dir="${tests.testoutput.dir}">
+                    <include name="**/*Test.class"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
 
-  <target name="check_failures" if="failure_found">
-    <fail message="Failures found"/>
-  </target>
+    <target name="check_failures" if="failure_found">
+        <fail message="Failures found"/>
+    </target>
 
 </project>

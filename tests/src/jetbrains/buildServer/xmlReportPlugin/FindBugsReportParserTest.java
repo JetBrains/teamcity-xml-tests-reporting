@@ -18,8 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -36,9 +35,9 @@ public class FindBugsReportParserTest extends TestCase {
 //    final TransformerFactory transformerFactory = TransformerFactory.newInstance();
 //    Transformer transformer = null;
 //    try {
-////      transformer = transformerFactory.newTransformer(new StreamSource(this.getClass().getResourceAsStream("reportPaths.xsl")));
+//      transformer = transformerFactory.newTransformer(new StreamSource(FindBugsReportParserTest.class.getResourceAsStream("reportPaths.xsl")));
 //
-//      final File testDataDir = new File("tests/testData/findBugs/");
+//      final File testDataDir = TestUtil.getTestDataFile(null, "fundBugs");
 //      assert testDataDir.isDirectory();
 //
 //      File[] testData = testDataDir.listFiles(new FilenameFilter() {
@@ -57,14 +56,20 @@ public class FindBugsReportParserTest extends TestCase {
 //    } catch (Exception e) {
 //      e.printStackTrace();
 //    }
-
-  //  }
+//
+//    }
 
   private void runTest(final String fileName) throws Exception {
-    final String reportName = getAbsoluteTestDataPath(fileName, "findBugs");
+    final String sampleReportName = getAbsoluteTestDataPath(fileName + ".sample.xml", "findBugs");
+    final String reportName = sampleReportName.replace(".sample.xml", ".xml");
     final String resultsFileName = reportName + ".tmp";
     final String expectedFileName = reportName + ".gold";
     final String baseDir = getAbsoluteTestDataPath(null, "findBugs");
+
+    final File sampleReport = new File(sampleReportName);
+    final String input = readFile(sampleReport).replace("##BASE_DIR##", baseDir);
+    final File report = new File(reportName);
+    writeFile(report, input);
 
     new File(resultsFileName).delete();
 
@@ -75,7 +80,6 @@ public class FindBugsReportParserTest extends TestCase {
 
     final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, reportName.substring(0, reportName.lastIndexOf(fileName)));
 
-    final File report = new File(reportName);
     final Map<String, String> params = new HashMap<String, String>();
     XmlReportPluginUtil.enableXmlReportParsing(params, FindBugsReportParser.TYPE);
     XmlReportPluginUtil.setMaxErrors(params, 5);
@@ -98,51 +102,51 @@ public class FindBugsReportParserTest extends TestCase {
 
   @Test
   public void testSimple() throws Exception {
-    runTest("simple.xml");
+    runTest("simple");
   }
 
   @Test
   public void testNoSrcSimple() throws Exception {
-    runTest("noSrcSimple.xml");
+    runTest("noSrcSimple");
   }
 
   @Test
   public void testNoSrcJar() throws Exception {
-    runTest("jar.xml");
+    runTest("jar");
   }
 
   @Test
   public void testComplexSrc() throws Exception {
-    runTest("complexSrc.xml");
+    runTest("complexSrc");
   }
 
   @Test
   public void testNoSrcDir() throws Exception {
-    runTest("dir.xml");
+    runTest("dir");
   }
 
   @Test
   public void testInner() throws Exception {
-    runTest("inner.xml");
+    runTest("inner");
   }
 
   @Test
   public void testPattern() throws Exception {
-    runTest("pattern.xml");
+    runTest("pattern");
   }
 
   @Test
   public void testCategory() throws Exception {
-    runTest("category.xml");
+    runTest("category");
   }
 
   @Test
   public void testBuildFailsErrors() throws Exception {
-    runTest("failureErr.xml");
+    runTest("failureErr");
   }
 
   @Test
   public void testBuildFailsWarnings() throws Exception {
-    runTest("failureWarn.xml");
+    runTest("failureWarn");
   }
 }
