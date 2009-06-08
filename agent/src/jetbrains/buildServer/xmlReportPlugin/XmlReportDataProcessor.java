@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -72,7 +72,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
       params.put(XmlReportPluginUtil.MAX_WARNINGS, arguments.get(WARNINGS_LIMIT_ARGUMENT));
     }
 
-    final Set<File> reportDirs = new HashSet<File>();
+    final Set<File> reportDirs = new LinkedHashSet<File>();
     reportDirs.add(file);
 
     myPlugin.processReports(params, reportDirs);
