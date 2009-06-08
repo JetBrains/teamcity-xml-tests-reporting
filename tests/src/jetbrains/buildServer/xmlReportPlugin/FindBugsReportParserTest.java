@@ -65,13 +65,8 @@ public class FindBugsReportParserTest extends TestCase {
     final String resultsFileName = reportName + ".tmp";
     final String expectedFileName = reportName + ".gold";
     final String baseDir = getAbsoluteTestDataPath(null, "findBugs");
-
-    System.out.println("Patch report " + reportName);
-    System.out.println("Base dir is " + baseDir);
-
     final File sampleReport = new File(sampleReportName);
     final String input = readFile(sampleReport).replace("##BASE_DIR##", baseDir);
-    System.out.println("Content after patching " + input);
     final File report = new File(reportName);
     writeFile(report, input);
 
