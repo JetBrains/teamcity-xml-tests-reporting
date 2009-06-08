@@ -312,23 +312,23 @@ public class XmlReportPluginIntegrationTest {
 
   @Test
   public void testAntJUnitWarningWhenNoReportsFoundInDirectoryOnlyWrongFile() {
-//    warningWhenNoReportsFoundInDirectoryOnlyWrong(ANT_JUNIT_REPORT_TYPE);
-//
-//    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-//    try {
-//      Thread.sleep(1000);
-//    } catch (InterruptedException e) {
-//      e.printStackTrace();
-//    }
-//    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-//    createFile(REPORTS_DIR + File.separator + "somefile");
-//    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-//    myContext.assertIsSatisfied();
-//    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
-//
-//    if (myFailures.size() > 0) {
-//      throw myFailures.get(0);
-//    }
+    warningWhenNoReportsFoundInDirectoryOnlyWrong(ANT_JUNIT_REPORT_TYPE);
+
+    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    createFile(REPORTS_DIR + File.separator + "somefile");
+    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myContext.assertIsSatisfied();
+    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+
+    if (myFailures.size() > 0) {
+      throw myFailures.get(0);
+    }
   }
 
   @Test
