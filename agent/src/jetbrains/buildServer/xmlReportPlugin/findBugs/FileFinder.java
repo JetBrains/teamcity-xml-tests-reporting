@@ -39,6 +39,7 @@ public class FileFinder {
   }
 
   public void addJar(String jar) {
+    jar = getOSPath(jar);
     if (jar.endsWith(".zip") || jar.endsWith(".jar")) {
       try {
         myJars.add(new ArchiveEntry(new ZipFile(jar)));
@@ -134,8 +135,7 @@ public class FileFinder {
       for (Enumeration<? extends ZipEntry> e = myArchive.entries(); e.hasMoreElements();) {
         final String entry = e.nextElement().getName();
         if (entry.endsWith(getDependentPath(fileName, "/"))) {
-          final String path = myArchive.getName() + File.separator + getOSPath(entry);
-          return path;
+          return myArchive.getName() + File.separator + getOSPath(entry);
         }
       }
       return null;
