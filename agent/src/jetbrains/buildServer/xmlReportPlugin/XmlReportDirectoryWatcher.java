@@ -216,7 +216,6 @@ public class XmlReportDirectoryWatcher extends Thread {
   private void processFile(String type, TypeStatistics s, Set<File> files, File file) {
     if (isGoodFile(file)) {
       if (!s.getFiles().contains(file)) {
-        System.out.println("Sending report to queue " + file.getAbsolutePath());
         sendToQueue(type, file);
       }
       s.getFiles().add(file);

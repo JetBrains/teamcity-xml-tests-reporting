@@ -75,7 +75,6 @@ public class XmlReportProcessor extends Thread {
         if (myPlugin.isVerbose()) {
           myPlugin.getLogger().message("##teamcity[buildStatus status='FAILURE' text='" + data.getFile().getAbsolutePath() + ": failed to parse with " +
             XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(data.getType()) + " parser']");
-          System.out.println("Bad report");
 //
 //          myPlugin.getLogger().error(data.getFile().getAbsolutePath() + ": failed to parse with " +
 //            XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(data.getType()) + " parser");

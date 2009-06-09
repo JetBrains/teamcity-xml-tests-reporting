@@ -376,7 +376,6 @@ public class XmlReportPluginIntegrationTest {
 
   @Test
   public void testAntJUnitWarningWhenUnfinishedReportFoundInDirectory() {
-    System.out.println("I am problematic test");
     createDir(REPORTS_DIR);
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
     myRunnerParams.put(XmlReportPluginUtil.REPORT_DIRS, REPORTS_DIR);
@@ -441,7 +440,6 @@ public class XmlReportPluginIntegrationTest {
     if (myFailures.size() > 0) {
       throw myFailures.get(0);
     }
-    System.out.println("I am problematic test - finished");
   }
 
   @Test
