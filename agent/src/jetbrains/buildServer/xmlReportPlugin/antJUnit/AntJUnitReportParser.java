@@ -271,7 +271,6 @@ public class AntJUnitReportParser extends XmlReportParser {
       myLogger.warning("[System error]\n" + mySystemErr);
       mySystemErr = null;
     }
-    System.out.println("Suite finished");
     myLogger.logSuiteFinished(myCurrentSuite.getName(), new Date(myCurrentSuite.getStartTime() + myCurrentSuite.getDuraion()));
     myLoggedSuites = myLoggedSuites + 1;
 

@@ -103,7 +103,9 @@ public class XmlReportPluginIntegrationTest {
     myRunnerParams = new HashMap<String, String>();
     myCheckoutDir = new File(CHECKOUT_DIR);
 
-    FileUtil.delete(myCheckoutDir);
+    if (!FileUtil.delete(myCheckoutDir)) {
+      System.out.println("Unable to remove checkout dir");
+    }
     myCheckoutDir.mkdir();
     myRunnerParams.put(XmlReportPlugin.CHECKOUT_DIR, myCheckoutDir.getAbsolutePath());
     myRunningBuild = createAgentRunningBuild(myRunnerParams, myCheckoutDir, myTestLogger);
@@ -374,6 +376,7 @@ public class XmlReportPluginIntegrationTest {
 
   @Test
   public void testAntJUnitWarningWhenUnfinishedReportFoundInDirectory() {
+    System.out.println("I am problematic test");
     createDir(REPORTS_DIR);
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
     myRunnerParams.put(XmlReportPluginUtil.REPORT_DIRS, REPORTS_DIR);
@@ -430,7 +433,7 @@ public class XmlReportPluginIntegrationTest {
       e.printStackTrace();
     }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    createUnfinishedReport(REPORTS_DIR + "\\report", ANT_JUNIT_REPORT_TYPE);
+    createUnfinishedReport(REPORTS_DIR + File.separator + "report", ANT_JUNIT_REPORT_TYPE);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -438,6 +441,7 @@ public class XmlReportPluginIntegrationTest {
     if (myFailures.size() > 0) {
       throw myFailures.get(0);
     }
+    System.out.println("I am problematic test - finished");
   }
 
   @Test
