@@ -155,11 +155,6 @@ public class XmlReportPluginIntegrationTest {
   }
 
   @Test
-  public void testIsSilentWhenDisabledDoesNotExist() {
-    isSilentWhenDisabled(BuildFinishedStatus.DOES_NOT_EXIST);
-  }
-
-  @Test
   public void testWarningWhenNoReportDirAppears() {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
     XmlReportPluginUtil.setXmlReportPaths(myRunnerParams, "reports");
