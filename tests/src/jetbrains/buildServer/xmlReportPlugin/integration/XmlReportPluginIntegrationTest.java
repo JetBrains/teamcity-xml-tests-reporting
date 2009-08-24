@@ -113,7 +113,9 @@ public class XmlReportPluginIntegrationTest {
   private void removeDir(File dir) {
     File[] subDirs = dir.listFiles();
     if ((subDirs == null) || (subDirs.length == 0)) {
-      dir.delete();
+      if (!dir.delete()) {
+        System.out.println("Unable to remove " + dir);
+      }
       return;
     }
     for (int i = 0; i < subDirs.length; ++i) {
@@ -122,7 +124,7 @@ public class XmlReportPluginIntegrationTest {
   }
 
   private static File getFileInCheckoutDir(String name) {
-    return new File("workingDirForTesting/" + name);
+    return new File("workingDirForTesting" + File.separator + name);
   }
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
