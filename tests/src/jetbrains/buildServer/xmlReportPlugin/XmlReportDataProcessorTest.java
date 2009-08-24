@@ -21,7 +21,7 @@ import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
 import jetbrains.buildServer.util.EventDispatcher;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getTestDataPath;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFileToList;
 import junit.framework.TestCase;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -31,6 +31,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -52,13 +53,14 @@ public class XmlReportDataProcessorTest extends TestCase {
     final XmlReportDataProcessor processor = new XmlReportDataProcessor.JUnitDataProcessor(plugin);
     processor.processData(new File(getTestDataPath("Report.xml", "dataProcessor")), arguments);
 
-    if (!readFile(expectedFile).equals(results.toString())) {
-      final FileWriter resultsWriter = new FileWriter(resultsFile);
-      resultsWriter.write(results.toString());
-      resultsWriter.close();
+    final FileWriter resultsWriter = new FileWriter(resultsFile);
+    resultsWriter.write(results.toString());
+    resultsWriter.close();
 
-      assertEquals(readFile(expectedFile), results.toString());
-    }
+    final List<String> expectedList = readFileToList(expectedFile);
+    final List<String> actualList = readFileToList(resultsFile);
+
+    assertEquals(expectedList, actualList);
   }
 
   private XmlReportPlugin createFakePlugin(final StringBuilder results, final File base) {

@@ -24,6 +24,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
 public final class TestUtil {
@@ -40,6 +43,18 @@ public final class TestUtil {
     finally {
       inputStream.close();
     }
+  }
+
+  static public List<String> readFileToList(@NotNull final File file) throws IOException {
+    final BufferedReader reader = new BufferedReader(new FileReader(file));
+    final List<String> lines = new ArrayList<String>();
+    String line = reader.readLine();
+    while (line != null) {
+      lines.add(line);
+      line = reader.readLine();
+    }
+    Collections.sort(lines);
+    return lines;
   }
 
   public static String getTestDataPath(final String fileName, final String folderName) throws FileNotFoundException {
