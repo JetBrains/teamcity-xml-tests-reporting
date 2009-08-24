@@ -42,19 +42,6 @@ public final class TestUtil {
     }
   }
 
-  static public void writeFile(@NotNull final File file, @NotNull final String str) throws IOException {
-    final FileOutputStream outputStream = new FileOutputStream(file);
-    try {
-      final BufferedOutputStream bos = new BufferedOutputStream(outputStream);
-      final byte[] bytes = str.getBytes();
-      bos.write(bytes);
-      bos.close();
-    }
-    finally {
-      outputStream.close();
-    }
-  }
-
   public static String getTestDataPath(final String fileName, final String folderName) throws FileNotFoundException {
     return getTestDataFile(fileName, folderName).getPath();
   }
@@ -64,14 +51,12 @@ public final class TestUtil {
   }
 
   public static File getTestDataFile(final String fileName, final String folderName) throws FileNotFoundException {
-    final String baseDataDir = System.getProperty("jetbrains.buildServer.xmlReportPlugin.testDataPath", "tests" + File.separator + "testData");
-
-    final String relativeFileName = baseDataDir + (folderName != null ? File.separator + folderName : "") + (fileName != null ? File.separator + fileName : "");
+    final String relativeFileName = "tests/testData" + (folderName != null ? "/" + folderName : "") + (fileName != null ? "/" + fileName : "");
     final File file1 = new File(relativeFileName);
     if (file1.exists()) {
       return file1;
     }
-    final File file2 = new File("svnrepo" + File.separator + "xml-tests-reporting" + File.separator + relativeFileName);
+    final File file2 = new File("svnrepo/xml-tests-reporting/" + relativeFileName);
     if (file2.exists()) {
       return file2;
     }

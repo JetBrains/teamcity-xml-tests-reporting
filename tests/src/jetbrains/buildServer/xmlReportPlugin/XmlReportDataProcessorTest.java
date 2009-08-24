@@ -43,9 +43,8 @@ public class XmlReportDataProcessorTest extends TestCase {
   }
 
   private void runTest(Map<String, String> arguments, String fileName) throws Exception {
+    final File resultsFile = File.createTempFile(fileName, ".tmp");
     final File expectedFile = TestUtil.getTestDataFile(fileName + ".gold", "dataProcessor");
-//    final File resultsFile = File.createTempFile(fileName, ".tmp");
-    final File resultsFile = new File(expectedFile.getAbsolutePath().replace(".gold", ".tmp"));
 
     final StringBuilder results = new StringBuilder();
     final XmlReportPlugin plugin = createFakePlugin(results, TestUtil.getTestDataFile(null, null).getAbsoluteFile().getParentFile().getParentFile());
@@ -53,14 +52,12 @@ public class XmlReportDataProcessorTest extends TestCase {
     final XmlReportDataProcessor processor = new XmlReportDataProcessor.JUnitDataProcessor(plugin);
     processor.processData(new File(getTestDataPath("Report.xml", "dataProcessor")), arguments);
 
-    final String expectedContent = readFile(expectedFile).replace("/", File.separator).replace("\\", File.separator).trim();
-    final String actual = results.toString().replace("/", File.separator).replace("\\", File.separator).trim();
-    if (!expectedContent.equals(actual)) {
+    if (!readFile(expectedFile).equals(results.toString())) {
       final FileWriter resultsWriter = new FileWriter(resultsFile);
       resultsWriter.write(results.toString());
       resultsWriter.close();
 
-      assertEquals(expectedContent, actual);
+      assertEquals(readFile(expectedFile), results.toString());
     }
   }
 

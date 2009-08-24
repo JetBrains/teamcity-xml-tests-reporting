@@ -57,14 +57,13 @@ public class PmdReportParserTest extends TestCase {
     parser.logParsingTotals(params, true);
 
     final File expected = new File(expectedFile);
-    final String actual = results.toString().replace(baseDir, "##BASE_DIR##").replace("/", File.separator).replace("\\", File.separator).trim();
-    final String expectedContent = readFile(expected).replace("/", File.separator).replace("\\", File.separator).trim();
-    if (!expectedContent.equals(actual)) {
+    final String actual = results.toString().replace(baseDir, "##BASE_DIR##").trim();
+    if (!readFile(expected).equals(actual)) {
       final FileWriter resultsWriter = new FileWriter(resultsFile);
       resultsWriter.write(actual);
       resultsWriter.close();
 
-      assertEquals(expectedContent, actual);
+      assertEquals(readFile(expected), actual);
     }
   }
 

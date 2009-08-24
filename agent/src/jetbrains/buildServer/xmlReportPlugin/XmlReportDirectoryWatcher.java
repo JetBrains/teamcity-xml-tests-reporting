@@ -17,7 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.util.FileUtil;
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOGGER;
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.SUPPORTED_REPORT_TYPES;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.isInspection;
 import org.jetbrains.annotations.NotNull;
@@ -73,17 +73,17 @@ public class XmlReportDirectoryWatcher extends Thread {
 
   private void message(String message) {
     myPlugin.getLogger().message(message);
-    LOGGER.debug(message);
+    LOG.debug(message);
   }
 
   private void warning(String message) {
     myPlugin.getLogger().warning(message);
-    LOGGER.debug(message);
+    LOG.debug(message);
   }
 
   private void error(String message) {
     myPlugin.getLogger().error(message);
-    LOGGER.debug(message);
+    LOG.debug(message);
   }
 
   public synchronized void addPaths(Set<File> paths, String type) {

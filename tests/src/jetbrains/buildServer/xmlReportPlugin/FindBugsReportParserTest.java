@@ -18,7 +18,8 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -35,9 +36,9 @@ public class FindBugsReportParserTest extends TestCase {
 //    final TransformerFactory transformerFactory = TransformerFactory.newInstance();
 //    Transformer transformer = null;
 //    try {
-//      transformer = transformerFactory.newTransformer(new StreamSource(FindBugsReportParserTest.class.getResourceAsStream("reportPaths.xsl")));
+////      transformer = transformerFactory.newTransformer(new StreamSource(this.getClass().getResourceAsStream("reportPaths.xsl")));
 //
-//      final File testDataDir = TestUtil.getTestDataFile(null, "fundBugs");
+//      final File testDataDir = new File("tests/testData/findBugs/");
 //      assert testDataDir.isDirectory();
 //
 //      File[] testData = testDataDir.listFiles(new FilenameFilter() {
@@ -56,19 +57,14 @@ public class FindBugsReportParserTest extends TestCase {
 //    } catch (Exception e) {
 //      e.printStackTrace();
 //    }
-//
-//    }
+
+  //  }
 
   private void runTest(final String fileName) throws Exception {
-    final String sampleReportName = getAbsoluteTestDataPath(fileName + ".sample.xml", "findBugs");
-    final String reportName = sampleReportName.replace(".sample.xml", ".xml");
+    final String reportName = getAbsoluteTestDataPath(fileName, "findBugs");
     final String resultsFileName = reportName + ".tmp";
     final String expectedFileName = reportName + ".gold";
     final String baseDir = getAbsoluteTestDataPath(null, "findBugs");
-    final File sampleReport = new File(sampleReportName);
-    final String input = readFile(sampleReport).replace("##BASE_DIR##", baseDir);
-    final File report = new File(reportName);
-    writeFile(report, input);
 
     new File(resultsFileName).delete();
 
@@ -79,6 +75,7 @@ public class FindBugsReportParserTest extends TestCase {
 
     final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, reportName.substring(0, reportName.lastIndexOf(fileName)));
 
+    final File report = new File(reportName);
     final Map<String, String> params = new HashMap<String, String>();
     XmlReportPluginUtil.enableXmlReportParsing(params, FindBugsReportParser.TYPE);
     XmlReportPluginUtil.setMaxErrors(params, 5);
@@ -88,64 +85,63 @@ public class FindBugsReportParserTest extends TestCase {
     parser.logParsingTotals(params, true);
 
     final File expectedFile = new File(expectedFileName);
-    final String actual = results.toString().replace(baseDir, "##BASE_DIR##").replace("/", File.separator).replace("\\", File.separator).trim();
-    final String expectedContent = readFile(expectedFile).replace("/", File.separator).replace("\\", File.separator).trim();
-    if (!expectedContent.equals(actual)) {
+    final String actual = results.toString().replace(baseDir, "##BASE_DIR##").trim();
+    if (!readFile(expectedFile).equals(actual)) {
       final FileWriter resultsWriter = new FileWriter(resultsFileName);
       resultsWriter.write(actual);
       resultsWriter.close();
 
-      assertEquals(expectedContent, actual);
+      assertEquals(readFile(expectedFile), actual);
     }
   }
 
   @Test
   public void testSimple() throws Exception {
-    runTest("simple");
+    runTest("simple.xml");
   }
 
   @Test
   public void testNoSrcSimple() throws Exception {
-    runTest("noSrcSimple");
+    runTest("noSrcSimple.xml");
   }
 
   @Test
   public void testNoSrcJar() throws Exception {
-    runTest("jar");
+    runTest("jar.xml");
   }
 
   @Test
   public void testComplexSrc() throws Exception {
-    runTest("complexSrc");
+    runTest("complexSrc.xml");
   }
 
   @Test
   public void testNoSrcDir() throws Exception {
-    runTest("dir");
+    runTest("dir.xml");
   }
 
   @Test
   public void testInner() throws Exception {
-    runTest("inner");
+    runTest("inner.xml");
   }
 
   @Test
   public void testPattern() throws Exception {
-    runTest("pattern");
+    runTest("pattern.xml");
   }
 
   @Test
   public void testCategory() throws Exception {
-    runTest("category");
+    runTest("category.xml");
   }
 
   @Test
   public void testBuildFailsErrors() throws Exception {
-    runTest("failureErr");
+    runTest("failureErr.xml");
   }
 
   @Test
   public void testBuildFailsWarnings() throws Exception {
-    runTest("failureWarn");
+    runTest("failureWarn.xml");
   }
 }

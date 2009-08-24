@@ -22,7 +22,6 @@ import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.BuildFinishedStatus;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
-import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil;
@@ -102,10 +101,7 @@ public class XmlReportPluginIntegrationTest {
 
     myRunnerParams = new HashMap<String, String>();
     myCheckoutDir = new File(CHECKOUT_DIR);
-
-    if (!FileUtil.delete(myCheckoutDir)) {
-      System.out.println("Unable to remove checkout dir");
-    }
+    removeDir(myCheckoutDir);
     myCheckoutDir.mkdir();
     myRunnerParams.put(XmlReportPlugin.CHECKOUT_DIR, myCheckoutDir.getAbsolutePath());
     myRunningBuild = createAgentRunningBuild(myRunnerParams, myCheckoutDir, myTestLogger);
@@ -114,8 +110,19 @@ public class XmlReportPluginIntegrationTest {
     ReportFactory.setCheckoutDir(CHECKOUT_DIR);
   }
 
+  private void removeDir(File dir) {
+    File[] subDirs = dir.listFiles();
+    if ((subDirs == null) || (subDirs.length == 0)) {
+      dir.delete();
+      return;
+    }
+    for (int i = 0; i < subDirs.length; ++i) {
+      removeDir(subDirs[i]);
+    }
+  }
+
   private static File getFileInCheckoutDir(String name) {
-    return new File("workingDirForTesting" + File.separator + name);
+    return new File("workingDirForTesting/" + name);
   }
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
@@ -318,7 +325,7 @@ public class XmlReportPluginIntegrationTest {
       e.printStackTrace();
     }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    createFile(REPORTS_DIR + File.separator + "somefile");
+    createFile(REPORTS_DIR + "\\somefile");
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -427,7 +434,7 @@ public class XmlReportPluginIntegrationTest {
       e.printStackTrace();
     }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    createUnfinishedReport(REPORTS_DIR + File.separator + "report", ANT_JUNIT_REPORT_TYPE);
+    createUnfinishedReport(REPORTS_DIR + "\\report", ANT_JUNIT_REPORT_TYPE);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();

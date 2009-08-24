@@ -476,4 +476,32 @@ public class NUnitReportParserTest extends TestCase {
     myParser.parse(report("TestResults_TW8120_part.xml"));
     myContext.assertIsSatisfied();
   }
+
+  //TW-8815
+  @Test
+  public void testTwoIdenticalAssembliesWithDifferingTimestamp() throws Exception {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFailed(with(CASE_NAME + "1"), with(any(String.class)), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFailed(with(CASE_NAME + "2"), with(any(String.class)), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(report("twoCasesFailed.xml"));
+    myParser.parse(report("twoCasesFailed_diffTimestamp.xml"));
+    myContext.assertIsSatisfied();
+  }
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project name="xml-report-plugin" default="all">
 
 
@@ -21,6 +21,11 @@
         <exclude name="**/rcs/**"/>
         <exclude name="**/.DS_Store/**"/>
         <exclude name="**/.svn/**"/>
+        <exclude name="**/.pyc/**"/>
+        <exclude name="**/.pyo/**"/>
+        <exclude name="**/*.pyc/**"/>
+        <exclude name="**/*.pyo/**"/>
+        <exclude name="**/.git/**"/>
         <exclude name="**/.sbas/**"/>
         <exclude name="**/.IJI.*/**"/>
         <exclude name="**/vssver.scc/**"/>
@@ -44,8 +49,30 @@
 
     <!-- Project Libraries -->
 
+    <path id="library.jdom.classpath">
+        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/jdom.jar"/>
+    </path>
+
+    <path id="library.jmock.classpath">
+        <pathelement location="${basedir}/tests/lib/cglib-nodep-2.1_3.jar"/>
+        <pathelement location="${basedir}/tests/lib/hamcrest-core-1.1.jar"/>
+        <pathelement location="${basedir}/tests/lib/hamcrest-library-1.1.jar"/>
+        <pathelement location="${basedir}/tests/lib/jmock-2.5.1.jar"/>
+        <pathelement location="${basedir}/tests/lib/jmock-junit4-2.5.1.jar"/>
+        <pathelement location="${basedir}/tests/lib/jmock-legacy-2.5.1.jar"/>
+        <pathelement location="${basedir}/tests/lib/objenesis-1.0.jar"/>
+    </path>
+
     <path id="library.junit.classpath">
         <pathelement location="${basedir}/tests/lib/junit-4.5.jar"/>
+    </path>
+
+    <path id="library.log4j.classpath">
+        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/log4j-1.2.12.jar"/>
+    </path>
+
+    <path id="library.servlet_api.classpath">
+        <pathelement location="${path.variable.teamcitydistribution}/lib/servlet-api.jar"/>
     </path>
 
     <path id="library.teamcity_api.classpath">
@@ -54,36 +81,14 @@
     </path>
 
     <path id="library.teamcity_openapi.classpath">
-        <pathelement location="${path.variable.teamcitydistribution}/devPackage/server-api.jar"/>
         <pathelement location="${path.variable.teamcitydistribution}/devPackage/agent-api.jar"/>
         <pathelement location="${path.variable.teamcitydistribution}/devPackage/common-api.jar"/>
+        <pathelement location="${path.variable.teamcitydistribution}/devPackage/server-api.jar"/>
     </path>
 
     <path id="library.teamcity_utils.classpath">
         <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/annotations.jar"/>
         <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/util.jar"/>
-    </path>
-
-    <path id="library.jmock.classpath">
-        <pathelement location="${basedir}/tests/lib/objenesis-1.0.jar"/>
-        <pathelement location="${basedir}/tests/lib/jmock-junit4-2.5.1.jar"/>
-        <pathelement location="${basedir}/tests/lib/hamcrest-library-1.1.jar"/>
-        <pathelement location="${basedir}/tests/lib/jmock-legacy-2.5.1.jar"/>
-        <pathelement location="${basedir}/tests/lib/jmock-2.5.1.jar"/>
-        <pathelement location="${basedir}/tests/lib/hamcrest-core-1.1.jar"/>
-        <pathelement location="${basedir}/tests/lib/cglib-nodep-2.1_3.jar"/>
-    </path>
-
-    <path id="library.log4j.classpath">
-        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/log4j-1.2.12.jar"/>
-    </path>
-
-    <path id="library.jdom.classpath">
-        <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/jdom.jar"/>
-    </path>
-
-    <path id="library.servlet_api.classpath">
-        <pathelement location="${path.variable.teamcitydistribution}/lib/servlet-api.jar"/>
     </path>
 
     <!-- Modules -->
@@ -227,6 +232,7 @@
         <path refid="library.teamcity_utils.classpath"/>
         <pathelement location="${common.output.dir}"/>
         <path refid="library.jdom.classpath"/>
+        <path refid="library.log4j.classpath"/>
     </path>
 
     <path id="agent.runtime.module.classpath">
@@ -234,8 +240,9 @@
         <path refid="library.teamcity_openapi.classpath"/>
         <path refid="library.teamcity_api.classpath"/>
         <path refid="library.teamcity_utils.classpath"/>
-        <pathelement location="${common.output.dir}"/>
+        <path refid="common.runtime.module.classpath"/>
         <path refid="library.jdom.classpath"/>
+        <path refid="library.log4j.classpath"/>
     </path>
 
 
@@ -311,7 +318,7 @@
         <pathelement location="${server.output.dir}"/>
         <path refid="library.teamcity_openapi.classpath"/>
         <path refid="library.teamcity_utils.classpath"/>
-        <pathelement location="${common.output.dir}"/>
+        <path refid="common.runtime.module.classpath"/>
         <path refid="library.servlet_api.classpath"/>
     </path>
 
@@ -399,15 +406,14 @@
         <pathelement location="${tests.output.dir}"/>
         <path refid="library.jmock.classpath"/>
         <path refid="library.junit.classpath"/>
-        <pathelement location="${agent.output.dir}"/>
-        <path refid="library.teamcity_openapi.classpath"/>
+        <path refid="agent.runtime.module.classpath"/>
+        <path refid="common.runtime.module.classpath"/>
+        <path refid="server.runtime.module.classpath"/>
         <path refid="library.teamcity_api.classpath"/>
         <path refid="library.teamcity_utils.classpath"/>
-        <pathelement location="${common.output.dir}"/>
-        <path refid="library.jdom.classpath"/>
-        <pathelement location="${server.output.dir}"/>
-        <path refid="library.servlet_api.classpath"/>
+        <path refid="library.teamcity_openapi.classpath"/>
         <path refid="library.log4j.classpath"/>
+        <path refid="library.jdom.classpath"/>
     </path>
 
 

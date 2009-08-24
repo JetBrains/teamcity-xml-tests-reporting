@@ -79,7 +79,7 @@ public class XmlReportProcessor extends Thread {
 //          myPlugin.getLogger().error(data.getFile().getAbsolutePath() + ": failed to parse with " +
 //            XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(data.getType()) + " parser");
         }
-        XmlReportPlugin.LOGGER.info("Unable to parse " + data.getFile().getAbsolutePath());
+        XmlReportPlugin.LOG.info("Unable to parse " + data.getFile().getAbsolutePath());
       } else {
         try {
           myReportQueue.put(data);
@@ -119,7 +119,7 @@ public class XmlReportProcessor extends Thread {
     } else if (PmdReportParser.TYPE.equals(type)) {
       myParsers.put(type, new PmdReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getCheckoutDir()));
     } else {
-      XmlReportPlugin.LOGGER.debug("No parser for " + type + " available");
+      XmlReportPlugin.LOG.debug("No parser for " + type + " available");
     }
   }
 }

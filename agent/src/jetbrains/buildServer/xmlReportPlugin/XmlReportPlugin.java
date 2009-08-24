@@ -16,14 +16,13 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
-import jetbrains.buildServer.log.Loggers;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +34,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class XmlReportPlugin extends AgentLifeCycleAdapter implements InspectionReporterListener {
   @NonNls
   private static final Collection<String> SILENT_PATHS = Arrays.asList("");
-  public static final Logger LOGGER = Loggers.AGENT;
+  public static final Logger LOG = Logger.getLogger(XmlReportPlugin.class);
+
   public static final String CHECKOUT_DIR = "teamcity.build.checkoutDir";
 
   private XmlReportDirectoryWatcher myDirectoryWatcher;
@@ -99,7 +99,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
   public void interrupted(InterruptedException e) {
     myLogger.exception(e);
-    LOGGER.warn(e.toString(), e);
+    LOG.warn(e.toString(), e);
   }
 
   private void startProcessing(Set<File> reportDirs, String type) {
@@ -133,7 +133,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
   private void finishWork() {
     myStopped = true;
-    if (myReportProcessor == null) return; // beforeRunnerStart was not called, i.e. build has failed before runner started
+    if (myReportProcessor == null)
+      return; // beforeRunnerStart was not called, i.e. build has failed before runner started
     if (isParsingEnabled(myParameters)) {
       try {
         myReportProcessor.join();

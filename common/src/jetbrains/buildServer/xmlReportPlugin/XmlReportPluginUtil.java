@@ -49,7 +49,7 @@ public class XmlReportPluginUtil {
   public static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
 
   public static boolean isParsingEnabled(@NotNull final Map<String, String> runParams) {
-    return runParams.containsKey(REPORT_TYPE) && !runParams.get(REPORT_TYPE).equals("");
+    return runParams.containsKey(REPORT_TYPE) && !"".equals(runParams.get(REPORT_TYPE));
   }
 
   public static boolean isOutputVerbose(@NotNull final Map<String, String> runParams) {

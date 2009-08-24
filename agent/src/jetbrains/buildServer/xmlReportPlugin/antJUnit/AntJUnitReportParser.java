@@ -20,7 +20,7 @@ import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOGGER;
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -151,7 +151,7 @@ public class AntJUnitReportParser extends XmlReportParser {
         myPreviouslyLoggedSuits.remove(myCurrentSuite.getName() + myCurrentSuite.getTimestamp());
       }
       endSuite();
-      XmlReportPlugin.LOGGER.debug("Couldn't completely parse " + report.getPath()
+      XmlReportPlugin.LOG.debug("Couldn't completely parse " + report.getPath()
         + " report - SAXParseException occured: " + e.toString() + ", "
         + myLoggedTests + " events logged");
       final int processedEvents = (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip;
@@ -177,7 +177,7 @@ public class AntJUnitReportParser extends XmlReportParser {
     if (verbose) {
       myLogger.message(message);
     }
-    LOGGER.debug(message);
+    LOG.debug(message);
   }
 
   //  Handler methods

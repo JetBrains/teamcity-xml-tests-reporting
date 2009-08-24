@@ -20,8 +20,8 @@ import jetbrains.buildServer.agent.DataProcessor;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -49,7 +49,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
   }
 
   public void processData(@NotNull File file, @NotNull Map<String, String> arguments) {
-    final Map<String, String> params = new LinkedHashMap<String, String>();
+    final Map<String, String> params = new HashMap<String, String>();
 
     params.put(XmlReportPluginUtil.REPORT_TYPE, this.getType());
 

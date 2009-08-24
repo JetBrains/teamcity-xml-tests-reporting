@@ -1,5 +1,5 @@
-<xmlReportParsing.reportType, junit>
-<xmlReportParsing.verboseOutput, false>
-<xmlReportParsing.parse.outofdate, false>
 <xmlReportParsing.max.warnings, 10>
+<xmlReportParsing.reportType, junit>
+<xmlReportParsing.parse.outofdate, false>
+<xmlReportParsing.verboseOutput, false>
 tests\testData\dataProcessor\Report.xml

@@ -1,13 +1,14 @@
 <?xml version="1.0"?><!--NUNIT test results - created by FAKE F# Make 0.4.125.110-->
 <test-results name="MCNTest" total="3" errors="2" not-run="0" ignored="0" date="27.04.2009 00:00:00"
               time="11:39:03.4062500">
-  <test-suite name="MCNTest" executed="True" success="True" time="0,797">
-    <results>
-      <test-case name="Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt" executed="True" success="False"
-                 time="0.453">
-        <failure>
-          <message><![CDATA[Input and Output of test case are not equal. See .\testCases\EDI\Invalid\]]></message>
-          <stack-trace><![CDATA[Input:
+    <test-suite name="MCNTest" executed="True" success="True" time="0,797">
+        <results>
+            <test-case name="Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt" executed="True" success="False"
+                       time="0.453">
+                <failure>
+                    <message>
+                        <![CDATA[Input and Output of test case are not equal. See .\testCases\EDI\Invalid\]]></message>
+                    <stack-trace><![CDATA[Input:
 UNA:+.? '
 UNB+UNOC:3+9903214000009:500+4038777000004:500+090421:1134+00000002154600'
 UNH+00000002154600+REMADV:D:06A:UN:2.2'
@@ -64,17 +65,17 @@ MOA+12:0'
 UNT+21+00000002154600'
 UNZ+1+00000002154600'
 ]]></stack-trace>
-        </failure>
-      </test-case>
-      <test-case name="Test2 - REMADV_9903214000009_9907027000008_20090417_1.txt" executed="True" success="True"
-                 time="0.344"/>
-      <test-case name="Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt" executed="True" success="False"
-                 time="0">
-        <failure>
-          <message><![CDATA[Could not export testcase]]></message>
-          <stack-trace><![CDATA[]]></stack-trace>
-        </failure>
-      </test-case>
-    </results>
-  </test-suite>
+                </failure>
+            </test-case>
+            <test-case name="Test2 - REMADV_9903214000009_9907027000008_20090417_1.txt" executed="True" success="True"
+                       time="0.344"/>
+            <test-case name="Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt" executed="True" success="False"
+                       time="0">
+                <failure>
+                    <message><![CDATA[Could not export testcase]]></message>
+                    <stack-trace><![CDATA[]]></stack-trace>
+                </failure>
+            </test-case>
+        </results>
+    </test-suite>
 </test-results>

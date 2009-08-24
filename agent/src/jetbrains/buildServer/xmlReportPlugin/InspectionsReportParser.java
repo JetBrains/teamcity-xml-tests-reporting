@@ -18,7 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.*;
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOGGER;
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -67,7 +67,7 @@ public abstract class InspectionsReportParser extends XmlReportParser {
     if (verbose) {
       myLogger.message(message);
     }
-    LOGGER.debug(message);
+    LOG.debug(message);
     myTotalErrors += myErrors;
     myTotalWarnings += myWarnings;
     myTotalInfos += myInfos;
