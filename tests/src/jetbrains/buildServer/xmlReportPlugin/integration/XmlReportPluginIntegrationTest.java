@@ -114,7 +114,7 @@ public class XmlReportPluginIntegrationTest {
     File[] subDirs = dir.listFiles();
     if ((subDirs == null) || (subDirs.length == 0)) {
       if (!dir.delete()) {
-        System.out.println("Unable to remove " + dir);
+        System.out.println("Unable to remove " + dir.getAbsolutePath() + "\n");
       }
       return;
     }
@@ -327,7 +327,7 @@ public class XmlReportPluginIntegrationTest {
       e.printStackTrace();
     }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    createFile(REPORTS_DIR + "\\somefile");
+    createFile(REPORTS_DIR + File.separator + "somefile");
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -436,7 +436,7 @@ public class XmlReportPluginIntegrationTest {
       e.printStackTrace();
     }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    createUnfinishedReport(REPORTS_DIR + "\\report", ANT_JUNIT_REPORT_TYPE);
+    createUnfinishedReport(REPORTS_DIR + File.separator + "report", ANT_JUNIT_REPORT_TYPE);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -693,6 +693,11 @@ public class XmlReportPluginIntegrationTest {
       "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
       "</testsuite>");
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     createFile("suite2", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuites>" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase2\" tests=\"2\" time=\"0.062\"\n" +
@@ -710,6 +715,12 @@ public class XmlReportPluginIntegrationTest {
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
       "  <properties/>\n" +
       "  <testcase ");
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
 
     createFile("suite2", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuites>" +
@@ -965,6 +976,12 @@ public class XmlReportPluginIntegrationTest {
       "  <properties/>\n" +
       "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
       "</testsuite>");
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
 
     final XmlReportDataProcessor dataProcessor = new XmlReportDataProcessor.JUnitDataProcessor(myPlugin);
     final Map<String, String> args = new HashMap<String, String>();
