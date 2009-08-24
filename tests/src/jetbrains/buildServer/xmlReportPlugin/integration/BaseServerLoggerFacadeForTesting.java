@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.integration;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -44,13 +45,13 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
     myNotControlledMethods.add(method);
   }
 
-  public static String currentMethod() {
-    final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
-//        for (int i = 0; i < ste.length; ++i) {
-//            System.out.println(ste[i]);
-//        }
-    return ste[4].getMethodName();
-  }
+//  public static String currentMethod() {
+//    final StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+////        for (int i = 0; i < ste.length; ++i) {
+////            System.out.println(ste[i]);
+////        }
+//    return ste[4].getMethodName();
+//  }
 
   private MethodInvokation getNextExpectedInvokation() {
     if (myCurrent.hasNext()) {
@@ -73,14 +74,13 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
     return true;
   }
 
-  private String getFailureIfOccurs(List<Object> params) {
-    final String name = currentMethod();
+  private String getFailureIfOccurs(List<Object> params, @NotNull String name) {
     if (!isMethodUnderControl(name)) {
       return null;
     }
 //    System.out.println("call " + name);
     final MethodInvokation expected = getNextExpectedInvokation();
-    if ((expected == null) || (!currentMethod().equals(expected.getMethodName()))) {
+    if ((expected == null) || (!name.equals(expected.getMethodName()))) {
 //      System.out.println("unexpected " + name);
       return "Unexpected method invokation: " + name;
     }
@@ -112,7 +112,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   public void message(java.lang.String s) {
     List<Object> params = new ArrayList();
     params.add(s);
-    final String message = getFailureIfOccurs(params);
+    final String message = getFailureIfOccurs(params, Thread.currentThread().getStackTrace()[2].getMethodName());
     if (message != null) {
       myFailures.add(new UnexpectedInvokationException(message));
     }
@@ -122,7 +122,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
     List<Object> params = new ArrayList();
     params.add(s);
     params.add(date);
-    final String message = getFailureIfOccurs(params);
+    final String message = getFailureIfOccurs(params, Thread.currentThread().getStackTrace()[2].getMethodName());
     if (message != null) {
       myFailures.add(new UnexpectedInvokationException(message));
     }
@@ -132,7 +132,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
     List<Object> params = new ArrayList();
     params.add(s);
     params.add(date);
-    final String message = getFailureIfOccurs(params);
+    final String message = getFailureIfOccurs(params, Thread.currentThread().getStackTrace()[2].getMethodName());
     if (message != null) {
       myFailures.add(new UnexpectedInvokationException(message));
     }
@@ -141,7 +141,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   public void warning(java.lang.String s) {
     List<Object> params = new ArrayList();
     params.add(s);
-    final String message = getFailureIfOccurs(params);
+    final String message = getFailureIfOccurs(params, Thread.currentThread().getStackTrace()[2].getMethodName());
     if (message != null) {
       myFailures.add(new UnexpectedInvokationException(message));
     }
@@ -150,7 +150,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   public void error(java.lang.String s) {
     List<Object> params = new ArrayList();
     params.add(s);
-    final String message = getFailureIfOccurs(params);
+    final String message = getFailureIfOccurs(params, Thread.currentThread().getStackTrace()[2].getMethodName());
     if (message != null) {
       myFailures.add(new UnexpectedInvokationException(message));
     }
@@ -161,7 +161,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
     List<Object> params = new ArrayList();
     params.add(s);
     params.add(date);
-    final String message = getFailureIfOccurs(params);
+    final String message = getFailureIfOccurs(params, Thread.currentThread().getStackTrace()[2].getMethodName());
     if (message != null) {
       myFailures.add(new UnexpectedInvokationException(message));
     }
@@ -171,7 +171,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
     List<Object> params = new ArrayList();
     params.add(s);
     params.add(date);
-    final String message = getFailureIfOccurs(params);
+    final String message = getFailureIfOccurs(params, Thread.currentThread().getStackTrace()[2].getMethodName());
     if (message != null) {
       myFailures.add(new UnexpectedInvokationException(message));
     }
@@ -182,7 +182,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
     params.add(s);
     params.add(s1);
     params.add(s2);
-    final String message = getFailureIfOccurs(params);
+    final String message = getFailureIfOccurs(params, Thread.currentThread().getStackTrace()[2].getMethodName());
     if (message != null) {
       myFailures.add(new UnexpectedInvokationException(message));
     }
