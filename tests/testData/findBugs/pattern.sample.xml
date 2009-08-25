@@ -2,9 +2,9 @@
 <BugCollection version="1.3.7" sequence="0" timestamp="1233912287130" analysisTimestamp="1233912289536" release="">
     <Project filename="&lt;&lt;unnamed project&gt;&gt;" projectName="">
         <Jar>
-            C:\work\teamcityworkspace\xml-report-plugin\tests\testData\findBugs\pattern\org\jetbrains\testProject\BuggyClass.class
+            ##BASE_DIR##\pattern\org\jetbrains\testProject\BuggyClass.class
         </Jar>
-        <SrcDir>C:\work\teamcityworkspace\xml-report-plugin\tests\testData\findBugs\pattern</SrcDir>
+        <SrcDir>##BASE_DIR##\pattern</SrcDir>
     </Project>
     <BugInstance type="NM_BAD_EQUAL" priority="1" abbrev="Nm" category="CORRECTNESS">
         <Class classname="org.jetbrains.testProject.BuggyClass">

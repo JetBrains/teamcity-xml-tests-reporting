@@ -18,8 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -33,18 +32,19 @@ import java.util.Map;
 public class FindBugsReportParserTest extends TestCase {
 //  @BeforeClass
 //  public static void prepareTestData() {
+//    System.out.println("SCcccccccccccccccccccccccccccc");
 //    final TransformerFactory transformerFactory = TransformerFactory.newInstance();
 //    Transformer transformer = null;
 //    try {
-////      transformer = transformerFactory.newTransformer(new StreamSource(this.getClass().getResourceAsStream("reportPaths.xsl")));
+//      transformer = transformerFactory.newTransformer(new StreamSource(FindBugsReportParserTest.class.getResourceAsStream(getAbsoluteTestDataPath("reportPaths.xsl", ""))));
 //
-//      final File testDataDir = new File("tests/testData/findBugs/");
+//      final File testDataDir = new File(getAbsoluteTestDataPath("", "findBugs"));
 //      assert testDataDir.isDirectory();
 //
 //      File[] testData = testDataDir.listFiles(new FilenameFilter() {
 //
 //        public boolean accept(File dir, String name) {
-//          return dir.equals(testDataDir) && name.endsWith(".xml");
+//          return dir.equals(testDataDir) && name.endsWith("sample.xml");
 //        }
 //      });
 //
@@ -57,14 +57,25 @@ public class FindBugsReportParserTest extends TestCase {
 //    } catch (Exception e) {
 //      e.printStackTrace();
 //    }
+//  }
 
-  //  }
+  private void runTest(final String sampleName) throws Exception {
+    final String fileName = sampleName.replace(".sample", "");
 
-  private void runTest(final String fileName) throws Exception {
-    final String reportName = getAbsoluteTestDataPath(fileName, "findBugs");
+    final String baseDir = getAbsoluteTestDataPath(null, "findBugs");
+    final File samleFile = getTestDataFile(sampleName, "findBugs");
+    final String reportName = samleFile.getAbsolutePath().replace(".sample", "");
+
+    final FileWriter writer = new FileWriter(reportName);
+    writer.write(readFile(samleFile).replace("##BASE_DIR##", baseDir));
+    writer.close();
+
+//    final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+//    Transformer transformer = transformerFactory.newTransformer(new StreamSource(getClass().getResourceAsStream(getAbsoluteTestDataPath("reportPaths.xsl", ""))));
+//    transformer.transform(new StreamSource(samleName), new StreamResult(reportName));
+
     final String resultsFileName = reportName + ".tmp";
     final String expectedFileName = reportName + ".gold";
-    final String baseDir = getAbsoluteTestDataPath(null, "findBugs");
 
     new File(resultsFileName).delete();
 
@@ -97,51 +108,51 @@ public class FindBugsReportParserTest extends TestCase {
 
   @Test
   public void testSimple() throws Exception {
-    runTest("simple.xml");
+    runTest("simple.sample.xml");
   }
 
   @Test
   public void testNoSrcSimple() throws Exception {
-    runTest("noSrcSimple.xml");
+    runTest("noSrcSimple.sample.xml");
   }
 
   @Test
   public void testNoSrcJar() throws Exception {
-    runTest("jar.xml");
+    runTest("jar.sample.xml");
   }
 
   @Test
   public void testComplexSrc() throws Exception {
-    runTest("complexSrc.xml");
+    runTest("complexSrc.sample.xml");
   }
 
   @Test
   public void testNoSrcDir() throws Exception {
-    runTest("dir.xml");
+    runTest("dir.sample.xml");
   }
 
   @Test
   public void testInner() throws Exception {
-    runTest("inner.xml");
+    runTest("inner.sample.xml");
   }
 
   @Test
   public void testPattern() throws Exception {
-    runTest("pattern.xml");
+    runTest("pattern.sample.xml");
   }
 
   @Test
   public void testCategory() throws Exception {
-    runTest("category.xml");
+    runTest("category.sample.xml");
   }
 
   @Test
   public void testBuildFailsErrors() throws Exception {
-    runTest("failureErr.xml");
+    runTest("failureErr.sample.xml");
   }
 
   @Test
   public void testBuildFailsWarnings() throws Exception {
-    runTest("failureWarn.xml");
+    runTest("failureWarn.sample.xml");
   }
 }

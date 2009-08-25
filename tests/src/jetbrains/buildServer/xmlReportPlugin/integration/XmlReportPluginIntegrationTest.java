@@ -105,7 +105,6 @@ public class XmlReportPluginIntegrationTest {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    System.out.println(myCheckoutDir.getAbsolutePath());
     myRunnerParams.put(XmlReportPlugin.CHECKOUT_DIR, myCheckoutDir.getAbsolutePath());
     myRunningBuild = createAgentRunningBuild(myRunnerParams, myCheckoutDir, myTestLogger);
     myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);

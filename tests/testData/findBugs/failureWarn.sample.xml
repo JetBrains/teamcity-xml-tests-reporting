@@ -3,9 +3,9 @@
 <BugCollection version="1.3.7" sequence="0" timestamp="1235656984360" analysisTimestamp="1235656986781" release="">
     <Project filename="&lt;&lt;unnamed project&gt;&gt;" projectName="">
         <Jar>
-            C:\work\teamcityworkspace\xml-report-plugin\tests\testData\findBugs\failure\org\jetbrains\testProject\BuggyClass.class
+            ##BASE_DIR##\failure\org\jetbrains\testProject\BuggyClass.class
         </Jar>
-        <SrcDir>C:\work\teamcityworkspace\xml-report-plugin\tests\testData\findBugs\failure</SrcDir>
+        <SrcDir>##BASE_DIR##\failure</SrcDir>
     </Project>
     <BugInstance type="DLS_DEAD_LOCAL_STORE" priority="2" abbrev="DLS" category="STYLE">
         <Class classname="org.jetbrains.testProject.BuggyClass">

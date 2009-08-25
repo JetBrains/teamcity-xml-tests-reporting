@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <BugCollection version="1.3.7" sequence="0" timestamp="1234450862849" analysisTimestamp="1234450865271" release="">
     <Project filename="&lt;&lt;unnamed project&gt;&gt;" projectName="">
-        <Jar>C:\work\teamcityworkspace\xml-report-plugin\tests\testData\findBugs\inner</Jar>
-        <SrcDir>C:\work\teamcityworkspace\xml-report-plugin\tests\testData\findBugs\inner</SrcDir>
+        <Jar>##BASE_DIR##\inner</Jar>
+        <SrcDir>##BASE_DIR##\inner</SrcDir>
     </Project>
     <BugInstance type="NM_BAD_EQUAL" priority="1" abbrev="Nm" category="CORRECTNESS">
         <Class classname="org.jetbrains.testProject.BuggyClass">
