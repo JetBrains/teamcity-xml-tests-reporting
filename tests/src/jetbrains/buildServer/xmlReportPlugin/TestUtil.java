@@ -75,7 +75,7 @@ public final class TestUtil {
     if (file2.exists()) {
       return file2;
     }
-    final File file3 = new File("svnrepo/xml-tests-reporting/" + relativeFileName);
+    final File file3 = new File("svnrepo/xml-tests-reporting/tests/" + relativeFileName);
     if (file3.exists()) {
       return file3;
     }
