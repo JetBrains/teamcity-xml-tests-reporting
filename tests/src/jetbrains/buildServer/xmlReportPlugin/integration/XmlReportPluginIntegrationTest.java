@@ -22,6 +22,7 @@ import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.BuildFinishedStatus;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
+import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil;
@@ -35,6 +36,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,7 +48,6 @@ public class XmlReportPluginIntegrationTest {
   private static final String ANT_JUNIT_REPORT_TYPE = "junit";
   private static final String NUNIT_REPORT_TYPE = "nunit";
   private static final String EMPTY_REPORT_TYPE = "";
-  private static final String CHECKOUT_DIR = "workingDirForTesting";
 
   private XmlReportPlugin myPlugin;
   private AgentRunningBuild myRunningBuild;
@@ -61,7 +62,13 @@ public class XmlReportPluginIntegrationTest {
   private InspectionReporter myInspectionReporter;
 
   private InspectionReporter createInspectionReporter() {
-    return myContext.mock(InspectionReporter.class);
+    final InspectionReporter reporter = myContext.mock(InspectionReporter.class);
+    myContext.checking(new Expectations() {
+      {
+        ignoring(reporter);
+      }
+    });
+    return reporter;
   }
 
   private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final File checkoutDirFile, final BaseServerLoggerFacade logger) {
@@ -76,8 +83,6 @@ public class XmlReportPluginIntegrationTest {
         will(returnValue(checkoutDirFile));
         allowing(runningBuild).getCheckoutDirectory();
         will(returnValue(checkoutDirFile));
-        allowing(runningBuild).getCheckoutDirectory();
-        will(returnValue(checkoutDirFile));
         ignoring(runningBuild);
       }
     });
@@ -89,42 +94,27 @@ public class XmlReportPluginIntegrationTest {
     myContext = new JUnit4Mockery();
 
     myInspectionReporter = createInspectionReporter();
-    myContext.checking(new Expectations() {
-      {
-        ignoring(myInspectionReporter);
-      }
-    });
 
     myLogSequence = new ArrayList<MethodInvokation>();
     myFailures = new ArrayList<UnexpectedInvokationException>();
     myTestLogger = new BaseServerLoggerFacadeForTesting(myFailures);
 
     myRunnerParams = new HashMap<String, String>();
-    myCheckoutDir = new File(CHECKOUT_DIR);
-    removeDir(myCheckoutDir);
-    myCheckoutDir.mkdir();
+    try {
+      myCheckoutDir = FileUtil.createTempDirectory("test", "");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    System.out.println(myCheckoutDir.getAbsolutePath());
     myRunnerParams.put(XmlReportPlugin.CHECKOUT_DIR, myCheckoutDir.getAbsolutePath());
     myRunningBuild = createAgentRunningBuild(myRunnerParams, myCheckoutDir, myTestLogger);
     myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
-    ReportFactory.setCheckoutDir(CHECKOUT_DIR);
+    ReportFactory.setCheckoutDir(myCheckoutDir.getAbsolutePath());
   }
 
-  private void removeDir(File dir) {
-    File[] subDirs = dir.listFiles();
-    if ((subDirs == null) || (subDirs.length == 0)) {
-      if (!dir.delete()) {
-        System.out.println("Unable to remove " + dir.getAbsolutePath() + "\n");
-      }
-      return;
-    }
-    for (int i = 0; i < subDirs.length; ++i) {
-      removeDir(subDirs[i]);
-    }
-  }
-
-  private static File getFileInCheckoutDir(String name) {
-    return new File("workingDirForTesting" + File.separator + name);
+  private File getFileInCheckoutDir(String name) {
+    return new File(myCheckoutDir, name);
   }
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
@@ -986,7 +976,7 @@ public class XmlReportPluginIntegrationTest {
     final XmlReportDataProcessor dataProcessor = new XmlReportDataProcessor.JUnitDataProcessor(myPlugin);
     final Map<String, String> args = new HashMap<String, String>();
     args.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
-    dataProcessor.processData(new File(CHECKOUT_DIR), args);
+    dataProcessor.processData(myCheckoutDir, args);
 
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
@@ -1055,7 +1045,7 @@ public class XmlReportPluginIntegrationTest {
     final XmlReportDataProcessor dataProcessor = new XmlReportDataProcessor.JUnitDataProcessor(myPlugin);
     final Map<String, String> args = new HashMap<String, String>();
     args.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
-    dataProcessor.processData(new File(CHECKOUT_DIR), args);
+    dataProcessor.processData(myCheckoutDir, args);
 
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
@@ -1146,7 +1136,7 @@ public class XmlReportPluginIntegrationTest {
     final Map<String, String> args = new HashMap<String, String>();
     args.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
     args.put(XmlReportDataProcessor.PARSE_OUT_OF_DATE_ARGUMENT, "true");
-    dataProcessor.processData(new File(CHECKOUT_DIR), args);
+    dataProcessor.processData(myCheckoutDir, args);
 
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
