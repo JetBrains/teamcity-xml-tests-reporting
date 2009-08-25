@@ -71,11 +71,15 @@ public final class TestUtil {
     if (file1.exists()) {
       return file1;
     }
-    final File file2 = new File("svnrepo/xml-tests-reporting/" + relativeFileName);
+    final File file2 = new File("tests/" + relativeFileName);
     if (file2.exists()) {
       return file2;
     }
-    throw new FileNotFoundException("Either " + file1.getAbsolutePath() + " or file " + file2.getAbsolutePath() + " should exist.");
+    final File file3 = new File("svnrepo/xml-tests-reporting/" + relativeFileName);
+    if (file3.exists()) {
+      return file3;
+    }
+    throw new FileNotFoundException(file1.getAbsolutePath() + ", " + file2.getAbsolutePath() + " or file " + file3.getAbsolutePath() + " should exist.");
   }
 
   public static String getRelativePath(final File f, final File base) {
