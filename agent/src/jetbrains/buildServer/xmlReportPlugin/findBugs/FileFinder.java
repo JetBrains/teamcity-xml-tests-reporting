@@ -160,7 +160,7 @@ public class FileFinder {
 
     public String getFilePath(String fileName) {
       System.out.println("getFilePath with fileName=" + fileName + " (OS path is " + getOSPath(fileName) + "), myFile " + myFile);
-      if (myFile.endsWith(getOSPath(fileName))) {
+      if (getOSPath(myFile).endsWith(getOSPath(fileName))) {
         return myFile;
       }
       return null;
