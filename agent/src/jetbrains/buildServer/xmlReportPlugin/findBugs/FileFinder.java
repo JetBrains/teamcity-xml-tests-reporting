@@ -39,6 +39,7 @@ public class FileFinder {
   }
 
   public void addJar(String jar) {
+    System.out.println("Adding jar " + jar);
     if (jar.endsWith(".zip") || jar.endsWith(".jar")) {
       try {
         myJars.add(new ArchiveEntry(new ZipFile(jar)));
@@ -158,6 +159,7 @@ public class FileFinder {
     }
 
     public String getFilePath(String fileName) {
+      System.out.println("getFilePath with fileName=" + fileName + "(OS path is" + getOSPath(fileName) + ")");
       if (myFile.endsWith(getOSPath(fileName))) {
         return myFile;
       }
