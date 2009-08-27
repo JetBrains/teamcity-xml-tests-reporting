@@ -163,8 +163,8 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
 
     final File expected = new File(expectedFile);
     String baseDir = myWorkDir.getCanonicalPath();
-    String actual = results.toString().replace(baseDir, "##BASE_DIR##").trim();
-    String expectedContent = readFile(expected).trim();
+    String actual = results.toString().replace(baseDir, "##BASE_DIR##").replace("/", File.separator).replace("\\", File.separator).trim();
+    String expectedContent = readFile(expected, true).trim();
     if (!expectedContent.equals(actual)) {
       final FileWriter resultsWriter = new FileWriter(resultsFile);
       resultsWriter.write(actual);

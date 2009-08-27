@@ -67,7 +67,7 @@ public class FindBugsReportParserTest extends TestCase {
     final String reportName = samleFile.getAbsolutePath().replace(".sample", "");
 
     final FileWriter writer = new FileWriter(reportName);
-    writer.write(readFile(samleFile).replace("##BASE_DIR##", baseDir));
+    writer.write(readFile(samleFile, false).replace("##BASE_DIR##", baseDir));
     writer.close();
 
 //    final TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -96,13 +96,13 @@ public class FindBugsReportParserTest extends TestCase {
     parser.logParsingTotals(params, true);
 
     final File expectedFile = new File(expectedFileName);
-    final String actual = results.toString().replace(baseDir, "##BASE_DIR##").trim();
-    if (!readFile(expectedFile).equals(actual)) {
+    final String actual = results.toString().replace(baseDir, "##BASE_DIR##").replace("\\", File.separator).replace("/", File.separator).trim();
+    if (!readFile(expectedFile, true).equals(actual)) {
       final FileWriter resultsWriter = new FileWriter(resultsFileName);
       resultsWriter.write(actual);
       resultsWriter.close();
 
-      assertEquals(readFile(expectedFile), actual);
+      assertEquals(readFile(expectedFile, true), actual);
     }
   }
 

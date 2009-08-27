@@ -30,7 +30,7 @@ import java.util.List;
 
 
 public final class TestUtil {
-  static public String readFile(@NotNull final File file) throws IOException {
+  static public String readFile(@NotNull final File file, boolean unifyFileSeparators) throws IOException {
     final FileInputStream inputStream = new FileInputStream(file);
     try {
       final BufferedInputStream bis = new BufferedInputStream(inputStream);
@@ -38,7 +38,11 @@ public final class TestUtil {
       bis.read(bytes);
       bis.close();
 
-      return new String(bytes);
+      String line = new String(bytes);
+      if (unifyFileSeparators) {
+        line = line.replace("/", File.separator).replace("\\", File.separator);
+      }
+      return line;
     }
     finally {
       inputStream.close();
@@ -50,7 +54,7 @@ public final class TestUtil {
     final List<String> lines = new ArrayList<String>();
     String line = reader.readLine();
     while (line != null) {
-      lines.add(line);
+      lines.add(line.replace("/", File.separator).replace("\\", File.separator));
       line = reader.readLine();
     }
     Collections.sort(lines);

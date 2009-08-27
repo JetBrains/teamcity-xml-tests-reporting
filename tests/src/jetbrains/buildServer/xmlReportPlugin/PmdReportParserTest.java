@@ -45,7 +45,7 @@ public class PmdReportParserTest extends TestCase {
     final BaseServerLoggerFacade logger = new BuildLoggerForTesting(results);
     final InspectionReporter reporter = TestUtil.createFakeReporter(results);
 
-    final PmdReportParser parser = new PmdReportParser(logger, reporter, "C:\\work\\teamcityworkspace\\xml-report-plugin\\tests\\testData\\pmd");
+    final PmdReportParser parser = new PmdReportParser(logger, reporter, "##BASE_DIR##");
 
     final File report = new File(reportName);
     final Map<String, String> params = new HashMap<String, String>();
@@ -57,13 +57,13 @@ public class PmdReportParserTest extends TestCase {
     parser.logParsingTotals(params, true);
 
     final File expected = new File(expectedFile);
-    final String actual = results.toString().replace(baseDir, "##BASE_DIR##").trim();
-    if (!readFile(expected).equals(actual)) {
+    final String actual = results.toString().replace(baseDir, "##BASE_DIR##").replace("/", File.separator).replace("\\", File.separator).trim();
+    if (!readFile(expected, true).equals(actual)) {
       final FileWriter resultsWriter = new FileWriter(resultsFile);
       resultsWriter.write(actual);
       resultsWriter.close();
 
-      assertEquals(readFile(expected), actual);
+      assertEquals(readFile(expected, true), actual);
     }
   }
 
