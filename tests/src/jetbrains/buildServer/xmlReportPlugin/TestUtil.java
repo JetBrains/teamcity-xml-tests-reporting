@@ -70,16 +70,16 @@ public final class TestUtil {
   }
 
   public static File getTestDataFile(final String fileName, final String folderName) throws FileNotFoundException {
-    final String relativeFileName = "testData" + (folderName != null ? "/" + folderName : "") + (fileName != null ? "/" + fileName : "");
+    final String relativeFileName = "testData" + (folderName != null ? File.separator + folderName : "") + (fileName != null ? File.separator + fileName : "");
     final File file1 = new File(relativeFileName);
     if (file1.exists()) {
       return file1;
     }
-    final File file2 = new File("tests/" + relativeFileName);
+    final File file2 = new File("tests" + File.separator + relativeFileName);
     if (file2.exists()) {
       return file2;
     }
-    final File file3 = new File("svnrepo/xml-tests-reporting/tests/" + relativeFileName);
+    final File file3 = new File("svnrepo" + File.separator + "xml-tests-reporting" + File.separator + "tests" + File.separator + relativeFileName);
     if (file3.exists()) {
       return file3;
     }

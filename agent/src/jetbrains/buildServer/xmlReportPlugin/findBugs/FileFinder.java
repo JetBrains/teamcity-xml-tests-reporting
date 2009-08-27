@@ -16,8 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
@@ -41,6 +39,7 @@ public class FileFinder {
   }
 
   public void addJar(String jar) {
+    jar = getDependentPath(jar, File.separator);
     if (jar.endsWith(".zip") || jar.endsWith(".jar")) {
       try {
         myJars.add(new ArchiveEntry(new ZipFile(jar)));
@@ -58,6 +57,7 @@ public class FileFinder {
     if (filePath == null) {
       return "";
     }
+    filePath = getDependentPath(filePath, File.separator);
     if (filePath.contains("$") && filePath.endsWith(".java")) {
       filePath = filePath.substring(0, filePath.indexOf("$")) + ".class";
     }
@@ -76,20 +76,12 @@ public class FileFinder {
     }
   }
 
-  private static String getOSPath(String path) {
-    return path.replace("\\", File.separator).replace("/", File.separator);
-  }
-
   private static String getDependentPath(String path, String separator) {
     return path.replace("\\", separator).replace("/", separator);
   }
 
   private static abstract class Entry {
     public abstract String getFilePath(String fileName);
-
-    protected static boolean endsWithIgnoringSeparator(@NotNull String s1, @NotNull String s2) {
-      return s1.replace("/", File.separator).replace("\\", File.separator).endsWith(s2.replace("/", File.separator).replace("\\", File.separator));
-    }
 
     public void close() {
     }
@@ -103,7 +95,7 @@ public class FileFinder {
     }
 
     public String getFilePath(String fileName) {
-      return getFilePathRecursive(new File(myRoot).listFiles(), getOSPath(fileName));
+      return getFilePathRecursive(new File(myRoot).listFiles(), fileName);
     }
 
     private String getFilePathRecursive(File[] files, String relativePath) {
@@ -114,7 +106,7 @@ public class FileFinder {
       while (i < files.length) {
         if (files[i].isFile()) {
           final String path = files[i].getAbsolutePath();
-          if (endsWithIgnoringSeparator(path, relativePath)) {
+          if (path.endsWith(relativePath)) {
             return path;
           }
         } else if (files[i].isDirectory()) {
@@ -137,11 +129,11 @@ public class FileFinder {
     }
 
     public String getFilePath(String fileName) {
+      final String filePathInZip = getDependentPath(fileName, "/");
       for (Enumeration<? extends ZipEntry> e = myArchive.entries(); e.hasMoreElements();) {
         final String entry = e.nextElement().getName();
-        if (entry.endsWith(getDependentPath(fileName, "/"))) {
-          final String path = myArchive.getName() + File.separator + getOSPath(entry);
-          return path;
+        if (entry.endsWith(filePathInZip)) {
+          return myArchive.getName() + File.separator + getDependentPath(entry, File.separator);
         }
       }
       return null;
@@ -164,11 +156,7 @@ public class FileFinder {
     }
 
     public String getFilePath(String fileName) {
-      System.out.println("getFilePath with fileName=" + fileName + " (OS path is " + getOSPath(fileName) + "), myFile " + myFile);
-      if (endsWithIgnoringSeparator(myFile, fileName)) {
-        return myFile;
-      }
-      return null;
+      return myFile.endsWith(fileName) ? myFile : null;
     }
   }
 }
