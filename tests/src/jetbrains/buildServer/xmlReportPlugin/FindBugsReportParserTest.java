@@ -67,7 +67,7 @@ public class FindBugsReportParserTest extends TestCase {
     final String reportName = samleFile.getAbsolutePath().replace(".sample", "");
 
     final FileWriter writer = new FileWriter(reportName);
-    writer.write(readFile(samleFile, false).replace("##BASE_DIR##", baseDir));
+    writer.write(readFile(samleFile, false).replace("##BASE_DIR##", baseDir.replace(File.separator, "\\")));
     writer.close();
 
 //    final TransformerFactory transformerFactory = TransformerFactory.newInstance();

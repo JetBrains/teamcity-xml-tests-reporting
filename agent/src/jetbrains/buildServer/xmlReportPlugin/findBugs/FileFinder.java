@@ -16,6 +16,8 @@
 
 package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
@@ -39,7 +41,6 @@ public class FileFinder {
   }
 
   public void addJar(String jar) {
-    System.out.println("Adding jar " + jar + "\n");
     if (jar.endsWith(".zip") || jar.endsWith(".jar")) {
       try {
         myJars.add(new ArchiveEntry(new ZipFile(jar)));
@@ -86,6 +87,10 @@ public class FileFinder {
   private static abstract class Entry {
     public abstract String getFilePath(String fileName);
 
+    protected static boolean endsWithIgnoringSeparator(@NotNull String s1, @NotNull String s2) {
+      return s1.replace("/", File.separator).replace("\\", File.separator).endsWith(s2.replace("/", File.separator).replace("\\", File.separator));
+    }
+
     public void close() {
     }
   }
@@ -109,7 +114,7 @@ public class FileFinder {
       while (i < files.length) {
         if (files[i].isFile()) {
           final String path = files[i].getAbsolutePath();
-          if (path.endsWith(relativePath)) {
+          if (endsWithIgnoringSeparator(path, relativePath)) {
             return path;
           }
         } else if (files[i].isDirectory()) {
@@ -160,7 +165,7 @@ public class FileFinder {
 
     public String getFilePath(String fileName) {
       System.out.println("getFilePath with fileName=" + fileName + " (OS path is " + getOSPath(fileName) + "), myFile " + myFile);
-      if (getOSPath(myFile).endsWith(getOSPath(fileName))) {
+      if (endsWithIgnoringSeparator(myFile, fileName)) {
         return myFile;
       }
       return null;
