@@ -24,7 +24,7 @@ public final class TestData {
   private final long myStartTime;
   private long myDuration;
 
-  private final boolean myExecuted;
+  private boolean myExecuted;
 
   private String myFailureType;
   private String myFailureMessage;
@@ -48,6 +48,10 @@ public final class TestData {
 
   public String getTestName() {
     return myTestName;
+  }
+
+  public void setExecuted(boolean executed) {
+    myExecuted = executed;
   }
 
   public boolean isExecuted() {

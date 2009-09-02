@@ -990,4 +990,30 @@ public class AntJUnitReportParserTest extends TestCase {
     myParser.parse(data1);
     myContext.assertIsSatisfied();
   }
+
+  //TW-9343
+  @Test
+  public void test2CasesFirstSuccessSecondSkipped() throws Exception {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with(CASE_NAME + "2"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(reportData("twoCasesFirstSuccessSecondSkipped.xml"));
+    myContext.assertIsSatisfied();
+  }
+
 }

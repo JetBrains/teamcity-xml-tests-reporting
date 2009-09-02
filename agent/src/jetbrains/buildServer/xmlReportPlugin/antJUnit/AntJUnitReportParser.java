@@ -42,6 +42,7 @@ public class AntJUnitReportParser extends XmlReportParser {
   private static final String TIME = "time";
   private static final String SYSTEM_OUT = "system-out";
   private static final String SYSTEM_ERR = "system-err";
+  private static final String SKIPPED = "skipped";
 
   private static final String NAME_ATTR = "name";
   private static final String CLASSNAME_ATTR = "classname";
@@ -192,39 +193,46 @@ public class AntJUnitReportParser extends XmlReportParser {
         startTest(attributes);
       } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
         startFailure(attributes);
+      } else if (SKIPPED.equals(localName)) {
+        if (myTests.size() != 0) {
+          myTests.peek().setExecuted(false);
+        }
       }
     }
   }
 
   public void endElement(String uri, String localName, String qName) throws SAXException {
-    if (testSkipped()) {
-      if (TEST_CASE.equals(localName)) {
-        myLoggedTests = myLoggedTests + 1;
+    try {
+      if (testSkipped()) {
+        if (TEST_CASE.equals(localName)) {
+          myLoggedTests = myLoggedTests + 1;
+        }
+        return;
       }
-      return;
+      if (TEST_SUITE.equals(localName)) {
+        endSuite();
+      } else if (TEST_CASE.equals(localName)) {
+        endTest();
+      } else if (FAILURE.equals(localName)) {
+        endFailure();
+      } else if (SYSTEM_OUT.equals(localName)) {
+        final String trimmedCData = myCData.toString().trim();
+        if (trimmedCData.length() > 0) {
+          mySystemOut = trimmedCData;
+        }
+      } else if (SYSTEM_ERR.equals(localName)) {
+        final String trimmedCData = myCData.toString().trim();
+        if (trimmedCData.length() > 0) {
+          mySystemErr = trimmedCData;
+        }
+      } else if (TIME.equals(localName)) {
+        if (myTests.size() != 0) {
+          myTests.peek().setDuration(getExecutionTime(formatText(myCData)));
+        }
+      }
+    } finally {
+      myCData.delete(0, myCData.length());
     }
-    if (TEST_SUITE.equals(localName)) {
-      endSuite();
-    } else if (TEST_CASE.equals(localName)) {
-      endTest();
-    } else if (FAILURE.equals(localName)) {
-      endFailure();
-    } else if (SYSTEM_OUT.equals(localName)) {
-      final String trimmedCData = myCData.toString().trim();
-      if (trimmedCData.length() > 0) {
-        mySystemOut = trimmedCData;
-      }
-    } else if (SYSTEM_ERR.equals(localName)) {
-      final String trimmedCData = myCData.toString().trim();
-      if (trimmedCData.length() > 0) {
-        mySystemErr = trimmedCData;
-      }
-    } else if (TIME.equals(localName)) {
-      if (myTests.size() != 0) {
-        myTests.peek().setDuration(getExecutionTime(formatText(myCData)));
-      }
-    }
-    myCData.delete(0, myCData.length());
   }
 
   // Auxiliary methods
