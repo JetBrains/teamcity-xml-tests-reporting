@@ -1016,4 +1016,24 @@ public class AntJUnitReportParserTest extends TestCase {
     myContext.assertIsSatisfied();
   }
 
+  //TW-9343 strange class name
+  @Test
+  public void testSuiteNameEqualsTestName() throws Exception {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with("ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestStarted(with("ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with("ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logSuiteFinished(with("ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest"), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(reportData("TEST-ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest.xml"));
+    myContext.assertIsSatisfied();
+  }
 }

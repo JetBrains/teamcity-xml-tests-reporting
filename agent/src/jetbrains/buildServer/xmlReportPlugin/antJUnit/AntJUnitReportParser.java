@@ -308,7 +308,14 @@ public class AntJUnitReportParser extends XmlReportParser {
 
   private void endTest() {
     final TestData test = myTests.pop();
-    final String testFullName = test.getClassName() + "." + test.getTestName();
+    final String testFullName;
+    final String testName = test.getTestName();
+    final String className = test.getClassName();
+    if (!className.equals(testName)) {
+      testFullName = test.getClassName() + "." + test.getTestName();
+    } else {
+      testFullName = className;
+    }
 
     myLogger.logTestStarted(testFullName, new Date(test.getStartTime()));
     if (!test.isExecuted()) {

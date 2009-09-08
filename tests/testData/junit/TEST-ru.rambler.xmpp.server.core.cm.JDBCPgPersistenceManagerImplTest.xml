@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite failures="0" time="0.002" errors="0" skipped="1" tests="1"
+           name="ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest">
+    <properties>
+        <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+        <property name="sun.boot.library.path" value="/usr/lib/jvm/java-6-sun-1.6.0.06/jre/lib/i386"/>
+        <property name="java.vm.version" value="10.0-b22"/>
+        <property name="java.vm.vendor" value="Sun Microsystems Inc."/>
+        <property name="java.vendor.url" value="http://java.sun.com/"/>
+        <property name="path.separator" value=":"/>
+        <property name="java.vm.name" value="Java HotSpot(TM) Server VM"/>
+        <property name="file.encoding.pkg" value="sun.io"/>
+        <property name="user.country" value="RU"/>
+        <property name="sun.java.launcher" value="SUN_STANDARD"/>
+        <property name="sun.os.patch.level" value="unknown"/>
+        <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+        <property name="user.dir" value="/home/bulatnig/agent/work/e0d7ab60bbc5d9d8"/>
+        <property name="java.runtime.version" value="1.6.0_06-b02"/>
+        <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment"/>
+        <property name="basedir" value="/home/bulatnig/agent/work/e0d7ab60bbc5d9d8"/>
+        <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-6-sun-1.6.0.06/jre/lib/endorsed"/>
+        <property name="os.arch" value="i386"/>
+        <property name="surefire.real.class.path" value="/tmp/surefirebooter22298.jar"/>
+        <property name="java.io.tmpdir" value="/tmp"/>
+        <property name="line.separator" value="
+"/>
+        <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."/>
+        <property name="os.name" value="Linux"/>
+        <property name="sun.jnu.encoding" value="UTF-8"/>
+        <property name="java.library.path"
+                  value="/usr/lib/jvm/java-6-sun-1.6.0.06/jre/lib/i386/server:/usr/lib/jvm/java-6-sun-1.6.0.06/jre/lib/i386:/usr/lib/jvm/java-6-sun-1.6.0.06/jre/../lib/i386::.:.:/usr/java/packages/lib/i386:/lib:/usr/lib"/>
+        <property name="surefire.test.class.path"
+                  value="/home/bulatnig/agent/work/e0d7ab60bbc5d9d8/target/test-classes:/home/bulatnig/agent/work/e0d7ab60bbc5d9d8/target/generated-classes/emma/classes:/home/bulatnig/.m2/repository/org/apache/felix/org.apache.felix.configadmin/1.2.0/org.apache.felix.configadmin-1.2.0.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.osgi.core/1.2.0/org.osgi.core-1.2.0.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.osgi.compendium/1.0.0/org.osgi.compendium-1.0.0.jar:/home/bulatnig/.m2/repository/org/apache/felix/javax.servlet/1.0.0/javax.servlet-1.0.0.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.osgi.foundation/1.0.0/org.osgi.foundation-1.0.0.jar:/home/bulatnig/.m2/repository/junit/junit/4.6/junit-4.6.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.apache.felix.scr.annotations/0.9.0/org.apache.felix.scr.annotations-0.9.0.jar:/home/bulatnig/.m2/repository/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar:/home/bulatnig/.m2/repository/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar:/home/bulatnig/.m2/repository/emma/emma/2.0.5312/emma-2.0.5312.jar:/home/bulatnig/.m2/repository/org/apache/mina/mina-core/2.0.0-M6/mina-core-2.0.0-M6.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.apache.felix.scr/1.0.8/org.apache.felix.scr-1.0.8.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.apache.felix.shell/1.0.0/org.apache.felix.shell-1.0.0.jar:/home/bulatnig/.m2/repository/net/sf/kxml/kxml2/2.2.2/kxml2-2.2.2.jar:/home/bulatnig/.m2/repository/xmlpull/xmlpull/1.1.3.1/xmlpull-1.1.3.1.jar:/home/bulatnig/.m2/repository/org/gnu/inet/libidn/1.9/libidn-1.9.jar:/home/bulatnig/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar:/home/bulatnig/.m2/repository/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar:/home/bulatnig/.m2/repository/piccolo/piccolo/1.04/piccolo-1.04.jar:/home/bulatnig/.m2/repository/postgresql/postgresql/8.3-603.jdbc4-osgi/postgresql-8.3-603.jdbc4-osgi.jar:/home/bulatnig/.m2/repository/javax/mail/mail/1.4.2/mail-1.4.2.jar:/home/bulatnig/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/home/bulatnig/.m2/repository/ch/qos/logback/logback-core/0.9.17/logback-core-0.9.17.jar:/home/bulatnig/.m2/repository/org/apache/mina/mina-filter-compression/2.0.0-M6/mina-filter-compression-2.0.0-M6.jar:/home/bulatnig/.m2/repository/com/jcraft/jzlib/1.0.7/jzlib-1.0.7.jar:/home/bulatnig/.m2/repository/xpp3/xpp3/1.1.4c/xpp3-1.1.4c.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.apache.felix.ipojo.junit4osgi/1.0.0/org.apache.felix.ipojo.junit4osgi-1.0.0.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.apache.felix.ipojo/1.2.0/org.apache.felix.ipojo-1.2.0.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.apache.felix.ipojo.metadata/1.2.0/org.apache.felix.ipojo.metadata-1.2.0.jar:/home/bulatnig/.m2/repository/jaxen/jaxen/1.1.1/jaxen-1.1.1.jar:/home/bulatnig/.m2/repository/jdom/jdom/1.0/jdom-1.0.jar:/home/bulatnig/.m2/repository/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.jar:/home/bulatnig/.m2/repository/xom/xom/1.0/xom-1.0.jar:/home/bulatnig/.m2/repository/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.jar:/home/bulatnig/.m2/repository/xalan/xalan/2.6.0/xalan-2.6.0.jar:/home/bulatnig/.m2/repository/com/ibm/icu/icu4j/2.6.1/icu4j-2.6.1.jar:/home/bulatnig/.m2/repository/org/jivesoftware/stringprep/1.0/stringprep-1.0.jar:/home/bulatnig/.m2/repository/ch/qos/logback/logback-classic/0.9.17-with-fix/logback-classic-0.9.17-with-fix.jar:"/>
+        <property name="java.specification.name" value="Java Platform API Specification"/>
+        <property name="java.class.version" value="50.0"/>
+        <property name="sun.management.compiler" value="HotSpot Tiered Compilers"/>
+        <property name="os.version" value="2.6.24-16-server"/>
+        <property name="user.home" value="/home/bulatnig"/>
+        <property name="user.timezone" value="W-SU"/>
+        <property name="java.awt.printerjob" value="sun.print.PSPrinterJob"/>
+        <property name="file.encoding" value="UTF-8"/>
+        <property name="java.specification.version" value="1.6"/>
+        <property name="user.name" value="bulatnig"/>
+        <property name="java.class.path"
+                  value="/home/bulatnig/agent/work/e0d7ab60bbc5d9d8/target/test-classes:/home/bulatnig/agent/work/e0d7ab60bbc5d9d8/target/generated-classes/emma/classes:/home/bulatnig/.m2/repository/org/apache/felix/org.apache.felix.configadmin/1.2.0/org.apache.felix.configadmin-1.2.0.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.osgi.core/1.2.0/org.osgi.core-1.2.0.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.osgi.compendium/1.0.0/org.osgi.compendium-1.0.0.jar:/home/bulatnig/.m2/repository/org/apache/felix/javax.servlet/1.0.0/javax.servlet-1.0.0.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.osgi.foundation/1.0.0/org.osgi.foundation-1.0.0.jar:/home/bulatnig/.m2/repository/junit/junit/4.6/junit-4.6.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.apache.felix.scr.annotations/0.9.0/org.apache.felix.scr.annotations-0.9.0.jar:/home/bulatnig/.m2/repository/c3p0/c3p0/0.9.1.2/c3p0-0.9.1.2.jar:/home/bulatnig/.m2/repository/org/slf4j/slf4j-api/1.5.8/slf4j-api-1.5.8.jar:/home/bulatnig/.m2/repository/emma/emma/2.0.5312/emma-2.0.5312.jar:/home/bulatnig/.m2/repository/org/apache/mina/mina-core/2.0.0-M6/mina-core-2.0.0-M6.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.apache.felix.scr/1.0.8/org.apache.felix.scr-1.0.8.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.apache.felix.shell/1.0.0/org.apache.felix.shell-1.0.0.jar:/home/bulatnig/.m2/repository/net/sf/kxml/kxml2/2.2.2/kxml2-2.2.2.jar:/home/bulatnig/.m2/repository/xmlpull/xmlpull/1.1.3.1/xmlpull-1.1.3.1.jar:/home/bulatnig/.m2/repository/org/gnu/inet/libidn/1.9/libidn-1.9.jar:/home/bulatnig/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar:/home/bulatnig/.m2/repository/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar:/home/bulatnig/.m2/repository/piccolo/piccolo/1.04/piccolo-1.04.jar:/home/bulatnig/.m2/repository/postgresql/postgresql/8.3-603.jdbc4-osgi/postgresql-8.3-603.jdbc4-osgi.jar:/home/bulatnig/.m2/repository/javax/mail/mail/1.4.2/mail-1.4.2.jar:/home/bulatnig/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar:/home/bulatnig/.m2/repository/ch/qos/logback/logback-core/0.9.17/logback-core-0.9.17.jar:/home/bulatnig/.m2/repository/org/apache/mina/mina-filter-compression/2.0.0-M6/mina-filter-compression-2.0.0-M6.jar:/home/bulatnig/.m2/repository/com/jcraft/jzlib/1.0.7/jzlib-1.0.7.jar:/home/bulatnig/.m2/repository/xpp3/xpp3/1.1.4c/xpp3-1.1.4c.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.apache.felix.ipojo.junit4osgi/1.0.0/org.apache.felix.ipojo.junit4osgi-1.0.0.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.apache.felix.ipojo/1.2.0/org.apache.felix.ipojo-1.2.0.jar:/home/bulatnig/.m2/repository/org/apache/felix/org.apache.felix.ipojo.metadata/1.2.0/org.apache.felix.ipojo.metadata-1.2.0.jar:/home/bulatnig/.m2/repository/jaxen/jaxen/1.1.1/jaxen-1.1.1.jar:/home/bulatnig/.m2/repository/jdom/jdom/1.0/jdom-1.0.jar:/home/bulatnig/.m2/repository/xerces/xercesImpl/2.6.2/xercesImpl-2.6.2.jar:/home/bulatnig/.m2/repository/xom/xom/1.0/xom-1.0.jar:/home/bulatnig/.m2/repository/xerces/xmlParserAPIs/2.6.2/xmlParserAPIs-2.6.2.jar:/home/bulatnig/.m2/repository/xalan/xalan/2.6.0/xalan-2.6.0.jar:/home/bulatnig/.m2/repository/com/ibm/icu/icu4j/2.6.1/icu4j-2.6.1.jar:/home/bulatnig/.m2/repository/org/jivesoftware/stringprep/1.0/stringprep-1.0.jar:/home/bulatnig/.m2/repository/ch/qos/logback/logback-classic/0.9.17-with-fix/logback-classic-0.9.17-with-fix.jar:"/>
+        <property name="java.vm.specification.version" value="1.0"/>
+        <property name="sun.arch.data.model" value="32"/>
+        <property name="java.home" value="/usr/lib/jvm/java-6-sun-1.6.0.06/jre"/>
+        <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
+        <property name="user.language" value="ru"/>
+        <property name="java.vm.info" value="mixed mode"/>
+        <property name="java.version" value="1.6.0_06"/>
+        <property name="java.ext.dirs" value="/usr/lib/jvm/java-6-sun-1.6.0.06/jre/lib/ext:/usr/java/packages/lib/ext"/>
+        <property name="sun.boot.class.path"
+                  value="/usr/lib/jvm/java-6-sun-1.6.0.06/jre/lib/resources.jar:/usr/lib/jvm/java-6-sun-1.6.0.06/jre/lib/rt.jar:/usr/lib/jvm/java-6-sun-1.6.0.06/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-6-sun-1.6.0.06/jre/lib/jsse.jar:/usr/lib/jvm/java-6-sun-1.6.0.06/jre/lib/jce.jar:/usr/lib/jvm/java-6-sun-1.6.0.06/jre/lib/charsets.jar:/usr/lib/jvm/java-6-sun-1.6.0.06/jre/classes"/>
+        <property name="java.vendor" value="Sun Microsystems Inc."/>
+        <property name="localRepository" value="/home/bulatnig/.m2/repository"/>
+        <property name="file.separator" value="/"/>
+        <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi"/>
+        <property name="sun.cpu.endian" value="little"/>
+        <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+        <property name="sun.cpu.isalist" value=""/>
+    </properties>
+    <testcase time="0.01" classname="ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest"
+              name="ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest">
+        <skipped/>
+    </testcase>
+</testsuite>
