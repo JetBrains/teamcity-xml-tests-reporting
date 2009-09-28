@@ -213,7 +213,7 @@ public class AntJUnitReportParser extends XmlReportParser {
         endSuite();
       } else if (TEST_CASE.equals(localName)) {
         endTest();
-      } else if (FAILURE.equals(localName)) {
+      } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
         endFailure();
       } else if (SYSTEM_OUT.equals(localName)) {
         final String trimmedCData = myCData.toString().trim();
@@ -253,7 +253,6 @@ public class AntJUnitReportParser extends XmlReportParser {
     }
 
     if (myPreviouslyLoggedSuits.contains(name + timestamp)) {
-//      myLogger.debugToAgentLog(name + " suite is skipped, as it has been already logged from other report");
       mySkippedSuites += 1;
       myTestsToSkip = myLoggedTests + testNumber;
       return;

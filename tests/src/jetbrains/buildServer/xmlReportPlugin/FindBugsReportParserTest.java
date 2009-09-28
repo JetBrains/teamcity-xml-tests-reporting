@@ -32,7 +32,6 @@ import java.util.Map;
 public class FindBugsReportParserTest extends TestCase {
 //  @BeforeClass
 //  public static void prepareTestData() {
-//    System.out.println("SCcccccccccccccccccccccccccccc");
 //    final TransformerFactory transformerFactory = TransformerFactory.newInstance();
 //    Transformer transformer = null;
 //    try {
