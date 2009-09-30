@@ -83,7 +83,7 @@
       <zip destfile="@{out}/@{name}.zip">
         <fileset dir="@{out.unpacked}"/>
       </zip>
-      <echo message="To install the plugin, place '@{out}\@{name}.zip' into '.BuildServer/plugins' directory"/>
+      <echo message="To install the plugin, place '@{out}/@{name}.zip' into '.BuildServer/plugins' directory"/>
 
     </sequential>
   </macrodef>
@@ -178,11 +178,14 @@
       <fileset dir="${server.output}"/>
     </jar>
 
+    <antcall target="copy.common.jar.to.server"/>
+  </target>
+
+  <target name="copy.common.jar.to.server" if="common.needed">
     <copy todir="${out.unpacked}/server" failonerror="false">
       <fileset file="${teamcity.internal.distrib.prep.common}/${common.jar.name}"/>
     </copy>
   </target>
-
 
   <target name="prepare.agent.part" if="agent.needed">
     <!-- prepare.agent.part -->
@@ -194,13 +197,17 @@
       <fileset dir="${agent.output}"/>
     </jar>
 
-    <copy todir="${teamcity.internal.distrib.prep.agent.jars}/${name}/lib" failonerror="false">
-      <fileset file="${teamcity.internal.distrib.prep.common}/${common.jar.name}"/>
-    </copy>
+    <antcall target="copy.common.jar.to.agent"/>
 
     <zip destfile="${out.unpacked}/agent/${name}.zip">
       <fileset dir="${teamcity.internal.distrib.prep.agent.jars}"/>
     </zip>
+  </target>
+
+  <target name="copy.common.jar.to.agent" if="common.needed">
+    <copy todir="${teamcity.internal.distrib.prep.agent.jars}/${name}/lib" failonerror="false">
+      <fileset file="${teamcity.internal.distrib.prep.common}/${common.jar.name}"/>
+    </copy>
   </target>
 
   <target name="check.already.defined">
