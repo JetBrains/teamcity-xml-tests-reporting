@@ -34,8 +34,6 @@
                 BS.Util.show($('xmlReportParsing.reportDirs.container'));
                 BS.Util.show($('xmlReportParsing.verboseOutput.container'));
                 }
-                $('xmlReportParsing.reportDirs.container').disabled = (selectedValue == '');
-                $('xmlReportParsing.verboseOutput.container').disabled = (selectedValue == '');
                 var isInspection = (selectedValue == 'findBugs' || selectedValue == 'pmd');
                 if (isInspection) {
                 BS.Util.show($('xmlReportParsing.max.errors.container'));
@@ -44,8 +42,6 @@
                 BS.Util.hide($('xmlReportParsing.max.errors.container'));
                 BS.Util.hide($('xmlReportParsing.max.warnings.container'));
                 }
-                $('xmlReportParsing.max.errors.container').disabled = (isInspection);
-                $('xmlReportParsing.max.warnings.container').disabled = (isInspection);
                 BS.MultilineProperties.updateVisible();
             </c:set>
             <props:selectProperty name="xmlReportParsing.reportType"
