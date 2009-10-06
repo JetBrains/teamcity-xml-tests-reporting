@@ -74,8 +74,9 @@ public class AntJUnitReportParser extends XmlReportParser {
       return 0L;
     }
     try {
-      return (long) (Double.parseDouble(timeStr) * 1000.0);
+      return (long) (Double.parseDouble(timeStr.replace(",", "")) * 1000.0);
     } catch (NumberFormatException e) {
+      XmlReportPlugin.LOG.debug("Unable to parse execution time string " + timeStr);
       return 0L;
     }
   }
