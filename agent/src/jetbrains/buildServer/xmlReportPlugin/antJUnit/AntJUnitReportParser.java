@@ -26,6 +26,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import java.io.File;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -74,8 +76,8 @@ public class AntJUnitReportParser extends XmlReportParser {
       return 0L;
     }
     try {
-      return (long) (Double.parseDouble(timeStr.replace(",", "")) * 1000.0);
-    } catch (NumberFormatException e) {
+      return (long) (NumberFormat.getInstance().parse(timeStr).doubleValue() * 1000.0);
+    } catch (ParseException e) {
       XmlReportPlugin.LOG.debug("Unable to parse execution time string " + timeStr);
       return 0L;
     }
