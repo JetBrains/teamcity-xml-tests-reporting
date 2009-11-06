@@ -38,25 +38,31 @@ public class FindBugsReportParser extends InspectionsReportParser {
 
   private FileFinder myFileFinder;
 
-  private FindBugsCategories myCategories;
-  private String myCurrentCategory;
+  private String myFindBugsHome;
 
-  private FindBugsPatterns myBugPatterns;
+  private final BugCollection myBugCollection;
+  private String myCurrentCategory;
   private String myCurrentPattern;
 
   private String myCurrentClass;
 
   private List<InspectionInstance> myWaitingForTypeBugs;
 
-  private boolean myDataLoaded;
+  private boolean myPatternsLoaded;
 
   public FindBugsReportParser(@NotNull final BaseServerLoggerFacade logger,
                               @NotNull InspectionReporter inspectionReporter,
                               @NotNull String checkoutDirectory) {
     super(logger, inspectionReporter, checkoutDirectory);
-    myDataLoaded = false;
-    myCategories = new FindBugsCategories();
-    myBugPatterns = new FindBugsPatterns();
+    myPatternsLoaded = false;
+    myBugCollection = new BugCollection();
+  }
+
+  public void setFindBugsHome(@NotNull String findBugsHome) {
+    if (!findBugsHome.equals(myFindBugsHome)) {
+      myFindBugsHome = findBugsHome;
+      myPatternsLoaded = false;
+    }
   }
 
   private static boolean hasNoMessage(InspectionInstance i) {
@@ -77,10 +83,9 @@ public class FindBugsReportParser extends InspectionsReportParser {
     myFileFinder = new FileFinder();
     myWaitingForTypeBugs = new ArrayList<InspectionInstance>();
     try {
-      if (!myDataLoaded) {
-        myDataLoaded = true;
-        myCategories.loadCategories(myLogger, this.getClass().getResourceAsStream("categories.xml"));
-        myBugPatterns.loadPatterns(myLogger, this.getClass().getResourceAsStream("patterns.xml"));
+      if (!myPatternsLoaded) {
+        myPatternsLoaded = true;
+        myBugCollection.loadPattens(new File(myFindBugsHome));
       }
       parse(report);
       for (InspectionInstance bug : myWaitingForTypeBugs) {
@@ -111,10 +116,10 @@ public class FindBugsReportParser extends InspectionsReportParser {
                            String qName, Attributes attributes) throws SAXException {
     if ("BugCategory".equals(name)) {
       myCurrentCategory = attributes.getValue("category");
-      myCategories.getCategories().put(myCurrentCategory, new FindBugsCategories.Category());
+      myBugCollection.getCategories().put(myCurrentCategory, new BugCollection.Category());
     } else if ("BugPattern".equals(name)) {
       myCurrentPattern = attributes.getValue("type");
-      myBugPatterns.getPatterns().put(myCurrentPattern, new FindBugsPatterns.Pattern(attributes.getValue("category")));
+      myBugCollection.getPatterns().put(myCurrentPattern, new BugCollection.Pattern(attributes.getValue("category")));
     } else if ("BugInstance".equals(name)) {
       myCurrentBug = new InspectionInstance();
       myCurrentBug.setInspectionId(attributes.getValue("type"));
@@ -184,16 +189,16 @@ public class FindBugsReportParser extends InspectionsReportParser {
 
   // Auxiliary methods
 
-  private FindBugsCategories.Category getCategory(String id) {
-    return myCategories.getCategories().get(id);
+  private BugCollection.Category getCategory(String id) {
+    return myBugCollection.getCategories().get(id);
   }
 
-  private FindBugsPatterns.Pattern getPattern(String id) {
-    return myBugPatterns.getPatterns().get(id);
+  private BugCollection.Pattern getPattern(String id) {
+    return myBugCollection.getPatterns().get(id);
   }
 
   private void reportInspectionType(String id) {
-    final FindBugsPatterns.Pattern pattern = getPattern(id);
+    final BugCollection.Pattern pattern = getPattern(id);
     reportInspectionType(id, pattern.getName(), getCategory(pattern.getCategory()).getName(), getCategory(pattern.getCategory()).getDescription());
   }
 

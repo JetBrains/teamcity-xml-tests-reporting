@@ -12,6 +12,9 @@
        value="${propertiesBean.properties['xmlReportParsing.reportType'] == 'findBugs' ||
                 propertiesBean.properties['xmlReportParsing.reportType'] == 'pmd' ? true : false}"/>
 
+<c:set var="displayFindBugsSettings"
+       value="${propertiesBean.properties['xmlReportParsing.reportType'] == 'findBugs' ? true : false}"/>
+
 <l:settingsGroup title="XML Report Processing">
     <c:if test="${buildForm.buildRunnerBean.runnerType != 'simpleRunner'}">
         <tr class="noBorder" id="xmlReportParsing.reportType.container">
@@ -42,6 +45,11 @@
                 BS.Util.hide($('xmlReportParsing.max.errors.container'));
                 BS.Util.hide($('xmlReportParsing.max.warnings.container'));
                 }
+                if (selectedValue == 'findBugs') {
+                BS.Util.show($('xmlReportParsing.findBugs.home.container'));
+                } else {
+                BS.Util.hide($('xmlReportParsing.findBugs.home.container'));
+                }
                 BS.MultilineProperties.updateVisible();
             </c:set>
             <props:selectProperty name="xmlReportParsing.reportType"
@@ -61,6 +69,14 @@
                 </c:forEach>
             </props:selectProperty>
             <span class="smallNote">Choose report format.</span>
+        </td>
+    </tr>
+
+    <tr class="noBorder" id="xmlReportParsing.findBugs.home.container"
+        style="${displayFindBugsSettings ? '' : 'display: none;'}">
+        <th><label for="xmlReportParsing.findBugs.home">FindBugs home path:</label></th>
+        <td><props:textProperty name="xmlReportParsing.findBugs.home" className="longField"/>
+            <span class="smallNote">Path to FindBugs installation on agent.</span>
         </td>
     </tr>
 

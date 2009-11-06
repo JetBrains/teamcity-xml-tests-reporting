@@ -37,7 +37,7 @@ public abstract class XmlReportParser extends DefaultHandler {
   protected StringBuffer myCData;
 
   public static String formatText(@NotNull StringBuffer s) {
-    return s.toString().replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").trim();
+    return s.toString().replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").replaceAll("<[a-z]>|</[a-z]>", "").trim();
   }
 
 //  public static String formatTextWithouNewLine(@NotNull StringBuffer s) {

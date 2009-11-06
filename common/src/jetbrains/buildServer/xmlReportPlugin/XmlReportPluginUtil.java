@@ -47,6 +47,7 @@ public class XmlReportPluginUtil {
   public static final String TMP_DIR = "xmlReportParsing.tmpDir";
   public static final String MAX_ERRORS = "xmlReportParsing.max.errors";
   public static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
+  public static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
 
   public static boolean isParsingEnabled(@NotNull final Map<String, String> runParams) {
     return runParams.containsKey(REPORT_TYPE) && !"".equals(runParams.get(REPORT_TYPE));
@@ -142,5 +143,9 @@ public class XmlReportPluginUtil {
 
   public static boolean isInspection(String type) {
     return INSPECTIONS_TYPES.contains(type);
+  }
+
+  public static String getFindBugsHomePath(@NotNull final Map<String, String> runParams) {
+    return runParams.get(FINDBUGS_HOME);
   }
 }

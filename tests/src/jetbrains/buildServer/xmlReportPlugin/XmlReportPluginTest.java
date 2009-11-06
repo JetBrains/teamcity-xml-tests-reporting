@@ -16,9 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
@@ -35,6 +32,10 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 @RunWith(JMock.class)
 public class XmlReportPluginTest {
@@ -132,12 +133,15 @@ public class XmlReportPluginTest {
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myCheckoutDir);
     myContext.checking(new Expectations() {
       {
-        oneOf(myLogger).targetStarted(with(any(String.class)));
+        oneOf(myLogger).message(with("##teamcity[buildStatus status='FAILURE' text='Report paths setting " +
+          "is not specified on XML Report Processing panel at build runner settings page.']"));
         inSequence(mySequence);
-        oneOf(myLogger).error(with("Watching paths: <no paths>"));
-        inSequence(mySequence);
-        oneOf(myLogger).targetFinished(with(any(String.class)));
-        inSequence(mySequence);
+//        oneOf(myLogger).targetStarted(with(any(String.class)));
+//        inSequence(mySequence);
+//        oneOf(myLogger).error(with("Watching paths: <no paths>"));
+//        inSequence(mySequence);
+//        oneOf(myLogger).targetFinished(with(any(String.class)));
+//        inSequence(mySequence);
       }
     });
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);

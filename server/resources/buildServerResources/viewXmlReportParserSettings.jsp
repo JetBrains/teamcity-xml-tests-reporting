@@ -3,64 +3,80 @@
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
 
 <div class="parameter">
-  XML report processing:
-  <c:choose>
-    <c:when test="${empty propertiesBean.properties['xmlReportParsing.reportType']}">
-      <strong>disabled</strong>
-    </c:when>
-    <c:otherwise>
-      <strong>enabled</strong>
-    </c:otherwise>
-  </c:choose>
+    XML report processing:
+    <c:choose>
+        <c:when test="${empty propertiesBean.properties['xmlReportParsing.reportType']}">
+            <strong>disabled</strong>
+        </c:when>
+        <c:otherwise>
+            <strong>enabled</strong>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <c:if test="${not empty propertiesBean.properties['xmlReportParsing.reportType']}">
-  <div class="parameter">
-    Report type: <props:displayValue name="xmlReportParsing.reportType"
-                                     emptyValue="none specified"/>
-  </div>
-
-  <div class="parameter">
-    Report directories: <props:displayValue name="xmlReportParsing.reportDirs"
-                                            emptyValue="none specified"/>
-  </div>
-
-  <div class="parameter">
-    Verbose output:
-    <c:choose>
-      <c:when test="${propertiesBean.properties['xmlReportParsing.verboseOutput']}">
-        <strong>enabled</strong>
-      </c:when>
-      <c:otherwise>
-        <strong>disabled</strong>
-      </c:otherwise>
-    </c:choose>
-  </div>
-
-  <c:if test="${propertiesBean.properties['xmlReportParsing.reportType'] == 'findBugs'}">
     <div class="parameter">
-      Maximum error limit:
-      <c:choose>
-        <c:when test="${not empty propertiesBean.properties['xmlReportParsing.max.errors']}">
-          <props:displayValue name="xmlReportParsing.max.errors"
-                              emptyValue="none specified"/>
-        </c:when>
-        <c:otherwise>
-          <strong>no limit</strong>
-        </c:otherwise>
-      </c:choose>
+        Report type: <props:displayValue name="xmlReportParsing.reportType"
+                                         emptyValue="none specified"/>
     </div>
+
+    <c:if test="${propertiesBean.properties['xmlReportParsing.reportType'] == 'findBugs'}">
+        <div class="parameter">
+            FindBugs home path:
+            <c:choose>
+                <c:when test="${not empty propertiesBean.properties['xmlReportParsing.findBugs.home']}">
+                    <props:displayValue name="xmlReportParsing.findBugs.home"
+                                        emptyValue="none specified"/>
+                </c:when>
+                <c:otherwise>
+                    <strong>no path specified, please specify value</strong>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </c:if>
+
     <div class="parameter">
-      Warnings limit:
-      <c:choose>
-        <c:when test="${not empty propertiesBean.properties['xmlReportParsing.max.warnings']}">
-          <props:displayValue name="xmlReportParsing.max.warnings"
-                              emptyValue="none specified"/>
-        </c:when>
-        <c:otherwise>
-          <strong>no limit</strong>
-        </c:otherwise>
-      </c:choose>
+        Report directories: <props:displayValue name="xmlReportParsing.reportDirs"
+                                                emptyValue="none specified"/>
     </div>
-  </c:if>
+
+    <div class="parameter">
+        Verbose output:
+        <c:choose>
+            <c:when test="${propertiesBean.properties['xmlReportParsing.verboseOutput']}">
+                <strong>enabled</strong>
+            </c:when>
+            <c:otherwise>
+                <strong>disabled</strong>
+            </c:otherwise>
+        </c:choose>
+    </div>
+
+    <c:if test="${propertiesBean.properties['xmlReportParsing.reportType'] == 'findBugs' ||
+                propertiesBean.properties['xmlReportParsing.reportType'] == 'pmd'}">
+        <div class="parameter">
+            Maximum error limit:
+            <c:choose>
+                <c:when test="${not empty propertiesBean.properties['xmlReportParsing.max.errors']}">
+                    <props:displayValue name="xmlReportParsing.max.errors"
+                                        emptyValue="none specified"/>
+                </c:when>
+                <c:otherwise>
+                    <strong>no limit</strong>
+                </c:otherwise>
+            </c:choose>
+        </div>
+        <div class="parameter">
+            Warnings limit:
+            <c:choose>
+                <c:when test="${not empty propertiesBean.properties['xmlReportParsing.max.warnings']}">
+                    <props:displayValue name="xmlReportParsing.max.warnings"
+                                        emptyValue="none specified"/>
+                </c:when>
+                <c:otherwise>
+                    <strong>no limit</strong>
+                </c:otherwise>
+            </c:choose>
+        </div>
+    </c:if>
 </c:if>

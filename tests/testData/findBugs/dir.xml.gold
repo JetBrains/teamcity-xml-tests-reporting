@@ -1,5 +1,5 @@
-InspectionTypeInfo{myId='NM_BAD_EQUAL', myName='Class defines equal(Object); should it be equals(Object)?', myDescription='Probable bug - an apparent coding mistake resulting in code that was probably not what the developer intended. "We strive for a low false positive rate.', myCategory='Correctness bug'}
-InspectionInstance{myInspectionId='NM_BAD_EQUAL', myMessage='This class defines a method equal(Object). This method does not override the equals(Object) method in java.lang.Object, which is probably what was intended.', myFilePath='dir/org/jetbrains/testProject/ExampleClass.class', myLine=0, myAttributes={<SEVERITY>: ERROR }}
+InspectionTypeInfo{myId='NM_BAD_EQUAL', myName='Class defines equal(Object); should it be equals(Object)?', myDescription='Probable bug - an apparent coding mistake resulting in code that was probably not what the developer intended. We strive for a low false positive rate.', myCategory='Correctness'}
+InspectionInstance{myInspectionId='NM_BAD_EQUAL', myMessage='This class defines a method equal(Object). This method does not override the equals(Object) method in java.lang.Object, which is probably what was intended.  ', myFilePath='dir\org\jetbrains\testProject\ExampleClass.class', myLine=0, myAttributes={<SEVERITY>: ERROR }}
 WARNING: Missing class junit.framework.TestCase
 MESSAGE: ##BASE_DIR##\dir.xml report processed: 1 error(s)
 MESSAGE: ##teamcity[buildStatus status='SUCCESS' text='Errors: 1, warnings: 0, information: 0']

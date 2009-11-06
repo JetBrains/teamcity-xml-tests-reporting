@@ -441,8 +441,9 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final List<Object> params = new ArrayList<Object>();
-    params.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("error", params));
+    params.add("##teamcity[buildStatus status='FAILURE' text='Report paths setting " +
+      "is not specified on XML Report Processing panel at build runner settings page.']");
+    myLogSequence.add(new MethodInvokation("message", params));
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);

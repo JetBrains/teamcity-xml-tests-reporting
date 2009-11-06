@@ -22,6 +22,7 @@ import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
+import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -74,7 +75,9 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     if (reportPaths.size() == 0) {
       enableXmlReportParsing(myParameters, ""); //can avoid this by adding paths presence in the web IU
     }
-    startProcessing(reportPaths, type);
+    if (checkUiSettings()) {
+      startProcessing(reportPaths, type);
+    }
   }
 
   private void obtainLogger(AgentRunningBuild agentRunningBuild) {
@@ -86,12 +89,40 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     }
   }
 
+  private boolean checkUiSettings() {
+    if (FindBugsReportParser.TYPE.equals(getCurrentReportType()) && (getFindBugsHome() == null)) {
+      failBuild("FindBugs home path setting is not specified on " +
+        "XML Report Processing panel at build runner settings page.");
+      return false;
+    }
+    if (getXmlReportPaths(myParameters) == null) {
+      failBuild("Report paths setting is not specified on " +
+        "XML Report Processing panel at build runner settings page.");
+      return false;
+    }
+    return true;
+  }
+
+  private boolean checkDataProcessorSettings(Map<String, String> params) {
+    if (FindBugsReportParser.TYPE.equals(getReportType(params)) && (getFindBugsHomePath(params) == null)) {
+      failBuild("FindBugs home path setting is not specified in Service Message");
+      return false;
+    }
+    return true;
+  }
+
+  private void failBuild(@NotNull String message) {
+    myLogger.message("##teamcity[buildStatus status='FAILURE' text='" + message + "']");
+  }
+
   public synchronized void processReports(Map<String, String> params, Set<File> reportPaths) {
     final boolean wasParsingEnabled = isParsingEnabled(myParameters);
     final String type = getReportType(params);
     myParameters.putAll(params);
     if (!wasParsingEnabled) {
-      startProcessing(reportPaths, type);
+      if (checkDataProcessorSettings(params)) {
+        startProcessing(reportPaths, type);
+      }
     } else {
       myDirectoryWatcher.addPaths(reportPaths, type);
     }
@@ -175,6 +206,10 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
   public String getTmpDir() {
     return myParameters.get(TMP_DIR);
+  }
+
+  public String getFindBugsHome() {
+    return getFindBugsHomePath(myParameters);
   }
 
   public String getCheckoutDir() {
