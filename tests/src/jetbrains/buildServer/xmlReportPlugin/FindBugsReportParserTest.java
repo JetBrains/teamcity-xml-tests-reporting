@@ -30,33 +30,16 @@ import java.util.Map;
 
 
 public class FindBugsReportParserTest extends TestCase {
-//  @BeforeClass
-//  public static void prepareTestData() {
-//    final TransformerFactory transformerFactory = TransformerFactory.newInstance();
-//    Transformer transformer = null;
-//    try {
-//      transformer = transformerFactory.newTransformer(new StreamSource(FindBugsReportParserTest.class.getResourceAsStream(getAbsoluteTestDataPath("reportPaths.xsl", ""))));
-//
-//      final File testDataDir = new File(getAbsoluteTestDataPath("", "findBugs"));
-//      assert testDataDir.isDirectory();
-//
-//      File[] testData = testDataDir.listFiles(new FilenameFilter() {
-//
-//        public boolean accept(File dir, String name) {
-//          return dir.equals(testDataDir) && name.endsWith("sample.xml");
-//        }
-//      });
-//
-//      for (int i = 0; i < testData.length; ++i) {
-//        final StreamSource source = new StreamSource(testData[i]);
-//        final File newFile = new File(testData[i].getAbsolutePath() + ".trans");
-//        final StreamResult result = new StreamResult(newFile);
-//        transformer.transform(source, result);
-//      }
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
-//  }
+  private static final String FINDBUGS_HOME = System.getProperty("findbugs");
+
+  {
+    if (FINDBUGS_HOME == null) {
+      System.out.println("FB home = " + FINDBUGS_HOME);
+      fail("FindBugs home path is not specified in JVM arguments." +
+        "Use -Dfindbugs.home=\"...\" jvm option or build.properties file to specify FindBugs home path");
+    }
+  }
+
 
   private void runTest(final String sampleName) throws Exception {
     final String fileName = sampleName.replace(".sample", "");
@@ -84,7 +67,7 @@ public class FindBugsReportParserTest extends TestCase {
     final InspectionReporter reporter = TestUtil.createFakeReporter(results);
 
     final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, reportName.substring(0, reportName.lastIndexOf(fileName)));
-    parser.setFindBugsHome("c:\\vbedrosova\\work\\downloads\\findbugs-1.3.9-bin\\findbugs-1.3.9");
+    parser.setFindBugsHome(FINDBUGS_HOME);
 
     final File report = new File(reportName);
     final Map<String, String> params = new HashMap<String, String>();

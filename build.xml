@@ -43,25 +43,6 @@
         <copy todir="${tests.testoutput.dir}" file="${tests.testdata}/log4j.xml"/>
     </target>
 
-    <!--<target name="prepare.test.data">-->
-    <!--<property name="test.data.dir" value="${basedir}/tests/testData/findBugs"/>-->
-
-    <!--<xslt basedir="${test.data.dir}" destdir="${test.data.dir}"-->
-    <!--includes="*.sample.xml" extension=".trans" style="reportPaths.xsl">-->
-    <!--<param name="path" expression="${basedir}"/>-->
-    <!--</xslt>-->
-    <!--<move todir="${test.data.dir}" includeemptydirs="false">-->
-    <!--<fileset dir="${test.data.dir}">-->
-    <!--<include name="*.trans"/>-->
-    <!--</fileset>-->
-    <!--<mapper type="glob" from="*.sample.trans" to="*.xml"/>-->
-    <!--</move>-->
-
-    <!--<delete>-->
-    <!--<fileset dir="${test.data.dir}" includes="*.sample.trans"/>-->
-    <!--</delete>-->
-    <!--</target>-->
-
     <target name="test" depends="test-nofail, check_failures"/>
 
     <target name="test-nofail">
@@ -69,11 +50,10 @@
         <mkdir dir="test-reports"/>
 
         <antcall target="copy.log4j.configuration"/>
-        <!--<antcall target="prepare.test.data"/>-->
 
         <junit printsummary="on" fork="true" haltonfailure="false" haltonerror="false" failureproperty="failure_found"
                showoutput="true">
-            <!--<jvmarg value="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005"/>            -->
+            <jvmarg value="-Dfindbugs=${findbugs}"/>
             <classpath>
                 <pathelement location="${agent.home.dir}/lib/runtime-util.jar"/>
                 <path refid="tests.runtime.module.classpath"/>
