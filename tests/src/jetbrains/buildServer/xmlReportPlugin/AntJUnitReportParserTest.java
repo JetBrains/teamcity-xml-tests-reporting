@@ -1037,16 +1037,15 @@ public class AntJUnitReportParserTest extends TestCase {
     myContext.assertIsSatisfied();
   }
 
-//  @Test
-//  public void testAntUnitDurationOnFly() throws Exception {
-//    myContext.checking(new Expectations() {
-//      {
-//        ignoring(myLogger);
-//      }
-//    });
-//    myParser.parse(reportData("AntUnitDurationOnFly_1.xml"));
-//    myParser.parse(reportData("AntUnitDurationOnFly_2.xml"));
-//    myParser.parse(reportData("AntUnitDurationOnFly_3.xml"));
-//    myContext.assertIsSatisfied();
-//  }
+  //  TW-10002 wrong duration displayed for tests imported using junit xml
+  @Test
+  public void testWrongDuration() throws Exception {
+    myContext.checking(new Expectations() {
+      {
+        ignoring(myLogger);
+      }
+    });
+    myParser.parse(reportData("wrongDuration.xml"));
+    myContext.assertIsSatisfied();
+  }
 }

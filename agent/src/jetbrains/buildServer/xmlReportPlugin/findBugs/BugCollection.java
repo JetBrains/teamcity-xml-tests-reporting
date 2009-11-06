@@ -65,11 +65,15 @@ public class BugCollection {
   }
 
   public void loadPattens(@NotNull File findBugsHome) {
+    XmlReportPlugin.LOG.debug("Loading bug patterns from FindBugs home " + findBugsHome.getAbsolutePath());
     myCategories = new HashMap<String, Category>();
     myBugPatterns = new HashMap<String, Pattern>();
     load(new File(findBugsHome.getAbsolutePath() + File.separator + "lib", "findbugs.jar"));
     final File pluginFolder = new File(findBugsHome, "plugin");
     final File[] plugins = pluginFolder.listFiles();
+    if ((plugins == null) || (plugins.length == 0)) {
+      return;
+    }
     for (final File p : plugins) {
       if (!p.getAbsolutePath().endsWith(".jar")) {
         continue;
@@ -79,6 +83,7 @@ public class BugCollection {
   }
 
   private void load(@NotNull File file) {
+    XmlReportPlugin.LOG.debug("Loading bug patterns from plugin jar " + file.getAbsolutePath());
     JarFile jar = null;
     try {
       jar = new JarFile(file);

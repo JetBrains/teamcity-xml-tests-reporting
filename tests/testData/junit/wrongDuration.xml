@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="ruspd-student3" name="TestCase" tests="0" time="0"
+           timestamp="2008-10-30T17:11:25">
+    <properties/>
+    <testcase name='MyClass.myFunc1' time='0.06205808258056641'/>
+    <testcase name='MyClass.myFunc2' time='0.0422028694152832'/>
+</testsuite>

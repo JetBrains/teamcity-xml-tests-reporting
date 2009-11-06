@@ -55,7 +55,7 @@
                         </property>
                         <property>
                             <name>findbugs</name>
-                            <value>${findbugs}</value>
+                            <value>../tools/findBugs</value>
                         </property>
                     </systemProperties>
                     <includes>
