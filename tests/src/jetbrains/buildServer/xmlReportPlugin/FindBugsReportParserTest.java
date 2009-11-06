@@ -34,7 +34,6 @@ public class FindBugsReportParserTest extends TestCase {
 
   {
     if (FINDBUGS_HOME == null) {
-      System.out.println("FB home = " + FINDBUGS_HOME);
       fail("FindBugs home path is not specified in JVM arguments." +
         "Use -Dfindbugs.home=\"...\" jvm option or build.properties file to specify FindBugs home path");
     }
@@ -51,10 +50,6 @@ public class FindBugsReportParserTest extends TestCase {
     final FileWriter writer = new FileWriter(reportName);
     writer.write(readFile(samleFile, false).replace("##BASE_DIR##", baseDir.replace(File.separator, "\\")));
     writer.close();
-
-//    final TransformerFactory transformerFactory = TransformerFactory.newInstance();
-//    Transformer transformer = transformerFactory.newTransformer(new StreamSource(getClass().getResourceAsStream(getAbsoluteTestDataPath("reportPaths.xsl", ""))));
-//    transformer.transform(new StreamSource(samleName), new StreamResult(reportName));
 
     final String resultsFileName = reportName + ".tmp";
     final String expectedFileName = reportName + ".gold";
