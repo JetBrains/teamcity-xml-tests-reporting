@@ -53,6 +53,10 @@
                             <name>jetbrains.buildServer.xmlReportPlugin.testDataPath</name>
                             <value>testData</value>
                         </property>
+                        <property>
+                            <name>findbugs</name>
+                            <value>${findbugs}</value>
+                        </property>
                     </systemProperties>
                     <includes>
                         <include>**/*Test.java</include>

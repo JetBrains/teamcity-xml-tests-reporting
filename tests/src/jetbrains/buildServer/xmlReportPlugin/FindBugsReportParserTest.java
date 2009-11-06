@@ -35,7 +35,7 @@ public class FindBugsReportParserTest extends TestCase {
   {
     if (FINDBUGS_HOME == null) {
       fail("FindBugs home path is not specified in JVM arguments." +
-        "Use -Dfindbugs.home=\"...\" jvm option or build.properties file to specify FindBugs home path");
+        "Use -Dfindbugs=\"...\" jvm option or build.properties file to specify FindBugs home path");
     }
   }
 
