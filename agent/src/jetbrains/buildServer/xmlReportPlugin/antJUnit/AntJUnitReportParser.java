@@ -26,8 +26,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import java.io.File;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,6 +34,11 @@ import java.util.Stack;
 
 public class AntJUnitReportParser extends XmlReportParser {
   public static final String TYPE = "junit";
+
+  public static final String COMMA = ",";
+  public static final String DOT = ".";
+  public static final String MARK = "'";
+  public static final String NBSP = "\u00A0";
 
   private static final String TEST_SUITE = "testsuite";
   private static final String TEST_CASE = "testcase";
@@ -76,11 +79,25 @@ public class AntJUnitReportParser extends XmlReportParser {
       return 0L;
     }
     try {
-      return (long) (NumberFormat.getInstance().parse(timeStr).doubleValue() * 1000.0);
-    } catch (ParseException e) {
-      XmlReportPlugin.LOG.debug("Unable to parse execution time string " + timeStr);
+      return (long) (Double.parseDouble(getUniformTimeStr(timeStr)) * 1000.0);
+    } catch (NumberFormatException e) {
+      XmlReportPlugin.LOG.warn("Unable to parse execution time string " + timeStr, e);
       return 0L;
     }
+  }
+
+  private static String getUniformTimeStr(@NotNull String str) {
+    final int commaIndex = str.lastIndexOf(COMMA);
+    final int dotIndex = str.lastIndexOf(DOT);
+    String result;
+    if (commaIndex > dotIndex) {
+      result = str.replace(DOT, "").replace(COMMA, DOT);
+    } else if (commaIndex < dotIndex) {
+      result = str.replace(COMMA, "");
+    } else {
+      result = str;
+    }
+    return result.replace(MARK, "").replace(NBSP, "");
   }
 
   private static String getTimestamp(String timestampStr) {

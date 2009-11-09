@@ -1036,16 +1036,4 @@ public class AntJUnitReportParserTest extends TestCase {
     myParser.parse(reportData("TEST-ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest.xml"));
     myContext.assertIsSatisfied();
   }
-
-  //  TW-10002 wrong duration displayed for tests imported using junit xml
-  @Test
-  public void testWrongDuration() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        ignoring(myLogger);
-      }
-    });
-    myParser.parse(reportData("wrongDuration.xml"));
-    myContext.assertIsSatisfied();
-  }
 }
