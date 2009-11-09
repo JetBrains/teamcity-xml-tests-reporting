@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
-<beans>
+<beans default-autowire="constructor">
     <bean id="testReportParserPluginSettings"
           class="jetbrains.buildServer.xmlReportPlugin.XmlReportPluginSettings" init-method="registerExtensions">
         <property name="supportedRunTypes">

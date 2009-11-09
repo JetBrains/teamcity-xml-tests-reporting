@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
-<beans default-lazy-init="false" default-dependency-check="none">
+<beans default-autowire="constructor" default-lazy-init="false" default-dependency-check="none">
     <bean id="TestReportParserPlugin" class="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin"
-          lazy-init="default" dependency-check="default"/>
+          lazy-init="default" autowire="default" dependency-check="default"/>
     <!--<bean id="FindBugsDataProcessor" class="jetbrains.buildServer.xmlReportPluginocessor.FindBugsDataProcessor"/>-->
     <bean id="JUnitDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$JUnitDataProcessor">
-        <constructor-arg type="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin" ref="TestReportParserPlugin"/>
-    </bean>
+          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$JUnitDataProcessor"/>
     <bean id="NUnitDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$NUnitDataProcessor">
-        <constructor-arg type="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin" ref="TestReportParserPlugin"/>
-    </bean>
+          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$NUnitDataProcessor"/>
     <bean id="SurefireDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$SurefireDataProcessor">
-        <constructor-arg type="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin" ref="TestReportParserPlugin"/>
-    </bean>
+          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$SurefireDataProcessor"/>
     <bean id="FindBugsDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$FindBugsDataProcessor">
-        <constructor-arg type="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin" ref="TestReportParserPlugin"/>
-    </bean>
+          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$FindBugsDataProcessor"/>
     <bean id="PmdDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$PmdDataProcessor">
-        <constructor-arg type="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin" ref="TestReportParserPlugin"/>
-    </bean>
+          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$PmdDataProcessor"/>
 </beans>
