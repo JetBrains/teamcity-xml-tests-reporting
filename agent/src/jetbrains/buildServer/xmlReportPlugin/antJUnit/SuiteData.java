@@ -17,7 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
 
-public final class SuiteData {
+final class SuiteData {
   private final String myName;
   private final long myStartTime;
   private final long myDuration;

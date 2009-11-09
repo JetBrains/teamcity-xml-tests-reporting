@@ -27,7 +27,7 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 
 
-public class NUnitToJUnitReportTransformer {
+class NUnitToJUnitReportTransformer {
   private static final String NUNIT_TO_JUNIT_XSL = "nunit-to-junit.xsl";
 
   private final Templates myTemplates;

@@ -50,7 +50,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
 
   private final XmlReportPlugin myPlugin;
 
-  public XmlReportDataProcessor(@NotNull XmlReportPlugin plugin) {
+  XmlReportDataProcessor(@NotNull XmlReportPlugin plugin) {
     myPlugin = plugin;
   }
 

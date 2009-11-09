@@ -16,12 +16,13 @@
 
 package jetbrains.buildServer.xmlReportPlugin.integration;
 
-import java.util.Collections;
-import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
+import java.util.List;
 
-public class MethodInvokation {
+
+class MethodInvokation {
   public static final Object ANY_VALUE = new Object();
 
   private final String myMethodName;

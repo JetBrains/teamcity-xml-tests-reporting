@@ -17,7 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
 
-public final class TestData {
+final class TestData {
   private final String myClassName;
   private final String myTestName;
 

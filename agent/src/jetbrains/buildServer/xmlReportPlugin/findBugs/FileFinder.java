@@ -26,7 +26,7 @@ import java.util.zip.ZipFile;
 
 
 public class FileFinder {
-  private List<Entry> myJars;
+  private final List<Entry> myJars;
 
   public FileFinder() {
     myJars = new LinkedList<Entry>();

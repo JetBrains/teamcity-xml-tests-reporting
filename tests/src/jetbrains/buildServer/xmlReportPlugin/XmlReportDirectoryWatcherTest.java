@@ -99,8 +99,7 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
   }
 
   private File getFile(String name) {
-    File file = new File(myWorkDir, name);
-    return file;
+    return new File(myWorkDir, name);
   }
 
   private File createFile(String name) {
@@ -215,8 +214,8 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     f.delete();
   }
 
-  @Test
-  public void testOneDirWithFiles() throws Exception {
+//  @Test
+//  public void testOneDirWithFiles() throws Exception {
 //    final Set<File> files = new HashSet<File>();
 //    final File f = createDir("dir");
 //    files.add(f);
@@ -228,5 +227,5 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
 //    f2.delete();
 //    f3.delete();
 //    f.delete();
-  }
+//  }
 }

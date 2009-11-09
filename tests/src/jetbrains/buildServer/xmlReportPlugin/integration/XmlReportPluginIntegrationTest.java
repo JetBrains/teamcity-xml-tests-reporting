@@ -59,7 +59,6 @@ public class XmlReportPluginIntegrationTest {
   private List<UnexpectedInvokationException> myFailures;
 
   private Mockery myContext;
-  private InspectionReporter myInspectionReporter;
 
   private InspectionReporter createInspectionReporter() {
     final InspectionReporter reporter = myContext.mock(InspectionReporter.class);
@@ -93,7 +92,7 @@ public class XmlReportPluginIntegrationTest {
   public void setUp() {
     myContext = new JUnit4Mockery();
 
-    myInspectionReporter = createInspectionReporter();
+    InspectionReporter inspectionReporter = createInspectionReporter();
 
     myLogSequence = new ArrayList<MethodInvokation>();
     myFailures = new ArrayList<UnexpectedInvokationException>();
@@ -108,7 +107,7 @@ public class XmlReportPluginIntegrationTest {
     myRunnerParams.put(XmlReportPlugin.CHECKOUT_DIR, myCheckoutDir.getAbsolutePath());
     myRunningBuild = createAgentRunningBuild(myRunnerParams, myCheckoutDir, myTestLogger);
     myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
-    myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
+    myPlugin = new XmlReportPlugin(myEventDispatcher, inspectionReporter);
     ReportFactory.setCheckoutDir(myCheckoutDir.getAbsolutePath());
   }
 
@@ -228,7 +227,6 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final String path = getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath();
-    final String report = path + File.separator + "somefile";
 
     List<Object> params1 = new ArrayList<Object>();
     params1.add("Watching paths: ");

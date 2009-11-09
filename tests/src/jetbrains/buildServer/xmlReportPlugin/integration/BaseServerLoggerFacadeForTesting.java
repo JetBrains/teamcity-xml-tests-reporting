@@ -24,9 +24,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
+class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
   private List<MethodInvokation> myMethodSequence = null;
-  private List<String> myNotControlledMethods = new LinkedList<String>();
+  private final List<String> myNotControlledMethods = new LinkedList<String>();
 
 
   private Iterator<MethodInvokation> myCurrent = null;
@@ -68,10 +68,7 @@ public class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
     if (myFailures.size() > 0) {
       return false;
     }
-    if (myNotControlledMethods.contains(name)) {
-      return false;
-    }
-    return true;
+    return !myNotControlledMethods.contains(name);
   }
 
   private String getFailureIfOccurs(List<Object> params, @NotNull String name) {

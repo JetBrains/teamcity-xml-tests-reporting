@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class ReportTypeForm extends RememberState {
   @StateField
-  private List<ReportTypeInfo> myAvailableReportTypes;
+  private final List<ReportTypeInfo> myAvailableReportTypes;
 
   public ReportTypeForm() {
     myAvailableReportTypes = new ArrayList<ReportTypeInfo>(XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.size());
@@ -43,9 +43,9 @@ public class ReportTypeForm extends RememberState {
 
   public static class ReportTypeInfo {
     @StateField
-    private String myType;
+    private final String myType;
     @StateField
-    private String myDisplayName;
+    private final String myDisplayName;
 
     public ReportTypeInfo(final String type,
                           final String typeDisplayName) {

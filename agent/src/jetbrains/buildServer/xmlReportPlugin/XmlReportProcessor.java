@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-public class XmlReportProcessor extends Thread {
+class XmlReportProcessor extends Thread {
   private static final long FILE_WAIT_TIMEOUT = 500;
   private static final long SCAN_INTERVAL = 500;
 

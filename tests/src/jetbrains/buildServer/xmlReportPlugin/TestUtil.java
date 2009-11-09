@@ -29,7 +29,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public final class TestUtil {
+final class TestUtil {
   static public String readFile(@NotNull final File file, boolean unifyFileSeparators) throws IOException {
     final FileInputStream inputStream = new FileInputStream(file);
     try {

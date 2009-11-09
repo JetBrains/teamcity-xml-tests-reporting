@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
-<beans default-autowire="constructor">
-  <bean id="testReportParserPluginSettings"
-        class="jetbrains.buildServer.xmlReportPlugin.XmlReportPluginSettings" init-method="registerExtensions">
-    <property name="supportedRunTypes">
-      <list>
-        <value>simpleRunner</value>
-        <value>Ant</value>
-        <value>Ipr</value>
-        <value>Maven2</value>
-        <value>MSBuild</value>
-        <value>NAnt</value>
-        <value>rake-runner</value>
-        <value>sln2003</value>
-        <value>sln2005</value>
-        <value>sln2008</value>
-      </list>
-    </property>
-  </bean>
-  <!--<bean id="reportTypeForm" class="jetbrains.buildServer.xmlReportPlugin.ReportTypeForm"/>-->
+<beans>
+    <bean id="testReportParserPluginSettings"
+          class="jetbrains.buildServer.xmlReportPlugin.XmlReportPluginSettings" init-method="registerExtensions">
+        <property name="supportedRunTypes">
+            <list>
+                <value>simpleRunner</value>
+                <value>Ant</value>
+                <value>Ipr</value>
+                <value>Maven2</value>
+                <value>MSBuild</value>
+                <value>NAnt</value>
+                <value>rake-runner</value>
+                <value>sln2003</value>
+                <value>sln2005</value>
+                <value>sln2008</value>
+            </list>
+        </property>
+    </bean>
+    <!--<bean id="reportTypeForm" class="jetbrains.buildServer.xmlReportPlugin.ReportTypeForm"/>-->
 </beans>

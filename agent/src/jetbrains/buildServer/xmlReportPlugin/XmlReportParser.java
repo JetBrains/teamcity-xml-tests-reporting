@@ -34,7 +34,7 @@ public abstract class XmlReportParser extends DefaultHandler {
   private XMLReader myXmlReader;
   protected final BaseServerLoggerFacade myLogger;
 
-  protected StringBuffer myCData;
+  protected final StringBuffer myCData;
 
   public static String formatText(@NotNull StringBuffer s) {
     return s.toString().replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").replaceAll("<[a-z]>|</[a-z]>", "").trim();
@@ -44,7 +44,7 @@ public abstract class XmlReportParser extends DefaultHandler {
 //    return s.toString().replace("\r", "").replaceAll("\\s+", " ").trim();
 //  }
 
-  public static int getNumber(String number) {
+  protected static int getNumber(String number) {
     if (number != null) {
       try {
         return Integer.parseInt(number);
@@ -63,7 +63,7 @@ public abstract class XmlReportParser extends DefaultHandler {
     return xmlReader;
   }
 
-  public XmlReportParser(@NotNull final BaseServerLoggerFacade logger) {
+  protected XmlReportParser(@NotNull final BaseServerLoggerFacade logger) {
     myLogger = logger;
     myCData = new StringBuffer();
     try {
@@ -73,7 +73,7 @@ public abstract class XmlReportParser extends DefaultHandler {
     }
   }
 
-  public boolean isReportComplete(@NotNull File report, @NotNull String trailingTag) {
+  protected boolean isReportComplete(@NotNull File report, @NotNull String trailingTag) {
     List<String> reportContent = Collections.emptyList();
     try {
       reportContent = FileUtil.readFile(report);
@@ -81,10 +81,7 @@ public abstract class XmlReportParser extends DefaultHandler {
       myLogger.exception(e);
     }
     final int size = reportContent.size();
-    if (size <= 0) {
-      return false;
-    }
-    return reportContent.get(size - 1).trim().endsWith(trailingTag);
+    return (size > 0) && reportContent.get(size - 1).trim().endsWith(trailingTag);
   }
 
   public BaseServerLoggerFacade getLogger() {

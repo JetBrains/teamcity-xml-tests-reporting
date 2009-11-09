@@ -20,7 +20,7 @@ import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.messages.BuildMessage1;
 import org.jetbrains.annotations.NotNull;
 
-public class BuildLoggerForTesting extends BaseServerLoggerFacade {
+class BuildLoggerForTesting extends BaseServerLoggerFacade {
   private final StringBuilder myText;
 
   public BuildLoggerForTesting(final StringBuilder text) {

@@ -59,7 +59,7 @@ public class AntJUnitReportParser extends XmlReportParser {
   private static final String DEFAULT_NAMESPACE = "";
 
   private SuiteData myCurrentSuite;
-  private Stack<TestData> myTests;
+  private final Stack<TestData> myTests;
   private String mySystemOut;
   private String mySystemErr;
 
@@ -68,7 +68,7 @@ public class AntJUnitReportParser extends XmlReportParser {
   private int myLoggedTests;
   private int myTestsToSkip;
 
-  private Set<String> myPreviouslyLoggedSuits;
+  private final Set<String> myPreviouslyLoggedSuits;
 
 
   private static long getExecutionTime(String timeStr) {

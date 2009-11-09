@@ -31,7 +31,7 @@ public class NUnitReportParser extends AntJUnitReportParser {
   private static final String TMP_REPORT_DIRECTORY = File.separator + "junit_reports";
 
   private NUnitToJUnitReportTransformer myReportTransformer;
-  private File myTmpReportDir;
+  private final File myTmpReportDir;
 
   public NUnitReportParser(BaseServerLoggerFacade logger, String tmpDir) {
     super(logger);

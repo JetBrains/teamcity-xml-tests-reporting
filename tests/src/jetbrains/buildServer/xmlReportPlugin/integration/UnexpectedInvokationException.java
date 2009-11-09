@@ -17,7 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.integration;
 
 
-public class UnexpectedInvokationException extends RuntimeException {
+class UnexpectedInvokationException extends RuntimeException {
   public UnexpectedInvokationException(String message) {
     super(message);
   }

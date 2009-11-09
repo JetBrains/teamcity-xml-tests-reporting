@@ -28,7 +28,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Pattern;
 
 
-public class XmlReportDirectoryWatcher extends Thread {
+class XmlReportDirectoryWatcher extends Thread {
   private static final int SCAN_INTERVAL = 100;
 
   private final XmlReportPlugin myPlugin;

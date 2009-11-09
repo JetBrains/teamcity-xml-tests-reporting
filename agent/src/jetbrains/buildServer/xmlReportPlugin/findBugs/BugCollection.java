@@ -38,17 +38,17 @@ import java.util.jar.JarFile;
  * Date: 02.11.2009
  * Time: 14:04:31
  */
-public class BugCollection {
+class BugCollection {
   private static final String FINDBUGS_XML = "findbugs.xml";
   private static final String MESSAGES_XML = "messages.xml";
 
-  public Map<String, Category> myCategories;
-  public Map<String, Pattern> myBugPatterns;
+  private Map<String, Category> myCategories;
+  private Map<String, Pattern> myBugPatterns;
 
   @NotNull
   private static DetailsParser DETAILS_PARSER;
 
-  {
+  static {
     try {
       DETAILS_PARSER = new DetailsParser(DTD.getDTD(""));
     } catch (IOException e) {
@@ -134,7 +134,7 @@ public class BugCollection {
 
     private Category myCurrentCategory;
     private Pattern myCurrentPattern;
-    private StringBuffer myCData = new StringBuffer();
+    private final StringBuffer myCData = new StringBuffer();
 
     public void startElement(String uri, String localName,
                              String qName, Attributes attributes)
@@ -263,7 +263,7 @@ public class BugCollection {
   }
 
   private static final class DetailsParser extends Parser {
-    private StringBuffer myStringBuffer = new StringBuffer();
+    private final StringBuffer myStringBuffer = new StringBuffer();
 
     public DetailsParser(DTD dtd) {
       super(dtd);

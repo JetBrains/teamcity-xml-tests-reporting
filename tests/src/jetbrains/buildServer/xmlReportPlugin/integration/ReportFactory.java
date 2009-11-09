@@ -22,7 +22,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public final class ReportFactory {
+final class ReportFactory {
   private static String CHECKOUT_DIR;
 
   public static void setCheckoutDir(@NotNull String checkoutDir) {
@@ -53,10 +53,6 @@ public final class ReportFactory {
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  public static File getFileByName(String name) {
-    return new File(CHECKOUT_DIR + File.separator + name);
   }
 
   public static void createUnfinishedReport(String name, String type) {

@@ -28,7 +28,7 @@ import java.util.*;
 public abstract class InspectionsReportParser extends XmlReportParser {
   protected final InspectionReporter myInspectionReporter;
   protected final String myCheckoutDirectory;
-  private Set<String> myReportedInstanceTypes;
+  private final Set<String> myReportedInstanceTypes;
 
   private int myErrors;
   private int myWarnings;
@@ -40,16 +40,16 @@ public abstract class InspectionsReportParser extends XmlReportParser {
 
   protected InspectionInstance myCurrentBug;
 
-  public InspectionsReportParser(@NotNull final BaseServerLoggerFacade logger,
-                                 @NotNull InspectionReporter inspectionReporter,
-                                 @NotNull String checkoutDirectory) {
+  protected InspectionsReportParser(@NotNull final BaseServerLoggerFacade logger,
+                                    @NotNull InspectionReporter inspectionReporter,
+                                    @NotNull String checkoutDirectory) {
     super(logger);
     myInspectionReporter = inspectionReporter;
     myCheckoutDirectory = checkoutDirectory.replace("\\", File.separator).replace("/", File.separator);
     myReportedInstanceTypes = new HashSet<String>();
   }
 
-  public static String generateBuildStatus(int errors, int warnings, int infos) {
+  private static String generateBuildStatus(int errors, int warnings, int infos) {
     return "Errors: " + errors + ", warnings: " + warnings + ", information: " + infos;
   }
 

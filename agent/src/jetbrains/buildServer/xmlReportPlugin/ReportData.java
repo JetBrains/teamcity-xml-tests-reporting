@@ -24,7 +24,7 @@ import java.io.File;
 public final class ReportData {
   private final File myFile;
   private int myProcessedEvents;
-  private String myType;
+  private final String myType;
 
   public ReportData(@NotNull final File file, String type) {
     myFile = file;
