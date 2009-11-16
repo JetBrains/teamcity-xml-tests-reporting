@@ -61,8 +61,7 @@ public class FindBugsReportParserTest extends TestCase {
     final BaseServerLoggerFacade logger = new BuildLoggerForTesting(results);
     final InspectionReporter reporter = TestUtil.createFakeReporter(results);
 
-    final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, reportName.substring(0, reportName.lastIndexOf(fileName)));
-    parser.setFindBugsHome(getTestDataPath(FINDBUGS_HOME, null));
+    final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, reportName.substring(0, reportName.lastIndexOf(fileName)), getTestDataPath(FINDBUGS_HOME, null));
 
     final File report = new File(reportName);
     final Map<String, String> params = new HashMap<String, String>();
