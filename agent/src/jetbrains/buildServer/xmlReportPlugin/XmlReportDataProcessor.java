@@ -72,17 +72,11 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
     params.put(XmlReportPluginUtil.PARSE_OUT_OF_DATE, parseOutOfDate);
 
     if (FindBugsReportParser.TYPE.equals(getType())) {
-      if (arguments.containsKey(FINDBUGS_HOME_ARGUMENT)) {
-        params.put(XmlReportPluginUtil.FINDBUGS_HOME, arguments.get(FINDBUGS_HOME_ARGUMENT));
-      }
+      params.put(XmlReportPluginUtil.FINDBUGS_HOME, arguments.get(FINDBUGS_HOME_ARGUMENT));
     }
 
-    if (arguments.containsKey(ERRORS_LIMIT_ARGUMENT)) {
-      params.put(XmlReportPluginUtil.MAX_ERRORS, arguments.get(ERRORS_LIMIT_ARGUMENT));
-    }
-    if (arguments.containsKey(WARNINGS_LIMIT_ARGUMENT)) {
-      params.put(XmlReportPluginUtil.MAX_WARNINGS, arguments.get(WARNINGS_LIMIT_ARGUMENT));
-    }
+    params.put(XmlReportPluginUtil.MAX_ERRORS, arguments.get(ERRORS_LIMIT_ARGUMENT));
+    params.put(XmlReportPluginUtil.MAX_WARNINGS, arguments.get(WARNINGS_LIMIT_ARGUMENT));
 
     final Set<File> reportDirs = new HashSet<File>();
     reportDirs.add(file);

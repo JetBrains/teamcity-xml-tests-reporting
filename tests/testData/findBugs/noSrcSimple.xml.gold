@@ -3,4 +3,4 @@ InspectionInstance{myInspectionId='NM_BAD_EQUAL', myMessage='This class defines 
 InspectionTypeInfo{myId='UUF_UNUSED_FIELD', myName='Unused field', myDescription='Code that is not necessarily incorrect but may be inefficient', myCategory='Performance'}
 InspectionInstance{myInspectionId='UUF_UNUSED_FIELD', myMessage='This field is never used. Consider removing it from the class.  ', myFilePath='simple\org\jetbrains\testProject\BuggyClass.class', myLine=0, myAttributes={<SEVERITY>: WARNING }}
 MESSAGE: ##BASE_DIR##\noSrcSimple.xml report processed: 1 error(s): 1 warning(s)
-MESSAGE: ##teamcity[buildStatus status='SUCCESS' text='Errors: 1, warnings: 1, information: 0']
+MESSAGE: ##teamcity[buildStatus text='Errors: 1, warnings: 1, information: 0']

@@ -92,9 +92,7 @@ public abstract class InspectionsReportParser extends XmlReportParser {
     }
 
     final String buildStatus = generateBuildStatus(myTotalErrors, myTotalWarnings, myTotalInfos);
-    myLogger.message("##teamcity[buildStatus status='" +
-      (limitReached ? "FAILURE" : "SUCCESS") +
-      "' text='" + buildStatus + "']");
+    myLogger.message("##teamcity[buildStatus " + (limitReached ? "status='FAILURE' " : "") + "text='" + buildStatus + "']");
   }
 
   protected void processPriority(int priority) {

@@ -29,6 +29,7 @@ import org.xml.sax.SAXParseException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class FindBugsReportParser extends InspectionsReportParser {
@@ -52,17 +53,12 @@ public class FindBugsReportParser extends InspectionsReportParser {
 
   public FindBugsReportParser(@NotNull final BaseServerLoggerFacade logger,
                               @NotNull InspectionReporter inspectionReporter,
-                              @NotNull String checkoutDirectory) {
+                              @NotNull String checkoutDirectory,
+                              String findBugsHome) {
     super(logger, inspectionReporter, checkoutDirectory);
     myPatternsLoaded = false;
     myBugCollection = new BugCollection();
-  }
-
-  public void setFindBugsHome(@NotNull String findBugsHome) {
-    if (!findBugsHome.equals(myFindBugsHome)) {
-      myFindBugsHome = findBugsHome;
-      myPatternsLoaded = false;
-    }
+    myFindBugsHome = findBugsHome;
   }
 
   private static boolean hasNoMessage(InspectionInstance i) {
@@ -85,7 +81,12 @@ public class FindBugsReportParser extends InspectionsReportParser {
     try {
       if (!myPatternsLoaded) {
         myPatternsLoaded = true;
-        myBugCollection.loadPattens(new File(myFindBugsHome));
+        if (myFindBugsHome != null) {
+          myBugCollection.loadPatternsFromFindBugs(new File(myFindBugsHome));
+        } else {
+          myLogger.warning("FindBugs home path setting is not specified. Please specify FindBugs home path setting. This path is used for loading bug patterns names and descriptions.");
+          myBugCollection.loadBundledPatterns();
+        }
       }
       parse(report);
       for (InspectionInstance bug : myWaitingForTypeBugs) {
@@ -108,6 +109,12 @@ public class FindBugsReportParser extends InspectionsReportParser {
       myInspectionReporter.flush();
     }
     data.setProcessedEvents(-1);
+  }
+
+  public void logParsingTotals(@NotNull Map<String, String> parameters, boolean verbose) {
+    if (myPatternsLoaded) {
+      super.logParsingTotals(parameters, verbose);
+    }
   }
 
 //  Handler methods

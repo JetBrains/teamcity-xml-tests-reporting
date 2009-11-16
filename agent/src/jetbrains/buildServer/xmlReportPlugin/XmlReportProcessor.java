@@ -73,8 +73,9 @@ class XmlReportProcessor extends Thread {
     if (data.getProcessedEvents() != -1) {
       if (myPlugin.isStopped()) {
         if (myPlugin.isVerbose()) {
-          myPlugin.getLogger().message("##teamcity[buildStatus status='FAILURE' text='" + data.getFile().getAbsolutePath() + ": failed to parse with " +
-            XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(data.getType()) + " parser']");
+          final String typeName = XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(data.getType());
+          myPlugin.getLogger().error("Failed to parse " + data.getFile().getAbsolutePath() + " with " + typeName + " parser.");
+          myPlugin.getLogger().message("##teamcity[buildStatus status='FAILURE' text='Failed to process " + typeName + " reports']");
         }
         XmlReportPlugin.LOG.info("Unable to parse " + data.getFile().getAbsolutePath());
       } else {
@@ -98,13 +99,6 @@ class XmlReportProcessor extends Thread {
         if (!myParsers.containsKey(reportType)) {
           initializeParser(reportType);
         }
-        if (FindBugsReportParser.TYPE.equals(reportType)) {
-          if (myPlugin.getFindBugsHome() != null) {
-            ((FindBugsReportParser) myParsers.get(reportType)).setFindBugsHome(myPlugin.getFindBugsHome());
-          } else {
-            return null;
-          }
-        }
         return data;
       }
     } catch (InterruptedException e) {
@@ -119,7 +113,7 @@ class XmlReportProcessor extends Thread {
     } else if (NUnitReportParser.TYPE.equals(type)) {
       myParsers.put(type, new NUnitReportParser(myPlugin.getLogger(), myPlugin.getTmpDir()));
     } else if (FindBugsReportParser.TYPE.equals(type)) {
-      myParsers.put(type, new FindBugsReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getCheckoutDir()));
+      myParsers.put(type, new FindBugsReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getCheckoutDir(), myPlugin.getFindBugsHome()));
     } else if (PmdReportParser.TYPE.equals(type)) {
       myParsers.put(type, new PmdReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getCheckoutDir()));
     } else {

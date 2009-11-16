@@ -133,15 +133,15 @@ public class XmlReportPluginTest {
     final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myCheckoutDir);
     myContext.checking(new Expectations() {
       {
-        oneOf(myLogger).message(with("##teamcity[buildStatus status='FAILURE' text='Report paths setting " +
-          "is not specified on XML Report Processing panel at build runner settings page.']"));
+//        oneOf(myLogger).message(with("##teamcity[buildStatus status='FAILURE' text='Report paths setting " +
+//          "is not specified on XML Report Processing panel at build runner settings page.']"));
+//        inSequence(mySequence);
+        oneOf(myLogger).targetStarted(with(any(String.class)));
         inSequence(mySequence);
-//        oneOf(myLogger).targetStarted(with(any(String.class)));
-//        inSequence(mySequence);
-//        oneOf(myLogger).error(with("Watching paths: <no paths>"));
-//        inSequence(mySequence);
-//        oneOf(myLogger).targetFinished(with(any(String.class)));
-//        inSequence(mySequence);
+        oneOf(myLogger).error(with("Watching paths: <no paths>"));
+        inSequence(mySequence);
+        oneOf(myLogger).targetFinished(with(any(String.class)));
+        inSequence(mySequence);
       }
     });
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);

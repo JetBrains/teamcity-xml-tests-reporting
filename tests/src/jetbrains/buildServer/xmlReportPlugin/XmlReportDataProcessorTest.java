@@ -44,8 +44,8 @@ public class XmlReportDataProcessorTest extends TestCase {
   }
 
   private void runTest(Map<String, String> arguments, String fileName) throws Exception {
-    final File resultsFile = File.createTempFile(fileName, ".tmp");
     final File expectedFile = TestUtil.getTestDataFile(fileName + ".gold", "dataProcessor");
+    final File resultsFile = new File(expectedFile.getAbsolutePath().replace(".gold", ".tmp"));
 
     final StringBuilder results = new StringBuilder();
     final XmlReportPlugin plugin = createFakePlugin(results, TestUtil.getTestDataFile(null, null).getAbsoluteFile().getParentFile().getParentFile());

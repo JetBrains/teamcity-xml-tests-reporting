@@ -1,4 +1,4 @@
 InspectionTypeInfo{myId='OverrideBothEqualsAndHashcode', myName='OverrideBothEqualsAndHashcode', myDescription='Basic Rules', myCategory='Basic Rules'}
-InspectionInstance{myInspectionId='OverrideBothEqualsAndHashcode', myMessage='Ensure you override both equals() and hashCode()', myFilePath='org/jetbrains/testProject/BuggyClass.java', myLine=12, myAttributes={<SEVERITY>: INFO }}
+InspectionInstance{myInspectionId='OverrideBothEqualsAndHashcode', myMessage='Ensure you override both equals() and hashCode()', myFilePath='org\jetbrains\testProject\BuggyClass.java', myLine=12, myAttributes={<SEVERITY>: INFO }}
 MESSAGE: ##BASE_DIR##\simple.xml report processed: 1 info message(s)
-MESSAGE: ##teamcity[buildStatus status='SUCCESS' text='Errors: 0, warnings: 0, information: 1']
+MESSAGE: ##teamcity[buildStatus text='Errors: 0, warnings: 0, information: 1']

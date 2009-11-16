@@ -76,7 +76,7 @@
         style="${displayFindBugsSettings ? '' : 'display: none;'}">
         <th><label for="xmlReportParsing.findBugs.home">FindBugs home path:</label></th>
         <td><props:textProperty name="xmlReportParsing.findBugs.home" className="longField"/>
-            <span class="smallNote">Path to FindBugs installation on agent.</span>
+            <span class="smallNote">Path to FindBugs installation on agent. This path is used for loading bug patterns names and descriptions.</span>
         </td>
     </tr>
 

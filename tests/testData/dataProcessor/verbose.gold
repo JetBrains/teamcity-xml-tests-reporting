@@ -1,3 +1,5 @@
+<xmlReportParsing.max.warnings, null>
+<xmlReportParsing.max.errors, null>
 <xmlReportParsing.reportType, junit>
 <xmlReportParsing.parse.outofdate, false>
 <xmlReportParsing.verboseOutput, true>

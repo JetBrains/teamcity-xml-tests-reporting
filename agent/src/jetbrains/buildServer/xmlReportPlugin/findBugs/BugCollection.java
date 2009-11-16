@@ -64,7 +64,19 @@ class BugCollection {
     return myBugPatterns;
   }
 
-  public void loadPattens(@NotNull File findBugsHome) {
+  public void loadBundledPatterns() {
+    XmlReportPlugin.LOG.debug("Loading bundled bug patterns");
+    myCategories = new HashMap<String, Category>();
+    myBugPatterns = new HashMap<String, Pattern>();
+    try {
+      parse(new FindBugsHandler(), new InputSource(this.getClass().getResourceAsStream("findbugs.xml")));
+      parse(new MessagesHandler(), new InputSource(this.getClass().getResourceAsStream("messages.xml")));
+    } catch (Exception e) {
+      XmlReportPlugin.LOG.error("Couldn't load bug patterns from bundled findbugs.xml and messages.xml", e);
+    }
+  }
+
+  public void loadPatternsFromFindBugs(@NotNull File findBugsHome) {
     XmlReportPlugin.LOG.debug("Loading bug patterns from FindBugs home " + findBugsHome.getAbsolutePath());
     myCategories = new HashMap<String, Category>();
     myBugPatterns = new HashMap<String, Pattern>();

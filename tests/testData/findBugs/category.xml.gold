@@ -3,4 +3,4 @@ InspectionInstance{myInspectionId='NM_BAD_EQUAL', myMessage='This class defines 
 InspectionInstance{myInspectionId='NEW_PATTERN', myMessage='New bug pattern details', myFilePath='pattern\org\jetbrains\testProject\BuggyClass.java', myLine=0, myAttributes={<SEVERITY>: WARNING }}
 InspectionTypeInfo{myId='NEW_PATTERN', myName='New bug pattern short description', myDescription='New bug category details', myCategory='New bug category description'}
 MESSAGE: ##BASE_DIR##\category.xml report processed: 1 error(s): 1 warning(s)
-MESSAGE: ##teamcity[buildStatus status='SUCCESS' text='Errors: 1, warnings: 1, information: 0']
+MESSAGE: ##teamcity[buildStatus text='Errors: 1, warnings: 1, information: 0']

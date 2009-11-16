@@ -255,6 +255,8 @@ public class XmlReportPluginIntegrationTest {
     final String path = getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath();
     final String report = path + File.separator + "somefile";
 
+    final String typeName = XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(ANT_JUNIT_REPORT_TYPE);
+
     List<Object> params1 = new ArrayList<Object>();
     params1.add("Watching paths: ");
     myLogSequence.add(new MethodInvokation("message", params1));
@@ -264,21 +266,24 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("message", params2));
 
     final List<Object> params3 = new ArrayList<Object>();
-    params3.add("##teamcity[buildStatus status='FAILURE' text='" + report + ": failed to parse with " +
-      XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(reportType) + " parser']");
-    myLogSequence.add(new MethodInvokation("message", params3));
+    params3.add("Failed to parse " + report + " with " + typeName + " parser.");
+    myLogSequence.add(new MethodInvokation("error", params3));
 
     final List<Object> params4 = new ArrayList<Object>();
-    params4.add("1 file(s) found");
+    params4.add("##teamcity[buildStatus status='FAILURE' text='Failed to process " + typeName + " reports']");
     myLogSequence.add(new MethodInvokation("message", params4));
 
     final List<Object> params5 = new ArrayList<Object>();
-    params5.add(path + ": 1 file(s) found");
+    params5.add("1 file(s) found");
     myLogSequence.add(new MethodInvokation("message", params5));
 
-    List<Object> params6 = new ArrayList<Object>();
-    params6.add(report + " found");
+    final List<Object> params6 = new ArrayList<Object>();
+    params6.add(path + ": 1 file(s) found");
     myLogSequence.add(new MethodInvokation("message", params6));
+
+    List<Object> params7 = new ArrayList<Object>();
+    params7.add(report + " found");
+    myLogSequence.add(new MethodInvokation("message", params7));
 
     myTestLogger.setExpectedSequence(myLogSequence);
   }
@@ -398,21 +403,27 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
     myLogSequence.add(new MethodInvokation("logSuiteFinished", twoAnyParams));
 
+    final String typeName = XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(ANT_JUNIT_REPORT_TYPE);
+
     final List<Object> params3 = new ArrayList<Object>();
-    params3.add("##teamcity[buildStatus status='FAILURE' text='" + report + ": failed to parse with " + XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(ANT_JUNIT_REPORT_TYPE) + " parser']");
-    myLogSequence.add(new MethodInvokation("message", params3));
+    params3.add("Failed to parse " + report + " with " + typeName + " parser.");
+    myLogSequence.add(new MethodInvokation("error", params3));
 
     final List<Object> params4 = new ArrayList<Object>();
-    params4.add("1 file(s) found");
+    params4.add("##teamcity[buildStatus status='FAILURE' text='Failed to process " + typeName + " reports']");
     myLogSequence.add(new MethodInvokation("message", params4));
 
     final List<Object> params5 = new ArrayList<Object>();
-    params5.add(path + ": 1 file(s) found");
+    params5.add("1 file(s) found");
     myLogSequence.add(new MethodInvokation("message", params5));
 
-    List<Object> params6 = new ArrayList<Object>();
-    params6.add(report + " found");
+    final List<Object> params6 = new ArrayList<Object>();
+    params6.add(path + ": 1 file(s) found");
     myLogSequence.add(new MethodInvokation("message", params6));
+
+    List<Object> params7 = new ArrayList<Object>();
+    params7.add(report + " found");
+    myLogSequence.add(new MethodInvokation("message", params7));
 
     myTestLogger.setExpectedSequence(myLogSequence);
 
@@ -438,10 +449,9 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
-    final List<Object> params = new ArrayList<Object>();
-    params.add("##teamcity[buildStatus status='FAILURE' text='Report paths setting " +
-      "is not specified on XML Report Processing panel at build runner settings page.']");
-    myLogSequence.add(new MethodInvokation("message", params));
+    final List<Object> params1 = new ArrayList<Object>();
+    params1.add(MethodInvokation.ANY_VALUE);
+    myLogSequence.add(new MethodInvokation("error", params1));
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
