@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
+import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -46,6 +47,9 @@ class BugCollection {
   private Map<String, Pattern> myBugPatterns;
 
   @NotNull
+  private final BaseServerLoggerFacade myLogger;
+
+  @NotNull
   private static DetailsParser DETAILS_PARSER;
 
   static {
@@ -54,6 +58,10 @@ class BugCollection {
     } catch (IOException e) {
       XmlReportPlugin.LOG.error("Couldn't create empty DTD", e);
     }
+  }
+
+  public BugCollection(@NotNull BaseServerLoggerFacade logger) {
+    myLogger = logger;
   }
 
   public Map<String, Category> getCategories() {
@@ -80,7 +88,11 @@ class BugCollection {
     XmlReportPlugin.LOG.debug("Loading bug patterns from FindBugs home " + findBugsHome.getAbsolutePath());
     myCategories = new HashMap<String, Category>();
     myBugPatterns = new HashMap<String, Pattern>();
-    load(new File(findBugsHome.getAbsolutePath() + File.separator + "lib", "findbugs.jar"));
+    final File corePlugin = new File(findBugsHome.getAbsolutePath() + File.separator + "lib", "findbugs.jar");
+    if (!corePlugin.exists()) {
+      myLogger.warning("Couldn't find plugin descriptor for FindBugs \"core\" plugin " + corePlugin.getAbsolutePath() + ". Ensure specified FindBugs home path is correct.");
+    }
+    load(corePlugin);
     final File pluginFolder = new File(findBugsHome, "plugin");
     final File[] plugins = pluginFolder.listFiles();
     if ((plugins == null) || (plugins.length == 0)) {
@@ -207,7 +219,7 @@ class BugCollection {
     private String myDescription;
 
     public Category() {
-      this("No name");
+      this("Unknown category");
     }
 
     private Category(String name) {
@@ -243,8 +255,12 @@ class BugCollection {
     private final String myCategory;
     private String myDescription;
 
+    public Pattern() {
+      this("Unknown category");
+    }
+
     public Pattern(String category) {
-      this("No name", category, "No description");
+      this("Unknown pattern", category, "No description");
     }
 
     private Pattern(String name, String category, String description) {
