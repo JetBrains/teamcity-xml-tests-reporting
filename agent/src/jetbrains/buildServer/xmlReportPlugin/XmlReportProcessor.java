@@ -95,11 +95,21 @@ class XmlReportProcessor extends Thread {
     try {
       final ReportData data = myReportQueue.poll(timeout, TimeUnit.MILLISECONDS);
       if (data != null) {
-        final String reportType = data.getType();
-        if (!myParsers.containsKey(reportType)) {
-          initializeParser(reportType);
+        final long len = data.getFile().length();
+        try {
+          if (len > data.getFileLength()) {
+            final String reportType = data.getType();
+            if (!myParsers.containsKey(reportType)) {
+              initializeParser(reportType);
+            }
+            return data;
+          } else {
+            myReportQueue.put(data);
+            return null;
+          }
+        } finally {
+          data.setFileLength(len);
         }
-        return data;
       }
     } catch (InterruptedException e) {
       myPlugin.interrupted(e);

@@ -24,10 +24,12 @@ import java.io.File;
 public final class ReportData {
   private final File myFile;
   private int myProcessedEvents;
+  private long myFileLength;
   private final String myType;
 
   public ReportData(@NotNull final File file, String type) {
     myFile = file;
+    myFileLength = 0L;
     myProcessedEvents = 0;
     myType = type;
   }
@@ -42,6 +44,14 @@ public final class ReportData {
 
   public void setProcessedEvents(int tests) {
     myProcessedEvents = tests;
+  }
+
+  public long getFileLength() {
+    return myFileLength;
+  }
+
+  public void setFileLength(long fileLength) {
+    myFileLength = fileLength;
   }
 
   public String getType() {
