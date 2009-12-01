@@ -47,9 +47,10 @@ class XmlReportProcessor extends Thread {
     myParsers = new HashMap<String, XmlReportParser>();
   }
 
+  @Override
   public void run() {
     while (!myPlugin.isStopped()) {
-      processReport(takeNextReport(FILE_WAIT_TIMEOUT));
+      processReport(takeNextReport(false));
     }
     try {
       myWatcher.join();
@@ -57,7 +58,7 @@ class XmlReportProcessor extends Thread {
       myPlugin.interrupted(e);
     }
     while (!myReportQueue.isEmpty()) {
-      processReport(takeNextReport(1));
+      processReport(takeNextReport(true));
     }
     for (String type : myParsers.keySet()) {
       myParsers.get(type).logParsingTotals(myPlugin.getParameters(), myPlugin.isVerbose());
@@ -91,9 +92,9 @@ class XmlReportProcessor extends Thread {
     }
   }
 
-  private ReportData takeNextReport(long timeout) {
+  private ReportData takeNextReport(boolean finalParsing) {
     try {
-      final ReportData data = myReportQueue.poll(timeout, TimeUnit.MILLISECONDS);
+      final ReportData data = finalParsing ? myReportQueue.poll() : myReportQueue.poll(FILE_WAIT_TIMEOUT, TimeUnit.MILLISECONDS);
       if (data != null) {
         final long len = data.getFile().length();
         try {
@@ -104,7 +105,9 @@ class XmlReportProcessor extends Thread {
             }
             return data;
           } else {
-            myReportQueue.put(data);
+            if (!finalParsing) {
+              myReportQueue.put(data);
+            }
             return null;
           }
         } finally {
