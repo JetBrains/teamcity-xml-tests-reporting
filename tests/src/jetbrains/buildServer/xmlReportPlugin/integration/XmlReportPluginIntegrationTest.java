@@ -253,7 +253,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final String path = getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath();
-    final String report = path + File.separator + "somefile";
+    final String report = path + File.separator + "somefile.xml";
 
     final String typeName = XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(ANT_JUNIT_REPORT_TYPE);
 
@@ -319,7 +319,7 @@ public class XmlReportPluginIntegrationTest {
       e.printStackTrace();
     }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    createFile(REPORTS_DIR + File.separator + "somefile");
+    createFile(REPORTS_DIR + File.separator + "somefile.xml");
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -378,7 +378,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final String path = getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath();
-    final String report = path + File.separator + "report";
+    final String report = path + File.separator + "report.xml";
 
     List<Object> params1 = new ArrayList<Object>();
     params1.add("Watching paths: ");
@@ -434,7 +434,7 @@ public class XmlReportPluginIntegrationTest {
       e.printStackTrace();
     }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    createUnfinishedReport(REPORTS_DIR + File.separator + "report", ANT_JUNIT_REPORT_TYPE);
+    createUnfinishedReport(REPORTS_DIR + File.separator + "report.xml", ANT_JUNIT_REPORT_TYPE);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -496,14 +496,14 @@ public class XmlReportPluginIntegrationTest {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+    createFile("suite1.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase\" tests=\"1\" time=\"0.031\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
       "  <properties/>\n" +
       "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
       "</testsuite>");
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    createFile("suite2", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+    createFile("suite2.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase\" tests=\"1\" time=\"0.031\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
       "  <properties/>\n" +
@@ -578,14 +578,14 @@ public class XmlReportPluginIntegrationTest {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+    createFile("suite1.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
       "  <properties/>\n" +
       "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
       "</testsuite>");
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    createFile("suite2", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+    createFile("suite2.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuites>" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase2\" tests=\"2\" time=\"0.062\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
@@ -684,7 +684,7 @@ public class XmlReportPluginIntegrationTest {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+    createFile("suite1.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
       "  <properties/>\n" +
@@ -696,7 +696,7 @@ public class XmlReportPluginIntegrationTest {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    createFile("suite2", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+    createFile("suite2.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuites>" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase2\" tests=\"2\" time=\"0.062\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
@@ -720,7 +720,7 @@ public class XmlReportPluginIntegrationTest {
       e.printStackTrace();
     }
 
-    createFile("suite2", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+    createFile("suite2.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuites>" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase2\" tests=\"2\" time=\"0.062\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
@@ -769,7 +769,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setParseOutOfDateReports(myRunnerParams, false);
 
     final String path = getFileInCheckoutDir("").getAbsolutePath();
-    final String report = path + File.separator + "suite1";
+    final String report = path + File.separator + "suite1.xml";
 
     List<Object> params1 = new ArrayList<Object>();
     params1.add("Watching paths: ");
@@ -797,7 +797,7 @@ public class XmlReportPluginIntegrationTest {
 
     myTestLogger.setExpectedSequence(myLogSequence);
 
-    createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+    createFile("suite1.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
       "  <properties/>\n" +
@@ -835,7 +835,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setParseOutOfDateReports(myRunnerParams, true);
 
     final String path = getFileInCheckoutDir("").getAbsolutePath();
-    final String report = path + File.separator + "suite1";
+    final String report = path + File.separator + "suite1.xml";
 
     List<Object> params1 = new ArrayList<Object>();
     params1.add("Watching paths: ");
@@ -884,7 +884,7 @@ public class XmlReportPluginIntegrationTest {
 
     myTestLogger.setExpectedSequence(myLogSequence);
 
-    createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+    createFile("suite1.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
       "  <properties/>\n" +
@@ -919,7 +919,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, "");
 
     final String path = getFileInCheckoutDir("").getAbsolutePath();
-    final String report = path + File.separator + "suite1";
+    final String report = path + File.separator + "suite1.xml";
 
     List<Object> params1 = new ArrayList<Object>();
     params1.add("Watching paths: ");
@@ -968,7 +968,7 @@ public class XmlReportPluginIntegrationTest {
     }
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
 
-    createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+    createFile("suite1.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
       "  <properties/>\n" +
@@ -1002,7 +1002,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, "");
 
     final String path = getFileInCheckoutDir("").getAbsolutePath();
-    final String report = path + File.separator + "suite1";
+    final String report = path + File.separator + "suite1.xml";
 
     List<Object> params1 = new ArrayList<Object>();
     params1.add("Watching paths: ");
@@ -1030,7 +1030,7 @@ public class XmlReportPluginIntegrationTest {
 
     myTestLogger.setExpectedSequence(myLogSequence);
 
-    createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+    createFile("suite1.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
       "  <properties/>\n" +
@@ -1071,7 +1071,7 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, "");
 
     final String path = getFileInCheckoutDir("").getAbsolutePath();
-    final String report = path + File.separator + "suite1";
+    final String report = path + File.separator + "suite1.xml";
 
     List<Object> params1 = new ArrayList<Object>();
     params1.add("Watching paths: ");
@@ -1120,7 +1120,7 @@ public class XmlReportPluginIntegrationTest {
 
     myTestLogger.setExpectedSequence(myLogSequence);
 
-    createFile("suite1", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+    createFile("suite1.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
       "  <properties/>\n" +

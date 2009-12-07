@@ -181,7 +181,7 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
   @Test
   public void testOneFile() throws Exception {
     final Set<File> files = new HashSet<File>();
-    final File f = createFile("file");
+    final File f = createFile("file.xml");
     files.add(f);
     runTest("oneFile", files);
     f.delete();
