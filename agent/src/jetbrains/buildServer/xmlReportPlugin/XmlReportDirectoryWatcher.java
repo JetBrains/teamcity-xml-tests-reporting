@@ -224,7 +224,7 @@ class XmlReportDirectoryWatcher extends Thread {
   }
 
   private boolean isGoodFile(File f) {
-    return f.isFile() && f.canRead() && timeConstraintsSatisfied(f);
+    return f.getName().endsWith(".xml") && f.isFile() && f.canRead() && timeConstraintsSatisfied(f);
   }
 
   private void sendToQueue(String type, File f) {
