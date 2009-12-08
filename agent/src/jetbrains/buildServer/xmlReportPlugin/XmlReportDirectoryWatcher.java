@@ -228,6 +228,7 @@ class XmlReportDirectoryWatcher extends Thread {
   }
 
   private void sendToQueue(String type, File f) {
+    LOG.debug("Sending " + f.getAbsolutePath() + " to report queue");
     try {
       myReportQueue.put(new ReportData(f, type));
     } catch (InterruptedException e) {

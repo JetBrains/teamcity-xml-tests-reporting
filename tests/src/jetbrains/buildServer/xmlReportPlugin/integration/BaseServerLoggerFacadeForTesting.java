@@ -90,7 +90,7 @@ class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
         continue;
       }
       if (!actualParam.equals(expectedParam)) {
-        System.out.println("wrong param in " + name);
+        System.out.println("Wrong param in " + name + ". Actual: " + actualParam + ", expected: " + expectedParam);
         return "Unexpected parameter value: <" + actualParam + "> in method: " + name;
       }
     }

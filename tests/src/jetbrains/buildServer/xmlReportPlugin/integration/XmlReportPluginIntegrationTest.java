@@ -270,7 +270,7 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("error", params3));
 
     final List<Object> params4 = new ArrayList<Object>();
-    params4.add("##teamcity[buildStatus status='FAILURE' text='Failed to process " + typeName + " reports']");
+    params4.add("##teamcity[buildStatus status='FAILURE' text='{build.status.text}. Failed to process some " + typeName + " reports']");
     myLogSequence.add(new MethodInvokation("message", params4));
 
     final List<Object> params5 = new ArrayList<Object>();
@@ -410,7 +410,7 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("error", params3));
 
     final List<Object> params4 = new ArrayList<Object>();
-    params4.add("##teamcity[buildStatus status='FAILURE' text='Failed to process " + typeName + " reports']");
+    params4.add("##teamcity[buildStatus status='FAILURE' text='{build.status.text}. Failed to process some " + typeName + " reports']");
     myLogSequence.add(new MethodInvokation("message", params4));
 
     final List<Object> params5 = new ArrayList<Object>();
