@@ -170,8 +170,8 @@ public class AntJUnitReportParser extends XmlReportParser {
     } catch (SAXException e) {
       if (myCurrentSuite != null) {
         myPreviouslyLoggedSuits.remove(myCurrentSuite.getName() + myCurrentSuite.getTimestamp());
+        endSuite();
       }
-      endSuite();
       XmlReportPlugin.LOG.debug("Couldn't completely parse " + report.getPath()
         + " report - SAXParseException occured: " + e.toString() + ", "
         + myLoggedTests + " events logged");
