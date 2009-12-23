@@ -18,11 +18,12 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.*;
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.*;
+
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 
 
 public abstract class InspectionsReportParser extends XmlReportParser {
@@ -128,5 +129,5 @@ public abstract class InspectionsReportParser extends XmlReportParser {
     myReportedInstanceTypes.add(id);
   }
 
-  public abstract void parse(@NotNull final ReportData data);
+  public abstract void parse(@NotNull ReportData data);
 }

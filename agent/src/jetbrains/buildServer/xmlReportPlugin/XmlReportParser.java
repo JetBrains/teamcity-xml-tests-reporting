@@ -108,5 +108,5 @@ public abstract class XmlReportParser extends DefaultHandler {
     myCData.append(ch, start, length);
   }
 
-  public abstract void parse(@NotNull final ReportData data);
+  public abstract void parse(@NotNull ReportData data);
 }
