@@ -15,4 +15,6 @@
           class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$FindBugsDataProcessor"/>
     <bean id="PmdDataProcessor"
           class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$PmdDataProcessor"/>
+    <bean id="CheckstyleDataProcessor"
+          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$CheckstyleDataProcessor"/>
 </beans>
