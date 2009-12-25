@@ -95,6 +95,7 @@ public abstract class XmlReportParser extends DefaultHandler {
   }
 
   protected final void parse(@NotNull File report) throws SAXParseException {
+    myCData.delete(0, myCData.length());
     try {
       myXmlReader.parse(new InputSource(report.toURI().toString()));
     } catch (SAXParseException se) {

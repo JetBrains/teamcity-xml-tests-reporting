@@ -1,0 +1,7 @@
+InspectionTypeInfo{myId='Source1', myName='Source1', myDescription='From Source1', myCategory='error'}
+InspectionInstance{myInspectionId='Source1', myMessage='Error message', myFilePath='SomeClass.java', myLine=14, myAttributes={<SEVERITY>: ERROR }}
+InspectionTypeInfo{myId='Source2', myName='Source2', myDescription='From Source2', myCategory='warning'}
+InspectionInstance{myInspectionId='Source2', myMessage='Warning message', myFilePath='SomeClass.java', myLine=22, myAttributes={<SEVERITY>: WARNING }}
+InspectionInstance{myInspectionId='Source2', myMessage='Info message', myFilePath='SomeClass.java', myLine=51, myAttributes={<SEVERITY>: INFO }}
+MESSAGE: ##BASE_DIR##\oneErrorOneWarningOneInfo.xml report processed: 1 error(s): 1 warning(s): 1 info message(s)
+MESSAGE: ##teamcity[buildStatus text='Errors: 1, warnings: 1, information: 1']

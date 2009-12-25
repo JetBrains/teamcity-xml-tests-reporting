@@ -10,7 +10,8 @@
        value="${not empty propertiesBean.properties['xmlReportParsing.reportType'] ? true : false}"/>
 <c:set var="displayInspectionsSettings"
        value="${propertiesBean.properties['xmlReportParsing.reportType'] == 'findBugs' ||
-                propertiesBean.properties['xmlReportParsing.reportType'] == 'pmd' ? true : false}"/>
+                propertiesBean.properties['xmlReportParsing.reportType'] == 'pmd' ||
+                propertiesBean.properties['xmlReportParsing.reportType'] == 'checkstyle' ? true : false}"/>
 
 <c:set var="displayFindBugsSettings"
        value="${propertiesBean.properties['xmlReportParsing.reportType'] == 'findBugs' ? true : false}"/>
@@ -37,7 +38,9 @@
                 BS.Util.show($('xmlReportParsing.reportDirs.container'));
                 BS.Util.show($('xmlReportParsing.verboseOutput.container'));
                 }
-                var isInspection = (selectedValue == 'findBugs' || selectedValue == 'pmd');
+                var isInspection = (selectedValue == 'findBugs' ||
+                selectedValue == 'pmd' ||
+                selectedValue == 'checkstyle');
                 if (isInspection) {
                 BS.Util.show($('xmlReportParsing.max.errors.container'));
                 BS.Util.show($('xmlReportParsing.max.warnings.container'));

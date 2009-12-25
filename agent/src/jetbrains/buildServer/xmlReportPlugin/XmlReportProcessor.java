@@ -18,6 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
+import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
 import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
@@ -143,6 +144,8 @@ class XmlReportProcessor extends Thread {
       myParsers.put(type, new FindBugsReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getCheckoutDir(), myPlugin.getFindBugsHome()));
     } else if (PmdReportParser.TYPE.equals(type)) {
       myParsers.put(type, new PmdReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getCheckoutDir()));
+    } else if (CheckstyleReportParser.TYPE.equals(type)) {
+      myParsers.put(type, new CheckstyleReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getCheckoutDir()));
     } else {
       XmlReportPlugin.LOG.debug("No parser for " + type + " available");
     }

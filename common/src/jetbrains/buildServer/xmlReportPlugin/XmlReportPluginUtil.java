@@ -34,9 +34,11 @@ public class XmlReportPluginUtil {
     SUPPORTED_REPORT_TYPES.put("surefire", "Surefire");
     SUPPORTED_REPORT_TYPES.put("findBugs", "FindBugs");
     SUPPORTED_REPORT_TYPES.put("pmd", "PMD");
+    SUPPORTED_REPORT_TYPES.put("checkstyle", "Checkstyle");
 
     INSPECTIONS_TYPES.add("findBugs");
     INSPECTIONS_TYPES.add("pmd");
+    INSPECTIONS_TYPES.add("checkstyle");
   }
 
   public static final String REPORT_TYPE = "xmlReportParsing.reportType";

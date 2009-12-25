@@ -53,7 +53,8 @@
     </div>
 
     <c:if test="${propertiesBean.properties['xmlReportParsing.reportType'] == 'findBugs' ||
-                propertiesBean.properties['xmlReportParsing.reportType'] == 'pmd'}">
+                  propertiesBean.properties['xmlReportParsing.reportType'] == 'pmd' ||
+                  propertiesBean.properties['xmlReportParsing.reportType'] == 'checkstyle'}">
         <div class="parameter">
             Maximum error limit:
             <c:choose>

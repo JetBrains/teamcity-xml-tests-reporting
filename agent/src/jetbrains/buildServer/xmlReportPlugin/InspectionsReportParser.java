@@ -18,12 +18,11 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.*;
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.*;
-
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 
 
 public abstract class InspectionsReportParser extends XmlReportParser {
@@ -127,6 +126,17 @@ public abstract class InspectionsReportParser extends XmlReportParser {
     type.setDescription(descr);
     myInspectionReporter.reportInspectionType(type);
     myReportedInstanceTypes.add(id);
+  }
+
+  protected String resolveSourcePath(String path) {
+    path = path.replace("\\", File.separator).replace("/", File.separator);
+    if (path.startsWith(myCheckoutDirectory)) {
+      path = path.substring(myCheckoutDirectory.length());
+    }
+    if (path.startsWith(File.separator)) {
+      path = path.substring(1);
+    }
+    return path.replace(File.separator, "/");
   }
 
   public abstract void parse(@NotNull ReportData data);
