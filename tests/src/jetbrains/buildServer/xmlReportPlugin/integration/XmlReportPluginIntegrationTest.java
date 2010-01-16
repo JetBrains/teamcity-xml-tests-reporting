@@ -26,7 +26,6 @@ import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil;
-import static jetbrains.buildServer.xmlReportPlugin.integration.ReportFactory.*;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -41,6 +40,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static jetbrains.buildServer.xmlReportPlugin.integration.ReportFactory.*;
 
 @RunWith(JMock.class)
 public class XmlReportPluginIntegrationTest {
@@ -266,24 +267,28 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("message", params2));
 
     final List<Object> params3 = new ArrayList<Object>();
-    params3.add("Failed to parse " + report + " with " + typeName + " parser.");
+    params3.add("Failed to parse " + report + " with " + typeName + " parser");
     myLogSequence.add(new MethodInvokation("error", params3));
 
     final List<Object> params4 = new ArrayList<Object>();
-    params4.add("##teamcity[buildStatus status='FAILURE' text='{build.status.text}. Failed to process some " + typeName + " reports']");
-    myLogSequence.add(new MethodInvokation("message", params4));
+    params4.add("Failed to process some " + typeName + " reports");
+    myLogSequence.add(new MethodInvokation("error", params4));
 
     final List<Object> params5 = new ArrayList<Object>();
-    params5.add("1 file(s) found");
+    params5.add("##teamcity[buildStatus status='FAILURE' " + "text='Failed to process some " + typeName + " reports" + "']");
     myLogSequence.add(new MethodInvokation("message", params5));
 
     final List<Object> params6 = new ArrayList<Object>();
-    params6.add(path + ": 1 file(s) found");
+    params6.add("1 file(s) found");
     myLogSequence.add(new MethodInvokation("message", params6));
 
-    List<Object> params7 = new ArrayList<Object>();
-    params7.add(report + " found");
+    final List<Object> params7 = new ArrayList<Object>();
+    params7.add(path + ": 1 file(s) found");
     myLogSequence.add(new MethodInvokation("message", params7));
+
+    List<Object> params8 = new ArrayList<Object>();
+    params8.add(report + " found");
+    myLogSequence.add(new MethodInvokation("message", params8));
 
     myTestLogger.setExpectedSequence(myLogSequence);
   }
@@ -406,24 +411,28 @@ public class XmlReportPluginIntegrationTest {
     final String typeName = XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(ANT_JUNIT_REPORT_TYPE);
 
     final List<Object> params3 = new ArrayList<Object>();
-    params3.add("Failed to parse " + report + " with " + typeName + " parser.");
+    params3.add("Failed to parse " + report + " with " + typeName + " parser");
     myLogSequence.add(new MethodInvokation("error", params3));
 
     final List<Object> params4 = new ArrayList<Object>();
-    params4.add("##teamcity[buildStatus status='FAILURE' text='{build.status.text}. Failed to process some " + typeName + " reports']");
-    myLogSequence.add(new MethodInvokation("message", params4));
+    params4.add("Failed to process some " + typeName + " reports");
+    myLogSequence.add(new MethodInvokation("error", params4));
 
     final List<Object> params5 = new ArrayList<Object>();
-    params5.add("1 file(s) found");
+    params5.add("##teamcity[buildStatus status='FAILURE' " + "text='Failed to process some " + typeName + " reports']");
     myLogSequence.add(new MethodInvokation("message", params5));
 
     final List<Object> params6 = new ArrayList<Object>();
-    params6.add(path + ": 1 file(s) found");
+    params6.add("1 file(s) found");
     myLogSequence.add(new MethodInvokation("message", params6));
 
-    List<Object> params7 = new ArrayList<Object>();
-    params7.add(report + " found");
+    final List<Object> params7 = new ArrayList<Object>();
+    params7.add(path + ": 1 file(s) found");
     myLogSequence.add(new MethodInvokation("message", params7));
+
+    List<Object> params8 = new ArrayList<Object>();
+    params8.add(report + " found");
+    myLogSequence.add(new MethodInvokation("message", params8));
 
     myTestLogger.setExpectedSequence(myLogSequence);
 

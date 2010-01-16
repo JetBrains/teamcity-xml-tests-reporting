@@ -37,4 +37,3 @@ java.lang.NullPointerException
 	at java.lang.reflect.Method.invoke(Method.java:585)
 	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:110)
 MESSAGE: ##BASE_DIR##\exception.xml report processed
-MESSAGE: ##teamcity[buildStatus text='Errors: 0, warnings: 0, information: 0']

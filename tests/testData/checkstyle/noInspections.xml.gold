@@ -1,2 +1,1 @@
 MESSAGE: ##BASE_DIR##\noInspections.xml report processed
-MESSAGE: ##teamcity[buildStatus text='Errors: 0, warnings: 0, information: 0']

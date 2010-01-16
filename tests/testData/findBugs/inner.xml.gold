@@ -7,4 +7,3 @@ InspectionInstance{myInspectionId='SIC_INNER_SHOULD_BE_STATIC', myMessage='This 
 InspectionInstance{myInspectionId='UUF_UNUSED_FIELD', myMessage='This field is never used. Consider removing it from the class.  ', myFilePath='inner\org\jetbrains\testProject\BuggyClass.java', myLine=0, myAttributes={<SEVERITY>: WARNING }}
 WARNING: Missing class junit.framework.TestCase
 MESSAGE: ##BASE_DIR##\inner.xml report processed: 1 error(s): 3 warning(s)
-MESSAGE: ##teamcity[buildStatus text='Errors: 1, warnings: 3, information: 0']

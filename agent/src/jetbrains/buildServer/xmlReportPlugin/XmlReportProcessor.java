@@ -16,7 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
@@ -24,12 +23,14 @@ import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
 import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 
 class XmlReportProcessor extends Thread {
   private static final long FILE_WAIT_TIMEOUT = 500;
@@ -41,7 +42,8 @@ class XmlReportProcessor extends Thread {
   private final XmlReportDirectoryWatcher myWatcher;
   private final Map<String, XmlReportParser> myParsers;
 
-  private final List<String> myFailedReportTypes;
+  private final Set<String> myFailedReportTypes;
+  private final Set<String> myProcessedReportTypes;
 
   public XmlReportProcessor(@NotNull final XmlReportPlugin plugin,
                             @NotNull final LinkedBlockingQueue<ReportData> queue,
@@ -51,7 +53,8 @@ class XmlReportProcessor extends Thread {
     myReportQueue = queue;
     myWatcher = watcher;
     myParsers = new HashMap<String, XmlReportParser>();
-    myFailedReportTypes = new ArrayList<String>();
+    myFailedReportTypes = new HashSet<String>();
+    myProcessedReportTypes = new HashSet<String>();
   }
 
   @Override
@@ -71,11 +74,15 @@ class XmlReportProcessor extends Thread {
       myParsers.get(type).logParsingTotals(myPlugin.getParameters(), myPlugin.isVerbose());
     }
     if (!myFailedReportTypes.isEmpty()) {
-      StringBuffer types = new StringBuffer();
+      final StringBuffer types = new StringBuffer();
       for (final String t : myFailedReportTypes) {
         types.append(t).append(", ");
       }
-      myPlugin.getLogger().message("##teamcity[buildStatus status='FAILURE' text='{build.status.text}. Failed to process some " + types.substring(0, types.length() - 2) + " reports']");
+      final String message = "Failed to process some " + types.substring(0, types.length() - 2) + " reports";
+      myPlugin.getLogger().error(message);
+      if (myProcessedReportTypes.size() == 0) {
+        myPlugin.getLogger().message("##teamcity[buildStatus status='FAILURE' " + "text='" + message + "']");
+      }
     }
   }
 
@@ -86,12 +93,14 @@ class XmlReportProcessor extends Thread {
     final XmlReportParser parser = myParsers.get(data.getType());
     LOG.debug("Parsing " + data.getFile().getAbsolutePath() + " with " + data.getType() + " parser.");
     parser.parse(data);
+
+    final String typeName = XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(data.getType());
     if (data.getProcessedEvents() != -1) {
       if (myPlugin.isStopped()) {
-        final String typeName = XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(data.getType());
-        myPlugin.getLogger().error("Failed to parse " + data.getFile().getAbsolutePath() + " with " + typeName + " parser.");
+        final String message = "Failed to parse " + data.getFile().getAbsolutePath() + " with " + typeName + " parser";
+        XmlReportPlugin.LOG.error(message);
+        myPlugin.getLogger().error(message);
         myFailedReportTypes.add(typeName);
-        XmlReportPlugin.LOG.info("Unable to parse " + data.getFile().getAbsolutePath());
       } else {
         try {
           myReportQueue.put(data);
@@ -102,6 +111,7 @@ class XmlReportProcessor extends Thread {
       }
     } else {
       parser.logReportTotals(data.getFile(), myPlugin.isVerbose());
+      myProcessedReportTypes.add(typeName);
     }
   }
 
