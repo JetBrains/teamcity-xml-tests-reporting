@@ -18,7 +18,6 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -27,6 +26,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
+
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
 
 
 public class FindBugsReportParserTest extends TestCase {
@@ -61,7 +62,7 @@ public class FindBugsReportParserTest extends TestCase {
     final BaseServerLoggerFacade logger = new BuildLoggerForTesting(results);
     final InspectionReporter reporter = TestUtil.createFakeReporter(results);
 
-    final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, reportName.substring(0, reportName.lastIndexOf(fileName)), getTestDataPath(FINDBUGS_HOME, null));
+    final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, reportName.substring(0, reportName.lastIndexOf(fileName)), new File(FINDBUGS_HOME).exists() ? FINDBUGS_HOME : getTestDataPath(FINDBUGS_HOME, null));
 
     final File report = new File(reportName);
     final Map<String, String> params = new HashMap<String, String>();
