@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import jetbrains.buildServer.BaseTestCase;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
 import junit.framework.Assert;
@@ -35,7 +36,7 @@ import java.util.Date;
 
 
 @RunWith(JMock.class)
-public class NUnitReportParserTest extends TestCase {
+public class NUnitReportParserTest extends BaseTestCase {
   private static final String REPORT_DIR = "nunit";
   private static final String SUITE_NAME = "TestCase";
   private static final String CASE_CLASSNAME = "TestCase";

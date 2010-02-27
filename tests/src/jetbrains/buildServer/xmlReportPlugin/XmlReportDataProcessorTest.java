@@ -16,27 +16,27 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.AgentLifeCycleListener;
-import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
-import jetbrains.buildServer.util.EventDispatcher;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getTestDataPath;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFileToList;
-import junit.framework.TestCase;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.junit.Test;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import jetbrains.buildServer.BaseTestCase;
+import jetbrains.buildServer.agent.AgentLifeCycleListener;
+import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
+import jetbrains.buildServer.util.EventDispatcher;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.junit.Test;
+
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getTestDataPath;
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFileToList;
 
 
-public class XmlReportDataProcessorTest extends TestCase {
+public class XmlReportDataProcessorTest extends BaseTestCase {
   private Mockery myContext;
 
   public void setUp() {

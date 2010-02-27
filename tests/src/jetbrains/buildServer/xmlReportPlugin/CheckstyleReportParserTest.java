@@ -16,25 +16,25 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
-import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
-import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
-import junit.framework.TestCase;
-import org.junit.Test;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
+import jetbrains.buildServer.BaseTestCase;
+import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
+import org.junit.Test;
+
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
 
 /**
  * User: vbedrosova
  * Date: 25.12.2009
  * Time: 15:01:28
  */
-public class CheckstyleReportParserTest extends TestCase {
+public class CheckstyleReportParserTest extends BaseTestCase {
   private void runTest(final String fileName) throws Exception {
     final String reportName = getAbsoluteTestDataPath(fileName, "checkstyle");
     final String resultsFile = reportName + ".tmp";

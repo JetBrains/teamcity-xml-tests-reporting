@@ -16,11 +16,15 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.concurrent.LinkedBlockingQueue;
+import jetbrains.buildServer.BaseTestCase;
 import jetbrains.buildServer.TempFiles;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
-import junit.framework.TestCase;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -31,15 +35,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.LinkedBlockingQueue;
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
 
 @RunWith(JMock.class)
-public class XmlReportDirectoryWatcherTest extends TestCase {
+public class XmlReportDirectoryWatcherTest extends BaseTestCase {
   private Mockery myContext;
   private TempFiles myTempFiles;
   private File myWorkDir;
