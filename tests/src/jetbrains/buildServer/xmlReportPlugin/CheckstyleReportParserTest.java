@@ -20,10 +20,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
-import jetbrains.buildServer.BaseTestCase;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
+import junit.framework.TestCase;
 import org.junit.Test;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
@@ -34,7 +34,7 @@ import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
  * Date: 25.12.2009
  * Time: 15:01:28
  */
-public class CheckstyleReportParserTest extends BaseTestCase {
+public class CheckstyleReportParserTest extends TestCase {
   private void runTest(final String fileName) throws Exception {
     final String reportName = getAbsoluteTestDataPath(fileName, "checkstyle");
     final String resultsFile = reportName + ".tmp";

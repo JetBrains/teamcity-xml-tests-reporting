@@ -20,16 +20,16 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
-import jetbrains.buildServer.BaseTestCase;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
+import junit.framework.TestCase;
 import org.junit.Test;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
 
 
-public class FindBugsReportParserTest extends BaseTestCase {
+public class FindBugsReportParserTest extends TestCase {
   private static final String FINDBUGS_HOME = System.getProperty("findbugs");
 
   {

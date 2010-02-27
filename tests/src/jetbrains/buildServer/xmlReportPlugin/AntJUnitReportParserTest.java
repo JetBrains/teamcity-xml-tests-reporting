@@ -17,7 +17,9 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.util.io.FileUtil;
-import jetbrains.buildServer.BaseTestCase;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Date;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import junit.framework.Assert;
@@ -33,13 +35,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Date;
-
 
 @RunWith(JMock.class)
-public class AntJUnitReportParserTest extends BaseTestCase {
+public class AntJUnitReportParserTest extends TestCase {
   private static final String REPORT_DIR = "junit";
   private static final String SUITE_NAME = "TestCase";
   private static final String CASE_CLASSNAME = "TestCase";

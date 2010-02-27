@@ -20,18 +20,18 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
-import jetbrains.buildServer.BaseTestCase;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
+import junit.framework.TestCase;
 import org.junit.Test;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
 
 
-public class PmdReportParserTest extends BaseTestCase {
+public class PmdReportParserTest extends TestCase {
   private void runTest(final String fileName) throws Exception {
     final String reportName = getAbsoluteTestDataPath(fileName, "pmd");
     final String resultsFile = reportName + ".tmp";

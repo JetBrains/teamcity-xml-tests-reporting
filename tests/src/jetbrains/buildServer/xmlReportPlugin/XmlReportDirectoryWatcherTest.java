@@ -22,9 +22,9 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
-import jetbrains.buildServer.BaseTestCase;
 import jetbrains.buildServer.TempFiles;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import junit.framework.TestCase;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -39,7 +39,7 @@ import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestData
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
 
 @RunWith(JMock.class)
-public class XmlReportDirectoryWatcherTest extends BaseTestCase {
+public class XmlReportDirectoryWatcherTest extends TestCase {
   private Mockery myContext;
   private TempFiles myTempFiles;
   private File myWorkDir;
