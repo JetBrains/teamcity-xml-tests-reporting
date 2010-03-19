@@ -310,7 +310,7 @@ public class AntJUnitReportParser extends XmlReportParser {
   }
 
   private void startTest(Attributes attributes) {
-    String className = "<unknown name>";
+    String className = "<unknown suite>";
     final String reportClassName = attributes.getValue(DEFAULT_NAMESPACE, CLASSNAME_ATTR);
     if (reportClassName != null) {
       className = reportClassName;
@@ -322,7 +322,7 @@ public class AntJUnitReportParser extends XmlReportParser {
     final long duration = getExecutionTime(attributes.getValue(DEFAULT_NAMESPACE, TIME_ATTR));
     final boolean executed = getBoolean(attributes.getValue(DEFAULT_NAMESPACE, EXECUTED_ATTR));
 
-    final TestData test = new TestData(className, testName, executed, startTime.getTime(), duration);
+    final TestData test = new TestData(className, testName == null ? "<unknown test>" : testName, executed, startTime.getTime(), duration);
     myTests.push(test);
   }
 
@@ -331,7 +331,7 @@ public class AntJUnitReportParser extends XmlReportParser {
     final String testFullName;
     final String testName = test.getTestName();
     final String className = test.getClassName();
-    if (!className.equals(testName)) {
+    if (!testName.startsWith(className)) {
       testFullName = test.getClassName() + "." + test.getTestName();
     } else {
       testFullName = className;
