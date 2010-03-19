@@ -20,7 +20,6 @@ import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -30,6 +29,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
+
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 
 
 public class AntJUnitReportParser extends XmlReportParser {
@@ -75,7 +76,7 @@ public class AntJUnitReportParser extends XmlReportParser {
 
 
   private static long getExecutionTime(String timeStr) {
-    if (timeStr == null) {
+    if (timeStr == null || "".equals(timeStr)) {
       return 0L;
     }
     try {
