@@ -310,36 +310,27 @@ public class AntJUnitReportParser extends XmlReportParser {
   }
 
   private void startTest(Attributes attributes) {
-    String className = "<unknown suite>";
+    String className = "";
     final String reportClassName = attributes.getValue(DEFAULT_NAMESPACE, CLASSNAME_ATTR);
-    if (reportClassName != null) {
-      className = reportClassName;
-    } else if (myCurrentSuite != null) {
-      className = myCurrentSuite.getName();
+    if (reportClassName != null && !reportClassName.equals(myCurrentSuite.getName())) {
+      className = reportClassName + ".";
     }
     final String testName = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
     final Date startTime = new Date();
     final long duration = getExecutionTime(attributes.getValue(DEFAULT_NAMESPACE, TIME_ATTR));
     final boolean executed = getBoolean(attributes.getValue(DEFAULT_NAMESPACE, EXECUTED_ATTR));
 
-    final TestData test = new TestData(className, testName == null ? "<unknown test>" : testName, executed, startTime.getTime(), duration);
+    final TestData test = new TestData(className + testName, executed, startTime.getTime(), duration);
     myTests.push(test);
   }
 
   private void endTest() {
     final TestData test = myTests.pop();
-    final String testFullName;
-    final String testName = test.getTestName();
-    final String className = test.getClassName();
-    if (!testName.startsWith(className)) {
-      testFullName = test.getClassName() + "." + test.getTestName();
-    } else {
-      testFullName = className;
-    }
+    final String testName = test.getName();
 
-    myLogger.logTestStarted(testFullName, new Date(test.getStartTime()));
+    myLogger.logTestStarted(testName, new Date(test.getStartTime()));
     if (!test.isExecuted()) {
-      myLogger.logTestIgnored(testFullName, "");
+      myLogger.logTestIgnored(testName, "");
     } else {
       if (test.isFailure()) {
         String failureMessage = "";
@@ -349,18 +340,18 @@ public class AntJUnitReportParser extends XmlReportParser {
             failureMessage = failureMessage.concat(": " + test.getFailureMessage());
           }
         }
-        myLogger.logTestFailed(testFullName, failureMessage, test.getFailureStackTrace());
+        myLogger.logTestFailed(testName, failureMessage, test.getFailureStackTrace());
       }
       if (mySystemOut != null) {
-        myLogger.logTestStdOut(testFullName, mySystemOut);
+        myLogger.logTestStdOut(testName, mySystemOut);
         mySystemOut = null;
       }
       if (mySystemErr != null) {
-        myLogger.logTestStdErr(testFullName, mySystemErr);
+        myLogger.logTestStdErr(testName, mySystemErr);
         mySystemErr = null;
       }
     }
-    myLogger.logTestFinished(testFullName, new Date(test.getStartTime() + test.getDuration()));
+    myLogger.logTestFinished(testName, new Date(test.getStartTime() + test.getDuration()));
     myLoggedTests = myLoggedTests + 1;
   }
 

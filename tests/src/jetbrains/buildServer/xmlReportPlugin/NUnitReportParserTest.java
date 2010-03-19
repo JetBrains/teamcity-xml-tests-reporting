@@ -16,8 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.FileNotFoundException;
-import java.util.Date;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
 import junit.framework.Assert;
@@ -32,13 +30,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.FileNotFoundException;
+import java.util.Date;
+
 
 @RunWith(JMock.class)
 public class NUnitReportParserTest extends TestCase {
   private static final String REPORT_DIR = "nunit";
   private static final String SUITE_NAME = "TestCase";
-  private static final String CASE_CLASSNAME = "TestCase";
-  private static final String CASE_NAME = CASE_CLASSNAME + ".test";
+  private static final String CASE_NAME = "test";
 
   private XmlReportParser myParser;
   private BaseServerLoggerFacade myLogger;
@@ -254,7 +254,7 @@ public class NUnitReportParserTest extends TestCase {
   public void testNegativePassedTestNumberObserved() throws Exception {
     myContext.checking(new Expectations() {
       {
-        oneOf(myLogger).logSuiteStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests"), with(any(Date.class)));
+        oneOf(myLogger).logSuiteStarted(with("OnKeyOCLTestSuite"), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_A_For_Basic_Testing"), with(any(Date.class)));
         inSequence(mySequence);
@@ -308,11 +308,6 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_New_Trade_With_No_Value_In_Rates"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests"), with(any(Date.class)));
-        inSequence(mySequence);
-
-        oneOf(myLogger).logSuiteStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests"), with(any(Date.class)));
-        inSequence(mySequence);
         oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Load_Existing_Staff_Member_To_Check_Edit_Grid_Functionality_And_Cancel_Changes"), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Load_Existing_Staff_Member_To_Check_Edit_Grid_Functionality_And_Cancel_Changes"), with(any(String.class)));
@@ -335,7 +330,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Click_The_Navigation_Buttons_On_The_Staff_Members_Browse_Screen"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests"), with(any(Date.class)));
+        oneOf(myLogger).logSuiteFinished(with("OnKeyOCLTestSuite"), with(any(Date.class)));
         inSequence(mySequence);
       }
     });
@@ -372,9 +367,9 @@ public class NUnitReportParserTest extends TestCase {
       {
         oneOf(myLogger).logSuiteStarted(with("MCNTest"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("MCNTest.Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(Date.class)));
+        oneOf(myLogger).logTestStarted(with("Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with("MCNTest.Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(String.class)), with("Input and Output of test case are not equal. See .\\testCases\\EDI\\Invalid\\Input:\n" +
+        oneOf(myLogger).logTestFailed(with("Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(String.class)), with("Input and Output of test case are not equal. See .\\testCases\\EDI\\Invalid\\Input:\n" +
           "UNA:+.? '\n" +
           "UNB+UNOC:3+9903214000009:500+4038777000004:500+090421:1134+00000002154600'\n" +
           "UNH+00000002154600+REMADV:D:06A:UN:2.2'\n" +
@@ -431,17 +426,17 @@ public class NUnitReportParserTest extends TestCase {
           "UNT+21+00000002154600'\n" +
           "UNZ+1+00000002154600'"));
         inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("MCNTest.Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(Date.class)));
+        oneOf(myLogger).logTestFinished(with("Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("MCNTest.Test2 - REMADV_9903214000009_9907027000008_20090417_1.txt"), with(any(Date.class)));
+        oneOf(myLogger).logTestStarted(with("Test2 - REMADV_9903214000009_9907027000008_20090417_1.txt"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("MCNTest.Test2 - REMADV_9903214000009_9907027000008_20090417_1.txt"), with(any(Date.class)));
+        oneOf(myLogger).logTestFinished(with("Test2 - REMADV_9903214000009_9907027000008_20090417_1.txt"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("MCNTest.Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(Date.class)));
+        oneOf(myLogger).logTestStarted(with("Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with("MCNTest.Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(String.class)), with("Could not export testcase"));
+        oneOf(myLogger).logTestFailed(with("Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(String.class)), with("Could not export testcase"));
         inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("MCNTest.Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(Date.class)));
+        oneOf(myLogger).logTestFinished(with("Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(Date.class)));
         inSequence(mySequence);
         oneOf(myLogger).logSuiteFinished(with("MCNTest"), with(any(Date.class)));
         inSequence(mySequence);

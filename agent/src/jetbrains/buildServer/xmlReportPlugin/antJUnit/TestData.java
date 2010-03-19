@@ -18,8 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
 
 final class TestData {
-  private final String myClassName;
-  private final String myTestName;
+  private final String myName;
 
   private final long myStartTime;
   private long myDuration;
@@ -30,24 +29,18 @@ final class TestData {
   private String myFailureMessage;
   private String myFailureStackTrace;
 
-  public TestData(final String className,
-                  final String testName,
+  public TestData(final String name,
                   boolean executed,
                   long startTime,
                   long duration) {
-    myClassName = className;
-    myTestName = testName;
+    myName = name;
     myExecuted = executed;
     myStartTime = startTime;
     myDuration = duration;
   }
 
-  public String getClassName() {
-    return myClassName;
-  }
-
-  public String getTestName() {
-    return myTestName;
+  public String getName() {
+    return myName;
   }
 
   public void setExecuted(boolean executed) {

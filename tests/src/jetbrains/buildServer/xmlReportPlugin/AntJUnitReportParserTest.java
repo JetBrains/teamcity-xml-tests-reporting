@@ -17,9 +17,6 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.util.io.FileUtil;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Date;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import junit.framework.Assert;
@@ -35,13 +32,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Date;
+
 
 @RunWith(JMock.class)
 public class AntJUnitReportParserTest extends TestCase {
   private static final String REPORT_DIR = "junit";
   private static final String SUITE_NAME = "TestCase";
-  private static final String CASE_CLASSNAME = "TestCase";
-  private static final String CASE_NAME = CASE_CLASSNAME + ".test";
+  private static final String CASE_NAME = "test";
 
   private static final String FAILURE_MESSAGE = "junit.framework.AssertionFailedError: Assertion message form test";
   private static final String ERROR_MESSAGE = "java.lang.NullPointerException: Error message from test";
