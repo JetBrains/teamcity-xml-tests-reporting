@@ -18,15 +18,15 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 
 public class XmlReportPluginUtil {
   public static final Map<String, String> SUPPORTED_REPORT_TYPES = new HashMap<String, String>();
-  public static final List<String> INSPECTIONS_TYPES = new ArrayList<String>();
+  public static final List<String> INSPECTIONS_TYPES = new LinkedList<String>();
 
   static {
     SUPPORTED_REPORT_TYPES.put("junit", "Ant JUnit");
