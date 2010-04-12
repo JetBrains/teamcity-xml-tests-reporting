@@ -6,7 +6,7 @@
         <webroots>
           <root url="file://$MODULE_DIR$/resources/buildServerResources" relative="/plugins/xml-report-plugin" />
         </webroots>
-        <context-artifact name="xml-report-server-internal:xml-report-web exploded" />
+        <context-artifact name="web-deployment" />
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">

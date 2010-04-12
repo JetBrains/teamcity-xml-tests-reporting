@@ -3,7 +3,8 @@
                  xsi:noNamespaceSchemaLocation="urn:shemas-jetbrains-com:teamcity-plugin-v1-xml">
   <info>
     <name>xml-report-plugin</name>
-    <display-name>xml-report-plugin</display-name>
+    <display-name>XML-based Reports</display-name>
+    <description>Plugin adds support for creating different XML-based reports in TeamCity</description>
     <version>${env.BUILD_NUMBER}</version>
     <vendor>
       <name>JetBrains, s.r.o.</name>
