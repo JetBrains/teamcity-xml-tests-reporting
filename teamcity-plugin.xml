@@ -8,7 +8,7 @@
     <version>${env.BUILD_NUMBER}</version>
     <vendor>
       <name>JetBrains, s.r.o.</name>
-      <url>http://www.jetbrains.com/teamcity</url>
+      <url>http://www.jetbrains.com</url>
     </vendor>
   </info>
   <deployment use-separate-classloader="false"/>
