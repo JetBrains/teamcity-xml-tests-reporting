@@ -4,8 +4,8 @@
   <info>
     <name>xml-report-plugin</name>
     <display-name>XML-based Reports</display-name>
-    <description>Plugin adds support for creating different XML-based reports in TeamCity</description>
     <version>${env.BUILD_NUMBER}</version>
+    <description>Plugin adds support for creating different XML-based reports in TeamCity</description>
     <vendor>
       <name>JetBrains, s.r.o.</name>
       <url>http://www.jetbrains.com</url>
