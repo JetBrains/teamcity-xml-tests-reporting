@@ -460,7 +460,7 @@ public class XmlReportPluginIntegrationTest {
 
     final List<Object> params1 = new ArrayList<Object>();
     params1.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("error", params1));
+    myLogSequence.add(new MethodInvokation("warning", params1));
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);

@@ -138,7 +138,7 @@ public class XmlReportPluginTest {
 //        inSequence(mySequence);
         oneOf(myLogger).targetStarted(with(any(String.class)));
         inSequence(mySequence);
-        oneOf(myLogger).error(with("Watching paths: <no paths>"));
+        oneOf(myLogger).warning(with("Watching paths: <no paths>"));
         inSequence(mySequence);
         oneOf(myLogger).targetFinished(with(any(String.class)));
         inSequence(mySequence);

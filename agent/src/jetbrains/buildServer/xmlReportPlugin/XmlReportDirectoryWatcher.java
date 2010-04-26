@@ -17,15 +17,16 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.util.FileUtil;
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.SUPPORTED_REPORT_TYPES;
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.isInspection;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Pattern;
+
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.SUPPORTED_REPORT_TYPES;
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.isInspection;
 
 
 class XmlReportDirectoryWatcher extends Thread {
@@ -132,7 +133,7 @@ class XmlReportDirectoryWatcher extends Thread {
     String message = "Watching paths: ";
     if (paths.size() == 0) {
       message += "<no paths>";
-      error(message);
+      warning(message);
     } else {
       message(message);
       for (File f : paths) {
