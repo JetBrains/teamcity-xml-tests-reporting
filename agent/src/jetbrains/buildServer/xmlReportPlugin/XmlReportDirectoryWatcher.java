@@ -132,7 +132,7 @@ class XmlReportDirectoryWatcher extends Thread {
     String message = "Watching paths: ";
     if (paths.size() == 0) {
       message += "<no paths>";
-      warning(message);
+      error(message);
     } else {
       message(message);
       for (File f : paths) {
