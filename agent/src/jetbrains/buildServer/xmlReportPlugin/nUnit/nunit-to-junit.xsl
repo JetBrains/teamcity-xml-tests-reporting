@@ -25,56 +25,57 @@
     </xsl:template>
 
     <xsl:template match="/test-results">
-        <xsl:variable name="timestamp"
-                      select="concat(@date, concat('T', @time))"/>
         <testsuites>
             <xsl:for-each select="test-suite">
 
                 <xsl:variable name="suiteName">
                     <xsl:call-template name="get-file-name">
-                        <xsl:with-param name="string" select="./@name"/>
+                        <xsl:with-param name="string" select="@name"/>
                     </xsl:call-template>
                 </xsl:variable>
 
+                <xsl:variable name="timestamp"
+                              select="concat(@date, concat('T', @time))"/>
+
                 <testsuite name="{$suiteName}"
-                           tests="{count(*/test-case)}" time="{@time}"
-                           failures="{count(*/test-case/failure)}" errors="0"
-                           skipped="{count(*/test-case[@executed='False'])}"
+                           tests="{count(//test-case)}" time="{@time}"
+                           failures="{count(//test-case/failure)}" errors="0"
+                           skipped="{count(//test-case[@executed='False'])}"
                            timestamp="{$timestamp}">
+
                     <xsl:for-each select="results//test-case[1]">
 
                         <xsl:for-each select="../..">
+
+                            <xsl:variable name="suitefailure"
+                                          select="./failure"/>
+
                             <xsl:for-each select="*/test-case">
-                                <!--<xsl:for-each select="*/test-case[@time!='']">-->
 
                                 <testcase name="{@name}"
                                           time="{@time}"
                                           executed="{@executed}">
 
-                                    <xsl:variable name="generalfailure"
-                                                  select="./failure"/>
 
                                     <xsl:if test="./failure">
                                         <xsl:variable name="failstack"
                                                       select="count(./failure/stack-trace/*) + count(./failure/stack-trace/text())"/>
-                                        <failure>
                                             <xsl:choose>
-                                                <xsl:when test="$failstack &gt; 0 or not($generalfailure)">
-                                                    <!--MESSAGE:-->
-                                                    <xsl:value-of select="./failure/message"/>
-                                                    <!--+++++++++++++++++++-->
-                                                    <!--STACK TRACE:-->
-                                                    <xsl:value-of select="./failure/stack-trace"/>
+                                                <xsl:when test="$failstack &gt; 0 or not($suitefailure)">
+                                                    <xsl:variable name="mess"
+                                                                  select="./failure/message"/>
+                                                    <failure message="{$mess}">
+                                                        <xsl:value-of select="./failure/stack-trace" disable-output-escaping="yes"/>
+                                                    </failure>
                                                 </xsl:when>
                                                 <xsl:otherwise>
-                                                    <!--MESSAGE:-->
-                                                    <xsl:value-of select="$generalfailure/message"/>
-                                                    <!--+++++++++++++++++++-->
-                                                    <!--STACK TRACE:-->
-                                                    <xsl:value-of select="$generalfailure/stack-trace"/>
+                                                    <xsl:variable name="mess"
+                                                                  select="$suitefailure/message"/>
+                                                    <failure message="{$mess}">
+                                                        <xsl:value-of select="$suitefailure/stack-trace" disable-output-escaping="yes"/>
+                                                    </failure>
                                                 </xsl:otherwise>
                                             </xsl:choose>
-                                        </failure>
                                     </xsl:if>
                                 </testcase>
                             </xsl:for-each>

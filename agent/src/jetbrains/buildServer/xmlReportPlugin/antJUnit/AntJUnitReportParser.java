@@ -289,7 +289,7 @@ public class AntJUnitReportParser extends XmlReportParser {
       return;
     }
     if (myCurrentSuite.isFailure()) {
-      myLogger.error(myCurrentSuite.getFailureType() + ": " + myCurrentSuite.getFailureMessage());
+      myLogger.error(getFailureMessage(myCurrentSuite.getFailureType(), myCurrentSuite.getFailureMessage()));
     }
     if (mySystemOut != null) {
       myLogger.message("[System out]\n" + mySystemOut);
@@ -333,13 +333,7 @@ public class AntJUnitReportParser extends XmlReportParser {
       myLogger.logTestIgnored(testName, "");
     } else {
       if (test.isFailure()) {
-        String failureMessage = "";
-        if (test.getFailureType() != null) {
-          failureMessage = failureMessage.concat(test.getFailureType());
-          if (test.getFailureMessage() != null) {
-            failureMessage = failureMessage.concat(": " + test.getFailureMessage());
-          }
-        }
+        String failureMessage = getFailureMessage(test.getFailureType(), test.getFailureMessage());
         myLogger.logTestFailed(testName, failureMessage, test.getFailureStackTrace());
       }
       if (mySystemOut != null) {
@@ -355,8 +349,22 @@ public class AntJUnitReportParser extends XmlReportParser {
     myLoggedTests = myLoggedTests + 1;
   }
 
+  private String getFailureMessage(String type, String message) {
+    String failureMessage = "";
+    if (type != null) {
+      failureMessage = failureMessage.concat(type);
+    }
+    if (message != null) {
+      if (failureMessage.length() > 0) {
+        failureMessage = failureMessage.concat(": ");
+      }
+      failureMessage = failureMessage.concat(message);
+    }
+    return failureMessage;
+  }
+
   private void startFailure(Attributes attributes) {
-    final String failureMessage = attributes.getValue(DEFAULT_NAMESPACE, MESSAGE_ATTR);
+    final String failureMessage = attributes.getValue(DEFAULT_NAMESPACE, MESSAGE_ATTR).trim();
     final String failureType = attributes.getValue(DEFAULT_NAMESPACE, TYPE_ATTR);
 
     if (myTests.size() != 0) {

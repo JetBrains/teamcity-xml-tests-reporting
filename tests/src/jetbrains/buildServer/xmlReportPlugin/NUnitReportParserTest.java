@@ -346,7 +346,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logTestStarted(with(CASE_NAME), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME), with(any(String.class)), with("Assertion message form testjunit.framework.AssertionFailedError: Assertion message form test\n" +
+        oneOf(myLogger).logTestFailed(with(CASE_NAME), with("Assertion message form test"), with("junit.framework.AssertionFailedError: Assertion message form test\n" +
           "            at TestCase.test(Unknown Source)\n" +
           "            at TestCase1.test(Unknown Source)\n" +
           "            at TestCase2.test(Unknown Source)"));
@@ -369,62 +369,64 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logTestStarted(with("Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with("Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(String.class)), with("Input and Output of test case are not equal. See .\\testCases\\EDI\\Invalid\\Input:\n" +
-          "UNA:+.? '\n" +
-          "UNB+UNOC:3+9903214000009:500+4038777000004:500+090421:1134+00000002154600'\n" +
-          "UNH+00000002154600+REMADV:D:06A:UN:2.2'\n" +
-          "BGM+239+DH0005631+9'\n" +
-          "DTM+137:20090401:102'\n" +
-          "FII+PB+984362uzt:Werthelsmann+90874:25:131::::Landesbank'\n" +
-          "NAD+MS+9903214000009::293'\n" +
-          "NAD+MR+4038777000004::293'\n" +
-          "CUX+2:EUR:11'\n" +
-          "DOC+380+DH7965542'\n" +
-          "MOA+9:50'\n" +
-          "MOA+12:0'\n" +
-          "DTM+137:20090101:102'\n" +
-          "RFF+IT:dh675543'\n" +
-          "AJT+9'\n" +
-          "FTX+ABO+1++Falscher Abrechnungszeitraum Grund 1:'\n" +
-          "DOC+380+DH5437867'\n" +
-          "MOA+9:50'\n" +
-          "MOA+12:0'\n" +
-          "DTM+137:20090101:102'\n" +
-          "RFF+IT:dh650987'\n" +
-          "AJT+Z06'\n" +
-          "FTX+ABO+1++Artikel unbekannt Grund 1'\n" +
-          "UNS+S'\n" +
-          "MOA+9:100'\n" +
-          "MOA+12:0'\n" +
-          "UNT+25+00000002154600'\n" +
-          "UNZ+1+00000002154600'\n" +
-          "\n" +
-          "\n" +
-          "Output:\n" +
-          "UNA:+.? '\n" +
-          "UNB+UNOC:3+9903214000009:500+4038777000004:500+090421:1134+00000002154600'\n" +
-          "UNH+00000002154600+REMADV:D:06A:UN:2.2'\n" +
-          "BGM+239+DH0005631+9'\n" +
-          "DTM+137:20090401:102'\n" +
-          "FII+PB+984362uzt:Werthelsmann+90874:25:131::::Landesbank'\n" +
-          "NAD+MS+9903214000009::293'\n" +
-          "NAD+MR+4038777000004::293'\n" +
-          "CUX+2:EUR:11'\n" +
-          "DOC+380+DH7965542'\n" +
-          "MOA+9:50'\n" +
-          "MOA+12:0'\n" +
-          "DTM+137:20090101:102'\n" +
-          "RFF+IT:dh675543'\n" +
-          "DOC+380+DH5437867'\n" +
-          "MOA+9:50'\n" +
-          "MOA+12:0'\n" +
-          "DTM+137:20090101:102'\n" +
-          "RFF+IT:dh650987'\n" +
-          "UNS+S'\n" +
-          "MOA+9:100'\n" +
-          "MOA+12:0'\n" +
-          "UNT+21+00000002154600'\n" +
-          "UNZ+1+00000002154600'"));
+        oneOf(myLogger).logTestFailed(with("Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"),
+          with("Input and Output of test case are not equal. See .\\testCases\\EDI\\Invalid\\"),
+          with("Input:\n" +
+            "UNA:+.? '\n" +
+            "UNB+UNOC:3+9903214000009:500+4038777000004:500+090421:1134+00000002154600'\n" +
+            "UNH+00000002154600+REMADV:D:06A:UN:2.2'\n" +
+            "BGM+239+DH0005631+9'\n" +
+            "DTM+137:20090401:102'\n" +
+            "FII+PB+984362uzt:Werthelsmann+90874:25:131::::Landesbank'\n" +
+            "NAD+MS+9903214000009::293'\n" +
+            "NAD+MR+4038777000004::293'\n" +
+            "CUX+2:EUR:11'\n" +
+            "DOC+380+DH7965542'\n" +
+            "MOA+9:50'\n" +
+            "MOA+12:0'\n" +
+            "DTM+137:20090101:102'\n" +
+            "RFF+IT:dh675543'\n" +
+            "AJT+9'\n" +
+            "FTX+ABO+1++Falscher Abrechnungszeitraum Grund 1:'\n" +
+            "DOC+380+DH5437867'\n" +
+            "MOA+9:50'\n" +
+            "MOA+12:0'\n" +
+            "DTM+137:20090101:102'\n" +
+            "RFF+IT:dh650987'\n" +
+            "AJT+Z06'\n" +
+            "FTX+ABO+1++Artikel unbekannt Grund 1'\n" +
+            "UNS+S'\n" +
+            "MOA+9:100'\n" +
+            "MOA+12:0'\n" +
+            "UNT+25+00000002154600'\n" +
+            "UNZ+1+00000002154600'\n" +
+            "\n" +
+            "\n" +
+            "Output:\n" +
+            "UNA:+.? '\n" +
+            "UNB+UNOC:3+9903214000009:500+4038777000004:500+090421:1134+00000002154600'\n" +
+            "UNH+00000002154600+REMADV:D:06A:UN:2.2'\n" +
+            "BGM+239+DH0005631+9'\n" +
+            "DTM+137:20090401:102'\n" +
+            "FII+PB+984362uzt:Werthelsmann+90874:25:131::::Landesbank'\n" +
+            "NAD+MS+9903214000009::293'\n" +
+            "NAD+MR+4038777000004::293'\n" +
+            "CUX+2:EUR:11'\n" +
+            "DOC+380+DH7965542'\n" +
+            "MOA+9:50'\n" +
+            "MOA+12:0'\n" +
+            "DTM+137:20090101:102'\n" +
+            "RFF+IT:dh675543'\n" +
+            "DOC+380+DH5437867'\n" +
+            "MOA+9:50'\n" +
+            "MOA+12:0'\n" +
+            "DTM+137:20090101:102'\n" +
+            "RFF+IT:dh650987'\n" +
+            "UNS+S'\n" +
+            "MOA+9:100'\n" +
+            "MOA+12:0'\n" +
+            "UNT+21+00000002154600'\n" +
+            "UNZ+1+00000002154600'"));
         inSequence(mySequence);
         oneOf(myLogger).logTestFinished(with("Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(Date.class)));
         inSequence(mySequence);
@@ -434,7 +436,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
         oneOf(myLogger).logTestStarted(with("Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(Date.class)));
         inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with("Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(String.class)), with("Could not export testcase"));
+        oneOf(myLogger).logTestFailed(with("Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with("Could not export testcase"), with(""));
         inSequence(mySequence);
         oneOf(myLogger).logTestFinished(with("Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(Date.class)));
         inSequence(mySequence);
