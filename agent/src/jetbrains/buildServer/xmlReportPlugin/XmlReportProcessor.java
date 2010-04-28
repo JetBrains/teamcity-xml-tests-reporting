@@ -149,7 +149,8 @@ class XmlReportProcessor extends Thread {
     if (AntJUnitReportParser.TYPE.equals(type) || ("surefire".equals(type))) {
       myParsers.put(type, new AntJUnitReportParser(myPlugin.getLogger()));
     } else if (NUnitReportParser.TYPE.equals(type)) {
-      myParsers.put(type, new NUnitReportParser(myPlugin.getLogger(), myPlugin.getTmpDir()));
+      myParsers.put(type, new NUnitReportParser(myPlugin.getLogger(), myPlugin.getTmpDir(),
+        "false".equals(myPlugin.getParameters().get(XmlReportPlugin.TREAT_DLL_AS_SUITE)) ? NUNIT_TO_JUNIT_OLD_XSL : NUNIT_TO_JUNIT_XSL));
     } else if (FindBugsReportParser.TYPE.equals(type)) {
       myParsers.put(type, new FindBugsReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getCheckoutDir(), myPlugin.getFindBugsHome()));
     } else if (PmdReportParser.TYPE.equals(type)) {
@@ -160,4 +161,7 @@ class XmlReportProcessor extends Thread {
       XmlReportPlugin.LOG.debug("No parser for " + type + " available");
     }
   }
+
+  private static final String NUNIT_TO_JUNIT_XSL = "nunit-to-junit.xsl";
+  private static final String NUNIT_TO_JUNIT_OLD_XSL = "nunit-to-junit-old.xsl";
 }

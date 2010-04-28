@@ -33,10 +33,10 @@ public class NUnitReportParser extends AntJUnitReportParser {
   private NUnitToJUnitReportTransformer myReportTransformer;
   private final File myTmpReportDir;
 
-  public NUnitReportParser(BaseServerLoggerFacade logger, String tmpDir) {
+  public NUnitReportParser(BaseServerLoggerFacade logger, String tmpDir, String schema) {
     super(logger);
     try {
-      myReportTransformer = new NUnitToJUnitReportTransformer();
+      myReportTransformer = new NUnitToJUnitReportTransformer(schema);
     } catch (TransformerConfigurationException e) {
       myLogger.warning("NUnit report parser couldn't instantiate transformer");
     }

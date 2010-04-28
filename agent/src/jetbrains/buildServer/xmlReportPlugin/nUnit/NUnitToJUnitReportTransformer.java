@@ -28,16 +28,11 @@ import java.io.*;
 
 
 class NUnitToJUnitReportTransformer {
-  private static final String USE_OLD_XSL = "xmlReportParsing.nunit.notTreatDllAsSuite";
-  private static final String NUNIT_TO_JUNIT_XSL = "nunit-to-junit.xsl";
-  private static final String NUNIT_TO_JUNIT_OLD_XSL = "nunit-to-junit-old.xsl";
-
   private final Templates myTemplates;
 
-  public NUnitToJUnitReportTransformer() throws TransformerConfigurationException {
+  public NUnitToJUnitReportTransformer(String schema) throws TransformerConfigurationException {
     final TransformerFactory transformerFactory = TransformerFactory.newInstance();
-    myTemplates = transformerFactory.newTemplates(new StreamSource(getClass().getResourceAsStream(
-      System.getProperty(USE_OLD_XSL) == null ? NUNIT_TO_JUNIT_XSL : NUNIT_TO_JUNIT_OLD_XSL)));
+    myTemplates = transformerFactory.newTemplates(new StreamSource(getClass().getResourceAsStream(schema)));
   }
 
   public void transform(@NotNull File nUnitReport, @NotNull File jUnitReport) throws Exception {

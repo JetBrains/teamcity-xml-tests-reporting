@@ -38,6 +38,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
   public static final String CHECKOUT_DIR = "teamcity.build.checkoutDir";
 
+  public static final String TREAT_DLL_AS_SUITE = "xmlReportParsing.nunit.treatDllAsRootSuite";
+
   private XmlReportDirectoryWatcher myDirectoryWatcher;
   private XmlReportProcessor myReportProcessor;
   private BaseServerLoggerFacade myLogger;
@@ -60,6 +62,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     myParameters = new HashMap<String, String>(build.getRunnerParameters());
     myParameters.put(BUILD_START, "" + new Date().getTime());
     myParameters.put(TMP_DIR, build.getBuildTempDirectory().getAbsolutePath());
+    myParameters.put(TREAT_DLL_AS_SUITE, build.getBuildParameters().getSystemProperties().get(TREAT_DLL_AS_SUITE));
   }
 
   @Override

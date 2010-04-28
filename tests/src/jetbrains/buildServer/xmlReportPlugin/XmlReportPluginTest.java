@@ -16,10 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.AgentLifeCycleListener;
-import jetbrains.buildServer.agent.AgentRunningBuild;
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
-import jetbrains.buildServer.agent.BuildFinishedStatus;
+import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
 import junit.framework.Assert;
@@ -62,15 +59,13 @@ public class XmlReportPluginTest {
       {
         allowing(runningBuild).getCheckoutDirectory();
         will(returnValue(checkoutDirFile));
-        inSequence(mySequence);
         allowing(runningBuild).getBuildTempDirectory();
-        inSequence(mySequence);
         allowing(runningBuild).getRunnerParameters();
         will(returnValue(runParams));
-        inSequence(mySequence);
         allowing(runningBuild).getBuildLogger();
         will(returnValue(myLogger));
-        inSequence(mySequence);
+        allowing(runningBuild).getBuildParameters();
+        will(returnValue(createBuildParametersMap()));
       }
     });
     return runningBuild;
@@ -78,6 +73,17 @@ public class XmlReportPluginTest {
 
   private BaseServerLoggerFacade createBaseServerLoggerFacade() {
     return myContext.mock(BaseServerLoggerFacade.class);
+  }
+
+  private BuildParametersMap createBuildParametersMap() {
+    final BuildParametersMap map = myContext.mock(BuildParametersMap.class);
+    myContext.checking(new Expectations() {
+      {
+        allowing(map).getSystemProperties();
+        will(returnValue(new HashMap<String, String>()));
+      }
+    });
+    return map;
   }
 
   @Before
