@@ -144,9 +144,6 @@ class XmlReportDirectoryWatcher extends Thread {
   }
 
   private void checkExistingPaths(Set<File> paths, String type) {
-    if (!myPlugin.isVerbose()) {
-      return;
-    }
     final Set<File> existingPaths = new HashSet<File>();
     for (File f : paths) {
       if (f.isFile() && isOutOfDate(f)) {
