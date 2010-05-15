@@ -42,6 +42,7 @@
     <orderEntry type="module" module-name="runtime-util" />
     <orderEntry type="library" name="IDEA-openapi" level="project" />
     <orderEntry type="module" module-name="common" />
+    <orderEntry type="module" module-name="test-api" />
   </component>
 </module>
 
