@@ -81,7 +81,7 @@
         </td>
     </tr>
     <tr class="noBorder" id="xmlReportParsing.reportType.container">
-        <th><label for="xmlReportParsing.reportType">Import data from XML:</label></th>
+        <th><label for="xmlReportParsing.reportType">Report type:</label></th>
         <td>
             <c:set var="onchange">
                 var selectedValue = this.options[this.selectedIndex].value;
@@ -121,7 +121,7 @@
                 <c:if test="${empty reportType}">
                     <c:set var="selected" value="true"/>
                 </c:if>
-                <props:option value="" selected="${selected}">&lt;Do not import&gt;</props:option>
+                <props:option value="" selected="${selected}">&lt;Do not process&gt;</props:option>
                 <c:forEach var="reportType" items="${reportTypeForm.availableReportTypes}">
                     <c:set var="selected" value="false"/>
                     <c:if test="${reportType.type == reportType}">
