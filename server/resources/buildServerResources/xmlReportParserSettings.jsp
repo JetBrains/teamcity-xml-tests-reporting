@@ -6,26 +6,80 @@
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
 <jsp:useBean id="reportTypeForm" scope="request" class="jetbrains.buildServer.xmlReportPlugin.ReportTypeForm"/>
 
-<c:set var="displayJUnitSettings"
-       value="${not empty propertiesBean.properties['xmlReportParsing.reportType'] ? true : false}"/>
+<c:set var="reportType"
+       value="${propertiesBean.properties['xmlReportParsing.reportType']}"/>
+
+<c:set var="displayReportsSettings"
+       value="${not empty reportType ? true : false}"/>
+
 <c:set var="displayInspectionsSettings"
-       value="${propertiesBean.properties['xmlReportParsing.reportType'] == 'findBugs' ||
-                propertiesBean.properties['xmlReportParsing.reportType'] == 'pmd' ||
-                propertiesBean.properties['xmlReportParsing.reportType'] == 'checkstyle' ? true : false}"/>
+       value="${reportType == 'findBugs' ||
+                reportType == 'pmd' ||
+                reportType == 'checkstyle' ? true : false}"/>
 
 <c:set var="displayFindBugsSettings"
-       value="${propertiesBean.properties['xmlReportParsing.reportType'] == 'findBugs' ? true : false}"/>
+       value="${reportType == 'findBugs' ? true : false}"/>
+
+
+<script type="text/javascript">
+    function displayWarning(runnerType) {
+        var select = $('xmlReportParsing.reportType');
+        var reportType = select.options[select.selectedIndex].value;
+        switch (runnerType) {
+            case ('Ant'):
+                    if (reportType == 'junit') {
+                        return true;
+                    }
+            break;
+            case ('NAnt'):
+            case ('sln2003'):
+            case ('VS.Solution'):
+                    if (reportType == 'nunit') {
+                        return true;
+                    }
+            break;
+            case ('Maven2'):
+                if (reportType == 'surefire') {
+                    return true;
+                }
+            break;
+        }
+        return false;
+    }
+</script>
+
+<c:set var="runnerType"
+       value="${buildForm.buildRunnerBean.runnerType}"/>
+
+<c:choose>
+    <c:when test="${runnerType == 'Ant'}">
+        <c:if test="${reportType == 'junit'}">
+            <c:set var="displayWarning"
+                   value="true"/>
+        </c:if>
+    </c:when>
+    <c:when test="${runnerType == 'NAnt' || runnerType == 'sln2003' || runnerType == 'VS.Solution'}">
+        <c:if test="${reportType == 'nunit'}">
+            <c:set var="displayWarning"
+                   value="true"/>
+        </c:if>
+    </c:when>
+    <c:when test="${runnerType == 'Maven2'}">
+        <c:if test="${reportType == 'surefire'}">
+            <c:set var="displayWarning"
+                   value="true"/>
+        </c:if>
+    </c:when>
+</c:choose>
 
 <l:settingsGroup title="XML Report Processing">
-    <c:if test="${buildForm.buildRunnerBean.runnerType != 'simpleRunner'}">
-        <tr class="noBorder" id="xmlReportParsing.reportType.container">
-            <td colspan="2">
-                Choose a report type to import. You only need to import tests reports if automatic tests reporting fails
-                to
-                detect your tests.
-            </td>
-        </tr>
-    </c:if>
+    <tr class="noBorder" id="xmlReportParsing.warning.container" style="${empty displayWarning ? 'display:none;' : ''}">
+        <td colspan="2">
+            <div class="attentionComment">
+                Please make sure that tests are not detected automatically before using this option.
+            </div>
+        </td>
+    </tr>
     <tr class="noBorder" id="xmlReportParsing.reportType.container">
         <th><label for="xmlReportParsing.reportType">Import data from XML:</label></th>
         <td>
@@ -53,25 +107,31 @@
                 } else {
                 BS.Util.hide($('xmlReportParsing.findBugs.home.container'));
                 }
+
+                if (displayWarning($('runnerType').options[$('runnerType').selectedIndex].value)) {
+                BS.Util.show($('xmlReportParsing.warning.container'));
+                } else {
+                BS.Util.hide($('xmlReportParsing.warning.container'));
+                }
                 BS.MultilineProperties.updateVisible();
             </c:set>
             <props:selectProperty name="xmlReportParsing.reportType"
                                   onchange="${onchange}">
                 <c:set var="selected" value="false"/>
-                <c:if test="${empty propertiesBean.properties['xmlReportParsing.reportType']}">
+                <c:if test="${empty reportType}">
                     <c:set var="selected" value="true"/>
                 </c:if>
                 <props:option value="" selected="${selected}">&lt;Do not import&gt;</props:option>
                 <c:forEach var="reportType" items="${reportTypeForm.availableReportTypes}">
                     <c:set var="selected" value="false"/>
-                    <c:if test="${reportType.type == propertiesBean.properties['xmlReportParsing.reportType']}">
+                    <c:if test="${reportType.type == reportType}">
                         <c:set var="selected" value="true"/>
                     </c:if>
                     <props:option value="${reportType.type}"
                                   selected="${selected}"><c:out value="${reportType.displayName}"/></props:option>
                 </c:forEach>
             </props:selectProperty>
-            <span class="smallNote">Choose report format.</span>
+            <span class="smallNote">Choose report type.</span>
         </td>
     </tr>
 
@@ -84,7 +144,7 @@
     </tr>
 
     <tr class="noBorder" id="xmlReportParsing.reportDirs.container"
-        style="${displayJUnitSettings ? '' : 'display: none;'}">
+        style="${displayReportsSettings ? '' : 'display: none;'}">
         <th><label for="xmlReportParsing.reportDirs">Report paths:</label></th>
         <td>
             <props:multilineProperty name="xmlReportParsing.reportDirs" expanded="true" rows="5" cols="50"
@@ -96,7 +156,7 @@
         </td>
     </tr>
     <tr class="noBorder" id="xmlReportParsing.verboseOutput.container"
-        style="${displayJUnitSettings ? '' : 'display: none;'}">
+        style="${displayReportsSettings ? '' : 'display: none;'}">
         <th><label for="xmlReportParsing.verboseOutput">Verbose output:</label></th>
         <td>
             <props:checkboxProperty name="xmlReportParsing.verboseOutput"/>
