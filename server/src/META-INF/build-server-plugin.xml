@@ -14,8 +14,7 @@
                 <value>NAnt</value>
                 <value>rake-runner</value>
                 <value>sln2003</value>
-                <value>sln2005</value>
-                <value>sln2008</value>
+                <value>VS.Solution</value>
             </list>
         </property>
     </bean>
