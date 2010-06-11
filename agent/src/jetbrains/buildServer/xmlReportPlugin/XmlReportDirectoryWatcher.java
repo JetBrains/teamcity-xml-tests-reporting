@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Pattern;
 
@@ -47,7 +48,7 @@ class XmlReportDirectoryWatcher extends Thread {
     super("xml-report-plugin-DirectoryWatcher");
 
     myPlugin = plugin;
-    myPaths = new HashMap<String, Set<File>>();
+    myPaths = new ConcurrentHashMap<String, Set<File>>();
     myReportQueue = queue;
     myMaskHash = new HashMap<File, MaskData>();
     myStatistics = new HashMap<String, TypeStatistics>();
@@ -87,7 +88,7 @@ class XmlReportDirectoryWatcher extends Thread {
     LOG.debug(message);
   }
 
-  public synchronized void addPaths(Set<File> paths, String type) {
+  public void addPaths(Set<File> paths, String type) {
     if (!myPaths.containsKey(type)) {
       if (isInspection(type) && hasInspections()) {
         warning("Two different inspections can not be processed during one build, skip " + SUPPORTED_REPORT_TYPES.get(type) + " reports");
@@ -183,7 +184,7 @@ class XmlReportDirectoryWatcher extends Thread {
     return md;
   }
 
-  private synchronized void scanInput() {
+  private void scanInput() {
     for (String type : myPaths.keySet()) {
       final TypeStatistics s = myStatistics.get(type);
       for (File f : myPaths.get(type)) {
