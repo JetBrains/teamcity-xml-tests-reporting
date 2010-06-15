@@ -16,27 +16,28 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
-import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
-import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
-import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
-import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
+import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
+import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
+import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
+import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
+import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
-
-class XmlReportProcessor extends Thread {
+public class XmlReportProcessor extends Thread {
+  public static final Logger LOG = Logger.getLogger(XmlReportProcessor.class);
+  
   private static final long FILE_WAIT_TIMEOUT = 500;
   private static final long SCAN_INTERVAL = 500;
-
-  private final XmlReportPlugin myPlugin;
 
   private final LinkedBlockingQueue<ReportData> myReportQueue;
   private final XmlReportDirectoryWatcher myWatcher;
@@ -44,34 +45,47 @@ class XmlReportProcessor extends Thread {
 
   private final Set<String> myFailedReportTypes;
   private final Set<String> myProcessedReportTypes;
+  private final Parameters myParameters;
 
-  public XmlReportProcessor(@NotNull final XmlReportPlugin plugin,
+  private volatile boolean myStopSignaled = false;
+
+  public interface Parameters {
+    @NotNull InspectionReporter getInspectionReporter();
+    @NotNull String getCheckoutDir();
+    @Nullable String getFindBugsHome();
+    boolean isVerbose();
+    @NotNull BaseServerLoggerFacade getLogger();
+    @NotNull Map<String,String> getRunnerParameters();
+    @NotNull String getTmpDir();
+  }
+
+  public XmlReportProcessor(@NotNull final Parameters parameters,
                             @NotNull final LinkedBlockingQueue<ReportData> queue,
                             @NotNull final XmlReportDirectoryWatcher watcher) {
     super("xml-report-plugin-ReportProcessor");
-    myPlugin = plugin;
     myReportQueue = queue;
     myWatcher = watcher;
     myParsers = new HashMap<String, XmlReportParser>();
     myFailedReportTypes = new HashSet<String>();
     myProcessedReportTypes = new HashSet<String>();
+    myParameters = parameters;
   }
 
   @Override
   public void run() {
-    while (!myPlugin.isStopped()) {
+    while (!myStopSignaled) {
       processReport(takeNextReport(false));
     }
     try {
       myWatcher.join();
     } catch (InterruptedException e) {
-      myPlugin.interrupted(e);
+      myParameters.getLogger().exception(e);
     }
     while (!myReportQueue.isEmpty()) {
       processReport(takeNextReport(true));
     }
     for (String type : myParsers.keySet()) {
-      myParsers.get(type).logParsingTotals(myPlugin.getParameters(), myPlugin.isVerbose());
+      myParsers.get(type).logParsingTotals(myParameters.getRunnerParameters(), myParameters.isVerbose());
     }
     if (!myFailedReportTypes.isEmpty()) {
       final StringBuffer types = new StringBuffer();
@@ -79,11 +93,15 @@ class XmlReportProcessor extends Thread {
         types.append(t).append(", ");
       }
       final String message = "Failed to process some " + types.substring(0, types.length() - 2) + " reports";
-      myPlugin.getLogger().error(message);
+      myParameters.getLogger().error(message);
       if (myProcessedReportTypes.size() == 0) {
-        myPlugin.getLogger().message("##teamcity[buildStatus status='FAILURE' " + "text='" + message + "']");
+        myParameters.getLogger().message("##teamcity[buildStatus status='FAILURE' " + "text='" + message + "']");
       }
     }
+  }
+
+  public void signalStop() {
+    myStopSignaled = true;
   }
 
   private void processReport(final ReportData data) {
@@ -96,21 +114,21 @@ class XmlReportProcessor extends Thread {
 
     final String typeName = XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(data.getType());
     if (data.getProcessedEvents() != -1) {
-      if (myPlugin.isStopped()) {
+      if (myStopSignaled) {
         final String message = "Failed to parse " + data.getFile().getAbsolutePath() + " with " + typeName + " parser";
-        XmlReportPlugin.LOG.error(message);
-        myPlugin.getLogger().error(message);
+        LOG.error(message);
+        myParameters.getLogger().error(message);
         myFailedReportTypes.add(typeName);
       } else {
         try {
           myReportQueue.put(data);
           Thread.sleep(SCAN_INTERVAL);
         } catch (InterruptedException e) {
-          myPlugin.interrupted(e);
+          myParameters.getLogger().exception(e);
         }
       }
     } else {
-      parser.logReportTotals(data.getFile(), myPlugin.isVerbose());
+      parser.logReportTotals(data.getFile(), myParameters.isVerbose());
       myProcessedReportTypes.add(typeName);
     }
   }
@@ -140,25 +158,25 @@ class XmlReportProcessor extends Thread {
         }
       }
     } catch (InterruptedException e) {
-      myPlugin.interrupted(e);
+      myParameters.getLogger().exception(e);
     }
     return null;
   }
 
   private void initializeParser(String type) {
     if (AntJUnitReportParser.TYPE.equals(type) || ("surefire".equals(type))) {
-      myParsers.put(type, new AntJUnitReportParser(myPlugin.getLogger()));
+      myParsers.put(type, new AntJUnitReportParser(myParameters.getLogger()));
     } else if (NUnitReportParser.TYPE.equals(type)) {
-      myParsers.put(type, new NUnitReportParser(myPlugin.getLogger(), myPlugin.getTmpDir(),
-        "false".equals(myPlugin.getParameters().get(XmlReportPlugin.TREAT_DLL_AS_SUITE)) ? NUNIT_TO_JUNIT_OLD_XSL : NUNIT_TO_JUNIT_XSL));
+      myParsers.put(type, new NUnitReportParser(myParameters.getLogger(), myParameters.getTmpDir(),
+        "false".equals(myParameters.getRunnerParameters().get(XmlReportPlugin.TREAT_DLL_AS_SUITE)) ? NUNIT_TO_JUNIT_OLD_XSL : NUNIT_TO_JUNIT_XSL));
     } else if (FindBugsReportParser.TYPE.equals(type)) {
-      myParsers.put(type, new FindBugsReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getCheckoutDir(), myPlugin.getFindBugsHome()));
+      myParsers.put(type, new FindBugsReportParser(myParameters.getLogger(), myParameters.getInspectionReporter(), myParameters.getCheckoutDir(), myParameters.getFindBugsHome()));
     } else if (PmdReportParser.TYPE.equals(type)) {
-      myParsers.put(type, new PmdReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getCheckoutDir()));
+      myParsers.put(type, new PmdReportParser(myParameters.getLogger(), myParameters.getInspectionReporter(), myParameters.getCheckoutDir()));
     } else if (CheckstyleReportParser.TYPE.equals(type)) {
-      myParsers.put(type, new CheckstyleReportParser(myPlugin.getLogger(), myPlugin.getInspectionReporter(), myPlugin.getCheckoutDir()));
+      myParsers.put(type, new CheckstyleReportParser(myParameters.getLogger(), myParameters.getInspectionReporter(), myParameters.getCheckoutDir()));
     } else {
-      XmlReportPlugin.LOG.debug("No parser for " + type + " available");
+      LOG.debug("No parser for " + type + " available");
     }
   }
 

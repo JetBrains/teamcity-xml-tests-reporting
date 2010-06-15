@@ -25,53 +25,49 @@ import java.util.concurrent.LinkedBlockingQueue;
 import jetbrains.buildServer.TempFiles;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import junit.framework.TestCase;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JMock;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
+import org.jetbrains.annotations.NotNull;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
 
-@RunWith(JMock.class)
+@SuppressWarnings({"ResultOfMethodCallIgnored"})
 public class XmlReportDirectoryWatcherTest extends TestCase {
-  private Mockery myContext;
   private TempFiles myTempFiles;
   private File myWorkDir;
 
-  private XmlReportPlugin createTestReportParserPlugin(final BaseServerLoggerFacade logger) {
-    final XmlReportPlugin plugin = myContext.mock(XmlReportPlugin.class);
-    myContext.checking(new Expectations() {
-      {
-        allowing(plugin).isStopped();
-        will(returnValue(true));
-        allowing(plugin).getLogger();
-        will(returnValue(logger));
-        allowing(plugin).isVerbose();
-        will(returnValue(true));
-        ignoring(plugin);
-      }
-    });
-    return plugin;
-  }
+  private XmlReportDirectoryWatcher.Parameters createParameters(final BaseServerLoggerFacade logger) {
 
-  @Before
-  public void setUp() throws IOException {
-    myContext = new JUnit4Mockery() {
-      {
-        setImposteriser(ClassImposteriser.INSTANCE);
+    return new XmlReportDirectoryWatcher.Parameters() {
+      public boolean isVerbose() {
+        return true;
+      }
+
+      @NotNull
+      public BaseServerLoggerFacade getLogger() {
+        return logger;
+      }
+
+      public boolean parseOutOfDate() {
+        return false;
+      }
+
+      public long getBuildStartTime() {
+        return 0;
       }
     };
+  }
 
+  @Override
+  @Before
+  public void setUp() throws IOException {
     myTempFiles = new TempFiles();
     myWorkDir = myTempFiles.createTempDir();
   }
 
+  @Override
   @After
   public void tearDown() throws Exception {
     myTempFiles.cleanup();
@@ -85,6 +81,7 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
       myBuffer = b;
     }
 
+    @Override
     public void put(E o) throws InterruptedException {
       final File f;
       if (o instanceof ReportData) {
@@ -118,16 +115,6 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     return f;
   }
 
-  private static File createFileInDir(File dir, String file) {
-    final File f = new File(dir, file);
-    try {
-      f.createNewFile();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return f;
-  }
-
   private void runTest(final String fileName, Set<File> input) throws Exception {
     final String expectedFile = getAbsoluteTestDataPath(fileName + ".gold", "watcher");
     final String resultsFile = expectedFile.replace(".gold", ".tmp");
@@ -136,10 +123,11 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
 
     final StringBuilder results = new StringBuilder();
     final BuildLoggerForTesting logger = new BuildLoggerForTesting(results);
-    final XmlReportPlugin plugin = createTestReportParserPlugin(logger);
+    final XmlReportDirectoryWatcher.Parameters parameters = createParameters(logger);
     final LinkedBlockingQueue<ReportData> queue = new LinkedBlockingQueueMock<ReportData>(results);
 
-    final XmlReportDirectoryWatcher watcher = new XmlReportDirectoryWatcher(plugin, input, "junit", queue);
+    final XmlReportDirectoryWatcher watcher = new XmlReportDirectoryWatcher(parameters, input, "junit", queue);
+    watcher.signalStop();
 
 //    final Thread stopper = new Thread(new Runnable() {
 //      public void run() {
@@ -214,18 +202,31 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     f.delete();
   }
 
-//  @Test
-//  public void testOneDirWithFiles() throws Exception {
-//    final Set<File> files = new HashSet<File>();
-//    final File f = createDir("dir");
-//    files.add(f);
-//    final File f1 = createFileInDir(f, "f1");
-//    final File f2 = createFileInDir(f, "f2");
-//    final File f3 = createFileInDir(f, "f3");
-//    runTest("oneDirWithFiles", files);
-//    f1.delete();
-//    f2.delete();
-//    f3.delete();
-//    f.delete();
-//  }
+  /*
+  @Test
+  public void testOneDirWithFiles() throws Exception {
+    final Set<File> files = new HashSet<File>();
+    final File f = createDir("dir");
+    files.add(f);
+    final File f1 = createFileInDir(f, "f1");
+    final File f2 = createFileInDir(f, "f2");
+    final File f3 = createFileInDir(f, "f3");
+    runTest("oneDirWithFiles", files);
+    f1.delete();
+    f2.delete();
+    f3.delete();
+    f.delete();
+  }
+
+  private static File createFileInDir(File dir, String file) {
+    final File f = new File(dir, file);
+    try {
+      f.createNewFile();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return f;
+  }
+
+  */
 }

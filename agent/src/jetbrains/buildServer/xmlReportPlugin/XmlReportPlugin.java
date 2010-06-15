@@ -16,19 +16,20 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
 
 
 public class XmlReportPlugin extends AgentLifeCycleAdapter implements InspectionReporterListener {
@@ -100,16 +101,85 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     }
   }
 
-  public void interrupted(InterruptedException e) {
-    myLogger.exception(e);
-    LOG.warn(e.toString(), e);
+  private class Parameters implements XmlReportDirectoryWatcher.Parameters, XmlReportProcessor.Parameters {
+    private final String myCheckoutDir;
+    private final String myFindBugsHome;
+    private final boolean myVerbose;
+    private final Map<String, String> myRunnerParameters;
+    private final String myTmpDir;
+    private final boolean myParseOutOfDate;
+    private final long myBuildStartTime;
+
+    private Parameters(@NotNull final String checkoutDir,
+                       @Nullable final String findBugsHome,
+                       final boolean verbose,
+                       @NotNull final Map<String, String> runnerParameters,
+                       @NotNull final String tmpDir, final boolean parseOutOfDate, final long buildStartTime) {
+      myCheckoutDir = checkoutDir;
+      myFindBugsHome = findBugsHome;
+      myVerbose = verbose;
+      myRunnerParameters = runnerParameters;
+      myTmpDir = tmpDir;
+      myParseOutOfDate = parseOutOfDate;
+      myBuildStartTime = buildStartTime;
+    }
+
+    @NotNull
+    public InspectionReporter getInspectionReporter() {
+      return myInspectionReporter;
+    }
+
+    @NotNull
+    public String getCheckoutDir() {
+      return myCheckoutDir;
+    }
+
+    @Nullable
+    public String getFindBugsHome() {
+      return myFindBugsHome;
+    }
+
+    public boolean isVerbose() {
+      return myVerbose;
+    }
+
+    @NotNull
+    public BaseServerLoggerFacade getLogger() {
+      return myLogger;
+    }
+
+    @NotNull
+    public Map<String, String> getRunnerParameters() {
+      return myRunnerParameters;
+    }
+
+    @NotNull
+    public String getTmpDir() {
+      return myTmpDir;
+    }
+
+    public boolean parseOutOfDate() {
+      return myParseOutOfDate;
+    }
+
+    public long getBuildStartTime() {
+      return myBuildStartTime;
+    }
   }
 
   private void startProcessing(Set<File> reportDirs, String type) {
     final LinkedBlockingQueue<ReportData> reportsQueue = new LinkedBlockingQueue<ReportData>();
 
-    myDirectoryWatcher = new XmlReportDirectoryWatcher(this, reportDirs, type, reportsQueue);
-    myReportProcessor = new XmlReportProcessor(this, reportsQueue, myDirectoryWatcher);
+    final Parameters parameters =
+      new Parameters(myParameters.get(CHECKOUT_DIR),
+                     getFindBugsHomePath(myParameters),
+                     Boolean.parseBoolean(myParameters.get(VERBOSE_OUTPUT)),
+                     myParameters, myParameters.get(TMP_DIR),
+                     Boolean.parseBoolean(myParameters.get(PARSE_OUT_OF_DATE)),
+                     Long.parseLong(myParameters.get(BUILD_START)));
+
+    myDirectoryWatcher = new XmlReportDirectoryWatcher(parameters, reportDirs, type, reportsQueue);
+    myReportProcessor = new XmlReportProcessor(parameters, reportsQueue, myDirectoryWatcher);
 
     myDirectoryWatcher.start();
     myReportProcessor.start();
@@ -138,11 +208,16 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     myStopped = true;
     if (myReportProcessor == null)
       return; // beforeRunnerStart was not called, i.e. build has failed before runner started
+
+    myReportProcessor.signalStop();
+    myDirectoryWatcher.signalStop();
+
     if (isParsingEnabled(myParameters)) {
       try {
         myReportProcessor.join();
       } catch (InterruptedException e) {
-        interrupted(e);
+        getLogger().exception(e);
+        LOG.warn(e.toString(), e);
       }
       myDirectoryWatcher.logTotals();
     }
@@ -160,44 +235,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     return myLogger;
   }
 
-  public InspectionReporter getInspectionReporter() {
-    return myInspectionReporter;
-  }
-
   public boolean isStopped() {
     return myStopped;
-  }
-
-  public long getBuildStartTime() {
-    return Long.parseLong(myParameters.get(BUILD_START));
-  }
-
-  public String getCurrentReportType() {
-    return getReportType(myParameters);
-  }
-
-  public String getTmpDir() {
-    return myParameters.get(TMP_DIR);
-  }
-
-  public String getFindBugsHome() {
-    return getFindBugsHomePath(myParameters);
-  }
-
-  public String getCheckoutDir() {
-    return myParameters.get(CHECKOUT_DIR);
-  }
-
-  public boolean parseOutOfDate() {
-    return Boolean.parseBoolean(myParameters.get(PARSE_OUT_OF_DATE));
-  }
-
-  public boolean isVerbose() {
-    return Boolean.parseBoolean(myParameters.get(VERBOSE_OUTPUT));
-  }
-
-  public Map<String, String> getParameters() {
-    return myParameters;
   }
 
   public void beforeInspectionsSent(@NotNull AgentRunningBuild build) {
