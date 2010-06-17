@@ -16,11 +16,10 @@
 
 package jetbrains.buildServer.xmlReportPlugin.integration;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import org.jetbrains.annotations.NotNull;
 
 final class ReportFactory {
   private static String CHECKOUT_DIR;
@@ -33,7 +32,7 @@ final class ReportFactory {
     (new File(CHECKOUT_DIR + File.separator + name)).mkdir();
   }
 
-  public static void createFile(String name) {
+  public static File createFile(String name) {
     final File f = new File(CHECKOUT_DIR + File.separator + name);
     try {
       final FileWriter fw = new FileWriter(f);
@@ -42,6 +41,7 @@ final class ReportFactory {
     } catch (IOException e) {
       e.printStackTrace();
     }
+    return f;
   }
 
   public static void createFile(String name, String content) {

@@ -16,19 +16,18 @@
 
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import java.io.File;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Stack;
+import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-
-import java.io.File;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 
@@ -112,7 +111,7 @@ public class AntJUnitReportParser extends XmlReportParser {
     return (str == null) || Boolean.parseBoolean(str);
   }
 
-  public AntJUnitReportParser(@NotNull final BaseServerLoggerFacade logger) {
+  public AntJUnitReportParser(@NotNull final BuildProgressLogger logger) {
     super(logger);
     myPreviouslyLoggedSuits = new HashSet<String>();
     myLoggedSuites = 0;

@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
 import junit.framework.TestCase;
@@ -45,7 +45,7 @@ public class CheckstyleReportParserTest extends TestCase {
 
     final StringBuilder results = new StringBuilder();
 
-    final BaseServerLoggerFacade logger = new BuildLoggerForTesting(results);
+    final BuildProgressLogger logger = new BuildLoggerForTesting(results);
     final InspectionReporter reporter = TestUtil.createFakeReporter(results);
 
     final CheckstyleReportParser parser = new CheckstyleReportParser(logger, reporter, "##BASE_DIR##");

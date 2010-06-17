@@ -16,7 +16,8 @@
 
 package jetbrains.buildServer.xmlReportPlugin.checkstyle;
 
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import java.io.File;
+import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
@@ -26,8 +27,6 @@ import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
-import java.io.File;
 
 /**
  * User: vbedrosova
@@ -40,7 +39,7 @@ public class CheckstyleReportParser extends InspectionsReportParser {
   private File myCurrentReport;
   private String myCurrentFile;
 
-  public CheckstyleReportParser(@NotNull final BaseServerLoggerFacade logger,
+  public CheckstyleReportParser(@NotNull final BuildProgressLogger logger,
                                 @NotNull InspectionReporter inspectionReporter,
                                 @NotNull String checkoutDirectory) {
     super(logger, inspectionReporter, checkoutDirectory);
@@ -67,6 +66,7 @@ public class CheckstyleReportParser extends InspectionsReportParser {
 
 //  Handler methods
 
+  @Override
   public void startElement(String uri, String name, String qName, Attributes attributes) throws SAXException {
     if ("checkstyle".equals(name)) {
       XmlReportPlugin.LOG.info(specifyMessage("Parsing report of version " + attributes.getValue("version")));
@@ -89,6 +89,7 @@ public class CheckstyleReportParser extends InspectionsReportParser {
     }
   }
 
+  @Override
   public void endElement(String uri, String name, String qName) throws SAXException {
     if ("file".equals(name)) {
       myCurrentFile = null;

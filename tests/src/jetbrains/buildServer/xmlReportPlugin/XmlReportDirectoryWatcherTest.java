@@ -23,7 +23,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
 import jetbrains.buildServer.TempFiles;
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import jetbrains.buildServer.agent.BuildProgressLogger;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
 import org.junit.After;
@@ -38,7 +38,7 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
   private TempFiles myTempFiles;
   private File myWorkDir;
 
-  private XmlReportDirectoryWatcher.Parameters createParameters(final BaseServerLoggerFacade logger) {
+  private XmlReportDirectoryWatcher.Parameters createParameters(final BuildProgressLogger logger) {
 
     return new XmlReportDirectoryWatcher.Parameters() {
       public boolean isVerbose() {
@@ -46,7 +46,7 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
       }
 
       @NotNull
-      public BaseServerLoggerFacade getLogger() {
+      public BuildProgressLogger getLogger() {
         return logger;
       }
 

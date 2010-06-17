@@ -16,6 +16,12 @@
 
 package jetbrains.buildServer.xmlReportPlugin.integration;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
@@ -33,13 +39,6 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static jetbrains.buildServer.xmlReportPlugin.integration.ReportFactory.*;
 
@@ -122,12 +121,12 @@ public class XmlReportPluginIntegrationTest {
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeBuildFinish(status);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -178,12 +177,12 @@ public class XmlReportPluginIntegrationTest {
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -298,12 +297,12 @@ public class XmlReportPluginIntegrationTest {
     warningWhenNoReportsFoundInDirectory(ANT_JUNIT_REPORT_TYPE);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -318,12 +317,12 @@ public class XmlReportPluginIntegrationTest {
     warningWhenNoReportsFoundInDirectoryOnlyWrong(ANT_JUNIT_REPORT_TYPE);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     createFile(REPORTS_DIR + File.separator + "somefile.xml");
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
@@ -339,12 +338,12 @@ public class XmlReportPluginIntegrationTest {
     warningWhenNoReportsFoundInDirectory(NUNIT_REPORT_TYPE);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -437,12 +436,12 @@ public class XmlReportPluginIntegrationTest {
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     createUnfinishedReport(REPORTS_DIR + File.separator + "report.xml", ANT_JUNIT_REPORT_TYPE);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
@@ -464,12 +463,12 @@ public class XmlReportPluginIntegrationTest {
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -500,6 +499,7 @@ public class XmlReportPluginIntegrationTest {
     myTestLogger.addNotControlledMethod("warning");
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
@@ -511,7 +511,6 @@ public class XmlReportPluginIntegrationTest {
       "  <properties/>\n" +
       "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
       "</testsuite>");
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     createFile("suite2.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase\" tests=\"1\" time=\"0.031\"\n" +
       "           timestamp=\"2008-10-30T17:11:25\">\n" +
@@ -581,6 +580,7 @@ public class XmlReportPluginIntegrationTest {
     myTestLogger.addNotControlledMethod("message");
     myTestLogger.addNotControlledMethod("warning");
 
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
     try {
       Thread.sleep(1000);
@@ -593,7 +593,6 @@ public class XmlReportPluginIntegrationTest {
       "  <properties/>\n" +
       "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
       "</testsuite>");
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     createFile("suite2.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuites>" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase2\" tests=\"2\" time=\"0.062\"\n" +
@@ -688,6 +687,7 @@ public class XmlReportPluginIntegrationTest {
     myTestLogger.addNotControlledMethod("warning");
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
@@ -699,7 +699,6 @@ public class XmlReportPluginIntegrationTest {
       "  <properties/>\n" +
       "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
       "</testsuite>");
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
@@ -819,12 +818,12 @@ public class XmlReportPluginIntegrationTest {
       e.printStackTrace();
     }
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
 
@@ -906,12 +905,12 @@ public class XmlReportPluginIntegrationTest {
       e.printStackTrace();
     }
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
     myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
 
@@ -970,12 +969,12 @@ public class XmlReportPluginIntegrationTest {
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
 
     createFile("suite1.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
       "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
@@ -1052,12 +1051,12 @@ public class XmlReportPluginIntegrationTest {
     }
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
 
     final XmlReportDataProcessor dataProcessor = new XmlReportDataProcessor.JUnitDataProcessor(myPlugin);
     final Map<String, String> args = new HashMap<String, String>();
@@ -1142,12 +1141,12 @@ public class XmlReportPluginIntegrationTest {
     }
 
     myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
 
     final XmlReportDataProcessor dataProcessor = new XmlReportDataProcessor.JUnitDataProcessor(myPlugin);
     final Map<String, String> args = new HashMap<String, String>();

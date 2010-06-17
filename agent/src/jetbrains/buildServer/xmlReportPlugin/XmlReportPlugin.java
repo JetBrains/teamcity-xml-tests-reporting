@@ -41,12 +41,11 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
   public static final String TREAT_DLL_AS_SUITE = "xmlReportParsing.nunit.treatDllAsRootSuite";
 
-  private XmlReportDirectoryWatcher myDirectoryWatcher;
-  private XmlReportProcessor myReportProcessor;
-  private BaseServerLoggerFacade myLogger;
   private final InspectionReporter myInspectionReporter;
 
-  private volatile Map<String, String> myParameters;
+  @Nullable private volatile AgentRunningBuild myBuild;
+  @Nullable private volatile Date myStartTime;
+  @Nullable private volatile ReportProcessingContext myContext;
 
   private volatile boolean myStopped;
 
@@ -58,70 +57,85 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   }
 
   @Override
-  public void buildStarted(@NotNull AgentRunningBuild build) {
+  public void beforeRunnerStart(@NotNull AgentRunningBuild build) {
     myStopped = false;
-    myParameters = new HashMap<String, String>(build.getRunnerParameters());
-    myParameters.put(BUILD_START, "" + new Date().getTime());
-    myParameters.put(TMP_DIR, build.getBuildTempDirectory().getAbsolutePath());
-    myParameters.put(TREAT_DLL_AS_SUITE, build.getBuildParameters().getSystemProperties().get(TREAT_DLL_AS_SUITE));
+
+    assert myBuild == null;
+
+    myBuild = build;
+    final Date startTime = new Date();
+    myStartTime = startTime;
+
+    if (!isParsingEnabled(build.getRunnerParameters()))
+      return;
+
+    final Set<File> reportPaths = getReportPathsFromDirProperty(getXmlReportPaths(build.getRunnerParameters()),
+                                                                build.getCheckoutDirectory());
+    final ReportProcessingContext context = createContext(build, startTime, reportPaths, null);
+
+    context.myDirectoryWatcher.start();
+    context.myReportProcessor.start();
+
+    myContext = context;
   }
 
-  @Override
-  public void beforeRunnerStart(@NotNull AgentRunningBuild build) {
-    obtainLogger(build);
-    if (!isParsingEnabled(myParameters)) {
-      return;
-    }
-    final Set<File> reportPaths = getReportPathsFromDirProperty(getXmlReportPaths(myParameters), build.getCheckoutDirectory());
-    final String type = getReportType(myParameters);
+  private ReportProcessingContext createContext(@NotNull final AgentRunningBuild build,
+                                                @NotNull final Date startTime,
+                                                @NotNull final Set<File> reportPaths,
+                                                @Nullable final Map<String, String> additionalParams
+  ) {
+    Map<String, String> parametersMap = new HashMap<String, String>(build.getRunnerParameters());
+
+    parametersMap.put(BUILD_START, "" + startTime.getTime());
+    parametersMap.put(TMP_DIR, build.getBuildTempDirectory().getAbsolutePath());
+    parametersMap.put(TREAT_DLL_AS_SUITE, build.getBuildParameters().getSystemProperties().get(TREAT_DLL_AS_SUITE));
+
+    if(additionalParams != null)
+      parametersMap.putAll(additionalParams);
+
+    final String type = getReportType(parametersMap);
     //TODO: can avoid this if by adding paths presence in the web IU
     if (reportPaths.size() == 0) {
-      enableXmlReportParsing(myParameters, ""); //can avoid this by adding paths presence in the web IU
+      enableXmlReportParsing(parametersMap, ""); //can avoid this by adding paths presence in the web IU
     }
-    startProcessing(reportPaths, type);
-  }
 
-  private void obtainLogger(AgentRunningBuild agentRunningBuild) {
-    final BuildProgressLogger logger = agentRunningBuild.getBuildLogger();
-    if (logger instanceof BaseServerLoggerFacade) {
-      myLogger = (BaseServerLoggerFacade) logger;
-    } else {
-      // not expected
-    }
+    final LinkedBlockingQueue<ReportData> reportsQueue = new LinkedBlockingQueue<ReportData>();
+
+    final Parameters parameters = new Parameters(parametersMap);
+
+    XmlReportDirectoryWatcher directoryWatcher = new XmlReportDirectoryWatcher(parameters, reportPaths, type, reportsQueue);
+    XmlReportProcessor reportProcessor = new XmlReportProcessor(parameters, reportsQueue, directoryWatcher);
+
+    return new ReportProcessingContext(parametersMap, directoryWatcher, reportProcessor);
   }
 
   public synchronized void processReports(Map<String, String> params, Set<File> reportPaths) {
-    final boolean wasParsingEnabled = isParsingEnabled(myParameters);
+    AgentRunningBuild build = myBuild;
+    Date startTime = myStartTime;
+
+    assert build != null;
+    assert startTime != null;
+
     final String type = getReportType(params);
-    myParameters.putAll(params);
-    if (!wasParsingEnabled) {
-      startProcessing(reportPaths, type);
+
+    ReportProcessingContext context = myContext;
+
+    if(context == null) {
+      context = createContext(build, startTime, reportPaths, params);
+      context.myDirectoryWatcher.start();
+      context.myReportProcessor.start();
+      myContext = context;
     } else {
-      myDirectoryWatcher.addPaths(reportPaths, type);
+      context.myParameters.putAll(params);
+      context.myDirectoryWatcher.addPaths(reportPaths, type);
     }
   }
 
   private class Parameters implements XmlReportDirectoryWatcher.Parameters, XmlReportProcessor.Parameters {
-    private final String myCheckoutDir;
-    private final String myFindBugsHome;
-    private final boolean myVerbose;
-    private final Map<String, String> myRunnerParameters;
-    private final String myTmpDir;
-    private final boolean myParseOutOfDate;
-    private final long myBuildStartTime;
+    private final Map<String, String> myParameters;
 
-    private Parameters(@NotNull final String checkoutDir,
-                       @Nullable final String findBugsHome,
-                       final boolean verbose,
-                       @NotNull final Map<String, String> runnerParameters,
-                       @NotNull final String tmpDir, final boolean parseOutOfDate, final long buildStartTime) {
-      myCheckoutDir = checkoutDir;
-      myFindBugsHome = findBugsHome;
-      myVerbose = verbose;
-      myRunnerParameters = runnerParameters;
-      myTmpDir = tmpDir;
-      myParseOutOfDate = parseOutOfDate;
-      myBuildStartTime = buildStartTime;
+    private Parameters(@NotNull final Map<String, String> parameters) {
+      myParameters = parameters;
     }
 
     @NotNull
@@ -131,58 +145,43 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
     @NotNull
     public String getCheckoutDir() {
-      return myCheckoutDir;
+      return myParameters.get(CHECKOUT_DIR);
     }
 
     @Nullable
     public String getFindBugsHome() {
-      return myFindBugsHome;
+      return getFindBugsHomePath(myParameters);
     }
 
     public boolean isVerbose() {
-      return myVerbose;
+      return Boolean.parseBoolean(myParameters.get(VERBOSE_OUTPUT));
     }
 
     @NotNull
-    public BaseServerLoggerFacade getLogger() {
-      return myLogger;
+    public BuildProgressLogger getLogger() {
+      final AgentRunningBuild build = myBuild;
+      assert build != null;
+      
+      return build.getBuildLogger();
     }
 
     @NotNull
     public Map<String, String> getRunnerParameters() {
-      return myRunnerParameters;
+      return myParameters;
     }
 
     @NotNull
     public String getTmpDir() {
-      return myTmpDir;
+      return myParameters.get(TMP_DIR);
     }
 
     public boolean parseOutOfDate() {
-      return myParseOutOfDate;
+      return Boolean.parseBoolean(myParameters.get(PARSE_OUT_OF_DATE));
     }
 
     public long getBuildStartTime() {
-      return myBuildStartTime;
+      return Long.parseLong(myParameters.get(BUILD_START));
     }
-  }
-
-  private void startProcessing(Set<File> reportDirs, String type) {
-    final LinkedBlockingQueue<ReportData> reportsQueue = new LinkedBlockingQueue<ReportData>();
-
-    final Parameters parameters =
-      new Parameters(myParameters.get(CHECKOUT_DIR),
-                     getFindBugsHomePath(myParameters),
-                     Boolean.parseBoolean(myParameters.get(VERBOSE_OUTPUT)),
-                     myParameters, myParameters.get(TMP_DIR),
-                     Boolean.parseBoolean(myParameters.get(PARSE_OUT_OF_DATE)),
-                     Long.parseLong(myParameters.get(BUILD_START)));
-
-    myDirectoryWatcher = new XmlReportDirectoryWatcher(parameters, reportDirs, type, reportsQueue);
-    myReportProcessor = new XmlReportProcessor(parameters, reportsQueue, myDirectoryWatcher);
-
-    myDirectoryWatcher.start();
-    myReportProcessor.start();
   }
 
   private static Set<File> getReportPathsFromDirProperty(String pathsStr, File checkoutDir) {
@@ -206,33 +205,33 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
   private void finishWork() {
     myStopped = true;
-    if (myReportProcessor == null)
+
+    ReportProcessingContext context = myContext;
+    if (context == null)
       return; // beforeRunnerStart was not called, i.e. build has failed before runner started
 
-    myReportProcessor.signalStop();
-    myDirectoryWatcher.signalStop();
+    context.myReportProcessor.signalStop();
+    context.myDirectoryWatcher.signalStop();
 
-    if (isParsingEnabled(myParameters)) {
+    if (isParsingEnabled(context.myParameters)) {
       try {
-        myReportProcessor.join();
+        context.myReportProcessor.join();
       } catch (InterruptedException e) {
-        getLogger().exception(e);
+        final AgentRunningBuild build = myBuild;
+        if(build != null)
+          build.getBuildLogger().exception(e);
+        
         LOG.warn(e.toString(), e);
       }
-      myDirectoryWatcher.logTotals();
+      context.myDirectoryWatcher.logTotals();
     }
   }
 
   @Override
   public void buildFinished(@NotNull final BuildFinishedStatus buildStatus) {
-    myDirectoryWatcher = null;
-    myReportProcessor = null;
-    myLogger = null;
-    myParameters = null;
-  }
-
-  public BaseServerLoggerFacade getLogger() {
-    return myLogger;
+    myBuild = null;
+    myStartTime = null;
+    myContext = null;
   }
 
   public boolean isStopped() {
@@ -241,5 +240,19 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
   public void beforeInspectionsSent(@NotNull AgentRunningBuild build) {
     finishWork();
+  }
+
+  private static class ReportProcessingContext {
+    @NotNull private final Map<String, String> myParameters;
+    @NotNull private final XmlReportDirectoryWatcher myDirectoryWatcher;
+    @NotNull private final XmlReportProcessor myReportProcessor;
+
+    private ReportProcessingContext(@NotNull final Map<String, String> parameters,
+                                    @NotNull final XmlReportDirectoryWatcher directoryWatcher,
+                                    @NotNull final XmlReportProcessor reportProcessor) {
+      myParameters = parameters;
+      myDirectoryWatcher = directoryWatcher;
+      myReportProcessor = reportProcessor;
+    }
   }
 }

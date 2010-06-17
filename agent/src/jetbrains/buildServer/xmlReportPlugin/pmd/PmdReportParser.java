@@ -16,7 +16,8 @@
 
 package jetbrains.buildServer.xmlReportPlugin.pmd;
 
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import java.io.File;
+import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
@@ -26,8 +27,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import java.io.File;
-
 
 public class PmdReportParser extends InspectionsReportParser {
   public static final String TYPE = "pmd";
@@ -35,12 +34,13 @@ public class PmdReportParser extends InspectionsReportParser {
 
   private String myCurrentFile;
 
-  public PmdReportParser(@NotNull final BaseServerLoggerFacade logger,
+  public PmdReportParser(@NotNull final BuildProgressLogger logger,
                          @NotNull InspectionReporter inspectionReporter,
                          @NotNull String checkoutDirectory) {
     super(logger, inspectionReporter, checkoutDirectory);
   }
 
+  @Override
   public void parse(@NotNull final ReportData data) {
     final File report = data.getFile();
     if (!isReportComplete(report, "</pmd>")) {
@@ -61,6 +61,7 @@ public class PmdReportParser extends InspectionsReportParser {
 
   //  Handler methods
 
+  @Override
   public void startElement(String uri, String localName,
                            String qName, Attributes attributes) throws SAXException {
     if ("file".equals(localName)) {
@@ -76,6 +77,7 @@ public class PmdReportParser extends InspectionsReportParser {
     }
   }
 
+  @Override
   public void endElement(String uri, String localName, String qName) throws SAXException {
     if ("violation".equals(localName)) {
       myCurrentBug.setMessage(formatText(myCData));

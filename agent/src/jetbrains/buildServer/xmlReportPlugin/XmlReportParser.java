@@ -16,23 +16,22 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 
 public abstract class XmlReportParser extends DefaultHandler {
   private XMLReader myXmlReader;
-  protected final BaseServerLoggerFacade myLogger;
+  protected final BuildProgressLogger myLogger;
 
   protected final StringBuffer myCData;
 
@@ -63,7 +62,7 @@ public abstract class XmlReportParser extends DefaultHandler {
     return xmlReader;
   }
 
-  protected XmlReportParser(@NotNull final BaseServerLoggerFacade logger) {
+  protected XmlReportParser(@NotNull final BuildProgressLogger logger) {
     myLogger = logger;
     myCData = new StringBuffer();
     try {
@@ -84,7 +83,7 @@ public abstract class XmlReportParser extends DefaultHandler {
     return (size > 0) && reportContent.get(size - 1).trim().endsWith(trailingTag);
   }
 
-  public BaseServerLoggerFacade getLogger() {
+  public BuildProgressLogger getLogger() {
     return myLogger;
   }
 
@@ -105,6 +104,7 @@ public abstract class XmlReportParser extends DefaultHandler {
     }
   }
 
+  @Override
   public void characters(char ch[], int start, int length) throws SAXException {
     myCData.append(ch, start, length);
   }

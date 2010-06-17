@@ -27,12 +27,14 @@ class BuildLoggerForTesting extends BaseServerLoggerFacade {
     myText = text;
   }
 
+  @Override
   public void warning(@NotNull final String message) {
     myText.append("WARNING: ");
     myText.append(message);
     myText.append("\n");
   }
 
+  @Override
   public void exception(final Throwable th) {
     myText.append("EXCEPTION: ");
     myText.append(th.toString());
@@ -40,24 +42,29 @@ class BuildLoggerForTesting extends BaseServerLoggerFacade {
     th.printStackTrace();
   }
 
+  @Override
   public void flush() {
   }
 
+  @Override
   protected void log(BuildMessage1 buildMessage1) {
   }
 
+  @Override
   public void progressMessage(final String message) {
     myText.append("PROGRESS: ");
     myText.append(message);
     myText.append("\n");
   }
 
+  @Override
   public void message(final String message) {
     myText.append("MESSAGE: ");
     myText.append(message);
     myText.append("\n");
   }
 
+  @Override
   public void error(@NotNull final String message) {
     myText.append("ERROR: ");
     myText.append(message);

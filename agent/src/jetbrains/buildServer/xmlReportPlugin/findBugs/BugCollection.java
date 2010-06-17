@@ -16,23 +16,21 @@
 
 package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
-import org.jetbrains.annotations.NotNull;
-import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
-
-import javax.swing.text.html.parser.DTD;
-import javax.swing.text.html.parser.Parser;
-import javax.swing.text.html.parser.TagElement;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import javax.swing.text.html.parser.DTD;
+import javax.swing.text.html.parser.Parser;
+import javax.swing.text.html.parser.TagElement;
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
+import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
+import org.jetbrains.annotations.NotNull;
+import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
+import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * User: vbedrosova
@@ -47,7 +45,7 @@ class BugCollection {
   private Map<String, Pattern> myBugPatterns;
 
   @NotNull
-  private final BaseServerLoggerFacade myLogger;
+  private final BuildProgressLogger myLogger;
 
   @NotNull
   private static DetailsParser DETAILS_PARSER;
@@ -60,7 +58,7 @@ class BugCollection {
     }
   }
 
-  public BugCollection(@NotNull BaseServerLoggerFacade logger) {
+  public BugCollection(@NotNull BuildProgressLogger logger) {
     myLogger = logger;
   }
 
@@ -139,9 +137,9 @@ class BugCollection {
   private final class FindBugsHandler extends DefaultHandler {
     public static final String BUG_PATTERN = "BugPattern";
 
+    @Override
     public void startElement(String uri, String localName,
-                             String qName, Attributes attributes)
-      throws SAXException {
+                             String qName, Attributes attributes) {
       if (BUG_PATTERN.equals(localName)) {
         myBugPatterns.put(attributes.getValue("type"),
           new Pattern(attributes.getValue("category")));
@@ -160,9 +158,9 @@ class BugCollection {
     private Pattern myCurrentPattern;
     private final StringBuffer myCData = new StringBuffer();
 
+    @Override
     public void startElement(String uri, String localName,
-                             String qName, Attributes attributes)
-      throws SAXException {
+                             String qName, Attributes attributes) {
       if (CATEGORY.equals(localName)) {
         myCurrentCategory = new Category();
         myCategories.put(attributes.getValue("category"), myCurrentCategory);
@@ -171,7 +169,8 @@ class BugCollection {
       }
     }
 
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    @Override
+    public void endElement(String uri, String localName, String qName) {
       if (CATEGORY.equals(localName)) {
         myCurrentCategory = null;
       } else if (BUG_PATTERN.equals(localName)) {
@@ -193,7 +192,8 @@ class BugCollection {
       myCData.delete(0, myCData.length());
     }
 
-    public void characters(char ch[], int start, int length) throws SAXException {
+    @Override
+    public void characters(char ch[], int start, int length) {
       myCData.append(ch, start, length);
     }
   }
@@ -297,15 +297,18 @@ class BugCollection {
       super(dtd);
     }
 
+    @Override
     public void parse(Reader in) throws java.io.IOException {
       myStringBuffer.delete(0, myStringBuffer.length());
       super.parse(in);
     }
 
+    @Override
     protected void handleText(char text[]) {
       myStringBuffer.append(text);
     }
 
+    @Override
     protected void handleEndTag(TagElement tag) {
       myStringBuffer.append(" ");
     }

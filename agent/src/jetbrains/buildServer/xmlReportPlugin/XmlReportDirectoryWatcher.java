@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Pattern;
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 
@@ -45,7 +45,7 @@ public class XmlReportDirectoryWatcher extends Thread {
 
   public interface Parameters {
     boolean isVerbose();
-    @NotNull BaseServerLoggerFacade getLogger();
+    @NotNull BuildProgressLogger getLogger();
     boolean parseOutOfDate();
 
     long getBuildStartTime();

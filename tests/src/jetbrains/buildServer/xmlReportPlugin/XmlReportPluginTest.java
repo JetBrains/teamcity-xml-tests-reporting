@@ -16,6 +16,9 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
@@ -30,10 +33,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 @RunWith(JMock.class)
 public class XmlReportPluginTest {
   private static final String CHECKOUT_DIR = "workingDir";
@@ -41,7 +40,7 @@ public class XmlReportPluginTest {
   private XmlReportPlugin myPlugin;
   private Map<String, String> myRunParams;
   private File myCheckoutDir;
-  private BaseServerLoggerFacade myLogger;
+  private BuildProgressLogger myLogger;
   private EventDispatcher<AgentLifeCycleListener> myEventDispatcher;
 
   private Mockery myContext;
@@ -71,8 +70,8 @@ public class XmlReportPluginTest {
     return runningBuild;
   }
 
-  private BaseServerLoggerFacade createBaseServerLoggerFacade() {
-    return myContext.mock(BaseServerLoggerFacade.class);
+  private BuildProgressLogger createBaseServerLoggerFacade() {
+    return myContext.mock(BuildProgressLogger.class);
   }
 
   private BuildParametersMap createBuildParametersMap() {

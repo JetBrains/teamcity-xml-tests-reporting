@@ -16,12 +16,11 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
-import jetbrains.buildServer.agent.inspections.*;
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.util.*;
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.agent.inspections.*;
+import org.jetbrains.annotations.NotNull;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 
@@ -41,7 +40,7 @@ public abstract class InspectionsReportParser extends XmlReportParser {
 
   protected InspectionInstance myCurrentBug;
 
-  protected InspectionsReportParser(@NotNull final BaseServerLoggerFacade logger,
+  protected InspectionsReportParser(@NotNull final BuildProgressLogger logger,
                                     @NotNull InspectionReporter inspectionReporter,
                                     @NotNull String checkoutDirectory) {
     super(logger);
@@ -54,6 +53,7 @@ public abstract class InspectionsReportParser extends XmlReportParser {
     return "Errors: " + errors + ", warnings: " + warnings + ", information: " + infos;
   }
 
+  @Override
   public void logReportTotals(@NotNull File report, boolean verbose) {
     String message = report.getPath() + " report processed";
     if (myErrors > 0) {
@@ -77,6 +77,7 @@ public abstract class InspectionsReportParser extends XmlReportParser {
     myInfos = 0;
   }
 
+  @Override
   protected void logParsingTotals(@NotNull Map<String, String> parameters, boolean verbose) {
     boolean limitReached = false;
 
@@ -141,5 +142,6 @@ public abstract class InspectionsReportParser extends XmlReportParser {
     return path.replace(File.separator, "/");
   }
 
+  @Override
   public abstract void parse(@NotNull ReportData data);
 }

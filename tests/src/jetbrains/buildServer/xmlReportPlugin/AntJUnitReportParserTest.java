@@ -17,7 +17,11 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.util.io.FileUtil;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Date;
 import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -31,10 +35,6 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Date;
 
 
 @RunWith(JMock.class)
@@ -55,7 +55,7 @@ public class AntJUnitReportParserTest extends TestCase {
   private static final String REPORT_4 = "report3.xml";
 
   private XmlReportParser myParser;
-  private BaseServerLoggerFacade myLogger;
+  private BuildProgressLogger myLogger;
 
   private Mockery myContext;
   private Sequence mySequence;
@@ -72,6 +72,7 @@ public class AntJUnitReportParserTest extends TestCase {
     return TestUtil.getTestDataFile(fileName, REPORT_DIR);
   }
 
+  @Override
   @Before
   public void setUp() {
     myContext = new JUnit4Mockery() {

@@ -16,14 +16,13 @@
 
 package jetbrains.buildServer.xmlReportPlugin.nUnit;
 
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import java.io.File;
+import java.io.IOException;
+import javax.xml.transform.TransformerConfigurationException;
+import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
-
-import javax.xml.transform.TransformerConfigurationException;
-import java.io.File;
-import java.io.IOException;
 
 
 public class NUnitReportParser extends AntJUnitReportParser {
@@ -33,7 +32,7 @@ public class NUnitReportParser extends AntJUnitReportParser {
   private NUnitToJUnitReportTransformer myReportTransformer;
   private final File myTmpReportDir;
 
-  public NUnitReportParser(BaseServerLoggerFacade logger, String tmpDir, String schema) {
+  public NUnitReportParser(BuildProgressLogger logger, String tmpDir, String schema) {
     super(logger);
     try {
       myReportTransformer = new NUnitToJUnitReportTransformer(schema);
@@ -44,6 +43,7 @@ public class NUnitReportParser extends AntJUnitReportParser {
     myTmpReportDir.mkdirs();
   }
 
+  @Override
   public void parse(@NotNull final ReportData data) {
     final File report = data.getFile();
     if (!isReportComplete(report, "</test-results>")) {

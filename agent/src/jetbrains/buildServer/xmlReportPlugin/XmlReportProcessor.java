@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
+import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
@@ -50,11 +50,12 @@ public class XmlReportProcessor extends Thread {
   private volatile boolean myStopSignaled = false;
 
   public interface Parameters {
-    @NotNull InspectionReporter getInspectionReporter();
+    @Nullable InspectionReporter getInspectionReporter();
     @NotNull String getCheckoutDir();
     @Nullable String getFindBugsHome();
     boolean isVerbose();
-    @NotNull BaseServerLoggerFacade getLogger();
+    @NotNull
+    BuildProgressLogger getLogger();
     @NotNull Map<String,String> getRunnerParameters();
     @NotNull String getTmpDir();
   }
@@ -164,22 +165,41 @@ public class XmlReportProcessor extends Thread {
   }
 
   private void initializeParser(String type) {
-    if (AntJUnitReportParser.TYPE.equals(type) || ("surefire".equals(type))) {
-      myParsers.put(type, new AntJUnitReportParser(myParameters.getLogger()));
-    } else if (NUnitReportParser.TYPE.equals(type)) {
-      myParsers.put(type, new NUnitReportParser(myParameters.getLogger(), myParameters.getTmpDir(),
-        "false".equals(myParameters.getRunnerParameters().get(XmlReportPlugin.TREAT_DLL_AS_SUITE)) ? NUNIT_TO_JUNIT_OLD_XSL : NUNIT_TO_JUNIT_XSL));
-    } else if (FindBugsReportParser.TYPE.equals(type)) {
-      myParsers.put(type, new FindBugsReportParser(myParameters.getLogger(), myParameters.getInspectionReporter(), myParameters.getCheckoutDir(), myParameters.getFindBugsHome()));
-    } else if (PmdReportParser.TYPE.equals(type)) {
-      myParsers.put(type, new PmdReportParser(myParameters.getLogger(), myParameters.getInspectionReporter(), myParameters.getCheckoutDir()));
-    } else if (CheckstyleReportParser.TYPE.equals(type)) {
-      myParsers.put(type, new CheckstyleReportParser(myParameters.getLogger(), myParameters.getInspectionReporter(), myParameters.getCheckoutDir()));
-    } else {
-      LOG.debug("No parser for " + type + " available");
+    final XmlReportParser parser = createParser(myParameters, type);
+    if(parser != null)
+      myParsers.put(type, parser);
+  }
+
+  @Nullable
+  private static XmlReportParser createParser(@NotNull Parameters parameters, @NotNull String type) {
+    if (AntJUnitReportParser.TYPE.equals(type) || ("surefire".equals(type)))
+      return new AntJUnitReportParser(parameters.getLogger());
+
+    if (NUnitReportParser.TYPE.equals(type))
+      return new NUnitReportParser(parameters.getLogger(), parameters.getTmpDir(),
+        "false".equals(parameters.getRunnerParameters().get(XmlReportPlugin.TREAT_DLL_AS_SUITE)) ? NUNIT_TO_JUNIT_OLD_XSL : NUNIT_TO_JUNIT_XSL);
+
+    final InspectionReporter reporter = parameters.getInspectionReporter();
+    // reporter is needed for all parsers below
+    if(reporter == null) {
+      LOG.debug("Inspection reporter not provided. Required for parser type: " + type);
+      return null;
     }
+
+    if (FindBugsReportParser.TYPE.equals(type))
+      return new FindBugsReportParser(parameters.getLogger(), reporter, parameters.getCheckoutDir(), parameters.getFindBugsHome());
+
+    if (PmdReportParser.TYPE.equals(type))
+      return new PmdReportParser(parameters.getLogger(), reporter, parameters.getCheckoutDir());
+
+    if (CheckstyleReportParser.TYPE.equals(type))
+      return new CheckstyleReportParser(parameters.getLogger(), reporter, parameters.getCheckoutDir());
+
+    LOG.debug("No parser for " + type + " available");
+    return null;
   }
 
   private static final String NUNIT_TO_JUNIT_XSL = "nunit-to-junit.xsl";
   private static final String NUNIT_TO_JUNIT_OLD_XSL = "nunit-to-junit-old.xsl";
+
 }
