@@ -213,18 +213,16 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     context.myReportProcessor.signalStop();
     context.myDirectoryWatcher.signalStop();
 
-    if (isParsingEnabled(context.myParameters)) {
-      try {
-        context.myReportProcessor.join();
-      } catch (InterruptedException e) {
-        final AgentRunningBuild build = myBuild;
-        if(build != null)
-          build.getBuildLogger().exception(e);
-        
-        LOG.warn(e.toString(), e);
-      }
-      context.myDirectoryWatcher.logTotals();
+    try {
+      context.myReportProcessor.join();
+    } catch (InterruptedException e) {
+      final AgentRunningBuild build = myBuild;
+      if(build != null)
+        build.getBuildLogger().exception(e);
+
+      LOG.warn(e.toString(), e);
     }
+    context.myDirectoryWatcher.logTotals();
   }
 
   @Override
