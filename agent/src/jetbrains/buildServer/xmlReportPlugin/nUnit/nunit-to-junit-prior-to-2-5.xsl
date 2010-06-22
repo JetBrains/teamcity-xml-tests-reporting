@@ -39,9 +39,8 @@
 
                 <testsuite name="{$suiteName}"
                            tests="{count(//test-case)}" time="{@time}"
-                           failures="{count(//test-case[@result='Failure'])}"
-                           errors="{count(//test-case[@result='Error'])}"
-                           skipped="{count(//test-case[@result='Inconclusive']) + count(//test-case[@result='Ignored'])}"
+                           failures="{count(//test-case/failure)}" errors="0"
+                           skipped="{count(//test-case[@executed='False'])}"
                            timestamp="{$timestamp}">
 
                     <xsl:for-each select="results//test-case[1]">
@@ -53,11 +52,9 @@
 
                             <xsl:for-each select="*/test-case">
 
-                                <xsl:if test="@result">
-                                </xsl:if>
                                 <testcase name="{@name}"
                                           time="{@time}"
-                                          executed="{@result and (contains(@result, 'Success') or contains(@result, 'Failure') or contains(@result, 'Error')) or not(@result) and @executed='True'}">
+                                          executed="{@executed}">
 
 
                                     <xsl:if test="./failure">

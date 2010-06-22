@@ -16,8 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.FileNotFoundException;
-import java.util.Date;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
 import junit.framework.Assert;
@@ -31,6 +29,9 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.FileNotFoundException;
+import java.util.Date;
 
 
 @RunWith(JMock.class)
@@ -498,6 +499,62 @@ public class NUnitReportParserTest extends TestCase {
     });
     myParser.parse(report("twoCasesFailed.xml"));
     myParser.parse(report("twoCasesFailed_diffTimestamp.xml"));
+    myContext.assertIsSatisfied();
+  }
+
+  //  TW-11744
+  @Test
+  public void test_nunit_2_5_x_statuses() throws Exception {
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).logSuiteStarted(with("statuses.dll"), with(any(Date.class)));
+        inSequence(mySequence);
+
+        oneOf(myLogger).logTestStarted(with("Class1.Error"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFailed(with("Class1.Error"), with(any(String.class)), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with("Class1.Error"), with(any(Date.class)));
+        inSequence(mySequence);
+
+        oneOf(myLogger).logTestStarted(with("Class1.IgnoredAsAssert"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("Class1.IgnoredAsAssert"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with("Class1.IgnoredAsAssert"), with(any(Date.class)));
+        inSequence(mySequence);
+
+        oneOf(myLogger).logTestStarted(with("Class1.IgnoredWithAttribute"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("Class1.IgnoredWithAttribute"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with("Class1.IgnoredWithAttribute"), with(any(Date.class)));
+        inSequence(mySequence);
+
+        oneOf(myLogger).logTestStarted(with("Class1.InconclusiveAsAssert"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("Class1.InconclusiveAsAssert"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with("Class1.InconclusiveAsAssert"), with(any(Date.class)));
+        inSequence(mySequence);
+
+        oneOf(myLogger).logTestStarted(with("Class1.InconclusiveAsException"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestIgnored(with("Class1.InconclusiveAsException"), with(any(String.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with("Class1.InconclusiveAsException"), with(any(Date.class)));
+        inSequence(mySequence);
+
+        oneOf(myLogger).logTestStarted(with("Class1.PassAsAssert"), with(any(Date.class)));
+        inSequence(mySequence);
+        oneOf(myLogger).logTestFinished(with("Class1.PassAsAssert"), with(any(Date.class)));
+        inSequence(mySequence);
+
+        oneOf(myLogger).logSuiteFinished(with("statuses.dll"), with(any(Date.class)));
+        inSequence(mySequence);
+      }
+    });
+    myParser.parse(report("nunit-2.5/statuses.xml"));
     myContext.assertIsSatisfied();
   }
 }
