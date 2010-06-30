@@ -24,6 +24,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.messages.Status;
+import jetbrains.buildServer.messages.serviceMessages.BuildStatus;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
@@ -96,7 +98,7 @@ public class XmlReportProcessor extends Thread {
       final String message = "Failed to process some " + types.substring(0, types.length() - 2) + " reports";
       myParameters.getLogger().error(message);
       if (myProcessedReportTypes.size() == 0) {
-        myParameters.getLogger().message("##teamcity[buildStatus status='FAILURE' " + "text='" + message + "']");
+        myParameters.getLogger().message(new BuildStatus(message, Status.FAILURE).toString());
       }
     }
   }

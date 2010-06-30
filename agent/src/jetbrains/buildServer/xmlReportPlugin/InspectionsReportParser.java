@@ -20,6 +20,8 @@ import java.io.File;
 import java.util.*;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.*;
+import jetbrains.buildServer.messages.Status;
+import jetbrains.buildServer.messages.serviceMessages.BuildStatus;
 import org.jetbrains.annotations.NotNull;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
@@ -94,7 +96,7 @@ public abstract class InspectionsReportParser extends XmlReportParser {
     }
 
     if (limitReached) {
-      myLogger.message("##teamcity[buildStatus status='FAILURE' " + "text='" + generateBuildStatus(myTotalErrors, myTotalWarnings, myTotalInfos) + "']");
+      myLogger.message(new BuildStatus(generateBuildStatus(myTotalErrors, myTotalWarnings, myTotalInfos), Status.FAILURE).toString());
     }
   }
 
