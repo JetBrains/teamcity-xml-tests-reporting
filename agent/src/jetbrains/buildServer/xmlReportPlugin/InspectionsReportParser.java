@@ -96,7 +96,7 @@ public abstract class InspectionsReportParser extends XmlReportParser {
     }
 
     if (limitReached) {
-      myLogger.message(new BuildStatus(generateBuildStatus(myTotalErrors, myTotalWarnings, myTotalInfos), Status.FAILURE).toString());
+      myLogger.message(new BuildStatus(generateBuildStatus(myTotalErrors, myTotalWarnings, myTotalInfos), Status.FAILURE).asString());
     }
   }
 

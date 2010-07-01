@@ -98,7 +98,7 @@ public class XmlReportProcessor extends Thread {
       final String message = "Failed to process some " + types.substring(0, types.length() - 2) + " reports";
       myParameters.getLogger().error(message);
       if (myProcessedReportTypes.size() == 0) {
-        myParameters.getLogger().message(new BuildStatus(message, Status.FAILURE).toString());
+        myParameters.getLogger().message(new BuildStatus(message, Status.FAILURE).asString());
       }
     }
   }
