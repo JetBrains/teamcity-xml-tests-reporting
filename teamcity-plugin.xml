@@ -3,7 +3,7 @@
 <info>
 <name>xml-report-plugin</name>
 <display-name>XML-based Reports</display-name>
-<version>16000</version>
+<version>@Plugin_Version@</version>
 <description>Plugin adds support for importing tests and inspections results from different XML-based reports in TeamCity</description>
 <vendor>
 <name>JetBrains, s.r.o.</name>
