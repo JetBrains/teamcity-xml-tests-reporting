@@ -24,8 +24,8 @@ import java.util.List;
 import java.util.Map;
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.AgentRunningBuild;
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.BuildFinishedStatus;
+import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
@@ -70,7 +70,7 @@ public class XmlReportPluginIntegrationTest {
     return reporter;
   }
 
-  private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final File checkoutDirFile, final BaseServerLoggerFacade logger) {
+  private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final File checkoutDirFile, final BuildProgressLogger logger) {
     final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
     myContext.checking(new Expectations() {
       {

@@ -16,15 +16,14 @@
 
 package jetbrains.buildServer.xmlReportPlugin.integration;
 
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import org.jetbrains.annotations.NotNull;
 
-class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
+class BaseServerLoggerFacadeForTesting implements BuildProgressLogger {
   private List<MethodInvokation> myMethodSequence = null;
   private final List<String> myNotControlledMethods = new LinkedList<String>();
 
@@ -222,21 +221,23 @@ class BaseServerLoggerFacadeForTesting extends BaseServerLoggerFacade {
 
   public void buildFailureDescription(java.lang.String s) { /* compiled code */ }
 
+  public void preparationEndMessage() {
+  }
+
+  public void error(final String type, final String message, final Throwable throwable) {
+  }
+
   public void exception(java.lang.Throwable throwable) { /* compiled code */ }
 
   public void flush() {
   }
 
-  public void log(jetbrains.buildServer.messages.BuildMessage1 buildMessage1) {
+  public void ignoreServiceMessages(final Runnable runnable) {
   }
 
   public void flowStarted(java.lang.String s, java.lang.String s1) { /* compiled code */ }
 
   public void flowFinished(java.lang.String s) { /* compiled code */ }
-
-  public void ensureFlow() { /* compiled code */ }
-
-  public void buildFinished() { /* compiled code */ }
 
   public void logMessage(jetbrains.buildServer.messages.BuildMessage1 buildMessage1) { /* compiled code */ }
 }

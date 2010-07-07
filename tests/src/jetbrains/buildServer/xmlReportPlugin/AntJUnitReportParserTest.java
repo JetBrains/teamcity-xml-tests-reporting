@@ -20,7 +20,6 @@ import com.intellij.openapi.util.io.FileUtil;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Date;
-import jetbrains.buildServer.agent.BaseServerLoggerFacade;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import junit.framework.Assert;
@@ -60,8 +59,8 @@ public class AntJUnitReportParserTest extends TestCase {
   private Mockery myContext;
   private Sequence mySequence;
 
-  private BaseServerLoggerFacade createBaseServerLoggerFacade() {
-    return myContext.mock(BaseServerLoggerFacade.class);
+  private BuildProgressLogger createBaseServerLoggerFacade() {
+    return myContext.mock(BuildProgressLogger.class);
   }
 
   private ReportData reportData(@NotNull final String fileName) throws FileNotFoundException {
