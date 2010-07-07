@@ -1,4 +1,4 @@
 MESSAGE: Watching paths: 
 MESSAGE: ##BASE_DIR##\mask*
-WARNING: no files found
+WARNING: No files found during the build
 WARNING: ##BASE_DIR##\mask*: no files found

@@ -16,18 +16,20 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
+import jetbrains.buildServer.util.StringUtil;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
 
@@ -40,6 +42,9 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   public static final String CHECKOUT_DIR = "teamcity.build.checkoutDir";
 
   public static final String TREAT_DLL_AS_SUITE = "xmlReportParsing.nunit.treatDllAsRootSuite";
+  public static final String PATHS_TO_EXCLUDE = "xmlReportParsing.exclude";
+  
+  private static final String SPLIT_REGEX = " *[,\n\r] *";
 
   private final InspectionReporter myInspectionReporter;
 
@@ -89,6 +94,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     parametersMap.put(BUILD_START, "" + startTime.getTime());
     parametersMap.put(TMP_DIR, build.getBuildTempDirectory().getAbsolutePath());
     parametersMap.put(TREAT_DLL_AS_SUITE, build.getBuildParameters().getSystemProperties().get(TREAT_DLL_AS_SUITE));
+    parametersMap.put(PATHS_TO_EXCLUDE, build.getBuildParameters().getSystemProperties().get(PATHS_TO_EXCLUDE));
 
     if(additionalParams != null)
       parametersMap.putAll(additionalParams);
@@ -182,12 +188,25 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     public long getBuildStartTime() {
       return Long.parseLong(myParameters.get(BUILD_START));
     }
+
+    public List<String> getPathsToExclude() {
+      if (StringUtil.isEmpty(myParameters.get(PATHS_TO_EXCLUDE))) {
+        return Collections.emptyList();       
+      }
+
+      final File checkoutDir = new File(getCheckoutDir());
+      final List<String> paths = new ArrayList<String>();
+      for (final String s : myParameters.get(PATHS_TO_EXCLUDE).split(SPLIT_REGEX)) {
+        paths.add(FileUtil.resolvePath(checkoutDir, s).getAbsolutePath());
+      }
+      return paths;
+    }
   }
 
   private static Set<File> getReportPathsFromDirProperty(String pathsStr, File checkoutDir) {
     final Set<File> dirs = new HashSet<File>();
     if (pathsStr != null) {
-      final String[] paths = pathsStr.split(" *[,\n\r] *");
+      final String[] paths = pathsStr.split(SPLIT_REGEX);
       for (String path : paths) {
         dirs.add(FileUtil.resolvePath(checkoutDir, path));
       }

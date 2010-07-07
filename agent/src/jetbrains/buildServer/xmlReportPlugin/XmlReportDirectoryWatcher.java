@@ -16,15 +16,17 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.util.FileUtil;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.util.AntPathMatcher;
+
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Pattern;
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.util.FileUtil;
-import org.jetbrains.annotations.NotNull;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.SUPPORTED_REPORT_TYPES;
@@ -34,12 +36,15 @@ import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.isInspec
 public class XmlReportDirectoryWatcher extends Thread {
   private static final int SCAN_INTERVAL = 100;
 
+  private static final AntPathMatcher MATCHER = new AntPathMatcher();
+
   private final Parameters myParameters;
 
   private final LinkedBlockingQueue<ReportData> myReportQueue;
   private final ConcurrentMap<String, Set<File>> myPaths;
   private final Map<File, MaskData> myMaskHash;
   private final Map<String, TypeStatistics> myStatistics;
+  private final List<String> myPathsToExclude;
 
   private volatile boolean myStopSignaled;
 
@@ -47,6 +52,7 @@ public class XmlReportDirectoryWatcher extends Thread {
     boolean isVerbose();
     @NotNull BuildProgressLogger getLogger();
     boolean parseOutOfDate();
+    List<String> getPathsToExclude();
 
     long getBuildStartTime();
   }
@@ -63,12 +69,16 @@ public class XmlReportDirectoryWatcher extends Thread {
     myReportQueue = queue;
     myMaskHash = new HashMap<File, MaskData>();
     myStatistics = new HashMap<String, TypeStatistics>();
+    myPathsToExclude = myParameters.getPathsToExclude();
     addPaths(input, type);
   }
 
   private static boolean isAntMask(File f) {
-    final String mask = f.getAbsolutePath();
-    return (mask.contains("*") || mask.contains("?"));
+    return isAntMask(f.getAbsolutePath());
+  }
+
+  private static boolean isAntMask(String s) {
+    return MATCHER.isPattern(s);
   }
 
   @Override
@@ -183,7 +193,7 @@ public class XmlReportDirectoryWatcher extends Thread {
       }
     }
     if (existingPaths.size() > 0) {
-      logPathsInTarget(existingPaths, type, "Found existing files:");
+      logPathsInTarget(existingPaths, type, "Found files from previous builds:");
     }
   }
 
@@ -232,14 +242,14 @@ public class XmlReportDirectoryWatcher extends Thread {
     if (isGoodFile(file)) {
       if (!s.getFiles().contains(file)) {
         sendToQueue(type, file);
+        s.getFiles().add(file);
       }
-      s.getFiles().add(file);
       files.add(file);
     }
   }
 
   private boolean isGoodFile(File f) {
-    return f.getName().endsWith(".xml") && f.isFile() && f.canRead() && timeConstraintsSatisfied(f);
+    return f.getName().endsWith(".xml") && f.isFile() && f.canRead() && timeConstraintsSatisfied(f) && !isExcluded(f);
   }
 
   private void sendToQueue(String type, File f) {
@@ -264,6 +274,20 @@ public class XmlReportDirectoryWatcher extends Thread {
     return myParameters.parseOutOfDate() || !isOutOfDate(file);
   }
 
+  private boolean isExcluded(File file) {
+    final String path = file.getAbsolutePath();
+    for (final String s : myPathsToExclude) {
+      if (isAntMask(s)) {
+       if (MATCHER.match(s, path)) {
+         return true;
+       }
+      } else if (s.startsWith(path)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   private boolean isOutOfDate(File k) {
     return k.lastModified() < myParameters.getBuildStartTime();
   }
@@ -275,7 +299,7 @@ public class XmlReportDirectoryWatcher extends Thread {
       if (s.getFiles().size() > 0) {
         message(s.getFiles().size() + " file(s) found");
       } else {
-        warning("no files found");
+        warning("No files found during the build");
       }
       for (File d : s.getDirs().keySet()) {
         logFiles(s, d, s.getDirs().get(d));

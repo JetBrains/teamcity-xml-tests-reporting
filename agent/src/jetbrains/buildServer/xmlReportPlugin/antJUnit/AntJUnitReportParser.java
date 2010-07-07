@@ -16,11 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
-import java.io.File;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
@@ -28,6 +23,10 @@ import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+
+import java.io.File;
+import java.util.Date;
+import java.util.Stack;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 
@@ -67,11 +66,8 @@ public class AntJUnitReportParser extends XmlReportParser {
   private String mySystemErr;
 
   private int myLoggedSuites;
-  private int mySkippedSuites;
   private int myLoggedTests;
   private int myTestsToSkip;
-
-  private final Set<String> myPreviouslyLoggedSuits;
 
 
   private static long getExecutionTime(String timeStr) {
@@ -113,9 +109,7 @@ public class AntJUnitReportParser extends XmlReportParser {
 
   public AntJUnitReportParser(@NotNull final BuildProgressLogger logger) {
     super(logger);
-    myPreviouslyLoggedSuits = new HashSet<String>();
     myLoggedSuites = 0;
-    mySkippedSuites = 0;
     myTests = new Stack<TestData>();
   }
 
@@ -161,7 +155,6 @@ public class AntJUnitReportParser extends XmlReportParser {
   public void parse(@NotNull final ReportData data) {
     myLoggedSuites = 0;
     myLoggedTests = 0;
-    mySkippedSuites = 0;
     myTestsToSkip = data.getProcessedEvents();
     myTests.clear();
     final File report = data.getFile();
@@ -169,7 +162,6 @@ public class AntJUnitReportParser extends XmlReportParser {
       parse(report);
     } catch (SAXException e) {
       if (myCurrentSuite != null) {
-        myPreviouslyLoggedSuits.remove(myCurrentSuite.getName() + myCurrentSuite.getTimestamp());
         endSuite();
       }
       XmlReportPlugin.LOG.debug("Couldn't completely parse " + report.getPath()
@@ -192,8 +184,6 @@ public class AntJUnitReportParser extends XmlReportParser {
       if (myLoggedTests > 0) {
         message = message.concat(", " + myLoggedTests + " test(s)");
       }
-    } else if (mySkippedSuites > 0) {
-      message = message.concat(", " + mySkippedSuites + " suite(s) skipped");
     }
     if (verbose) {
       myLogger.message(message);
@@ -263,7 +253,6 @@ public class AntJUnitReportParser extends XmlReportParser {
     }
     String name = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
     final String pack = attributes.getValue(DEFAULT_NAMESPACE, PACKAGE_ATTR);
-    final int testNumber = getNumber(attributes.getValue(DEFAULT_NAMESPACE, TESTS_ATTR));
     final Date startTime = new Date();
     final String timestamp = getTimestamp(attributes.getValue(DEFAULT_NAMESPACE, TIMESTAMP_ATTR));
     final long duration = getExecutionTime(attributes.getValue(DEFAULT_NAMESPACE, TIME_ATTR));
@@ -272,15 +261,8 @@ public class AntJUnitReportParser extends XmlReportParser {
       name = pack + "." + name;
     }
 
-    if (myPreviouslyLoggedSuits.contains(name + timestamp)) {
-      mySkippedSuites += 1;
-      myTestsToSkip = myLoggedTests + testNumber;
-      return;
-    }
-
     myCurrentSuite = new SuiteData(name, startTime.getTime(), duration, timestamp);
     myLogger.logSuiteStarted(name, startTime);
-    myPreviouslyLoggedSuits.add(name + timestamp);
   }
 
   private void endSuite() {

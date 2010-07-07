@@ -16,22 +16,14 @@
 
 package jetbrains.buildServer.xmlReportPlugin.integration;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import jetbrains.buildServer.agent.AgentLifeCycleListener;
-import jetbrains.buildServer.agent.AgentRunningBuild;
-import jetbrains.buildServer.agent.BuildFinishedStatus;
-import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil;
+import org.jetbrains.annotations.NotNull;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -39,6 +31,10 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 import static jetbrains.buildServer.xmlReportPlugin.integration.ReportFactory.*;
 
@@ -70,7 +66,7 @@ public class XmlReportPluginIntegrationTest {
     return reporter;
   }
 
-  private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final File checkoutDirFile, final BuildProgressLogger logger) {
+  private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final BuildParametersMap buildParameters, final File checkoutDirFile, final BuildProgressLogger logger) {
     final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
     myContext.checking(new Expectations() {
       {
@@ -78,6 +74,8 @@ public class XmlReportPluginIntegrationTest {
         will(returnValue(logger));
         allowing(runningBuild).getRunnerParameters();
         will(returnValue(runParams));
+        allowing(runningBuild).getBuildParameters();
+        will(returnValue(buildParameters));
         allowing(runningBuild).getBuildTempDirectory();
         will(returnValue(checkoutDirFile));
         allowing(runningBuild).getCheckoutDirectory();
@@ -105,7 +103,22 @@ public class XmlReportPluginIntegrationTest {
       e.printStackTrace();
     }
     myRunnerParams.put(XmlReportPlugin.CHECKOUT_DIR, myCheckoutDir.getAbsolutePath());
-    myRunningBuild = createAgentRunningBuild(myRunnerParams, myCheckoutDir, myTestLogger);
+    myRunningBuild = createAgentRunningBuild(myRunnerParams, new BuildParametersMap() {
+      @NotNull
+      public Map<String, String> getSystemProperties() {
+        return Collections.emptyMap();
+      }
+
+      @NotNull
+      public Map<String, String> getEnvironmentVariables() {
+        return Collections.emptyMap();
+      }
+
+      @NotNull
+      public Map<String, String> getAllParameters() {
+        return Collections.emptyMap();
+      }
+    }, myCheckoutDir, myTestLogger);
     myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
     myPlugin = new XmlReportPlugin(myEventDispatcher, inspectionReporter);
     ReportFactory.setCheckoutDir(myCheckoutDir.getAbsolutePath());
@@ -168,7 +181,7 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("message", params2));
 
     List<Object> params3 = new ArrayList<Object>();
-    params3.add("no files found");
+    params3.add("No files found during the build");
     myLogSequence.add(new MethodInvokation("warning", params3));
 
     List<Object> params4 = new ArrayList<Object>();
@@ -237,7 +250,7 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("message", params2));
 
     final List<Object> params3 = new ArrayList<Object>();
-    params3.add("no files found");
+    params3.add("No files found during the build");
     myLogSequence.add(new MethodInvokation("warning", params3));
 
     final List<Object> params4 = new ArrayList<Object>();
@@ -481,294 +494,294 @@ public class XmlReportPluginIntegrationTest {
 
   //test for Gradle bug after fixing
   //TW-6467: Tests can be reported twice with xml tests reporter (Gradle case)
-  @Test
-  public void testLogSuiteWhenAppearsIn2Files() {
-    XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
-    XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
-    XmlReportPluginUtil.setXmlReportPaths(myRunnerParams, "");
-
-    final List<Object> params = new ArrayList<Object>();
-    params.add(MethodInvokation.ANY_VALUE);
-    params.add(MethodInvokation.ANY_VALUE);
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestStarted", params));
-    myLogSequence.add(new MethodInvokation("logTestFinished", params));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", params));
-
-    myTestLogger.setExpectedSequence(myLogSequence);
-    myTestLogger.addNotControlledMethod("message");
-    myTestLogger.addNotControlledMethod("warning");
-
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    createFile("suite1.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
-      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase\" tests=\"1\" time=\"0.031\"\n" +
-      "           timestamp=\"2008-10-30T17:11:25\">\n" +
-      "  <properties/>\n" +
-      "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
-      "</testsuite>");
-    createFile("suite2.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
-      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase\" tests=\"1\" time=\"0.031\"\n" +
-      "           timestamp=\"2008-10-30T17:11:25\">\n" +
-      "  <properties/>\n" +
-      "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
-      "</testsuite>");
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-    myContext.assertIsSatisfied();
-    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
-
-    if (myFailures.size() > 0) {
-      throw myFailures.get(0);
-    }
-  }
-
-  //test for Gradle bug after fixing
-  //TW-6467: Tests can be reported twice with xml tests reporter (Gradle case)
-  @Test
-  public void testLogSuiteWhenAppearsIn2FilesOthersMustBeLogged() {
-    XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
-    XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
-    XmlReportPluginUtil.setXmlReportPaths(myRunnerParams, "");
-
-    final List<Object> twoAnyParams = new ArrayList<Object>();
-    twoAnyParams.add(MethodInvokation.ANY_VALUE);
-    twoAnyParams.add(MethodInvokation.ANY_VALUE);
-
-    final List<Object> threeAnyParams = new ArrayList<Object>();
-    threeAnyParams.add(MethodInvokation.ANY_VALUE);
-    threeAnyParams.add(MethodInvokation.ANY_VALUE);
-    threeAnyParams.add(MethodInvokation.ANY_VALUE);
-
-    final List<Object> param1 = new ArrayList<Object>();
-    param1.add("TestCase1");
-    param1.add(MethodInvokation.ANY_VALUE);
-
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param1));
-    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param1));
-
-    final List<Object> param2 = new ArrayList<Object>();
-    param2.add("TestCase2");
-    param2.add(MethodInvokation.ANY_VALUE);
-
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param2));
-    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param2));
-
-    final List<Object> param3 = new ArrayList<Object>();
-    param3.add("TestCase3");
-    param3.add(MethodInvokation.ANY_VALUE);
-
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param3));
-    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param3));
-
-    myTestLogger.setExpectedSequence(myLogSequence);
-    myTestLogger.addNotControlledMethod("message");
-    myTestLogger.addNotControlledMethod("warning");
-
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    createFile("suite1.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
-      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
-      "           timestamp=\"2008-10-30T17:11:25\">\n" +
-      "  <properties/>\n" +
-      "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
-      "</testsuite>");
-    createFile("suite2.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
-      "<testsuites>" +
-      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase2\" tests=\"2\" time=\"0.062\"\n" +
-      "           timestamp=\"2008-10-30T17:11:25\">\n" +
-      "  <properties/>\n" +
-      "  <testcase classname=\"TestCase2\" name=\"test1\" time=\"0.031\"/>\n" +
-      "  <testcase classname=\"TestCase2\" name=\"test2\" time=\"0.031\">\n" +
-      "    <failure message=\"Assertion message form test\" type=\"junit.framework.AssertionFailedError\">\n" +
-      "      junit.framework.AssertionFailedError: Assertion message form test\n" +
-      "      at TestCase.test(Unknown Source)\n" +
-      "    </failure>\n" +
-      "  </testcase>\n" +
-      "</testsuite>" +
-      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
-      "           timestamp=\"2008-10-30T17:11:25\">\n" +
-      "  <properties/>\n" +
-      "  <testcase classname=\"TestCase1\" name=\"test\" time=\"0.031\"/>\n" +
-      "</testsuite>" +
-      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase3\" tests=\"2\" time=\"0.062\"\n" +
-      "           timestamp=\"2008-10-30T17:11:25\">\n" +
-      "  <properties/>\n" +
-      "  <testcase classname=\"TestCase3\" name=\"test1\" time=\"0.031\"/>\n" +
-      "  <testcase classname=\"TestCase3\" name=\"test2\" time=\"0.031\">\n" +
-      "    <failure message=\"Assertion message form test\" type=\"junit.framework.AssertionFailedError\">\n" +
-      "      junit.framework.AssertionFailedError: Assertion message form test\n" +
-      "      at TestCase.test(Unknown Source)\n" +
-      "    </failure>\n" +
-      "  </testcase>\n" +
-      "</testsuite>" +
-      "</testsuites>");
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-    myContext.assertIsSatisfied();
-    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
-
-    if (myFailures.size() > 0) {
-      throw myFailures.get(0);
-    }
-  }
+//  @Test
+//  public void testLogSuiteWhenAppearsIn2Files() {
+//    XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
+//    XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
+//    XmlReportPluginUtil.setXmlReportPaths(myRunnerParams, "");
+//
+//    final List<Object> params = new ArrayList<Object>();
+//    params.add(MethodInvokation.ANY_VALUE);
+//    params.add(MethodInvokation.ANY_VALUE);
+//    myLogSequence.add(new MethodInvokation("logSuiteStarted", params));
+//    myLogSequence.add(new MethodInvokation("logTestStarted", params));
+//    myLogSequence.add(new MethodInvokation("logTestFinished", params));
+//    myLogSequence.add(new MethodInvokation("logSuiteFinished", params));
+//
+//    myTestLogger.setExpectedSequence(myLogSequence);
+//    myTestLogger.addNotControlledMethod("message");
+//    myTestLogger.addNotControlledMethod("warning");
+//
+//    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+//    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+//    try {
+//      Thread.sleep(1000);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
+//    createFile("suite1.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+//      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase\" tests=\"1\" time=\"0.031\"\n" +
+//      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+//      "  <properties/>\n" +
+//      "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
+//      "</testsuite>");
+//    createFile("suite2.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+//      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase\" tests=\"1\" time=\"0.031\"\n" +
+//      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+//      "  <properties/>\n" +
+//      "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
+//      "</testsuite>");
+//    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+//    myContext.assertIsSatisfied();
+//    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+//
+//    if (myFailures.size() > 0) {
+//      throw myFailures.get(0);
+//    }
+//  }
 
   //test for Gradle bug after fixing
   //TW-6467: Tests can be reported twice with xml tests reporter (Gradle case)
-  @Test
-  public void testLogSuiteWhenAppearsIn2FilesOthersMustBeLoggedInTwoTries() {
-    XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
-    XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
-    XmlReportPluginUtil.setXmlReportPaths(myRunnerParams, "");
+//  @Test
+//  public void testLogSuiteWhenAppearsIn2FilesOthersMustBeLogged() {
+//    XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
+//    XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
+//    XmlReportPluginUtil.setXmlReportPaths(myRunnerParams, "");
+//
+//    final List<Object> twoAnyParams = new ArrayList<Object>();
+//    twoAnyParams.add(MethodInvokation.ANY_VALUE);
+//    twoAnyParams.add(MethodInvokation.ANY_VALUE);
+//
+//    final List<Object> threeAnyParams = new ArrayList<Object>();
+//    threeAnyParams.add(MethodInvokation.ANY_VALUE);
+//    threeAnyParams.add(MethodInvokation.ANY_VALUE);
+//    threeAnyParams.add(MethodInvokation.ANY_VALUE);
+//
+//    final List<Object> param1 = new ArrayList<Object>();
+//    param1.add("TestCase1");
+//    param1.add(MethodInvokation.ANY_VALUE);
+//
+//    myLogSequence.add(new MethodInvokation("logSuiteStarted", param1));
+//    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logSuiteFinished", param1));
+//
+//    final List<Object> param2 = new ArrayList<Object>();
+//    param2.add("TestCase2");
+//    param2.add(MethodInvokation.ANY_VALUE);
+//
+//    myLogSequence.add(new MethodInvokation("logSuiteStarted", param2));
+//    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logSuiteFinished", param2));
+//
+//    final List<Object> param3 = new ArrayList<Object>();
+//    param3.add("TestCase3");
+//    param3.add(MethodInvokation.ANY_VALUE);
+//
+//    myLogSequence.add(new MethodInvokation("logSuiteStarted", param3));
+//    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logSuiteFinished", param3));
+//
+//    myTestLogger.setExpectedSequence(myLogSequence);
+//    myTestLogger.addNotControlledMethod("message");
+//    myTestLogger.addNotControlledMethod("warning");
+//
+//    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+//    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+//    try {
+//      Thread.sleep(1000);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
+//    createFile("suite1.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+//      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
+//      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+//      "  <properties/>\n" +
+//      "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
+//      "</testsuite>");
+//    createFile("suite2.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+//      "<testsuites>" +
+//      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase2\" tests=\"2\" time=\"0.062\"\n" +
+//      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+//      "  <properties/>\n" +
+//      "  <testcase classname=\"TestCase2\" name=\"test1\" time=\"0.031\"/>\n" +
+//      "  <testcase classname=\"TestCase2\" name=\"test2\" time=\"0.031\">\n" +
+//      "    <failure message=\"Assertion message form test\" type=\"junit.framework.AssertionFailedError\">\n" +
+//      "      junit.framework.AssertionFailedError: Assertion message form test\n" +
+//      "      at TestCase.test(Unknown Source)\n" +
+//      "    </failure>\n" +
+//      "  </testcase>\n" +
+//      "</testsuite>" +
+//      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
+//      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+//      "  <properties/>\n" +
+//      "  <testcase classname=\"TestCase1\" name=\"test\" time=\"0.031\"/>\n" +
+//      "</testsuite>" +
+//      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase3\" tests=\"2\" time=\"0.062\"\n" +
+//      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+//      "  <properties/>\n" +
+//      "  <testcase classname=\"TestCase3\" name=\"test1\" time=\"0.031\"/>\n" +
+//      "  <testcase classname=\"TestCase3\" name=\"test2\" time=\"0.031\">\n" +
+//      "    <failure message=\"Assertion message form test\" type=\"junit.framework.AssertionFailedError\">\n" +
+//      "      junit.framework.AssertionFailedError: Assertion message form test\n" +
+//      "      at TestCase.test(Unknown Source)\n" +
+//      "    </failure>\n" +
+//      "  </testcase>\n" +
+//      "</testsuite>" +
+//      "</testsuites>");
+//    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+//    myContext.assertIsSatisfied();
+//    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+//
+//    if (myFailures.size() > 0) {
+//      throw myFailures.get(0);
+//    }
+//  }
 
-    final List<Object> twoAnyParams = new ArrayList<Object>();
-    twoAnyParams.add(MethodInvokation.ANY_VALUE);
-    twoAnyParams.add(MethodInvokation.ANY_VALUE);
-
-    final List<Object> threeAnyParams = new ArrayList<Object>();
-    threeAnyParams.add(MethodInvokation.ANY_VALUE);
-    threeAnyParams.add(MethodInvokation.ANY_VALUE);
-    threeAnyParams.add(MethodInvokation.ANY_VALUE);
-
-    final List<Object> param1 = new ArrayList<Object>();
-    param1.add("TestCase1");
-    param1.add(MethodInvokation.ANY_VALUE);
-
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param1));
-    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param1));
-
-    final List<Object> param2 = new ArrayList<Object>();
-    param2.add("TestCase2");
-    param2.add(MethodInvokation.ANY_VALUE);
-
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param2));
-    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param2));
-
-    final List<Object> param3 = new ArrayList<Object>();
-    param3.add("TestCase3");
-    param3.add(MethodInvokation.ANY_VALUE);
-
-    myLogSequence.add(new MethodInvokation("logSuiteStarted", param3));
-    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
-    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
-    myLogSequence.add(new MethodInvokation("logSuiteFinished", param3));
-
-    myTestLogger.setExpectedSequence(myLogSequence);
-    myTestLogger.addNotControlledMethod("message");
-    myTestLogger.addNotControlledMethod("warning");
-
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    createFile("suite1.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
-      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
-      "           timestamp=\"2008-10-30T17:11:25\">\n" +
-      "  <properties/>\n" +
-      "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
-      "</testsuite>");
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    createFile("suite2.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
-      "<testsuites>" +
-      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase2\" tests=\"2\" time=\"0.062\"\n" +
-      "           timestamp=\"2008-10-30T17:11:25\">\n" +
-      "  <properties/>\n" +
-      "  <testcase classname=\"TestCase2\" name=\"test1\" time=\"0.031\"/>\n" +
-      "  <testcase classname=\"TestCase2\" name=\"test2\" time=\"0.031\">\n" +
-      "    <failure message=\"Assertion message form test\" type=\"junit.framework.AssertionFailedError\">\n" +
-      "      junit.framework.AssertionFailedError: Assertion message form test\n" +
-      "      at TestCase.test(Unknown Source)\n" +
-      "    </failure>\n" +
-      "  </testcase>\n" +
-      "</testsuite>" +
-      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
-      "           timestamp=\"2008-10-30T17:11:25\">\n" +
-      "  <properties/>\n" +
-      "  <testcase ");
-
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-
-    createFile("suite2.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
-      "<testsuites>" +
-      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase2\" tests=\"2\" time=\"0.062\"\n" +
-      "           timestamp=\"2008-10-30T17:11:25\">\n" +
-      "  <properties/>\n" +
-      "  <testcase classname=\"TestCase2\" name=\"test1\" time=\"0.031\"/>\n" +
-      "  <testcase classname=\"TestCase2\" name=\"test2\" time=\"0.031\">\n" +
-      "    <failure message=\"Assertion message form test\" type=\"junit.framework.AssertionFailedError\">\n" +
-      "      junit.framework.AssertionFailedError: Assertion message form test\n" +
-      "      at TestCase.test(Unknown Source)\n" +
-      "    </failure>\n" +
-      "  </testcase>\n" +
-      "</testsuite>" +
-      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
-      "           timestamp=\"2008-10-30T17:11:25\">\n" +
-      "  <properties/>\n" +
-      "  <testcase classname=\"TestCase1\" name=\"test\" time=\"0.031\"/>\n" +
-      "</testsuite>" +
-      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase3\" tests=\"2\" time=\"0.062\"\n" +
-      "           timestamp=\"2008-10-30T17:11:25\">\n" +
-      "  <properties/>\n" +
-      "  <testcase classname=\"TestCase3\" name=\"test1\" time=\"0.031\"/>\n" +
-      "  <testcase classname=\"TestCase3\" name=\"test2\" time=\"0.031\">\n" +
-      "    <failure message=\"Assertion message form test\" type=\"junit.framework.AssertionFailedError\">\n" +
-      "      junit.framework.AssertionFailedError: Assertion message form test\n" +
-      "      at TestCase.test(Unknown Source)\n" +
-      "    </failure>\n" +
-      "  </testcase>\n" +
-      "</testsuite>" +
-      "</testsuites>");
-
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
-    myContext.assertIsSatisfied();
-    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
-
-    if (myFailures.size() > 0) {
-      throw myFailures.get(0);
-    }
-  }
+  //test for Gradle bug after fixing
+  //TW-6467: Tests can be reported twice with xml tests reporter (Gradle case)
+//  @Test
+//  public void testLogSuiteWhenAppearsIn2FilesOthersMustBeLoggedInTwoTries() {
+//    XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
+//    XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
+//    XmlReportPluginUtil.setXmlReportPaths(myRunnerParams, "");
+//
+//    final List<Object> twoAnyParams = new ArrayList<Object>();
+//    twoAnyParams.add(MethodInvokation.ANY_VALUE);
+//    twoAnyParams.add(MethodInvokation.ANY_VALUE);
+//
+//    final List<Object> threeAnyParams = new ArrayList<Object>();
+//    threeAnyParams.add(MethodInvokation.ANY_VALUE);
+//    threeAnyParams.add(MethodInvokation.ANY_VALUE);
+//    threeAnyParams.add(MethodInvokation.ANY_VALUE);
+//
+//    final List<Object> param1 = new ArrayList<Object>();
+//    param1.add("TestCase1");
+//    param1.add(MethodInvokation.ANY_VALUE);
+//
+//    myLogSequence.add(new MethodInvokation("logSuiteStarted", param1));
+//    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logSuiteFinished", param1));
+//
+//    final List<Object> param2 = new ArrayList<Object>();
+//    param2.add("TestCase2");
+//    param2.add(MethodInvokation.ANY_VALUE);
+//
+//    myLogSequence.add(new MethodInvokation("logSuiteStarted", param2));
+//    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logSuiteFinished", param2));
+//
+//    final List<Object> param3 = new ArrayList<Object>();
+//    param3.add("TestCase3");
+//    param3.add(MethodInvokation.ANY_VALUE);
+//
+//    myLogSequence.add(new MethodInvokation("logSuiteStarted", param3));
+//    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestStarted", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestFailed", threeAnyParams));
+//    myLogSequence.add(new MethodInvokation("logTestFinished", twoAnyParams));
+//    myLogSequence.add(new MethodInvokation("logSuiteFinished", param3));
+//
+//    myTestLogger.setExpectedSequence(myLogSequence);
+//    myTestLogger.addNotControlledMethod("message");
+//    myTestLogger.addNotControlledMethod("warning");
+//
+//    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
+//    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+//    try {
+//      Thread.sleep(1000);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
+//    createFile("suite1.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+//      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
+//      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+//      "  <properties/>\n" +
+//      "  <testcase classname=\"TestCase\" name=\"test\" time=\"0.031\"/>\n" +
+//      "</testsuite>");
+//    try {
+//      Thread.sleep(1000);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
+//    createFile("suite2.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+//      "<testsuites>" +
+//      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase2\" tests=\"2\" time=\"0.062\"\n" +
+//      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+//      "  <properties/>\n" +
+//      "  <testcase classname=\"TestCase2\" name=\"test1\" time=\"0.031\"/>\n" +
+//      "  <testcase classname=\"TestCase2\" name=\"test2\" time=\"0.031\">\n" +
+//      "    <failure message=\"Assertion message form test\" type=\"junit.framework.AssertionFailedError\">\n" +
+//      "      junit.framework.AssertionFailedError: Assertion message form test\n" +
+//      "      at TestCase.test(Unknown Source)\n" +
+//      "    </failure>\n" +
+//      "  </testcase>\n" +
+//      "</testsuite>" +
+//      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
+//      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+//      "  <properties/>\n" +
+//      "  <testcase ");
+//
+//    try {
+//      Thread.sleep(1000);
+//    } catch (InterruptedException e) {
+//      e.printStackTrace();
+//    }
+//
+//    createFile("suite2.xml", "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+//      "<testsuites>" +
+//      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase2\" tests=\"2\" time=\"0.062\"\n" +
+//      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+//      "  <properties/>\n" +
+//      "  <testcase classname=\"TestCase2\" name=\"test1\" time=\"0.031\"/>\n" +
+//      "  <testcase classname=\"TestCase2\" name=\"test2\" time=\"0.031\">\n" +
+//      "    <failure message=\"Assertion message form test\" type=\"junit.framework.AssertionFailedError\">\n" +
+//      "      junit.framework.AssertionFailedError: Assertion message form test\n" +
+//      "      at TestCase.test(Unknown Source)\n" +
+//      "    </failure>\n" +
+//      "  </testcase>\n" +
+//      "</testsuite>" +
+//      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase1\" tests=\"1\" time=\"0.031\"\n" +
+//      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+//      "  <properties/>\n" +
+//      "  <testcase classname=\"TestCase1\" name=\"test\" time=\"0.031\"/>\n" +
+//      "</testsuite>" +
+//      "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase3\" tests=\"2\" time=\"0.062\"\n" +
+//      "           timestamp=\"2008-10-30T17:11:25\">\n" +
+//      "  <properties/>\n" +
+//      "  <testcase classname=\"TestCase3\" name=\"test1\" time=\"0.031\"/>\n" +
+//      "  <testcase classname=\"TestCase3\" name=\"test2\" time=\"0.031\">\n" +
+//      "    <failure message=\"Assertion message form test\" type=\"junit.framework.AssertionFailedError\">\n" +
+//      "      junit.framework.AssertionFailedError: Assertion message form test\n" +
+//      "      at TestCase.test(Unknown Source)\n" +
+//      "    </failure>\n" +
+//      "  </testcase>\n" +
+//      "</testsuite>" +
+//      "</testsuites>");
+//
+//    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+//    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+//    myContext.assertIsSatisfied();
+//    myTestLogger.checkIfAllExpectedMethodsWereInvoked();
+//
+//    if (myFailures.size() > 0) {
+//      throw myFailures.get(0);
+//    }
+//  }
 
   @Test
   public void testSkipsOldFiles() {
@@ -789,7 +802,7 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("message", params2));
 
     List<Object> params3 = new ArrayList<Object>();
-    params3.add("Found existing files:");
+    params3.add("Found files from previous builds:");
     myLogSequence.add(new MethodInvokation("warning", params3));
 
     List<Object> params4 = new ArrayList<Object>();
@@ -797,7 +810,7 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("warning", params4));
 
     final List<Object> params5 = new ArrayList<Object>();
-    params5.add("no files found");
+    params5.add("No files found during the build");
     myLogSequence.add(new MethodInvokation("warning", params5));
 
     final List<Object> params6 = new ArrayList<Object>();
@@ -855,7 +868,7 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("message", params2));
 
     List<Object> params3 = new ArrayList<Object>();
-    params3.add("Found existing files:");
+    params3.add("Found files from previous builds:");
     myLogSequence.add(new MethodInvokation("warning", params3));
 
     List<Object> params4 = new ArrayList<Object>();
@@ -1022,7 +1035,7 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("message", params2));
 
     List<Object> params3 = new ArrayList<Object>();
-    params3.add("Found existing files:");
+    params3.add("Found files from previous builds:");
     myLogSequence.add(new MethodInvokation("warning", params3));
 
     List<Object> params4 = new ArrayList<Object>();
@@ -1030,7 +1043,7 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("warning", params4));
 
     final List<Object> params5 = new ArrayList<Object>();
-    params5.add("no files found");
+    params5.add("No files found during the build");
     myLogSequence.add(new MethodInvokation("warning", params5));
 
     final List<Object> params6 = new ArrayList<Object>();
@@ -1091,7 +1104,7 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("message", params2));
 
     List<Object> params3 = new ArrayList<Object>();
-    params3.add("Found existing files:");
+    params3.add("Found files from previous builds:");
     myLogSequence.add(new MethodInvokation("warning", params3));
 
     List<Object> params4 = new ArrayList<Object>();
