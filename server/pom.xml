@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.jetbrains.buildserver</groupId>
             <artifactId>server-openapi</artifactId>
-            <version>5.0-SNAPSHOT</version>
+            <version>${tc.version}</version>
         </dependency>
     </dependencies>
     <build>

@@ -17,29 +17,31 @@
         </dependency>
 
         <dependency>
-            <groupId>com.intellij</groupId>
+            <groupId>com.intellij.openapi</groupId>
             <artifactId>util</artifactId>
-            <version>8.0</version>
+            <version>9.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.jetbrains.buildserver</groupId>
             <artifactId>agent-api</artifactId>
-            <version>5.0-SNAPSHOT</version>
+            <version>${tc.version}</version>
         </dependency>
         <dependency>
             <groupId>com.jetbrains.buildserver</groupId>
             <artifactId>common-api</artifactId>
-            <version>5.0-SNAPSHOT</version>
+            <version>${tc.version}</version>
         </dependency>
+        <!--
         <dependency>
             <groupId>com.jetbrains.buildserver</groupId>
             <artifactId>server-logging</artifactId>
             <version>5.0-SNAPSHOT</version>
         </dependency>
+        -->
         <dependency>
             <groupId>com.jetbrains.buildserver</groupId>
             <artifactId>runtime-util</artifactId>
-            <version>5.0-SNAPSHOT</version>
+            <version>${tc.version}</version>
         </dependency>
     </dependencies>
 

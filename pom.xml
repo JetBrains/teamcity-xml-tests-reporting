@@ -26,6 +26,9 @@
         <module>server</module>
         <module>tests</module>
     </modules>
+    <properties>
+      <tc.version>6.0-SNAPSHOT</tc.version>
+    </properties>
     <repositories>
         <repository>
             <id>jetbrains-snapshots</id>
