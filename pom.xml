@@ -5,6 +5,11 @@
     <artifactId>xmlReportPlugin</artifactId>
     <version>1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <parent>
+      <groupId>com.jetbrains</groupId>
+      <artifactId>jetbrains-parent</artifactId>
+      <version>1.0-alpha-1</version>
+    </parent>
     <name>xmlReportPlugin</name>
     <url>http://www.jetbrains.com</url>
     <dependencies>
@@ -30,26 +35,16 @@
       <tc.version>6.0-SNAPSHOT</tc.version>
     </properties>
     <repositories>
-        <repository>
-            <id>jetbrains-snapshots</id>
-            <url>http://maven.labs.intellij.net:8081/nexus/content/repositories/snapshots</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>jetbrains-releases</id>
-            <url>http://maven.labs.intellij.net:8081/nexus/content/repositories/releases</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-        </repository>
+      <repository>
+        <id>jetbrains-public</id>
+        <url>http://maven.labs.intellij.net:8081/nexus/content/groups/public</url>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+      </repository>
     </repositories>
     <build>
         <sourceDirectory>src</sourceDirectory>
