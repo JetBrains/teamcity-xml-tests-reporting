@@ -16,6 +16,9 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
@@ -26,10 +29,6 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.io.File;
-import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
 
@@ -189,6 +188,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
       return Long.parseLong(myParameters.get(BUILD_START));
     }
 
+    @NotNull
     public List<String> getPathsToExclude() {
       if (StringUtil.isEmpty(myParameters.get(PATHS_TO_EXCLUDE))) {
         return Collections.emptyList();       

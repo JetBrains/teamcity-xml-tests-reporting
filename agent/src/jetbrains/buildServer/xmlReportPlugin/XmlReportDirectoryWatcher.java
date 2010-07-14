@@ -16,17 +16,16 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.util.FileUtil;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.util.AntPathMatcher;
-
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Pattern;
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.util.FileUtil;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.util.AntPathMatcher;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.SUPPORTED_REPORT_TYPES;
@@ -52,8 +51,7 @@ public class XmlReportDirectoryWatcher extends Thread {
     boolean isVerbose();
     @NotNull BuildProgressLogger getLogger();
     boolean parseOutOfDate();
-    List<String> getPathsToExclude();
-
+    @NotNull List<String> getPathsToExclude();
     long getBuildStartTime();
   }
 
