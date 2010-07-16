@@ -18,8 +18,6 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Pattern;
 import jetbrains.buildServer.agent.BuildProgressLogger;
@@ -40,7 +38,7 @@ public class XmlReportDirectoryWatcher extends Thread {
   private final Parameters myParameters;
 
   private final LinkedBlockingQueue<ReportData> myReportQueue;
-  private final ConcurrentMap<String, Set<File>> myPaths;
+  private final Map<String, Set<File>> myPaths;
   private final Map<File, MaskData> myMaskHash;
   private final Map<String, TypeStatistics> myStatistics;
   private final List<String> myPathsToExclude;
@@ -63,7 +61,7 @@ public class XmlReportDirectoryWatcher extends Thread {
     super("xml-report-plugin-DirectoryWatcher");
 
     myParameters = parameters;
-    myPaths = new ConcurrentHashMap<String, Set<File>>();
+    myPaths = new HashMap<String, Set<File>>();
     myReportQueue = queue;
     myMaskHash = new HashMap<File, MaskData>();
     myStatistics = new HashMap<String, TypeStatistics>();
@@ -111,27 +109,29 @@ public class XmlReportDirectoryWatcher extends Thread {
     LOG.debug(message);
   }
 
-  public void addPaths(Set<File> paths, String type) {
-    // TODO concurrent porblems here. This is not an atomic operation for myPaths
-    if (!myPaths.containsKey(type)) {
-      if (isInspection(type) && hasInspections()) {
-        warning("Two different inspections can not be processed during one build, skip " + SUPPORTED_REPORT_TYPES.get(type) + " reports");
-        if (paths.size() > 0) {
-          logPathsInTarget(paths, type, "Skip watching:");
+  public void addPaths(final Collection<File> paths, final String type) {
+    Set<File> newPaths = new HashSet<File>(paths);
+    synchronized (myPaths) {
+      if (!myPaths.containsKey(type)) {
+        if (isInspection(type) && hasInspections()) {
+          warning("Two different inspections can not be processed during one build, skip " + SUPPORTED_REPORT_TYPES.get(type) + " reports");
+          if (newPaths.size() > 0) {
+            logPathsInTarget(newPaths, type, "Skip watching:");
+          }
+          return;
         }
-        return;
+        myStatistics.put(type, new TypeStatistics());
+        myPaths.put(type, newPaths);
+      } else {
+        newPaths.removeAll(myPaths.get(type));
+        myPaths.get(type).addAll(newPaths);
       }
-      myStatistics.put(type, new TypeStatistics());
-      myPaths.put(type, paths);
-    } else {
-      paths.removeAll(myPaths.get(type));
-      myPaths.get(type).addAll(paths);
+      logWatchingPaths(newPaths, type);
+      checkExistingPaths(newPaths, type);
     }
-    logWatchingPaths(paths, type);
-    checkExistingPaths(paths, type);
   }
 
-  private void logPathsInTarget(Set<File> paths, String type, String header) {
+  private void logPathsInTarget(Collection<File> paths, String type, String header) {
     final String target = startTarget(type);
     warning(header);
     for (File f : paths) {
@@ -209,28 +209,32 @@ public class XmlReportDirectoryWatcher extends Thread {
   }
 
   private void scanInput() {
-    for (String type : myPaths.keySet()) {
-      final TypeStatistics s = myStatistics.get(type);
-      for (File f : myPaths.get(type)) {
-        if (isGoodFile(f) && !s.getFiles().contains(f)) {
-          s.getFiles().add(f);
-          sendToQueue(type, f);
-        } else if (f.isDirectory()) {
-          final File[] files = f.listFiles();
-          final Set<File> filesInDir = new HashSet<File>();
-          if ((files != null) && (files.length > 0)) {
-            for (File file : files) {
-              processFile(type, s, filesInDir, file);
+    synchronized (myPaths) { // TODO very ineffective synchronization - needs refactoring
+      for (Map.Entry<String, Set<File>> entry : myPaths.entrySet()) {
+        final String type = entry.getKey();
+
+        final TypeStatistics s = myStatistics.get(type);
+        for (File f : entry.getValue()) {
+          if (isGoodFile(f) && !s.getFiles().contains(f)) {
+            s.getFiles().add(f);
+            sendToQueue(type, f);
+          } else if (f.isDirectory()) {
+            final File[] files = f.listFiles();
+            final Set<File> filesInDir = new HashSet<File>();
+            if ((files != null) && (files.length > 0)) {
+              for (File file : files) {
+                processFile(type, s, filesInDir, file);
+              }
             }
+            addToStatistics(s.getDirs(), f, filesInDir);
+          } else if (isAntMask(f)) {
+            final Set<File> filesForMask = new HashSet<File>();
+            final MaskData md = getMask(f);
+            for (File file : collectFiles(md.getPattern(), md.getBaseDir())) {
+              processFile(type, s, filesForMask, file);
+            }
+            addToStatistics(s.getMasks(), f, filesForMask);
           }
-          addToStatistics(s.getDirs(), f, filesInDir);
-        } else if (isAntMask(f)) {
-          final Set<File> filesForMask = new HashSet<File>();
-          final MaskData md = getMask(f);
-          for (File file : collectFiles(md.getPattern(), md.getBaseDir())) {
-            processFile(type, s, filesForMask, file);
-          }
-          addToStatistics(s.getMasks(), f, filesForMask);
         }
       }
     }
@@ -260,7 +264,7 @@ public class XmlReportDirectoryWatcher extends Thread {
     }
   }
 
-  private void addToStatistics(Map<File, Set<File>> paths, File keyFile, Set<File> files) {
+  private static void addToStatistics(Map<File, Set<File>> paths, File keyFile, Set<File> files) {
     if (paths.containsKey(keyFile)) {
       paths.get(keyFile).addAll(files);
     } else {
@@ -291,44 +295,46 @@ public class XmlReportDirectoryWatcher extends Thread {
   }
 
   public void logTotals() {
-    for (String type : myPaths.keySet()) {
-      final TypeStatistics s = myStatistics.get(type);
-      final String target = startTarget(type);
-      if (s.getFiles().size() > 0) {
-        message(s.getFiles().size() + " file(s) found");
-      } else {
-        warning("No files found during the build");
-      }
-      for (File d : s.getDirs().keySet()) {
-        logFiles(s, d, s.getDirs().get(d));
-        if (myParameters.isVerbose()) {
-          for (File f : s.getDirs().get(d)) {
+    synchronized (myPaths) {
+      for (String type : myPaths.keySet()) {
+        final TypeStatistics s = myStatistics.get(type);
+        final String target = startTarget(type);
+        if (s.getFiles().size() > 0) {
+          message(s.getFiles().size() + " file(s) found");
+        } else {
+          warning("No files found during the build");
+        }
+        for (File d : s.getDirs().keySet()) {
+          logFiles(s, d, s.getDirs().get(d));
+          if (myParameters.isVerbose()) {
+            for (File f : s.getDirs().get(d)) {
+              message(f.getAbsolutePath() + " found");
+            }
+          }
+          myPaths.get(type).removeAll(s.getDirs().get(d));
+          myPaths.get(type).remove(d);
+        }
+        for (File m : s.getMasks().keySet()) {
+          logFiles(s, m, s.getMasks().get(m));
+          if (myParameters.isVerbose()) {
+            for (File f : s.getMasks().get(m)) {
+              message(f.getAbsolutePath() + " found");
+            }
+          }
+          myPaths.get(type).removeAll(s.getMasks().get(m));
+          myPaths.get(type).remove(m);
+        }
+        for (File f : s.getFiles()) {
+          if (myParameters.isVerbose()) {
             message(f.getAbsolutePath() + " found");
           }
+          myPaths.get(type).remove(f);
         }
-        myPaths.get(type).removeAll(s.getDirs().get(d));
-        myPaths.get(type).remove(d);
-      }
-      for (File m : s.getMasks().keySet()) {
-        logFiles(s, m, s.getMasks().get(m));
-        if (myParameters.isVerbose()) {
-          for (File f : s.getMasks().get(m)) {
-            message(f.getAbsolutePath() + " found");
-          }
+        for (File f : myPaths.get(type)) {
+          warning(f.getAbsolutePath() + " couldn't find any matching files");
         }
-        myPaths.get(type).removeAll(s.getMasks().get(m));
-        myPaths.get(type).remove(m);
+        myParameters.getLogger().targetFinished(target);
       }
-      for (File f : s.getFiles()) {
-        if (myParameters.isVerbose()) {
-          message(f.getAbsolutePath() + " found");
-        }
-        myPaths.get(type).remove(f);
-      }
-      for (File f : myPaths.get(type)) {
-        warning(f.getAbsolutePath() + " couldn't find any matching files");
-      }
-      myParameters.getLogger().targetFinished(target);
     }
   }
 
@@ -375,6 +381,18 @@ public class XmlReportDirectoryWatcher extends Thread {
       myFiles = new HashSet<File>();
       myDirs = new HashMap<File, Set<File>>();
       myMasks = new HashMap<File, Set<File>>();
+    }
+
+    public TypeStatistics(@NotNull TypeStatistics copyOf) {
+      myFiles = new HashSet<File>(copyOf.myFiles);
+      myDirs = new HashMap<File, Set<File>>();
+      myMasks = new HashMap<File, Set<File>>();
+
+      for(Map.Entry<File, Set<File>> entry : copyOf.myDirs.entrySet())
+        myDirs.put(entry.getKey(), new HashSet<File>(entry.getValue()));
+
+      for(Map.Entry<File, Set<File>> entry : copyOf.myMasks.entrySet())
+        myMasks.put(entry.getKey(), new HashSet<File>(entry.getValue()));
     }
 
     public Set<File> getFiles() {
