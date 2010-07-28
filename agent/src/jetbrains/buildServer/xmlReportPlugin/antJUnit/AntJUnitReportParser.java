@@ -16,6 +16,9 @@
 
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
+import java.io.File;
+import java.util.Date;
+import java.util.Stack;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
@@ -23,10 +26,6 @@ import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-
-import java.io.File;
-import java.util.Date;
-import java.util.Stack;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 
@@ -345,7 +344,10 @@ public class AntJUnitReportParser extends XmlReportParser {
   }
 
   private void startFailure(Attributes attributes) {
-    final String failureMessage = attributes.getValue(DEFAULT_NAMESPACE, MESSAGE_ATTR).trim();
+    String failureMessage = attributes.getValue(DEFAULT_NAMESPACE, MESSAGE_ATTR);
+    if(failureMessage != null)
+      failureMessage = failureMessage.trim();
+    
     final String failureType = attributes.getValue(DEFAULT_NAMESPACE, TYPE_ATTR);
 
     if (myTests.size() != 0) {
