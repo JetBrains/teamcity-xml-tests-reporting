@@ -64,16 +64,14 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   public void beforeRunnerStart(@NotNull AgentRunningBuild build) {
     myStopped = false;
 
-    assert myBuild == null;
-
     myBuild = build;
     final Date startTime = new Date();
     myStartTime = startTime;
 
-    if (!isParsingEnabled(build.getRunnerParameters()))
+    if (!isParsingEnabled(build.getCurrentRunnerContext().getRunnerParameters()))
       return;
 
-    final Set<File> reportPaths = getReportPathsFromDirProperty(getXmlReportPaths(build.getRunnerParameters()),
+    final Set<File> reportPaths = getReportPathsFromDirProperty(getXmlReportPaths(build.getCurrentRunnerContext().getRunnerParameters()),
                                                                 build.getCheckoutDirectory());
     final ReportProcessingContext context = createContext(build, startTime, reportPaths, null);
 
@@ -88,7 +86,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
                                                 @NotNull final Set<File> reportPaths,
                                                 @Nullable final Map<String, String> additionalParams
   ) {
-    Map<String, String> parametersMap = new HashMap<String, String>(build.getRunnerParameters());
+    Map<String, String> parametersMap = new HashMap<String, String>(build.getCurrentRunnerContext().getRunnerParameters());
 
     parametersMap.put(BUILD_START, "" + startTime.getTime());
     parametersMap.put(TMP_DIR, build.getBuildTempDirectory().getAbsolutePath());
