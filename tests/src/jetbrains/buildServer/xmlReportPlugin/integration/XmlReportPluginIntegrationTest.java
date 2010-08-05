@@ -68,14 +68,19 @@ public class XmlReportPluginIntegrationTest {
 
   private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final BuildParametersMap buildParameters, final File checkoutDirFile, final BuildProgressLogger logger) {
     final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
+    final BuildRunnerContext runnerContext = myContext.mock(BuildRunnerContext.class);
+
     myContext.checking(new Expectations() {
       {
+        allowing(runnerContext).getRunnerParameters();
+        will(returnValue(runParams));
+        allowing(runnerContext).getBuildParameters();
+        will(returnValue(buildParameters));
+
         allowing(runningBuild).getBuildLogger();
         will(returnValue(logger));
-        allowing(runningBuild).getRunnerParameters();
-        will(returnValue(runParams));
-        allowing(runningBuild).getBuildParameters();
-        will(returnValue(buildParameters));
+        allowing(runningBuild).getCurrentRunnerContext();
+        will(returnValue(runnerContext));
         allowing(runningBuild).getBuildTempDirectory();
         will(returnValue(checkoutDirFile));
         allowing(runningBuild).getCheckoutDirectory();

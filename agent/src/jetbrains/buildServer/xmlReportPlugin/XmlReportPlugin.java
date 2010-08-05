@@ -90,8 +90,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
     parametersMap.put(BUILD_START, "" + startTime.getTime());
     parametersMap.put(TMP_DIR, build.getBuildTempDirectory().getAbsolutePath());
-    parametersMap.put(TREAT_DLL_AS_SUITE, build.getBuildParameters().getSystemProperties().get(TREAT_DLL_AS_SUITE));
-    parametersMap.put(PATHS_TO_EXCLUDE, build.getBuildParameters().getSystemProperties().get(PATHS_TO_EXCLUDE));
+    parametersMap.put(TREAT_DLL_AS_SUITE, build.getCurrentRunnerContext().getBuildParameters().getSystemProperties().get(TREAT_DLL_AS_SUITE));
+    parametersMap.put(PATHS_TO_EXCLUDE, build.getCurrentRunnerContext().getBuildParameters().getSystemProperties().get(PATHS_TO_EXCLUDE));
 
     if(additionalParams != null)
       parametersMap.putAll(additionalParams);
