@@ -54,17 +54,23 @@ public class XmlReportPluginTest {
   private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams,
                                                     final File checkoutDirFile) {
     final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
+    final BuildRunnerContext runnerContext = myContext.mock(BuildRunnerContext.class);
+
     myContext.checking(new Expectations() {
       {
+
+        allowing(runnerContext).getRunnerParameters();
+        will(returnValue(runParams));
+        allowing(runnerContext).getBuildParameters();
+        will(returnValue(createBuildParametersMap()));
+
+        allowing(runningBuild).getCurrentRunnerContext();
+        will(returnValue(runnerContext));
         allowing(runningBuild).getCheckoutDirectory();
         will(returnValue(checkoutDirFile));
         allowing(runningBuild).getBuildTempDirectory();
-        allowing(runningBuild).getRunnerParameters();
-        will(returnValue(runParams));
         allowing(runningBuild).getBuildLogger();
         will(returnValue(myLogger));
-        allowing(runningBuild).getBuildParameters();
-        will(returnValue(createBuildParametersMap()));
       }
     });
     return runningBuild;
