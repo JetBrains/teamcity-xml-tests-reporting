@@ -16,12 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.messages.Status;
@@ -34,6 +28,13 @@ import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class XmlReportProcessor extends Thread {
   public static final Logger LOG = Logger.getLogger(XmlReportProcessor.class);
@@ -142,20 +143,15 @@ public class XmlReportProcessor extends Thread {
       if (data != null) {
         final long len = data.getFile().length();
         try {
-          if (len > data.getFileLength()) {
+          if (len > data.getFileLength() || finalParsing) {
             final String reportType = data.getType();
             if (!myParsers.containsKey(reportType)) {
               initializeParser(reportType);
             }
             return data;
-          } else {
-            if (!finalParsing) {
-              myReportQueue.put(data);
-            } else {
-              return data;
-            }
-            return null;
           }
+          myReportQueue.put(data);
+          return null;
         } finally {
           data.setFileLength(len);
         }
