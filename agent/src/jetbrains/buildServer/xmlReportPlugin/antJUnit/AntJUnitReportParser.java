@@ -16,9 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
-import java.io.File;
-import java.util.Date;
-import java.util.Stack;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
@@ -26,6 +23,10 @@ import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+
+import java.io.File;
+import java.util.Date;
+import java.util.Stack;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 
@@ -292,15 +293,23 @@ public class AntJUnitReportParser extends XmlReportParser {
   private void startTest(Attributes attributes) {
     String className = "";
     final String reportClassName = attributes.getValue(DEFAULT_NAMESPACE, CLASSNAME_ATTR);
-    if (reportClassName != null && !reportClassName.equals(myCurrentSuite.getName())) {
-      className = reportClassName + ".";
-    }
+
     final String testName = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
+
+    final String reportedTestName;
+
+    if (reportClassName != null && !reportClassName.equals(testName)) {
+      reportedTestName = reportClassName + "." + testName;
+    }
+    else {
+      reportedTestName = testName;
+    }
+
     final Date startTime = new Date();
     final long duration = getExecutionTime(attributes.getValue(DEFAULT_NAMESPACE, TIME_ATTR));
     final boolean executed = getBoolean(attributes.getValue(DEFAULT_NAMESPACE, EXECUTED_ATTR));
 
-    final TestData test = new TestData(className + testName, executed, startTime.getTime(), duration);
+    final TestData test = new TestData(reportedTestName, executed, startTime.getTime(), duration);
     myTests.push(test);
   }
 
