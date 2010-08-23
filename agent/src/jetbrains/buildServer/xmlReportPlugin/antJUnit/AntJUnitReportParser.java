@@ -291,7 +291,6 @@ public class AntJUnitReportParser extends XmlReportParser {
   }
 
   private void startTest(Attributes attributes) {
-    String className = "";
     final String reportClassName = attributes.getValue(DEFAULT_NAMESPACE, CLASSNAME_ATTR);
 
     final String testName = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
