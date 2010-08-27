@@ -16,9 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
@@ -29,6 +26,10 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
 
@@ -48,6 +49,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   private final InspectionReporter myInspectionReporter;
 
   @Nullable private volatile AgentRunningBuild myBuild;
+  @Nullable private volatile BuildRunnerContext myRunner;
   @Nullable private volatile Date myStartTime;
   @Nullable private volatile ReportProcessingContext myContext;
 
@@ -61,19 +63,21 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   }
 
   @Override
-  public void beforeRunnerStart(@NotNull AgentRunningBuild build) {
+  public void beforeRunnerStart(@NotNull AgentRunningBuild build, @NotNull BuildRunnerContext runner) {
+    LOG.debug("beforeRunnerStart");
     myStopped = false;
 
     myBuild = build;
+    myRunner = runner;
     final Date startTime = new Date();
     myStartTime = startTime;
 
-    if (!isParsingEnabled(build.getCurrentRunnerContext().getRunnerParameters()))
+    if (!isParsingEnabled(runner.getRunnerParameters()))
       return;
 
-    final Set<File> reportPaths = getReportPathsFromDirProperty(getXmlReportPaths(build.getCurrentRunnerContext().getRunnerParameters()),
+    final Set<File> reportPaths = getReportPathsFromDirProperty(getXmlReportPaths(runner.getRunnerParameters()),
                                                                 build.getCheckoutDirectory());
-    final ReportProcessingContext context = createContext(build, startTime, reportPaths, null);
+    final ReportProcessingContext context = createContext(build, runner, startTime, reportPaths, null);
 
     context.myDirectoryWatcher.start();
     context.myReportProcessor.start();
@@ -82,16 +86,17 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   }
 
   private ReportProcessingContext createContext(@NotNull final AgentRunningBuild build,
+                                                @NotNull BuildRunnerContext runner,
                                                 @NotNull final Date startTime,
                                                 @NotNull final Set<File> reportPaths,
                                                 @Nullable final Map<String, String> additionalParams
   ) {
-    Map<String, String> parametersMap = new HashMap<String, String>(build.getCurrentRunnerContext().getRunnerParameters());
+    Map<String, String> parametersMap = new HashMap<String, String>(runner.getRunnerParameters());
 
     parametersMap.put(BUILD_START, "" + startTime.getTime());
     parametersMap.put(TMP_DIR, build.getBuildTempDirectory().getAbsolutePath());
-    parametersMap.put(TREAT_DLL_AS_SUITE, build.getCurrentRunnerContext().getBuildParameters().getSystemProperties().get(TREAT_DLL_AS_SUITE));
-    parametersMap.put(PATHS_TO_EXCLUDE, build.getCurrentRunnerContext().getBuildParameters().getSystemProperties().get(PATHS_TO_EXCLUDE));
+    parametersMap.put(TREAT_DLL_AS_SUITE, runner.getBuildParameters().getSystemProperties().get(TREAT_DLL_AS_SUITE));
+    parametersMap.put(PATHS_TO_EXCLUDE, runner.getBuildParameters().getSystemProperties().get(PATHS_TO_EXCLUDE));
 
     if(additionalParams != null)
       parametersMap.putAll(additionalParams);
@@ -113,10 +118,13 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   }
 
   public synchronized void processReports(Map<String, String> params, Set<File> reportPaths) {
+    LOG.debug("processReports");
     AgentRunningBuild build = myBuild;
+    BuildRunnerContext runner = myRunner;
     Date startTime = myStartTime;
 
     assert build != null;
+    assert runner != null;
     assert startTime != null;
 
     final String type = getReportType(params);
@@ -124,7 +132,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     ReportProcessingContext context = myContext;
 
     if(context == null) {
-      context = createContext(build, startTime, reportPaths, params);
+      context = createContext(build, runner, startTime, reportPaths, params);
       context.myDirectoryWatcher.start();
       context.myReportProcessor.start();
       myContext = context;
@@ -213,14 +221,16 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     return dirs;
   }
 
+
   @Override
-  public void beforeBuildFinish(@NotNull BuildFinishedStatus buildFinishedStatus) {
+  public synchronized void runnerFinished(@NotNull AgentRunningBuild build, @NotNull BuildRunnerContext runner, @NotNull BuildFinishedStatus status) {
+    LOG.debug("runnerFinished");
     if (!myStopped) {
       finishWork();
     }
   }
 
-  private void finishWork() {
+  private synchronized void finishWork() {
     myStopped = true;
 
     ReportProcessingContext context = myContext;
@@ -231,6 +241,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     context.myDirectoryWatcher.signalStop();
 
     try {
+      LOG.debug("plugin joins processor");
       context.myReportProcessor.join();
     } catch (InterruptedException e) {
       final AgentRunningBuild build = myBuild;
@@ -240,10 +251,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
       LOG.warn(e.toString(), e);
     }
     context.myDirectoryWatcher.logTotals();
-  }
 
-  @Override
-  public void buildFinished(@NotNull final BuildFinishedStatus buildStatus) {
     myBuild = null;
     myStartTime = null;
     myContext = null;

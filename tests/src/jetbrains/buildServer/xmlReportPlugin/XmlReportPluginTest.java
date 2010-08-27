@@ -16,12 +16,10 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
+import jetbrains.buildServer.util.FileUtil;
 import junit.framework.Assert;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -33,15 +31,21 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 @RunWith(JMock.class)
 public class XmlReportPluginTest {
   private static final String CHECKOUT_DIR = "workingDir";
 
   private XmlReportPlugin myPlugin;
   private Map<String, String> myRunParams;
-  private File myCheckoutDir;
   private BuildProgressLogger myLogger;
   private EventDispatcher<AgentLifeCycleListener> myEventDispatcher;
+
+  private AgentRunningBuild myBuild;
+  private BuildRunnerContext myRunner;
 
   private Mockery myContext;
   private Sequence mySequence;
@@ -51,21 +55,12 @@ public class XmlReportPluginTest {
     return myContext.mock(InspectionReporter.class);
   }
 
-  private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams,
-                                                    final File checkoutDirFile) {
+  private AgentRunningBuild createAgentRunningBuild(final File checkoutDirFile) {
     final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
-    final BuildRunnerContext runnerContext = myContext.mock(BuildRunnerContext.class);
 
     myContext.checking(new Expectations() {
       {
 
-        allowing(runnerContext).getRunnerParameters();
-        will(returnValue(runParams));
-        allowing(runnerContext).getBuildParameters();
-        will(returnValue(createBuildParametersMap()));
-
-        allowing(runningBuild).getCurrentRunnerContext();
-        will(returnValue(runnerContext));
         allowing(runningBuild).getCheckoutDirectory();
         will(returnValue(checkoutDirFile));
         allowing(runningBuild).getBuildTempDirectory();
@@ -76,11 +71,22 @@ public class XmlReportPluginTest {
     return runningBuild;
   }
 
-  private BuildProgressLogger createBaseServerLoggerFacade() {
-    return myContext.mock(BuildProgressLogger.class);
+  private BuildRunnerContext createBuildRunnerContext(final Map<String, String> runnerParameters) {
+    final BuildRunnerContext context = myContext.mock(BuildRunnerContext.class);
+
+    myContext.checking(new Expectations() {
+      {
+
+        allowing(context).getRunnerParameters();
+        will(returnValue(runnerParameters));
+        allowing(context).getBuildParameters();
+        will(returnValue(createBuildParametersMap()));
+      }
+    });
+    return context;
   }
 
-  private BuildParametersMap createBuildParametersMap() {
+   private BuildParametersMap createBuildParametersMap() {
     final BuildParametersMap map = myContext.mock(BuildParametersMap.class);
     myContext.checking(new Expectations() {
       {
@@ -89,6 +95,10 @@ public class XmlReportPluginTest {
       }
     });
     return map;
+  }
+
+  private BuildProgressLogger createBaseServerLoggerFacade() {
+    return myContext.mock(BuildProgressLogger.class);
   }
 
   @Before
@@ -101,7 +111,6 @@ public class XmlReportPluginTest {
     mySequence = myContext.sequence("Log Sequence");
     myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
     myRunParams = new HashMap<String, String>();
-    myCheckoutDir = new File(CHECKOUT_DIR);
     myLogger = createBaseServerLoggerFacade();
     myInspectionReporter = createInspectionReporter();
     myContext.checking(new Expectations() {
@@ -109,18 +118,24 @@ public class XmlReportPluginTest {
         ignoring(myInspectionReporter);
       }
     });
+
+
+    final File checkoutDir = new File(CHECKOUT_DIR);
+    FileUtil.delete(checkoutDir);
+    checkoutDir.mkdirs();
+
+    myBuild = createAgentRunningBuild(checkoutDir);
+
+    myRunner = createBuildRunnerContext(myRunParams);
   }
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
     XmlReportPluginUtil.enableXmlReportParsing(myRunParams, "");
 
-    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myCheckoutDir);
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
 
-    myEventDispatcher.getMulticaster().buildStarted(runningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
-    myEventDispatcher.getMulticaster().beforeBuildFinish(status);
-    myEventDispatcher.getMulticaster().buildFinished(status);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myBuild, myRunner);
+    myEventDispatcher.getMulticaster().runnerFinished(myBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
   }
 
@@ -141,7 +156,6 @@ public class XmlReportPluginTest {
   }
 
   private void warningWhenZeroReportDirsSize() {
-    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myCheckoutDir);
     myContext.checking(new Expectations() {
       {
 //        oneOf(myLogger).message(with("##teamcity[buildStatus status='FAILURE' text='Report paths setting " +
@@ -157,10 +171,8 @@ public class XmlReportPluginTest {
     });
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
 
-    myEventDispatcher.getMulticaster().buildStarted(runningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myBuild, myRunner);
+    myEventDispatcher.getMulticaster().runnerFinished(myBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
   }
 
@@ -176,32 +188,26 @@ public class XmlReportPluginTest {
   public void testIsStoppedWhenDisabled() {
     XmlReportPluginUtil.enableXmlReportParsing(myRunParams, "");
 
-    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myCheckoutDir);
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
 
-    myEventDispatcher.getMulticaster().buildStarted(runningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myBuild, myRunner);
+    myEventDispatcher.getMulticaster().runnerFinished(myBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
 
     Assert.assertTrue("Plugin must be stopped", myPlugin.isStopped());
   }
 
   private void isStoppedWhenZeroReportDirsSize() {
-    final AgentRunningBuild runningBuild = createAgentRunningBuild(myRunParams, myCheckoutDir);
     myContext.checking(new Expectations() {
       {
-        ignoring(runningBuild);
+        ignoring(myBuild);
         ignoring(myLogger);
       }
     });
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
 
-    myEventDispatcher.getMulticaster().buildStarted(runningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(runningBuild);
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myBuild, myRunner);
+    myEventDispatcher.getMulticaster().runnerFinished(myBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
 
     Assert.assertTrue("Plugin must be stopped", myPlugin.isStopped());
@@ -220,6 +226,4 @@ public class XmlReportPluginTest {
 
     isStoppedWhenZeroReportDirsSize();
   }
-
-  //TODO: add tests for failure - must finish work!!!
 }

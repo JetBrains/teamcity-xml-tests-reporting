@@ -78,9 +78,11 @@ public class XmlReportProcessor extends Thread {
   @Override
   public void run() {
     while (!myStopSignaled) {
+      LOG.debug("processor iteration started");
       processReport(takeNextReport(false));
     }
     try {
+      LOG.debug("processor joins watcher");
       myWatcher.join();
     } catch (InterruptedException e) {
       myParameters.getLogger().exception(e);

@@ -47,6 +47,7 @@ public class XmlReportPluginIntegrationTest {
 
   private XmlReportPlugin myPlugin;
   private AgentRunningBuild myRunningBuild;
+  private BuildRunnerContext myRunner;
   private Map<String, String> myRunnerParams;
   private File myCheckoutDir;
   private EventDispatcher<AgentLifeCycleListener> myEventDispatcher;
@@ -66,21 +67,13 @@ public class XmlReportPluginIntegrationTest {
     return reporter;
   }
 
-  private AgentRunningBuild createAgentRunningBuild(final Map<String, String> runParams, final BuildParametersMap buildParameters, final File checkoutDirFile, final BuildProgressLogger logger) {
+  private AgentRunningBuild createAgentRunningBuild(final File checkoutDirFile, final BuildProgressLogger logger) {
     final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
-    final BuildRunnerContext runnerContext = myContext.mock(BuildRunnerContext.class);
 
     myContext.checking(new Expectations() {
       {
-        allowing(runnerContext).getRunnerParameters();
-        will(returnValue(runParams));
-        allowing(runnerContext).getBuildParameters();
-        will(returnValue(buildParameters));
-
         allowing(runningBuild).getBuildLogger();
         will(returnValue(logger));
-        allowing(runningBuild).getCurrentRunnerContext();
-        will(returnValue(runnerContext));
         allowing(runningBuild).getBuildTempDirectory();
         will(returnValue(checkoutDirFile));
         allowing(runningBuild).getCheckoutDirectory();
@@ -89,6 +82,19 @@ public class XmlReportPluginIntegrationTest {
       }
     });
     return runningBuild;
+  }
+
+  private BuildRunnerContext createBuildRunnerContext(final Map<String, String> runParams, final BuildParametersMap buildParameters) {
+    final BuildRunnerContext context = myContext.mock(BuildRunnerContext.class);
+
+    myContext.checking(new Expectations() {
+      {
+        allowing(context).getRunnerParameters();
+        will(returnValue(runParams));
+        allowing(context).getBuildParameters();
+        will(returnValue(buildParameters));      }
+    });
+    return context;
   }
 
   @Before
@@ -108,7 +114,10 @@ public class XmlReportPluginIntegrationTest {
       e.printStackTrace();
     }
     myRunnerParams.put(XmlReportPlugin.CHECKOUT_DIR, myCheckoutDir.getAbsolutePath());
-    myRunningBuild = createAgentRunningBuild(myRunnerParams, new BuildParametersMap() {
+
+    myRunningBuild = createAgentRunningBuild(myCheckoutDir, myTestLogger);
+
+    myRunner = createBuildRunnerContext(myRunnerParams, new BuildParametersMap() {
       @NotNull
       public Map<String, String> getSystemProperties() {
         return Collections.emptyMap();
@@ -123,7 +132,8 @@ public class XmlReportPluginIntegrationTest {
       public Map<String, String> getAllParameters() {
         return Collections.emptyMap();
       }
-    }, myCheckoutDir, myTestLogger);
+    });
+
     myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
     myPlugin = new XmlReportPlugin(myEventDispatcher, inspectionReporter);
     ReportFactory.setCheckoutDir(myCheckoutDir.getAbsolutePath());
@@ -138,14 +148,13 @@ public class XmlReportPluginIntegrationTest {
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
     myTestLogger.setExpectedSequence(myLogSequence);
 
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild, myRunner);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeBuildFinish(status);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunningBuild, myRunner, status);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
 
@@ -194,14 +203,13 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("warning", params4));
     myTestLogger.setExpectedSequence(myLogSequence);
 
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild, myRunner);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunningBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
 
@@ -314,14 +322,13 @@ public class XmlReportPluginIntegrationTest {
   public void testAntJUnitWarningWhenNoReportsFoundInDirectory() {
     warningWhenNoReportsFoundInDirectory(ANT_JUNIT_REPORT_TYPE);
 
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild, myRunner);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunningBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
 
@@ -334,15 +341,14 @@ public class XmlReportPluginIntegrationTest {
   public void testAntJUnitWarningWhenNoReportsFoundInDirectoryOnlyWrongFile() {
     warningWhenNoReportsFoundInDirectoryOnlyWrong(ANT_JUNIT_REPORT_TYPE);
 
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild, myRunner);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
     createFile(REPORTS_DIR + File.separator + "somefile.xml");
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunningBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
 
@@ -355,14 +361,13 @@ public class XmlReportPluginIntegrationTest {
   public void testNUnitWarningWhenNoReportsFoundInDirectory() {
     warningWhenNoReportsFoundInDirectory(NUNIT_REPORT_TYPE);
 
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild, myRunner);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunningBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
 
@@ -453,15 +458,14 @@ public class XmlReportPluginIntegrationTest {
 
     myTestLogger.setExpectedSequence(myLogSequence);
 
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild, myRunner);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
     createUnfinishedReport(REPORTS_DIR + File.separator + "report.xml", ANT_JUNIT_REPORT_TYPE);
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunningBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
 
@@ -481,14 +485,13 @@ public class XmlReportPluginIntegrationTest {
     myLogSequence.add(new MethodInvokation("warning", params1));
     myTestLogger.setExpectedSequence(myLogSequence);
 
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild, myRunner);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunningBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
 
@@ -836,15 +839,13 @@ public class XmlReportPluginIntegrationTest {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild, myRunner);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunningBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
 
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -923,15 +924,13 @@ public class XmlReportPluginIntegrationTest {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild, myRunner);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunningBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
 
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -987,8 +986,7 @@ public class XmlReportPluginIntegrationTest {
 
     myTestLogger.setExpectedSequence(myLogSequence);
 
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild, myRunner);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
@@ -1013,8 +1011,7 @@ public class XmlReportPluginIntegrationTest {
     args.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
     dataProcessor.processData(myCheckoutDir, args);
 
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunningBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
 
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -1069,8 +1066,7 @@ public class XmlReportPluginIntegrationTest {
       e.printStackTrace();
     }
 
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild, myRunner);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
@@ -1082,8 +1078,7 @@ public class XmlReportPluginIntegrationTest {
     args.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
     dataProcessor.processData(myCheckoutDir, args);
 
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunningBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
 
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
@@ -1159,8 +1154,7 @@ public class XmlReportPluginIntegrationTest {
       e.printStackTrace();
     }
 
-    myEventDispatcher.getMulticaster().buildStarted(myRunningBuild);
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild, myRunner);
     try {
       Thread.sleep(1000);
     } catch (InterruptedException e) {
@@ -1173,8 +1167,7 @@ public class XmlReportPluginIntegrationTest {
     args.put(XmlReportDataProcessor.PARSE_OUT_OF_DATE_ARGUMENT, "true");
     dataProcessor.processData(myCheckoutDir, args);
 
-    myEventDispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
-    myEventDispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunningBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
 
     myContext.assertIsSatisfied();
     myTestLogger.checkIfAllExpectedMethodsWereInvoked();
