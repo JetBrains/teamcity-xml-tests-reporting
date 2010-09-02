@@ -16,10 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
@@ -30,6 +26,11 @@ import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 public class FindBugsReportParser extends InspectionsReportParser {
@@ -65,6 +66,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
     myBundledPatternsLoaded = false;
     myBugCollection = new BugCollection(logger);
     myFindBugsHome = findBugsHome;
+    myCData = new StringBuffer();
   }
 
   private static boolean hasNoMessage(InspectionInstance i) {
@@ -204,7 +206,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
         myLogger.warning("Missing class " + text);
       }
     }
-    myCData.delete(0, myCData.length());
+    clearCData();
   }
 
   // Auxiliary methods

@@ -16,11 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
@@ -28,12 +23,18 @@ import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
 
 public abstract class XmlReportParser extends DefaultHandler {
   private XMLReader myXmlReader;
   protected final BuildProgressLogger myLogger;
 
-  protected final StringBuffer myCData;
+  protected StringBuffer myCData;
 
   public static String formatText(@NotNull StringBuffer s) {
     return s.toString().replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").replaceAll("<[a-z]>|</[a-z]>", "").trim();
@@ -64,7 +65,6 @@ public abstract class XmlReportParser extends DefaultHandler {
 
   protected XmlReportParser(@NotNull final BuildProgressLogger logger) {
     myLogger = logger;
-    myCData = new StringBuffer();
     try {
       myXmlReader = createXmlReader(this, this, false);
     } catch (Exception e) {
@@ -94,7 +94,7 @@ public abstract class XmlReportParser extends DefaultHandler {
   }
 
   protected final void parse(@NotNull File report) throws SAXParseException {
-    myCData.delete(0, myCData.length());
+    clearCData();
     try {
       myXmlReader.parse(new InputSource(report.toURI().toString()));
     } catch (SAXParseException se) {
@@ -104,9 +104,17 @@ public abstract class XmlReportParser extends DefaultHandler {
     }
   }
 
+  protected void clearCData() {
+    if (myCData != null) {
+      myCData.delete(0, myCData.length());
+    }
+  }
+
   @Override
   public void characters(char ch[], int start, int length) throws SAXException {
-    myCData.append(ch, start, length);
+    if (myCData != null) {
+      myCData.append(ch, start, length);
+    }
   }
 
   public abstract void parse(@NotNull ReportData data);

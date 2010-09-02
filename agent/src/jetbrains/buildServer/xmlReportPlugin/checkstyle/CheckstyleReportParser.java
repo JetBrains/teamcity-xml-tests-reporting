@@ -16,7 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin.checkstyle;
 
-import java.io.File;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
@@ -27,6 +26,8 @@ import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
+import java.io.File;
 
 /**
  * User: vbedrosova
@@ -43,6 +44,7 @@ public class CheckstyleReportParser extends InspectionsReportParser {
                                 @NotNull InspectionReporter inspectionReporter,
                                 @NotNull String checkoutDirectory) {
     super(logger, inspectionReporter, checkoutDirectory);
+    myCData = new StringBuffer();
   }
 
   @Override
@@ -96,7 +98,7 @@ public class CheckstyleReportParser extends InspectionsReportParser {
     } else if ("exception".equals(name)) {
       myLogger.error("Exception in report " + myCurrentReport.getAbsolutePath() + "\n" + myCData.toString().trim());
     }
-    myCData.delete(0, myCData.length());
+    clearCData();
   }
 
   // Auxiliary methods

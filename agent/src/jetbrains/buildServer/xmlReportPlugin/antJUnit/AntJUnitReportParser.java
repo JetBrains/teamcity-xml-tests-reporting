@@ -111,6 +111,7 @@ public class AntJUnitReportParser extends XmlReportParser {
     super(logger);
     myLoggedSuites = 0;
     myTests = new Stack<TestData>();
+    myCData = new StringBuffer();
   }
 
   /*  As of now the DTD is:
@@ -241,7 +242,7 @@ public class AntJUnitReportParser extends XmlReportParser {
         }
       }
     } finally {
-      myCData.delete(0, myCData.length());
+      clearCData();
     }
   }
 

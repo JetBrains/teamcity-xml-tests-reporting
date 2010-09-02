@@ -16,7 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin.pmd;
 
-import java.io.File;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
@@ -26,6 +25,8 @@ import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
+import java.io.File;
 
 
 public class PmdReportParser extends InspectionsReportParser {
@@ -38,6 +39,7 @@ public class PmdReportParser extends InspectionsReportParser {
                          @NotNull InspectionReporter inspectionReporter,
                          @NotNull String checkoutDirectory) {
     super(logger, inspectionReporter, checkoutDirectory);
+    myCData = new StringBuffer();
   }
 
   @Override
@@ -83,7 +85,7 @@ public class PmdReportParser extends InspectionsReportParser {
       myCurrentBug.setMessage(formatText(myCData));
       myInspectionReporter.reportInspection(myCurrentBug);
     }
-    myCData.delete(0, myCData.length());
+    clearCData();
   }
 
   // Auxiliary methods
