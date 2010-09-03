@@ -16,14 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
-import javax.swing.text.html.parser.DTD;
-import javax.swing.text.html.parser.Parser;
-import javax.swing.text.html.parser.TagElement;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
@@ -31,6 +23,15 @@ import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
+
+import javax.swing.text.html.parser.DTD;
+import javax.swing.text.html.parser.Parser;
+import javax.swing.text.html.parser.TagElement;
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 /**
  * User: vbedrosova
@@ -156,7 +157,7 @@ class BugCollection {
 
     private Category myCurrentCategory;
     private Pattern myCurrentPattern;
-    private final StringBuffer myCData = new StringBuffer();
+    private final StringBuilder myCData = new StringBuilder();
 
     @Override
     public void startElement(String uri, String localName,
@@ -198,7 +199,7 @@ class BugCollection {
     }
   }
 
-  private static String formatText(@NotNull StringBuffer sb) {
+  private static String formatText(@NotNull StringBuilder sb) {
 //    return XmlReportParser.formatText(sb).replaceAll("</?\\p{Alnum}([^>\"]*(\"[^\"]*\")?)*>|&\\p{Alnum}*;", "");
     try {
       DETAILS_PARSER.parse(new BufferedReader(new StringReader(sb.toString())));

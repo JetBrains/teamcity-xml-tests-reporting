@@ -39,7 +39,7 @@ public class PmdReportParser extends InspectionsReportParser {
                          @NotNull InspectionReporter inspectionReporter,
                          @NotNull String checkoutDirectory) {
     super(logger, inspectionReporter, checkoutDirectory);
-    myCData = new StringBuffer();
+    myCData = new StringBuilder();
   }
 
   @Override

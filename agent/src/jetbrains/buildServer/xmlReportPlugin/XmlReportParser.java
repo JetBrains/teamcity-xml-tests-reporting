@@ -34,9 +34,9 @@ public abstract class XmlReportParser extends DefaultHandler {
   private XMLReader myXmlReader;
   protected final BuildProgressLogger myLogger;
 
-  protected StringBuffer myCData;
+  protected StringBuilder myCData;
 
-  public static String formatText(@NotNull StringBuffer s) {
+  public static String formatText(@NotNull StringBuilder s) {
     return s.toString().replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").replaceAll("<[a-z]>|</[a-z]>", "").trim();
   }
 

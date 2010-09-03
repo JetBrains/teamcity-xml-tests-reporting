@@ -66,7 +66,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
     myBundledPatternsLoaded = false;
     myBugCollection = new BugCollection(logger);
     myFindBugsHome = findBugsHome;
-    myCData = new StringBuffer();
+    myCData = new StringBuilder();
   }
 
   private static boolean hasNoMessage(InspectionInstance i) {
