@@ -67,7 +67,7 @@ class BuildLoggerForTesting implements BuildProgressLogger {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 
-  public void error(final String type, final String message, final Throwable throwable) {
+  public void internalError(final String type, final String message, final Throwable throwable) {
     //To change body of implemented methods use File | Settings | File Templates.
   }
 

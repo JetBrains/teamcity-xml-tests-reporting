@@ -224,7 +224,7 @@ class BaseServerLoggerFacadeForTesting implements BuildProgressLogger {
   public void preparationEndMessage() {
   }
 
-  public void error(final String type, final String message, final Throwable throwable) {
+  public void internalError(final String type, final String message, final Throwable throwable) {
   }
 
   public void exception(java.lang.Throwable throwable) { /* compiled code */ }
