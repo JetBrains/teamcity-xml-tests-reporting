@@ -17,6 +17,8 @@
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
 import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.agent.FlowManager;
+import jetbrains.buildServer.xmlReportPlugin.FlowManagerFactory;
 import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
@@ -69,6 +71,8 @@ public class AntJUnitReportParser extends XmlReportParser {
   private int myLoggedTests;
   private int myTestsToSkip;
 
+  private final FlowManager myFlowManager;
+  private final String myFlowId;
 
   private static long getExecutionTime(String timeStr) {
     if (timeStr == null || "".equals(timeStr)) {
@@ -112,6 +116,8 @@ public class AntJUnitReportParser extends XmlReportParser {
     myLoggedSuites = 0;
     myTests = new Stack<TestData>();
     myCData = new StringBuilder();
+    myFlowManager = FlowManagerFactory.createFlowManager(logger);
+    myFlowId = myFlowManager.generateNewFlow();
   }
 
   /*  As of now the DTD is:
@@ -153,6 +159,7 @@ public class AntJUnitReportParser extends XmlReportParser {
 
 <!ELEMENT system-out (#PCDATA)> */
 
+  @Override
   public void parse(@NotNull final ReportData data) {
     myLoggedSuites = 0;
     myLoggedTests = 0;
@@ -178,6 +185,7 @@ public class AntJUnitReportParser extends XmlReportParser {
     data.setProcessedEvents(-1);
   }
 
+  @Override
   public void logReportTotals(@NotNull File report, boolean verbose) {
     String message = report.getAbsolutePath() + " report processed";
     if (myLoggedSuites > 0) {
@@ -185,6 +193,7 @@ public class AntJUnitReportParser extends XmlReportParser {
       if (myLoggedTests > 0) {
         message = message.concat(", " + myLoggedTests + " test(s)");
       }
+      myFlowManager.releaseFlow(myFlowId);
     }
     if (verbose) {
       myLogger.message(message);
@@ -194,25 +203,31 @@ public class AntJUnitReportParser extends XmlReportParser {
 
   //  Handler methods
 
-  public void startElement(String uri, String localName,
-                           String qName, Attributes attributes)
+  @Override
+  public void startElement(String uri, final String localName,
+                           String qName, final Attributes attributes)
     throws SAXException {
-    if (TEST_SUITE.equals(localName)) {
-      startSuite(attributes);
-    } else if (!testSkipped()) {
-      if (TEST_CASE.equals(localName)) {
-        startTest(attributes);
-      } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
-        startFailure(attributes);
-      } else if (SKIPPED.equals(localName)) {
-        if (myTests.size() != 0) {
-          myTests.peek().setExecuted(false);
+    logInFlow(new Runnable() {
+      public void run() {
+        if (TEST_SUITE.equals(localName)) {
+          startSuite(attributes);
+        } else if (!testSkipped()) {
+          if (TEST_CASE.equals(localName)) {
+            startTest(attributes);
+          } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
+            startFailure(attributes);
+          } else if (SKIPPED.equals(localName)) {
+            if (myTests.size() != 0) {
+              myTests.peek().setExecuted(false);
+            }
+          }
         }
       }
-    }
+    });
   }
 
-  public void endElement(String uri, String localName, String qName) throws SAXException {
+  @Override
+  public void endElement(String uri, final String localName, String qName) throws SAXException {
     try {
       if (testSkipped()) {
         if (TEST_CASE.equals(localName)) {
@@ -220,31 +235,37 @@ public class AntJUnitReportParser extends XmlReportParser {
         }
         return;
       }
-      if (TEST_SUITE.equals(localName)) {
-        endSuite();
-      } else if (TEST_CASE.equals(localName)) {
-        endTest();
-      } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
-        endFailure();
-      } else if (SYSTEM_OUT.equals(localName)) {
-        final String trimmedCData = myCData.toString().trim();
-        if (trimmedCData.length() > 0) {
-          mySystemOut = trimmedCData;
+      logInFlow(new Runnable() {
+        public void run() {
+          if (TEST_SUITE.equals(localName)) {
+            endSuite();
+          } else if (TEST_CASE.equals(localName)) {
+            endTest();
+          } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
+            endFailure();
+          } else if (SYSTEM_OUT.equals(localName)) {
+            final String trimmedCData = myCData.toString().trim();
+            if (trimmedCData.length() > 0) {
+              mySystemOut = trimmedCData;
+            }
+          } else if (SYSTEM_ERR.equals(localName)) {
+            final String trimmedCData = myCData.toString().trim();
+            if (trimmedCData.length() > 0) {
+              mySystemErr = trimmedCData;
+            }
+          } else if (TIME.equals(localName)) {
+            if (myTests.size() != 0) {
+              myTests.peek().setDuration(getExecutionTime(formatText(myCData)));
+            }
+          }
         }
-      } else if (SYSTEM_ERR.equals(localName)) {
-        final String trimmedCData = myCData.toString().trim();
-        if (trimmedCData.length() > 0) {
-          mySystemErr = trimmedCData;
-        }
-      } else if (TIME.equals(localName)) {
-        if (myTests.size() != 0) {
-          myTests.peek().setDuration(getExecutionTime(formatText(myCData)));
-        }
-      }
+      });
     } finally {
       clearCData();
     }
   }
+
+
 
   // Auxiliary methods
 
@@ -356,7 +377,7 @@ public class AntJUnitReportParser extends XmlReportParser {
     String failureMessage = attributes.getValue(DEFAULT_NAMESPACE, MESSAGE_ATTR);
     if(failureMessage != null)
       failureMessage = failureMessage.trim();
-    
+
     final String failureType = attributes.getValue(DEFAULT_NAMESPACE, TYPE_ATTR);
 
     if (myTests.size() != 0) {
@@ -377,5 +398,9 @@ public class AntJUnitReportParser extends XmlReportParser {
 
   private boolean testSkipped() {
     return (myLoggedTests < myTestsToSkip);
+  }
+
+  private void logInFlow(Runnable action) {
+    myFlowManager.logInFlow(myFlowId, action);
   }
 }
