@@ -43,7 +43,7 @@ public class FlowManagerFactory {
       };
     } else {
 //      final FlowManager flowManager = LoggerFactory.createFlowManager(BuildProgressLogger.class.getClassLoader());
-      return FlowManagerImpl.getInstance();
+      return FlowManagerImpl.getInstance(); // it's a temporary solution
     }
   }
 }
