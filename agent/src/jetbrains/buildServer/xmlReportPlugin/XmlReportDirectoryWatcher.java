@@ -16,14 +16,15 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.regex.Pattern;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.util.AntPathMatcher;
+
+import java.io.File;
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.regex.Pattern;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.SUPPORTED_REPORT_TYPES;
@@ -302,7 +303,7 @@ public class XmlReportDirectoryWatcher extends Thread {
         if (s.getFiles().size() > 0) {
           message(s.getFiles().size() + " file(s) found");
         } else {
-          warning("No files found during the build");
+          error("No files found during the build");
         }
         for (File d : s.getDirs().keySet()) {
           logFiles(s, d, s.getDirs().get(d));
@@ -331,7 +332,7 @@ public class XmlReportDirectoryWatcher extends Thread {
           myPaths.get(type).remove(f);
         }
         for (File f : myPaths.get(type)) {
-          warning(f.getAbsolutePath() + " couldn't find any matching files");
+          error(f.getAbsolutePath() + " couldn't find any matching files");
         }
         myParameters.getLogger().targetFinished(target);
       }
@@ -351,7 +352,7 @@ public class XmlReportDirectoryWatcher extends Thread {
       }
       s.getFiles().removeAll(files);
     } else {
-      warning(d.getAbsolutePath() + ": no files found");
+      error(d.getAbsolutePath() + ": no files found");
     }
   }
 

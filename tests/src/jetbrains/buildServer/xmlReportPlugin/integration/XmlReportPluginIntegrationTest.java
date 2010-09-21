@@ -196,11 +196,11 @@ public class XmlReportPluginIntegrationTest {
 
     List<Object> params3 = new ArrayList<Object>();
     params3.add("No files found during the build");
-    myLogSequence.add(new MethodInvokation("warning", params3));
+    myLogSequence.add(new MethodInvokation("error", params3));
 
     List<Object> params4 = new ArrayList<Object>();
     params4.add(path + " couldn't find any matching files");
-    myLogSequence.add(new MethodInvokation("warning", params4));
+    myLogSequence.add(new MethodInvokation("error", params4));
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild, myRunner);
@@ -264,11 +264,11 @@ public class XmlReportPluginIntegrationTest {
 
     final List<Object> params3 = new ArrayList<Object>();
     params3.add("No files found during the build");
-    myLogSequence.add(new MethodInvokation("warning", params3));
+    myLogSequence.add(new MethodInvokation("error", params3));
 
     final List<Object> params4 = new ArrayList<Object>();
     params4.add(getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath() + ": no files found");
-    myLogSequence.add(new MethodInvokation("warning", params4));
+    myLogSequence.add(new MethodInvokation("error", params4));
     myTestLogger.setExpectedSequence(myLogSequence);
   }
 
@@ -482,7 +482,7 @@ public class XmlReportPluginIntegrationTest {
     final List<Object> params1 = new ArrayList<Object>();
     params1.add(MethodInvokation.ANY_VALUE);
     myLogSequence.add(new MethodInvokation("warning", params1));
-    myLogSequence.add(new MethodInvokation("warning", params1));
+    myLogSequence.add(new MethodInvokation("error", params1));
     myTestLogger.setExpectedSequence(myLogSequence);
 
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunningBuild, myRunner);
@@ -819,11 +819,11 @@ public class XmlReportPluginIntegrationTest {
 
     final List<Object> params5 = new ArrayList<Object>();
     params5.add("No files found during the build");
-    myLogSequence.add(new MethodInvokation("warning", params5));
+    myLogSequence.add(new MethodInvokation("error", params5));
 
     final List<Object> params6 = new ArrayList<Object>();
     params6.add(path + ": no files found");
-    myLogSequence.add(new MethodInvokation("warning", params6));
+    myLogSequence.add(new MethodInvokation("error", params6));
 
     myTestLogger.setExpectedSequence(myLogSequence);
 
@@ -1046,11 +1046,11 @@ public class XmlReportPluginIntegrationTest {
 
     final List<Object> params5 = new ArrayList<Object>();
     params5.add("No files found during the build");
-    myLogSequence.add(new MethodInvokation("warning", params5));
+    myLogSequence.add(new MethodInvokation("error", params5));
 
     final List<Object> params6 = new ArrayList<Object>();
     params6.add(path + ": no files found");
-    myLogSequence.add(new MethodInvokation("warning", params6));
+    myLogSequence.add(new MethodInvokation("error", params6));
 
     myTestLogger.setExpectedSequence(myLogSequence);
 

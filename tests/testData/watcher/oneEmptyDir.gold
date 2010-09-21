@@ -1,4 +1,4 @@
 MESSAGE: Watching paths: 
 MESSAGE: ##BASE_DIR##\dir
-WARNING: No files found during the build
-WARNING: ##BASE_DIR##\dir: no files found
+ERROR: No files found during the build
+ERROR: ##BASE_DIR##\dir: no files found
