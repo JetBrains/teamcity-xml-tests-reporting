@@ -75,8 +75,6 @@ public class AntJUnitReportParserTest extends TestCase {
   @Override
   @Before
   public void setUp() {
-    System.setProperty(FlowManagerFactory.RUNNING_TESTS, "true");
-
     myContext = new JUnit4Mockery() {
       {
         setImposteriser(ClassImposteriser.INSTANCE);

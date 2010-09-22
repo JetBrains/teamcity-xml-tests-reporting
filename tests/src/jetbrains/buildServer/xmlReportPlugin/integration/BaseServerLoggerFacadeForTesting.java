@@ -20,10 +20,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.agent.FlowLogger;
 import org.jetbrains.annotations.NotNull;
 
-class BaseServerLoggerFacadeForTesting implements BuildProgressLogger {
+class BaseServerLoggerFacadeForTesting implements FlowLogger {
   private List<MethodInvokation> myMethodSequence = null;
   private final List<String> myNotControlledMethods = new LinkedList<String>();
 
@@ -235,9 +235,23 @@ class BaseServerLoggerFacadeForTesting implements BuildProgressLogger {
   public void ignoreServiceMessages(final Runnable runnable) {
   }
 
-  public void flowStarted(java.lang.String s, java.lang.String s1) { /* compiled code */ }
+  public FlowLogger getFlowLogger(final String flowId) {
+    return this;
+  }
 
-  public void flowFinished(java.lang.String s) { /* compiled code */ }
+  public FlowLogger getThreadLogger() {
+    return this;
+  }
+
+  public void startFlow() {
+  }
+
+  public String getFlowId() {
+    return "flow-id-1";
+  }
+
+  public void disposeFlow() {
+  }
 
   public void logMessage(jetbrains.buildServer.messages.BuildMessage1 buildMessage1) { /* compiled code */ }
 }
