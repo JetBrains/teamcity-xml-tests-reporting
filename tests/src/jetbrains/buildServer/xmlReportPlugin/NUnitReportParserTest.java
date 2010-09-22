@@ -16,7 +16,10 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.FileNotFoundException;
+import java.util.Date;
 import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -29,9 +32,6 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.io.FileNotFoundException;
-import java.util.Date;
 
 
 @RunWith(JMock.class)
@@ -46,8 +46,13 @@ public class NUnitReportParserTest extends TestCase {
   private Mockery myContext;
   private Sequence mySequence;
 
-  private BuildProgressLogger createBaseServerLoggerFacade() {
-    return myContext.mock(BuildProgressLogger.class);
+  private void createBaseServerLoggerFacade() {
+    myLogger = myContext.mock(FlowLogger.class);
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).getFlowLogger(with(Expectations.<String>anything())); will(returnValue(myLogger));
+      }
+    });
   }
 
   private ReportData report(String fileName) throws FileNotFoundException {
@@ -62,7 +67,7 @@ public class NUnitReportParserTest extends TestCase {
         setImposteriser(ClassImposteriser.INSTANCE);
       }
     };
-    myLogger = createBaseServerLoggerFacade();
+    createBaseServerLoggerFacade();
     myParser = new NUnitReportParser(myLogger, "workingDirForTesting", "nunit-to-junit.xsl");
     mySequence = myContext.sequence("Log Sequence");
   }

@@ -18,6 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.util.io.FileUtil;
 import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import junit.framework.Assert;
 import junit.framework.TestCase;
@@ -60,8 +61,13 @@ public class AntJUnitReportParserTest extends TestCase {
   private Mockery myContext;
   private Sequence mySequence;
 
-  private BuildProgressLogger createBaseServerLoggerFacade() {
-    return myContext.mock(BuildProgressLogger.class);
+  private void createBaseServerLoggerFacade() {
+    myLogger = myContext.mock(FlowLogger.class);
+    myContext.checking(new Expectations() {
+      {
+        oneOf(myLogger).getFlowLogger(with(Expectations.<String>anything())); will(returnValue(myLogger));
+      }
+    });
   }
 
   private ReportData reportData(@NotNull final String fileName) throws FileNotFoundException {
@@ -80,7 +86,7 @@ public class AntJUnitReportParserTest extends TestCase {
         setImposteriser(ClassImposteriser.INSTANCE);
       }
     };
-    myLogger = createBaseServerLoggerFacade();
+    createBaseServerLoggerFacade();
     myParser = new AntJUnitReportParser(myLogger);
     mySequence = myContext.sequence("Log Sequence");
   }
