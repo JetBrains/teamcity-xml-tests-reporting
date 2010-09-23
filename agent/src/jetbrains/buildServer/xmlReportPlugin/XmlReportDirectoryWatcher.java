@@ -132,13 +132,21 @@ public class XmlReportDirectoryWatcher extends Thread {
     }
   }
 
-  private void logPathsInTarget(Collection<File> paths, String type, String header) {
+  private void logInTarget(String type, Runnable activity) {
     final String target = startTarget(type);
-    warning(header);
-    for (File f : paths) {
-      warning(f.getAbsolutePath());
-    }
+    activity.run();
     myParameters.getLogger().targetFinished(target);
+  }
+
+  private void logPathsInTarget(final Collection<File> paths, String type, final String header) {
+    logInTarget(type, new Runnable() {
+      public void run() {
+        warning(header);
+        for (File f : paths) {
+          warning(f.getAbsolutePath());
+        }
+      }
+    });
   }
 
   private boolean hasInspections() {
@@ -150,23 +158,25 @@ public class XmlReportDirectoryWatcher extends Thread {
     return false;
   }
 
-  private void logWatchingPaths(Set<File> paths, String type) {
+  private void logWatchingPaths(final Set<File> paths, String type) {
     if (!SUPPORTED_REPORT_TYPES.containsKey(type)) {
       error("Illegal report type: " + type);
       return;
     }
-    final String target = startTarget(type);
-    String message = "Watching paths: ";
-    if (paths.size() == 0) {
-      message += "<no paths>";
-      warning(message);
-    } else {
-      message(message);
-      for (File f : paths) {
-        message(f.getAbsolutePath());
+    logInTarget(type, new Runnable() {
+      public void run() {
+        String message = "Watching paths: ";
+        if (paths.size() == 0) {
+          message += "<no paths>";
+          warning(message);
+        } else {
+          message(message);
+          for (File f : paths) {
+            message(f.getAbsolutePath());
+          }
+        }
       }
-    }
-    myParameters.getLogger().targetFinished(target);
+    });
   }
 
   private void checkExistingPaths(Set<File> paths, String type) {
@@ -192,7 +202,10 @@ public class XmlReportDirectoryWatcher extends Thread {
       }
     }
     if (existingPaths.size() > 0) {
-      logPathsInTarget(existingPaths, type, "Found files from previous builds:");
+      LOG.info("Found files from previous builds:");
+      for (File f : existingPaths) {
+        LOG.info(f.getAbsolutePath());
+      }
     }
   }
 
@@ -297,44 +310,46 @@ public class XmlReportDirectoryWatcher extends Thread {
 
   public void logTotals() {
     synchronized (myPaths) {
-      for (String type : myPaths.keySet()) {
+      for (final String type : myPaths.keySet()) {
         final TypeStatistics s = myStatistics.get(type);
-        final String target = startTarget(type);
-        if (s.getFiles().size() > 0) {
-          message(s.getFiles().size() + " file(s) found");
-        } else {
-          error("No files found during the build");
-        }
-        for (File d : s.getDirs().keySet()) {
-          logFiles(s, d, s.getDirs().get(d));
-          if (myParameters.isVerbose()) {
-            for (File f : s.getDirs().get(d)) {
-              message(f.getAbsolutePath() + " found");
+        logInTarget(type, new Runnable() {
+          public void run() {
+            if (s.getFiles().size() > 0) {
+              message(s.getFiles().size() + " file(s) found");
+            } else {
+              error("No files found during the build");
+            }
+            for (File d : s.getDirs().keySet()) {
+              logFiles(s, d, s.getDirs().get(d));
+              if (myParameters.isVerbose()) {
+                for (File f : s.getDirs().get(d)) {
+                  message(f.getAbsolutePath() + " found");
+                }
+              }
+              myPaths.get(type).removeAll(s.getDirs().get(d));
+              myPaths.get(type).remove(d);
+            }
+            for (File m : s.getMasks().keySet()) {
+              logFiles(s, m, s.getMasks().get(m));
+              if (myParameters.isVerbose()) {
+                for (File f : s.getMasks().get(m)) {
+                  message(f.getAbsolutePath() + " found");
+                }
+              }
+              myPaths.get(type).removeAll(s.getMasks().get(m));
+              myPaths.get(type).remove(m);
+            }
+            for (File f : s.getFiles()) {
+              if (myParameters.isVerbose()) {
+                message(f.getAbsolutePath() + " found");
+              }
+              myPaths.get(type).remove(f);
+            }
+            for (File f : myPaths.get(type)) {
+              error(f.getAbsolutePath() + " couldn't find any matching files");
             }
           }
-          myPaths.get(type).removeAll(s.getDirs().get(d));
-          myPaths.get(type).remove(d);
-        }
-        for (File m : s.getMasks().keySet()) {
-          logFiles(s, m, s.getMasks().get(m));
-          if (myParameters.isVerbose()) {
-            for (File f : s.getMasks().get(m)) {
-              message(f.getAbsolutePath() + " found");
-            }
-          }
-          myPaths.get(type).removeAll(s.getMasks().get(m));
-          myPaths.get(type).remove(m);
-        }
-        for (File f : s.getFiles()) {
-          if (myParameters.isVerbose()) {
-            message(f.getAbsolutePath() + " found");
-          }
-          myPaths.get(type).remove(f);
-        }
-        for (File f : myPaths.get(type)) {
-          error(f.getAbsolutePath() + " couldn't find any matching files");
-        }
-        myParameters.getLogger().targetFinished(target);
+        });
       }
     }
   }

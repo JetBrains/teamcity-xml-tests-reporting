@@ -809,14 +809,6 @@ public class XmlReportPluginIntegrationTest {
     params2.add(path);
     myLogSequence.add(new MethodInvokation("message", params2));
 
-    List<Object> params3 = new ArrayList<Object>();
-    params3.add("Found files from previous builds:");
-    myLogSequence.add(new MethodInvokation("warning", params3));
-
-    List<Object> params4 = new ArrayList<Object>();
-    params4.add(report);
-    myLogSequence.add(new MethodInvokation("warning", params4));
-
     final List<Object> params5 = new ArrayList<Object>();
     params5.add("No files found during the build");
     myLogSequence.add(new MethodInvokation("error", params5));
@@ -872,14 +864,6 @@ public class XmlReportPluginIntegrationTest {
     List<Object> params2 = new ArrayList<Object>();
     params2.add(path);
     myLogSequence.add(new MethodInvokation("message", params2));
-
-    List<Object> params3 = new ArrayList<Object>();
-    params3.add("Found files from previous builds:");
-    myLogSequence.add(new MethodInvokation("warning", params3));
-
-    List<Object> params4 = new ArrayList<Object>();
-    params4.add(report);
-    myLogSequence.add(new MethodInvokation("warning", params4));
 
     final List<Object> twoAnyParams = new ArrayList<Object>();
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
@@ -1036,14 +1020,6 @@ public class XmlReportPluginIntegrationTest {
     params2.add(path);
     myLogSequence.add(new MethodInvokation("message", params2));
 
-    List<Object> params3 = new ArrayList<Object>();
-    params3.add("Found files from previous builds:");
-    myLogSequence.add(new MethodInvokation("warning", params3));
-
-    List<Object> params4 = new ArrayList<Object>();
-    params4.add(report);
-    myLogSequence.add(new MethodInvokation("warning", params4));
-
     final List<Object> params5 = new ArrayList<Object>();
     params5.add("No files found during the build");
     myLogSequence.add(new MethodInvokation("error", params5));
@@ -1102,14 +1078,6 @@ public class XmlReportPluginIntegrationTest {
     List<Object> params2 = new ArrayList<Object>();
     params2.add(path);
     myLogSequence.add(new MethodInvokation("message", params2));
-
-    List<Object> params3 = new ArrayList<Object>();
-    params3.add("Found files from previous builds:");
-    myLogSequence.add(new MethodInvokation("warning", params3));
-
-    List<Object> params4 = new ArrayList<Object>();
-    params4.add(report);
-    myLogSequence.add(new MethodInvokation("warning", params4));
 
     final List<Object> twoAnyParams = new ArrayList<Object>();
     twoAnyParams.add(MethodInvokation.ANY_VALUE);
