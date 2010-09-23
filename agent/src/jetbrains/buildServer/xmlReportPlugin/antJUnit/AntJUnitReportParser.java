@@ -16,9 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
-import java.io.File;
-import java.util.Date;
-import java.util.Stack;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.FlowGenerator;
 import jetbrains.buildServer.agent.FlowLogger;
@@ -28,6 +25,10 @@ import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+
+import java.io.File;
+import java.util.Date;
+import java.util.Stack;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 
@@ -194,8 +195,12 @@ public class AntJUnitReportParser extends XmlReportParser {
     if (verbose) {
       myFlowLogger.message(message);
     }
-    myFlowLogger.disposeFlow();
     LOG.debug(message);
+  }
+
+  @Override
+  public void dispose() {
+    myFlowLogger.disposeFlow();
   }
 
   //  Handler methods

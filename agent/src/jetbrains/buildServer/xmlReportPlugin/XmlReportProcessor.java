@@ -104,6 +104,7 @@ public class XmlReportProcessor extends Thread {
         myParameters.getLogger().message(new BuildStatus(message, Status.FAILURE).asString());
       }
     }
+    disposeParsers();
   }
 
   public void signalStop() {
@@ -197,6 +198,12 @@ public class XmlReportProcessor extends Thread {
 
     LOG.debug("No parser for " + type + " available");
     return null;
+  }
+
+  private void disposeParsers() {
+    for (final XmlReportParser parser : myParsers.values()) {
+      parser.dispose();
+    }
   }
 
   private static final String NUNIT_TO_JUNIT_XSL = "nunit-to-junit.xsl";
