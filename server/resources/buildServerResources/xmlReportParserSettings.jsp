@@ -21,33 +21,6 @@
        value="${reportType == 'findBugs' ? true : false}"/>
 
 
-<script type="text/javascript">
-    function displayWarning(runnerType) {
-        var select = $('xmlReportParsing.reportType');
-        var reportType = select.options[select.selectedIndex].value;
-        switch (runnerType) {
-            case ('Ant'):
-                    if (reportType == 'junit') {
-                        return true;
-                    }
-            break;
-            case ('NAnt'):
-            case ('sln2003'):
-            case ('VS.Solution'):
-                    if (reportType == 'nunit') {
-                        return true;
-                    }
-            break;
-            case ('Maven2'):
-                if (reportType == 'surefire') {
-                    return true;
-                }
-            break;
-        }
-        return false;
-    }
-</script>
-
 <c:set var="runnerType"
        value="${buildForm.buildRunnerBean.runnerType}"/>
 
@@ -84,6 +57,31 @@
         <th><label for="xmlReportParsing.reportType">Report type:</label></th>
         <td>
             <c:set var="onchange">
+                function displayWarning(runnerType) {
+                    var select = $('xmlReportParsing.reportType');
+                    var reportType = select.options[select.selectedIndex].value;
+                    switch (runnerType) {
+                        case ('Ant'):
+                                if (reportType == 'junit') {
+                                    return true;
+                                }
+                        break;
+                        case ('NAnt'):
+                        case ('sln2003'):
+                        case ('VS.Solution'):
+                                if (reportType == 'nunit') {
+                                    return true;
+                                }
+                        break;
+                        case ('Maven2'):
+                            if (reportType == 'surefire') {
+                                return true;
+                            }
+                        break;
+                    }
+                    return false;
+                }
+
                 var selectedValue = this.options[this.selectedIndex].value;
                 if (selectedValue == '') {
                 BS.Util.hide($('xmlReportParsing.reportDirs.container'));
@@ -91,6 +89,9 @@
                 } else {
                 BS.Util.show($('xmlReportParsing.reportDirs.container'));
                 BS.Util.show($('xmlReportParsing.verboseOutput.container'));
+                BS.MultilineProperties.show('xmlReportParsing.reportDirs', true);
+                $('xmlReportParsing.reportDirs').focus();
+                BS.MultilineProperties.updateVisible();
                 }
                 var isInspection = (selectedValue == 'findBugs' ||
                 selectedValue == 'pmd' ||
@@ -113,7 +114,6 @@
                 } else {
                 BS.Util.hide($('xmlReportParsing.warning.container'));
                 }
-                BS.MultilineProperties.updateVisible();
             </c:set>
             <props:selectProperty name="xmlReportParsing.reportType"
                                   onchange="${onchange}">
