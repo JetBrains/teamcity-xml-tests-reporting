@@ -23,10 +23,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
+import jetbrains.buildServer.agent.AgentRunningBuild;
+import jetbrains.buildServer.agent.DataProcessorContext;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
 import jetbrains.buildServer.util.EventDispatcher;
 import junit.framework.TestCase;
+import org.jetbrains.annotations.NotNull;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -43,15 +46,34 @@ public class XmlReportDataProcessorTest extends TestCase {
     myContext = new JUnit4Mockery();
   }
 
-  private void runTest(Map<String, String> arguments, String fileName) throws Exception {
+  private void runTest(final Map<String, String> arguments, final String fileName) throws Exception {
     final File expectedFile = TestUtil.getTestDataFile(fileName + ".gold", "dataProcessor");
     final File resultsFile = new File(expectedFile.getAbsolutePath().replace(".gold", ".tmp"));
 
     final StringBuilder results = new StringBuilder();
     final XmlReportPlugin plugin = createFakePlugin(results, TestUtil.getTestDataFile(null, null).getAbsoluteFile().getParentFile().getParentFile());
 
+    final File testDataPath = new File(getTestDataPath("Report.xml", "dataProcessor"));
+    final AgentRunningBuild runningBuildMock = myContext.mock(AgentRunningBuild.class);
+
     final XmlReportDataProcessor processor = new XmlReportDataProcessor.JUnitDataProcessor(plugin);
-    processor.processData(new File(getTestDataPath("Report.xml", "dataProcessor")), arguments);
+
+    processor.processData(new DataProcessorContext() {
+      @NotNull
+      public AgentRunningBuild getBuild() {
+        return runningBuildMock;
+      }
+
+      @NotNull
+      public File getFile() {
+        return testDataPath;
+      }
+
+      @NotNull
+      public Map<String, String> getArguments() {
+        return arguments;
+      }
+    });
 
     final FileWriter resultsWriter = new FileWriter(resultsFile);
     resultsWriter.write(results.toString());

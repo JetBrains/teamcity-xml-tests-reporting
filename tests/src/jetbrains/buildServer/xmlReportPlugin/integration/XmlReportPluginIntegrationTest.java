@@ -993,7 +993,8 @@ public class XmlReportPluginIntegrationTest {
     final XmlReportDataProcessor dataProcessor = new XmlReportDataProcessor.JUnitDataProcessor(myPlugin);
     final Map<String, String> args = new HashMap<String, String>();
     args.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
-    dataProcessor.processData(myCheckoutDir, args);
+
+    dataProcessor.processData(createDataProcessorContext(args));
 
     myEventDispatcher.getMulticaster().runnerFinished(myRunningBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
 
@@ -1003,6 +1004,25 @@ public class XmlReportPluginIntegrationTest {
     if (myFailures.size() > 0) {
       throw myFailures.get(0);
     }
+  }
+
+  private DataProcessorContext createDataProcessorContext(final Map<String, String> args) {
+    return new DataProcessorContext() {
+      @NotNull
+      public AgentRunningBuild getBuild() {
+        return myRunningBuild;
+      }
+
+      @NotNull
+      public File getFile() {
+        return myCheckoutDir;
+      }
+
+      @NotNull
+      public Map<String, String> getArguments() {
+        return args;
+      }
+    };
   }
 
   @Test
@@ -1052,7 +1072,7 @@ public class XmlReportPluginIntegrationTest {
     final XmlReportDataProcessor dataProcessor = new XmlReportDataProcessor.JUnitDataProcessor(myPlugin);
     final Map<String, String> args = new HashMap<String, String>();
     args.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
-    dataProcessor.processData(myCheckoutDir, args);
+    dataProcessor.processData(createDataProcessorContext(args));
 
     myEventDispatcher.getMulticaster().runnerFinished(myRunningBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
 
@@ -1133,7 +1153,7 @@ public class XmlReportPluginIntegrationTest {
     final Map<String, String> args = new HashMap<String, String>();
     args.put(XmlReportDataProcessor.VERBOSE_ARGUMENT, "true");
     args.put(XmlReportDataProcessor.PARSE_OUT_OF_DATE_ARGUMENT, "true");
-    dataProcessor.processData(myCheckoutDir, args);
+    dataProcessor.processData(createDataProcessorContext(args));
 
     myEventDispatcher.getMulticaster().runnerFinished(myRunningBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
 

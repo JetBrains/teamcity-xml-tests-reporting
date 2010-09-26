@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.DataProcessor;
+import jetbrains.buildServer.agent.DataProcessorContext;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import org.jetbrains.annotations.NotNull;
 
@@ -54,7 +55,9 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
     myPlugin = plugin;
   }
 
-  public void processData(@NotNull File file, @NotNull Map<String, String> arguments) {
+  public void processData(@NotNull final DataProcessorContext context) {
+    final Map<String, String> arguments = context.getArguments();
+
     final Map<String, String> params = new HashMap<String, String>();
 
     params.put(XmlReportPluginUtil.REPORT_TYPE, getType());
@@ -79,7 +82,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
     params.put(XmlReportPluginUtil.MAX_WARNINGS, arguments.get(WARNINGS_LIMIT_ARGUMENT));
 
     final Set<File> reportDirs = new HashSet<File>();
-    reportDirs.add(file);
+    reportDirs.add(context.getFile());
 
     myPlugin.processReports(params, reportDirs);
   }
