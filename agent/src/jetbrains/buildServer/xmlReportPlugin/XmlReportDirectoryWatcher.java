@@ -202,7 +202,7 @@ public class XmlReportDirectoryWatcher extends Thread {
       }
     }
     if (existingPaths.size() > 0) {
-      LOG.info("Found files from previous builds:");
+      LOG.info("Found files from previous builds or build steps:");
       for (File f : existingPaths) {
         LOG.info(f.getAbsolutePath());
       }
