@@ -2,8 +2,8 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans default-autowire="constructor">
-    <bean id="testReportParserPluginSettings"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportPluginSettings" init-method="registerExtensions">
+    <bean id="xmlReportPluginRunTypeExtension"
+          class="jetbrains.buildServer.xmlReportPlugin.XmlReportPluginRunTypeExtension">
         <property name="supportedRunTypes">
             <list>
                 <value>simpleRunner</value>
@@ -15,6 +15,7 @@
                 <value>rake-runner</value>
                 <value>sln2003</value>
                 <value>VS.Solution</value>
+                <value>gradle-runner</value>
             </list>
         </property>
     </bean>
