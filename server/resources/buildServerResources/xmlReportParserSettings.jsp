@@ -153,6 +153,7 @@
           New line or comma separated paths to reports. Specified paths can be absolute or relative to the checkout directory.
           Support ant-style wildcards like <strong>dir/**/*.xml</strong>. To ensure monitoring swiftness specify more concrete paths.
         </span>
+        <span class="error" id="error_xmlReportParsing.reportDirs"></span>
         </td>
     </tr>
     <tr class="noBorder" id="xmlReportParsing.verboseOutput.container"

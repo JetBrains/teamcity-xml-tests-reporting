@@ -102,11 +102,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
       parametersMap.putAll(additionalParams);
 
     final String type = getReportType(parametersMap);
-    //TODO: can avoid this if by adding paths presence in the web IU
-    if (reportPaths.size() == 0) {
-      enableXmlReportParsing(parametersMap, ""); //can avoid this by adding paths presence in the web IU
-    }
-
     final LinkedBlockingQueue<ReportData> reportsQueue = new LinkedBlockingQueue<ReportData>();
 
     final Parameters parameters = new Parameters(parametersMap);

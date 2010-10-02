@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import jetbrains.buildServer.serverSide.InvalidProperty;
 import jetbrains.buildServer.serverSide.PropertiesProcessor;
 import jetbrains.buildServer.serverSide.RunTypeExtension;
 import jetbrains.buildServer.web.openapi.PluginDescriptor;
@@ -49,7 +50,18 @@ public class XmlReportPluginRunTypeExtension extends RunTypeExtension {
 
   @Override
   public PropertiesProcessor getRunnerPropertiesProcessor() {
-    return null; //TODO: need a processor to check report paths emptyness
+    return new PropertiesProcessor() {
+      public Collection<InvalidProperty> process(Map<String, String> properties) {
+        final List<InvalidProperty> invalids = new ArrayList<InvalidProperty>();
+        String prop;
+        prop = properties.get(XmlReportPluginUtil.REPORT_DIRS);
+        if (XmlReportPluginUtil.isParsingEnabled(properties) && (prop == null) || ("".equals(prop))) {
+          invalids.add(new InvalidProperty(XmlReportPluginUtil.REPORT_DIRS,
+            "Report paths must be specified"));
+        }
+        return invalids;
+      }
+    };
   }
 
   @Override
