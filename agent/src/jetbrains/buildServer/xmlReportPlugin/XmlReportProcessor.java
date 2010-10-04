@@ -18,8 +18,6 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import jetbrains.buildServer.messages.Status;
-import jetbrains.buildServer.messages.serviceMessages.BuildStatus;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
@@ -98,11 +96,7 @@ public class XmlReportProcessor extends Thread {
       for (final String t : myFailedReportTypes) {
         types.append(t).append(", ");
       }
-      final String message = "Failed to process some " + types.substring(0, types.length() - 2) + " reports";
-      myParameters.getLogger().error(message);
-      if (myProcessedReportTypes.size() == 0) {
-        myParameters.getLogger().message(new BuildStatus(message, Status.FAILURE).asString());
-      }
+      myParameters.getLogger().error("Failed to process some " + types.substring(0, types.length() - 2) + " reports");
     }
     disposeParsers();
   }

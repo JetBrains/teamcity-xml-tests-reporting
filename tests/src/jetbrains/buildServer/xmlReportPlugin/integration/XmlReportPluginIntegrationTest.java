@@ -299,9 +299,9 @@ public class XmlReportPluginIntegrationTest {
     params4.add("Failed to process some " + typeName + " reports");
     myLogSequence.add(new MethodInvokation("error", params4));
 
-    final List<Object> params5 = new ArrayList<Object>();
-    params5.add("##teamcity[buildStatus status='FAILURE' " + "text='Failed to process some " + typeName + " reports" + "']");
-    myLogSequence.add(new MethodInvokation("message", params5));
+//    final List<Object> params5 = new ArrayList<Object>();
+//    params5.add("##teamcity[buildStatus status='FAILURE' " + "text='Failed to process some " + typeName + " reports" + "']");
+//    myLogSequence.add(new MethodInvokation("message", params5));
 
     final List<Object> params6 = new ArrayList<Object>();
     params6.add("1 file(s) found");
@@ -440,9 +440,9 @@ public class XmlReportPluginIntegrationTest {
     params4.add("Failed to process some " + typeName + " reports");
     myLogSequence.add(new MethodInvokation("error", params4));
 
-    final List<Object> params5 = new ArrayList<Object>();
-    params5.add("##teamcity[buildStatus status='FAILURE' " + "text='Failed to process some " + typeName + " reports']");
-    myLogSequence.add(new MethodInvokation("message", params5));
+//    final List<Object> params5 = new ArrayList<Object>();
+//    params5.add("##teamcity[buildStatus status='FAILURE' " + "text='Failed to process some " + typeName + " reports']");
+//    myLogSequence.add(new MethodInvokation("message", params5));
 
     final List<Object> params6 = new ArrayList<Object>();
     params6.add("1 file(s) found");
