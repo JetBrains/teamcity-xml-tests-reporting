@@ -98,7 +98,14 @@ public class XmlReportPluginTest {
   }
 
   private BuildProgressLogger createBaseServerLoggerFacade() {
-    return myContext.mock(BuildProgressLogger.class);
+    final BuildProgressLogger logger = myContext.mock(FlowLogger.class);
+    myContext.checking(new Expectations() {
+      {
+        allowing(logger).getThreadLogger();
+        will(returnValue(logger));
+      }
+    });
+    return logger;
   }
 
   @Before

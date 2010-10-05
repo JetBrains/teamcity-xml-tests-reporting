@@ -63,11 +63,6 @@ public class AntJUnitReportParserTest extends TestCase {
 
   private void createBaseServerLoggerFacade() {
     myLogger = myContext.mock(FlowLogger.class);
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).getFlowLogger(with(Expectations.<String>anything())); will(returnValue(myLogger));
-      }
-    });
   }
 
   private ReportData reportData(@NotNull final String fileName) throws FileNotFoundException {

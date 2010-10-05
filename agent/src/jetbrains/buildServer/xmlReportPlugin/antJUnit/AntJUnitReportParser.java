@@ -17,7 +17,6 @@
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.agent.FlowGenerator;
 import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
@@ -111,7 +110,7 @@ public class AntJUnitReportParser extends XmlReportParser {
   }
 
   public AntJUnitReportParser(@NotNull final BuildProgressLogger logger) {
-    super(logger.getFlowLogger(FlowGenerator.generateNewFlow()));
+    super(logger);
     myFlowLogger = (FlowLogger)myLogger;
     myLoggedSuites = 0;
     myTests = new Stack<TestData>();

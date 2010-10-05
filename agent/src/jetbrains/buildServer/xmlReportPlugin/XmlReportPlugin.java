@@ -168,7 +168,10 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
       final AgentRunningBuild build = myBuild;
       assert build != null;
       
-      return build.getBuildLogger();
+      // currently as we report tests sequentially,
+      // we actually have 2 child threads (watcher & processor), so we can give each other
+      // a flow logger associated
+      return build.getBuildLogger().getThreadLogger();
     }
 
     @NotNull
