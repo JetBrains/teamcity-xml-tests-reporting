@@ -359,7 +359,7 @@ public class XmlReportDirectoryWatcher extends Thread {
 
     if ("nothing".equals(whenNoDataPublished)) return;
 
-    if ("warning".equals(whenNoDataPublished)) {
+    if ("warning".equals(whenNoDataPublished) || "warn".equals(whenNoDataPublished)) {
       warning(message);
       return;
     }
