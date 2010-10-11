@@ -104,15 +104,15 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     final String type = getReportType(parametersMap);
     final LinkedBlockingQueue<ReportData> reportsQueue = new LinkedBlockingQueue<ReportData>();
 
-    final Parameters parameters = new Parameters(parametersMap);
+    final Parameters parameters = new Parameters(reportPaths, parametersMap);
 
     XmlReportDirectoryWatcher directoryWatcher = new XmlReportDirectoryWatcher(parameters, reportPaths, type, reportsQueue);
     XmlReportProcessor reportProcessor = new XmlReportProcessor(parameters, reportsQueue, directoryWatcher);
 
-    return new ReportProcessingContext(parametersMap, directoryWatcher, reportProcessor);
+    return new ReportProcessingContext(parameters, directoryWatcher, reportProcessor);
   }
 
-  public synchronized void processReports(Map<String, String> params, Set<File> reportPaths) {
+  public synchronized void processReports(@NotNull Map<String, String> params, @NotNull Set<File> reportPaths) {
     LOG.debug("processReports");
     AgentRunningBuild build = myBuild;
     BuildRunnerContext runner = myRunner;
@@ -132,16 +132,49 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
       context.myReportProcessor.start();
       myContext = context;
     } else {
-      context.myParameters.putAll(params);
-      context.myDirectoryWatcher.addPaths(reportPaths, type);
+      updateContext(context, params, reportPaths, type);
+    }
+  }
+
+  private void updateContext(final ReportProcessingContext context,
+                             final Map<String, String> params,
+                             final Set<File> reportPaths,
+                             final String type) {
+    context.myParameters.update(reportPaths, params);
+    context.myDirectoryWatcher.addPaths(reportPaths, type);
+  }
+
+  private static class PathParameters {
+    private final boolean myParseOutOfDate;
+    private final String myWhenNoDataPublished;
+
+    private PathParameters(final boolean parseOutOfDate,
+                           final String whenNoDataPublished) {
+      myParseOutOfDate = parseOutOfDate;
+      myWhenNoDataPublished = whenNoDataPublished;
     }
   }
 
   private class Parameters implements XmlReportDirectoryWatcher.Parameters, XmlReportProcessor.Parameters {
     private final Map<String, String> myParameters;
+    private final Map<File, PathParameters> myPathParameters;
 
-    private Parameters(@NotNull final Map<String, String> parameters) {
+    private Parameters(@NotNull Set<File> paths, @NotNull final Map<String, String> parameters) {
       myParameters = parameters;
+      myPathParameters = new HashMap<File, PathParameters>();
+
+      updateParameters(paths, parameters);
+    }
+
+    private void updateParameters(final Set<File> paths, final Map<String, String> parameters) {
+      for (final File path : paths) {
+        myPathParameters.put(path, new PathParameters(Boolean.parseBoolean(parameters.get(PARSE_OUT_OF_DATE)),
+                                                      parameters.get(WHEN_NO_DATA_PUBLISHED)));
+      }
+    }
+
+    private void update(@NotNull Set<File> paths, @NotNull final Map<String, String> parameters) {
+      updateParameters(paths, parameters);
     }
 
     @NotNull
@@ -184,8 +217,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
       return myParameters.get(TMP_DIR);
     }
 
-    public boolean parseOutOfDate() {
-      return Boolean.parseBoolean(myParameters.get(PARSE_OUT_OF_DATE));
+    public boolean parseOutOfDate(final File path) {
+      return myPathParameters.get(path).myParseOutOfDate;
     }
 
     public long getBuildStartTime() {
@@ -204,6 +237,10 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
         paths.add(FileUtil.resolvePath(checkoutDir, s).getAbsolutePath());
       }
       return paths;
+    }
+
+    public String getWhenNoDataPublished(File path) {
+      return myPathParameters.get(path).myWhenNoDataPublished;
     }
   }
 
@@ -264,11 +301,11 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   }
 
   private static class ReportProcessingContext {
-    @NotNull private final Map<String, String> myParameters;
+    @NotNull private final Parameters myParameters;
     @NotNull private final XmlReportDirectoryWatcher myDirectoryWatcher;
     @NotNull private final XmlReportProcessor myReportProcessor;
 
-    private ReportProcessingContext(@NotNull final Map<String, String> parameters,
+    private ReportProcessingContext(@NotNull final Parameters parameters,
                                     @NotNull final XmlReportDirectoryWatcher directoryWatcher,
                                     @NotNull final XmlReportProcessor reportProcessor) {
       myParameters = parameters;

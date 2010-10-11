@@ -50,6 +50,7 @@ public class XmlReportPluginUtil {
   public static final String MAX_ERRORS = "xmlReportParsing.max.errors";
   public static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
   public static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
+  public static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
 
   public static boolean isParsingEnabled(@NotNull final Map<String, String> runParams) {
     return runParams.containsKey(REPORT_TYPE) && !"".equals(runParams.get(REPORT_TYPE));
@@ -90,6 +91,10 @@ public class XmlReportPluginUtil {
     } else {
       systemProperties.remove(PARSE_OUT_OF_DATE);
     }
+  }
+
+  public static void setWhenNoDataPublished(@NotNull final Map<String, String> systemProperties, String value) {
+    systemProperties.put(WHEN_NO_DATA_PUBLISHED, value);
   }
 
   public static void setXmlReportPaths(@NotNull final Map<String, String> runParams, String reportDirs) {

@@ -16,12 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.DataProcessorContext;
@@ -34,6 +28,13 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getTestDataPath;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFileToList;
@@ -94,7 +95,8 @@ public class XmlReportDataProcessorTest extends TestCase {
       }
     });
     return new XmlReportPlugin(dispatcher, reporter) {
-      public void processReports(Map<String, String> params, Set<File> reportDirs) {
+      @Override
+      public void processReports(@NotNull Map<String, String> params, @NotNull Set<File> reportDirs) {
         for (String key : params.keySet()) {
           results.append("<").append(key).append(", ").append(params.get(key)).append(">\n");
         }
@@ -137,5 +139,12 @@ public class XmlReportDataProcessorTest extends TestCase {
     final Map<String, String> arguments = new HashMap<String, String>();
     arguments.put(XmlReportDataProcessor.WARNINGS_LIMIT_ARGUMENT, "10");
     runTest(arguments, "warningsLimit");
+  }
+
+  @Test
+  public void testWhenNoDataPublished() throws Exception {
+    final Map<String, String> arguments = new HashMap<String, String>();
+    arguments.put(XmlReportDataProcessor.WHEN_NO_DATA_PUBLISHED, "warning");
+    runTest(arguments, "whenNoDataPublished");
   }
 }

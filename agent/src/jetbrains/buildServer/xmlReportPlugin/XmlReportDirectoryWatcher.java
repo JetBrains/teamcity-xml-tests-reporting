@@ -49,9 +49,10 @@ public class XmlReportDirectoryWatcher extends Thread {
   public interface Parameters {
     boolean isVerbose();
     @NotNull BuildProgressLogger getLogger();
-    boolean parseOutOfDate();
+    boolean parseOutOfDate(File path);
     @NotNull List<String> getPathsToExclude();
     long getBuildStartTime();
+    String getWhenNoDataPublished(File path);
   }
 
 
@@ -229,7 +230,7 @@ public class XmlReportDirectoryWatcher extends Thread {
 
         final TypeStatistics s = myStatistics.get(type);
         for (File f : entry.getValue()) {
-          if (isGoodFile(f) && !s.getFiles().contains(f)) {
+          if (isGoodFile(f, f) && !s.getFiles().contains(f)) {
             s.getFiles().add(f);
             sendToQueue(type, f);
           } else if (f.isDirectory()) {
@@ -237,7 +238,7 @@ public class XmlReportDirectoryWatcher extends Thread {
             final Set<File> filesInDir = new HashSet<File>();
             if ((files != null) && (files.length > 0)) {
               for (File file : files) {
-                processFile(type, s, filesInDir, file);
+                processFile(type, f, s, filesInDir, file);
               }
             }
             addToStatistics(s.getDirs(), f, filesInDir);
@@ -245,7 +246,7 @@ public class XmlReportDirectoryWatcher extends Thread {
             final Set<File> filesForMask = new HashSet<File>();
             final MaskData md = getMask(f);
             for (File file : collectFiles(md.getPattern(), md.getBaseDir())) {
-              processFile(type, s, filesForMask, file);
+              processFile(type, f, s, filesForMask, file);
             }
             addToStatistics(s.getMasks(), f, filesForMask);
           }
@@ -254,8 +255,8 @@ public class XmlReportDirectoryWatcher extends Thread {
     }
   }
 
-  private void processFile(String type, TypeStatistics s, Set<File> files, File file) {
-    if (isGoodFile(file)) {
+  private void processFile(String type, File path, TypeStatistics s, Set<File> files, File file) {
+    if (isGoodFile(file, path)) {
       if (!s.getFiles().contains(file)) {
         sendToQueue(type, file);
         s.getFiles().add(file);
@@ -264,8 +265,8 @@ public class XmlReportDirectoryWatcher extends Thread {
     }
   }
 
-  private boolean isGoodFile(File f) {
-    return f.getName().endsWith(".xml") && f.isFile() && f.canRead() && timeConstraintsSatisfied(f) && !isExcluded(f);
+  private boolean isGoodFile(File f, File path) {
+    return f.getName().endsWith(".xml") && f.isFile() && f.canRead() && timeConstraintsSatisfied(f, path) && !isExcluded(f);
   }
 
   private void sendToQueue(String type, File f) {
@@ -286,8 +287,8 @@ public class XmlReportDirectoryWatcher extends Thread {
     }
   }
 
-  private boolean timeConstraintsSatisfied(File file) {
-    return myParameters.parseOutOfDate() || !isOutOfDate(file);
+  private boolean timeConstraintsSatisfied(File file, File path) {
+    return myParameters.parseOutOfDate(path) || !isOutOfDate(file);
   }
 
   private boolean isExcluded(File file) {
@@ -316,8 +317,6 @@ public class XmlReportDirectoryWatcher extends Thread {
           public void run() {
             if (s.getFiles().size() > 0) {
               message(s.getFiles().size() + " file(s) found");
-            } else {
-              error("No files found during the build");
             }
             for (File d : s.getDirs().keySet()) {
               logFiles(s, d, s.getDirs().get(d));
@@ -346,12 +345,26 @@ public class XmlReportDirectoryWatcher extends Thread {
               myPaths.get(type).remove(f);
             }
             for (File f : myPaths.get(type)) {
-              error(f.getAbsolutePath() + " couldn't find any matching files");
+              logNoDataPublished(f, " couldn't find any matching files");
             }
           }
         });
       }
     }
+  }
+
+  private void logNoDataPublished(File path, String suffix) {
+    final String whenNoDataPublished = myParameters.getWhenNoDataPublished(path);
+    final String message = path.getAbsolutePath() + suffix;
+
+    if ("nothing".equals(whenNoDataPublished)) return;
+
+    if ("warning".equals(whenNoDataPublished)) {
+      warning(message);
+      return;
+    }
+
+    error(message);
   }
 
   private String startTarget(String type) {
@@ -367,7 +380,7 @@ public class XmlReportDirectoryWatcher extends Thread {
       }
       s.getFiles().removeAll(files);
     } else {
-      error(d.getAbsolutePath() + ": no files found");
+      logNoDataPublished(d, ": no files found");
     }
   }
 

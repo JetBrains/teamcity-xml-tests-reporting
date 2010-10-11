@@ -48,6 +48,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
   public static final String ERRORS_LIMIT_ARGUMENT = "errorLimit";
   public static final String WARNINGS_LIMIT_ARGUMENT = "warningLimit";
   public static final String FINDBUGS_HOME_ARGUMENT = "findBugsHome";
+  public static final String WHEN_NO_DATA_PUBLISHED = "whenNoDataPublished";
 
   private final XmlReportPlugin myPlugin;
 
@@ -73,6 +74,12 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
       parseOutOfDate = arguments.get(PARSE_OUT_OF_DATE_ARGUMENT);
     }
     params.put(XmlReportPluginUtil.PARSE_OUT_OF_DATE, parseOutOfDate);
+
+    String whenNoDataPublished = "error";
+    if (arguments.containsKey(WHEN_NO_DATA_PUBLISHED)) {
+      whenNoDataPublished = arguments.get(WHEN_NO_DATA_PUBLISHED);
+    }
+    params.put(XmlReportPluginUtil.WHEN_NO_DATA_PUBLISHED, whenNoDataPublished);
 
     if (FindBugsReportParser.TYPE.equals(getType())) {
       params.put(XmlReportPluginUtil.FINDBUGS_HOME, arguments.get(FINDBUGS_HOME_ARGUMENT));
