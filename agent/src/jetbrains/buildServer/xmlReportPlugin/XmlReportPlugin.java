@@ -63,11 +63,11 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   }
 
   @Override
-  public void beforeRunnerStart(@NotNull AgentRunningBuild build, @NotNull BuildRunnerContext runner) {
+  public void beforeRunnerStart(@NotNull BuildRunnerContext runner) {
     LOG.debug("beforeRunnerStart");
     myStopped = false;
 
-    myBuild = build;
+    myBuild = runner.getBuild();
     myRunner = runner;
     final Date startTime = new Date();
     myStartTime = startTime;
@@ -76,8 +76,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
       return;
 
     final Set<File> reportPaths = getReportPathsFromDirProperty(getXmlReportPaths(runner.getRunnerParameters()),
-                                                                build.getCheckoutDirectory());
-    final ReportProcessingContext context = createContext(build, runner, startTime, reportPaths, null);
+                                                                runner.getBuild().getCheckoutDirectory());
+    final ReportProcessingContext context = createContext(runner.getBuild(), runner, startTime, reportPaths, null);
 
     context.myDirectoryWatcher.start();
     context.myReportProcessor.start();
@@ -258,7 +258,9 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
 
   @Override
-  public synchronized void runnerFinished(@NotNull AgentRunningBuild build, @NotNull BuildRunnerContext runner, @NotNull BuildFinishedStatus status) {
+  public synchronized void runnerFinished(
+    @NotNull BuildRunnerContext runner,
+    @NotNull BuildFinishedStatus status) {
     LOG.debug("runnerFinished");
     if (!myStopped) {
       finishWork();

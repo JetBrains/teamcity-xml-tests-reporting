@@ -141,8 +141,8 @@ public class XmlReportPluginTest {
 
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
 
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myBuild, myRunner);
-    myEventDispatcher.getMulticaster().runnerFinished(myBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunner);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
   }
 
@@ -178,8 +178,8 @@ public class XmlReportPluginTest {
     });
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
 
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myBuild, myRunner);
-    myEventDispatcher.getMulticaster().runnerFinished(myBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunner);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
   }
 
@@ -197,8 +197,8 @@ public class XmlReportPluginTest {
 
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
 
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myBuild, myRunner);
-    myEventDispatcher.getMulticaster().runnerFinished(myBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunner);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
 
     Assert.assertTrue("Plugin must be stopped", myPlugin.isStopped());
@@ -213,8 +213,8 @@ public class XmlReportPluginTest {
     });
     myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
 
-    myEventDispatcher.getMulticaster().beforeRunnerStart(myBuild, myRunner);
-    myEventDispatcher.getMulticaster().runnerFinished(myBuild, myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
+    myEventDispatcher.getMulticaster().beforeRunnerStart(myRunner);
+    myEventDispatcher.getMulticaster().runnerFinished(myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
     myContext.assertIsSatisfied();
 
     Assert.assertTrue("Plugin must be stopped", myPlugin.isStopped());
