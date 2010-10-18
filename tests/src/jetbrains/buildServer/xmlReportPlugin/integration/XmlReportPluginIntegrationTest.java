@@ -84,11 +84,14 @@ public class XmlReportPluginIntegrationTest {
     return runningBuild;
   }
 
-  private BuildRunnerContext createBuildRunnerContext(final Map<String, String> runParams, final BuildParametersMap buildParameters) {
+  private BuildRunnerContext createBuildRunnerContext(@NotNull final AgentRunningBuild build,
+                                                      final Map<String, String> runParams,
+                                                      final BuildParametersMap buildParameters) {
     final BuildRunnerContext context = myContext.mock(BuildRunnerContext.class);
 
     myContext.checking(new Expectations() {
       {
+        allowing(context).getBuild(); will(returnValue(build));
         allowing(context).getRunnerParameters();
         will(returnValue(runParams));
         allowing(context).getBuildParameters();
@@ -118,7 +121,7 @@ public class XmlReportPluginIntegrationTest {
 
     myRunningBuild = createAgentRunningBuild(myCheckoutDir, myTestLogger);
 
-    myRunner = createBuildRunnerContext(myRunnerParams, new BuildParametersMap() {
+    myRunner = createBuildRunnerContext(myRunningBuild, myRunnerParams, new BuildParametersMap() {
       @NotNull
       public Map<String, String> getSystemProperties() {
         return Collections.emptyMap();

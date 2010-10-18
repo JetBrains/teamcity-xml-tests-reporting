@@ -16,11 +16,15 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
 import junit.framework.Assert;
+import org.jetbrains.annotations.NotNull;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.Sequence;
@@ -30,10 +34,6 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 @RunWith(JMock.class)
 public class XmlReportPluginTest {
@@ -71,11 +71,12 @@ public class XmlReportPluginTest {
     return runningBuild;
   }
 
-  private BuildRunnerContext createBuildRunnerContext(final Map<String, String> runnerParameters) {
+  private BuildRunnerContext createBuildRunnerContext(@NotNull final AgentRunningBuild build, final Map<String, String> runnerParameters) {
     final BuildRunnerContext context = myContext.mock(BuildRunnerContext.class);
 
     myContext.checking(new Expectations() {
       {
+        allowing(context).getBuild(); will(returnValue(build));
 
         allowing(context).getRunnerParameters();
         will(returnValue(runnerParameters));
@@ -133,7 +134,7 @@ public class XmlReportPluginTest {
 
     myBuild = createAgentRunningBuild(checkoutDir);
 
-    myRunner = createBuildRunnerContext(myRunParams);
+    myRunner = createBuildRunnerContext(myBuild, myRunParams);
   }
 
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
