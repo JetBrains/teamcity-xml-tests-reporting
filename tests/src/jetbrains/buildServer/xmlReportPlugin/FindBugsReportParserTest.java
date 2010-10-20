@@ -16,15 +16,16 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import junit.framework.TestCase;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
 
@@ -32,7 +33,7 @@ import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
 public class FindBugsReportParserTest extends TestCase {
   private static final String FINDBUGS_HOME = System.getProperty("findbugs");
 
-  {
+  static {
     if (FINDBUGS_HOME == null) {
       fail("FindBugs home path is not specified in JVM arguments." +
         "Use -Dfindbugs=\"...\" jvm option or build.properties file to specify FindBugs home path");
