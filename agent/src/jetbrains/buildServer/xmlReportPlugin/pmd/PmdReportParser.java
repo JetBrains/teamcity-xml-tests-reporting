@@ -19,6 +19,7 @@ package jetbrains.buildServer.xmlReportPlugin.pmd;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.log.Loggers;
 import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
 import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import org.jetbrains.annotations.NotNull;
@@ -32,6 +33,7 @@ import java.io.File;
 public class PmdReportParser extends InspectionsReportParser {
   public static final String TYPE = "pmd";
   private static final String DEFAULT_MESSAGE = "No message";
+  private static final String TRAILING_TAG = "</pmd>";
 
   private String myCurrentFile;
 
@@ -45,7 +47,8 @@ public class PmdReportParser extends InspectionsReportParser {
   @Override
   public void parse(@NotNull final ReportData data) {
     final File report = data.getFile();
-    if (!isReportComplete(report, "</pmd>")) {
+    if (!isReportComplete(report, TRAILING_TAG)) {
+      Loggers.AGENT.debug("The report doesn't finish with " + TRAILING_TAG);
       data.setProcessedEvents(0);
       return;
     }
