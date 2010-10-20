@@ -19,6 +19,7 @@ package jetbrains.buildServer.xmlReportPlugin.findBugs;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.log.Loggers;
 import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
 import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
@@ -39,6 +40,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
   public static final String BUNDLED_VERSION = "1.3.9";
 
   private static final String DEFAULT_MESSAGE = "No message";
+  private static final String TRAILING_TAG = "</BugCollection>";
 
   private FileFinder myFileFinder;
 
@@ -80,7 +82,8 @@ public class FindBugsReportParser extends InspectionsReportParser {
   public void parse(@NotNull final ReportData data) {
     myInspectionReporter.markBuildAsInspectionsBuild();
     final File report = data.getFile();
-    if (!isReportComplete(report, "</BugCollection>")) {
+    if (!isReportComplete(report, TRAILING_TAG)) {
+      Loggers.AGENT.debug("The report doesn't finish with " + TRAILING_TAG);
       data.setProcessedEvents(0);
       return;
     }
