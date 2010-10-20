@@ -17,8 +17,8 @@
 package jetbrains.buildServer.xmlReportPlugin.nUnit;
 
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.log.Loggers;
 import jetbrains.buildServer.xmlReportPlugin.ReportData;
+import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
 
@@ -50,7 +50,7 @@ public class NUnitReportParser extends AntJUnitReportParser {
   public void parse(@NotNull final ReportData data) {
     final File report = data.getFile();
     if (!isReportComplete(report, TRAILING_TAG)) {
-      Loggers.AGENT.debug("The report doesn't finish with " + TRAILING_TAG);
+      XmlReportPlugin.LOG.debug("The report doesn't finish with " + TRAILING_TAG);
       data.setProcessedEvents(0);
       return;
     }
