@@ -16,18 +16,21 @@
 
 package jetbrains.buildServer.xmlReportPlugin.nUnit;
 
-import java.io.File;
-import java.io.IOException;
-import javax.xml.transform.TransformerConfigurationException;
 import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.log.Loggers;
 import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
+
+import javax.xml.transform.TransformerConfigurationException;
+import java.io.File;
+import java.io.IOException;
 
 
 public class NUnitReportParser extends AntJUnitReportParser {
   public static final String TYPE = "nunit";
   private static final String TMP_REPORT_DIRECTORY = File.separator + "junit_reports";
+  private static final String TRAILING_TAG = "</test-results>";
 
   private NUnitToJUnitReportTransformer myReportTransformer;
   private final File myTmpReportDir;
@@ -46,7 +49,8 @@ public class NUnitReportParser extends AntJUnitReportParser {
   @Override
   public void parse(@NotNull final ReportData data) {
     final File report = data.getFile();
-    if (!isReportComplete(report, "</test-results>")) {
+    if (!isReportComplete(report, TRAILING_TAG)) {
+      Loggers.AGENT.debug("The report doesn't finish with " + TRAILING_TAG);
       data.setProcessedEvents(0);
       return;
     }
