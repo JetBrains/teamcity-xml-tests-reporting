@@ -17,9 +17,9 @@
 package jetbrains.buildServer.xmlReportPlugin.integration;
 
 import jetbrains.buildServer.agent.*;
-import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
+import jetbrains.buildServer.xmlReportPlugin.TestUtil;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil;
@@ -57,16 +57,6 @@ public class XmlReportPluginIntegrationTest {
 
   private Mockery myContext;
 
-  private InspectionReporter createInspectionReporter() {
-    final InspectionReporter reporter = myContext.mock(InspectionReporter.class);
-    myContext.checking(new Expectations() {
-      {
-        ignoring(reporter);
-      }
-    });
-    return reporter;
-  }
-
   private AgentRunningBuild createAgentRunningBuild(final File checkoutDirFile, final BuildProgressLogger logger) {
     final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
 
@@ -95,7 +85,8 @@ public class XmlReportPluginIntegrationTest {
         allowing(context).getRunnerParameters();
         will(returnValue(runParams));
         allowing(context).getBuildParameters();
-        will(returnValue(buildParameters));      }
+        will(returnValue(buildParameters));
+      }
     });
     return context;
   }
@@ -103,8 +94,6 @@ public class XmlReportPluginIntegrationTest {
   @Before
   public void setUp() {
     myContext = new JUnit4Mockery();
-
-    InspectionReporter inspectionReporter = createInspectionReporter();
 
     myLogSequence = new ArrayList<MethodInvokation>();
     myFailures = new ArrayList<UnexpectedInvokationException>();
@@ -139,7 +128,7 @@ public class XmlReportPluginIntegrationTest {
     });
 
     myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
-    myPlugin = new XmlReportPlugin(myEventDispatcher, inspectionReporter);
+    myPlugin = new XmlReportPlugin(myEventDispatcher, TestUtil.createInspectionReporter(myContext), TestUtil.createDuplicatesReporter(myContext));
     ReportFactory.setCheckoutDir(myCheckoutDir.getAbsolutePath());
   }
 

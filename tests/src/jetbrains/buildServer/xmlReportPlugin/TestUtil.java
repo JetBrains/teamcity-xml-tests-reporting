@@ -16,20 +16,25 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
 import jetbrains.buildServer.agent.inspections.InspectionTypeInfo;
+import jetbrains.buildServer.duplicator.DuplicateInfo;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jmock.Expectations;
+import org.jmock.Mockery;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 
-final class TestUtil {
+public final class TestUtil {
   static public String readFile(@NotNull final File file, boolean unifyFileSeparators) throws IOException {
     final FileInputStream inputStream = new FileInputStream(file);
     try {
@@ -93,7 +98,7 @@ final class TestUtil {
     return f.getAbsolutePath();
   }
 
-  public static InspectionReporter createFakeReporter(final StringBuilder results) {
+  public static InspectionReporter createInspectionReporter(final StringBuilder results) {
     return new InspectionReporter() {
       public void reportInspection(@NotNull final InspectionInstance inspection) {
         results.append(inspection.toString()).append("\n");
@@ -113,4 +118,55 @@ final class TestUtil {
       }
     };
   }
+
+  public static DuplicatesReporter createDuplicatesReporter(final StringBuilder results) {
+    return new DuplicatesReporter() {
+      public void startDuplicates() {
+      }
+
+      public void addDuplicate(@NotNull DuplicateInfo duplicate) {
+        results.append("[Cost: ").append(duplicate.getCost());
+        results.append(" Density: ").append(duplicate.getDensity());
+        results.append(" Hash: ").append(duplicate.getHash()).append("\n");
+        for (final DuplicateInfo.Fragment fragment : duplicate.getFragments()) {
+          results.append("[File: ").append(fragment.getFile());
+          results.append("Hash: ").append(fragment.getHash());
+          results.append("Offset: ").append(fragment.getOffsetInfo());
+          results.append("]\n");
+        }
+        results.append("]\n\n");
+      }
+
+      public void addDuplicates(@NotNull Collection<DuplicateInfo> duplicates) {
+        for (final DuplicateInfo duplicate : duplicates) {
+          addDuplicate(duplicate);
+        }
+      }
+
+      public void finishDuplicates() {
+      }
+    };
+  }
+
+  public static InspectionReporter createInspectionReporter(Mockery context) {
+    final InspectionReporter reporter = context.mock(InspectionReporter.class);
+    context.checking(new Expectations() {
+      {
+        ignoring(reporter);
+      }
+    });
+    return reporter;
+  }
+
+  public static DuplicatesReporter createDuplicatesReporter(Mockery context) {
+    final DuplicatesReporter reporter = context.mock(DuplicatesReporter.class);
+    context.checking(new Expectations() {
+      {
+        ignoring(reporter);
+      }
+    });
+    return reporter;
+  }
+
+
 }

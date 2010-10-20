@@ -16,55 +16,33 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
-import junit.framework.TestCase;
 import org.junit.Test;
 
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
+import java.util.Map;
 
 
-public class PmdReportParserTest extends TestCase {
-  private void runTest(final String fileName) throws Exception {
-    final String reportName = getAbsoluteTestDataPath(fileName, "pmd");
-    final String resultsFile = reportName + ".tmp";
-    final String expectedFile = reportName + ".gold";
-    final String baseDir = getAbsoluteTestDataPath(null, "pmd");
+public class PmdReportParserTest extends ParserTestCase {
+  @Override
+  protected String getType() {
+    return PmdReportParser.TYPE;
+  }
 
-    new File(resultsFile).delete();
-
-    final StringBuilder results = new StringBuilder();
-
+  @Override
+  protected XmlReportParser getParser(StringBuilder results) {
+    final InspectionReporter reporter = TestUtil.createInspectionReporter(results);
     final BuildProgressLogger logger = new BuildLoggerForTesting(results);
-    final InspectionReporter reporter = TestUtil.createFakeReporter(results);
 
-    final PmdReportParser parser = new PmdReportParser(logger, reporter, "##BASE_DIR##");
+    return new PmdReportParser(logger, reporter, "##BASE_DIR##");
+  }
 
-    final File report = new File(reportName);
-    final Map<String, String> params = new HashMap<String, String>();
-    XmlReportPluginUtil.enableXmlReportParsing(params, FindBugsReportParser.TYPE);
-    XmlReportPluginUtil.setMaxErrors(params, 5);
-    XmlReportPluginUtil.setMaxWarnings(params, 5);
-    parser.parse(new ReportData(report, "pmd"));
-    parser.logReportTotals(report, true);
-    parser.logParsingTotals(params, true);
-
-    final File expected = new File(expectedFile);
-    final String actual = results.toString().replace(baseDir, "##BASE_DIR##").replace("/", File.separator).replace("\\", File.separator).trim();
-    if (!readFile(expected, true).equals(actual)) {
-      final FileWriter resultsWriter = new FileWriter(resultsFile);
-      resultsWriter.write(actual);
-      resultsWriter.close();
-
-      assertEquals(readFile(expected, true), actual);
-    }
+  @Override
+  protected void prepareParams(Map<String, String> paramsMap) {
+    XmlReportPluginUtil.enableXmlReportParsing(paramsMap, getType());
+    XmlReportPluginUtil.setMaxErrors(paramsMap, 5);
+    XmlReportPluginUtil.setMaxWarnings(paramsMap, 5);
   }
 
   @Test

@@ -35,6 +35,7 @@ public class XmlReportPluginUtil {
     SUPPORTED_REPORT_TYPES.put("findBugs", "FindBugs");
     SUPPORTED_REPORT_TYPES.put("pmd", "PMD");
     SUPPORTED_REPORT_TYPES.put("checkstyle", "Checkstyle");
+    SUPPORTED_REPORT_TYPES.put("pmdCpd", "PMD CPD");
 
     INSPECTIONS_TYPES.add("findBugs");
     INSPECTIONS_TYPES.add("pmd");

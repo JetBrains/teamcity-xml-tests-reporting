@@ -16,15 +16,16 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
 import junit.framework.TestCase;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
@@ -46,7 +47,7 @@ public class CheckstyleReportParserTest extends TestCase {
     final StringBuilder results = new StringBuilder();
 
     final BuildProgressLogger logger = new BuildLoggerForTesting(results);
-    final InspectionReporter reporter = TestUtil.createFakeReporter(results);
+    final InspectionReporter reporter = TestUtil.createInspectionReporter(results);
 
     final CheckstyleReportParser parser = new CheckstyleReportParser(logger, reporter, "##BASE_DIR##");
 

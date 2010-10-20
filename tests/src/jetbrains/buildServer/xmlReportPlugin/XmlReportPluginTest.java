@@ -16,10 +16,8 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 import jetbrains.buildServer.agent.*;
+import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
@@ -34,6 +32,10 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 @RunWith(JMock.class)
 public class XmlReportPluginTest {
@@ -50,10 +52,7 @@ public class XmlReportPluginTest {
   private Mockery myContext;
   private Sequence mySequence;
   private InspectionReporter myInspectionReporter;
-
-  private InspectionReporter createInspectionReporter() {
-    return myContext.mock(InspectionReporter.class);
-  }
+  private DuplicatesReporter myDuplicatesReporter;
 
   private AgentRunningBuild createAgentRunningBuild(final File checkoutDirFile) {
     final AgentRunningBuild runningBuild = myContext.mock(AgentRunningBuild.class);
@@ -120,12 +119,8 @@ public class XmlReportPluginTest {
     myEventDispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
     myRunParams = new HashMap<String, String>();
     myLogger = createBaseServerLoggerFacade();
-    myInspectionReporter = createInspectionReporter();
-    myContext.checking(new Expectations() {
-      {
-        ignoring(myInspectionReporter);
-      }
-    });
+    myInspectionReporter = TestUtil.createInspectionReporter(myContext);
+    myDuplicatesReporter = TestUtil.createDuplicatesReporter(myContext);
 
 
     final File checkoutDir = new File(CHECKOUT_DIR);
@@ -140,7 +135,7 @@ public class XmlReportPluginTest {
   private void isSilentWhenDisabled(BuildFinishedStatus status) {
     XmlReportPluginUtil.enableXmlReportParsing(myRunParams, "");
 
-    myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
+    myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter, myDuplicatesReporter);
 
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunner);
     myEventDispatcher.getMulticaster().runnerFinished(myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
@@ -177,7 +172,7 @@ public class XmlReportPluginTest {
         inSequence(mySequence);
       }
     });
-    myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
+    myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter, myDuplicatesReporter);
 
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunner);
     myEventDispatcher.getMulticaster().runnerFinished(myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
@@ -196,7 +191,7 @@ public class XmlReportPluginTest {
   public void testIsStoppedWhenDisabled() {
     XmlReportPluginUtil.enableXmlReportParsing(myRunParams, "");
 
-    myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
+    myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter, myDuplicatesReporter);
 
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunner);
     myEventDispatcher.getMulticaster().runnerFinished(myRunner, BuildFinishedStatus.FINISHED_SUCCESS);
@@ -212,7 +207,7 @@ public class XmlReportPluginTest {
         ignoring(myLogger);
       }
     });
-    myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter);
+    myPlugin = new XmlReportPlugin(myEventDispatcher, myInspectionReporter, myDuplicatesReporter);
 
     myEventDispatcher.getMulticaster().beforeRunnerStart(myRunner);
     myEventDispatcher.getMulticaster().runnerFinished(myRunner, BuildFinishedStatus.FINISHED_SUCCESS);

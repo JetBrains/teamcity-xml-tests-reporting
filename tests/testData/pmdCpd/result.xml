@@ -1,0 +1,810 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd-cpd>
+<duplication lines="12" tokens="115">
+<file line="235" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="276" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="379" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<codefragment>
+<![CDATA[
+  public void testOneDeletedStrict() throws Exception {
+    final Map<String, String> firstCallParams = new HashMap<String, String>();
+    firstCallParams.put(SwabraUtil.ENABLED, SwabraUtil.TRUE);
+    firstCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
+    firstCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+
+    final Map<String, String> secondCallParams = new HashMap<String, String>();
+    secondCallParams.put(SwabraUtil.ENABLED, SwabraUtil.TRUE);
+    secondCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
+    secondCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+
+    runTest("oneDeleted", "oneDeleted_a",
+]]>
+</codefragment>
+</duplication>
+<duplication lines="10" tokens="113">
+<file line="235" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="411" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<codefragment>
+<![CDATA[
+  public void testOneCreatedOneModifiedOneNotChangedStrict3() throws Exception {
+    final Map<String, String> firstCallParams = new HashMap<String, String>();
+    firstCallParams.put(SwabraUtil.ENABLED, SwabraUtil.TRUE);
+    firstCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
+    firstCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+
+    final Map<String, String> secondCallParams = new HashMap<String, String>();
+    secondCallParams.put(SwabraUtil.ENABLED, SwabraUtil.TRUE);
+    secondCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
+    secondCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="13" tokens="96">
+<file line="59" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\FilesComparisonTest.java"/>
+<file line="47" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
+<codefragment>
+<![CDATA[
+    final File goldFile = getTestData(resultsFileName + ".gold", null);
+    final String resultsFile = goldFile.getAbsolutePath().replace(".gold", ".tmp");
+
+    final String actual = results.toString().trim().replace("/", "\\");
+    final String expected = FileUtil.readText(goldFile).trim();
+    if (!actual.equals(expected)) {
+      final FileWriter resultsWriter = new FileWriter(resultsFile);
+      resultsWriter.write(actual);
+      resultsWriter.close();
+
+      assertEquals(actual, expected, actual);
+    }
+  }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="10" tokens="91">
+<file line="223" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="263" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="366" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<codefragment>
+<![CDATA[
+  public void testOneDeletedNonStrict() throws Exception {
+    final Map<String, String> firstCallParams = new HashMap<String, String>();
+    firstCallParams.put(SwabraUtil.ENABLED, SwabraUtil.TRUE);
+    firstCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+
+    final Map<String, String> secondCallParams = new HashMap<String, String>();
+    secondCallParams.put(SwabraUtil.ENABLED, SwabraUtil.TRUE);
+    secondCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+
+    runTest("oneDeleted", "oneDeleted_a",
+]]>
+</codefragment>
+</duplication>
+<duplication lines="8" tokens="89">
+<file line="223" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="394" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<codefragment>
+<![CDATA[
+  public void testOneCreatedOneModifiedOneNotChangedNonStrict3() throws Exception {
+    final Map<String, String> firstCallParams = new HashMap<String, String>();
+    firstCallParams.put(SwabraUtil.ENABLED, SwabraUtil.TRUE);
+    firstCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+
+    final Map<String, String> secondCallParams = new HashMap<String, String>();
+    secondCallParams.put(SwabraUtil.ENABLED, SwabraUtil.TRUE);
+    secondCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="13" tokens="73">
+<file line="55" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
+<file line="50" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
+<codefragment>
+<![CDATA[
+    final String actual = results.toString().trim().replace("/", "\\");
+    final String expected = FileUtil.readText(goldFile).trim();
+    if (!actual.equals(expected)) {
+      final FileWriter resultsWriter = new FileWriter(resultsFile);
+      resultsWriter.write(actual);
+      resultsWriter.close();
+
+      assertEquals(actual, expected, actual);
+    }
+  }
+
+  public void test1() throws Exception {
+    runTest("snapshotFilesTraversal");
+]]>
+</codefragment>
+</duplication>
+<duplication lines="10" tokens="63">
+<file line="62" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\FilesComparisonTest.java"/>
+<file line="55" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
+<codefragment>
+<![CDATA[
+    final String actual = results.toString().trim().replace(root.getAbsolutePath(), "##ROOT##").replace("/", "\\");
+    final String expected = FileUtil.readText(goldFile).trim();
+    if (!actual.equals(expected)) {
+      final FileWriter resultsWriter = new FileWriter(resultsFile);
+      resultsWriter.write(actual);
+      resultsWriter.close();
+
+      assertEquals(actual, expected, actual);
+    }
+  }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="8" tokens="55">
+<file line="48" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
+<file line="43" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
+<codefragment>
+<![CDATA[
+          results.append(file.getPath()).append(" ").append(file.getLength()).append(" ").append(file.getLastModified()).append("\n");
+        }
+      });
+
+    final File goldFile = getTestData(resultsFileName + ".gold", null);
+    final String resultsFile = goldFile.getAbsolutePath().replace(".gold", ".tmp");
+
+    final String actual = results.toString().trim().replace("/", "\\");
+]]>
+</codefragment>
+</duplication>
+<duplication lines="6" tokens="53">
+<file line="400" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="419" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<codefragment>
+<![CDATA[
+    secondCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
+    secondCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+
+    final Map<String, String> thirdCallParams = new HashMap<String, String>();
+    thirdCallParams.put(SwabraUtil.ENABLED, SwabraUtil.TRUE);
+    thirdCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="6" tokens="53">
+<file line="225" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="238" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<codefragment>
+<![CDATA[
+    firstCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
+    firstCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+
+    final Map<String, String> secondCallParams = new HashMap<String, String>();
+    secondCallParams.put(SwabraUtil.ENABLED, SwabraUtil.TRUE);
+    secondCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="13" tokens="52">
+<file line="147" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="160" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<codefragment>
+<![CDATA[
+      "+:some/path/content/inner/**"));
+
+    assertTrue(rules.exclude("some/path"));
+    assertTrue(rules.exclude("some/path/content"));
+    assertTrue(rules.exclude("some/path/another/path"));
+
+    assertFalse(rules.exclude("some/path/content/inner"));
+    assertFalse(rules.exclude("some/path/content/inner/another/path"));
+  }
+
+
+  @Test
+  public void test_misc_3() {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="5" tokens="48">
+<file line="72" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\FilesCollectionProcessorTest.java"/>
+<file line="82" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\FilesCollectionProcessorTest.java"/>
+<codefragment>
+<![CDATA[
+    doTest("added_several_dirs_with_content",
+      new FileChangeInfo(FileChangeType.ADDED, "a", false),
+      new FileChangeInfo(FileChangeType.ADDED, "a/b", false),
+      new FileChangeInfo(FileChangeType.ADDED, "a/b/c", false),
+      new FileChangeInfo(FileChangeType.ADDED, "a/b/c/d", true),
+]]>
+</codefragment>
+</duplication>
+<duplication lines="8" tokens="47">
+<file line="74" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="174" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<codefragment>
+<![CDATA[
+      "+:some/path"));
+
+    assertTrue(rules.exclude("some"));
+    assertTrue(rules.exclude("some/content"));
+    assertTrue(rules.exclude("another/some"));
+    assertTrue(rules.exclude("another/some/content"));
+
+    assertFalse(rules.exclude("another/content"));
+]]>
+</codefragment>
+</duplication>
+<duplication lines="4" tokens="41">
+<file line="223" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="235" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<codefragment>
+<![CDATA[
+  public void testEmptyCheckoutDirStrict() throws Exception {
+    final Map<String, String> firstCallParams = new HashMap<String, String>();
+    firstCallParams.put(SwabraUtil.ENABLED, SwabraUtil.TRUE);
+    firstCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="4" tokens="37">
+<file line="59" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\FilesComparisonTest.java"/>
+<file line="52" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
+<codefragment>
+<![CDATA[
+    final File goldFile = getTestData(resultsFileName + ".gold", null);
+    final String resultsFile = goldFile.getAbsolutePath().replace(".gold", ".tmp");
+
+    final String actual = results.toString().trim().replace(root.getAbsolutePath(), "##ROOT##").replace("/", "\\");
+]]>
+</codefragment>
+</duplication>
+<duplication lines="6" tokens="31">
+<file line="142" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\agent\src\jetbrains\buildServer\swabra\SwabraPropertiesProcessor.java"/>
+<file line="173" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\agent\src\jetbrains\buildServer\swabra\SwabraPropertiesProcessor.java"/>
+<codefragment>
+<![CDATA[
+          writer.close();
+        } catch (IOException e) {
+          myLogger.swabraWarn("Error closing checkout directories states file " + myPropertiesFile.getAbsolutePath());
+          myLogger.exception(e);
+        }
+      }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="6" tokens="30">
+<file line="404" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="424" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<codefragment>
+<![CDATA[
+    thirdCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
+    thirdCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+
+    runTest("oneCreatedOneModifiedOneNotChanged", "oneCreatedOneModifiedOneNotChanged_b",
+      firstCallParams, secondCallParams, thirdCallParams);
+  }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="8" tokens="30">
+<file line="372" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="387" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<codefragment>
+<![CDATA[
+    secondCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
+    secondCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+
+    runTest("oneDeleted", "oneDeleted_a",
+      firstCallParams, secondCallParams);
+  }
+
+  public void testOneCreatedOneModifiedOneNotChangedNonStrict3() throws Exception {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="83" tokens="30">
+<file line="269" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="284" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<codefragment>
+<![CDATA[
+    secondCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
+    secondCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+
+    runTest("oneCreatedOneModifiedOneNotChanged", "oneCreatedOneModifiedOneNotChanged_b",
+      firstCallParams, secondCallParams);
+  }
+
+//  public void testOneCreatedOneModifiedOneNotChangedAfterBuild() throws Exception {
+//    final Map<String, String> firstCallParams = new HashMap<String, String>();
+//    firstCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+//    firstCallParams.put(SwabraUtil.MODE, SwabraUtil.AFTER_BUILD);
+//
+//    final Map<String, String> secondCallParams = new HashMap<String, String>();
+//    secondCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+//    secondCallParams.put(SwabraUtil.MODE, SwabraUtil.AFTER_BUILD);
+//
+//    runTest("oneCreatedOneModifiedOneNotChanged", "oneCreatedOneModifiedOneNotChanged_a",
+//      firstCallParams, secondCallParams);
+//  }
+//
+//  public void testOneCreatedOneModifiedOneNotChangedBeforeAfter() throws Exception {
+//    final Map<String, String> firstCallParams = new HashMap<String, String>();
+//    firstCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+//    firstCallParams.put(SwabraUtil.MODE, SwabraUtil.BEFORE_BUILD);
+//
+//    final Map<String, String> secondCallParams = new HashMap<String, String>();
+//    secondCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+//    secondCallParams.put(SwabraUtil.MODE, SwabraUtil.AFTER_BUILD);
+//
+//    runTest("oneCreatedOneModifiedOneNotChanged", "oneCreatedOneModifiedOneNotChanged_b_a",
+//      firstCallParams, secondCallParams);
+//  }
+//
+//  public void testOneCreatedOneModifiedOneNotChangedAfterBefore() throws Exception {
+//    final Map<String, String> firstCallParams = new HashMap<String, String>();
+//    firstCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+//    firstCallParams.put(SwabraUtil.MODE, SwabraUtil.AFTER_BUILD);
+//
+//    final Map<String, String> secondCallParams = new HashMap<String, String>();
+//    secondCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+//    secondCallParams.put(SwabraUtil.MODE, SwabraUtil.BEFORE_BUILD);
+//
+//    runTest("oneCreatedOneModifiedOneNotChanged", "oneCreatedOneModifiedOneNotChanged_a_b",
+//      firstCallParams, secondCallParams);
+//  }
+//
+//  public void testOneCreatedOneModifiedOneNotChangedTurnedOffBefore() throws Exception {
+//    final Map<String, String> firstCallParams = new HashMap<String, String>();
+//    firstCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+//
+//    final Map<String, String> secondCallParams = new HashMap<String, String>();
+//    secondCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+//    secondCallParams.put(SwabraUtil.MODE, SwabraUtil.BEFORE_BUILD);
+//
+//    runTest("oneCreatedOneModifiedOneNotChanged", "oneCreatedOneModifiedOneNotChanged_off_b",
+//      firstCallParams, secondCallParams);
+//  }
+//
+//  public void testOneCreatedOneModifiedOneNotChangedTurnedOffAfter() throws Exception {
+//    final Map<String, String> firstCallParams = new HashMap<String, String>();
+//    firstCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+//
+//    final Map<String, String> secondCallParams = new HashMap<String, String>();
+//    secondCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+//    secondCallParams.put(SwabraUtil.MODE, SwabraUtil.AFTER_BUILD);
+//
+//    runTest("oneCreatedOneModifiedOneNotChanged", "oneCreatedOneModifiedOneNotChanged_off_a",
+//      firstCallParams, secondCallParams);
+//  }
+//
+//  public void testOneDeletedAfterBuild() throws Exception {
+//    final Map<String, String> firstCallParams = new HashMap<String, String>();
+//    firstCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+//
+//    final Map<String, String> secondCallParams = new HashMap<String, String>();
+//    secondCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+//    secondCallParams.put(SwabraUtil.MODE, SwabraUtil.AFTER_BUILD);
+//
+//    runTest("oneDeleted", "oneDeleted_a",
+//      firstCallParams, secondCallParams);
+//  }
+
+  public void testOneDeletedNonStrict() throws Exception {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="21" tokens="30">
+<file line="229" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="243" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<codefragment>
+<![CDATA[
+    secondCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
+    secondCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+
+    runTest("emptyCheckoutDir", "emptyCheckoutDir_b", firstCallParams, secondCallParams);
+  }
+
+/*
+  public void testEmptyCheckoutDirAfterBuild() throws Exception {
+    final Map<String, String> firstCallParams = new HashMap<String, String>();
+    firstCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+    firstCallParams.put(SwabraUtil.MODE, SwabraUtil.AFTER_BUILD);
+
+    final Map<String, String> secondCallParams = new HashMap<String, String>();
+    secondCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+    secondCallParams.put(SwabraUtil.MODE, SwabraUtil.AFTER_BUILD);
+
+    runTest("emptyCheckoutDir", "emptyCheckoutDir_a", firstCallParams, secondCallParams);
+  }
+*/
+
+  public void testOneCreatedOneModifiedOneNotChangedNonStrict() throws Exception {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="4" tokens="30">
+<file line="45" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
+<file line="40" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
+<codefragment>
+<![CDATA[
+    traversal.traverse(new SnapshotFilesIterator(getTestData("filesTraverse.snapshot", null)),
+      new FilesTraversal.SimpleProcessor() {
+        public void process(FileInfo file) {
+          results.append(file.getPath()).append(" ").append(file.getLength()).append(" ").append(file.getLastModified()).append("\n");
+]]>
+</codefragment>
+</duplication>
+<duplication lines="7" tokens="30">
+<file line="14" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\agent\src\jetbrains\buildServer\swabra\snapshots\rules\AntMaskRule.java"/>
+<file line="11" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\agent\src\jetbrains\buildServer\swabra\snapshots\rules\PathRule.java"/>
+<codefragment>
+<![CDATA[
+  public PathRule(@NotNull String path, boolean exclude) {
+    super(path, exclude);
+  }
+
+  @Override
+  public boolean matches(@NotNull String path) {
+    return path.startsWith(getPath());
+]]>
+</codefragment>
+</duplication>
+<duplication lines="5" tokens="29">
+<file line="117" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="131" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<codefragment>
+<![CDATA[
+      "-:some/path/content/inner/another/path"));
+
+    assertTrue(rules.exclude("some/path"));
+    assertTrue(rules.exclude("some/path/content"));
+    assertTrue(rules.exclude("some/path/content/another"));
+]]>
+</codefragment>
+</duplication>
+<duplication lines="4" tokens="29">
+<file line="36" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
+<file line="35" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
+<codefragment>
+<![CDATA[
+public class SnapshotFilesTraversalTest extends TestCase {
+  private void runTest(String resultsFileName) throws Exception {
+    final FilesTraversal traversal = new FilesTraversal();
+    final StringBuffer results = new StringBuffer();
+]]>
+</codefragment>
+</duplication>
+<duplication lines="5" tokens="29">
+<file line="76" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\agent\src\jetbrains\buildServer\swabra\processes\LockedFileResolver.java"/>
+<file line="103" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\agent\src\jetbrains\buildServer\swabra\processes\LockedFileResolver.java"/>
+<codefragment>
+<![CDATA[
+        alivePids = myPidsProvider.getPids(f);
+      } catch (GetPidsException e) {
+        log(e.getMessage(), true, listener);
+        return false;
+      }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="3" tokens="28">
+<file line="193" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="199" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="206" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<codefragment>
+<![CDATA[
+    FileUtil.copyDir(getTestData(dirName + File.separator + AFTER_BUILD, null), myCheckoutDir);
+    FileUtil.delete(new File(checkoutDirPath + File.separator + ".svn"));
+    dispatcher.getMulticaster().buildFinished(BuildFinishedStatus.FINISHED_SUCCESS);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="6" tokens="28">
+<file line="116" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="159" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<codefragment>
+<![CDATA[
+    final Rules rules = new Rules(Arrays.asList("-:some/path",
+      "+:some/path/content/inner/**"));
+
+    assertTrue(rules.exclude("some/path"));
+    assertTrue(rules.exclude("some/path/content"));
+    assertTrue(rules.exclude("some/path/another/path"));
+]]>
+</codefragment>
+</duplication>
+<duplication lines="5" tokens="26">
+<file line="117" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="147" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<codefragment>
+<![CDATA[
+      "+:some/path/content/inner"));
+
+    assertTrue(rules.exclude("some/path"));
+    assertTrue(rules.exclude("some/path/content"));
+    assertTrue(rules.exclude("some/path/another/path"));
+]]>
+</codefragment>
+</duplication>
+<duplication lines="6" tokens="26">
+<file line="26" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="86" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<codefragment>
+<![CDATA[
+    final Rules rules = new Rules(Arrays.asList("-:some/path/**"));
+
+    assertTrue(rules.exclude("some/path"));
+    assertTrue(rules.exclude("some/path/content"));
+
+    assertFalse(rules.exclude("some"));
+]]>
+</codefragment>
+</duplication>
+<duplication lines="4" tokens="26">
+<file line="47" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\server\src\jetbrains\buildServer\swabra\web\actions\DownloadAction.java"/>
+<file line="45" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\server\src\jetbrains\buildServer\swabra\web\actions\UploadAction.java"/>
+<codefragment>
+<![CDATA[
+      form.addMessage("Successfully uploaded handle.exe", Status.NORMAL);
+      form.addMessage("handle.exe will be present on agents after the upgrade process (will start automatically)", Status.NORMAL);
+    } catch (Throwable throwable) {
+      form.addMessage("Failed to upload handle.exe, please see teamcity-server.log for details", Status.ERROR);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="8" tokens="25">
+<file line="38" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="46" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<codefragment>
+<![CDATA[
+    final Rules rules = new Rules(Arrays.asList("some/path"));
+
+    assertFalse(rules.exclude("some/path"));
+    assertFalse(rules.exclude("some/path/content"));
+  }
+
+  @Test
+  public void test_include_content_1() {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="3" tokens="25">
+<file line="133" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\agent\src\jetbrains\buildServer\swabra\SwabraSettings.java"/>
+<file line="20" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\handle-provider\src\jetbrains\buildServer\handleProvider\HandleProvider.java"/>
+<codefragment>
+<![CDATA[
+  private static boolean notDefined(String value) {
+    return (value == null) || ("".equals(value));
+  }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="8" tokens="23">
+<file line="37" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\server\src\jetbrains\buildServer\swabra\web\actions\DownloadAction.java"/>
+<file line="35" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\server\src\jetbrains\buildServer\swabra\web\actions\UploadAction.java"/>
+<codefragment>
+<![CDATA[
+      errors.addError("wrongFile", "File name must be handle.exe");
+    }
+  }
+
+  @Override
+  public void apply(HandleForm form) {
+    form.setRunning(true);
+    form.addMessage("Start uploading SysInternals handle.exe...", Status.NORMAL);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="3" tokens="23">
+<file line="35" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\server\src\jetbrains\buildServer\swabra\URLDownloader.java"/>
+<file line="70" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\server\src\jetbrains\buildServer\swabra\URLDownloader.java"/>
+<codefragment>
+<![CDATA[
+    LOG.error(new StringBuilder("Unable to download object from ").append(source).
+      append(" to ").append(dest.getAbsolutePath()).
+      append(" from ").append(DOWNLOAD_TRY_NUMBER).append(" tries").toString());
+]]>
+</codefragment>
+</duplication>
+<duplication lines="2" tokens="23">
+<file line="71" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\common\src\jetbrains\buildServer\swabra\SwabraUtil.java"/>
+<file line="79" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\common\src\jetbrains\buildServer\swabra\SwabraUtil.java"/>
+<codefragment>
+<![CDATA[
+  public static boolean isLockingProcessesReport(@NotNull final Map<String, String> params) {
+    return SystemInfo.isWindows && (params.containsKey(LOCKING_PROCESS_DETECTION) || "report".equals(params.get(LOCKING_PROCESS)));
+]]>
+</codefragment>
+</duplication>
+<duplication lines="5" tokens="22">
+<file line="195" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="202" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<codefragment>
+<![CDATA[
+    dispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
+    Thread.sleep(100);
+    cleanCheckoutDir();
+
+    FileUtil.copyDir(getTestData(dirName + File.separator + AFTER_BUILD, null), myCheckoutDir);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="6" tokens="22">
+<file line="40" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="57" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<codefragment>
+<![CDATA[
+    assertTrue(rules.exclude("some/path"));
+    assertFalse(rules.exclude("some/path/content"));
+  }
+
+  @Test
+  public void test_include_content_2() {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="5" tokens="22">
+<file line="20" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\FilesComparisonTest.java"/>
+<file line="36" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
+<codefragment>
+<![CDATA[
+  private void runTest(String resultsFileName) throws Exception {
+    final FilesTraversal traversal = new FilesTraversal();
+    final StringBuffer results = new StringBuffer();
+
+    traversal.traverse(new SnapshotFilesIterator(getTestData("filesTraverse.snapshot", null)),
+]]>
+</codefragment>
+</duplication>
+<duplication lines="4" tokens="22">
+<file line="69" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\agent\src\jetbrains\buildServer\swabra\snapshots\iteration\FilesTraversal.java"/>
+<file line="82" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\agent\src\jetbrains\buildServer\swabra\snapshots\iteration\FilesTraversal.java"/>
+<codefragment>
+<![CDATA[
+    while (info1 != null) {
+      process(info1, null, FileChangeType.DELETED, processor);
+      info1 = it1.getNext();
+    }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="4" tokens="22">
+<file line="66" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\agent\src\jetbrains\buildServer\swabra\snapshots\iteration\FilesTraversal.java"/>
+<file line="86" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\agent\src\jetbrains\buildServer\swabra\snapshots\iteration\FilesTraversal.java"/>
+<codefragment>
+<![CDATA[
+    while (info2 != null) {
+      process(info2, null, FileChangeType.ADDED, processor);
+      info2 = it2.getNext();
+    }
+]]>
+</codefragment>
+</duplication>
+<duplication lines="7" tokens="21">
+<file line="16" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\server\src\jetbrains\buildServer\swabra\web\actions\DownloadAction.java"/>
+<file line="18" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\server\src\jetbrains\buildServer\swabra\web\actions\UploadAction.java"/>
+<codefragment>
+<![CDATA[
+  public UploadAction(@NotNull HandleProvider handleProvider) {
+    super(handleProvider);
+  }
+
+  @Override
+  public String getType() {
+    return "UPLOAD";
+]]>
+</codefragment>
+</duplication>
+<duplication lines="2" tokens="21">
+<file line="35" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\server\src\jetbrains\buildServer\swabra\URLDownloader.java"/>
+<file line="62" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\server\src\jetbrains\buildServer\swabra\URLDownloader.java"/>
+<codefragment>
+<![CDATA[
+        LOG.info(new StringBuilder("Successfully downloaded object from ").append(source).
+          append(" to ").append(dest.getAbsolutePath()).toString());
+]]>
+</codefragment>
+</duplication>
+<duplication lines="5" tokens="21">
+<file line="48" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\agent\src\jetbrains\buildServer\swabra\SwabraLogger.java"/>
+<file line="63" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\agent\src\jetbrains\buildServer\swabra\SwabraLogger.java"/>
+<codefragment>
+<![CDATA[
+    CLASS_LOGGER.warn(message);
+    if (myBuildLogger != null) myBuildLogger.warning(message);
+  }
+
+  public void swabraDebug(@NotNull String message) {
+]]>
+</codefragment>
+</duplication>
+<duplication lines="4" tokens="20">
+<file line="270" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="405" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<codefragment>
+<![CDATA[
+    thirdCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
+
+    runTest("oneCreatedOneModifiedOneNotChanged", "oneCreatedOneModifiedOneNotChanged_b",
+      firstCallParams, secondCallParams, thirdCallParams);
+]]>
+</codefragment>
+</duplication>
+<duplication lines="4" tokens="20">
+<file line="181" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="189" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<codefragment>
+<![CDATA[
+      "+:some/path/**"));
+
+    assertFalse(rules.exclude("some/path"));
+    assertFalse(rules.exclude("some/path/content"));
+]]>
+</codefragment>
+</duplication>
+<duplication lines="4" tokens="20">
+<file line="121" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="137" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<codefragment>
+<![CDATA[
+    assertTrue(rules.exclude("some/path/content/inner/another/path/content"));
+
+    assertFalse(rules.exclude("some/path/content/inner"));
+    assertFalse(rules.exclude("some/path/content/inner/content"));
+]]>
+</codefragment>
+</duplication>
+<duplication lines="4" tokens="20">
+<file line="86" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="117" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<codefragment>
+<![CDATA[
+      "+:some/path/content/inner/**"));
+
+    assertTrue(rules.exclude("some/path"));
+    assertTrue(rules.exclude("some/path/content"));
+]]>
+</codefragment>
+</duplication>
+<duplication lines="4" tokens="20">
+<file line="55" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="65" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<codefragment>
+<![CDATA[
+      "-:some/path/content/inner"));
+
+    assertTrue(rules.exclude("some/path"));
+    assertFalse(rules.exclude("some/path/content"));
+]]>
+</codefragment>
+</duplication>
+<duplication lines="4" tokens="20">
+<file line="38" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="189" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<codefragment>
+<![CDATA[
+      "+:some/path/**"));
+
+    assertFalse(rules.exclude("some/path"));
+    assertFalse(rules.exclude("some/path/content"));
+]]>
+</codefragment>
+</duplication>
+<duplication lines="4" tokens="20">
+<file line="26" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="117" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<codefragment>
+<![CDATA[
+      "+:some/path/content/inner/**"));
+
+    assertTrue(rules.exclude("some/path"));
+    assertTrue(rules.exclude("some/path/content"));
+]]>
+</codefragment>
+</duplication>
+<duplication lines="3" tokens="20">
+<file line="20" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\FilesComparisonTest.java"/>
+<file line="37" path="f:\vbedrosova\work\stuff\TeamCIty-60-15401\TeamCity\buildAgent\work\98824a4c2f04d29a\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
+<codefragment>
+<![CDATA[
+  private void runTest(String resultsFileName) throws Exception {
+    final FilesTraversal traversal = new FilesTraversal();
+    final StringBuffer results = new StringBuffer();
+]]>
+</codefragment>
+</duplication>
+</pmd-cpd>

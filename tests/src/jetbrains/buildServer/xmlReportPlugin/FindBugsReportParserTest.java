@@ -60,7 +60,7 @@ public class FindBugsReportParserTest extends TestCase {
     final StringBuilder results = new StringBuilder();
 
     final BuildProgressLogger logger = new BuildLoggerForTesting(results);
-    final InspectionReporter reporter = TestUtil.createFakeReporter(results);
+    final InspectionReporter reporter = TestUtil.createInspectionReporter(results);
 
     final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, reportName.substring(0, reportName.lastIndexOf(fileName)), new File(FINDBUGS_HOME).exists() ? FINDBUGS_HOME : getTestDataPath(FINDBUGS_HOME, null));
 

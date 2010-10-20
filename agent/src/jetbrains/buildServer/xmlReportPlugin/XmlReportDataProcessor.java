@@ -159,4 +159,15 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
       return "checkstyle";
     }
   }
+
+  public static final class PmdCpdDataProcessor extends XmlReportDataProcessor {
+    public PmdCpdDataProcessor(XmlReportPlugin plugin) {
+      super(plugin);
+    }
+
+    @NotNull
+    public String getType() {
+      return "pmdCpd";
+    }
+  }
 }

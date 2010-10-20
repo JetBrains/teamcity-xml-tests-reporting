@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.*;
+import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
 import jetbrains.buildServer.util.EventDispatcher;
@@ -47,6 +48,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   private static final String SPLIT_REGEX = " *[,\n\r] *";
 
   private final InspectionReporter myInspectionReporter;
+  private final DuplicatesReporter myDuplicatesReporter;
 
   @Nullable private volatile AgentRunningBuild myBuild;
   @Nullable private volatile BuildRunnerContext myRunner;
@@ -56,10 +58,12 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   private volatile boolean myStopped;
 
   public XmlReportPlugin(@NotNull final EventDispatcher<AgentLifeCycleListener> agentDispatcher,
-                         @NotNull final InspectionReporter inspectionReporter) {
+                         @NotNull final InspectionReporter inspectionReporter,
+                         @NotNull final DuplicatesReporter duplicatesReporter) {
     agentDispatcher.addListener(this);
     myInspectionReporter = inspectionReporter;
     myInspectionReporter.addListener(this);
+    myDuplicatesReporter = duplicatesReporter;
   }
 
   @Override
@@ -180,6 +184,11 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     @NotNull
     public InspectionReporter getInspectionReporter() {
       return myInspectionReporter;
+    }
+
+    @NotNull
+    public DuplicatesReporter getDuplicatesReporter() {
+      return myDuplicatesReporter;
     }
 
     @NotNull

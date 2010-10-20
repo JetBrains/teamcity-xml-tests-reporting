@@ -19,12 +19,9 @@ package jetbrains.buildServer.xmlReportPlugin;
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.DataProcessorContext;
-import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
 import jetbrains.buildServer.util.EventDispatcher;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
-import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
@@ -36,9 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getTestDataPath;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFileToList;
-
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
 
 public class XmlReportDataProcessorTest extends TestCase {
   private Mockery myContext;
@@ -87,14 +82,8 @@ public class XmlReportDataProcessorTest extends TestCase {
   }
 
   private XmlReportPlugin createFakePlugin(final StringBuilder results, final File base) {
-    final EventDispatcher dispatcher = EventDispatcher.create(AgentLifeCycleListener.class);
-    final InspectionReporter reporter = myContext.mock(InspectionReporter.class);
-    myContext.checking(new Expectations() {
-      {
-        allowing(reporter).addListener(with(any(InspectionReporterListener.class)));
-      }
-    });
-    return new XmlReportPlugin(dispatcher, reporter) {
+    return new XmlReportPlugin(EventDispatcher.create(AgentLifeCycleListener.class),
+      createInspectionReporter(myContext), createDuplicatesReporter(myContext)) {
       @Override
       public void processReports(@NotNull Map<String, String> params, @NotNull Set<File> reportDirs) {
         for (String key : params.keySet()) {
