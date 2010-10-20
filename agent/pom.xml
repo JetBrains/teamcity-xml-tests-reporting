@@ -50,14 +50,6 @@
             <version>2.0</version>
         </dependency>
 
-        <!--TODO: remove when flow manager moved to open API-->
-        <dependency>
-            <groupId>jetbrains.buildServer</groupId>
-            <artifactId>agent</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/server-logging.jar</systemPath>
-        </dependency>
     </dependencies>
 
     <build>
