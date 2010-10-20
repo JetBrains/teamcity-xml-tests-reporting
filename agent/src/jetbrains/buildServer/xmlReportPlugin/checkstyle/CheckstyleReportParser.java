@@ -19,6 +19,7 @@ package jetbrains.buildServer.xmlReportPlugin.checkstyle;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.log.Loggers;
 import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
 import jetbrains.buildServer.xmlReportPlugin.ReportData;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
@@ -36,6 +37,7 @@ import java.io.File;
  */
 public class CheckstyleReportParser extends InspectionsReportParser {
   public static final String TYPE = "checkstyle";
+  private static final String TRAINING_TAG = "</checkstyle>";
 
   private File myCurrentReport;
   private String myCurrentFile;
@@ -50,7 +52,8 @@ public class CheckstyleReportParser extends InspectionsReportParser {
   @Override
   public void parse(@NotNull ReportData data) {
     myCurrentReport = data.getFile();
-    if (!isReportComplete(myCurrentReport, "</checkstyle>")) {
+    if (!isReportComplete(myCurrentReport, TRAINING_TAG)) {
+      Loggers.AGENT.debug("The report doesn't finish with " + TRAINING_TAG);
       data.setProcessedEvents(0);
       return;
     }
