@@ -55,7 +55,6 @@
                showoutput="true">
             <jvmarg value="-Dfindbugs=${findbugs}"/>
             <classpath>
-                <pathelement location="${agent.home.dir}/lib/runtime-util.jar"/>
                 <path refid="tests.runtime.module.classpath"/>
             </classpath>
 

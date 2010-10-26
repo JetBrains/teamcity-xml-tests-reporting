@@ -83,7 +83,6 @@
   </path>
   
   <path id="library.teamcity_api.classpath">
-    <pathelement location="${path.variable.teamcitydistribution}/buildAgent/lib/runtime-util.jar"/>
     <pathelement location="${path.variable.teamcitydistribution}/buildAgent/lib/server-logging.jar"/>
   </path>
   
