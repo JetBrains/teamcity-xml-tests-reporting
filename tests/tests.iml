@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module relativePaths="true" MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+<module MavenProjectsManager.isMavenModule="true" relativePaths="true" type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/none" />
     <output-test url="file://$MODULE_DIR$/classes" />
@@ -26,7 +26,6 @@
     <orderEntry type="library" name="Maven: com.jetbrains.buildserver:common-api:5.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.12" level="project" />
     <orderEntry type="library" name="Maven: com.jetbrains.buildserver:server-logging:5.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: com.jetbrains.buildserver:runtime-util:5.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.jmock:jmock:2.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-library:1.1" level="project" />
