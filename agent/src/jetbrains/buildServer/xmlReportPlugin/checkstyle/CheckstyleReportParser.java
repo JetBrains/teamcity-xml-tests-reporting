@@ -16,18 +16,18 @@
 
 package jetbrains.buildServer.xmlReportPlugin.checkstyle;
 
+import java.io.File;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
-import jetbrains.buildServer.xmlReportPlugin.ReportData;
+import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
-import java.io.File;
 
 /**
  * User: vbedrosova
@@ -41,28 +41,31 @@ public class CheckstyleReportParser extends InspectionsReportParser {
   private File myCurrentReport;
   private String myCurrentFile;
 
-  public CheckstyleReportParser(@NotNull final BuildProgressLogger logger,
-                                @NotNull InspectionReporter inspectionReporter,
+  @Nullable private BuildProgressLogger myLogger;
+
+  public CheckstyleReportParser(@NotNull InspectionReporter inspectionReporter,
                                 @NotNull String checkoutDirectory) {
-    super(logger, inspectionReporter, checkoutDirectory);
+    super(inspectionReporter, checkoutDirectory);
     myCData = new StringBuilder();
   }
 
   @Override
-  public void parse(@NotNull ReportData data) {
+  public void parse(@NotNull ReportFileContext data) {
     myCurrentReport = data.getFile();
-    if (!isReportComplete(myCurrentReport, TRAINING_TAG)) {
+    if (!isReportComplete(data, TRAINING_TAG)) {
       XmlReportPlugin.LOG.debug("The report doesn't finish with " + TRAINING_TAG);
       data.setProcessedEvents(0);
       return;
     }
     try {
-      parse(myCurrentReport);
+      myLogger = data.getRequestContext().getLogger();
+      doSAXParse(data);
     } catch (SAXParseException spe) {
-      myLogger.error(myCurrentReport.getAbsolutePath() + " is not parsable by Checkstyle parser");
+      data.getRequestContext().getLogger().error(myCurrentReport.getAbsolutePath() + " is not parsable by Checkstyle parser");
     } catch (Exception e) {
-      myLogger.exception(e);
+      data.getRequestContext().getLogger().exception(e);
     } finally {
+      myLogger = null;
       myInspectionReporter.flush();
     }
     data.setProcessedEvents(-1);
@@ -98,7 +101,9 @@ public class CheckstyleReportParser extends InspectionsReportParser {
     if ("file".equals(name)) {
       myCurrentFile = null;
     } else if ("exception".equals(name)) {
-      myLogger.error("Exception in report " + myCurrentReport.getAbsolutePath() + "\n" + myCData.toString().trim());
+      final BuildProgressLogger logger = myLogger;
+      assert logger != null;
+      logger.error("Exception in report " + myCurrentReport.getAbsolutePath() + "\n" + myCData.toString().trim());
     }
     clearCData();
   }

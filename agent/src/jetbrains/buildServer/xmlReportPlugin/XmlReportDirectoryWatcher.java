@@ -16,15 +16,15 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.util.FileUtil;
-import org.jetbrains.annotations.NotNull;
-import org.springframework.util.AntPathMatcher;
-
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Pattern;
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.agent.FlowLogger;
+import jetbrains.buildServer.util.FileUtil;
+import org.jetbrains.annotations.NotNull;
+import org.springframework.util.AntPathMatcher;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.SUPPORTED_REPORT_TYPES;
@@ -49,10 +49,11 @@ public class XmlReportDirectoryWatcher extends Thread {
   public interface Parameters {
     boolean isVerbose();
     @NotNull BuildProgressLogger getLogger();
-    boolean parseOutOfDate(File path);
+    boolean parseOutOfDate(@NotNull File path);
     @NotNull List<String> getPathsToExclude();
     long getBuildStartTime();
-    String getWhenNoDataPublished(File path);
+    @NotNull
+    String getWhenNoDataPublished(@NotNull File path);
   }
 
 
@@ -68,7 +69,7 @@ public class XmlReportDirectoryWatcher extends Thread {
     myMaskHash = new HashMap<File, MaskData>();
     myStatistics = new HashMap<String, TypeStatistics>();
     myPathsToExclude = myParameters.getPathsToExclude();
-    addPaths(input, type);
+    addPathInt(input, type, myParameters.getLogger());
   }
 
   private static boolean isAntMask(File f) {
@@ -81,44 +82,57 @@ public class XmlReportDirectoryWatcher extends Thread {
 
   @Override
   public void run() {
-    while (!myStopSignaled) {
-      try {
-        scanInput();
-        Thread.sleep(SCAN_INTERVAL);
-      } catch (Throwable e) {
-        myParameters.getLogger().exception(e);
+    FlowLogger threadLogger = myParameters.getLogger().getThreadLogger();
+    try {
+      while (!myStopSignaled) {
+        try {
+          scanInput(threadLogger);
+          Thread.sleep(SCAN_INTERVAL);
+        } catch (Throwable e) {
+          threadLogger.exception(e);
+        }
       }
+      scanInput(threadLogger);
+    } finally {
+      threadLogger.disposeFlow();
     }
-    scanInput();
   }
 
   public void signalStop() {
     myStopSignaled = true;
   }
 
-  private void message(String message) {
-    myParameters.getLogger().message(message);
+  private void message(final BuildProgressLogger logger, String message) {
+    logger.message(message);
     LOG.debug(message);
   }
 
-  private void warning(String message) {
-    myParameters.getLogger().warning(message);
+  private void warning(final BuildProgressLogger logger, String message) {
+    logger.warning(message);
     LOG.debug(message);
   }
 
-  private void error(String message) {
-    myParameters.getLogger().error(message);
+  private void error(final BuildProgressLogger logger, String message) {
+    logger.error(message);
     LOG.debug(message);
   }
 
   public void addPaths(final Collection<File> paths, final String type) {
+    // TODO since this method is called from different threads a thread logger is obtained.
+    // Don't use myScanThreadLogger here. It's supposed for use only from watcher thread.
+    addPathInt(paths, type, myParameters.getLogger().getThreadLogger());
+  }
+
+  private void addPathInt(final Collection<File> paths, final String type, final BuildProgressLogger logger) {
     Set<File> newPaths = new HashSet<File>(paths);
     synchronized (myPaths) {
       if (!myPaths.containsKey(type)) {
         if (isInspection(type) && hasInspections()) {
-          warning("Two different inspections can not be processed during one build, skip " + SUPPORTED_REPORT_TYPES.get(type) + " reports");
+          warning(logger,
+                  "Two different inspections can not be processed during one build, skip " + SUPPORTED_REPORT_TYPES.get(type) + " reports"
+          );
           if (newPaths.size() > 0) {
-            logPathsInTarget(newPaths, type, "Skip watching:");
+            logPathsInTarget(newPaths, type, "Skip watching:", logger);
           }
           return;
         }
@@ -128,26 +142,26 @@ public class XmlReportDirectoryWatcher extends Thread {
         newPaths.removeAll(myPaths.get(type));
         myPaths.get(type).addAll(newPaths);
       }
-      logWatchingPaths(newPaths, type);
+      logWatchingPaths(newPaths, type, logger);
       checkExistingPaths(newPaths, type);
     }
   }
 
-  private void logInTarget(String type, Runnable activity) {
-    final String target = startTarget(type);
+  private void logInTarget(String type, Runnable activity, final BuildProgressLogger logger) {
+    final String target = startTarget(type, logger);
     activity.run();
-    myParameters.getLogger().targetFinished(target);
+    logger.targetFinished(target);
   }
 
-  private void logPathsInTarget(final Collection<File> paths, String type, final String header) {
+  private void logPathsInTarget(final Collection<File> paths, String type, final String header, final BuildProgressLogger logger) {
     logInTarget(type, new Runnable() {
       public void run() {
-        warning(header);
+        warning(logger, header);
         for (File f : paths) {
-          warning(f.getAbsolutePath());
+          warning(logger, f.getAbsolutePath());
         }
       }
-    });
+    }, logger);
   }
 
   private boolean hasInspections() {
@@ -159,9 +173,9 @@ public class XmlReportDirectoryWatcher extends Thread {
     return false;
   }
 
-  private void logWatchingPaths(final Set<File> paths, String type) {
+  private void logWatchingPaths(final Set<File> paths, String type, final BuildProgressLogger logger) {
     if (!SUPPORTED_REPORT_TYPES.containsKey(type)) {
-      error("Illegal report type: " + type);
+      error(logger, "Illegal report type: " + type);
       return;
     }
     logInTarget(type, new Runnable() {
@@ -169,15 +183,15 @@ public class XmlReportDirectoryWatcher extends Thread {
         String message = "Watching paths: ";
         if (paths.size() == 0) {
           message += "<no paths>";
-          warning(message);
+          warning(logger, message);
         } else {
-          message(message);
+          message(logger, message);
           for (File f : paths) {
-            message(f.getAbsolutePath());
+            message(logger, f.getAbsolutePath());
           }
         }
       }
-    });
+    }, logger);
   }
 
   private void checkExistingPaths(Set<File> paths, String type) {
@@ -223,22 +237,22 @@ public class XmlReportDirectoryWatcher extends Thread {
     return md;
   }
 
-  private void scanInput() {
+  private void scanInput(final BuildProgressLogger logger) {
     synchronized (myPaths) { // TODO very ineffective synchronization - needs refactoring
       for (Map.Entry<String, Set<File>> entry : myPaths.entrySet()) {
         final String type = entry.getKey();
 
         final TypeStatistics s = myStatistics.get(type);
         for (File f : entry.getValue()) {
-          if (isGoodFile(f, f) && !s.getFiles().contains(f)) {
+          if (isGoodFile(f, f) && !s.getFiles().contains(f)) {  // TODO complete duplicate of processFile()
             s.getFiles().add(f);
-            sendToQueue(type, f);
+            sendToQueue(type, f, f, logger);
           } else if (f.isDirectory()) {
             final File[] files = f.listFiles();
             final Set<File> filesInDir = new HashSet<File>();
             if ((files != null) && (files.length > 0)) {
               for (File file : files) {
-                processFile(type, f, s, filesInDir, file);
+                processFile(type, f, s, filesInDir, file, logger);
               }
             }
             addToStatistics(s.getDirs(), f, filesInDir);
@@ -246,7 +260,7 @@ public class XmlReportDirectoryWatcher extends Thread {
             final Set<File> filesForMask = new HashSet<File>();
             final MaskData md = getMask(f);
             for (File file : collectFiles(md.getPattern(), md.getBaseDir())) {
-              processFile(type, f, s, filesForMask, file);
+              processFile(type, f, s, filesForMask, file, logger);
             }
             addToStatistics(s.getMasks(), f, filesForMask);
           }
@@ -255,26 +269,26 @@ public class XmlReportDirectoryWatcher extends Thread {
     }
   }
 
-  private void processFile(String type, File path, TypeStatistics s, Set<File> files, File file) {
+  private boolean isGoodFile(File f, File path) {
+    return f.getName().endsWith(".xml") && f.isFile() && f.canRead() && timeConstraintsSatisfied(f, path) && !isExcluded(f);
+  }
+
+  private void processFile(String type, File path, TypeStatistics s, Set<File> files, File file, final BuildProgressLogger logger) {
     if (isGoodFile(file, path)) {
       if (!s.getFiles().contains(file)) {
-        sendToQueue(type, file);
+        sendToQueue(type, file, path, logger);
         s.getFiles().add(file);
       }
       files.add(file);
     }
   }
 
-  private boolean isGoodFile(File f, File path) {
-    return f.getName().endsWith(".xml") && f.isFile() && f.canRead() && timeConstraintsSatisfied(f, path) && !isExcluded(f);
-  }
-
-  private void sendToQueue(String type, File f) {
+  private void sendToQueue(String type, File f, File importRequestPath, final BuildProgressLogger logger) {
     LOG.debug("Sending " + f.getAbsolutePath() + " to report queue");
     try {
-      myReportQueue.put(new ReportData(f, type));
+      myReportQueue.put(new ReportData(f, type, importRequestPath));
     } catch (InterruptedException e) {
-      myParameters.getLogger().exception(e);
+      logger.exception(e);
       LOG.warn(e.toString(), e);
     }
   }
@@ -309,30 +323,30 @@ public class XmlReportDirectoryWatcher extends Thread {
     return k.lastModified() < myParameters.getBuildStartTime();
   }
 
-  public void logTotals() {
+  public void logTotals(@NotNull final BuildProgressLogger logger) {
     synchronized (myPaths) {
       for (final String type : myPaths.keySet()) {
         final TypeStatistics s = myStatistics.get(type);
         logInTarget(type, new Runnable() {
           public void run() {
             if (s.getFiles().size() > 0) {
-              message(s.getFiles().size() + " file(s) found");
+              message(logger, s.getFiles().size() + " file(s) found");
             }
             for (File d : s.getDirs().keySet()) {
-              logFiles(s, d, s.getDirs().get(d));
+              logFiles(s, d, s.getDirs().get(d), logger);
               if (myParameters.isVerbose()) {
                 for (File f : s.getDirs().get(d)) {
-                  message(f.getAbsolutePath() + " found");
+                  message(logger, f.getAbsolutePath() + " found");
                 }
               }
               myPaths.get(type).removeAll(s.getDirs().get(d));
               myPaths.get(type).remove(d);
             }
             for (File m : s.getMasks().keySet()) {
-              logFiles(s, m, s.getMasks().get(m));
+              logFiles(s, m, s.getMasks().get(m), logger);
               if (myParameters.isVerbose()) {
                 for (File f : s.getMasks().get(m)) {
-                  message(f.getAbsolutePath() + " found");
+                  message(logger, f.getAbsolutePath() + " found");
                 }
               }
               myPaths.get(type).removeAll(s.getMasks().get(m));
@@ -340,47 +354,47 @@ public class XmlReportDirectoryWatcher extends Thread {
             }
             for (File f : s.getFiles()) {
               if (myParameters.isVerbose()) {
-                message(f.getAbsolutePath() + " found");
+                message(logger, f.getAbsolutePath() + " found");
               }
               myPaths.get(type).remove(f);
             }
             for (File f : myPaths.get(type)) {
-              logNoDataPublished(f, " couldn't find any matching files");
+              logNoDataPublished(f, " couldn't find any matching files", logger);
             }
           }
-        });
+        }, logger);
       }
     }
   }
 
-  private void logNoDataPublished(File path, String suffix) {
+  private void logNoDataPublished(File path, String suffix, final BuildProgressLogger logger) {
     final String whenNoDataPublished = myParameters.getWhenNoDataPublished(path);
     final String message = path.getAbsolutePath() + suffix;
 
     if ("nothing".equals(whenNoDataPublished)) return;
 
     if ("warning".equals(whenNoDataPublished) || "warn".equals(whenNoDataPublished)) {
-      warning(message);
+      warning(logger, message);
       return;
     }
 
-    error(message);
+    error(logger, message);
   }
 
-  private String startTarget(String type) {
+  private String startTarget(String type, final BuildProgressLogger logger) {
     final String target = SUPPORTED_REPORT_TYPES.get(type) + " report watcher";
-    myParameters.getLogger().targetStarted(target);
+    logger.targetStarted(target);
     return target;
   }
 
-  private void logFiles(TypeStatistics s, File d, Set<File> files) {
+  private void logFiles(TypeStatistics s, File d, Set<File> files, final BuildProgressLogger logger) {
     if (files.size() > 0) {
       if (myParameters.isVerbose()) {
-        message(d.getAbsolutePath() + ": " + files.size() + " file(s) found");
+        message(logger, d.getAbsolutePath() + ": " + files.size() + " file(s) found");
       }
       s.getFiles().removeAll(files);
     } else {
-      logNoDataPublished(d, ": no files found");
+      logNoDataPublished(d, ": no files found", logger);
     }
   }
 

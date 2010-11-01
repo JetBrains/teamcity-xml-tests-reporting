@@ -16,15 +16,15 @@
 
 package jetbrains.buildServer.xmlReportPlugin.nUnit;
 
+import java.io.File;
+import java.io.IOException;
+import javax.xml.transform.TransformerConfigurationException;
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.xmlReportPlugin.ReportData;
+import jetbrains.buildServer.xmlReportPlugin.ImportRequestContext;
+import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
-
-import javax.xml.transform.TransformerConfigurationException;
-import java.io.File;
-import java.io.IOException;
 
 
 public class NUnitReportParser extends AntJUnitReportParser {
@@ -36,20 +36,19 @@ public class NUnitReportParser extends AntJUnitReportParser {
   private final File myTmpReportDir;
 
   public NUnitReportParser(BuildProgressLogger logger, String tmpDir, String schema) {
-    super(logger);
     try {
       myReportTransformer = new NUnitToJUnitReportTransformer(schema);
     } catch (TransformerConfigurationException e) {
-      myLogger.warning("NUnit report parser couldn't instantiate transformer");
+      logger.warning("NUnit report parser couldn't instantiate transformer");
     }
     myTmpReportDir = new File(tmpDir + TMP_REPORT_DIRECTORY);
     myTmpReportDir.mkdirs();
   }
 
   @Override
-  public void parse(@NotNull final ReportData data) {
+  public void parse(@NotNull final ReportFileContext data) {
     final File report = data.getFile();
-    if (!isReportComplete(report, TRAILING_TAG)) {
+    if (!isReportComplete(data, TRAILING_TAG)) {
       XmlReportPlugin.LOG.debug("The report doesn't finish with " + TRAILING_TAG);
       data.setProcessedEvents(0);
       return;
@@ -58,18 +57,57 @@ public class NUnitReportParser extends AntJUnitReportParser {
     try {
       myReportTransformer.transform(report, junitReport);
     } catch (IOException ioe) {
-      myLogger.exception(ioe);
+      data.getRequestContext().getLogger().exception(ioe);
       data.setProcessedEvents(-1);
       return;
     } catch (Exception e) {
-      myLogger.exception(e);
+      data.getRequestContext().getLogger().exception(e);
       junitReport.delete();
       data.setProcessedEvents(-1);
       return;
     }
-    final ReportData jUnitData = new ReportData(junitReport, "nunit");
-    super.parse(jUnitData);
-    data.setProcessedEvents(jUnitData.getProcessedEvents());
+    final MyJUnitReportFileContext newContext = new MyJUnitReportFileContext(data, junitReport);
+    super.parse(newContext);
+    data.setProcessedEvents(newContext.getProcessedEvents());
     //jUnitData.getFile().delete();
+  }
+
+  private static class MyJUnitReportFileContext implements ReportFileContext {
+    private int myProcessedEvents;
+    private final ReportFileContext myData;
+    private final File myJunitReport;
+
+    public MyJUnitReportFileContext(final ReportFileContext data, final File junitReport) {
+      myData = data;
+      myJunitReport = junitReport;
+      myProcessedEvents = 0;
+    }
+
+    @NotNull
+    public ImportRequestContext getRequestContext() {
+      return myData.getRequestContext();
+    }
+
+    @NotNull
+    public File getFile() {
+      return myJunitReport;
+    }
+
+    public int getProcessedEvents() {
+      return myProcessedEvents;
+    }
+
+    public void setProcessedEvents(final int tests) {
+      myProcessedEvents = tests;
+    }
+
+    public long getFileLength() {
+      return 0;
+    }
+
+    @NotNull
+    public String getType() {
+      return "nunit";
+    }
   }
 }

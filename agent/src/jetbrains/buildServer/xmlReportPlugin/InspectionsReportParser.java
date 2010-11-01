@@ -18,7 +18,6 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import java.io.File;
 import java.util.*;
-import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.*;
 import jetbrains.buildServer.messages.Status;
 import jetbrains.buildServer.messages.serviceMessages.BuildStatus;
@@ -42,10 +41,9 @@ public abstract class InspectionsReportParser extends XmlReportParser {
 
   protected InspectionInstance myCurrentBug;
 
-  protected InspectionsReportParser(@NotNull final BuildProgressLogger logger,
-                                    @NotNull InspectionReporter inspectionReporter,
+  protected InspectionsReportParser(@NotNull InspectionReporter inspectionReporter,
                                     @NotNull String checkoutDirectory) {
-    super(logger);
+    super();
     myInspectionReporter = inspectionReporter;
     myCheckoutDirectory = checkoutDirectory.replace("\\", File.separator).replace("/", File.separator);
     myReportedInstanceTypes = new HashSet<String>();
@@ -56,8 +54,8 @@ public abstract class InspectionsReportParser extends XmlReportParser {
   }
 
   @Override
-  public void logReportTotals(@NotNull File report, boolean verbose) {
-    String message = report.getPath() + " report processed";
+  public void logReportTotals(@NotNull ReportFileContext reportData, boolean verbose) {
+    String message = reportData.getFile().getPath() + " report processed";
     if (myErrors > 0) {
       message = message.concat(": " + myErrors + " error(s)");
     }
@@ -68,7 +66,7 @@ public abstract class InspectionsReportParser extends XmlReportParser {
       message = message.concat(": " + myInfos + " info message(s)");
     }
     if (verbose) {
-      myLogger.message(message);
+      reportData.getRequestContext().getLogger().message(message);
     }
     LOG.debug(message);
     myTotalErrors += myErrors;
@@ -80,23 +78,23 @@ public abstract class InspectionsReportParser extends XmlReportParser {
   }
 
   @Override
-  protected void logParsingTotals(@NotNull Map<String, String> parameters, boolean verbose) {
+  protected void logParsingTotals(@NotNull final SessionContext sessionContext, @NotNull Map<String, String> parameters, boolean verbose) {
     boolean limitReached = false;
 
     final int errorLimit = XmlReportPluginUtil.getMaxErrors(parameters);
     if ((errorLimit != -1) && (myTotalErrors > errorLimit)) {
-      myLogger.error("Errors limit reached: found " + myTotalErrors + " errors, limit " + errorLimit);
+      sessionContext.getLogger().error("Errors limit reached: found " + myTotalErrors + " errors, limit " + errorLimit);
       limitReached = true;
     }
 
     final int warningLimit = XmlReportPluginUtil.getMaxWarnings(parameters);
     if ((warningLimit != -1) && (myTotalWarnings > warningLimit)) {
-      myLogger.error("Warnings limit reached: found " + myTotalWarnings + " warnings, limit " + warningLimit);
+      sessionContext.getLogger().error("Warnings limit reached: found " + myTotalWarnings + " warnings, limit " + warningLimit);
       limitReached = true;
     }
 
     if (limitReached) {
-      myLogger.message(new BuildStatus(generateBuildStatus(myTotalErrors, myTotalWarnings, myTotalInfos), Status.FAILURE).asString());
+      sessionContext.getLogger().message(new BuildStatus(generateBuildStatus(myTotalErrors, myTotalWarnings, myTotalInfos), Status.FAILURE).asString());
     }
   }
 
@@ -145,5 +143,5 @@ public abstract class InspectionsReportParser extends XmlReportParser {
   }
 
   @Override
-  public abstract void parse(@NotNull ReportData data);
+  public abstract void parse(@NotNull ReportFileContext data);
 }

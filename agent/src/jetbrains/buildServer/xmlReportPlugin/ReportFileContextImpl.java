@@ -19,50 +19,41 @@ package jetbrains.buildServer.xmlReportPlugin;
 import java.io.File;
 import org.jetbrains.annotations.NotNull;
 
+class ReportFileContextImpl implements ReportFileContext {
 
-public final class ReportData {
-  private final File myFile;
-  private int myProcessedEvents;
-  private long myFileLength;
-  private final String myType;
-  private final File myImportRequestPath;
+  @NotNull private final ReportData myReportData;
+  @NotNull private final ImportRequestContext myRequestContext;
 
-  public ReportData(@NotNull final File file, @NotNull String type, @NotNull final File importRequestPath) {
-    myFile = file;
-    myFileLength = 0L;
-    myProcessedEvents = 0;
-    myType = type;
-    myImportRequestPath = importRequestPath;
+  ReportFileContextImpl(@NotNull final ReportData reportData,
+                        @NotNull final ImportRequestContext requestContext) {
+    myReportData = reportData;
+    myRequestContext = requestContext;
+  }
+
+  @NotNull
+  public ImportRequestContext getRequestContext() {
+    return myRequestContext;
   }
 
   @NotNull
   public File getFile() {
-    return myFile;
+    return myReportData.getFile();
   }
 
   public int getProcessedEvents() {
-    return myProcessedEvents;
+    return myReportData.getProcessedEvents();
   }
 
-  public void setProcessedEvents(int tests) {
-    myProcessedEvents = tests;
+  public void setProcessedEvents(final int tests) {
+    myReportData.setProcessedEvents(tests);
   }
 
   public long getFileLength() {
-    return myFileLength;
-  }
-
-  public void setFileLength(long fileLength) {
-    myFileLength = fileLength;
+    return myReportData.getFileLength();
   }
 
   @NotNull
   public String getType() {
-    return myType;
-  }
-
-  @NotNull
-  public File getImportRequestPath() {
-    return myImportRequestPath;
+    return myReportData.getType();
   }
 }

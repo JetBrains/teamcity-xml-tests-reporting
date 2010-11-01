@@ -16,16 +16,15 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.DataProcessor;
-import jetbrains.buildServer.agent.DataProcessorContext;
-import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import jetbrains.buildServer.agent.DataProcessor;
+import jetbrains.buildServer.agent.DataProcessorContext;
+import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
+import org.jetbrains.annotations.NotNull;
 
 //"##teamcity[importData type='sometype' file='somedir']"
 // service message activates watching "somedir" directory for reports of sometype type
@@ -48,7 +47,8 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
   public static final String ERRORS_LIMIT_ARGUMENT = "errorLimit";
   public static final String WARNINGS_LIMIT_ARGUMENT = "warningLimit";
   public static final String FINDBUGS_HOME_ARGUMENT = "findBugsHome";
-  public static final String WHEN_NO_DATA_PUBLISHED = "whenNoDataPublished";
+  public static final String WHEN_NO_DATA_PUBLISHED_ARGUMENT = "whenNoDataPublished";
+  public static final String LOG_AS_INTERNAL_ARGUMENT = "logAsInternal";
 
   private final XmlReportPlugin myPlugin;
 
@@ -63,35 +63,31 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
 
     params.put(XmlReportPluginUtil.REPORT_TYPE, getType());
 
-    String verboseOutput = "false";
-    if (arguments.containsKey(VERBOSE_ARGUMENT)) {
-      verboseOutput = arguments.get(VERBOSE_ARGUMENT);
-    }
-    params.put(XmlReportPluginUtil.VERBOSE_OUTPUT, verboseOutput);
-
-    String parseOutOfDate = "false";
-    if (arguments.containsKey(PARSE_OUT_OF_DATE_ARGUMENT)) {
-      parseOutOfDate = arguments.get(PARSE_OUT_OF_DATE_ARGUMENT);
-    }
-    params.put(XmlReportPluginUtil.PARSE_OUT_OF_DATE, parseOutOfDate);
-
-    String whenNoDataPublished = "error";
-    if (arguments.containsKey(WHEN_NO_DATA_PUBLISHED)) {
-      whenNoDataPublished = arguments.get(WHEN_NO_DATA_PUBLISHED);
-    }
-    params.put(XmlReportPluginUtil.WHEN_NO_DATA_PUBLISHED, whenNoDataPublished);
+    pass(params, XmlReportPluginUtil.VERBOSE_OUTPUT, arguments, VERBOSE_ARGUMENT, "false");
+    pass(params, XmlReportPluginUtil.PARSE_OUT_OF_DATE, arguments, PARSE_OUT_OF_DATE_ARGUMENT, "false");
+    pass(params, XmlReportPluginUtil.WHEN_NO_DATA_PUBLISHED, arguments, WHEN_NO_DATA_PUBLISHED_ARGUMENT, "error");
+    pass(params, XmlReportPluginUtil.LOG_AS_INTERNAL, arguments, LOG_AS_INTERNAL_ARGUMENT, "false");
 
     if (FindBugsReportParser.TYPE.equals(getType())) {
-      params.put(XmlReportPluginUtil.FINDBUGS_HOME, arguments.get(FINDBUGS_HOME_ARGUMENT));
+      pass(params, XmlReportPluginUtil.FINDBUGS_HOME, arguments, FINDBUGS_HOME_ARGUMENT, null);
     }
 
-    params.put(XmlReportPluginUtil.MAX_ERRORS, arguments.get(ERRORS_LIMIT_ARGUMENT));
-    params.put(XmlReportPluginUtil.MAX_WARNINGS, arguments.get(WARNINGS_LIMIT_ARGUMENT));
+    pass(params, XmlReportPluginUtil.MAX_ERRORS, arguments, ERRORS_LIMIT_ARGUMENT, null);
+    pass(params, XmlReportPluginUtil.MAX_WARNINGS, arguments, WARNINGS_LIMIT_ARGUMENT, null);
 
     final Set<File> reportDirs = new HashSet<File>();
     reportDirs.add(context.getFile());
 
     myPlugin.processReports(params, reportDirs);
+  }
+
+  private static void pass(final Map<String, String> target,
+                           final String targetKey,
+                           final Map<String, String> source,
+                           final String sourceKey,
+                           final String defaultValue) {
+    String sourceValue = source.containsKey(sourceKey) ? source.get(sourceKey) : defaultValue;
+    target.put(targetKey, sourceValue);
   }
 
   public static final class JUnitDataProcessor extends XmlReportDataProcessor {

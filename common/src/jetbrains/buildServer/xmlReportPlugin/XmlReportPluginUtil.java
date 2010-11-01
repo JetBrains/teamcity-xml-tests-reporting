@@ -16,12 +16,11 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import org.jetbrains.annotations.NotNull;
 
 
 public class XmlReportPluginUtil {
@@ -52,6 +51,7 @@ public class XmlReportPluginUtil {
   public static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
   public static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
   public static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
+  public static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
 
   public static boolean isParsingEnabled(@NotNull final Map<String, String> runParams) {
     return runParams.containsKey(REPORT_TYPE) && !"".equals(runParams.get(REPORT_TYPE));

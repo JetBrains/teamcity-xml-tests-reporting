@@ -16,18 +16,16 @@
 
 package jetbrains.buildServer.xmlReportPlugin.pmd;
 
-import jetbrains.buildServer.agent.BuildProgressLogger;
+import java.io.File;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
-import jetbrains.buildServer.xmlReportPlugin.ReportData;
+import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
-import java.io.File;
 
 
 public class PmdReportParser extends InspectionsReportParser {
@@ -37,27 +35,26 @@ public class PmdReportParser extends InspectionsReportParser {
 
   private String myCurrentFile;
 
-  public PmdReportParser(@NotNull final BuildProgressLogger logger,
-                         @NotNull InspectionReporter inspectionReporter,
+  public PmdReportParser(@NotNull InspectionReporter inspectionReporter,
                          @NotNull String checkoutDirectory) {
-    super(logger, inspectionReporter, checkoutDirectory);
+    super(inspectionReporter, checkoutDirectory);
     myCData = new StringBuilder();
   }
 
   @Override
-  public void parse(@NotNull final ReportData data) {
+  public void parse(@NotNull final ReportFileContext data) {
     final File report = data.getFile();
-    if (!isReportComplete(report, TRAILING_TAG)) {
+    if (!isReportComplete(data, TRAILING_TAG)) {
       XmlReportPlugin.LOG.debug("The report doesn't finish with " + TRAILING_TAG);
       data.setProcessedEvents(0);
       return;
     }
     try {
-      parse(report);
+      doSAXParse(data);
     } catch (SAXParseException spe) {
-      myLogger.error(report.getAbsolutePath() + " is not parsable by PMD parser");
+      data.getRequestContext().getLogger().error(report.getAbsolutePath() + " is not parsable by PMD parser");
     } catch (Exception e) {
-      myLogger.exception(e);
+      data.getRequestContext().getLogger().exception(e);
     } finally {
       myInspectionReporter.flush();
     }

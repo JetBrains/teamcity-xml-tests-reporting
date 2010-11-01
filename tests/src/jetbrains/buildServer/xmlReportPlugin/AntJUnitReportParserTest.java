@@ -17,6 +17,9 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.util.io.FileUtil;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Date;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
@@ -33,11 +36,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Date;
 
-
+@SuppressWarnings({"ThrowableResultOfMethodCallIgnored"})
 @RunWith(JMock.class)
 public class AntJUnitReportParserTest extends TestCase {
   private static final String REPORT_DIR = "junit";
@@ -65,8 +65,9 @@ public class AntJUnitReportParserTest extends TestCase {
     myLogger = myContext.mock(FlowLogger.class);
   }
 
-  private ReportData reportData(@NotNull final String fileName) throws FileNotFoundException {
-    return new ReportData(TestUtil.getTestDataFile(fileName, REPORT_DIR), "junit");
+  private DummyReportFileContext reportData(@NotNull final String fileName) throws FileNotFoundException {
+    final File dataFile = TestUtil.getTestDataFile(fileName, REPORT_DIR);
+    return new DummyReportFileContext(dataFile, "junit", myLogger);
   }
 
   private File file(@NotNull final String fileName) throws FileNotFoundException {
@@ -82,7 +83,7 @@ public class AntJUnitReportParserTest extends TestCase {
       }
     };
     createBaseServerLoggerFacade();
-    myParser = new AntJUnitReportParser(myLogger);
+    myParser = new AntJUnitReportParser();
     mySequence = myContext.sequence("Log Sequence");
   }
 
@@ -94,13 +95,14 @@ public class AntJUnitReportParserTest extends TestCase {
       }
     });
 
-    myParser.parse(new ReportData(new File("unexisting"), "junit"));
+    final File unexisting = new File("unexisting");
+    myParser.parse(new DummyReportFileContext(unexisting, "junit", myLogger));
     myContext.assertIsSatisfied();
   }
 
   @Test
   public void testEmptyReport() throws Exception {
-    final ReportData data = reportData("empty.xml");
+    final DummyReportFileContext data = reportData("empty.xml");
     myParser.parse(data);
     final int testsLogged = data.getProcessedEvents();
     Assert.assertTrue("Empty reportData contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
@@ -186,7 +188,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   private void singleCaseIn2PartsCaseAndSuiteFrom2Try(String unfinishedReportName) throws Exception {
-    final ReportData data = reportData(REPORT_1);
+    final DummyReportFileContext data = reportData(REPORT_1);
     FileUtil.copy(file(unfinishedReportName), data.getFile());
     myParser.parse(data);
     myContext.assertIsSatisfied();
@@ -220,7 +222,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   private void singleCaseIn2PartsFrom2TrySuiteFrom1(String unfinishedReportName) throws Exception {
-    final ReportData data = reportData(REPORT_1);
+    final DummyReportFileContext data = reportData(REPORT_1);
     FileUtil.copy(file(unfinishedReportName), data.getFile());
     myContext.checking(new Expectations() {
       {
@@ -282,7 +284,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    final ReportData data = reportData(REPORT_1);
+    final DummyReportFileContext data = reportData(REPORT_1);
     FileUtil.copy(file("singleCaseBreakAfter.xml"), data.getFile());
     myParser.parse(data);
     myContext.assertIsSatisfied();
@@ -404,7 +406,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    final ReportData data = reportData(REPORT_1);
+    final DummyReportFileContext data = reportData(REPORT_1);
     FileUtil.copy(file(unfinishedReportName), data.getFile());
     myParser.parse(data);
     myContext.assertIsSatisfied();
@@ -463,7 +465,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    final ReportData data = reportData(REPORT_1);
+    final DummyReportFileContext data = reportData(REPORT_1);
     FileUtil.copy(file(unfinishedReportName), data.getFile());
     myParser.parse(data);
     myContext.assertIsSatisfied();
@@ -538,7 +540,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    final ReportData data = reportData(REPORT_1);
+    final DummyReportFileContext data = reportData(REPORT_1);
     FileUtil.copy(file("twoCasesBreakAfterSecond.xml"), data.getFile());
     myParser.parse(data);
     myContext.assertIsSatisfied();
@@ -556,7 +558,7 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   private void twoCasesIn2PartsBothAndSuiteFrom2Try(String unfinishedReportName) throws Exception {
-    final ReportData data = reportData(REPORT_1);
+    final DummyReportFileContext data = reportData(REPORT_1);
     FileUtil.copy(file(unfinishedReportName), data.getFile());
     myParser.parse(data);
     myContext.checking(new Expectations() {
@@ -612,7 +614,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    final ReportData data = reportData(REPORT_1);
+    final DummyReportFileContext data = reportData(REPORT_1);
     FileUtil.copy(file("nineCasesBreakAfterThird.xml"), data.getFile());
     myParser.parse(data);
     myContext.assertIsSatisfied();
@@ -867,7 +869,7 @@ public class AntJUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    final ReportData data = reportData("noSuite.xml");
+    final DummyReportFileContext data = reportData("noSuite.xml");
     myParser.parse(data);
     assertEquals(-1, data.getProcessedEvents());
     myContext.assertIsSatisfied();
@@ -875,7 +877,7 @@ public class AntJUnitReportParserTest extends TestCase {
 
   @Test
   public void testManyCasesInManyFilesFromManyTries() throws Exception {
-    final ReportData data1 = reportData(REPORT_1);
+    final DummyReportFileContext data1 = reportData(REPORT_1);
     FileUtil.copy(file("TestClass0_0_500.xml"), data1.getFile());
     myContext.checking(new Expectations() {
       {
@@ -892,7 +894,7 @@ public class AntJUnitReportParserTest extends TestCase {
     myParser.parse(data1);
     myContext.assertIsSatisfied();
 
-    final ReportData data2 = reportData(REPORT_2);
+    final DummyReportFileContext data2 = reportData(REPORT_2);
     FileUtil.copy(file("TestClass1_0.xml"), data2.getFile());
     myContext.checking(new Expectations() {
       {
@@ -909,7 +911,7 @@ public class AntJUnitReportParserTest extends TestCase {
     myParser.parse(data2);
     myContext.assertIsSatisfied();
 
-    final ReportData data3 = reportData(REPORT_3);
+    final DummyReportFileContext data3 = reportData(REPORT_3);
     FileUtil.copy(file("TestClass0_1_700.xml"), data3.getFile());
     myContext.checking(new Expectations() {
       {
@@ -942,7 +944,7 @@ public class AntJUnitReportParserTest extends TestCase {
     myParser.parse(data1);
     myContext.assertIsSatisfied();
 
-    final ReportData data4 = reportData(REPORT_4);
+    final DummyReportFileContext data4 = reportData(REPORT_4);
     FileUtil.copy(file("TestClass1_1.xml"), data4.getFile());
     myContext.checking(new Expectations() {
       {

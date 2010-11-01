@@ -1,19 +1,17 @@
 package jetbrains.buildServer.xmlReportPlugin.pmdCpd;
 
-import jetbrains.buildServer.agent.BuildProgressLogger;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.duplicator.DuplicateInfo;
-import jetbrains.buildServer.xmlReportPlugin.ReportData;
+import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * User: vbedrosova
@@ -28,28 +26,26 @@ public class PmdCpdReportParser extends XmlReportParser {
 
   private DuplicationInfo myCurrentDuplicate;
 
-  public PmdCpdReportParser(@NotNull final BuildProgressLogger logger,
-                            @NotNull final DuplicatesReporter duplicatesReporter) {
-    super(logger);
+  public PmdCpdReportParser(@NotNull final DuplicatesReporter duplicatesReporter) {
     myDuplicatesReporter = duplicatesReporter;
     myCData = new StringBuilder();
   }
 
   @Override
-  public void parse(@NotNull ReportData data) {
+  public void parse(@NotNull ReportFileContext data) {
     final File report = data.getFile();
-    if (!isReportComplete(report, TRAILING_TAG)) {
+    if (!isReportComplete(data, TRAILING_TAG)) {
       XmlReportPlugin.LOG.debug("The report doesn't finish with " + TRAILING_TAG);
       data.setProcessedEvents(0);
       return;
     }
     try {
-      parse(report);
+      doSAXParse(data);
     } catch (SAXParseException spe) {
-      myLogger.error(report.getAbsolutePath() + " is not parsable by PMD CPD parser");
+      data.getRequestContext().getLogger().error(report.getAbsolutePath() + " is not parsable by PMD CPD parser");
       XmlReportPlugin.LOG.error(spe);
     } catch (Exception e) {
-      myLogger.exception(e);
+      data.getRequestContext().getLogger().exception(e);
     }
     data.setProcessedEvents(-1);
   }

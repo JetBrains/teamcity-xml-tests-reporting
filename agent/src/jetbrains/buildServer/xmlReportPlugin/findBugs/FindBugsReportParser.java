@@ -16,21 +16,22 @@
 
 package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.agent.inspections.InspectionInstance;
-import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
-import jetbrains.buildServer.xmlReportPlugin.ReportData;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
-import org.jetbrains.annotations.NotNull;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.agent.inspections.InspectionInstance;
+import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
+import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
+import jetbrains.buildServer.xmlReportPlugin.SessionContext;
+import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 
 public class FindBugsReportParser extends InspectionsReportParser {
@@ -45,7 +46,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
 
   private String myCurrentReport;
 
-  private String myFindBugsHome;
+  private final String myFindBugsHome;
 
   private final BugCollection myBugCollection;
   private String myCurrentCategory;
@@ -53,19 +54,20 @@ public class FindBugsReportParser extends InspectionsReportParser {
 
   private String myCurrentClass;
 
+  @Nullable private BuildProgressLogger myLogger;
+
   private List<InspectionInstance> myWaitingForTypeBugs;
 
   private boolean myPatternsFromFindBugsLoaded;
   private boolean myBundledPatternsLoaded;
 
-  public FindBugsReportParser(@NotNull final BuildProgressLogger logger,
-                              @NotNull InspectionReporter inspectionReporter,
+  public FindBugsReportParser(@NotNull InspectionReporter inspectionReporter,
                               @NotNull String checkoutDirectory,
                               String findBugsHome) {
-    super(logger, inspectionReporter, checkoutDirectory);
+    super(inspectionReporter, checkoutDirectory);
     myPatternsFromFindBugsLoaded = false;
     myBundledPatternsLoaded = false;
-    myBugCollection = new BugCollection(logger);
+    myBugCollection = new BugCollection();
     myFindBugsHome = findBugsHome;
     myCData = new StringBuilder();
   }
@@ -78,10 +80,11 @@ public class FindBugsReportParser extends InspectionsReportParser {
     return "".equals(i.getFilePath());
   }
 
-  public void parse(@NotNull final ReportData data) {
+  @Override
+  public void parse(@NotNull final ReportFileContext data) {
     myInspectionReporter.markBuildAsInspectionsBuild();
     final File report = data.getFile();
-    if (!isReportComplete(report, TRAILING_TAG)) {
+    if (!isReportComplete(data, TRAILING_TAG)) {
       XmlReportPlugin.LOG.debug("The report doesn't finish with " + TRAILING_TAG);
       data.setProcessedEvents(0);
       return;
@@ -89,17 +92,19 @@ public class FindBugsReportParser extends InspectionsReportParser {
     myCurrentReport = report.getAbsolutePath();
     myFileFinder = new FileFinder();
     myWaitingForTypeBugs = new ArrayList<InspectionInstance>();
+    myLogger = data.getRequestContext().getLogger();
+
     try {
       if (!myPatternsFromFindBugsLoaded && !myBundledPatternsLoaded) {
         if (myFindBugsHome != null) {
           myPatternsFromFindBugsLoaded = true;
-          myBugCollection.loadPatternsFromFindBugs(new File(myFindBugsHome));
+          myBugCollection.loadPatternsFromFindBugs(new File(myFindBugsHome), myLogger);
         } else {
           myBundledPatternsLoaded = true;
           myBugCollection.loadBundledPatterns();
         }
       }
-      parse(report);
+      doSAXParse(data);
       for (InspectionInstance bug : myWaitingForTypeBugs) {
         if (hasNoMessage(bug)) {
           if (isTypeKnown(bug)) {
@@ -110,10 +115,11 @@ public class FindBugsReportParser extends InspectionsReportParser {
         reportInspectionType(bug.getInspectionId());
       }
     } catch (SAXParseException spe) {
-      myLogger.error(report.getAbsolutePath() + " is not parsable by FindBugs parser");
+      data.getRequestContext().getLogger().error(report.getAbsolutePath() + " is not parsable by FindBugs parser");
     } catch (Exception e) {
-      myLogger.exception(e);
+      data.getRequestContext().getLogger().exception(e);
     } finally {
+      myLogger = null;
       if (myFileFinder != null) {
         myFileFinder.close();
       }
@@ -122,19 +128,22 @@ public class FindBugsReportParser extends InspectionsReportParser {
     data.setProcessedEvents(-1);
   }
 
-  public void logParsingTotals(@NotNull Map<String, String> parameters, boolean verbose) {
+  @Override
+  public void logParsingTotals(@NotNull SessionContext session, @NotNull Map<String, String> parameters, boolean verbose) {
     if (myPatternsFromFindBugsLoaded || myBundledPatternsLoaded) {
-      super.logParsingTotals(parameters, verbose);
+      super.logParsingTotals(session, parameters, verbose);
     }
   }
 
 //  Handler methods
 
+  @Override
   public void startElement(String uri, String name,
                            String qName, Attributes attributes) throws SAXException {
     if ("BugCollection".equals(name)) {
       final String version = attributes.getValue("version");
       if (myBundledPatternsLoaded && !BUNDLED_VERSION.equals(version)) {
+        assert myLogger != null;
         myLogger.warning("FindBugs report " + myCurrentReport + " version is " + version + ", but bundled with xml-report-plugin patterns version is " + BUNDLED_VERSION
           + ". Plugin can be unacquainted with some names and descriptions. Specify FindBugs home path setting for loading patterns straight from FindBugs.");
       }
@@ -162,6 +171,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
     }
   }
 
+  @Override
   public void endElement(String uri, String name, String qName) throws SAXException {
     if ("Jar".equals(name) || "SrcDir".equals(name)) {
       myFileFinder.addJar(formatText(myCData));
@@ -205,6 +215,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
           myCurrentBug.setMessage(text);
         }
       } else if ("MissingClass".equals(name)) {
+        assert myLogger != null;
         myLogger.warning("Missing class " + text);
       }
     }

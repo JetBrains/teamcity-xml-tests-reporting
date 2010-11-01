@@ -16,6 +16,14 @@
 
 package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
+import javax.swing.text.html.parser.DTD;
+import javax.swing.text.html.parser.Parser;
+import javax.swing.text.html.parser.TagElement;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
@@ -23,15 +31,6 @@ import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
-
-import javax.swing.text.html.parser.DTD;
-import javax.swing.text.html.parser.Parser;
-import javax.swing.text.html.parser.TagElement;
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.jar.JarEntry;
-import java.util.jar.JarFile;
 
 /**
  * User: vbedrosova
@@ -46,9 +45,6 @@ class BugCollection {
   private Map<String, Pattern> myBugPatterns;
 
   @NotNull
-  private final BuildProgressLogger myLogger;
-
-  @NotNull
   private static DetailsParser DETAILS_PARSER;
 
   static {
@@ -57,10 +53,6 @@ class BugCollection {
     } catch (IOException e) {
       XmlReportPlugin.LOG.error("Couldn't create empty DTD", e);
     }
-  }
-
-  public BugCollection(@NotNull BuildProgressLogger logger) {
-    myLogger = logger;
   }
 
   public Map<String, Category> getCategories() {
@@ -83,13 +75,13 @@ class BugCollection {
     }
   }
 
-  public void loadPatternsFromFindBugs(@NotNull File findBugsHome) {
+  public void loadPatternsFromFindBugs(@NotNull final File findBugsHome, @NotNull final BuildProgressLogger logger) {
     XmlReportPlugin.LOG.debug("Loading bug patterns from FindBugs home " + findBugsHome.getAbsolutePath());
     myCategories = new HashMap<String, Category>();
     myBugPatterns = new HashMap<String, Pattern>();
     final File corePlugin = new File(findBugsHome.getAbsolutePath() + File.separator + "lib", "findbugs.jar");
     if (!corePlugin.exists()) {
-      myLogger.warning("Couldn't find plugin descriptor for FindBugs \"core\" plugin " + corePlugin.getAbsolutePath() + ". Ensure specified FindBugs home path is correct.");
+      logger.warning("Couldn't find plugin descriptor for FindBugs \"core\" plugin " + corePlugin.getAbsolutePath() + ". Ensure specified FindBugs home path is correct.");
     }
     load(corePlugin);
     final File pluginFolder = new File(findBugsHome, "plugin");

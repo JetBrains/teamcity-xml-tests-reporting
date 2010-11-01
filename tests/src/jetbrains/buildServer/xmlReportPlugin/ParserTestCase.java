@@ -1,11 +1,11 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
-import junit.framework.TestCase;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import junit.framework.TestCase;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
@@ -22,20 +22,25 @@ public abstract class ParserTestCase extends TestCase {
     final String expectedFile = reportName + ".gold";
     final String baseDir = getAbsoluteTestDataPath(null, getType());
 
+    //noinspection ResultOfMethodCallIgnored
     new File(resultsFile).delete();
 
     final StringBuilder results = new StringBuilder();
 
     final XmlReportParser parser = getParser(results);
 
+    final BuildProgressLogger logger = new BuildLoggerForTesting(results);
+
     final File report = new File(reportName);
+
+    final DummyReportFileContext reportFileContext = new DummyReportFileContext(report, getType(), logger);
 
     final Map<String, String> params = new HashMap<String, String>();
     prepareParams(params);
 
-    parser.parse(new ReportData(report, getType()));
-    parser.logReportTotals(report, true);
-    parser.logParsingTotals(params, true);
+    parser.parse(reportFileContext);
+    parser.logReportTotals(reportFileContext, true);
+    parser.logParsingTotals(new DummySessionContext(logger), params, true);
 
     final File expected = new File(expectedFile);
     final String actual = results.toString().replace(baseDir, "##BASE_DIR##").replace("/", File.separator).replace("\\", File.separator).trim();

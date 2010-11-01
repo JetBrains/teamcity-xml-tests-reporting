@@ -16,6 +16,12 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.DataProcessorContext;
@@ -26,18 +32,12 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
 
 public class XmlReportDataProcessorTest extends TestCase {
   private Mockery myContext;
 
+  @Override
   public void setUp() {
     myContext = new JUnit4Mockery();
   }
@@ -133,7 +133,7 @@ public class XmlReportDataProcessorTest extends TestCase {
   @Test
   public void testWhenNoDataPublished() throws Exception {
     final Map<String, String> arguments = new HashMap<String, String>();
-    arguments.put(XmlReportDataProcessor.WHEN_NO_DATA_PUBLISHED, "warning");
+    arguments.put(XmlReportDataProcessor.WHEN_NO_DATA_PUBLISHED_ARGUMENT, "warning");
     runTest(arguments, "whenNoDataPublished");
   }
 }

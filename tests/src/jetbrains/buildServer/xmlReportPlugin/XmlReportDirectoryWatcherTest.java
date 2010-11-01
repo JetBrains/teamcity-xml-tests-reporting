@@ -16,14 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.TempFiles;
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import junit.framework.TestCase;
-import org.jetbrains.annotations.NotNull;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -32,6 +24,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.LinkedBlockingQueue;
+import jetbrains.buildServer.TempFiles;
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import junit.framework.TestCase;
+import org.jetbrains.annotations.NotNull;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
@@ -53,7 +52,7 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
         return logger;
       }
 
-      public boolean parseOutOfDate(File path) {
+      public boolean parseOutOfDate(@NotNull File path) {
         return false;
       }
 
@@ -66,7 +65,8 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
         return Collections.emptyList();
       }
 
-      public String getWhenNoDataPublished(File path) {
+      @NotNull
+      public String getWhenNoDataPublished(@NotNull File path) {
         return "error";
       }
     };
@@ -158,7 +158,7 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
 //    });
 //    stopper.start();
     watcher.run();
-    watcher.logTotals();
+    watcher.logTotals(logger);
 
     final File expected = new File(expectedFile);
     String baseDir = myWorkDir.getCanonicalPath();

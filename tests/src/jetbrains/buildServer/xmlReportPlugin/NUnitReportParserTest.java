@@ -16,6 +16,9 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Date;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
@@ -30,9 +33,6 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.io.FileNotFoundException;
-import java.util.Date;
 
 
 @RunWith(JMock.class)
@@ -51,8 +51,9 @@ public class NUnitReportParserTest extends TestCase {
     myLogger = myContext.mock(FlowLogger.class);
   }
 
-  private ReportData report(String fileName) throws FileNotFoundException {
-    return new ReportData(TestUtil.getTestDataFile(fileName, REPORT_DIR), "nunit");
+  private DummyReportFileContext report(String fileName) throws FileNotFoundException {
+    final File file = TestUtil.getTestDataFile(fileName, REPORT_DIR);
+    return new DummyReportFileContext(file, "nunit", myLogger);
   }
 
   @Override
@@ -70,7 +71,7 @@ public class NUnitReportParserTest extends TestCase {
 
   @Test
   public void testEmptyReport() throws Exception {
-    final ReportData data = report("empty.xml");
+    final DummyReportFileContext data = report("empty.xml");
     myParser.parse(data);
     final int testsLogged = data.getProcessedEvents();
     Assert.assertTrue("Empty report contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);

@@ -16,16 +16,15 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
 import junit.framework.TestCase;
 import org.junit.Test;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
@@ -42,6 +41,7 @@ public class CheckstyleReportParserTest extends TestCase {
     final String expectedFile = reportName + ".gold";
     final String baseDir = getAbsoluteTestDataPath(null, "checkstyle");
 
+    //noinspection ResultOfMethodCallIgnored
     new File(resultsFile).delete();
 
     final StringBuilder results = new StringBuilder();
@@ -49,16 +49,17 @@ public class CheckstyleReportParserTest extends TestCase {
     final BuildProgressLogger logger = new BuildLoggerForTesting(results);
     final InspectionReporter reporter = TestUtil.createInspectionReporter(results);
 
-    final CheckstyleReportParser parser = new CheckstyleReportParser(logger, reporter, "##BASE_DIR##");
+    final CheckstyleReportParser parser = new CheckstyleReportParser(reporter, "##BASE_DIR##");
 
     final File report = new File(reportName);
+    final DummyReportFileContext reportFileContext = new DummyReportFileContext(report, "pmd", logger);
     final Map<String, String> params = new HashMap<String, String>();
     XmlReportPluginUtil.enableXmlReportParsing(params, CheckstyleReportParser.TYPE);
     XmlReportPluginUtil.setMaxErrors(params, 5);
     XmlReportPluginUtil.setMaxWarnings(params, 5);
-    parser.parse(new ReportData(report, "pmd"));
-    parser.logReportTotals(report, true);
-    parser.logParsingTotals(params, true);
+    parser.parse(reportFileContext);
+    parser.logReportTotals(reportFileContext, true);
+    parser.logParsingTotals(new DummySessionContext(logger), params, true);
 
     final File expected = new File(expectedFile);
     final String actual = results.toString().replace(baseDir, "##BASE_DIR##").replace("/", File.separator).replace("\\", File.separator).trim();

@@ -16,6 +16,9 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
@@ -27,10 +30,6 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.io.File;
-import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
 
@@ -151,11 +150,14 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   private static class PathParameters {
     private final boolean myParseOutOfDate;
     private final String myWhenNoDataPublished;
+    private final boolean myLogAsInternal;
 
     private PathParameters(final boolean parseOutOfDate,
-                           final String whenNoDataPublished) {
+                           final String whenNoDataPublished,
+                           final boolean logAsInternal) {
       myParseOutOfDate = parseOutOfDate;
       myWhenNoDataPublished = whenNoDataPublished;
+      myLogAsInternal = logAsInternal;
     }
   }
 
@@ -173,7 +175,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     private void updateParameters(final Set<File> paths, final Map<String, String> parameters) {
       for (final File path : paths) {
         myPathParameters.put(path, new PathParameters(Boolean.parseBoolean(parameters.get(PARSE_OUT_OF_DATE)),
-                                                      parameters.get(WHEN_NO_DATA_PUBLISHED)));
+                                                      parameters.get(WHEN_NO_DATA_PUBLISHED),
+                                                      Boolean.parseBoolean(parameters.get(LOG_AS_INTERNAL))));
       }
     }
 
@@ -209,11 +212,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     public BuildProgressLogger getLogger() {
       final AgentRunningBuild build = myBuild;
       assert build != null;
-      
-      // currently as we report tests sequentially,
-      // we actually have 2 child threads (watcher & processor), so we can give each other
-      // a flow logger associated
-      return build.getBuildLogger().getThreadLogger();
+      return build.getBuildLogger();
     }
 
     @NotNull
@@ -226,7 +225,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
       return myParameters.get(TMP_DIR);
     }
 
-    public boolean parseOutOfDate(final File path) {
+    public boolean parseOutOfDate(@NotNull final File path) {
       return myPathParameters.get(path).myParseOutOfDate;
     }
 
@@ -248,8 +247,13 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
       return paths;
     }
 
-    public String getWhenNoDataPublished(File path) {
+    @NotNull
+    public String getWhenNoDataPublished(@NotNull File path) {
       return myPathParameters.get(path).myWhenNoDataPublished;
+    }
+
+    public boolean getLogAsInternal(@NotNull final File path) {
+      return myPathParameters.get(path).myLogAsInternal;
     }
   }
 
@@ -286,17 +290,18 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     context.myReportProcessor.signalStop();
     context.myDirectoryWatcher.signalStop();
 
+    final AgentRunningBuild build = myBuild;
     try {
       LOG.debug("plugin joins processor");
       context.myReportProcessor.join();
     } catch (InterruptedException e) {
-      final AgentRunningBuild build = myBuild;
       if(build != null)
         build.getBuildLogger().exception(e);
 
       LOG.warn(e.toString(), e);
     }
-    context.myDirectoryWatcher.logTotals();
+    if(build != null)
+      context.myDirectoryWatcher.logTotals(build.getBuildLogger());
 
     myBuild = null;
     myStartTime = null;

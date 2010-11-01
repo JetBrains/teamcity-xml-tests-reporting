@@ -16,16 +16,15 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import junit.framework.TestCase;
 import org.junit.Test;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
 
@@ -33,13 +32,13 @@ import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
 public class FindBugsReportParserTest extends TestCase {
   private static final String FINDBUGS_HOME = System.getProperty("findbugs");
 
-  static {
+  @Override
+  public void setUp() throws Exception {
     if (FINDBUGS_HOME == null) {
       fail("FindBugs home path is not specified in JVM arguments." +
         "Use -Dfindbugs=\"...\" jvm option or build.properties file to specify FindBugs home path");
     }
   }
-
 
   private void runTest(final String sampleName) throws Exception {
     final String fileName = sampleName.replace(".sample", "");
@@ -55,6 +54,7 @@ public class FindBugsReportParserTest extends TestCase {
     final String resultsFileName = reportName + ".tmp";
     final String expectedFileName = reportName + ".gold";
 
+    //noinspection ResultOfMethodCallIgnored
     new File(resultsFileName).delete();
 
     final StringBuilder results = new StringBuilder();
@@ -62,16 +62,17 @@ public class FindBugsReportParserTest extends TestCase {
     final BuildProgressLogger logger = new BuildLoggerForTesting(results);
     final InspectionReporter reporter = TestUtil.createInspectionReporter(results);
 
-    final FindBugsReportParser parser = new FindBugsReportParser(logger, reporter, reportName.substring(0, reportName.lastIndexOf(fileName)), new File(FINDBUGS_HOME).exists() ? FINDBUGS_HOME : getTestDataPath(FINDBUGS_HOME, null));
+    final FindBugsReportParser parser = new FindBugsReportParser(reporter, reportName.substring(0, reportName.lastIndexOf(fileName)), new File(FINDBUGS_HOME).exists() ? FINDBUGS_HOME : getTestDataPath(FINDBUGS_HOME, null));
 
     final File report = new File(reportName);
+    final DummyReportFileContext reportFileContext = new DummyReportFileContext(report, "findBugs", logger);
     final Map<String, String> params = new HashMap<String, String>();
     XmlReportPluginUtil.enableXmlReportParsing(params, FindBugsReportParser.TYPE);
     XmlReportPluginUtil.setMaxErrors(params, 5);
     XmlReportPluginUtil.setMaxWarnings(params, 5);
-    parser.parse(new ReportData(report, "findBugs"));
-    parser.logReportTotals(report, true);
-    parser.logParsingTotals(params, true);
+    parser.parse(reportFileContext);
+    parser.logReportTotals(reportFileContext, true);
+    parser.logParsingTotals(new DummySessionContext(logger), params, true);
 
     final File expectedFile = new File(expectedFileName);
     final String actual = results.toString().replace(baseDir, "##BASE_DIR##").replace("\\", File.separator).replace("/", File.separator).trim();

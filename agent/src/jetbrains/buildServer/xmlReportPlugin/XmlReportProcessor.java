@@ -16,7 +16,15 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
@@ -28,13 +36,6 @@ import jetbrains.buildServer.xmlReportPlugin.pmdCpd.PmdCpdReportParser;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 public class XmlReportProcessor extends Thread {
   public static final Logger LOG = Logger.getLogger(XmlReportProcessor.class);
@@ -49,6 +50,7 @@ public class XmlReportProcessor extends Thread {
   private final Set<String> myFailedReportTypes;
   private final Set<String> myProcessedReportTypes;
   private final Parameters myParameters;
+  private FlowLogger myFlowLogger; // initialized on the thread start
 
   private volatile boolean myStopSignaled = false;
 
@@ -62,6 +64,7 @@ public class XmlReportProcessor extends Thread {
     BuildProgressLogger getLogger();
     @NotNull Map<String,String> getRunnerParameters();
     @NotNull String getTmpDir();
+    boolean getLogAsInternal(@NotNull File path);
   }
 
   public XmlReportProcessor(@NotNull final Parameters parameters,
@@ -78,30 +81,40 @@ public class XmlReportProcessor extends Thread {
 
   @Override
   public void run() {
-    while (!myStopSignaled) {
-      LOG.debug("processor iteration started");
-      processReport(takeNextReport(false));
-    }
+    myFlowLogger = myParameters.getLogger().getThreadLogger();
     try {
-      LOG.debug("processor joins watcher");
-      myWatcher.join();
-    } catch (InterruptedException e) {
-      myParameters.getLogger().exception(e);
-    }
-    while (!myReportQueue.isEmpty()) {
-      processReport(takeNextReport(true));
-    }
-    for (String type : myParsers.keySet()) {
-      myParsers.get(type).logParsingTotals(myParameters.getRunnerParameters(), myParameters.isVerbose());
-    }
-    if (!myFailedReportTypes.isEmpty()) {
-      final StringBuffer types = new StringBuffer();
-      for (final String t : myFailedReportTypes) {
-        types.append(t).append(", ");
+      while (!myStopSignaled) {
+        LOG.debug("processor iteration started");
+        processReport(takeNextReport(false));
       }
-      myParameters.getLogger().error("Failed to process some " + types.substring(0, types.length() - 2) + " reports");
+      try {
+        LOG.debug("processor joins watcher");
+        myWatcher.join();
+      } catch (InterruptedException e) {
+        myFlowLogger.exception(e);
+      }
+      while (!myReportQueue.isEmpty()) {
+        processReport(takeNextReport(true));
+      }
+      for (String type : myParsers.keySet()) {
+        myParsers.get(type).logParsingTotals(new SessionContext() {
+          @NotNull
+          public BuildProgressLogger getLogger() {
+            return myFlowLogger;
+          }
+        }, myParameters.getRunnerParameters(), myParameters.isVerbose());
+      }
+      if (!myFailedReportTypes.isEmpty()) {
+        final StringBuffer types = new StringBuffer();
+        for (final String t : myFailedReportTypes) {
+          types.append(t).append(", ");
+        }
+        myFlowLogger.error("Failed to process some " + types.substring(0, types.length() - 2) + " reports");
+      }
+    } finally {
+      disposeParsers();
+      myFlowLogger.disposeFlow();
     }
-    disposeParsers();
   }
 
   public void signalStop() {
@@ -112,27 +125,35 @@ public class XmlReportProcessor extends Thread {
     if (data == null) {
       return;
     }
+
+    ImportRequestContextImpl requestContext = new ImportRequestContextImpl(
+      data.getImportRequestPath(),
+      myFlowLogger,
+      myParameters.getLogAsInternal(data.getImportRequestPath()));
+
+    ReportFileContextImpl reportContext = new ReportFileContextImpl(data, requestContext);
+
     final XmlReportParser parser = myParsers.get(data.getType());
     LOG.debug("Parsing " + data.getFile().getAbsolutePath() + " with " + data.getType() + " parser.");
-    parser.parse(data);
+    parser.parse(reportContext);
 
     final String typeName = XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(data.getType());
     if (data.getProcessedEvents() != -1) {
       if (myStopSignaled) {
         final String message = "Failed to parse " + data.getFile().getAbsolutePath() + " with " + typeName + " parser";
         LOG.error(message);
-        myParameters.getLogger().error(message);
+        myFlowLogger.error(message);
         myFailedReportTypes.add(typeName);
       } else {
         try {
           myReportQueue.put(data);
           Thread.sleep(SCAN_INTERVAL);
         } catch (InterruptedException e) {
-          myParameters.getLogger().exception(e);
+          myFlowLogger.exception(e);
         }
       }
     } else {
-      parser.logReportTotals(data.getFile(), myParameters.isVerbose());
+      parser.logReportTotals(reportContext, myParameters.isVerbose());
       myProcessedReportTypes.add(typeName);
     }
   }
@@ -157,7 +178,7 @@ public class XmlReportProcessor extends Thread {
         }
       }
     } catch (InterruptedException e) {
-      myParameters.getLogger().exception(e);
+      myFlowLogger.exception(e);
     }
     return null;
   }
@@ -169,12 +190,12 @@ public class XmlReportProcessor extends Thread {
   }
 
   @Nullable
-  private static XmlReportParser createParser(@NotNull Parameters parameters, @NotNull String type) {
+  private XmlReportParser createParser(@NotNull Parameters parameters, @NotNull String type) {
     if (AntJUnitReportParser.TYPE.equals(type) || ("surefire".equals(type)))
-      return new AntJUnitReportParser(parameters.getLogger());
+      return new AntJUnitReportParser();
 
     if (NUnitReportParser.TYPE.equals(type))
-      return new NUnitReportParser(parameters.getLogger(), parameters.getTmpDir(),
+      return new NUnitReportParser(myFlowLogger, parameters.getTmpDir(),
         "false".equals(parameters.getRunnerParameters().get(XmlReportPlugin.TREAT_DLL_AS_SUITE)) ? NUNIT_TO_JUNIT_OLD_XSL : NUNIT_TO_JUNIT_XSL);
 
     final InspectionReporter inspectionsReporter = parameters.getInspectionReporter();
@@ -184,13 +205,13 @@ public class XmlReportProcessor extends Thread {
     } else {
     // inspectionsReporter is needed for all parsers below
       if (FindBugsReportParser.TYPE.equals(type))
-        return new FindBugsReportParser(parameters.getLogger(), inspectionsReporter, parameters.getCheckoutDir(), parameters.getFindBugsHome());
+        return new FindBugsReportParser(inspectionsReporter, parameters.getCheckoutDir(), parameters.getFindBugsHome());
 
       if (PmdReportParser.TYPE.equals(type))
-        return new PmdReportParser(parameters.getLogger(), inspectionsReporter, parameters.getCheckoutDir());
+        return new PmdReportParser(inspectionsReporter, parameters.getCheckoutDir());
 
       if (CheckstyleReportParser.TYPE.equals(type))
-        return new CheckstyleReportParser(parameters.getLogger(), inspectionsReporter, parameters.getCheckoutDir());
+        return new CheckstyleReportParser(inspectionsReporter, parameters.getCheckoutDir());
     }
 
     final DuplicatesReporter duplicatesReporter = parameters.getDuplicatesReporter();
@@ -200,7 +221,7 @@ public class XmlReportProcessor extends Thread {
     } else {
     // duplicatesReporter is needed for all parsers below
       if (PmdCpdReportParser.TYPE.equals(type))
-        return new PmdCpdReportParser(parameters.getLogger(), duplicatesReporter);
+        return new PmdCpdReportParser(duplicatesReporter);
     }
 
     LOG.debug("No parser for " + type + " available");

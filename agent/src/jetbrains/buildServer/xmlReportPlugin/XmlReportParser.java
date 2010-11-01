@@ -16,24 +16,19 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.BuildProgressLogger;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
 
 public abstract class XmlReportParser extends DefaultHandler {
-  private XMLReader myXmlReader;
-  protected final BuildProgressLogger myLogger;
-
+  private final XMLReader myXmlReader;
   protected StringBuilder myCData;
 
   public static String formatText(@NotNull StringBuilder s) {
@@ -55,7 +50,8 @@ public abstract class XmlReportParser extends DefaultHandler {
     return 0;
   }
 
-  public static XMLReader createXmlReader(ContentHandler contentHandler, ErrorHandler errHandler, boolean validate) throws Exception {
+  public static XMLReader createXmlReader(ContentHandler contentHandler, ErrorHandler errHandler, boolean validate)
+    throws SAXException {
     final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
     xmlReader.setContentHandler(contentHandler);
     xmlReader.setErrorHandler(errHandler);
@@ -63,44 +59,39 @@ public abstract class XmlReportParser extends DefaultHandler {
     return xmlReader;
   }
 
-  protected XmlReportParser(@NotNull final BuildProgressLogger logger) {
-    myLogger = logger;
+  protected XmlReportParser() {
     try {
       myXmlReader = createXmlReader(this, this, false);
-    } catch (Exception e) {
-      myLogger.exception(e);
+    } catch (SAXException e) {
+      throw new RuntimeException(e);
     }
   }
 
-  protected boolean isReportComplete(@NotNull File report, @NotNull String trailingTag) {
+  protected boolean isReportComplete(@NotNull ReportFileContext context, @NotNull String trailingTag) {
     List<String> reportContent = Collections.emptyList();
     try {
-      reportContent = FileUtil.readFile(report);
+      reportContent = FileUtil.readFile(context.getFile());
     } catch (IOException e) {
-      myLogger.exception(e);
+      context.getRequestContext().getLogger().exception(e);
     }
     final int size = reportContent.size();
     return (size > 0) && reportContent.get(size - 1).trim().endsWith(trailingTag);
   }
 
-  public BuildProgressLogger getLogger() {
-    return myLogger;
+  public void logReportTotals(@NotNull ReportFileContext context, boolean verbose) {
   }
 
-  public void logReportTotals(@NotNull File report, boolean verbose) {
+  void logParsingTotals(@NotNull final SessionContext sessionContext, @NotNull Map<String, String> parameters, boolean verbose) {
   }
 
-  void logParsingTotals(@NotNull Map<String, String> parameters, boolean verbose) {
-  }
-
-  protected final void parse(@NotNull File report) throws SAXParseException {
+  protected final void doSAXParse(@NotNull ReportFileContext context) throws SAXParseException {
     clearCData();
     try {
-      myXmlReader.parse(new InputSource(report.toURI().toString()));
+      myXmlReader.parse(new InputSource(context.getFile().toURI().toString()));
     } catch (SAXParseException se) {
       throw se;
     } catch (Exception e) {
-      myLogger.exception(e);
+      context.getRequestContext().getLogger().exception(e);
     }
   }
 
@@ -117,7 +108,7 @@ public abstract class XmlReportParser extends DefaultHandler {
     }
   }
 
-  public abstract void parse(@NotNull ReportData data);
+  public abstract void parse(@NotNull ReportFileContext data);
 
   /**
    * This method is used to dispose the parser (ex. close streams, dispose loggers).

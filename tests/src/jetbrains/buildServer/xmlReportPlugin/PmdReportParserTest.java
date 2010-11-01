@@ -16,12 +16,11 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
 import org.junit.Test;
-
-import java.util.Map;
 
 
 public class PmdReportParserTest extends ParserTestCase {
@@ -35,7 +34,7 @@ public class PmdReportParserTest extends ParserTestCase {
     final InspectionReporter reporter = TestUtil.createInspectionReporter(results);
     final BuildProgressLogger logger = new BuildLoggerForTesting(results);
 
-    return new PmdReportParser(logger, reporter, "##BASE_DIR##");
+    return new PmdReportParser(reporter, "##BASE_DIR##");
   }
 
   @Override

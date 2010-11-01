@@ -16,18 +16,16 @@
 
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
+import java.io.File;
+import java.util.Date;
+import java.util.Stack;
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.agent.FlowLogger;
-import jetbrains.buildServer.xmlReportPlugin.ReportData;
+import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-
-import java.io.File;
-import java.util.Date;
-import java.util.Stack;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 
@@ -70,7 +68,7 @@ public class AntJUnitReportParser extends XmlReportParser {
   private int myLoggedTests;
   private int myTestsToSkip;
 
-  private final FlowLogger myFlowLogger;
+  private BuildProgressLogger myLogger;
 
   private static long getExecutionTime(String timeStr) {
     if (timeStr == null || "".equals(timeStr)) {
@@ -109,9 +107,8 @@ public class AntJUnitReportParser extends XmlReportParser {
     return (str == null) || Boolean.parseBoolean(str);
   }
 
-  public AntJUnitReportParser(@NotNull final BuildProgressLogger logger) {
-    super(logger);
-    myFlowLogger = (FlowLogger)myLogger;
+  public AntJUnitReportParser() {
+    super();
     myLoggedSuites = 0;
     myTests = new Stack<TestData>();
     myCData = new StringBuilder();
@@ -157,14 +154,17 @@ public class AntJUnitReportParser extends XmlReportParser {
 <!ELEMENT system-out (#PCDATA)> */
 
   @Override
-  public void parse(@NotNull final ReportData data) {
+  public void parse(@NotNull final ReportFileContext data) {
     myLoggedSuites = 0;
     myLoggedTests = 0;
     myTestsToSkip = data.getProcessedEvents();
     myTests.clear();
+    myLogger = data.getRequestContext().getLogger();
+
     final File report = data.getFile();
     try {
-      parse(report);
+      doSAXParse(data);
+      myLogger = null;
     } catch (SAXException e) {
       if (myCurrentSuite != null) {
         endSuite();
@@ -176,15 +176,15 @@ public class AntJUnitReportParser extends XmlReportParser {
       data.setProcessedEvents(processedEvents);
       return;
     } catch (Exception e) {
-      myFlowLogger.exception(e);
+      data.getRequestContext().getLogger().exception(e);
     }
     myCurrentSuite = null;
     data.setProcessedEvents(-1);
   }
 
   @Override
-  public void logReportTotals(@NotNull File report, boolean verbose) {
-    String message = report.getAbsolutePath() + " report processed";
+  public void logReportTotals(@NotNull ReportFileContext reportData, boolean verbose) {
+    String message = reportData.getFile().getAbsolutePath() + " report processed";
     if (myLoggedSuites > 0) {
       message = message.concat(": " + myLoggedSuites + " suite(s)");
       if (myLoggedTests > 0) {
@@ -192,14 +192,9 @@ public class AntJUnitReportParser extends XmlReportParser {
       }
     }
     if (verbose) {
-      myFlowLogger.message(message);
+      reportData.getRequestContext().getLogger().message(message);
     }
     LOG.debug(message);
-  }
-
-  @Override
-  public void dispose() {
-    myFlowLogger.disposeFlow();
   }
 
   //  Handler methods
@@ -277,7 +272,7 @@ public class AntJUnitReportParser extends XmlReportParser {
     }
 
     myCurrentSuite = new SuiteData(name, startTime.getTime(), duration, timestamp);
-    myFlowLogger.logSuiteStarted(name, startTime);
+    myLogger.logSuiteStarted(name, startTime);
   }
 
   private void endSuite() {
@@ -285,17 +280,17 @@ public class AntJUnitReportParser extends XmlReportParser {
       return;
     }
     if (myCurrentSuite.isFailure()) {
-      myFlowLogger.error(getFailureMessage(myCurrentSuite.getFailureType(), myCurrentSuite.getFailureMessage()));
+      myLogger.error(getFailureMessage(myCurrentSuite.getFailureType(), myCurrentSuite.getFailureMessage()));
     }
     if (mySystemOut != null) {
-      myFlowLogger.message("[System out]\n" + mySystemOut);
+      myLogger.message("[System out]\n" + mySystemOut);
       mySystemOut = null;
     }
     if (mySystemErr != null) {
-      myFlowLogger.warning("[System error]\n" + mySystemErr);
+      myLogger.warning("[System error]\n" + mySystemErr);
       mySystemErr = null;
     }
-    myFlowLogger.logSuiteFinished(myCurrentSuite.getName(), new Date(myCurrentSuite.getStartTime() + myCurrentSuite.getDuraion()));
+    myLogger.logSuiteFinished(myCurrentSuite.getName(), new Date(myCurrentSuite.getStartTime() + myCurrentSuite.getDuraion()));
     myLoggedSuites = myLoggedSuites + 1;
 
     if (myTests.size() != 0) {
@@ -331,24 +326,24 @@ public class AntJUnitReportParser extends XmlReportParser {
     final TestData test = myTests.pop();
     final String testName = test.getName();
 
-    myFlowLogger.logTestStarted(testName, new Date(test.getStartTime()));
+    myLogger.logTestStarted(testName, new Date(test.getStartTime()));
     if (!test.isExecuted()) {
-      myFlowLogger.logTestIgnored(testName, "");
+      myLogger.logTestIgnored(testName, "");
     } else {
       if (test.isFailure()) {
         String failureMessage = getFailureMessage(test.getFailureType(), test.getFailureMessage());
-        myFlowLogger.logTestFailed(testName, failureMessage, test.getFailureStackTrace());
+        myLogger.logTestFailed(testName, failureMessage, test.getFailureStackTrace());
       }
       if (mySystemOut != null) {
-        myFlowLogger.logTestStdOut(testName, mySystemOut);
+        myLogger.logTestStdOut(testName, mySystemOut);
         mySystemOut = null;
       }
       if (mySystemErr != null) {
-        myFlowLogger.logTestStdErr(testName, mySystemErr);
+        myLogger.logTestStdErr(testName, mySystemErr);
         mySystemErr = null;
       }
     }
-    myFlowLogger.logTestFinished(testName, new Date(test.getStartTime() + test.getDuration()));
+    myLogger.logTestFinished(testName, new Date(test.getStartTime() + test.getDuration()));
     myLoggedTests = myLoggedTests + 1;
   }
 
