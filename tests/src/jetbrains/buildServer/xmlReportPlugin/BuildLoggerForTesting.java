@@ -17,11 +17,14 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import java.util.Date;
+import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.FlowLogger;
+import jetbrains.buildServer.agent.impl.BuildMessageTweaker;
+import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
 import jetbrains.buildServer.messages.BuildMessage1;
 import org.jetbrains.annotations.NotNull;
 
-class BuildLoggerForTesting implements FlowLogger {
+class BuildLoggerForTesting implements FlowLogger, MessageTweakingSupport {
   private final StringBuilder myText;
 
   public BuildLoggerForTesting(final StringBuilder text) {
@@ -192,5 +195,9 @@ class BuildLoggerForTesting implements FlowLogger {
 
   public StringBuilder getText() {
     return myText;
+  }
+
+  public BuildProgressLogger getTweakedLogger(final BuildMessageTweaker tweaker) {
+    return this;
   }
 }
