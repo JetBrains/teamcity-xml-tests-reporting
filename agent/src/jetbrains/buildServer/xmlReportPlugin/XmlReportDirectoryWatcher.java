@@ -22,6 +22,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.regex.Pattern;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.FlowLogger;
+import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
 import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.util.AntPathMatcher;
@@ -54,6 +55,7 @@ public class XmlReportDirectoryWatcher extends Thread {
     long getBuildStartTime();
     @NotNull
     String getWhenNoDataPublished(@NotNull File path);
+    boolean getLogAsInternal(@NotNull File path);
   }
 
 
@@ -64,7 +66,7 @@ public class XmlReportDirectoryWatcher extends Thread {
     super("xml-report-plugin-DirectoryWatcher");
 
     myParameters = parameters;
-    myPaths = new HashMap<String, Set<File>>();
+    myPaths = new HashMap<String, Set<File>>(); // TODO this should be a separate service with intelligible interface. synchronization must be inside
     myReportQueue = queue;
     myMaskHash = new HashMap<File, MaskData>();
     myStatistics = new HashMap<String, TypeStatistics>();
@@ -118,8 +120,6 @@ public class XmlReportDirectoryWatcher extends Thread {
   }
 
   public void addPaths(final Collection<File> paths, final String type) {
-    // TODO since this method is called from different threads a thread logger is obtained.
-    // Don't use myScanThreadLogger here. It's supposed for use only from watcher thread.
     addPathInt(paths, type, myParameters.getLogger().getThreadLogger());
   }
 
@@ -238,21 +238,22 @@ public class XmlReportDirectoryWatcher extends Thread {
   }
 
   private void scanInput(final BuildProgressLogger logger) {
-    synchronized (myPaths) { // TODO very ineffective synchronization - needs refactoring
+    synchronized (myPaths) { // TODO very inefficient synchronization - needs refactoring
       for (Map.Entry<String, Set<File>> entry : myPaths.entrySet()) {
         final String type = entry.getKey();
 
         final TypeStatistics s = myStatistics.get(type);
         for (File f : entry.getValue()) {
+          final BuildProgressLogger requestLogger = getLoggerForPath(f, logger);
           if (isGoodFile(f, f) && !s.getFiles().contains(f)) {  // TODO complete duplicate of processFile()
             s.getFiles().add(f);
-            sendToQueue(type, f, f, logger);
+            sendToQueue(type, f, f, requestLogger);
           } else if (f.isDirectory()) {
             final File[] files = f.listFiles();
             final Set<File> filesInDir = new HashSet<File>();
             if ((files != null) && (files.length > 0)) {
               for (File file : files) {
-                processFile(type, f, s, filesInDir, file, logger);
+                processFile(type, f, s, filesInDir, file, requestLogger);
               }
             }
             addToStatistics(s.getDirs(), f, filesInDir);
@@ -260,13 +261,18 @@ public class XmlReportDirectoryWatcher extends Thread {
             final Set<File> filesForMask = new HashSet<File>();
             final MaskData md = getMask(f);
             for (File file : collectFiles(md.getPattern(), md.getBaseDir())) {
-              processFile(type, f, s, filesForMask, file, logger);
+              processFile(type, f, s, filesForMask, file, requestLogger);
             }
             addToStatistics(s.getMasks(), f, filesForMask);
           }
         }
       }
     }
+  }
+
+  @NotNull
+  private BuildProgressLogger getLoggerForPath(@NotNull final File path, @NotNull final BuildProgressLogger baseLogger) {
+    return myParameters.getLogAsInternal(path) ? ((MessageTweakingSupport)baseLogger).getTweakedLogger(MessageInternalizer.MESSAGE_INTERNALIZER) : baseLogger;
   }
 
   private boolean isGoodFile(File f, File path) {

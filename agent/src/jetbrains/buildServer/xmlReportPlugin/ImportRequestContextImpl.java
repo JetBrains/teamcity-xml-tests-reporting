@@ -23,14 +23,11 @@ import org.jetbrains.annotations.NotNull;
 class ImportRequestContextImpl implements ImportRequestContext {
   @NotNull private final File myPath;
   @NotNull private final BuildProgressLogger myLogger;
-  private final boolean myLogAsInternal;
 
   ImportRequestContextImpl(@NotNull final File path,
-                           @NotNull final BuildProgressLogger logger,
-                           final boolean logAsInternal) {
+                           @NotNull final BuildProgressLogger logger) {
     myPath = path;
     myLogger = logger;
-    myLogAsInternal = logAsInternal;
   }
 
   @NotNull
@@ -43,7 +40,4 @@ class ImportRequestContextImpl implements ImportRequestContext {
     return myLogger;
   }
 
-  public boolean getLogAsInternal() {
-    return myLogAsInternal;
-  }
 }

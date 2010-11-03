@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
@@ -48,7 +49,7 @@ public class XmlReportProcessor extends Thread {
   private final Map<String, XmlReportParser> myParsers;
 
   private final Set<String> myFailedReportTypes;
-  private final Set<String> myProcessedReportTypes;
+  private final Set<String> myProcessedReportTypes; // todo (to Victory) it doesn't seem to be used anywhere
   private final Parameters myParameters;
   private FlowLogger myFlowLogger; // initialized on the thread start
 
@@ -126,11 +127,16 @@ public class XmlReportProcessor extends Thread {
       return;
     }
 
-    ImportRequestContextImpl requestContext = new ImportRequestContextImpl(
-      data.getImportRequestPath(),
-      myFlowLogger,
-      myParameters.getLogAsInternal(data.getImportRequestPath()));
+    final boolean logAsInternal = myParameters.getLogAsInternal(data.getImportRequestPath());
 
+    final BuildProgressLogger requestLogger =
+      logAsInternal ?
+        ((MessageTweakingSupport)myFlowLogger).getTweakedLogger(MessageInternalizer.MESSAGE_INTERNALIZER) :
+        myFlowLogger;
+
+    // TODO it's not efficient to create a context object each time a file is processed. Needs refactoring
+
+    ImportRequestContextImpl requestContext = new ImportRequestContextImpl(data.getImportRequestPath(), requestLogger);
     ReportFileContextImpl reportContext = new ReportFileContextImpl(data, requestContext);
 
     final XmlReportParser parser = myParsers.get(data.getType());

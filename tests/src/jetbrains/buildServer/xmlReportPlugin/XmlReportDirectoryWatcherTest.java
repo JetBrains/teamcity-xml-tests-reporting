@@ -69,6 +69,10 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
       public String getWhenNoDataPublished(@NotNull File path) {
         return "error";
       }
+
+      public boolean getLogAsInternal(@NotNull final File path) {
+        return false;
+      }
     };
   }
 

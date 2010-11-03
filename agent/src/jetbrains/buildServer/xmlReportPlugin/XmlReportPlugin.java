@@ -163,7 +163,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
   private class Parameters implements XmlReportDirectoryWatcher.Parameters, XmlReportProcessor.Parameters {
     private final Map<String, String> myParameters;
-    private final Map<File, PathParameters> myPathParameters;
+    private final Map<File, PathParameters> myPathParameters; // TODO why not to join this with myPaths storage? What's the point of having this separate?
 
     private Parameters(@NotNull Set<File> paths, @NotNull final Map<String, String> parameters) {
       myParameters = parameters;
