@@ -16,13 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
@@ -37,6 +30,14 @@ import jetbrains.buildServer.xmlReportPlugin.pmdCpd.PmdCpdReportParser;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class XmlReportProcessor extends Thread {
   public static final Logger LOG = Logger.getLogger(XmlReportProcessor.class);
@@ -227,7 +228,7 @@ public class XmlReportProcessor extends Thread {
     } else {
     // duplicatesReporter is needed for all parsers below
       if (PmdCpdReportParser.TYPE.equals(type))
-        return new PmdCpdReportParser(duplicatesReporter);
+        return new PmdCpdReportParser(duplicatesReporter, parameters.getCheckoutDir());
     }
 
     LOG.debug("No parser for " + type + " available");

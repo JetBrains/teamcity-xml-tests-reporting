@@ -1,10 +1,8 @@
 package jetbrains.buildServer.xmlReportPlugin.pmdCpd;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.duplicator.DuplicateInfo;
+import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
@@ -12,6 +10,10 @@ import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: vbedrosova
@@ -21,13 +23,17 @@ import org.xml.sax.SAXParseException;
 public class PmdCpdReportParser extends XmlReportParser {
   public static final String TYPE = "pmdCpd";
   private static final String TRAILING_TAG = "</pmd-cpd>";
+  private static final char SEPARATOR = '/';
 
   private final DuplicatesReporter myDuplicatesReporter;
+  private final String myCheckoutDirectory;
 
   private DuplicationInfo myCurrentDuplicate;
 
-  public PmdCpdReportParser(@NotNull final DuplicatesReporter duplicatesReporter) {
+  public PmdCpdReportParser(@NotNull final DuplicatesReporter duplicatesReporter,
+                            @NotNull final String checkoutDirectory) {
     myDuplicatesReporter = duplicatesReporter;
+    myCheckoutDirectory = unifySlashes(checkoutDirectory);
     myCData = new StringBuilder();
   }
 
@@ -57,8 +63,24 @@ public class PmdCpdReportParser extends XmlReportParser {
     } else if ("duplication".equals(localName)) {
       myCurrentDuplicate = new DuplicationInfo(getInt(attributes.getValue("lines")), getInt(attributes.getValue("tokens")));
     } else if ("file".equals(localName)) {
-      myCurrentDuplicate.addFragment(new FragmentInfo(unifySlashes(attributes.getValue("path")), getInt(attributes.getValue("line"))));
+      myCurrentDuplicate.addFragment(new FragmentInfo(resolvePath(attributes.getValue("path")), getInt(attributes.getValue("line"))));
     }
+  }
+
+  private String resolvePath(String path) {
+    if (path == null) return "";
+
+    path = unifySlashes(path);
+
+    String resolved = FileUtil.getRelativePath(myCheckoutDirectory, path, SEPARATOR);
+
+    if (resolved == null) return path;
+
+    if (resolved.startsWith("./")) {
+      resolved = resolved.substring(2);
+    }
+
+    return resolved;
   }
 
   @Override
@@ -85,7 +107,7 @@ public class PmdCpdReportParser extends XmlReportParser {
   }
 
   private static String unifySlashes(String s) {
-    return s == null ? "" : s.replace('\\', '/');
+    return s == null ? "" : s.replace('\\', SEPARATOR);
   }
 
   private static int getInt(String val) {

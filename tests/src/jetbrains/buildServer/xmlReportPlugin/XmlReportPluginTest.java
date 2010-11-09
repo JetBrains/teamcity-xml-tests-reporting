@@ -103,6 +103,7 @@ public class XmlReportPluginTest {
       {
         allowing(logger).getThreadLogger();
         will(returnValue(logger));
+        allowing((FlowLogger) logger).disposeFlow();
       }
     });
     return logger;
