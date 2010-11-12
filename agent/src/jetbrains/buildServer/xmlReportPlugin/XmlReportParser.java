@@ -49,7 +49,7 @@ public abstract class XmlReportParser extends DefaultHandler {
 
   public static XMLReader createXmlReader(ContentHandler contentHandler, ErrorHandler errHandler, boolean validate)
     throws SAXException {
-    final XMLReader xmlReader = XMLReaderFactory.createXMLReader();
+    final XMLReader xmlReader = XMLReaderFactory.createXMLReader("com.sun.org.apache.xerces.internal.parsers.SAXParser");
     xmlReader.setContentHandler(contentHandler);
     xmlReader.setErrorHandler(errHandler);
     xmlReader.setFeature("http://xml.org/sax/features/validation", validate);
