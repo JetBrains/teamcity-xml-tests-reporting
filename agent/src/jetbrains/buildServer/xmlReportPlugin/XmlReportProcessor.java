@@ -176,7 +176,9 @@ public class XmlReportProcessor extends Thread {
             if (!myParsers.containsKey(reportType)) {
               initializeParser(reportType);
             }
-            return data;
+            if (myParsers.get(data.getType()).supportOnTheFlyParsing() || finalParsing || !reportGrows(data)) {
+              return data;
+            }
           }
           myReportQueue.put(data);
           return null;
@@ -190,49 +192,62 @@ public class XmlReportProcessor extends Thread {
     return null;
   }
 
-  private void initializeParser(String type) {
-    final XmlReportParser parser = createParser(myParameters, type);
-    if(parser != null)
-      myParsers.put(type, parser);
+  private boolean reportGrows(ReportData data) throws InterruptedException {
+    if ("false".equalsIgnoreCase(myParameters.getRunnerParameters().get(XmlReportPlugin.CHECK_FILE_GROWS)))
+      return false;
+    final long oldLength = data.getFile().length();
+    for (int i = 0; i < 10; ++i) {
+      Thread.sleep(10);
+      final long newLength = data.getFile().length();
+      if (newLength > oldLength) {
+        return true;
+      }
+    }
+    return false;
   }
 
-  @Nullable
+  private void initializeParser(String type) {
+    myParsers.put(type, createParser(myParameters, type));
+  }
+
   private XmlReportParser createParser(@NotNull Parameters parameters, @NotNull String type) {
     if (AntJUnitReportParser.TYPE.equals(type) || ("surefire".equals(type)))
       return new AntJUnitReportParser();
 
     if (NUnitReportParser.TYPE.equals(type))
       return new NUnitReportParser(myFlowLogger, parameters.getTmpDir(),
-        "false".equals(parameters.getRunnerParameters().get(XmlReportPlugin.TREAT_DLL_AS_SUITE)) ? NUNIT_TO_JUNIT_OLD_XSL : NUNIT_TO_JUNIT_XSL);
+        "false".equalsIgnoreCase(parameters.getRunnerParameters().get(XmlReportPlugin.TREAT_DLL_AS_SUITE)) ?
+          NUNIT_TO_JUNIT_OLD_XSL : NUNIT_TO_JUNIT_XSL);
 
-    final InspectionReporter inspectionsReporter = parameters.getInspectionReporter();
-    if(inspectionsReporter == null) {
-      LOG.debug("Inspection reporter not provided. Required for parser type: " + type);
-      return null;
-    } else {
-    // inspectionsReporter is needed for all parsers below
-      if (FindBugsReportParser.TYPE.equals(type))
-        return new FindBugsReportParser(inspectionsReporter, parameters.getCheckoutDir(), parameters.getFindBugsHome());
+    if (XmlReportPluginUtil.isInspection(type)) {
+      final InspectionReporter inspectionsReporter = parameters.getInspectionReporter();
+      if(inspectionsReporter == null) {
+        throw new RuntimeException("Inspection reporter not provided. Required for parser type: " + type);
+      } else {
+      // inspectionsReporter is needed for all parsers below
+        if (FindBugsReportParser.TYPE.equals(type))
+          return new FindBugsReportParser(inspectionsReporter, parameters.getCheckoutDir(), parameters.getFindBugsHome());
 
-      if (PmdReportParser.TYPE.equals(type))
-        return new PmdReportParser(inspectionsReporter, parameters.getCheckoutDir());
+        if (PmdReportParser.TYPE.equals(type))
+          return new PmdReportParser(inspectionsReporter, parameters.getCheckoutDir());
 
-      if (CheckstyleReportParser.TYPE.equals(type))
-        return new CheckstyleReportParser(inspectionsReporter, parameters.getCheckoutDir());
+        if (CheckstyleReportParser.TYPE.equals(type))
+          return new CheckstyleReportParser(inspectionsReporter, parameters.getCheckoutDir());
+      }
     }
 
-    final DuplicatesReporter duplicatesReporter = parameters.getDuplicatesReporter();
-    if(duplicatesReporter == null) {
-      LOG.debug("Duplicates reporter not provided. Required for parser type: " + type);
-      return null;
-    } else {
-    // duplicatesReporter is needed for all parsers below
-      if (PmdCpdReportParser.TYPE.equals(type))
-        return new PmdCpdReportParser(duplicatesReporter, parameters.getCheckoutDir());
+    if (XmlReportPluginUtil.isDuplication(type)) {
+      final DuplicatesReporter duplicatesReporter = parameters.getDuplicatesReporter();
+      if(duplicatesReporter == null) {
+        throw new RuntimeException("Duplicates reporter not provided. Required for parser type: " + type);
+      } else {
+      // duplicatesReporter is needed for all parsers below
+        if (PmdCpdReportParser.TYPE.equals(type))
+          return new PmdCpdReportParser(duplicatesReporter, parameters.getCheckoutDir());
+      }
     }
 
-    LOG.debug("No parser for " + type + " available");
-    return null;
+    throw new RuntimeException("No parser for " + type + " available");
   }
 
   private void disposeParsers() {

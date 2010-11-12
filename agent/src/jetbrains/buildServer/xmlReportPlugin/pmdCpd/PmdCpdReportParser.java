@@ -22,7 +22,6 @@ import java.util.List;
  */
 public class PmdCpdReportParser extends XmlReportParser {
   public static final String TYPE = "pmdCpd";
-  private static final String TRAILING_TAG = "</pmd-cpd>";
   private static final char SEPARATOR = '/';
 
   private final DuplicatesReporter myDuplicatesReporter;
@@ -40,11 +39,6 @@ public class PmdCpdReportParser extends XmlReportParser {
   @Override
   public void parse(@NotNull ReportFileContext data) {
     final File report = data.getFile();
-    if (!isReportComplete(data, TRAILING_TAG)) {
-      XmlReportPlugin.LOG.debug("The report doesn't finish with " + TRAILING_TAG);
-      data.setProcessedEvents(0);
-      return;
-    }
     try {
       doSAXParse(data);
     } catch (SAXParseException spe) {

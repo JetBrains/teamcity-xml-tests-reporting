@@ -16,22 +16,21 @@
 
 package jetbrains.buildServer.xmlReportPlugin.pmd;
 
-import java.io.File;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
 import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
+import java.io.File;
+
 
 public class PmdReportParser extends InspectionsReportParser {
   public static final String TYPE = "pmd";
   private static final String DEFAULT_MESSAGE = "No message";
-  private static final String TRAILING_TAG = "</pmd>";
 
   private String myCurrentFile;
 
@@ -44,11 +43,6 @@ public class PmdReportParser extends InspectionsReportParser {
   @Override
   public void parse(@NotNull final ReportFileContext data) {
     final File report = data.getFile();
-    if (!isReportComplete(data, TRAILING_TAG)) {
-      XmlReportPlugin.LOG.debug("The report doesn't finish with " + TRAILING_TAG);
-      data.setProcessedEvents(0);
-      return;
-    }
     try {
       doSAXParse(data);
     } catch (SAXParseException spe) {

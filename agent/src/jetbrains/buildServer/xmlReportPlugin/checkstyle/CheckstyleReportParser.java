@@ -16,7 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin.checkstyle;
 
-import java.io.File;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
@@ -29,6 +28,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
+import java.io.File;
+
 /**
  * User: vbedrosova
  * Date: 23.12.2009
@@ -36,7 +37,6 @@ import org.xml.sax.SAXParseException;
  */
 public class CheckstyleReportParser extends InspectionsReportParser {
   public static final String TYPE = "checkstyle";
-  private static final String TRAINING_TAG = "</checkstyle>";
 
   private File myCurrentReport;
   private String myCurrentFile;
@@ -52,11 +52,6 @@ public class CheckstyleReportParser extends InspectionsReportParser {
   @Override
   public void parse(@NotNull ReportFileContext data) {
     myCurrentReport = data.getFile();
-    if (!isReportComplete(data, TRAINING_TAG)) {
-      XmlReportPlugin.LOG.debug("The report doesn't finish with " + TRAINING_TAG);
-      data.setProcessedEvents(0);
-      return;
-    }
     try {
       myLogger = data.getRequestContext().getLogger();
       doSAXParse(data);

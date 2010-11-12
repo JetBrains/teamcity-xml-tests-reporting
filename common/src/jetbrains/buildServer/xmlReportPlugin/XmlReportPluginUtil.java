@@ -16,16 +16,18 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import org.jetbrains.annotations.NotNull;
 
 
 public class XmlReportPluginUtil {
   public static final Map<String, String> SUPPORTED_REPORT_TYPES = new HashMap<String, String>();
   public static final List<String> INSPECTIONS_TYPES = new LinkedList<String>();
+  public static final List<String> DUPLICATES_TYPES = new LinkedList<String>();
 
   static {
     SUPPORTED_REPORT_TYPES.put("junit", "Ant JUnit");
@@ -39,6 +41,8 @@ public class XmlReportPluginUtil {
     INSPECTIONS_TYPES.add("findBugs");
     INSPECTIONS_TYPES.add("pmd");
     INSPECTIONS_TYPES.add("checkstyle");
+
+    DUPLICATES_TYPES.add("pmdCpd");
   }
 
   public static final String REPORT_TYPE = "xmlReportParsing.reportType";
@@ -155,5 +159,9 @@ public class XmlReportPluginUtil {
 
   public static String getFindBugsHomePath(@NotNull final Map<String, String> runParams) {
     return runParams.get(FINDBUGS_HOME);
+  }
+
+  public static boolean isDuplication(String type) {
+    return DUPLICATES_TYPES.contains(type);
   }
 }

@@ -16,15 +16,12 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
+
+import java.util.Map;
 
 
 public abstract class XmlReportParser extends DefaultHandler {
@@ -67,17 +64,6 @@ public abstract class XmlReportParser extends DefaultHandler {
     }
   }
 
-  protected boolean isReportComplete(@NotNull ReportFileContext context, @NotNull String trailingTag) {
-    List<String> reportContent = Collections.emptyList();
-    try {
-      reportContent = FileUtil.readFile(context.getFile());
-    } catch (IOException e) {
-      context.getRequestContext().getLogger().exception(e);
-    }
-    final int size = reportContent.size();
-    return (size > 0) && reportContent.get(size - 1).trim().endsWith(trailingTag);
-  }
-
   public void logReportTotals(@NotNull ReportFileContext context, boolean verbose) {
   }
 
@@ -115,4 +101,8 @@ public abstract class XmlReportParser extends DefaultHandler {
    * Will be called after parser done all it's work
    */
   public void dispose() {}
+
+  public boolean supportOnTheFlyParsing() {
+    return false;
+  }
 }

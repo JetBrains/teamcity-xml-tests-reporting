@@ -16,9 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
@@ -30,6 +27,10 @@ import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
 
@@ -43,7 +44,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
   public static final String TREAT_DLL_AS_SUITE = "xmlReportParsing.nunit.treatDllAsRootSuite";
   public static final String PATHS_TO_EXCLUDE = "xmlReportParsing.exclude";
-  
+  public static final String CHECK_FILE_GROWS = "xmlReportParsing.check.file.grows";
+
   private static final String SPLIT_REGEX = " *[,\n\r] *";
 
   private final InspectionReporter myInspectionReporter;
@@ -100,6 +102,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     parametersMap.put(TMP_DIR, build.getBuildTempDirectory().getAbsolutePath());
     parametersMap.put(TREAT_DLL_AS_SUITE, runner.getBuildParameters().getSystemProperties().get(TREAT_DLL_AS_SUITE));
     parametersMap.put(PATHS_TO_EXCLUDE, runner.getBuildParameters().getSystemProperties().get(PATHS_TO_EXCLUDE));
+    parametersMap.put(CHECK_FILE_GROWS, runner.getBuildParameters().getSystemProperties().get(CHECK_FILE_GROWS));
 
     if(additionalParams != null)
       parametersMap.putAll(additionalParams);

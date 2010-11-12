@@ -16,9 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin.nUnit;
 
-import java.io.File;
-import java.io.IOException;
-import javax.xml.transform.TransformerConfigurationException;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.ImportRequestContext;
 import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
@@ -26,11 +23,13 @@ import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
 
+import javax.xml.transform.TransformerConfigurationException;
+import java.io.File;
+
 
 public class NUnitReportParser extends AntJUnitReportParser {
   public static final String TYPE = "nunit";
   private static final String TMP_REPORT_DIRECTORY = File.separator + "junit_reports";
-  private static final String TRAILING_TAG = "</test-results>";
 
   private NUnitToJUnitReportTransformer myReportTransformer;
   private final File myTmpReportDir;
@@ -48,22 +47,13 @@ public class NUnitReportParser extends AntJUnitReportParser {
   @Override
   public void parse(@NotNull final ReportFileContext data) {
     final File report = data.getFile();
-    if (!isReportComplete(data, TRAILING_TAG)) {
-      XmlReportPlugin.LOG.debug("The report doesn't finish with " + TRAILING_TAG);
-      data.setProcessedEvents(0);
-      return;
-    }
     final File junitReport = new File(myTmpReportDir.getPath() + File.separator + report.getName());
     try {
       myReportTransformer.transform(report, junitReport);
-    } catch (IOException ioe) {
-      data.getRequestContext().getLogger().exception(ioe);
-      data.setProcessedEvents(-1);
-      return;
     } catch (Exception e) {
-      data.getRequestContext().getLogger().exception(e);
+      XmlReportPlugin.LOG.debug("xslt transformation failed for " + report.getAbsolutePath(), e);
       junitReport.delete();
-      data.setProcessedEvents(-1);
+      data.setProcessedEvents(0);
       return;
     }
     final MyJUnitReportFileContext newContext = new MyJUnitReportFileContext(data, junitReport);

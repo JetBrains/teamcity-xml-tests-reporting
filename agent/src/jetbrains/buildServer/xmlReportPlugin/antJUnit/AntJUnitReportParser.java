@@ -16,9 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
-import java.io.File;
-import java.util.Date;
-import java.util.Stack;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
@@ -26,6 +23,10 @@ import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+
+import java.io.File;
+import java.util.Date;
+import java.util.Stack;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 
@@ -386,5 +387,10 @@ public class AntJUnitReportParser extends XmlReportParser {
 
   private boolean testSkipped() {
     return (myLoggedTests < myTestsToSkip);
+  }
+
+  @Override
+  public boolean supportOnTheFlyParsing() {
+    return true;
   }
 }
