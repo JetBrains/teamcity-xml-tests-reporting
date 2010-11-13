@@ -69,7 +69,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
   @Override
   public void beforeRunnerStart(@NotNull BuildRunnerContext runner) {
-    LOG.debug("beforeRunnerStart");
     myStopped = false;
 
     myBuild = runner.getBuild();
@@ -119,7 +118,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   }
 
   public synchronized void processReports(@NotNull Map<String, String> params, @NotNull Set<File> reportPaths) {
-    LOG.debug("processReports");
     AgentRunningBuild build = myBuild;
     BuildRunnerContext runner = myRunner;
     Date startTime = myStartTime;
@@ -277,7 +275,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   public synchronized void runnerFinished(
     @NotNull BuildRunnerContext runner,
     @NotNull BuildFinishedStatus status) {
-    LOG.debug("runnerFinished");
     if (!myStopped) {
       finishWork();
     }
@@ -295,7 +292,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
     final AgentRunningBuild build = myBuild;
     try {
-      LOG.debug("plugin joins processor");
       context.myReportProcessor.join();
     } catch (InterruptedException e) {
       if(build != null)
