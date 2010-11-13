@@ -16,12 +16,13 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.util.*;
 import jetbrains.buildServer.agent.inspections.*;
 import jetbrains.buildServer.messages.Status;
 import jetbrains.buildServer.messages.serviceMessages.BuildStatus;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
+import java.util.*;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 
@@ -143,5 +144,5 @@ public abstract class InspectionsReportParser extends XmlReportParser {
   }
 
   @Override
-  public abstract void parse(@NotNull ReportFileContext data);
+  public abstract void parse(@NotNull ReportFileContext data) throws Exception;
 }

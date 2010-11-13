@@ -23,9 +23,6 @@ import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-
-import java.io.File;
 
 
 public class PmdReportParser extends InspectionsReportParser {
@@ -41,14 +38,9 @@ public class PmdReportParser extends InspectionsReportParser {
   }
 
   @Override
-  public void parse(@NotNull final ReportFileContext data) {
-    final File report = data.getFile();
+  public void parse(@NotNull final ReportFileContext data) throws Exception {
     try {
       doSAXParse(data);
-    } catch (SAXParseException spe) {
-      data.getRequestContext().getLogger().error(report.getAbsolutePath() + " is not parsable by PMD parser");
-    } catch (Exception e) {
-      data.getRequestContext().getLogger().exception(e);
     } finally {
       myInspectionReporter.flush();
     }

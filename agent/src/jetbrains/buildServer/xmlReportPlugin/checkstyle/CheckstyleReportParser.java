@@ -26,7 +26,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
 import java.io.File;
 
@@ -50,15 +49,11 @@ public class CheckstyleReportParser extends InspectionsReportParser {
   }
 
   @Override
-  public void parse(@NotNull ReportFileContext data) {
+  public void parse(@NotNull ReportFileContext data) throws Exception {
     myCurrentReport = data.getFile();
+    myLogger = data.getRequestContext().getLogger();
     try {
-      myLogger = data.getRequestContext().getLogger();
       doSAXParse(data);
-    } catch (SAXParseException spe) {
-      data.getRequestContext().getLogger().error(myCurrentReport.getAbsolutePath() + " is not parsable by Checkstyle parser");
-    } catch (Exception e) {
-      data.getRequestContext().getLogger().exception(e);
     } finally {
       myLogger = null;
       myInspectionReporter.flush();

@@ -27,7 +27,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -81,7 +80,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
   }
 
   @Override
-  public void parse(@NotNull final ReportFileContext data) {
+  public void parse(@NotNull final ReportFileContext data) throws Exception {
     myInspectionReporter.markBuildAsInspectionsBuild();
     final File report = data.getFile();
     myCurrentReport = report.getAbsolutePath();
@@ -109,15 +108,9 @@ public class FindBugsReportParser extends InspectionsReportParser {
         myInspectionReporter.reportInspection(bug);
         reportInspectionType(bug.getInspectionId());
       }
-    } catch (SAXParseException spe) {
-      data.getRequestContext().getLogger().error(report.getAbsolutePath() + " is not parsable by FindBugs parser");
-    } catch (Exception e) {
-      data.getRequestContext().getLogger().exception(e);
     } finally {
       myLogger = null;
-      if (myFileFinder != null) {
-        myFileFinder.close();
-      }
+      myFileFinder.close();
       myInspectionReporter.flush();
     }
     data.setProcessedEvents(-1);

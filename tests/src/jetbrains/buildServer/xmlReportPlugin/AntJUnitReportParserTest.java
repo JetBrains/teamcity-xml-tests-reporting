@@ -17,9 +17,6 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.util.io.FileUtil;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Date;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
@@ -35,6 +32,10 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Date;
 
 
 @SuppressWarnings({"ThrowableResultOfMethodCallIgnored"})
@@ -88,16 +89,14 @@ public class AntJUnitReportParserTest extends TestCase {
   }
 
   @Test
-  public void testUnexistingReport() {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).exception(with(any(FileNotFoundException.class)));
-      }
-    });
-
+  public void testUnexistingReport() throws Exception {
     final File unexisting = new File("unexisting");
-    myParser.parse(new DummyReportFileContext(unexisting, "junit", myLogger));
-    myContext.assertIsSatisfied();
+    try {
+      myParser.parse(new DummyReportFileContext(unexisting, "junit", myLogger));
+    } catch (FileNotFoundException e) {
+      return;
+    }
+    fail();
   }
 
   @Test

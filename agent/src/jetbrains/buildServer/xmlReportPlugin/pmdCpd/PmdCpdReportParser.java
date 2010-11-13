@@ -5,13 +5,10 @@ import jetbrains.buildServer.duplicator.DuplicateInfo;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,16 +34,8 @@ public class PmdCpdReportParser extends XmlReportParser {
   }
 
   @Override
-  public void parse(@NotNull ReportFileContext data) {
-    final File report = data.getFile();
-    try {
-      doSAXParse(data);
-    } catch (SAXParseException spe) {
-      data.getRequestContext().getLogger().error(report.getAbsolutePath() + " is not parsable by PMD CPD parser");
-      XmlReportPlugin.LOG.error(spe);
-    } catch (Exception e) {
-      data.getRequestContext().getLogger().exception(e);
-    }
+  public void parse(@NotNull ReportFileContext data) throws Exception {
+    doSAXParse(data);
     data.setProcessedEvents(-1);
   }
 

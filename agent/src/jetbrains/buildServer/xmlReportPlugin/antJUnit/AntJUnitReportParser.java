@@ -155,7 +155,7 @@ public class AntJUnitReportParser extends XmlReportParser {
 <!ELEMENT system-out (#PCDATA)> */
 
   @Override
-  public void parse(@NotNull final ReportFileContext data) {
+  public void parse(@NotNull final ReportFileContext data) throws Exception {
     myLoggedSuites = 0;
     myLoggedTests = 0;
     myTestsToSkip = data.getProcessedEvents();
@@ -165,19 +165,18 @@ public class AntJUnitReportParser extends XmlReportParser {
     final File report = data.getFile();
     try {
       doSAXParse(data);
-      myLogger = null;
     } catch (SAXException e) {
-      if (myCurrentSuite != null) {
-        endSuite();
-      }
+      if (myCurrentSuite != null) endSuite();
+
       XmlReportPlugin.LOG.debug("Couldn't completely parse " + report.getPath()
         + " report - SAXParseException occured: " + e.toString() + ", "
         + myLoggedTests + " events logged");
+
       final int processedEvents = (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip;
       data.setProcessedEvents(processedEvents);
       return;
-    } catch (Exception e) {
-      data.getRequestContext().getLogger().exception(e);
+    } finally {
+      myLogger = null;
     }
     myCurrentSuite = null;
     data.setProcessedEvents(-1);

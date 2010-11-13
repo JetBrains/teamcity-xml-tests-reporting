@@ -30,6 +30,7 @@ import jetbrains.buildServer.xmlReportPlugin.pmdCpd.PmdCpdReportParser;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.xml.sax.SAXParseException;
 
 import java.io.File;
 import java.util.HashMap;
@@ -124,9 +125,7 @@ public class XmlReportProcessor extends Thread {
   }
 
   private void processReport(final ReportData data) {
-    if (data == null) {
-      return;
-    }
+    if (data == null) return;
 
     final boolean logAsInternal = myParameters.getLogAsInternal(data.getImportRequestPath());
 
@@ -141,10 +140,21 @@ public class XmlReportProcessor extends Thread {
     ReportFileContextImpl reportContext = new ReportFileContextImpl(data, requestContext);
 
     final XmlReportParser parser = myParsers.get(data.getType());
-    LOG.debug("Parsing " + data.getFile().getAbsolutePath() + " with " + data.getType() + " parser.");
-    parser.parse(reportContext);
-
     final String typeName = XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(data.getType());
+
+    try {
+      LOG.debug("Parsing " + data.getFile().getAbsolutePath() + " with " + data.getType() + " parser.");
+      parser.parse(reportContext);
+    } catch (SAXParseException e) {
+      myFlowLogger.error(data.getFile().getAbsolutePath() + " is not parsable with " + typeName + " parser");
+      if (myParameters.isVerbose()) requestLogger.exception(e);
+      return;
+    } catch (Exception e) {
+      myFlowLogger.error("Exception occurred while parsing " + data.getFile().getAbsolutePath());
+      if (myParameters.isVerbose()) requestLogger.exception(e);
+      return;
+    }
+
     if (data.getProcessedEvents() != -1) {
       if (myStopSignaled) {
         final String message = "Failed to parse " + data.getFile().getAbsolutePath() + " with " + typeName + " parser";

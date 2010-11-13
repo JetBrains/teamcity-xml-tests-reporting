@@ -45,7 +45,7 @@ public class NUnitReportParser extends AntJUnitReportParser {
   }
 
   @Override
-  public void parse(@NotNull final ReportFileContext data) {
+  public void parse(@NotNull final ReportFileContext data) throws Exception {
     final File report = data.getFile();
     final File junitReport = new File(myTmpReportDir.getPath() + File.separator + report.getName());
     try {
@@ -59,7 +59,6 @@ public class NUnitReportParser extends AntJUnitReportParser {
     final MyJUnitReportFileContext newContext = new MyJUnitReportFileContext(data, junitReport);
     super.parse(newContext);
     data.setProcessedEvents(newContext.getProcessedEvents());
-    //jUnitData.getFile().delete();
   }
 
   private static class MyJUnitReportFileContext implements ReportFileContext {

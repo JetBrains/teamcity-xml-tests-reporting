@@ -70,15 +70,9 @@ public abstract class XmlReportParser extends DefaultHandler {
   void logParsingTotals(@NotNull final SessionContext sessionContext, @NotNull Map<String, String> parameters, boolean verbose) {
   }
 
-  protected final void doSAXParse(@NotNull ReportFileContext context) throws SAXParseException {
+  protected final void doSAXParse(@NotNull ReportFileContext context) throws Exception {
     clearCData();
-    try {
-      myXmlReader.parse(new InputSource(context.getFile().toURI().toString()));
-    } catch (SAXParseException se) {
-      throw se;
-    } catch (Exception e) {
-      context.getRequestContext().getLogger().exception(e);
-    }
+    myXmlReader.parse(new InputSource(context.getFile().toURI().toString()));
   }
 
   protected void clearCData() {
@@ -94,7 +88,7 @@ public abstract class XmlReportParser extends DefaultHandler {
     }
   }
 
-  public abstract void parse(@NotNull ReportFileContext data);
+  public abstract void parse(@NotNull ReportFileContext data) throws Exception;
 
   /**
    * This method is used to dispose the parser (ex. close streams, dispose loggers).
