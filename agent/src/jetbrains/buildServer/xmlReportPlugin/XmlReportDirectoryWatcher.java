@@ -129,7 +129,7 @@ public class XmlReportDirectoryWatcher extends Thread {
       if (!myPaths.containsKey(type)) {
         if (isInspection(type) && hasInspections()) {
           warning(logger,
-                  "Two different inspections can not be processed during one build, skip " + SUPPORTED_REPORT_TYPES.get(type) + " reports"
+                  "Only one report of Code Inspection type is supported per build, skipping " + SUPPORTED_REPORT_TYPES.get(type) + " reports."
           );
           if (newPaths.size() > 0) {
             logPathsInTarget(newPaths, type, "Skip watching:", logger);
