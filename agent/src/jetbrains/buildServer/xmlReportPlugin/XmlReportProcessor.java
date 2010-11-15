@@ -51,7 +51,6 @@ public class XmlReportProcessor extends Thread {
   private final Map<String, XmlReportParser> myParsers;
 
   private final Set<String> myFailedReportTypes;
-  private final Set<String> myProcessedReportTypes; // todo (to Victory) it doesn't seem to be used anywhere
   private final Parameters myParameters;
   private FlowLogger myFlowLogger; // initialized on the thread start
 
@@ -78,7 +77,6 @@ public class XmlReportProcessor extends Thread {
     myWatcher = watcher;
     myParsers = new HashMap<String, XmlReportParser>();
     myFailedReportTypes = new HashSet<String>();
-    myProcessedReportTypes = new HashSet<String>();
     myParameters = parameters;
   }
 
@@ -171,7 +169,6 @@ public class XmlReportProcessor extends Thread {
       }
     } else {
       parser.logReportTotals(reportContext, myParameters.isVerbose());
-      myProcessedReportTypes.add(typeName);
     }
   }
 
