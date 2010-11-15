@@ -16,14 +16,18 @@
 
 package jetbrains.buildServer.xmlReportPlugin.integration;
 
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.agent.FlowLogger;
+import jetbrains.buildServer.agent.impl.BuildMessageTweaker;
+import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import jetbrains.buildServer.agent.FlowLogger;
-import org.jetbrains.annotations.NotNull;
 
-class BaseServerLoggerFacadeForTesting implements FlowLogger {
+class BaseServerLoggerFacadeForTesting implements FlowLogger, MessageTweakingSupport {
   private List<MethodInvokation> myMethodSequence = null;
   private final List<String> myNotControlledMethods = new LinkedList<String>();
 
@@ -254,4 +258,8 @@ class BaseServerLoggerFacadeForTesting implements FlowLogger {
   }
 
   public void logMessage(jetbrains.buildServer.messages.BuildMessage1 buildMessage1) { /* compiled code */ }
+
+  public BuildProgressLogger getTweakedLogger(BuildMessageTweaker buildMessageTweaker) {
+    return this;
+  }
 }

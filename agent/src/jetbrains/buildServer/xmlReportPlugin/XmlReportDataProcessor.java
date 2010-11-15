@@ -16,15 +16,16 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import jetbrains.buildServer.agent.DataProcessor;
+import jetbrains.buildServer.agent.DataProcessorContext;
+import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import jetbrains.buildServer.agent.DataProcessor;
-import jetbrains.buildServer.agent.DataProcessorContext;
-import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
-import org.jetbrains.annotations.NotNull;
 
 //"##teamcity[importData type='sometype' file='somedir']"
 // service message activates watching "somedir" directory for reports of sometype type
@@ -66,7 +67,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
     pass(params, XmlReportPluginUtil.VERBOSE_OUTPUT, arguments, VERBOSE_ARGUMENT, "false");
     pass(params, XmlReportPluginUtil.PARSE_OUT_OF_DATE, arguments, PARSE_OUT_OF_DATE_ARGUMENT, "false");
     pass(params, XmlReportPluginUtil.WHEN_NO_DATA_PUBLISHED, arguments, WHEN_NO_DATA_PUBLISHED_ARGUMENT, "error");
-    pass(params, XmlReportPluginUtil.LOG_AS_INTERNAL, arguments, LOG_AS_INTERNAL_ARGUMENT, "false");
+    pass(params, XmlReportPluginUtil.LOG_AS_INTERNAL, arguments, LOG_AS_INTERNAL_ARGUMENT, "true");
 
     if (FindBugsReportParser.TYPE.equals(getType())) {
       pass(params, XmlReportPluginUtil.FINDBUGS_HOME, arguments, FINDBUGS_HOME_ARGUMENT, null);

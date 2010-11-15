@@ -1,4 +1,4 @@
-<xmlReportParsing.logAsInternal, false>
+<xmlReportParsing.logAsInternal, true>
 <xmlReportParsing.max.warnings, null>
 <xmlReportParsing.max.errors, null>
 <xmlReportParsing.reportType, junit>

@@ -16,12 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.DataProcessorContext;
@@ -31,6 +25,13 @@ import org.jetbrains.annotations.NotNull;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
 
@@ -78,7 +79,8 @@ public class XmlReportDataProcessorTest extends TestCase {
     final List<String> expectedList = readFileToList(expectedFile);
     final List<String> actualList = readFileToList(resultsFile);
 
-    assertEquals(expectedList, actualList);
+    assertTrue("Some unexpected attributes detected", expectedList.containsAll(actualList));
+    assertTrue("Missing some  attributes", actualList.containsAll(expectedList));
   }
 
   private XmlReportPlugin createFakePlugin(final StringBuilder results, final File base) {
@@ -135,5 +137,25 @@ public class XmlReportDataProcessorTest extends TestCase {
     final Map<String, String> arguments = new HashMap<String, String>();
     arguments.put(XmlReportDataProcessor.WHEN_NO_DATA_PUBLISHED_ARGUMENT, "warning");
     runTest(arguments, "whenNoDataPublished");
+  }
+
+  @Test
+  public void testLogAsInternalDisabled() throws Exception {
+    final Map<String, String> arguments = new HashMap<String, String>();
+    arguments.put(XmlReportDataProcessor.LOG_AS_INTERNAL_ARGUMENT, "false");
+    runTest(arguments, "logAsInternalDisabled");
+  }
+
+  @Test
+  public void testLogAsInternalDefault() throws Exception {
+    final Map<String, String> arguments = new HashMap<String, String>();
+    runTest(arguments, "logAsInternalDefault");
+  }
+
+  @Test
+  public void testLogAsInternalEnabled() throws Exception {
+    final Map<String, String> arguments = new HashMap<String, String>();
+    arguments.put(XmlReportDataProcessor.LOG_AS_INTERNAL_ARGUMENT, "true");
+    runTest(arguments, "logAsInternalEnabled");
   }
 }

@@ -102,6 +102,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     parametersMap.put(TREAT_DLL_AS_SUITE, runner.getBuildParameters().getSystemProperties().get(TREAT_DLL_AS_SUITE));
     parametersMap.put(PATHS_TO_EXCLUDE, runner.getBuildParameters().getSystemProperties().get(PATHS_TO_EXCLUDE));
     parametersMap.put(CHECK_FILE_GROWS, runner.getBuildParameters().getSystemProperties().get(CHECK_FILE_GROWS));
+    parametersMap.put(LOG_AS_INTERNAL, runner.getBuildParameters().getSystemProperties().get(LOG_AS_INTERNAL));
 
     if(additionalParams != null)
       parametersMap.putAll(additionalParams);
@@ -177,7 +178,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
       for (final File path : paths) {
         myPathParameters.put(path, new PathParameters(Boolean.parseBoolean(parameters.get(PARSE_OUT_OF_DATE)),
                                                       parameters.get(WHEN_NO_DATA_PUBLISHED),
-                                                      Boolean.parseBoolean(parameters.get(LOG_AS_INTERNAL))));
+                                                      !"false".equalsIgnoreCase(parameters.get(LOG_AS_INTERNAL))));
       }
     }
 
