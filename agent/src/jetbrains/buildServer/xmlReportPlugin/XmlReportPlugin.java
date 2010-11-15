@@ -44,7 +44,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
   public static final String TREAT_DLL_AS_SUITE = "xmlReportParsing.nunit.treatDllAsRootSuite";
   public static final String PATHS_TO_EXCLUDE = "xmlReportParsing.exclude";
-  public static final String CHECK_FILE_GROWS = "xmlReportParsing.check.file.grows";
+  public static final String CHECK_REPORT_GROWS = "xmlReportParsing.check.report.grows";
+  public static final String CHECK_REPORT_COMPLETE = "xmlReportParsing.check.report.complete";
 
   private static final String SPLIT_REGEX = " *[,\n\r] *";
 
@@ -101,7 +102,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     parametersMap.put(TMP_DIR, build.getBuildTempDirectory().getAbsolutePath());
     parametersMap.put(TREAT_DLL_AS_SUITE, runner.getBuildParameters().getSystemProperties().get(TREAT_DLL_AS_SUITE));
     parametersMap.put(PATHS_TO_EXCLUDE, runner.getBuildParameters().getSystemProperties().get(PATHS_TO_EXCLUDE));
-    parametersMap.put(CHECK_FILE_GROWS, runner.getBuildParameters().getSystemProperties().get(CHECK_FILE_GROWS));
+    parametersMap.put(CHECK_REPORT_GROWS, runner.getBuildParameters().getSystemProperties().get(CHECK_REPORT_GROWS));
+    parametersMap.put(CHECK_REPORT_COMPLETE, runner.getBuildParameters().getSystemProperties().get(CHECK_REPORT_COMPLETE));
     parametersMap.put(LOG_AS_INTERNAL, runner.getBuildParameters().getSystemProperties().get(LOG_AS_INTERNAL));
 
     if(additionalParams != null)

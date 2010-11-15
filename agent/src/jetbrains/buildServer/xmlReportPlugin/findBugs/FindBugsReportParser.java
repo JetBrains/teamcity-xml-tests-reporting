@@ -260,4 +260,10 @@ public class FindBugsReportParser extends InspectionsReportParser {
 
   private static final BugCollection.Category UNKNOWN_CATEGORY = new BugCollection.Category();
   private static final BugCollection.Pattern UNKNOWN_PATTERN = new BugCollection.Pattern();
+
+  @NotNull
+  @Override
+  protected String getRootTag() {
+    return "BugCollection";
+  }
 }

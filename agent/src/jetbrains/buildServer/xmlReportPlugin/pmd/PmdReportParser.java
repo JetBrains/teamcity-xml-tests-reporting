@@ -81,4 +81,10 @@ public class PmdReportParser extends InspectionsReportParser {
     final String category = attributes.getValue("ruleset");
     reportInspectionType(id, id, category, category);
   }
+
+  @NotNull
+  @Override
+  protected String getRootTag() {
+    return "pmd";
+  }
 }

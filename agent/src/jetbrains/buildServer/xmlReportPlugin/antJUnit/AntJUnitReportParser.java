@@ -392,4 +392,10 @@ public class AntJUnitReportParser extends XmlReportParser {
   public boolean supportOnTheFlyParsing() {
     return true;
   }
+
+  @NotNull
+  @Override
+  protected String getRootTag() {
+    return "testsuite";
+  }
 }

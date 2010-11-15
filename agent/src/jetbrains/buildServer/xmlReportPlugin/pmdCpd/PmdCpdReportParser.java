@@ -155,4 +155,10 @@ public class PmdCpdReportParser extends XmlReportParser {
       myHash = hash;
     }
   }
+
+  @NotNull
+  @Override
+  protected String getRootTag() {
+    return "pmd-cpd";
+  }
 }

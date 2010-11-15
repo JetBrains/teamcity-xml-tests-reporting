@@ -121,4 +121,10 @@ public class CheckstyleReportParser extends InspectionsReportParser {
   public String specifyMessage(String message) {
     return "<CheckstyleReportParser> " + message;
   }
+
+  @NotNull
+  @Override
+  protected String getRootTag() {
+    return "checkstyle";
+  }
 }

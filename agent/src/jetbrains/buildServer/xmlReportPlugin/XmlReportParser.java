@@ -21,6 +21,7 @@ import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
+import java.io.File;
 import java.util.Map;
 
 
@@ -99,4 +100,34 @@ public abstract class XmlReportParser extends DefaultHandler {
   public boolean supportOnTheFlyParsing() {
     return false;
   }
+
+  public boolean isReportComplete(@NotNull final File report) {
+    // here we preparse the report to check it's complete
+    final CompleteReportHandler handler = new CompleteReportHandler();
+    try {
+      final XMLReader reader = createXmlReader(handler, null, false);
+      reader.parse(new InputSource(report.toURI().toString()));
+      return handler.isReportComplete();
+    } catch (SAXParseException e) {
+      return false;
+    } catch (Exception e) {
+      return true;
+    }
+  }
+
+  private final class CompleteReportHandler extends DefaultHandler {
+    private boolean myReportComplete = false;
+
+    public boolean isReportComplete() {
+      return myReportComplete;
+    }
+
+    @Override
+    public void endElement(String uri, String localName, String qName) throws SAXException {
+      if (getRootTag().equals(localName)) myReportComplete = true;
+    }
+  }
+
+  @NotNull
+  protected abstract String getRootTag();
 }

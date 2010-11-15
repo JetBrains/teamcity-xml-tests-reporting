@@ -99,4 +99,10 @@ public class NUnitReportParser extends AntJUnitReportParser {
       return "nunit";
     }
   }
+
+  @NotNull
+  @Override
+  protected String getRootTag() {
+    return "test-results";
+  }
 }

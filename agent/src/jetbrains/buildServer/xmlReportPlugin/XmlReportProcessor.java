@@ -186,7 +186,7 @@ public class XmlReportProcessor extends Thread {
             if (!myParsers.containsKey(reportType)) {
               initializeParser(reportType);
             }
-            if (myParsers.get(data.getType()).supportOnTheFlyParsing() || finalParsing || !reportGrows(data)) {
+            if (myParsers.get(data.getType()).supportOnTheFlyParsing() || finalParsing || (!reportGrows(data) && isReportComplete(data))) {
               return data;
             }
           }
@@ -203,7 +203,7 @@ public class XmlReportProcessor extends Thread {
   }
 
   private boolean reportGrows(ReportData data) throws InterruptedException {
-    if ("false".equalsIgnoreCase(myParameters.getRunnerParameters().get(XmlReportPlugin.CHECK_FILE_GROWS)))
+    if ("false".equalsIgnoreCase(myParameters.getRunnerParameters().get(XmlReportPlugin.CHECK_REPORT_GROWS)))
       return false;
     final long oldLength = data.getFile().length();
     for (int i = 0; i < 10; ++i) {
@@ -214,6 +214,11 @@ public class XmlReportProcessor extends Thread {
       }
     }
     return false;
+  }
+
+  private boolean isReportComplete(ReportData data) {
+    return "false".equalsIgnoreCase(myParameters.getRunnerParameters().get(XmlReportPlugin.CHECK_REPORT_COMPLETE)) ||
+      myParsers.get(data.getType()).isReportComplete(data.getFile());
   }
 
   private void initializeParser(String type) {
