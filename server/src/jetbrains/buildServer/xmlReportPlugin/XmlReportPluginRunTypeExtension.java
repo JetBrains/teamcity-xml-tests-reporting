@@ -54,9 +54,9 @@ public class XmlReportPluginRunTypeExtension extends RunTypeExtension {
       public Collection<InvalidProperty> process(Map<String, String> properties) {
         final List<InvalidProperty> invalids = new ArrayList<InvalidProperty>();
         String prop;
-        prop = properties.get(XmlReportPluginUtil.REPORT_DIRS);
+        prop = properties.get(XmlReportPluginConstants.REPORT_DIRS);
         if (XmlReportPluginUtil.isParsingEnabled(properties) && (prop == null) || ("".equals(prop))) {
-          invalids.add(new InvalidProperty(XmlReportPluginUtil.REPORT_DIRS,
+          invalids.add(new InvalidProperty(XmlReportPluginConstants.REPORT_DIRS,
             "Report paths must be specified"));
         }
         return invalids;

@@ -16,12 +16,15 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.util.HashMap;
-import java.util.Map;
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
-import static junit.framework.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginConstants.*;
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
+import static junit.framework.Assert.*;
 
 
 public class XmlReportPluginUtilTest {
@@ -121,13 +124,13 @@ public class XmlReportPluginUtilTest {
 
   @Test
   public void testParseOutOfDateOnEmptyParams() {
-    assertFalse("Parse outofdate must be disabled", shouldParseOutOfDateReports(myRunParams));
+    assertFalse("Parse outofdate must be disabled", isParseOutOfDateReports(myRunParams));
   }
 
   @Test
   public void testParseOutOfDateAfterPuttingTrueToParams() {
     myRunParams.put(PARSE_OUT_OF_DATE, TRUE);
-    assertTrue("Parse outofdate must be enabled", shouldParseOutOfDateReports(myRunParams));
+    assertTrue("Parse outofdate must be enabled", isParseOutOfDateReports(myRunParams));
   }
 
   @Test

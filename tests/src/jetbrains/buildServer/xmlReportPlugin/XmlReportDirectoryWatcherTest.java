@@ -16,33 +16,36 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.LinkedBlockingQueue;
 import jetbrains.buildServer.TempFiles;
 import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
+
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
 
 @SuppressWarnings({"ResultOfMethodCallIgnored"})
 public class XmlReportDirectoryWatcherTest extends TestCase {
+  private static final String JUNIT = "junit";
+  private static final List<String> TYPES = Arrays.asList(JUNIT);
+  private static final String METHOD_NOT_IMPLEMENTED = "Method not implemented";
   private TempFiles myTempFiles;
   private File myWorkDir;
 
-  private XmlReportDirectoryWatcher.Parameters createParameters(final BuildProgressLogger logger) {
+  private XmlReportPluginParameters createParameters(final Collection<File> input, final BuildProgressLogger logger) {
 
-    return new XmlReportDirectoryWatcher.Parameters() {
+    return new XmlReportPluginParameters() {
       public boolean isVerbose() {
         return true;
       }
@@ -50,10 +53,6 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
       @NotNull
       public BuildProgressLogger getLogger() {
         return logger;
-      }
-
-      public boolean parseOutOfDate(@NotNull File path) {
-        return false;
       }
 
       public long getBuildStartTime() {
@@ -66,12 +65,82 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
       }
 
       @NotNull
-      public String getWhenNoDataPublished(@NotNull File path) {
-        return "error";
+      public Collection<String> getTypes() {
+        return TYPES;
       }
 
-      public boolean getLogAsInternal(@NotNull final File path) {
-        return false;
+      @NotNull
+      public Collection<File> getPaths(@NotNull String type) {
+        return input;
+      }
+
+      @NotNull
+      public PathParameters getPathParameters(@NotNull File path) {
+        return new PathParameters() {
+          @NotNull
+          public LogAction getWhenNoDataPublished() {
+            return LogAction.ERROR;
+          }
+
+          public boolean isLogAsInternal() {
+            return false;
+          }
+
+          public boolean isParseOutOfDate() {
+            return false;
+          }
+
+          public boolean isVerbose() {
+            return true;
+          }
+        };
+      }
+
+      @NotNull
+      public String getCheckoutDir() {
+        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
+      }
+
+      public String getFindBugsHome() {
+        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
+      }
+
+      @NotNull
+      public String getTmpDir() {
+        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
+      }
+
+      @NotNull
+      public String getNUnitSchema() {
+        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
+      }
+
+      public boolean checkReportComplete() {
+        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
+      }
+
+      public boolean checkReportGrows() {
+        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
+      }
+
+      public InspectionReporter getInspectionReporter() {
+        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
+      }
+
+      public DuplicatesReporter getDuplicatesReporter() {
+        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
+      }
+
+      @NotNull
+      public Map<String, String> getRunnerParameters() {
+        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
+      }
+
+      public void setListener(@NotNull ParametersListener listener) {
+      }
+
+      public void updateParameters(@NotNull Set<File> paths, @NotNull Map<String, String> parameters) {
+        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
       }
     };
   }
@@ -139,10 +208,11 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
 
     final StringBuilder results = new StringBuilder();
     final BuildLoggerForTesting logger = new BuildLoggerForTesting(results);
-    final XmlReportDirectoryWatcher.Parameters parameters = createParameters(logger);
+    final XmlReportPluginParameters parameters = createParameters(input, logger);
     final LinkedBlockingQueue<ReportData> queue = new LinkedBlockingQueueMock<ReportData>(results);
 
-    final XmlReportDirectoryWatcher watcher = new XmlReportDirectoryWatcher(parameters, input, "junit", queue);
+    final XmlReportDirectoryWatcher watcher = new XmlReportDirectoryWatcher(parameters, queue);
+    watcher.pathsAdded(JUNIT, input);
     watcher.signalStop();
 
 //    final Thread stopper = new Thread(new Runnable() {

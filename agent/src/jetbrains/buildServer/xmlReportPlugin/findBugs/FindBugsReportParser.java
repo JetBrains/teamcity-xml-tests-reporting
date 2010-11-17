@@ -45,15 +45,18 @@ public class FindBugsReportParser extends InspectionsReportParser {
 
   private String myCurrentReport;
 
+  @Nullable
   private final String myFindBugsHome;
 
+  @NotNull
   private final BugCollection myBugCollection;
   private String myCurrentCategory;
   private String myCurrentPattern;
 
   private String myCurrentClass;
 
-  @Nullable private BuildProgressLogger myLogger;
+  @Nullable
+  private BuildProgressLogger myLogger;
 
   private List<InspectionInstance> myWaitingForTypeBugs;
 
@@ -62,7 +65,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
 
   public FindBugsReportParser(@NotNull InspectionReporter inspectionReporter,
                               @NotNull String checkoutDirectory,
-                              String findBugsHome) {
+                              @Nullable String findBugsHome) {
     super(inspectionReporter, checkoutDirectory);
     myPatternsFromFindBugsLoaded = false;
     myBundledPatternsLoaded = false;

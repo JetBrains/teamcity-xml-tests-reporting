@@ -1,0 +1,247 @@
+/*
+ * Copyright 2000-2010 JetBrains s.r.o.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package jetbrains.buildServer.xmlReportPlugin;
+
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.util.FileUtil;
+import jetbrains.buildServer.util.StringUtil;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
+import java.util.*;
+
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginConstants.PATHS_TO_EXCLUDE;
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginConstants.SPLIT_REGEX;
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
+
+/**
+ * User: vbedrosova
+ * Date: 15.11.10
+ * Time: 19:51
+ */
+public class XmlReportPluginParametersImpl implements XmlReportPluginParameters {
+  @NotNull
+  private final Map<String, String> myParameters = new HashMap<String, String>();
+  @NotNull
+  private final Map<File, PathParametersImpl> myPathParameters = new HashMap<File, PathParametersImpl>();
+  @NotNull
+  private final Map<String, Set<File>> myPaths = new HashMap<String, Set<File>>();
+
+  @NotNull
+  private final BuildProgressLogger myLogger;
+  @NotNull
+  private final InspectionReporter myInspectionReporter;
+  @NotNull
+  private final DuplicatesReporter myDuplicatesReporter;
+
+  @Nullable
+  private ParametersListener myListener;
+
+  protected XmlReportPluginParametersImpl(@NotNull BuildProgressLogger logger,
+                                          @NotNull InspectionReporter inspectionReporter,
+                                          @NotNull DuplicatesReporter duplicatesReporter) {
+    myLogger = logger;
+    myInspectionReporter = inspectionReporter;
+    myDuplicatesReporter = duplicatesReporter;
+  }
+
+  public synchronized void updateParameters(@NotNull final Set<File> paths,
+                                            @NotNull final Map<String, String> parameters) {
+    final String type = getReportType(parameters);
+
+    if (!SUPPORTED_REPORT_TYPES.containsKey(type)) {
+      myLogger.error("Illegal report type: " + type);
+      return;
+    }
+
+    if (!myPaths.containsKey(type)) {
+      if (isInspection(type) && hasInspections()) {
+        getLogger().warning("Only one report of Code Inspection type is supported per build, skipping " + SUPPORTED_REPORT_TYPES.get(type) + " reports");
+        getListener().pathsSkipped(type, paths);
+        return;
+      }
+      myPaths.put(type, paths);
+    } else {
+      paths.removeAll(myPaths.get(type));
+      myPaths.get(type).addAll(paths);
+    }
+
+    myParameters.putAll(parameters);
+
+    final boolean parseOutOfDate = isParseOutOfDateReports(parameters);
+    final String whenNoDataPublished = whenNoDataPublished(parameters);
+    final boolean logAsInternal = isLogIsInternal(parameters);
+    final boolean verbose = isOutputVerbose(parameters);
+
+    final PathParametersImpl pathParameters = new PathParametersImpl(parseOutOfDate, PathParameters.LogAction.getAction(whenNoDataPublished), logAsInternal, verbose);
+
+    for (final File path : paths) {
+      myPathParameters.put(path, pathParameters);
+    }
+
+    getListener().pathsAdded(type, paths);
+  }
+
+  @SuppressWarnings({"NullableProblems"})
+  public void setListener(@NotNull ParametersListener listener) {
+    myListener = listener;
+  }
+
+  @SuppressWarnings({"NullableProblems"})
+  @NotNull
+  private ParametersListener getListener() {
+    if (myListener == null) {
+      throw new RuntimeException("No listener specified for xml-report-plugin parameters");
+    }
+    return myListener;
+  }
+
+  private boolean hasInspections() {
+    for (String type : myPaths.keySet()) {
+      if (isInspection(type)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  @NotNull
+  public synchronized Collection<String> getTypes() {
+    return new ArrayList<String>(myPaths.keySet());
+  }
+
+  @NotNull
+  public synchronized Collection<File> getPaths(@NotNull String type) {
+    return new ArrayList<File>(myPaths.get(type));
+  }
+
+  public synchronized boolean isVerbose() {
+    return isOutputVerbose(myParameters);
+  }
+
+  @NotNull
+  public synchronized String getCheckoutDir() {
+    return getCheckoutDirPath(myParameters);
+  }
+
+  @Nullable
+  public synchronized String getFindBugsHome() {
+    return getFindBugsHomePath(myParameters);
+  }
+
+  @NotNull
+  public synchronized List<String> getPathsToExclude() {
+    if (StringUtil.isEmpty(myParameters.get(PATHS_TO_EXCLUDE))) {
+      return Collections.emptyList();
+    }
+
+    final File checkoutDir = new File(getCheckoutDir());
+    final List<String> paths = new ArrayList<String>();
+    for (final String s : myParameters.get(PATHS_TO_EXCLUDE).split(SPLIT_REGEX)) {
+      paths.add(FileUtil.resolvePath(checkoutDir, s).getAbsolutePath());
+    }
+    return paths;
+  }
+
+  public synchronized long getBuildStartTime() {
+    return getBuildStart(myParameters);
+  }
+
+  @NotNull
+  public synchronized String getTmpDir() {
+    return getTempFolder(myParameters);
+  }
+
+  @NotNull
+  public synchronized String getNUnitSchema() {
+    return getNUnitSchemaPath(myParameters);
+  }
+
+  public synchronized boolean checkReportComplete() {
+    return isCheckReportComplete(myParameters);
+  }
+
+  public synchronized boolean checkReportGrows() {
+    return isCheckReportGrows(myParameters);
+  }
+
+  @NotNull
+  public synchronized Map<String, String> getRunnerParameters() {
+    return new HashMap<String, String>(myParameters);
+  }
+
+  @NotNull
+  public InspectionReporter getInspectionReporter() {
+    return myInspectionReporter;
+  }
+
+  @NotNull
+  public DuplicatesReporter getDuplicatesReporter() {
+    return myDuplicatesReporter;
+  }
+
+  @NotNull
+  public BuildProgressLogger getLogger() {
+    return myLogger;
+  }
+
+  @NotNull
+  public PathParameters getPathParameters(@NotNull File path) {
+    if (!myPathParameters.containsKey(path)) {
+      throw new IllegalStateException("Path is unknown");
+    }
+    return myPathParameters.get(path);
+  }
+
+  protected static class PathParametersImpl implements PathParameters {
+    private final boolean myParseOutOfDate;
+    @NotNull
+    private final LogAction myWhenNoDataPublished;
+    private final boolean myLogAsInternal;
+    private final boolean myVerbose;
+
+    private PathParametersImpl(boolean parseOutOfDate,
+                               @NotNull LogAction whenNoDataPublished,
+                               boolean logAsInternal,
+                               boolean verbose) {
+      myParseOutOfDate = parseOutOfDate;
+      myWhenNoDataPublished = whenNoDataPublished;
+      myLogAsInternal = logAsInternal;
+      myVerbose = verbose;
+    }
+
+    public boolean isParseOutOfDate() {
+      return myParseOutOfDate;
+    }
+
+    @NotNull
+    public LogAction getWhenNoDataPublished() {
+      return myWhenNoDataPublished;
+    }
+
+    public boolean isLogAsInternal() {
+      return myLogAsInternal;
+    }
+
+    public boolean isVerbose() {
+      return myVerbose;
+    }
+  }
+}

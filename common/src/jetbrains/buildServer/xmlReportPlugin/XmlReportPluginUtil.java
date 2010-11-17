@@ -23,6 +23,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginConstants.*;
+
 
 public class XmlReportPluginUtil {
   public static final Map<String, String> SUPPORTED_REPORT_TYPES = new HashMap<String, String>();
@@ -45,47 +47,35 @@ public class XmlReportPluginUtil {
     DUPLICATES_TYPES.add("pmdCpd");
   }
 
-  public static final String REPORT_TYPE = "xmlReportParsing.reportType";
-  public static final String REPORT_DIRS = "xmlReportParsing.reportDirs";
-  public static final String VERBOSE_OUTPUT = "xmlReportParsing.verboseOutput";
-  public static final String PARSE_OUT_OF_DATE = "xmlReportParsing.parse.outofdate";
-  public static final String BUILD_START = "xmlReportParsing.buildStart";
-  public static final String TMP_DIR = "xmlReportParsing.tmpDir";
-  public static final String MAX_ERRORS = "xmlReportParsing.max.errors";
-  public static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
-  public static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
-  public static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
-  public static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
-
-  public static boolean isParsingEnabled(@NotNull final Map<String, String> runParams) {
-    return runParams.containsKey(REPORT_TYPE) && !"".equals(runParams.get(REPORT_TYPE));
+  public static boolean isParsingEnabled(@NotNull final Map<String, String> params) {
+    return params.containsKey(REPORT_TYPE) && !"".equals(params.get(REPORT_TYPE));
   }
 
-  public static boolean isOutputVerbose(@NotNull final Map<String, String> runParams) {
-    return runParams.containsKey(VERBOSE_OUTPUT);
+  public static boolean isOutputVerbose(@NotNull final Map<String, String> params) {
+    return params.containsKey(VERBOSE_OUTPUT) && Boolean.parseBoolean(params.get(VERBOSE_OUTPUT));
   }
 
-  public static boolean shouldParseOutOfDateReports(@NotNull final Map<String, String> systemProperties) {
-    return systemProperties.containsKey(PARSE_OUT_OF_DATE);
+  public static boolean isParseOutOfDateReports(@NotNull final Map<String, String> params) {
+    return params.containsKey(PARSE_OUT_OF_DATE) && Boolean.parseBoolean(params.get(PARSE_OUT_OF_DATE));
   }
 
-  public static void enableXmlReportParsing(@NotNull final Map<String, String> runParams, String reportType) {
+  public static void enableXmlReportParsing(@NotNull final Map<String, String> params, String reportType) {
     if (reportType.equals("")) {
-      runParams.remove(REPORT_TYPE);
-      runParams.remove(REPORT_DIRS);
-      runParams.remove(VERBOSE_OUTPUT);
-      runParams.remove(PARSE_OUT_OF_DATE);
+      params.remove(REPORT_TYPE);
+      params.remove(REPORT_DIRS);
+      params.remove(VERBOSE_OUTPUT);
+      params.remove(PARSE_OUT_OF_DATE);
     } else {
-      runParams.put(REPORT_TYPE, reportType);
+      params.put(REPORT_TYPE, reportType);
     }
   }
 
-  public static void setVerboseOutput(@NotNull final Map<String, String> runParams, boolean verboseOutput) {
-    if (isParsingEnabled(runParams)) {
+  public static void setVerboseOutput(@NotNull final Map<String, String> params, boolean verboseOutput) {
+    if (isParsingEnabled(params)) {
       if (verboseOutput) {
-        runParams.put(VERBOSE_OUTPUT, "true");
+        params.put(VERBOSE_OUTPUT, "true");
       } else {
-        runParams.remove(VERBOSE_OUTPUT);
+        params.remove(VERBOSE_OUTPUT);
       }
     }
   }
@@ -102,50 +92,44 @@ public class XmlReportPluginUtil {
     systemProperties.put(WHEN_NO_DATA_PUBLISHED, value);
   }
 
-  public static void setXmlReportPaths(@NotNull final Map<String, String> runParams, String reportDirs) {
-    if (isParsingEnabled(runParams)) {
-      runParams.put(REPORT_DIRS, reportDirs);
+  public static void setXmlReportPaths(@NotNull final Map<String, String> params, String reportDirs) {
+    if (isParsingEnabled(params)) {
+      params.put(REPORT_DIRS, reportDirs);
     }
   }
 
-  public static String getXmlReportPaths(@NotNull final Map<String, String> runParams) {
-    return runParams.get(REPORT_DIRS);
+  public static String getXmlReportPaths(@NotNull final Map<String, String> params) {
+    return params.get(REPORT_DIRS);
   }
 
-  public static String getReportType(@NotNull final Map<String, String> runParams) {
-    return runParams.get(REPORT_TYPE);
+  public static String getReportType(@NotNull final Map<String, String> params) {
+    return params.get(REPORT_TYPE);
   }
 
-  public static void setReportType(@NotNull final Map<String, String> runParams, String type) {
-    if (isParsingEnabled(runParams)) {
-      runParams.put(REPORT_TYPE, type);
+  public static int getMaxErrors(@NotNull final Map<String, String> params) {
+    return getMaxErrorsOrWarnings(params, MAX_ERRORS);
+  }
+
+  public static void setMaxErrors(@NotNull final Map<String, String> params, int maxErrors) {
+    if (isParsingEnabled(params)) {
+      params.put(MAX_ERRORS, "" + maxErrors);
     }
   }
 
-  public static int getMaxErrors(@NotNull final Map<String, String> runParams) {
-    return getMaxErrorsOrWarnings(runParams, MAX_ERRORS);
+  public static int getMaxWarnings(@NotNull final Map<String, String> params) {
+    return getMaxErrorsOrWarnings(params, MAX_WARNINGS);
   }
 
-  public static void setMaxErrors(@NotNull final Map<String, String> runParams, int maxErrors) {
-    if (isParsingEnabled(runParams)) {
-      runParams.put(MAX_ERRORS, "" + maxErrors);
+  public static void setMaxWarnings(@NotNull final Map<String, String> params, int maxWarnings) {
+    if (isParsingEnabled(params)) {
+      params.put(MAX_WARNINGS, "" + maxWarnings);
     }
   }
 
-  public static int getMaxWarnings(@NotNull final Map<String, String> runParams) {
-    return getMaxErrorsOrWarnings(runParams, MAX_WARNINGS);
-  }
-
-  public static void setMaxWarnings(@NotNull final Map<String, String> runParams, int maxWarnings) {
-    if (isParsingEnabled(runParams)) {
-      runParams.put(MAX_WARNINGS, "" + maxWarnings);
-    }
-  }
-
-  private static int getMaxErrorsOrWarnings(@NotNull final Map<String, String> runParams, String what) {
-    if (runParams.containsKey(what)) {
+  private static int getMaxErrorsOrWarnings(@NotNull final Map<String, String> params, String what) {
+    if (params.containsKey(what)) {
       try {
-        return Integer.parseInt(runParams.get(what));
+        return Integer.parseInt(params.get(what));
       } catch (NumberFormatException e) {
         return -1;
       }
@@ -157,11 +141,48 @@ public class XmlReportPluginUtil {
     return INSPECTIONS_TYPES.contains(type);
   }
 
-  public static String getFindBugsHomePath(@NotNull final Map<String, String> runParams) {
-    return runParams.get(FINDBUGS_HOME);
+  public static String getFindBugsHomePath(@NotNull final Map<String, String> params) {
+    return params.get(FINDBUGS_HOME);
   }
 
   public static boolean isDuplication(String type) {
     return DUPLICATES_TYPES.contains(type);
+  }
+
+  public static String getCheckoutDirPath(@NotNull final Map<String, String> params) {
+    return params.get(CHECKOUT_DIR);
+  }
+
+  public static long getBuildStart(@NotNull final Map<String, String> params) {
+    try {
+      return params.containsKey(BUILD_START) ? Long.parseLong(params.get(BUILD_START)) : 0L;
+    } catch (NumberFormatException e) {
+      return 0L;
+    }
+  }
+
+  public static String getTempFolder(@NotNull final Map<String, String> params) {
+    return params.containsKey(TMP_DIR) ? params.get(TMP_DIR) : System.getProperty("java.io.tmpdir");
+  }
+
+  public static String getNUnitSchemaPath(@NotNull final Map<String, String> params) {
+    return "false".equalsIgnoreCase(params.get(TREAT_DLL_AS_SUITE)) ? NUNIT_TO_JUNIT_OLD_XSL : NUNIT_TO_JUNIT_XSL;
+  }
+
+  public static boolean isCheckReportComplete(@NotNull final Map<String, String> params) {
+    return !"false".equalsIgnoreCase(params.get(CHECK_REPORT_COMPLETE));
+  }
+
+  public static boolean isCheckReportGrows(@NotNull final Map<String, String> params) {
+    return !"false".equalsIgnoreCase(params.get(CHECK_REPORT_GROWS));
+  }
+
+  @NotNull
+  public static String whenNoDataPublished(@NotNull final Map<String, String> params) {
+    return params.containsKey(WHEN_NO_DATA_PUBLISHED) ? params.get(WHEN_NO_DATA_PUBLISHED) : "error";
+  }
+
+  public static boolean isLogIsInternal(@NotNull final Map<String, String> params) {
+    return !"false".equalsIgnoreCase(params.get(LOG_AS_INTERNAL));
   }
 }

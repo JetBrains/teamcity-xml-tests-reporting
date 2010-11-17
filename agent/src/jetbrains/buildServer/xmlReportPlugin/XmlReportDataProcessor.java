@@ -62,19 +62,19 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
 
     final Map<String, String> params = new HashMap<String, String>();
 
-    params.put(XmlReportPluginUtil.REPORT_TYPE, getType());
+    params.put(XmlReportPluginConstants.REPORT_TYPE, getType());
 
-    pass(params, XmlReportPluginUtil.VERBOSE_OUTPUT, arguments, VERBOSE_ARGUMENT, "false");
-    pass(params, XmlReportPluginUtil.PARSE_OUT_OF_DATE, arguments, PARSE_OUT_OF_DATE_ARGUMENT, "false");
-    pass(params, XmlReportPluginUtil.WHEN_NO_DATA_PUBLISHED, arguments, WHEN_NO_DATA_PUBLISHED_ARGUMENT, "error");
-    pass(params, XmlReportPluginUtil.LOG_AS_INTERNAL, arguments, LOG_AS_INTERNAL_ARGUMENT, "true");
+    pass(params, XmlReportPluginConstants.VERBOSE_OUTPUT, arguments, VERBOSE_ARGUMENT, "false");
+    pass(params, XmlReportPluginConstants.PARSE_OUT_OF_DATE, arguments, PARSE_OUT_OF_DATE_ARGUMENT, "false");
+    pass(params, XmlReportPluginConstants.WHEN_NO_DATA_PUBLISHED, arguments, WHEN_NO_DATA_PUBLISHED_ARGUMENT, "error");
+    pass(params, XmlReportPluginConstants.LOG_AS_INTERNAL, arguments, LOG_AS_INTERNAL_ARGUMENT, "true");
 
     if (FindBugsReportParser.TYPE.equals(getType())) {
-      pass(params, XmlReportPluginUtil.FINDBUGS_HOME, arguments, FINDBUGS_HOME_ARGUMENT, null);
+      pass(params, XmlReportPluginConstants.FINDBUGS_HOME, arguments, FINDBUGS_HOME_ARGUMENT, null);
     }
 
-    pass(params, XmlReportPluginUtil.MAX_ERRORS, arguments, ERRORS_LIMIT_ARGUMENT, null);
-    pass(params, XmlReportPluginUtil.MAX_WARNINGS, arguments, WARNINGS_LIMIT_ARGUMENT, null);
+    pass(params, XmlReportPluginConstants.MAX_ERRORS, arguments, ERRORS_LIMIT_ARGUMENT, null);
+    pass(params, XmlReportPluginConstants.MAX_WARNINGS, arguments, WARNINGS_LIMIT_ARGUMENT, null);
 
     final Set<File> reportDirs = new HashSet<File>();
     reportDirs.add(context.getFile());

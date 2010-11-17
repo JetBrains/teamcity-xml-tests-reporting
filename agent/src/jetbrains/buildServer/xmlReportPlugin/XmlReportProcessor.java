@@ -29,10 +29,8 @@ import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
 import jetbrains.buildServer.xmlReportPlugin.pmdCpd.PmdCpdReportParser;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.xml.sax.SAXParseException;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -51,25 +49,12 @@ public class XmlReportProcessor extends Thread {
   private final Map<String, XmlReportParser> myParsers;
 
   private final Set<String> myFailedReportTypes;
-  private final Parameters myParameters;
+  private final XmlReportPluginParameters myParameters;
   private FlowLogger myFlowLogger; // initialized on the thread start
 
   private volatile boolean myStopSignaled = false;
 
-  public interface Parameters {
-    @Nullable InspectionReporter getInspectionReporter();
-    @Nullable DuplicatesReporter getDuplicatesReporter();
-    @NotNull String getCheckoutDir();
-    @Nullable String getFindBugsHome();
-    boolean isVerbose();
-    @NotNull
-    BuildProgressLogger getLogger();
-    @NotNull Map<String,String> getRunnerParameters();
-    @NotNull String getTmpDir();
-    boolean getLogAsInternal(@NotNull File path);
-  }
-
-  public XmlReportProcessor(@NotNull final Parameters parameters,
+  public XmlReportProcessor(@NotNull final XmlReportPluginParameters parameters,
                             @NotNull final LinkedBlockingQueue<ReportData> queue,
                             @NotNull final XmlReportDirectoryWatcher watcher) {
     super("xml-report-plugin-ReportProcessor");
@@ -125,7 +110,7 @@ public class XmlReportProcessor extends Thread {
   private void processReport(final ReportData data) {
     if (data == null) return;
 
-    final boolean logAsInternal = myParameters.getLogAsInternal(data.getImportRequestPath());
+    final boolean logAsInternal = myParameters.getPathParameters(data.getImportRequestPath()).isLogAsInternal();
 
     final BuildProgressLogger requestLogger =
       logAsInternal ?
@@ -200,7 +185,7 @@ public class XmlReportProcessor extends Thread {
   }
 
   private boolean reportGrows(ReportData data) throws InterruptedException {
-    if ("false".equalsIgnoreCase(myParameters.getRunnerParameters().get(XmlReportPlugin.CHECK_REPORT_GROWS)))
+    if (!myParameters.checkReportGrows())
       return false;
     final long oldLength = data.getFile().length();
     for (int i = 0; i < 10; ++i) {
@@ -214,22 +199,19 @@ public class XmlReportProcessor extends Thread {
   }
 
   private boolean isReportComplete(ReportData data) {
-    return "false".equalsIgnoreCase(myParameters.getRunnerParameters().get(XmlReportPlugin.CHECK_REPORT_COMPLETE)) ||
-      myParsers.get(data.getType()).isReportComplete(data.getFile());
+    return !myParameters.checkReportComplete() || myParsers.get(data.getType()).isReportComplete(data.getFile());
   }
 
   private void initializeParser(String type) {
     myParsers.put(type, createParser(myParameters, type));
   }
 
-  private XmlReportParser createParser(@NotNull Parameters parameters, @NotNull String type) {
+  private XmlReportParser createParser(@NotNull XmlReportPluginParameters parameters, @NotNull String type) {
     if (AntJUnitReportParser.TYPE.equals(type) || ("surefire".equals(type)))
       return new AntJUnitReportParser();
 
     if (NUnitReportParser.TYPE.equals(type))
-      return new NUnitReportParser(myFlowLogger, parameters.getTmpDir(),
-        "false".equalsIgnoreCase(parameters.getRunnerParameters().get(XmlReportPlugin.TREAT_DLL_AS_SUITE)) ?
-          NUNIT_TO_JUNIT_OLD_XSL : NUNIT_TO_JUNIT_XSL);
+      return new NUnitReportParser(myFlowLogger, parameters.getTmpDir(), parameters.getNUnitSchema());
 
     if (XmlReportPluginUtil.isInspection(type)) {
       final InspectionReporter inspectionsReporter = parameters.getInspectionReporter();
@@ -267,8 +249,4 @@ public class XmlReportProcessor extends Thread {
       parser.dispose();
     }
   }
-
-  private static final String NUNIT_TO_JUNIT_XSL = "nunit-to-junit.xsl";
-  private static final String NUNIT_TO_JUNIT_OLD_XSL = "nunit-to-junit-old.xsl";
-
 }

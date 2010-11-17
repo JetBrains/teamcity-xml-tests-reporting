@@ -19,10 +19,7 @@ package jetbrains.buildServer.xmlReportPlugin.integration;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
-import jetbrains.buildServer.xmlReportPlugin.TestUtil;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil;
+import jetbrains.buildServer.xmlReportPlugin.*;
 import org.jetbrains.annotations.NotNull;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -105,7 +102,7 @@ public class XmlReportPluginIntegrationTest {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    myRunnerParams.put(XmlReportPlugin.CHECKOUT_DIR, myCheckoutDir.getAbsolutePath());
+    myRunnerParams.put(XmlReportPluginConstants.CHECKOUT_DIR, myCheckoutDir.getAbsolutePath());
     XmlReportPluginUtil.setWhenNoDataPublished(myRunnerParams, "error");
 
     myRunningBuild = createAgentRunningBuild(myCheckoutDir, myTestLogger);
@@ -238,7 +235,7 @@ public class XmlReportPluginIntegrationTest {
   private void warningWhenNoReportsFoundInDirectory(String reportType) {
     createDir(REPORTS_DIR);
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, reportType);
-    myRunnerParams.put(XmlReportPluginUtil.REPORT_DIRS, REPORTS_DIR);
+    myRunnerParams.put(XmlReportPluginConstants.REPORT_DIRS, REPORTS_DIR);
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final String path = getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath();
@@ -260,7 +257,7 @@ public class XmlReportPluginIntegrationTest {
   private void warningWhenNoReportsFoundInDirectoryOnlyWrong(String reportType) {
     createDir(REPORTS_DIR);
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, reportType);
-    myRunnerParams.put(XmlReportPluginUtil.REPORT_DIRS, REPORTS_DIR);
+    myRunnerParams.put(XmlReportPluginConstants.REPORT_DIRS, REPORTS_DIR);
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final String path = getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath();
@@ -386,7 +383,7 @@ public class XmlReportPluginIntegrationTest {
   public void testAntJUnitWarningWhenUnfinishedReportFoundInDirectory() {
     createDir(REPORTS_DIR);
     XmlReportPluginUtil.enableXmlReportParsing(myRunnerParams, ANT_JUNIT_REPORT_TYPE);
-    myRunnerParams.put(XmlReportPluginUtil.REPORT_DIRS, REPORTS_DIR);
+    myRunnerParams.put(XmlReportPluginConstants.REPORT_DIRS, REPORTS_DIR);
     XmlReportPluginUtil.setVerboseOutput(myRunnerParams, true);
 
     final String path = getFileInCheckoutDir(REPORTS_DIR).getAbsolutePath();
