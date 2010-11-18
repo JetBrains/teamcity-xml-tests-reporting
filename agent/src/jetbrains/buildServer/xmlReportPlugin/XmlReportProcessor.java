@@ -70,11 +70,9 @@ public class XmlReportProcessor extends Thread {
     myFlowLogger = myParameters.getLogger().getThreadLogger();
     try {
       while (!myStopSignaled) {
-        LOG.debug("processor iteration started");
         processReport(takeNextReport(false));
       }
       try {
-        LOG.debug("processor joins watcher");
         myWatcher.join();
       } catch (InterruptedException e) {
         myFlowLogger.exception(e);
