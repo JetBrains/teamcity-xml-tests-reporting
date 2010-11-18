@@ -16,12 +16,11 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.util.Arrays;
+import java.util.List;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * User: vbedrosova
@@ -68,7 +67,7 @@ public interface PathParameters {
       return myName;
     }
 
-    public abstract void doLogAction(@NotNull final String message, @NotNull final BuildProgressLogger logger);
+    public abstract void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger);
 
     public static LogAction getAction(@Nullable String name) {
       if (name == null) return ERROR;
