@@ -183,6 +183,7 @@ public class XmlReportPluginUtil {
   }
 
   public static boolean isLogIsInternal(@NotNull final Map<String, String> params) {
-    return !"false".equalsIgnoreCase(params.get(LOG_AS_INTERNAL));
+    return params.containsKey(LOG_AS_INTERNAL) && params.get(LOG_AS_INTERNAL) != null
+      ? Boolean.parseBoolean(params.get(LOG_AS_INTERNAL)) : !isOutputVerbose(params);
   }
 }
