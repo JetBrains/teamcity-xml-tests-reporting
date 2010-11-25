@@ -65,16 +65,14 @@
                                                 <xsl:variable name="mess"
                                                               select="./failure/message"/>
                                                 <failure message="{$mess}">
-                                                    <xsl:value-of select="./failure/stack-trace"
-                                                                  disable-output-escaping="yes"/>
+                                                    <xsl:value-of select="./failure/stack-trace"/>
                                                 </failure>
                                             </xsl:when>
                                             <xsl:otherwise>
                                                 <xsl:variable name="mess"
                                                               select="$suitefailure/message"/>
                                                 <failure message="{$mess}">
-                                                    <xsl:value-of select="$suitefailure/stack-trace"
-                                                                  disable-output-escaping="yes"/>
+                                                    <xsl:value-of select="$suitefailure/stack-trace"/>
                                                 </failure>
                                             </xsl:otherwise>
                                         </xsl:choose>
