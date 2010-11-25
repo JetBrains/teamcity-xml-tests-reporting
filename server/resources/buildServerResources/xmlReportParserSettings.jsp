@@ -91,7 +91,6 @@
                 BS.Util.show($('xmlReportParsing.verboseOutput.container'));
                 BS.MultilineProperties.show('xmlReportParsing.reportDirs', true);
                 $('xmlReportParsing.reportDirs').focus();
-                BS.MultilineProperties.updateVisible();
                 }
                 var isInspection = (selectedValue == 'findBugs' ||
                 selectedValue == 'pmd' ||
@@ -114,6 +113,8 @@
                 } else {
                 BS.Util.hide($('xmlReportParsing.warning.container'));
                 }
+
+                BS.MultilineProperties.updateVisible();
             </c:set>
             <props:selectProperty name="xmlReportParsing.reportType"
                                   onchange="${onchange}">
