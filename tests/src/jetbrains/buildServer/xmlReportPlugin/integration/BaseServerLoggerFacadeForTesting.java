@@ -225,9 +225,6 @@ class BaseServerLoggerFacadeForTesting implements FlowLogger, MessageTweakingSup
 
   public void buildFailureDescription(java.lang.String s) { /* compiled code */ }
 
-  public void preparationEndMessage() {
-  }
-
   public void internalError(final String type, final String message, final Throwable throwable) {
   }
 

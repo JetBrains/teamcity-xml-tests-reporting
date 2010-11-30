@@ -66,10 +66,6 @@ class BuildLoggerForTesting implements FlowLogger, MessageTweakingSupport {
 
   }
 
-  public void preparationEndMessage() {
-
-  }
-
   public void internalError(final String type, final String message, final Throwable throwable) {
 
   }
