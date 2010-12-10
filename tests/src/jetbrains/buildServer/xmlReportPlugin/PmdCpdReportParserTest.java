@@ -1,6 +1,5 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.xmlReportPlugin.pmdCpd.PmdCpdReportParser;
 import org.junit.Test;
@@ -21,7 +20,6 @@ public class PmdCpdReportParserTest extends ParserTestCase {
   @Override
   protected XmlReportParser getParser(StringBuilder results) {
     final DuplicatesReporter reporter = TestUtil.createDuplicatesReporter(results);
-    final BuildProgressLogger logger = new BuildLoggerForTesting(results);
 
     return new PmdCpdReportParser(reporter, "##BASE_DIR##");
   }
