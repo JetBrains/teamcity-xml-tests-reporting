@@ -1,5 +1,3 @@
-MESSAGE: Watching paths: 
-MESSAGE: ##BASE_DIR##\file.xml
-##BASE_DIR##\file.xml
+##BASE_DIR##\##FILE_XML##
 MESSAGE: 1 file(s) found
-MESSAGE: ##BASE_DIR##\file.xml found
+MESSAGE: ##BASE_DIR##\##FILE_XML## found

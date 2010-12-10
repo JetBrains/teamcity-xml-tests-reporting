@@ -1,8 +1,8 @@
-<xmlReportParsing.logAsInternal, false>
 <xmlReportParsing.max.warnings, null>
 <xmlReportParsing.max.errors, null>
 <xmlReportParsing.reportType, junit>
 <xmlReportParsing.whenNoDataPublished, error>
 <xmlReportParsing.parse.outofdate, false>
+<xmlReportParsing.logAsInternal, false>
 <xmlReportParsing.verboseOutput, false>
-tests\testData\dataProcessor\Report.xml
+Report.xml

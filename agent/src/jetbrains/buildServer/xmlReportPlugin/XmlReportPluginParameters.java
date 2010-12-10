@@ -34,6 +34,8 @@ public interface XmlReportPluginParameters extends PluginParameters {
   @NotNull
   Collection<File> getPaths(@NotNull String type);
   @NotNull
+  XmlReportPluginRules getRules(@NotNull String type);
+  @NotNull
   PathParameters getPathParameters(@NotNull File path);
 
   @NotNull

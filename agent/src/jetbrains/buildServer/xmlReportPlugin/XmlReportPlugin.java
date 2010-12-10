@@ -47,6 +47,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
   private volatile boolean myStopped;
 
+  private volatile File myCheckoutDir;
+
   public XmlReportPlugin(@NotNull final EventDispatcher<AgentLifeCycleListener> agentDispatcher,
                          @NotNull final InspectionReporter inspectionReporter,
                          @NotNull final DuplicatesReporter duplicatesReporter) {
@@ -54,6 +56,15 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     myInspectionReporter = inspectionReporter;
     myInspectionReporter.addListener(this);
     myDuplicatesReporter = duplicatesReporter;
+  }
+
+  @Override
+  public void buildStarted(@NotNull AgentRunningBuild runningBuild) {
+    myCheckoutDir = runningBuild.getCheckoutDirectory();
+  }
+
+  public File getCheckoutDir() {
+    return myCheckoutDir;
   }
 
   @Override
@@ -84,21 +95,20 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     parametersMap.put(BUILD_START, "" + startTime.getTime());
     parametersMap.put(TMP_DIR, runner.getBuild().getBuildTempDirectory().getAbsolutePath());
     parametersMap.put(TREAT_DLL_AS_SUITE, runner.getBuildParameters().getSystemProperties().get(TREAT_DLL_AS_SUITE));
-    parametersMap.put(PATHS_TO_EXCLUDE, runner.getBuildParameters().getSystemProperties().get(PATHS_TO_EXCLUDE));
     parametersMap.put(CHECK_REPORT_GROWS, runner.getBuildParameters().getSystemProperties().get(CHECK_REPORT_GROWS));
     parametersMap.put(CHECK_REPORT_COMPLETE, runner.getBuildParameters().getSystemProperties().get(CHECK_REPORT_COMPLETE));
     parametersMap.put(LOG_AS_INTERNAL, runner.getBuildParameters().getSystemProperties().get(LOG_AS_INTERNAL));
 
     if(additionalParams != null) parametersMap.putAll(additionalParams);
 
+    final Set<File> reportPaths = paths != null ? getRelativePaths(paths, runner.getBuild().getCheckoutDirectory()) :
+      getReportPathsFromDirProperty(getXmlReportPaths(parametersMap));
+
     final LinkedBlockingQueue<ReportData> reportsQueue = new LinkedBlockingQueue<ReportData>();
     final XmlReportPluginParameters parameters = new XmlReportPluginParametersImpl(runner.getBuild().getBuildLogger(), myInspectionReporter, myDuplicatesReporter);
 
     final XmlReportDirectoryWatcher directoryWatcher = new XmlReportDirectoryWatcher(parameters, reportsQueue);
     final XmlReportProcessor reportProcessor = new XmlReportProcessor(parameters, reportsQueue, directoryWatcher);
-
-    final Set<File> reportPaths = paths != null ? paths :
-      getReportPathsFromDirProperty(getXmlReportPaths(parametersMap), runner.getBuild().getCheckoutDirectory());
 
     parameters.updateParameters(reportPaths, parametersMap);
 
@@ -107,13 +117,22 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
   private static final Collection<String> SILENT_PATHS = Arrays.asList("");
 
-  private static Set<File> getReportPathsFromDirProperty(String pathsStr, File checkoutDir) {
+  private static Set<File> getRelativePaths(Set<File> paths, File checkoutDir) {
+    final Set<File> resolvedPaths = new HashSet<File>(paths.size());
+    for (final File path : paths) {
+      resolvedPaths.add(new File(FileUtil.getRelativePath(checkoutDir, path)));
+    }
+    return  resolvedPaths;
+  }
+
+  private static Set<File> getReportPathsFromDirProperty(String pathsStr) {
     final Set<File> dirs = new HashSet<File>();
-    if (pathsStr != null) {
-      final String[] paths = pathsStr.split(SPLIT_REGEX);
-      for (String path : paths) {
-        dirs.add(FileUtil.resolvePath(checkoutDir, path));
+    if (pathsStr != null && pathsStr.length() > 0) {
+      for (String path : pathsStr.split(SPLIT_REGEX)) {
+        dirs.add(new File(path));
       }
+    } else {
+      throw new RuntimeException("Report paths are empty");
     }
     dirs.removeAll(SILENT_PATHS);
     return dirs;
@@ -176,10 +195,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     myRunner = null;
     myStartTime = null;
     myContext = null;
-  }
-
-  public boolean isStopped() {
-    return myStopped;
   }
 
   public void beforeInspectionsSent(@NotNull AgentRunningBuild build) {

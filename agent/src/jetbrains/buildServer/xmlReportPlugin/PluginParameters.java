@@ -22,16 +22,12 @@ import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
 /**
  * User: vbedrosova
  * Date: 16.11.10
  * Time: 18:27
  */
 public interface PluginParameters {
-  @NotNull
-  List<String> getPathsToExclude();
   @NotNull
   String getCheckoutDir();
   @Nullable

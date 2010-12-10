@@ -45,7 +45,7 @@ public class XmlReportDirectoryWatcher extends Thread implements XmlReportPlugin
   private volatile boolean myStopSignaled;
 
   private static boolean isAntMask(File f) {
-    return isAntMask(f.getAbsolutePath());
+    return isAntMask(f.getPath());
   }
 
   private static boolean isAntMask(String s) {
@@ -70,14 +70,14 @@ public class XmlReportDirectoryWatcher extends Thread implements XmlReportPlugin
   private void logWatchingPaths(final Set<File> paths, String type, final BuildProgressLogger logger) {
     logInTarget(type, new Runnable() {
       public void run() {
-        String message = "Watching paths: ";
+        String message = "Watching paths:";
         if (paths.size() == 0) {
           message += "<no paths>";
           warning(logger, message);
         } else {
           message(logger, message);
           for (File f : paths) {
-            message(logger, f.getAbsolutePath());
+            message(logger, f.getPath());
           }
         }
       }
@@ -117,7 +117,7 @@ public class XmlReportDirectoryWatcher extends Thread implements XmlReportPlugin
     if (existingPaths.size() > 0) {
       LOG.info("Found files from previous builds or build steps:");
       for (File f : existingPaths) {
-        LOG.info(f.getAbsolutePath());
+        LOG.info(f.getPath());
       }
     }
   }
@@ -129,8 +129,8 @@ public class XmlReportDirectoryWatcher extends Thread implements XmlReportPlugin
   private MaskData getMask(File f) {
     MaskData md;
     if (!myMaskHash.containsKey(f)) {
-      final File baseDir = new File(getDirWithoutPattern(f.getAbsolutePath()));
-      final Pattern pattern = Pattern.compile(FileUtil.convertAntToRegexp(f.getAbsolutePath().replace(baseDir.getAbsolutePath(), "")));
+      final File baseDir = new File(getDirWithoutPattern(f.getPath()));
+      final Pattern pattern = Pattern.compile(FileUtil.convertAntToRegexp(f.getPath().replace(baseDir.getPath(), "")));
       md = new MaskData(baseDir, pattern);
       myMaskHash.put(f, md);
     } else {
@@ -168,7 +168,7 @@ public class XmlReportDirectoryWatcher extends Thread implements XmlReportPlugin
       public void run() {
         warning(logger, header);
         for (File f : paths) {
-          warning(logger, f.getAbsolutePath());
+          warning(logger, f.getPath());
         }
       }
     }, logger);
@@ -206,7 +206,7 @@ public class XmlReportDirectoryWatcher extends Thread implements XmlReportPlugin
     for (final String type : myParameters.getTypes()) {
       final TypeStatistics s = getTypeStatistics(type);
       for (File f : myParameters.getPaths(type)) {
-        if (isGoodFile(f, f) && !s.getFiles().contains(f)) {  // TODO complete duplicate of processFile()
+        if (isGoodFile(type, f, f) && !s.getFiles().contains(f)) {  // TODO complete duplicate of processFile()
           s.getFiles().add(f);
           sendToQueue(type, f, f);
         } else if (f.isDirectory()) {
@@ -241,35 +241,25 @@ public class XmlReportDirectoryWatcher extends Thread implements XmlReportPlugin
     return s;
   }
 
-  private boolean isGoodFile(File f, File path) {
-    return f.getName().endsWith(".xml") && f.isFile() && f.canRead() && timeConstraintsSatisfied(f, path) && !isExcluded(f);
+  private boolean isGoodFile(String type, File f, File path) {
+    return f.getName().endsWith(".xml") && f.isFile() && f.canRead() && timeConstraintsSatisfied(f, path) && isIncluded(type, f);
   }
 
   private boolean timeConstraintsSatisfied(File file, File path) {
     return myParameters.getPathParameters(path).isParseOutOfDate() || !isOutOfDate(file);
   }
 
-  private boolean isExcluded(File file) {
-    final String path = file.getAbsolutePath();
-    for (final String s : myParameters.getPathsToExclude()) {
-      if (isAntMask(s)) {
-       if (MATCHER.match(s, path)) {
-         return true;
-       }
-      } else if (s.startsWith(path)) {
-        return true;
-      }
-    }
-    return false;
+  private boolean isIncluded(String type, File file) {
+    return myParameters.getRules(type).shouldInclude(file);
   }
 
   private void sendToQueue(String type, File f, File importRequestPath) throws InterruptedException {
-    LOG.debug("Sending " + f.getAbsolutePath() + " to report queue");
+    LOG.debug("Sending " + f.getPath() + " to report queue");
     myReportQueue.put(new ReportData(f, type, importRequestPath));
   }
 
   private void processFile(String type, File path, TypeStatistics s, Set<File> files, File file) throws Exception {
-    if (isGoodFile(file, path)) {
+    if (isGoodFile(type, file, path)) {
       if (!s.getFiles().contains(file)) {
         sendToQueue(type, file, path);
         s.getFiles().add(file);
@@ -304,7 +294,7 @@ public class XmlReportDirectoryWatcher extends Thread implements XmlReportPlugin
             logFiles(s, d, s.getDirs().get(d), logger);
             if (myParameters.isVerbose()) {
               for (File f : s.getDirs().get(d)) {
-                message(logger, f.getAbsolutePath() + " found");
+                message(logger, f.getPath() + " found");
               }
             }
             paths.removeAll(s.getDirs().get(d));
@@ -314,7 +304,7 @@ public class XmlReportDirectoryWatcher extends Thread implements XmlReportPlugin
             logFiles(s, m, s.getMasks().get(m), logger);
             if (myParameters.isVerbose()) {
               for (File f : s.getMasks().get(m)) {
-                message(logger, f.getAbsolutePath() + " found");
+                message(logger, f.getPath() + " found");
               }
             }
             paths.removeAll(s.getMasks().get(m));
@@ -322,7 +312,7 @@ public class XmlReportDirectoryWatcher extends Thread implements XmlReportPlugin
           }
           for (File f : s.getFiles()) {
             if (myParameters.isVerbose()) {
-              message(logger, f.getAbsolutePath() + " found");
+              message(logger, f.getPath() + " found");
             }
             paths.remove(f);
           }
@@ -337,7 +327,7 @@ public class XmlReportDirectoryWatcher extends Thread implements XmlReportPlugin
   private void logFiles(TypeStatistics s, File d, Set<File> files, final BuildProgressLogger logger) {
     if (files.size() > 0) {
       if (myParameters.isVerbose()) {
-        message(logger, d.getAbsolutePath() + ": " + files.size() + " file(s) found");
+        message(logger, d.getPath() + ": " + files.size() + " file(s) found");
       }
       s.getFiles().removeAll(files);
     } else {
@@ -346,7 +336,7 @@ public class XmlReportDirectoryWatcher extends Thread implements XmlReportPlugin
   }
 
   private void logNoDataPublished(File path, String suffix, final BuildProgressLogger logger) {
-    final String message = path.getAbsolutePath() + suffix;
+    final String message = path.getPath() + suffix;
     myParameters.getPathParameters(path).getWhenNoDataPublished().doLogAction(message, logger);
   }
 

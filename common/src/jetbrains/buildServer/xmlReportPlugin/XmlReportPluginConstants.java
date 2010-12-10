@@ -43,8 +43,6 @@ public interface XmlReportPluginConstants {
 
   static final String TREAT_DLL_AS_SUITE = "xmlReportParsing.nunit.treatDllAsRootSuite";
 
-  static final String PATHS_TO_EXCLUDE = "xmlReportParsing.exclude";
-
   static final String CHECK_REPORT_GROWS = "xmlReportParsing.check.report.grows";
   static final String CHECK_REPORT_COMPLETE = "xmlReportParsing.check.report.complete";
 

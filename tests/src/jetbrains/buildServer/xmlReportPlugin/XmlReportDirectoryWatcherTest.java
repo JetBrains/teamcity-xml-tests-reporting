@@ -20,6 +20,7 @@ import jetbrains.buildServer.TempFiles;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.util.FileUtil;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
 import org.junit.After;
@@ -37,15 +38,22 @@ import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
 
 @SuppressWarnings({"ResultOfMethodCallIgnored"})
 public class XmlReportDirectoryWatcherTest extends TestCase {
+  @NotNull
   private static final String JUNIT = "junit";
+  @NotNull
   private static final List<String> TYPES = Arrays.asList(JUNIT);
+  @NotNull
   private static final String METHOD_NOT_IMPLEMENTED = "Method not implemented";
+
   private TempFiles myTempFiles;
   private File myWorkDir;
 
-  private XmlReportPluginParameters createParameters(final Collection<File> input, final BuildProgressLogger logger) {
+  private XmlReportPluginParameters createParameters(@NotNull final Collection<File> input,
+                                                     @NotNull final BuildProgressLogger logger) {
 
     return new XmlReportPluginParameters() {
+      final XmlReportPluginRules myRules = new XmlReportPluginRules(getPathsStrings(input), myWorkDir.getAbsolutePath());
+
       public boolean isVerbose() {
         return true;
       }
@@ -60,18 +68,18 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
       }
 
       @NotNull
-      public List<String> getPathsToExclude() {
-        return Collections.emptyList();
-      }
-
-      @NotNull
       public Collection<String> getTypes() {
         return TYPES;
       }
 
       @NotNull
       public Collection<File> getPaths(@NotNull String type) {
-        return input;
+        return myRules.getRootIncludePaths();
+      }
+
+      @NotNull
+      public XmlReportPluginRules getRules(@NotNull String type) {
+        return myRules;
       }
 
       @NotNull
@@ -145,6 +153,19 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     };
   }
 
+  @NotNull
+  private Set<String> getPathsStrings(@NotNull final Collection<File> paths) {
+    final Set<String> pathsStr = new HashSet<String>(paths.size());
+    for (final File path : paths) {
+      if (path.getPath().startsWith("-:") || path.getPath().startsWith("+:")) {
+        pathsStr.add(path.getPath());
+        continue;
+      }
+      pathsStr.add(FileUtil.getRelativePath(myWorkDir, path));
+    }
+    return pathsStr;
+  }
+
   @Override
   @Before
   public void setUp() throws IOException {
@@ -212,31 +233,14 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     final LinkedBlockingQueue<ReportData> queue = new LinkedBlockingQueueMock<ReportData>(results);
 
     final XmlReportDirectoryWatcher watcher = new XmlReportDirectoryWatcher(parameters, queue);
-    watcher.pathsAdded(JUNIT, input);
     watcher.signalStop();
 
-//    final Thread stopper = new Thread(new Runnable() {
-//      public void run() {
-//        try {
-//          Thread.sleep(2000);
-//        } catch (InterruptedException e) {
-//          e.printStackTrace();
-//        }
-//        myContext.checking(new Expectations() {
-//          {
-//            allowing(plugin).isStopped();
-//            will(returnValue(true));
-//          }
-//        });
-//      }
-//    });
-//    stopper.start();
     watcher.run();
     watcher.logTotals(logger);
 
     final File expected = new File(expectedFile);
     String baseDir = myWorkDir.getCanonicalPath();
-    String actual = results.toString().replace(baseDir, "##BASE_DIR##").replace("/", File.separator).replace("\\", File.separator).trim();
+    String actual = getActualString(results, baseDir);
     String expectedContent = readFile(expected, true).trim();
     if (!expectedContent.equals(actual)) {
       final FileWriter resultsWriter = new FileWriter(resultsFile);
@@ -247,9 +251,8 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     }
   }
 
-  @Test
-  public void testEmpty() throws Exception {
-    runTest("empty", new HashSet<File>());
+  private String getActualString(StringBuilder results, String baseDir) {
+    return results.toString().replace(baseDir, "##BASE_DIR##").replaceAll("file\\d?.xml", "##FILE_XML##").replace("/", File.separator).replace("\\", File.separator).trim();
   }
 
   @Test
@@ -288,16 +291,31 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     f.delete();
   }
 
-  /*
   @Test
   public void testOneDirWithFiles() throws Exception {
     final Set<File> files = new HashSet<File>();
     final File f = createDir("dir");
     files.add(f);
-    final File f1 = createFileInDir(f, "f1");
-    final File f2 = createFileInDir(f, "f2");
-    final File f3 = createFileInDir(f, "f3");
+    final File f1 = createFileInDir(f, "file1.xml");
+    final File f2 = createFileInDir(f, "file2.xml");
+    final File f3 = createFileInDir(f, "file3.xml");
     runTest("oneDirWithFiles", files);
+    f1.delete();
+    f2.delete();
+    f3.delete();
+    f.delete();
+  }
+
+  @Test
+  public void testOneDirWithFilesExcludeOne() throws Exception {
+    final Set<File> files = new HashSet<File>();
+    final File f = createDir("dir");
+    files.add(f);
+    files.add(new File("-:dir/file3.xml"));
+    final File f1 = createFileInDir(f, "file1.xml");
+    final File f2 = createFileInDir(f, "file2.xml");
+    final File f3 = createFileInDir(f, "file3.xml");
+    runTest("oneDirWithFilesExcludeOne", files);
     f1.delete();
     f2.delete();
     f3.delete();
@@ -313,6 +331,4 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     }
     return f;
   }
-
-  */
 }

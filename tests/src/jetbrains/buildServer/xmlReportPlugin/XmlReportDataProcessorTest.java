@@ -20,6 +20,7 @@ import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.DataProcessorContext;
 import jetbrains.buildServer.util.EventDispatcher;
+import jetbrains.buildServer.util.FileUtil;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
 import org.jmock.Mockery;
@@ -37,10 +38,19 @@ import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
 
 public class XmlReportDataProcessorTest extends TestCase {
   private Mockery myContext;
+  private File myCheckoutDir;
+  private File myReport;
 
   @Override
-  public void setUp() {
+  public void setUp() throws Exception {
     myContext = new JUnit4Mockery();
+    myCheckoutDir = FileUtil.createTempDirectory("", "");
+    myReport = new File(myCheckoutDir, "Report.xml");
+  }
+
+  @Override
+  protected void tearDown() throws Exception {
+    FileUtil.delete(myCheckoutDir);
   }
 
   private void runTest(final Map<String, String> arguments, final String fileName) throws Exception {
@@ -50,7 +60,6 @@ public class XmlReportDataProcessorTest extends TestCase {
     final StringBuilder results = new StringBuilder();
     final XmlReportPlugin plugin = createFakePlugin(results, TestUtil.getTestDataFile(null, null).getAbsoluteFile().getParentFile().getParentFile());
 
-    final File testDataPath = new File(getTestDataPath("Report.xml", "dataProcessor"));
     final AgentRunningBuild runningBuildMock = myContext.mock(AgentRunningBuild.class);
 
     final XmlReportDataProcessor processor = new XmlReportDataProcessor.JUnitDataProcessor(plugin);
@@ -63,7 +72,7 @@ public class XmlReportDataProcessorTest extends TestCase {
 
       @NotNull
       public File getFile() {
-        return testDataPath;
+        return myReport;
       }
 
       @NotNull
@@ -87,12 +96,17 @@ public class XmlReportDataProcessorTest extends TestCase {
     return new XmlReportPlugin(EventDispatcher.create(AgentLifeCycleListener.class),
       createInspectionReporter(myContext), createDuplicatesReporter(myContext)) {
       @Override
+      public File getCheckoutDir() {
+        return myCheckoutDir;
+      }
+
+      @Override
       public void processReports(@NotNull Map<String, String> params, @NotNull Set<File> reportDirs) {
         for (String key : params.keySet()) {
           results.append("<").append(key).append(", ").append(params.get(key)).append(">\n");
         }
         for (File f : reportDirs) {
-          results.append(TestUtil.getRelativePath(f, base)).append("\n");
+          results.append(f.getPath()).append("\n");
         }
       }
     };

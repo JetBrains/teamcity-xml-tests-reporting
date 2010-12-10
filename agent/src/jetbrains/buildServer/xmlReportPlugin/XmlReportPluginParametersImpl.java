@@ -19,16 +19,12 @@ package jetbrains.buildServer.xmlReportPlugin;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import jetbrains.buildServer.util.FileUtil;
-import jetbrains.buildServer.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.*;
 
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginConstants.PATHS_TO_EXCLUDE;
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginConstants.SPLIT_REGEX;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
 
 /**
@@ -42,7 +38,7 @@ public class XmlReportPluginParametersImpl implements XmlReportPluginParameters 
   @NotNull
   private final Map<File, PathParametersImpl> myPathParameters = new HashMap<File, PathParametersImpl>();
   @NotNull
-  private final Map<String, Set<File>> myPaths = new HashMap<String, Set<File>>();
+  private final Map<String, XmlReportPluginRules> myPaths = new HashMap<String, XmlReportPluginRules>();
 
   @NotNull
   private final BuildProgressLogger myLogger;
@@ -71,19 +67,20 @@ public class XmlReportPluginParametersImpl implements XmlReportPluginParameters 
       return;
     }
 
+    myParameters.putAll(parameters);
+
     if (!myPaths.containsKey(type)) {
       if (isInspection(type) && hasInspections()) {
         getLogger().warning("Only one report of Code Inspection type is supported per build, skipping " + SUPPORTED_REPORT_TYPES.get(type) + " reports");
         getListener().pathsSkipped(type, paths);
         return;
       }
-      myPaths.put(type, paths);
+      myPaths.put(type, new XmlReportPluginRules(getPaths(paths), getCheckoutDir()));
     } else {
-      paths.removeAll(myPaths.get(type));
-      myPaths.get(type).addAll(paths);
+      final Set<String> updatedPaths = new HashSet<String>(myPaths.get(type).getBody());
+      updatedPaths.addAll(getPaths(paths));
+      myPaths.put(type, new XmlReportPluginRules(updatedPaths, getCheckoutDir()));
     }
-
-    myParameters.putAll(parameters);
 
     final boolean parseOutOfDate = isParseOutOfDateReports(parameters);
     final String whenNoDataPublished = whenNoDataPublished(parameters);
@@ -92,11 +89,20 @@ public class XmlReportPluginParametersImpl implements XmlReportPluginParameters 
 
     final PathParametersImpl pathParameters = new PathParametersImpl(parseOutOfDate, PathParameters.LogAction.getAction(whenNoDataPublished), logAsInternal, verbose);
 
-    for (final File path : paths) {
+    for (final File path : myPaths.get(type).getRootIncludePaths()) {
       myPathParameters.put(path, pathParameters);
     }
 
-    getListener().pathsAdded(type, paths);
+    getListener().pathsAdded(type, myPaths.get(type).getRootIncludePaths());
+  }
+
+  @NotNull
+  private static Set<String> getPaths(@NotNull final Set<File> paths) {
+    final Set<String> pathsStr = new HashSet<String>(paths.size());
+    for (final File path : paths) {
+      pathsStr.add(path.getPath());
+    }
+    return pathsStr;
   }
 
   @SuppressWarnings({"NullableProblems"})
@@ -124,12 +130,17 @@ public class XmlReportPluginParametersImpl implements XmlReportPluginParameters 
 
   @NotNull
   public synchronized Collection<String> getTypes() {
-    return new ArrayList<String>(myPaths.keySet());
+    return myPaths.keySet();
   }
 
   @NotNull
   public synchronized Collection<File> getPaths(@NotNull String type) {
-    return new ArrayList<File>(myPaths.get(type));
+    return myPaths.get(type).getRootIncludePaths();
+  }
+
+  @NotNull
+  public XmlReportPluginRules getRules(@NotNull String type) {
+    return myPaths.get(type);
   }
 
   public synchronized boolean isVerbose() {
@@ -144,20 +155,6 @@ public class XmlReportPluginParametersImpl implements XmlReportPluginParameters 
   @Nullable
   public synchronized String getFindBugsHome() {
     return getFindBugsHomePath(myParameters);
-  }
-
-  @NotNull
-  public synchronized List<String> getPathsToExclude() {
-    if (StringUtil.isEmpty(myParameters.get(PATHS_TO_EXCLUDE))) {
-      return Collections.emptyList();
-    }
-
-    final File checkoutDir = new File(getCheckoutDir());
-    final List<String> paths = new ArrayList<String>();
-    for (final String s : myParameters.get(PATHS_TO_EXCLUDE).split(SPLIT_REGEX)) {
-      paths.add(FileUtil.resolvePath(checkoutDir, s).getAbsolutePath());
-    }
-    return paths;
   }
 
   public synchronized long getBuildStartTime() {

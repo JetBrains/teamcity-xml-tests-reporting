@@ -18,6 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.DataProcessor;
 import jetbrains.buildServer.agent.DataProcessorContext;
+import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import org.jetbrains.annotations.NotNull;
 
@@ -77,7 +78,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
     pass(params, XmlReportPluginConstants.MAX_WARNINGS, arguments, WARNINGS_LIMIT_ARGUMENT, null);
 
     final Set<File> reportDirs = new HashSet<File>();
-    reportDirs.add(context.getFile());
+    reportDirs.add(new File(FileUtil.getRelativePath(myPlugin.getCheckoutDir(), context.getFile())));
 
     myPlugin.processReports(params, reportDirs);
   }
