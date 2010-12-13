@@ -91,13 +91,6 @@ public final class TestUtil {
     throw new FileNotFoundException(file1.getAbsolutePath() + ", " + file2.getAbsolutePath() + " or file " + file3.getAbsolutePath() + " should exist.");
   }
 
-  public static String getRelativePath(final File f, final File base) {
-    if (f.getAbsolutePath().startsWith(base.getAbsolutePath())) {
-      return f.getAbsolutePath().substring(base.getAbsolutePath().length() + 1);  //+1 for truncating trasiling "/"
-    }
-    return f.getAbsolutePath();
-  }
-
   public static InspectionReporter createInspectionReporter(final StringBuilder results) {
     return new InspectionReporter() {
       public void reportInspection(@NotNull final InspectionInstance inspection) {
