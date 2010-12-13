@@ -21,7 +21,6 @@ import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
 import jetbrains.buildServer.util.EventDispatcher;
-import jetbrains.buildServer.util.FileUtil;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -101,8 +100,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
     if(additionalParams != null) parametersMap.putAll(additionalParams);
 
-    final Set<File> reportPaths = paths != null ? getRelativePaths(paths, runner.getBuild().getCheckoutDirectory()) :
-      getReportPathsFromDirProperty(getXmlReportPaths(parametersMap));
+    final Set<File> reportPaths = paths != null ? paths : getReportPathsFromDirProperty(getXmlReportPaths(parametersMap));
 
     final LinkedBlockingQueue<ReportData> reportsQueue = new LinkedBlockingQueue<ReportData>();
     final XmlReportPluginParameters parameters = new XmlReportPluginParametersImpl(runner.getBuild().getBuildLogger(), myInspectionReporter, myDuplicatesReporter);
@@ -116,14 +114,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   }
 
   private static final Collection<String> SILENT_PATHS = Arrays.asList("");
-
-  private static Set<File> getRelativePaths(Set<File> paths, File checkoutDir) {
-    final Set<File> resolvedPaths = new HashSet<File>(paths.size());
-    for (final File path : paths) {
-      resolvedPaths.add(new File(FileUtil.getRelativePath(checkoutDir, path)));
-    }
-    return  resolvedPaths;
-  }
 
   private static Set<File> getReportPathsFromDirProperty(String pathsStr) {
     final Set<File> dirs = new HashSet<File>();

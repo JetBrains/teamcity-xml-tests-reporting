@@ -77,10 +77,12 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
     pass(params, XmlReportPluginConstants.MAX_ERRORS, arguments, ERRORS_LIMIT_ARGUMENT, null);
     pass(params, XmlReportPluginConstants.MAX_WARNINGS, arguments, WARNINGS_LIMIT_ARGUMENT, null);
 
-    final Set<File> reportDirs = new HashSet<File>();
-    reportDirs.add(new File(FileUtil.getRelativePath(myPlugin.getCheckoutDir(), context.getFile())));
+    final Set<File> reportPaths = new HashSet<File>();
+    final File reportPath = context.getFile();
+    final String reportPathStr = FileUtil.getRelativePath(myPlugin.getCheckoutDir(), reportPath);
+    reportPaths.add(reportPathStr == null ? reportPath : new File(reportPathStr));
 
-    myPlugin.processReports(params, reportDirs);
+    myPlugin.processReports(params, reportPaths);
   }
 
   private static void pass(final Map<String, String> target,
