@@ -91,12 +91,6 @@ public abstract class XmlReportParser extends DefaultHandler {
 
   public abstract void parse(@NotNull ReportFileContext data) throws Exception;
 
-  /**
-   * This method is used to dispose the parser (ex. close streams, dispose loggers).
-   * Will be called after parser done all it's work
-   */
-  public void dispose() {}
-
   public boolean supportOnTheFlyParsing() {
     return false;
   }
