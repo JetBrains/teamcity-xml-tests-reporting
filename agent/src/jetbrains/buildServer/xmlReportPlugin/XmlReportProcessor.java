@@ -17,7 +17,6 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -26,66 +25,52 @@ import org.xml.sax.SAXParseException;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
-public class XmlReportProcessor extends Thread {
+public class XmlReportProcessor extends XmlReportPluginActivity {
   public static final Logger LOG = Logger.getLogger(XmlReportProcessor.class);
   
-  private static final long FILE_WAIT_TIMEOUT = 500;
-  private static final long SCAN_INTERVAL = 500;
-
-  @NotNull
-  private final LinkedBlockingQueue<ReportData> myReportQueue;
   @NotNull
   private final XmlReportDirectoryWatcher myWatcher;
   @NotNull
   private final Parsers myParsers;
 
   private final Set<String> myFailedReportTypes;
-  private final XmlReportPluginParameters myParameters;
-  private FlowLogger myFlowLogger; // initialized on the thread start and dispose on the thread finish
-
-  private volatile boolean myStopSignaled = false;
 
   public XmlReportProcessor(@NotNull final XmlReportPluginParameters parameters,
-                            @NotNull final LinkedBlockingQueue<ReportData> queue,
+                            @NotNull final ReportQueue queue,
                             @NotNull final XmlReportDirectoryWatcher watcher) {
-    super("xml-report-plugin-ReportProcessor");
-    myReportQueue = queue;
+    super("xml-report-plugin-ReportProcessor", parameters, queue);
     myWatcher = watcher;
     myParsers = new Parsers(parameters);
     myFailedReportTypes = new HashSet<String>();
-    myParameters = parameters;
   }
 
   @Override
-  public void run() {
-    myFlowLogger = myParameters.getLogger().getThreadLogger();
-    try {
-      while (!myStopSignaled) {
-        processReport(takeNextReport(false));
-      }
-
-      joinWatcher();
-
-      while (!myReportQueue.isEmpty()) {
-        processReport(takeNextReport(true));
-      }
-
-      logParsingTotals();
-      logFailedToProcess();
-    } finally {
-      myFlowLogger.disposeFlow();
-    }
+  protected void doStep() throws Exception {
+    processReport(takeNextReport(false));
   }
 
-  private void joinWatcher() {
-    try {
-      myWatcher.join();
-    } catch (InterruptedException e) {
-      myFlowLogger.exception(e);
+  @Override
+  protected void doPostStep() throws Exception {
+    myWatcher.join();
+
+    while (!getQueue().isEmpty()) {
+      processReport(takeNextReport(true));
     }
+
+    logParsingTotals();
+    logFailedToProcess();
+  }
+
+  @Override
+  protected long getPeriod() {
+    return 500L;
+  }
+
+  @NotNull
+  @Override
+  protected Logger getLogger() {
+    return LOG;
   }
 
   private void logFailedToProcess() {
@@ -94,7 +79,7 @@ public class XmlReportProcessor extends Thread {
       for (final String t : myFailedReportTypes) {
         types.append(t).append(", ");
       }
-      myFlowLogger.error("Failed to process some " + types.substring(0, types.length() - 2) + " reports");
+      getThreadLogger().error("Failed to process some " + types.substring(0, types.length() - 2) + " reports");
     }
   }
 
@@ -104,26 +89,22 @@ public class XmlReportProcessor extends Thread {
         parser.logParsingTotals(new SessionContext() {
           @NotNull
           public BuildProgressLogger getLogger() {
-            return myFlowLogger;
+            return getThreadLogger();
           }
-        }, myParameters.getRunnerParameters(), myParameters.isVerbose());
+        }, getParameters().getRunnerParameters(), getParameters().isVerbose());
       }
     });
-  }
-
-  public void signalStop() {
-    myStopSignaled = true;
   }
 
   private void processReport(@Nullable final ReportData data) {
     if (data == null) return;
 
-    final boolean logAsInternal = myParameters.getPathParameters(data.getImportRequestPath()).isLogAsInternal();
+    final boolean logAsInternal = getParameters().getPathParameters(data.getImportRequestPath()).isLogAsInternal();
 
     final BuildProgressLogger requestLogger =
       logAsInternal ?
-        ((MessageTweakingSupport)myFlowLogger).getTweakedLogger(MessageInternalizer.MESSAGE_INTERNALIZER) :
-        myFlowLogger;
+        ((MessageTweakingSupport)getThreadLogger()).getTweakedLogger(MessageInternalizer.MESSAGE_INTERNALIZER) :
+        getThreadLogger();
 
     // TODO it's not efficient to create a context object each time a file is processed. Needs refactoring
 
@@ -137,38 +118,33 @@ public class XmlReportProcessor extends Thread {
       LOG.debug("Parsing " + data.getFile().getAbsolutePath() + " with " + data.getType() + " parser.");
       parser.parse(reportContext);
     } catch (SAXParseException e) {
-      myFlowLogger.error(data.getFile().getAbsolutePath() + " is not parsable with " + typeName + " parser");
-      if (myParameters.isVerbose()) requestLogger.exception(e);
+      getThreadLogger().error(data.getFile().getAbsolutePath() + " is not parsable with " + typeName + " parser");
+      if (getParameters().isVerbose()) requestLogger.exception(e);
       return;
     } catch (Exception e) {
-      myFlowLogger.error("Exception occurred while parsing " + data.getFile().getAbsolutePath());
-      if (myParameters.isVerbose()) requestLogger.exception(e);
+      getThreadLogger().error("Exception occurred while parsing " + data.getFile().getAbsolutePath());
+      if (getParameters().isVerbose()) requestLogger.exception(e);
       return;
     }
 
     if (data.getProcessedEvents() != -1) {
-      if (myStopSignaled) {
+      if (isStopSignaled()) {
         final String message = "Failed to parse " + data.getFile().getAbsolutePath() + " with " + typeName + " parser";
         LOG.error(message);
-        myFlowLogger.error(message);
+        getThreadLogger().error(message);
         myFailedReportTypes.add(typeName);
       } else {
-        try {
-          myReportQueue.put(data);
-          Thread.sleep(SCAN_INTERVAL);
-        } catch (InterruptedException e) {
-          myFlowLogger.exception(e);
-        }
+        getQueue().put(data);
       }
     } else {
-      parser.logReportTotals(reportContext, myParameters.isVerbose());
+      parser.logReportTotals(reportContext, getParameters().isVerbose());
     }
   }
 
   @Nullable
   private ReportData takeNextReport(boolean finalParsing) {
     try {
-      final ReportData data = finalParsing ? myReportQueue.poll() : myReportQueue.poll(FILE_WAIT_TIMEOUT, TimeUnit.MILLISECONDS);
+      final ReportData data = getQueue().poll(!finalParsing);
       if (data != null) {
         final long len = data.getFile().length();
         try {
@@ -177,20 +153,20 @@ public class XmlReportProcessor extends Thread {
               return data;
             }
           }
-          myReportQueue.put(data);
+          getQueue().put(data);
           return null;
         } finally {
           data.setFileLength(len);
         }
       }
     } catch (InterruptedException e) {
-      myFlowLogger.exception(e);
+      getThreadLogger().exception(e);
     }
     return null;
   }
 
   private boolean reportGrows(@NotNull ReportData data) throws InterruptedException {
-    if (!myParameters.checkReportGrows())
+    if (!getParameters().checkReportGrows())
       return false;
     final long oldLength = data.getFile().length();
     for (int i = 0; i < 10; ++i) {
@@ -204,6 +180,6 @@ public class XmlReportProcessor extends Thread {
   }
 
   private boolean isReportComplete(@NotNull ReportData data) {
-    return !myParameters.checkReportComplete() || myParsers.getParser(data.getType()).isReportComplete(data.getFile());
+    return !getParameters().checkReportComplete() || myParsers.getParser(data.getType()).isReportComplete(data.getFile());
   }
 }

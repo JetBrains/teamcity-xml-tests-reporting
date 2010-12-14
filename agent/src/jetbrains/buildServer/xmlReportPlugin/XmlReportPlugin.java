@@ -27,7 +27,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginConstants.*;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.getXmlReportPaths;
@@ -102,7 +101,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
     final Set<File> reportPaths = paths != null ? paths : getReportPathsFromDirProperty(getXmlReportPaths(parametersMap));
 
-    final LinkedBlockingQueue<ReportData> reportsQueue = new LinkedBlockingQueue<ReportData>();
+    final ReportQueue reportsQueue = new ReportQueue();
     final XmlReportPluginParameters parameters = new XmlReportPluginParametersImpl(runner.getBuild().getBuildLogger(), myInspectionReporter, myDuplicatesReporter);
 
     final XmlReportDirectoryWatcher directoryWatcher = new XmlReportDirectoryWatcher(parameters, reportsQueue);
@@ -171,14 +170,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     context.myDirectoryWatcher.signalStop();
 
     final BuildRunnerContext runner = myRunner;
-    try {
-      context.myReportProcessor.join();
-    } catch (InterruptedException e) {
-      if(runner != null)
-        runner.getBuild().getBuildLogger().exception(e);
+    context.myReportProcessor.join();
 
-      LOG.warn(e.toString(), e);
-    }
     if(runner != null)
       context.myDirectoryWatcher.logTotals(runner.getBuild().getBuildLogger());
 

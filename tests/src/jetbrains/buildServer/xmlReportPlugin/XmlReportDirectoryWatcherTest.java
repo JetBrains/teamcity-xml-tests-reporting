@@ -31,7 +31,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
@@ -180,24 +179,17 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     super.tearDown();
   }
 
-  private static class LinkedBlockingQueueMock<E> extends LinkedBlockingQueue<E> {
+  private static class ReportQueueMock extends ReportQueue {
+    @NotNull
     private final StringBuilder myBuffer;
 
-    public LinkedBlockingQueueMock(StringBuilder b) {
+    public ReportQueueMock(@NotNull final StringBuilder b) {
       myBuffer = b;
     }
 
     @Override
-    public void put(E o) throws InterruptedException {
-      final File f;
-      if (o instanceof ReportData) {
-        final ReportData d = (ReportData) o;
-        f = d.getFile();
-      } else {
-        myBuffer.append("Trying to put illegal object to queue: ").append(o.toString());
-        return;
-      }
-      myBuffer.append(f.getAbsolutePath()).append("\n");
+    public void put(@NotNull final ReportData data) {
+      myBuffer.append(data.getFile().getAbsolutePath()).append("\n");
     }
   }
 
@@ -230,12 +222,12 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     final StringBuilder results = new StringBuilder();
     final BuildLoggerForTesting logger = new BuildLoggerForTesting(results);
     final XmlReportPluginParameters parameters = createParameters(input, logger);
-    final LinkedBlockingQueue<ReportData> queue = new LinkedBlockingQueueMock<ReportData>(results);
-
+    final ReportQueue queue = new ReportQueueMock(results);
     final XmlReportDirectoryWatcher watcher = new XmlReportDirectoryWatcher(parameters, queue);
-    watcher.signalStop();
 
-    watcher.run();
+    watcher.signalStop();
+    watcher.start();
+    watcher.join();
     watcher.logTotals(logger);
 
     final File expected = new File(expectedFile);
