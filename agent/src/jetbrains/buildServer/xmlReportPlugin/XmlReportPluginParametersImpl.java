@@ -200,7 +200,7 @@ public class XmlReportPluginParametersImpl implements XmlReportPluginParameters 
   }
 
   @NotNull
-  public PathParameters getPathParameters(@NotNull File path) {
+  public synchronized PathParameters getPathParameters(@NotNull File path) {
     if (!myPathParameters.containsKey(path)) {
       throw new IllegalStateException("Path is unknown");
     }
