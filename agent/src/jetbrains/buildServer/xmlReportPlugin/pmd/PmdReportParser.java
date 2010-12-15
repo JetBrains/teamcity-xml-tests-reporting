@@ -19,7 +19,7 @@ package jetbrains.buildServer.xmlReportPlugin.pmd;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
-import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
+import jetbrains.buildServer.xmlReportPlugin.ReportContext;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -38,13 +38,13 @@ public class PmdReportParser extends InspectionsReportParser {
   }
 
   @Override
-  public void parse(@NotNull final ReportFileContext data) throws Exception {
+  public void parse(@NotNull final ReportContext context) throws Exception {
     try {
-      doSAXParse(data);
+      doSAXParse(context);
     } finally {
       myInspectionReporter.flush();
     }
-    data.setProcessedEvents(-1);
+    context.setProcessedEvents(-1);
   }
 
   //  Handler methods

@@ -17,7 +17,9 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -62,16 +64,11 @@ public class XmlReportPluginParametersImpl implements XmlReportPluginParameters 
                                             @NotNull final Map<String, String> parameters) {
     final String type = getReportType(parameters);
 
-    if (!SUPPORTED_REPORT_TYPES.containsKey(type)) {
-      myLogger.error("Illegal report type: " + type);
-      return;
-    }
-
     myParameters.putAll(parameters);
 
     if (!myPaths.containsKey(type)) {
       if (isInspection(type) && hasInspections()) {
-        getLogger().warning("Only one report of Code Inspection type is supported per build, skipping " + SUPPORTED_REPORT_TYPES.get(type) + " reports");
+        getThreadLogger().warning("Only one report of Code Inspection type is supported per build, skipping " + SUPPORTED_REPORT_TYPES.get(type) + " reports");
         getListener().pathsSkipped(type, paths);
         return;
       }
@@ -195,8 +192,8 @@ public class XmlReportPluginParametersImpl implements XmlReportPluginParameters 
   }
 
   @NotNull
-  public BuildProgressLogger getLogger() {
-    return myLogger;
+  public FlowLogger getThreadLogger() {
+    return myLogger.getThreadLogger();
   }
 
   @NotNull
@@ -207,7 +204,7 @@ public class XmlReportPluginParametersImpl implements XmlReportPluginParameters 
     return myPathParameters.get(path);
   }
 
-  protected static class PathParametersImpl implements PathParameters {
+  protected class PathParametersImpl implements PathParameters {
     private final boolean myParseOutOfDate;
     @NotNull
     private final LogAction myWhenNoDataPublished;
@@ -233,12 +230,15 @@ public class XmlReportPluginParametersImpl implements XmlReportPluginParameters 
       return myWhenNoDataPublished;
     }
 
-    public boolean isLogAsInternal() {
-      return myLogAsInternal;
-    }
-
     public boolean isVerbose() {
       return myVerbose;
+    }
+
+    @NotNull
+    public BuildProgressLogger getPathLogger() {
+      return myLogAsInternal ?
+        ((MessageTweakingSupport) getThreadLogger()).getTweakedLogger(MessageInternalizer.MESSAGE_INTERNALIZER)
+        : getThreadLogger();
     }
   }
 }

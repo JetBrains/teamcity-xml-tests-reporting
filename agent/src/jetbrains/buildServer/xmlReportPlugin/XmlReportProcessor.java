@@ -16,8 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -28,7 +26,7 @@ import java.util.Set;
 
 public class XmlReportProcessor extends XmlReportPluginActivity {
   public static final Logger LOG = Logger.getLogger(XmlReportProcessor.class);
-  
+
   @NotNull
   private final XmlReportDirectoryWatcher myWatcher;
   @NotNull
@@ -51,7 +49,7 @@ public class XmlReportProcessor extends XmlReportPluginActivity {
   }
 
   @Override
-  protected void doPostStep() throws Exception {
+  protected void doFinalStep() throws Exception {
     myWatcher.join();
 
     while (!getQueue().isEmpty()) {
@@ -64,7 +62,7 @@ public class XmlReportProcessor extends XmlReportPluginActivity {
 
   @Override
   protected long getPeriod() {
-    return 500L;
+    return 100L;
   }
 
   @NotNull
@@ -86,92 +84,71 @@ public class XmlReportProcessor extends XmlReportPluginActivity {
   private void logParsingTotals() {
     myParsers.doWithParsers(new Parsers.Processor() {
       public void process(@NotNull XmlReportParser parser) {
-        parser.logParsingTotals(new SessionContext() {
-          @NotNull
-          public BuildProgressLogger getLogger() {
-            return getThreadLogger();
-          }
-        }, getParameters().getRunnerParameters(), getParameters().isVerbose());
+        parser.logParsingTotals(getParameters());
       }
     });
   }
 
-  private void processReport(@Nullable final ReportData data) {
-    if (data == null) return;
+  private void processReport(@Nullable final ReportContext context) throws Exception {
+    if (context == null) return;
 
-    final boolean logAsInternal = getParameters().getPathParameters(data.getImportRequestPath()).isLogAsInternal();
-
-    final BuildProgressLogger requestLogger =
-      logAsInternal ?
-        ((MessageTweakingSupport)getThreadLogger()).getTweakedLogger(MessageInternalizer.MESSAGE_INTERNALIZER) :
-        getThreadLogger();
-
-    // TODO it's not efficient to create a context object each time a file is processed. Needs refactoring
-
-    ImportRequestContextImpl requestContext = new ImportRequestContextImpl(data.getImportRequestPath(), requestLogger);
-    ReportFileContextImpl reportContext = new ReportFileContextImpl(data, requestContext);
-
-    final XmlReportParser parser = myParsers.getParser(data.getType());
-    final String typeName = XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(data.getType());
+    final XmlReportParser parser = myParsers.getParser(context.getType());
+    final String typeName = XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(context.getType());
 
     try {
-      LOG.debug("Parsing " + data.getFile().getAbsolutePath() + " with " + data.getType() + " parser.");
-      parser.parse(reportContext);
+      LOG.debug("Parsing " + context.getFile().getAbsolutePath() + " with " + context.getType() + " parser.");
+      parser.parse(context);
     } catch (SAXParseException e) {
-      getThreadLogger().error(data.getFile().getAbsolutePath() + " is not parsable with " + typeName + " parser");
-      if (getParameters().isVerbose()) requestLogger.exception(e);
+      getThreadLogger().error(context.getFile().getAbsolutePath() + " is not parsable with " + typeName + " parser");
+      if (getParameters().isVerbose()) getThreadLogger().exception(e);
       return;
     } catch (Exception e) {
-      getThreadLogger().error("Exception occurred while parsing " + data.getFile().getAbsolutePath());
-      if (getParameters().isVerbose()) requestLogger.exception(e);
+      getThreadLogger().error("Exception occurred while parsing " + context.getFile().getAbsolutePath());
+      if (getParameters().isVerbose()) getThreadLogger().exception(e);
       return;
     }
 
-    if (data.getProcessedEvents() != -1) {
+    if (context.getProcessedEvents() != -1) {
       if (isStopSignaled()) {
-        final String message = "Failed to parse " + data.getFile().getAbsolutePath() + " with " + typeName + " parser";
+        final String message = "Failed to parse " + context.getFile().getAbsolutePath() + " with " + typeName + " parser";
         LOG.error(message);
         getThreadLogger().error(message);
         myFailedReportTypes.add(typeName);
       } else {
-        getQueue().put(data);
+        getQueue().put(context);
       }
     } else {
-      parser.logReportTotals(reportContext, getParameters().isVerbose());
+      parser.logReportTotals(context, getParameters().isVerbose());
     }
   }
 
   @Nullable
-  private ReportData takeNextReport(boolean finalParsing) {
-    try {
-      final ReportData data = getQueue().poll(!finalParsing);
-      if (data != null) {
-        final long len = data.getFile().length();
-        try {
-          if (len > data.getFileLength() || finalParsing) {
-            if (myParsers.getParser(data.getType()).supportOnTheFlyParsing() || finalParsing || (!reportGrows(data) && isReportComplete(data))) {
-              return data;
-            }
+  private ReportContext takeNextReport(boolean finalParsing) throws Exception {
+    final ReportContext context = getQueue().poll(!finalParsing);
+    if (context != null) {
+      final long len = context.getFile().length();
+      try {
+        if (len > context.getFileLength() || finalParsing) {
+          if (myParsers.getParser(context.getType()).supportOnTheFlyParsing() || finalParsing || (!reportGrows(context) && isReportComplete(context))) {
+            return context;
           }
-          getQueue().put(data);
-          return null;
-        } finally {
-          data.setFileLength(len);
         }
+        getQueue().put(context);
+        return null;
+      } finally {
+        context.setFileLength(len);
       }
-    } catch (InterruptedException e) {
-      getThreadLogger().exception(e);
     }
     return null;
   }
 
-  private boolean reportGrows(@NotNull ReportData data) throws InterruptedException {
+  private boolean reportGrows(@NotNull ReportContext context) throws InterruptedException {
     if (!getParameters().checkReportGrows())
       return false;
-    final long oldLength = data.getFile().length();
+    final long oldLength = context.getFile().length();
     for (int i = 0; i < 10; ++i) {
       Thread.sleep(10);
-      final long newLength = data.getFile().length();
+      final long newLength = context.getFile().length();
       if (newLength > oldLength) {
         return true;
       }
@@ -179,7 +156,7 @@ public class XmlReportProcessor extends XmlReportPluginActivity {
     return false;
   }
 
-  private boolean isReportComplete(@NotNull ReportData data) {
-    return !getParameters().checkReportComplete() || myParsers.getParser(data.getType()).isReportComplete(data.getFile());
+  private boolean isReportComplete(@NotNull ReportContext context) {
+    return !getParameters().checkReportComplete() || myParsers.getParser(context.getType()).isReportComplete(context.getFile());
   }
 }

@@ -41,7 +41,7 @@ public abstract class XmlReportPluginActivity {
   @Nullable
   private Thread myThread;
   @Nullable
-  private FlowLogger myThreadLogger; // initialized on the thread start and dispose on the thread finish
+  private FlowLogger myThreadLogger; // initialized on the thread start and disposed on the thread finish
 
   public XmlReportPluginActivity(@NotNull final String name,
                                  @NotNull final XmlReportPluginParameters parameters,
@@ -64,7 +64,7 @@ public abstract class XmlReportPluginActivity {
 
   @SuppressWarnings({"NullableProblems"})
   @NotNull
-  public Thread getThread() {
+  private Thread getThread() {
     if (myThread == null) throw new IllegalStateException("Thread not initialized");
     return myThread;
   }
@@ -83,13 +83,13 @@ public abstract class XmlReportPluginActivity {
   private void run() {
     myThread = new Thread(new Runnable() {
       public void run() {
-        myThreadLogger = getParameters().getLogger().getThreadLogger();
+        myThreadLogger = getParameters().getThreadLogger();
         try {
           while (!isStopSignaled()) {
             doStep();
             Thread.sleep(getPeriod());
           }
-          doPostStep();
+          doFinalStep();
         } catch (Throwable e) {
           getThreadLogger().exception(e);
           getLogger().error(e.toString(), e);
@@ -101,7 +101,7 @@ public abstract class XmlReportPluginActivity {
     myThread.start();
   }
 
-  protected  boolean isStopSignaled() {
+  protected boolean isStopSignaled() {
     return myStopSignaled;
   }
 
@@ -109,18 +109,27 @@ public abstract class XmlReportPluginActivity {
     myStopSignaled = true;
   }
 
+  private boolean finished() {
+    return myThread == null || !myThread.isAlive();
+  }
+
   public void join() {
+    if (finished()) return;
     try {
       getThread().join();
     } catch (InterruptedException e) {
       // we use thread logger here, as join is called outside watcher thread
-      myParameters.getLogger().getThreadLogger().exception(e);
+      myParameters.getThreadLogger().exception(e);
       getLogger().error(e.toString(), e);
     }
   }
 
   protected abstract void doStep() throws Exception;
-  protected abstract void doPostStep() throws Exception;
+
+  protected abstract void doFinalStep() throws Exception;
+
   protected abstract long getPeriod();
-  @NotNull protected abstract Logger getLogger();
+
+  @NotNull
+  protected abstract Logger getLogger();
 }

@@ -16,7 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import org.jetbrains.annotations.NotNull;
@@ -30,21 +30,30 @@ import org.jetbrains.annotations.Nullable;
 public interface PluginParameters {
   @NotNull
   String getCheckoutDir();
+
   @Nullable
   String getFindBugsHome();
+
   @NotNull
   String getTmpDir();
+
   @NotNull
   String getNUnitSchema();
+
   boolean checkReportComplete();
+
   boolean checkReportGrows();
+
   boolean isVerbose();
+
   long getBuildStartTime();
 
   @NotNull
-  BuildProgressLogger getLogger();
+  FlowLogger getThreadLogger();
+
   @Nullable
   InspectionReporter getInspectionReporter();
+
   @Nullable
   DuplicatesReporter getDuplicatesReporter();
 }

@@ -3,7 +3,7 @@ package jetbrains.buildServer.xmlReportPlugin.pmdCpd;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.duplicator.DuplicateInfo;
 import jetbrains.buildServer.util.FileUtil;
-import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
+import jetbrains.buildServer.xmlReportPlugin.ReportContext;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.Attributes;
@@ -34,9 +34,9 @@ public class PmdCpdReportParser extends XmlReportParser {
   }
 
   @Override
-  public void parse(@NotNull ReportFileContext data) throws Exception {
-    doSAXParse(data);
-    data.setProcessedEvents(-1);
+  public void parse(@NotNull ReportContext context) throws Exception {
+    doSAXParse(context);
+    context.setProcessedEvents(-1);
   }
 
   @Override
@@ -79,7 +79,7 @@ public class PmdCpdReportParser extends XmlReportParser {
       for (int i = 0; i < fragmentsList.size(); ++i) {
         final FragmentInfo fragment = fragmentsList.get(i);
         fragmentsArray[i] = new DuplicateInfo.Fragment(myCurrentDuplicate.getHash(), fragment.getFile(), fragment.getStartLine(),
-                                                       new DuplicateInfo.LineOffset(fragment.getStartLine(), fragment.getStartLine() + myCurrentDuplicate.getLines()));
+          new DuplicateInfo.LineOffset(fragment.getStartLine(), fragment.getStartLine() + myCurrentDuplicate.getLines()));
       }
 
       myDuplicatesReporter.addDuplicate(new DuplicateInfo(myCurrentDuplicate.getHash(), myCurrentDuplicate.getTokens(), fragmentsArray));

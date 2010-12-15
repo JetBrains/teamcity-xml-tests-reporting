@@ -22,7 +22,10 @@ import jetbrains.buildServer.messages.serviceMessages.BuildStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Vector;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
 
@@ -55,8 +58,8 @@ public abstract class InspectionsReportParser extends XmlReportParser {
   }
 
   @Override
-  public void logReportTotals(@NotNull ReportFileContext reportData, boolean verbose) {
-    String message = reportData.getFile().getPath() + " report processed";
+  public void logReportTotals(@NotNull ReportContext context, boolean verbose) {
+    String message = context.getFile().getPath() + " report processed";
     if (myErrors > 0) {
       message = message.concat(": " + myErrors + " error(s)");
     }
@@ -67,7 +70,7 @@ public abstract class InspectionsReportParser extends XmlReportParser {
       message = message.concat(": " + myInfos + " info message(s)");
     }
     if (verbose) {
-      reportData.getRequestContext().getLogger().message(message);
+      context.getLogger().message(message);
     }
     LOG.debug(message);
     myTotalErrors += myErrors;
@@ -79,23 +82,23 @@ public abstract class InspectionsReportParser extends XmlReportParser {
   }
 
   @Override
-  protected void logParsingTotals(@NotNull final SessionContext sessionContext, @NotNull Map<String, String> parameters, boolean verbose) {
+  protected void logParsingTotals(@NotNull final XmlReportPluginParameters parameters) {
     boolean limitReached = false;
 
-    final int errorLimit = XmlReportPluginUtil.getMaxErrors(parameters);
+    final int errorLimit = XmlReportPluginUtil.getMaxErrors(parameters.getRunnerParameters());
     if ((errorLimit != -1) && (myTotalErrors > errorLimit)) {
-      sessionContext.getLogger().error("Errors limit reached: found " + myTotalErrors + " errors, limit " + errorLimit);
+      parameters.getThreadLogger().error("Errors limit reached: found " + myTotalErrors + " errors, limit " + errorLimit);
       limitReached = true;
     }
 
-    final int warningLimit = XmlReportPluginUtil.getMaxWarnings(parameters);
+    final int warningLimit = XmlReportPluginUtil.getMaxWarnings(parameters.getRunnerParameters());
     if ((warningLimit != -1) && (myTotalWarnings > warningLimit)) {
-      sessionContext.getLogger().error("Warnings limit reached: found " + myTotalWarnings + " warnings, limit " + warningLimit);
+      parameters.getThreadLogger().error("Warnings limit reached: found " + myTotalWarnings + " warnings, limit " + warningLimit);
       limitReached = true;
     }
 
     if (limitReached) {
-      sessionContext.getLogger().message(new BuildStatus(generateBuildStatus(myTotalErrors, myTotalWarnings, myTotalInfos), Status.FAILURE).asString());
+      parameters.getThreadLogger().message(new BuildStatus(generateBuildStatus(myTotalErrors, myTotalWarnings, myTotalInfos), Status.FAILURE).asString());
     }
   }
 
@@ -144,5 +147,5 @@ public abstract class InspectionsReportParser extends XmlReportParser {
   }
 
   @Override
-  public abstract void parse(@NotNull ReportFileContext data) throws Exception;
+  public abstract void parse(@NotNull ReportContext context) throws Exception;
 }

@@ -83,7 +83,7 @@ public class XmlReportPluginRules extends FileRuleSet<FileRule, FileRule> {
         continue;
       }
 
-      for (final FileRule processed: processedRules) {
+      for (final FileRule processed : processedRules) {
         if (isSubDir(rule.getFrom(), processed.getFrom())) {
           iterator.remove();
           break;

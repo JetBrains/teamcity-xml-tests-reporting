@@ -16,15 +16,16 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import junit.framework.TestCase;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
 
@@ -65,14 +66,14 @@ public class FindBugsReportParserTest extends TestCase {
     final FindBugsReportParser parser = new FindBugsReportParser(reporter, reportName.substring(0, reportName.lastIndexOf(fileName)), new File(FINDBUGS_HOME).exists() ? FINDBUGS_HOME : getTestDataPath(FINDBUGS_HOME, null));
 
     final File report = new File(reportName);
-    final DummyReportFileContext reportFileContext = new DummyReportFileContext(report, "findBugs", logger);
+    final ReportContext context = TestUtil.createReportContext(report, "findBugs", logger);
     final Map<String, String> params = new HashMap<String, String>();
     XmlReportPluginUtil.enableXmlReportParsing(params, FindBugsReportParser.TYPE);
     XmlReportPluginUtil.setMaxErrors(params, 5);
     XmlReportPluginUtil.setMaxWarnings(params, 5);
-    parser.parse(reportFileContext);
-    parser.logReportTotals(reportFileContext, true);
-    parser.logParsingTotals(new DummySessionContext(logger), params, true);
+    parser.parse(context);
+    parser.logReportTotals(context, true);
+    parser.logParsingTotals(TestUtil.createParameters(logger, null, null, null, params));
 
     final File expectedFile = new File(expectedFileName);
     final String actual = results.toString().replace(baseDir, "##BASE_DIR##").replace("\\", File.separator).replace("/", File.separator).trim();

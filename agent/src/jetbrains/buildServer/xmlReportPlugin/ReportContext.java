@@ -16,23 +16,30 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
+import jetbrains.buildServer.agent.BuildProgressLogger;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 
-public final class ReportData {
+
+public final class ReportContext {
+  @NotNull
   private final File myFile;
   private int myProcessedEvents;
   private long myFileLength;
+  @NotNull
   private final String myType;
-  private final File myImportRequestPath;
+  @NotNull
+  private final PathParameters myPathParameters;
 
-  public ReportData(@NotNull final File file, @NotNull String type, @NotNull final File importRequestPath) {
+  public ReportContext(@NotNull final File file,
+                       @NotNull String type,
+                       @NotNull final PathParameters pathParameters) {
     myFile = file;
     myFileLength = 0L;
     myProcessedEvents = 0;
     myType = type;
-    myImportRequestPath = importRequestPath;
+    myPathParameters = pathParameters;
   }
 
   @NotNull
@@ -62,7 +69,12 @@ public final class ReportData {
   }
 
   @NotNull
-  public File getImportRequestPath() {
-    return myImportRequestPath;
+  public PathParameters getPathParameters() {
+    return myPathParameters;
+  }
+
+  @NotNull
+  public BuildProgressLogger getLogger() {
+    return myPathParameters.getPathLogger();
   }
 }

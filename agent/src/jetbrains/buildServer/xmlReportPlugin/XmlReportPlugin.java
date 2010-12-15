@@ -39,9 +39,12 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   private final InspectionReporter myInspectionReporter;
   private final DuplicatesReporter myDuplicatesReporter;
 
-  @Nullable private volatile BuildRunnerContext myRunner;
-  @Nullable private volatile Date myStartTime;
-  @Nullable private volatile ReportProcessingContext myContext;
+  @Nullable
+  private volatile BuildRunnerContext myRunner;
+  @Nullable
+  private volatile Date myStartTime;
+  @Nullable
+  private volatile ReportProcessingContext myContext;
 
   private volatile boolean myStopped;
 
@@ -97,7 +100,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     parametersMap.put(CHECK_REPORT_COMPLETE, runner.getBuildParameters().getSystemProperties().get(CHECK_REPORT_COMPLETE));
     parametersMap.put(LOG_AS_INTERNAL, runner.getBuildParameters().getSystemProperties().get(LOG_AS_INTERNAL));
 
-    if(additionalParams != null) parametersMap.putAll(additionalParams);
+    if (additionalParams != null) parametersMap.putAll(additionalParams);
 
     final Set<File> reportPaths = paths != null ? paths : getReportPathsFromDirProperty(getXmlReportPaths(parametersMap));
 
@@ -136,7 +139,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
 
     ReportProcessingContext context = myContext;
 
-    if(context == null) {
+    if (context == null) {
       context = createContext(runner, startTime, reportPaths, params);
       context.myDirectoryWatcher.start();
       context.myReportProcessor.start();
@@ -172,7 +175,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
     final BuildRunnerContext runner = myRunner;
     context.myReportProcessor.join();
 
-    if(runner != null)
+    if (runner != null)
       context.myDirectoryWatcher.logTotals(runner.getBuild().getBuildLogger());
 
     myRunner = null;
@@ -185,9 +188,12 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements Inspection
   }
 
   private static class ReportProcessingContext {
-    @NotNull private final XmlReportPluginParameters myParameters;
-    @NotNull private final XmlReportDirectoryWatcher myDirectoryWatcher;
-    @NotNull private final XmlReportProcessor myReportProcessor;
+    @NotNull
+    private final XmlReportPluginParameters myParameters;
+    @NotNull
+    private final XmlReportDirectoryWatcher myDirectoryWatcher;
+    @NotNull
+    private final XmlReportProcessor myReportProcessor;
 
     private ReportProcessingContext(@NotNull final XmlReportPluginParameters parameters,
                                     @NotNull final XmlReportDirectoryWatcher directoryWatcher,

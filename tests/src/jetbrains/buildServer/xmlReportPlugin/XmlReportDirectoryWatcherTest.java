@@ -17,9 +17,6 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.TempFiles;
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
-import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.FileUtil;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
@@ -46,111 +43,6 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
 
   private TempFiles myTempFiles;
   private File myWorkDir;
-
-  private XmlReportPluginParameters createParameters(@NotNull final Collection<File> input,
-                                                     @NotNull final BuildProgressLogger logger) {
-
-    return new XmlReportPluginParameters() {
-      final XmlReportPluginRules myRules = new XmlReportPluginRules(getPathsStrings(input), myWorkDir.getAbsolutePath());
-
-      public boolean isVerbose() {
-        return true;
-      }
-
-      @NotNull
-      public BuildProgressLogger getLogger() {
-        return logger;
-      }
-
-      public long getBuildStartTime() {
-        return 0;
-      }
-
-      @NotNull
-      public Collection<String> getTypes() {
-        return TYPES;
-      }
-
-      @NotNull
-      public Collection<File> getPaths(@NotNull String type) {
-        return myRules.getRootIncludePaths();
-      }
-
-      @NotNull
-      public XmlReportPluginRules getRules(@NotNull String type) {
-        return myRules;
-      }
-
-      @NotNull
-      public PathParameters getPathParameters(@NotNull File path) {
-        return new PathParameters() {
-          @NotNull
-          public LogAction getWhenNoDataPublished() {
-            return LogAction.ERROR;
-          }
-
-          public boolean isLogAsInternal() {
-            return false;
-          }
-
-          public boolean isParseOutOfDate() {
-            return false;
-          }
-
-          public boolean isVerbose() {
-            return true;
-          }
-        };
-      }
-
-      @NotNull
-      public String getCheckoutDir() {
-        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
-      }
-
-      public String getFindBugsHome() {
-        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
-      }
-
-      @NotNull
-      public String getTmpDir() {
-        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
-      }
-
-      @NotNull
-      public String getNUnitSchema() {
-        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
-      }
-
-      public boolean checkReportComplete() {
-        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
-      }
-
-      public boolean checkReportGrows() {
-        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
-      }
-
-      public InspectionReporter getInspectionReporter() {
-        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
-      }
-
-      public DuplicatesReporter getDuplicatesReporter() {
-        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
-      }
-
-      @NotNull
-      public Map<String, String> getRunnerParameters() {
-        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
-      }
-
-      public void setListener(@NotNull ParametersListener listener) {
-      }
-
-      public void updateParameters(@NotNull Set<File> paths, @NotNull Map<String, String> parameters) {
-        throw new UnsupportedOperationException(METHOD_NOT_IMPLEMENTED);
-      }
-    };
-  }
 
   @NotNull
   private Set<String> getPathsStrings(@NotNull final Collection<File> paths) {
@@ -188,8 +80,8 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
     }
 
     @Override
-    public void put(@NotNull final ReportData data) {
-      myBuffer.append(data.getFile().getAbsolutePath()).append("\n");
+    public void put(@NotNull final ReportContext context) {
+      myBuffer.append(context.getFile().getAbsolutePath()).append("\n");
     }
   }
 
@@ -221,7 +113,7 @@ public class XmlReportDirectoryWatcherTest extends TestCase {
 
     final StringBuilder results = new StringBuilder();
     final BuildLoggerForTesting logger = new BuildLoggerForTesting(results);
-    final XmlReportPluginParameters parameters = createParameters(input, logger);
+    final XmlReportPluginParameters parameters = TestUtil.createParameters(logger, Arrays.asList("junit"), input, myWorkDir, null);
     final ReportQueue queue = new ReportQueueMock(results);
     final XmlReportDirectoryWatcher watcher = new XmlReportDirectoryWatcher(parameters, queue);
 

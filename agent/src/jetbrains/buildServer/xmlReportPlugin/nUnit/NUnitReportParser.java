@@ -17,8 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.nUnit;
 
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.xmlReportPlugin.ImportRequestContext;
-import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
+import jetbrains.buildServer.xmlReportPlugin.ReportContext;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import org.jetbrains.annotations.NotNull;
@@ -45,59 +44,20 @@ public class NUnitReportParser extends AntJUnitReportParser {
   }
 
   @Override
-  public void parse(@NotNull final ReportFileContext data) throws Exception {
-    final File report = data.getFile();
+  public void parse(@NotNull final ReportContext context) throws Exception {
+    final File report = context.getFile();
     final File junitReport = new File(myTmpReportDir.getPath() + File.separator + report.getName());
     try {
       myReportTransformer.transform(report, junitReport);
     } catch (Exception e) {
       XmlReportPlugin.LOG.debug("xslt transformation failed for " + report.getAbsolutePath(), e);
       junitReport.delete();
-      data.setProcessedEvents(0);
+      context.setProcessedEvents(0);
       return;
     }
-    final MyJUnitReportFileContext newContext = new MyJUnitReportFileContext(data, junitReport);
-    super.parse(newContext);
-    data.setProcessedEvents(newContext.getProcessedEvents());
-  }
-
-  private static class MyJUnitReportFileContext implements ReportFileContext {
-    private int myProcessedEvents;
-    private final ReportFileContext myData;
-    private final File myJunitReport;
-
-    public MyJUnitReportFileContext(final ReportFileContext data, final File junitReport) {
-      myData = data;
-      myJunitReport = junitReport;
-      myProcessedEvents = 0;
-    }
-
-    @NotNull
-    public ImportRequestContext getRequestContext() {
-      return myData.getRequestContext();
-    }
-
-    @NotNull
-    public File getFile() {
-      return myJunitReport;
-    }
-
-    public int getProcessedEvents() {
-      return myProcessedEvents;
-    }
-
-    public void setProcessedEvents(final int tests) {
-      myProcessedEvents = tests;
-    }
-
-    public long getFileLength() {
-      return 0;
-    }
-
-    @NotNull
-    public String getType() {
-      return "nunit";
-    }
+    final ReportContext jUnitContext = new ReportContext(junitReport, "nunit", context.getPathParameters());
+    super.parse(jUnitContext);
+    context.setProcessedEvents(jUnitContext.getProcessedEvents());
   }
 
   @NotNull

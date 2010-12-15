@@ -20,7 +20,7 @@ import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
-import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
+import jetbrains.buildServer.xmlReportPlugin.ReportContext;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -40,7 +40,8 @@ public class CheckstyleReportParser extends InspectionsReportParser {
   private File myCurrentReport;
   private String myCurrentFile;
 
-  @Nullable private BuildProgressLogger myLogger;
+  @Nullable
+  private BuildProgressLogger myLogger;
 
   public CheckstyleReportParser(@NotNull InspectionReporter inspectionReporter,
                                 @NotNull String checkoutDirectory) {
@@ -49,16 +50,16 @@ public class CheckstyleReportParser extends InspectionsReportParser {
   }
 
   @Override
-  public void parse(@NotNull ReportFileContext data) throws Exception {
-    myCurrentReport = data.getFile();
-    myLogger = data.getRequestContext().getLogger();
+  public void parse(@NotNull ReportContext context) throws Exception {
+    myCurrentReport = context.getFile();
+    myLogger = context.getLogger();
     try {
-      doSAXParse(data);
+      doSAXParse(context);
     } finally {
       myLogger = null;
       myInspectionReporter.flush();
     }
-    data.setProcessedEvents(-1);
+    context.setProcessedEvents(-1);
   }
 
 //  Handler methods

@@ -17,7 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
+import jetbrains.buildServer.xmlReportPlugin.ReportContext;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -155,16 +155,16 @@ public class AntJUnitReportParser extends XmlReportParser {
 <!ELEMENT system-out (#PCDATA)> */
 
   @Override
-  public void parse(@NotNull final ReportFileContext data) throws Exception {
+  public void parse(@NotNull final ReportContext context) throws Exception {
     myLoggedSuites = 0;
     myLoggedTests = 0;
-    myTestsToSkip = data.getProcessedEvents();
+    myTestsToSkip = context.getProcessedEvents();
     myTests.clear();
-    myLogger = data.getRequestContext().getLogger();
+    myLogger = context.getLogger();
 
-    final File report = data.getFile();
+    final File report = context.getFile();
     try {
-      doSAXParse(data);
+      doSAXParse(context);
     } catch (SAXException e) {
       if (myCurrentSuite != null) endSuite();
 
@@ -173,18 +173,18 @@ public class AntJUnitReportParser extends XmlReportParser {
         + myLoggedTests + " events logged");
 
       final int processedEvents = (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip;
-      data.setProcessedEvents(processedEvents);
+      context.setProcessedEvents(processedEvents);
       return;
     } finally {
       myLogger = null;
     }
     myCurrentSuite = null;
-    data.setProcessedEvents(-1);
+    context.setProcessedEvents(-1);
   }
 
   @Override
-  public void logReportTotals(@NotNull ReportFileContext reportData, boolean verbose) {
-    String message = reportData.getFile().getAbsolutePath() + " report processed";
+  public void logReportTotals(@NotNull ReportContext context, boolean verbose) {
+    String message = context.getFile().getAbsolutePath() + " report processed";
     if (myLoggedSuites > 0) {
       message = message.concat(": " + myLoggedSuites + " suite(s)");
       if (myLoggedTests > 0) {
@@ -192,7 +192,7 @@ public class AntJUnitReportParser extends XmlReportParser {
       }
     }
     if (verbose) {
-      reportData.getRequestContext().getLogger().message(message);
+      context.getLogger().message(message);
     }
     LOG.debug(message);
   }
@@ -254,7 +254,6 @@ public class AntJUnitReportParser extends XmlReportParser {
   }
 
 
-
   // Auxiliary methods
 
   private void startSuite(Attributes attributes) {
@@ -309,8 +308,7 @@ public class AntJUnitReportParser extends XmlReportParser {
 
     if (reportClassName != null && !reportClassName.equals(testName)) {
       reportedTestName = reportClassName + "." + testName;
-    }
-    else {
+    } else {
       reportedTestName = testName;
     }
 
@@ -363,7 +361,7 @@ public class AntJUnitReportParser extends XmlReportParser {
 
   private void startFailure(Attributes attributes) {
     String failureMessage = attributes.getValue(DEFAULT_NAMESPACE, MESSAGE_ATTR);
-    if(failureMessage != null)
+    if (failureMessage != null)
       failureMessage = failureMessage.trim();
 
     final String failureType = attributes.getValue(DEFAULT_NAMESPACE, TYPE_ATTR);

@@ -31,8 +31,6 @@ import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.SUPPORTE
 
 
 public class XmlReportDirectoryWatcher extends XmlReportPluginActivity implements XmlReportPluginParametersImpl.ParametersListener {
-  private static final int SCAN_INTERVAL = 100;
-
   private static final AntPathMatcher MATCHER = new AntPathMatcher();
 
   private final Map<File, MaskData> myMaskHash = new HashMap<File, MaskData>();
@@ -54,14 +52,14 @@ public class XmlReportDirectoryWatcher extends XmlReportPluginActivity implement
 
   public void pathsAdded(@NotNull String type, @NotNull Set<File> paths) {
     // we use thread logger here, as pathsAdded is called outside watcher thread
-    logWatchingPaths(paths, type, getParameters().getLogger().getThreadLogger());
+    logWatchingPaths(paths, type, getParameters().getThreadLogger());
     checkExistingPaths(paths);
   }
 
   public void pathsSkipped(@NotNull String type, @NotNull Set<File> paths) {
     if (!paths.isEmpty()) {
-    // we use thread logger here, as pathsSkipped is called outside watcher thread
-      logPathsInTarget(paths, type, "Skip watching:",  getParameters().getLogger().getThreadLogger());
+      // we use thread logger here, as pathsSkipped is called outside watcher thread
+      logPathsInTarget(paths, type, "Skip watching:", getParameters().getThreadLogger());
     }
   }
 
@@ -71,7 +69,7 @@ public class XmlReportDirectoryWatcher extends XmlReportPluginActivity implement
   }
 
   @Override
-  protected void doPostStep() throws Exception {
+  protected void doFinalStep() throws Exception {
     scanInput();
   }
 
@@ -83,7 +81,7 @@ public class XmlReportDirectoryWatcher extends XmlReportPluginActivity implement
 
   @Override
   protected long getPeriod() {
-    return SCAN_INTERVAL;
+    return 100L;
   }
 
   private void logWatchingPaths(final Set<File> paths, String type, final BuildProgressLogger logger) {
@@ -251,7 +249,7 @@ public class XmlReportDirectoryWatcher extends XmlReportPluginActivity implement
 
   private void sendToQueue(String type, File f, File importRequestPath) throws InterruptedException {
     LOG.debug("Sending " + f.getPath() + " to report queue");
-    getQueue().put(new ReportData(f, type, importRequestPath));
+    getQueue().put(new ReportContext(f, type, getParameters().getPathParameters(importRequestPath)));
   }
 
   private void processFile(String type, File path, TypeStatistics s, Set<File> files, File file) throws Exception {

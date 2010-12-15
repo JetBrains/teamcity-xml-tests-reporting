@@ -16,11 +16,12 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.util.Arrays;
-import java.util.List;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * User: vbedrosova
@@ -30,10 +31,11 @@ import org.jetbrains.annotations.Nullable;
 public interface PathParameters {
   @NotNull
   LogAction getWhenNoDataPublished();
-  boolean isLogAsInternal();
   boolean isParseOutOfDate();
   //TODO: use this method instead of global isVerbose()
   boolean isVerbose();
+  @NotNull
+  public BuildProgressLogger getPathLogger();
 
   public static enum LogAction {
     DO_NOTHING("nothing") {

@@ -20,9 +20,9 @@ import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
-import jetbrains.buildServer.xmlReportPlugin.ReportFileContext;
-import jetbrains.buildServer.xmlReportPlugin.SessionContext;
+import jetbrains.buildServer.xmlReportPlugin.ReportContext;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
+import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginParameters;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.xml.sax.Attributes;
@@ -31,7 +31,6 @@ import org.xml.sax.SAXException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 public class FindBugsReportParser extends InspectionsReportParser {
@@ -83,13 +82,13 @@ public class FindBugsReportParser extends InspectionsReportParser {
   }
 
   @Override
-  public void parse(@NotNull final ReportFileContext data) throws Exception {
+  public void parse(@NotNull final ReportContext context) throws Exception {
     myInspectionReporter.markBuildAsInspectionsBuild();
-    final File report = data.getFile();
+    final File report = context.getFile();
     myCurrentReport = report.getAbsolutePath();
     myFileFinder = new FileFinder();
     myWaitingForTypeBugs = new ArrayList<InspectionInstance>();
-    myLogger = data.getRequestContext().getLogger();
+    myLogger = context.getLogger();
 
     try {
       if (!myPatternsFromFindBugsLoaded && !myBundledPatternsLoaded) {
@@ -101,7 +100,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
           myBugCollection.loadBundledPatterns();
         }
       }
-      doSAXParse(data);
+      doSAXParse(context);
       for (InspectionInstance bug : myWaitingForTypeBugs) {
         if (hasNoMessage(bug)) {
           if (isTypeKnown(bug)) {
@@ -116,13 +115,13 @@ public class FindBugsReportParser extends InspectionsReportParser {
       myFileFinder.close();
       myInspectionReporter.flush();
     }
-    data.setProcessedEvents(-1);
+    context.setProcessedEvents(-1);
   }
 
   @Override
-  public void logParsingTotals(@NotNull SessionContext session, @NotNull Map<String, String> parameters, boolean verbose) {
+  public void logParsingTotals(@NotNull XmlReportPluginParameters parameters) {
     if (myPatternsFromFindBugsLoaded || myBundledPatternsLoaded) {
-      super.logParsingTotals(session, parameters, verbose);
+      super.logParsingTotals(parameters);
     }
   }
 

@@ -1,11 +1,12 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import junit.framework.TestCase;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Map;
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import junit.framework.TestCase;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
@@ -33,14 +34,14 @@ public abstract class ParserTestCase extends TestCase {
 
     final File report = new File(reportName);
 
-    final DummyReportFileContext reportFileContext = new DummyReportFileContext(report, getType(), logger);
+    final ReportContext context = TestUtil.createReportContext(report, getType(), logger);
 
     final Map<String, String> params = new HashMap<String, String>();
     prepareParams(params);
 
-    parser.parse(reportFileContext);
-    parser.logReportTotals(reportFileContext, true);
-    parser.logParsingTotals(new DummySessionContext(logger), params, true);
+    parser.parse(context);
+    parser.logReportTotals(context, true);
+    parser.logParsingTotals(TestUtil.createParameters(logger, null, null, null, params));
 
     final File expected = new File(expectedFile);
     final String actual = results.toString().replace(baseDir, "##BASE_DIR##").replace("/", File.separator).replace("\\", File.separator).trim();

@@ -30,21 +30,14 @@ public class ReportQueue {
   private static final long TIMEOUT = 500;
 
   @NotNull
-  private final LinkedBlockingQueue<ReportData> myQueue = new LinkedBlockingQueue<ReportData>();
+  private final LinkedBlockingQueue<ReportContext> myQueue = new LinkedBlockingQueue<ReportContext>();
 
-  public void put(@NotNull final ReportData reportData) {
-    try {
-      myQueue.put(reportData);
-    } catch (InterruptedException e) {
-    }
+  public void put(@NotNull final ReportContext context) throws InterruptedException {
+    myQueue.put(context);
   }
 
-  public ReportData poll(boolean performWaiting) {
-    try {
-      return performWaiting ? myQueue.poll(TIMEOUT, TimeUnit.MILLISECONDS) : myQueue.poll();
-    } catch (InterruptedException e) {
-      return null;
-    }
+  public ReportContext poll(boolean performWaiting) throws InterruptedException {
+    return performWaiting ? myQueue.poll(TIMEOUT, TimeUnit.MILLISECONDS) : myQueue.poll();
   }
 
   public boolean isEmpty() {

@@ -48,7 +48,7 @@ public class Parsers {
   @NotNull
   public XmlReportParser getParser(@NotNull String type) {
     if (!myParsers.containsKey(type)) {
-     initializeParser(type);
+      initializeParser(type);
     }
     return myParsers.get(type);
   }
@@ -63,14 +63,14 @@ public class Parsers {
       return new AntJUnitReportParser();
 
     if (NUnitReportParser.TYPE.equals(type))
-      return new NUnitReportParser(myParameters.getLogger().getThreadLogger(), parameters.getTmpDir(), parameters.getNUnitSchema());
+      return new NUnitReportParser(myParameters.getThreadLogger(), parameters.getTmpDir(), parameters.getNUnitSchema());
 
     if (XmlReportPluginUtil.isInspection(type)) {
       final InspectionReporter inspectionsReporter = parameters.getInspectionReporter();
-      if(inspectionsReporter == null) {
+      if (inspectionsReporter == null) {
         throw new RuntimeException("Inspection reporter not provided. Required for parser type: " + type);
       } else {
-      // inspectionsReporter is needed for all parsers below
+        // inspectionsReporter is needed for all parsers below
         if (FindBugsReportParser.TYPE.equals(type))
           return new FindBugsReportParser(inspectionsReporter, parameters.getCheckoutDir(), parameters.getFindBugsHome());
 
@@ -84,10 +84,10 @@ public class Parsers {
 
     if (XmlReportPluginUtil.isDuplication(type)) {
       final DuplicatesReporter duplicatesReporter = parameters.getDuplicatesReporter();
-      if(duplicatesReporter == null) {
+      if (duplicatesReporter == null) {
         throw new RuntimeException("Duplicates reporter not provided. Required for parser type: " + type);
       } else {
-      // duplicatesReporter is needed for all parsers below
+        // duplicatesReporter is needed for all parsers below
         if (PmdCpdReportParser.TYPE.equals(type))
           return new PmdCpdReportParser(duplicatesReporter, parameters.getCheckoutDir());
       }
@@ -97,9 +97,9 @@ public class Parsers {
   }
 
   public void doWithParsers(@NotNull final Processor processor) {
-   for (final XmlReportParser parser : myParsers.values()) {
-     processor.process(parser);
-   }
+    for (final XmlReportParser parser : myParsers.values()) {
+      processor.process(parser);
+    }
   }
 
   public static interface Processor {

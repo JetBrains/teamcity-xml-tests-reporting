@@ -16,9 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Date;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
@@ -33,6 +30,10 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Date;
 
 
 @RunWith(JMock.class)
@@ -51,9 +52,9 @@ public class NUnitReportParserTest extends TestCase {
     myLogger = myContext.mock(FlowLogger.class);
   }
 
-  private DummyReportFileContext report(String fileName) throws FileNotFoundException {
+  private ReportContext reportData(String fileName) throws FileNotFoundException {
     final File file = TestUtil.getTestDataFile(fileName, REPORT_DIR);
-    return new DummyReportFileContext(file, "nunit", myLogger);
+    return TestUtil.createReportContext(file, "nunit", myLogger);
   }
 
   @Override
@@ -71,9 +72,9 @@ public class NUnitReportParserTest extends TestCase {
 
   @Test
   public void testEmptyReport() throws Exception {
-    final DummyReportFileContext data = report("empty.xml");
-    myParser.parse(data);
-    final int testsLogged = data.getProcessedEvents();
+    final ReportContext context = reportData("empty.xml");
+    myParser.parse(context);
+    final int testsLogged = context.getProcessedEvents();
     Assert.assertTrue("Empty report contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
     myContext.assertIsSatisfied();
   }
@@ -92,7 +93,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("singleCaseSuccess.xml"));
+    myParser.parse(reportData("singleCaseSuccess.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -112,7 +113,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("singleCaseFailure.xml"));
+    myParser.parse(reportData("singleCaseFailure.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -134,7 +135,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("twoCasesSuccess.xml"));
+    myParser.parse(reportData("twoCasesSuccess.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -158,7 +159,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("twoCasesFirstSuccess.xml"));
+    myParser.parse(reportData("twoCasesFirstSuccess.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -182,7 +183,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("twoCasesSecondSuccess.xml"));
+    myParser.parse(reportData("twoCasesSecondSuccess.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -208,7 +209,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("twoCasesFailed.xml"));
+    myParser.parse(reportData("twoCasesFailed.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -228,7 +229,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("singleCaseIgnored.xml"));
+    myParser.parse(reportData("singleCaseIgnored.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -248,7 +249,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("singleCaseIgnoredFailure.xml"));
+    myParser.parse(reportData("singleCaseIgnoredFailure.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -337,7 +338,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("Pragma.OnKey5.Tests.OCL.dll.TestResult.xml"));
+    myParser.parse(reportData("Pragma.OnKey5.Tests.OCL.dll.TestResult.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -360,7 +361,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("singleCaseFailureWithMultiline.xml"));
+    myParser.parse(reportData("singleCaseFailureWithMultiline.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -447,7 +448,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("TestResults.xml"));
+    myParser.parse(reportData("TestResults.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -465,14 +466,14 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("TestResults_TW8120.xml"));
+    myParser.parse(reportData("TestResults_TW8120.xml"));
     myContext.assertIsSatisfied();
   }
 
   //TW-8140 (TW-8120)
   @Test
   public void testReportWithPrematureEndOfFilePart() throws Exception {
-    myParser.parse(report("TestResults_TW8120_part.xml"));
+    myParser.parse(reportData("TestResults_TW8120_part.xml"));
     myContext.assertIsSatisfied();
   }
 
@@ -556,7 +557,7 @@ public class NUnitReportParserTest extends TestCase {
         inSequence(mySequence);
       }
     });
-    myParser.parse(report("nunit-2.5/statuses.xml"));
+    myParser.parse(reportData("nunit-2.5/statuses.xml"));
     myContext.assertIsSatisfied();
   }
 }

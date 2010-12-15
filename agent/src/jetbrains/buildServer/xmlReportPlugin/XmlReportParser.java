@@ -22,7 +22,6 @@ import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import java.io.File;
-import java.util.Map;
 
 
 public abstract class XmlReportParser extends DefaultHandler {
@@ -32,10 +31,6 @@ public abstract class XmlReportParser extends DefaultHandler {
   public static String formatText(@NotNull StringBuilder s) {
     return s.toString().replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").replaceAll("<[a-z]>|</[a-z]>", "").trim();
   }
-
-//  public static String formatTextWithouNewLine(@NotNull StringBuffer s) {
-//    return s.toString().replace("\r", "").replaceAll("\\s+", " ").trim();
-//  }
 
   protected static int getNumber(String number) {
     if (number != null) {
@@ -85,13 +80,13 @@ public abstract class XmlReportParser extends DefaultHandler {
     }
   }
 
-  public void logReportTotals(@NotNull ReportFileContext context, boolean verbose) {
+  public void logReportTotals(@NotNull ReportContext context, boolean verbose) {
   }
 
-  void logParsingTotals(@NotNull final SessionContext sessionContext, @NotNull Map<String, String> parameters, boolean verbose) {
+  void logParsingTotals(@NotNull final XmlReportPluginParameters parameters) {
   }
 
-  protected final void doSAXParse(@NotNull ReportFileContext context) throws Exception {
+  protected final void doSAXParse(@NotNull ReportContext context) throws Exception {
     clearCData();
     myXmlReader.parse(new InputSource(context.getFile().toURI().toString()));
   }
@@ -109,7 +104,7 @@ public abstract class XmlReportParser extends DefaultHandler {
     }
   }
 
-  public abstract void parse(@NotNull ReportFileContext data) throws Exception;
+  public abstract void parse(@NotNull ReportContext context) throws Exception;
 
   public boolean supportOnTheFlyParsing() {
     return false;

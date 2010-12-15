@@ -16,22 +16,22 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
 import jetbrains.buildServer.agent.inspections.InspectionTypeInfo;
 import jetbrains.buildServer.duplicator.DuplicateInfo;
+import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 
 public final class TestUtil {
@@ -48,8 +48,7 @@ public final class TestUtil {
         line = line.replace("/", File.separator).replace("\\", File.separator);
       }
       return line;
-    }
-    finally {
+    } finally {
       inputStream.close();
     }
   }
@@ -161,5 +160,142 @@ public final class TestUtil {
     return reporter;
   }
 
+  private static PathParameters createPathParameters(@NotNull final BuildProgressLogger logger) {
+    return new PathParameters() {
+      @NotNull
+      public LogAction getWhenNoDataPublished() {
+        return LogAction.ERROR;
+      }
 
+      public boolean isParseOutOfDate() {
+        return false;
+      }
+
+      public boolean isVerbose() {
+        return true;
+      }
+
+      @NotNull
+      public BuildProgressLogger getPathLogger() {
+        return logger;
+      }
+    };
+  }
+
+  public static ReportContext createReportContext(@NotNull final File file, @NotNull String type, @NotNull final BuildProgressLogger logger) {
+    return new ReportContext(file, type, TestUtil.createPathParameters(logger));
+  }
+
+  @NotNull
+  private static final String OPERATION_NOT_SUPPORTED = "Operation not supported";
+
+  public static XmlReportPluginParameters createParameters(@NotNull final BuildProgressLogger logger,
+                                                    @Nullable final Collection<String> types,
+                                                    @Nullable final Collection<File> input,
+                                                    @Nullable final File checkoutDir,
+                                                    @Nullable final Map<String, String> parameters) {
+
+    return new XmlReportPluginParameters() {
+      @Nullable
+      final XmlReportPluginRules myRules = input != null && checkoutDir != null ? new XmlReportPluginRules(getPathsStrings(input, checkoutDir), checkoutDir.getAbsolutePath()) : null;
+
+      public boolean isVerbose() {
+        return true;
+      }
+
+      @NotNull
+      public FlowLogger getThreadLogger() {
+        return (FlowLogger) logger;
+      }
+
+      public long getBuildStartTime() {
+        return 0;
+      }
+
+      @NotNull
+      public Collection<String> getTypes() {
+        if (types != null) return types;
+        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
+      }
+
+      @NotNull
+      public Collection<File> getPaths(@NotNull String type) {
+        if (myRules != null) return myRules.getRootIncludePaths();
+        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
+      }
+
+      @NotNull
+      public XmlReportPluginRules getRules(@NotNull String type) {
+        if (myRules != null) return myRules;
+        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
+      }
+
+      @NotNull
+      public PathParameters getPathParameters(@NotNull File path) {
+        return createPathParameters(logger);
+      }
+
+      @NotNull
+      public Map<String, String> getRunnerParameters() {
+        if (parameters != null) return parameters;
+        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
+      }
+
+      @NotNull
+      public String getCheckoutDir() {
+        if (checkoutDir != null) return checkoutDir.getAbsolutePath();
+        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
+      }
+
+      public String getFindBugsHome() {
+        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
+      }
+
+      @NotNull
+      public String getTmpDir() {
+        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
+      }
+
+      @NotNull
+      public String getNUnitSchema() {
+        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
+      }
+
+      public boolean checkReportComplete() {
+        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
+      }
+
+      public boolean checkReportGrows() {
+        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
+      }
+
+      public InspectionReporter getInspectionReporter() {
+        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
+      }
+
+      public DuplicatesReporter getDuplicatesReporter() {
+        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
+      }
+
+      public void setListener(@NotNull ParametersListener listener) {
+      }
+
+      public void updateParameters(@NotNull Set<File> paths, @NotNull Map<String, String> parameters) {
+        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
+      }
+    };
+  }
+
+  @NotNull
+  private static Set<String> getPathsStrings(@NotNull final Collection<File> paths, @NotNull final File checkoutDir) {
+    final Set<String> pathsStr = new HashSet<String>(paths.size());
+    for (final File path : paths) {
+      if (path.getPath().startsWith("-:") || path.getPath().startsWith("+:")) {
+        pathsStr.add(path.getPath());
+        continue;
+      }
+      pathsStr.add(FileUtil.getRelativePath(checkoutDir, path));
+    }
+    return pathsStr;
+  }
 }
