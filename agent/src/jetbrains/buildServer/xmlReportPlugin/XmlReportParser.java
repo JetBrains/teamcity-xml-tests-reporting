@@ -50,17 +50,37 @@ public abstract class XmlReportParser extends DefaultHandler {
 
   public static XMLReader createXmlReader(ContentHandler contentHandler, ErrorHandler errHandler, boolean validate)
     throws SAXException {
-    final XMLReader xmlReader = XMLReaderFactory.createXMLReader("com.sun.org.apache.xerces.internal.parsers.SAXParser");
+    final XMLReader xmlReader = createXmlReader();
+
     xmlReader.setContentHandler(contentHandler);
     xmlReader.setErrorHandler(errHandler);
-    xmlReader.setFeature("http://xml.org/sax/features/validation", validate);
+
+    setValidationFeature(validate, xmlReader);
+
     return xmlReader;
+  }
+
+  private static XMLReader createXmlReader() throws SAXException {
+    try {
+      return XMLReaderFactory.createXMLReader("com.sun.org.apache.xerces.internal.parsers.SAXParser");
+    } catch (Exception e) {
+      XmlReportPlugin.LOG.warn("Failed to load default SAXParser", e);
+      return XMLReaderFactory.createXMLReader();
+    }
+  }
+
+  private static void setValidationFeature(boolean validate, XMLReader xmlReader) throws SAXNotRecognizedException, SAXNotSupportedException {
+    try {
+      xmlReader.setFeature("http://xml.org/sax/features/validation", validate);
+    } catch (Exception e) {
+      XmlReportPlugin.LOG.warn("Failed to set validation: " + validate, e);
+    }
   }
 
   protected XmlReportParser() {
     try {
       myXmlReader = createXmlReader(this, this, false);
-    } catch (SAXException e) {
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
