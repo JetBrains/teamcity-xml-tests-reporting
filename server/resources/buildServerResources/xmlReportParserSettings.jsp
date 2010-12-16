@@ -146,13 +146,13 @@
 
     <tr class="noBorder" id="xmlReportParsing.reportDirs.container"
         style="${displayReportsSettings ? '' : 'display: none;'}">
-        <th><label for="xmlReportParsing.reportDirs">Report paths:</label></th>
+        <th><label for="xmlReportParsing.reportDirs">Monitoring rules:</label></th>
         <td>
             <props:multilineProperty name="xmlReportParsing.reportDirs" expanded="true" rows="5" cols="50"
                                      linkTitle="Type report directories"/>
         <span class="smallNote">
-          New line or comma separated paths to reports. Specified paths can be absolute or relative to the checkout directory.
-          Support ant-style wildcards like <strong>dir/**/*.xml</strong>. To ensure monitoring swiftness specify more concrete paths.
+          New line or comma separated set of rules in the form <strong>of +|-:checkout_dir_relative_path</strong>.<br/>
+          Support ant-style wildcards like <strong>dir/**/*.xml</strong>.
         </span>
         <span class="error" id="error_xmlReportParsing.reportDirs"></span>
         </td>
