@@ -116,7 +116,7 @@ public class XmlReportPluginParametersImpl implements XmlReportPluginParameters 
     return myListener;
   }
 
-  private boolean hasInspections() {
+  private synchronized boolean hasInspections() {
     for (String type : myPaths.keySet()) {
       if (isInspection(type)) {
         return true;
@@ -127,16 +127,16 @@ public class XmlReportPluginParametersImpl implements XmlReportPluginParameters 
 
   @NotNull
   public synchronized Collection<String> getTypes() {
-    return myPaths.keySet();
+    return Collections.unmodifiableSet(myPaths.keySet());
   }
 
   @NotNull
   public synchronized Collection<File> getPaths(@NotNull String type) {
-    return myPaths.get(type).getRootIncludePaths();
+    return Collections.unmodifiableSet(myPaths.get(type).getRootIncludePaths());
   }
 
   @NotNull
-  public XmlReportPluginRules getRules(@NotNull String type) {
+  public synchronized XmlReportPluginRules getRules(@NotNull String type) {
     return myPaths.get(type);
   }
 
@@ -178,7 +178,7 @@ public class XmlReportPluginParametersImpl implements XmlReportPluginParameters 
 
   @NotNull
   public synchronized Map<String, String> getRunnerParameters() {
-    return new HashMap<String, String>(myParameters);
+    return Collections.unmodifiableMap(myParameters);
   }
 
   @NotNull

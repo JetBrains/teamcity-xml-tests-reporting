@@ -89,7 +89,7 @@ public class XmlReportDirectoryWatcher extends XmlReportPluginActivity implement
       public void run() {
         String message = "Watching paths:";
         if (paths.size() == 0) {
-          message += "<no paths>";
+          message += " <no paths>";
           warning(logger, message);
         } else {
           message(logger, message);
@@ -272,7 +272,7 @@ public class XmlReportDirectoryWatcher extends XmlReportPluginActivity implement
 
   public void logTotals(@NotNull final BuildProgressLogger logger) {
     for (final String type : getParameters().getTypes()) {
-      final Collection<File> paths = getParameters().getPaths(type);
+      final Collection<File> paths = new ArrayList<File>(getParameters().getPaths(type));
       final TypeStatistics s = myStatistics.get(type);
 
       logInTarget(type, new Runnable() {
