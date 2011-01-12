@@ -19,7 +19,6 @@ package jetbrains.buildServer.xmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 /**
  * User: vbedrosova
@@ -27,8 +26,6 @@ import java.util.concurrent.TimeUnit;
  * Time: 15:45
  */
 public class ReportQueue {
-  private static final long TIMEOUT = 500;
-
   @NotNull
   private final LinkedBlockingQueue<ReportContext> myQueue = new LinkedBlockingQueue<ReportContext>();
 
@@ -36,8 +33,8 @@ public class ReportQueue {
     myQueue.put(context);
   }
 
-  public ReportContext poll(boolean performWaiting) throws InterruptedException {
-    return performWaiting ? myQueue.poll(TIMEOUT, TimeUnit.MILLISECONDS) : myQueue.poll();
+  public ReportContext poll() throws InterruptedException {
+    return myQueue.poll();
   }
 
   public boolean isEmpty() {

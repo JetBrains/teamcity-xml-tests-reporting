@@ -124,7 +124,7 @@ public class XmlReportProcessor extends XmlReportPluginActivity {
 
   @Nullable
   private ReportContext takeNextReport(boolean finalParsing) throws Exception {
-    final ReportContext context = getQueue().poll(!finalParsing);
+    final ReportContext context = getQueue().poll();
     if (context != null) {
       final long len = context.getFile().length();
       try {
