@@ -16,465 +16,209 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.agent.FlowLogger;
+import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestsParsingResult;
 import junit.framework.Assert;
-import junit.framework.TestCase;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.Sequence;
-import org.jmock.integration.junit4.JMock;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Before;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Date;
 
 
-@RunWith(JMock.class)
-public class NUnitReportParserTest extends TestCase {
+public class NUnitReportParserTest extends BaseParserTestCase {
   private static final String REPORT_DIR = "nunit";
-  private static final String SUITE_NAME = "TestCase";
-  private static final String CASE_NAME = "test";
 
-  private XmlReportParser myParser;
-  private BuildProgressLogger myLogger;
+  private static final String SINGLE_CASE_IGNORED = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+    "TEST STARTED: test ##TIMESTAMP##\n" +
+    "TEST IGNORED: test\n" +
+    "TEST FINISHED: test ##TIMESTAMP##\n" +
+    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
 
-  private Mockery myContext;
-  private Sequence mySequence;
+  private File myBaseFolder;
 
-  private void createBaseServerLoggerFacade() {
-    myLogger = myContext.mock(FlowLogger.class);
-  }
-
-  private ReportContext reportData(String fileName) throws FileNotFoundException {
-    final File file = TestUtil.getTestDataFile(fileName, REPORT_DIR);
-    return TestUtil.createReportContext(file, "nunit", myLogger);
+  @Override
+  public void setUp() throws Exception {
+    super.setUp();
+    myBaseFolder = FileUtil.createTempDirectory("", "");
   }
 
   @Override
-  @Before
-  public void setUp() {
-    myContext = new JUnit4Mockery() {
-      {
-        setImposteriser(ClassImposteriser.INSTANCE);
-      }
-    };
-    createBaseServerLoggerFacade();
-    myParser = new NUnitReportParser(myLogger, "workingDirForTesting", "nunit-to-junit.xsl");
-    mySequence = myContext.sequence("Log Sequence");
+  protected void tearDown() throws Exception {
+    super.tearDown();
+    FileUtil.delete(myBaseFolder);
+  }
+
+  @NotNull
+  @Override
+  protected Parser getParser() {
+    return new NUnitReportParser(getXMLReader(), getLogger(), "nunit-to-junit.xsl", myBaseFolder);
+  }
+
+  @NotNull
+  @Override
+  protected String getReportDir() {
+    return REPORT_DIR;
   }
 
   @Test
   public void testEmptyReport() throws Exception {
-    final ReportContext context = reportData("empty.xml");
-    myParser.parse(context);
-    final int testsLogged = context.getProcessedEvents();
-    Assert.assertTrue("Empty report contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
-    myContext.assertIsSatisfied();
+    final TestsParsingResult result = (TestsParsingResult) parse("empty.xml");
+
+    final int suitesLogged = result.getSuites();
+    Assert.assertTrue("Empty reportData contains 0 suites, but " + suitesLogged + " suites logged", suitesLogged == 0);
+
+    final int testsLogged = result.getTests();
+    Assert.assertTrue("Empty reportData contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
   }
 
   @Test
   public void testSingleCaseSuccess() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("singleCaseSuccess.xml"));
-    myContext.assertIsSatisfied();
+    parse("singleCaseSuccess.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: test ##TIMESTAMP##\n" +
+        "TEST FINISHED: test ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
-  @Test
+ @Test
   public void test1CaseFailure() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME), with(any(String.class)), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("singleCaseFailure.xml"));
-    myContext.assertIsSatisfied();
+   parse("singleCaseFailure.xml");
+   assertResultEquals(
+     "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+       "TEST STARTED: test ##TIMESTAMP##\n" +
+       "TEST FAILED: test\n" +
+       "Assertion message form test\n" +
+       "junit.framework.AssertionFailedError: Assertion message form test\n" +
+       "            at TestCase.test(Unknown Source)\n" +
+       "TEST FINISHED: test ##TIMESTAMP##\n" +
+       "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test2CasesSuccess() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("twoCasesSuccess.xml"));
-    myContext.assertIsSatisfied();
+    parse("twoCasesSuccess.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: test1 ##TIMESTAMP##\n" +
+        "TEST FINISHED: test1 ##TIMESTAMP##\n" +
+        "TEST STARTED: test2 ##TIMESTAMP##\n" +
+        "TEST FINISHED: test2 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test2CasesFirstSuccess() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "2"), with(any(String.class)), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("twoCasesFirstSuccess.xml"));
-    myContext.assertIsSatisfied();
+    parse("twoCasesFirstSuccess.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: test1 ##TIMESTAMP##\n" +
+        "TEST FINISHED: test1 ##TIMESTAMP##\n" +
+        "TEST STARTED: test2 ##TIMESTAMP##\n" +
+        "TEST FAILED: test2\n" +
+        "Assertion message form test\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "            at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: test2 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test2CasesSecondSuccess() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "1"), with(any(String.class)), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("twoCasesSecondSuccess.xml"));
-    myContext.assertIsSatisfied();
+    parse("twoCasesSecondSuccess.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: test1 ##TIMESTAMP##\n" +
+        "TEST FAILED: test1\n" +
+        "Assertion message form test\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "            at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: test1 ##TIMESTAMP##\n" +
+        "TEST STARTED: test2 ##TIMESTAMP##\n" +
+        "TEST FINISHED: test2 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test2CasesFailed() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "1"), with(any(String.class)), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "2"), with(any(String.class)), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("twoCasesFailed.xml"));
-    myContext.assertIsSatisfied();
+    parse("twoCasesFailed.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: test1 ##TIMESTAMP##\n" +
+        "TEST FAILED: test1\n" +
+        "Assertion message form test\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "            at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: test1 ##TIMESTAMP##\n" +
+        "TEST STARTED: test2 ##TIMESTAMP##\n" +
+        "TEST FAILED: test2\n" +
+        "Assertion message form test\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "            at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: test2 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test1CaseIgnored() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with(CASE_NAME), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("singleCaseIgnored.xml"));
-    myContext.assertIsSatisfied();
+    parse("singleCaseIgnored.xml");
+    assertResultEquals(
+      SINGLE_CASE_IGNORED);
   }
 
   @Test
   public void test1CaseIgnoredFailed() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with(CASE_NAME), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("singleCaseIgnoredFailure.xml"));
-    myContext.assertIsSatisfied();
+    parse("singleCaseIgnoredFailure.xml");
+    assertResultEquals(
+      SINGLE_CASE_IGNORED);
   }
 
   //TW-7573: XML Report plugin not reporting correct results for NUnit results
   @Test
   public void testNegativePassedTestNumberObserved() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with("OnKeyOCLTestSuite"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_A_For_Basic_Testing"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_A_For_Basic_Testing"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_B_For_Basic_Testing"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_B_For_Basic_Testing"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_B_For_Basic_Testing"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_C_For_Basic_Testing"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_C_For_Basic_Testing"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_C_For_Basic_Testing"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Update_A_Trade_For_Basic_Testing"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Update_A_Trade_For_Basic_Testing"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Update_A_Trade_For_Basic_Testing"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Delete_A_Trade_For_Basic_Testing"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Delete_A_Trade_For_Basic_Testing"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Delete_A_Trade_For_Basic_Testing"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_Staff_Member_And_Try_To_Delete_The_Trade"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_Staff_Member_And_Try_To_Delete_The_Trade"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_Staff_Member_And_Try_To_Delete_The_Trade"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_SectionStaff_Member_And_Try_To_Make_The_Trade_Inactive"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_SectionStaff_Member_And_Try_To_Make_The_Trade_Inactive"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_SectionStaff_Member_And_Try_To_Make_The_Trade_Inactive"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Two_Trades_With_The_Same_Code_To_Display_The_Message_Cannot_Insert_Duplicate"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Two_Trades_With_The_Same_Code_To_Display_The_Message_Cannot_Insert_Duplicate"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Two_Trades_With_The_Same_Code_To_Display_The_Message_Cannot_Insert_Duplicate"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_New_Trade_With_No_Value_In_Rates"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_New_Trade_With_No_Value_In_Rates"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_New_Trade_With_No_Value_In_Rates"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Load_Existing_Staff_Member_To_Check_Edit_Grid_Functionality_And_Cancel_Changes"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Load_Existing_Staff_Member_To_Check_Edit_Grid_Functionality_And_Cancel_Changes"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Load_Existing_Staff_Member_To_Check_Edit_Grid_Functionality_And_Cancel_Changes"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Insert_And_Validate_New_Staff_Member"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Insert_And_Validate_New_Staff_Member"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Insert_And_Validate_New_Staff_Member"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Delete_New_Staff_Member"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Delete_New_Staff_Member"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Delete_New_Staff_Member"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Click_The_Navigation_Buttons_On_The_Staff_Members_Browse_Screen"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Click_The_Navigation_Buttons_On_The_Staff_Members_Browse_Screen"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with("OnKeyOCLTestSuite"), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("Pragma.OnKey5.Tests.OCL.dll.TestResult.xml"));
-    myContext.assertIsSatisfied();
+    parse("Pragma.OnKey5.Tests.OCL.dll.TestResult.xml");
+    assertResultEquals(
+      getExpectedResult("negativePassedTestNumberObserved.gold"));
   }
 
-  @Test
+ @Test
   public void test1CaseFailureWithMultiline() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME), with("Assertion message form test"), with("junit.framework.AssertionFailedError: Assertion message form test\n" +
-          "            at TestCase.test(Unknown Source)\n" +
-          "            at TestCase1.test(Unknown Source)\n" +
-          "            at TestCase2.test(Unknown Source)"));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("singleCaseFailureWithMultiline.xml"));
-    myContext.assertIsSatisfied();
+   parse("singleCaseFailureWithMultiline.xml");
+   assertResultEquals(
+     "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+       "TEST STARTED: test ##TIMESTAMP##\n" +
+       "TEST FAILED: test\n" +
+       "Assertion message form test\n" +
+       "junit.framework.AssertionFailedError: Assertion message form test\n" +
+       "            at TestCase.test(Unknown Source)\n" +
+       "            at TestCase1.test(Unknown Source)\n" +
+       "            at TestCase2.test(Unknown Source)\n" +
+       "TEST FINISHED: test ##TIMESTAMP##\n" +
+       "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
-  public void test1CaseFailureinManyLines() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with("MCNTest"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with("Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"),
-          with("Input and Output of test case are not equal. See .\\testCases\\EDI\\Invalid\\"),
-          with("Input:\n" +
-            "UNA:+.? '\n" +
-            "UNB+UNOC:3+9903214000009:500+4038777000004:500+090421:1134+00000002154600'\n" +
-            "UNH+00000002154600+REMADV:D:06A:UN:2.2'\n" +
-            "BGM+239+DH0005631+9'\n" +
-            "DTM+137:20090401:102'\n" +
-            "FII+PB+984362uzt:Werthelsmann+90874:25:131::::Landesbank'\n" +
-            "NAD+MS+9903214000009::293'\n" +
-            "NAD+MR+4038777000004::293'\n" +
-            "CUX+2:EUR:11'\n" +
-            "DOC+380+DH7965542'\n" +
-            "MOA+9:50'\n" +
-            "MOA+12:0'\n" +
-            "DTM+137:20090101:102'\n" +
-            "RFF+IT:dh675543'\n" +
-            "AJT+9'\n" +
-            "FTX+ABO+1++Falscher Abrechnungszeitraum Grund 1:'\n" +
-            "DOC+380+DH5437867'\n" +
-            "MOA+9:50'\n" +
-            "MOA+12:0'\n" +
-            "DTM+137:20090101:102'\n" +
-            "RFF+IT:dh650987'\n" +
-            "AJT+Z06'\n" +
-            "FTX+ABO+1++Artikel unbekannt Grund 1'\n" +
-            "UNS+S'\n" +
-            "MOA+9:100'\n" +
-            "MOA+12:0'\n" +
-            "UNT+25+00000002154600'\n" +
-            "UNZ+1+00000002154600'\n" +
-            "\n" +
-            "\n" +
-            "Output:\n" +
-            "UNA:+.? '\n" +
-            "UNB+UNOC:3+9903214000009:500+4038777000004:500+090421:1134+00000002154600'\n" +
-            "UNH+00000002154600+REMADV:D:06A:UN:2.2'\n" +
-            "BGM+239+DH0005631+9'\n" +
-            "DTM+137:20090401:102'\n" +
-            "FII+PB+984362uzt:Werthelsmann+90874:25:131::::Landesbank'\n" +
-            "NAD+MS+9903214000009::293'\n" +
-            "NAD+MR+4038777000004::293'\n" +
-            "CUX+2:EUR:11'\n" +
-            "DOC+380+DH7965542'\n" +
-            "MOA+9:50'\n" +
-            "MOA+12:0'\n" +
-            "DTM+137:20090101:102'\n" +
-            "RFF+IT:dh675543'\n" +
-            "DOC+380+DH5437867'\n" +
-            "MOA+9:50'\n" +
-            "MOA+12:0'\n" +
-            "DTM+137:20090101:102'\n" +
-            "RFF+IT:dh650987'\n" +
-            "UNS+S'\n" +
-            "MOA+9:100'\n" +
-            "MOA+12:0'\n" +
-            "UNT+21+00000002154600'\n" +
-            "UNZ+1+00000002154600'"));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Test1 - REMADV_9903214000009_4038777000004_20090421_4.txt"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Test2 - REMADV_9903214000009_9907027000008_20090417_1.txt"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Test2 - REMADV_9903214000009_9907027000008_20090417_1.txt"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with("Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with("Could not export testcase"), with(""));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Test3 - UTILMD_9907027000008_4029684000003_20090427_1.txt"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with("MCNTest"), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("TestResults.xml"));
-    myContext.assertIsSatisfied();
+  public void test1CaseFailureInManyLines() throws Exception {
+    parse("TestResults.xml");
+    assertResultEquals(
+      getExpectedResult("singleCaseWithFailureInManyLines.gold"));
   }
 
   //TW-8140 (TW-8120)
   @Test
   public void testReportWithPrematureEndOfFileFull() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with("MCNTest"), with(any(Date.class)));
-        inSequence(mySequence);
-        exactly(15).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
-        exactly(15).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with("MCNTest"), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("TestResults_TW8120.xml"));
-    myContext.assertIsSatisfied();
+    parse("TestResults_TW8120.xml");
+    assertResultEquals(
+      getExpectedResult("reportWithPrematureEndOfFileFull.gold"));
   }
 
   //TW-8140 (TW-8120)
   @Test
   public void testReportWithPrematureEndOfFilePart() throws Exception {
-    myParser.parse(reportData("TestResults_TW8120_part.xml"));
-    myContext.assertIsSatisfied();
+    parse("TestResults_TW8120.xml", parse("TestResults_TW8120_part.xml"));
+    assertResultEquals(
+      getExpectedResult("reportWithPrematureEndOfFileFull.gold"));
   }
 
   //TW-8815
@@ -508,56 +252,8 @@ public class NUnitReportParserTest extends TestCase {
   //  TW-11744
   @Test
   public void test_nunit_2_5_x_statuses() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with("statuses.dll"), with(any(Date.class)));
-        inSequence(mySequence);
-
-        oneOf(myLogger).logTestStarted(with("Class1.Error"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with("Class1.Error"), with(any(String.class)), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Class1.Error"), with(any(Date.class)));
-        inSequence(mySequence);
-
-        oneOf(myLogger).logTestStarted(with("Class1.IgnoredAsAssert"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("Class1.IgnoredAsAssert"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Class1.IgnoredAsAssert"), with(any(Date.class)));
-        inSequence(mySequence);
-
-        oneOf(myLogger).logTestStarted(with("Class1.IgnoredWithAttribute"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("Class1.IgnoredWithAttribute"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Class1.IgnoredWithAttribute"), with(any(Date.class)));
-        inSequence(mySequence);
-
-        oneOf(myLogger).logTestStarted(with("Class1.InconclusiveAsAssert"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("Class1.InconclusiveAsAssert"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Class1.InconclusiveAsAssert"), with(any(Date.class)));
-        inSequence(mySequence);
-
-        oneOf(myLogger).logTestStarted(with("Class1.InconclusiveAsException"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("Class1.InconclusiveAsException"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Class1.InconclusiveAsException"), with(any(Date.class)));
-        inSequence(mySequence);
-
-        oneOf(myLogger).logTestStarted(with("Class1.PassAsAssert"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("Class1.PassAsAssert"), with(any(Date.class)));
-        inSequence(mySequence);
-
-        oneOf(myLogger).logSuiteFinished(with("statuses.dll"), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("nunit-2.5/statuses.xml"));
-    myContext.assertIsSatisfied();
+    parse("nunit-2.5/statuses.xml");
+    assertResultEquals(
+      getExpectedResult("nunit_2_5_x_statuses.gold"));
   }
 }

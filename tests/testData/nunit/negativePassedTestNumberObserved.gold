@@ -1,0 +1,39 @@
+SUITE STARTED: OnKeyOCLTestSuite ##TIMESTAMP##
+TEST STARTED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_A_For_Basic_Testing ##TIMESTAMP##
+TEST FINISHED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_A_For_Basic_Testing ##TIMESTAMP##
+TEST STARTED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_B_For_Basic_Testing ##TIMESTAMP##
+TEST IGNORED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_B_For_Basic_Testing
+TEST FINISHED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_B_For_Basic_Testing ##TIMESTAMP##
+TEST STARTED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_C_For_Basic_Testing ##TIMESTAMP##
+TEST IGNORED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_C_For_Basic_Testing
+TEST FINISHED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_C_For_Basic_Testing ##TIMESTAMP##
+TEST STARTED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Update_A_Trade_For_Basic_Testing ##TIMESTAMP##
+TEST IGNORED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Update_A_Trade_For_Basic_Testing
+TEST FINISHED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Update_A_Trade_For_Basic_Testing ##TIMESTAMP##
+TEST STARTED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Delete_A_Trade_For_Basic_Testing ##TIMESTAMP##
+TEST IGNORED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Delete_A_Trade_For_Basic_Testing
+TEST FINISHED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Delete_A_Trade_For_Basic_Testing ##TIMESTAMP##
+TEST STARTED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_Staff_Member_And_Try_To_Delete_The_Trade ##TIMESTAMP##
+TEST IGNORED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_Staff_Member_And_Try_To_Delete_The_Trade
+TEST FINISHED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_Staff_Member_And_Try_To_Delete_The_Trade ##TIMESTAMP##
+TEST STARTED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_SectionStaff_Member_And_Try_To_Make_The_Trade_Inactive ##TIMESTAMP##
+TEST IGNORED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_SectionStaff_Member_And_Try_To_Make_The_Trade_Inactive
+TEST FINISHED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_SectionStaff_Member_And_Try_To_Make_The_Trade_Inactive ##TIMESTAMP##
+TEST STARTED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Two_Trades_With_The_Same_Code_To_Display_The_Message_Cannot_Insert_Duplicate ##TIMESTAMP##
+TEST IGNORED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Two_Trades_With_The_Same_Code_To_Display_The_Message_Cannot_Insert_Duplicate
+TEST FINISHED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Two_Trades_With_The_Same_Code_To_Display_The_Message_Cannot_Insert_Duplicate ##TIMESTAMP##
+TEST STARTED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_New_Trade_With_No_Value_In_Rates ##TIMESTAMP##
+TEST IGNORED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_New_Trade_With_No_Value_In_Rates
+TEST FINISHED: Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_New_Trade_With_No_Value_In_Rates ##TIMESTAMP##
+TEST STARTED: Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Load_Existing_Staff_Member_To_Check_Edit_Grid_Functionality_And_Cancel_Changes ##TIMESTAMP##
+TEST IGNORED: Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Load_Existing_Staff_Member_To_Check_Edit_Grid_Functionality_And_Cancel_Changes
+TEST FINISHED: Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Load_Existing_Staff_Member_To_Check_Edit_Grid_Functionality_And_Cancel_Changes ##TIMESTAMP##
+TEST STARTED: Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Insert_And_Validate_New_Staff_Member ##TIMESTAMP##
+TEST IGNORED: Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Insert_And_Validate_New_Staff_Member
+TEST FINISHED: Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Insert_And_Validate_New_Staff_Member ##TIMESTAMP##
+TEST STARTED: Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Delete_New_Staff_Member ##TIMESTAMP##
+TEST IGNORED: Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Delete_New_Staff_Member
+TEST FINISHED: Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Delete_New_Staff_Member ##TIMESTAMP##
+TEST STARTED: Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Click_The_Navigation_Buttons_On_The_Staff_Members_Browse_Screen ##TIMESTAMP##
+TEST FINISHED: Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Click_The_Navigation_Buttons_On_The_Staff_Members_Browse_Screen ##TIMESTAMP##
+SUITE FINISHED: OnKeyOCLTestSuite ##TIMESTAMP##

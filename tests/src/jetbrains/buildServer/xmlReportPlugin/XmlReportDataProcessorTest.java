@@ -16,10 +16,8 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.DataProcessorContext;
-import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
@@ -32,9 +30,8 @@ import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.*;
+import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFileToList;
 
 public class XmlReportDataProcessorTest extends TestCase {
   private Mockery myContext;
@@ -58,11 +55,9 @@ public class XmlReportDataProcessorTest extends TestCase {
     final File resultsFile = new File(expectedFile.getAbsolutePath().replace(".gold", ".tmp"));
 
     final StringBuilder results = new StringBuilder();
-    final XmlReportPlugin plugin = createFakePlugin(results, TestUtil.getTestDataFile(null, null).getAbsoluteFile().getParentFile().getParentFile());
-
     final AgentRunningBuild runningBuildMock = myContext.mock(AgentRunningBuild.class);
 
-    final XmlReportDataProcessor processor = new XmlReportDataProcessor.JUnitDataProcessor(plugin);
+    final XmlReportDataProcessor processor = new XmlReportDataProcessor.JUnitDataProcessor(createRulesProcessor(results));
 
     processor.processData(new DataProcessorContext() {
       @NotNull
@@ -92,22 +87,13 @@ public class XmlReportDataProcessorTest extends TestCase {
     assertTrue("Missing some  attributes", actualList.containsAll(expectedList));
   }
 
-  private XmlReportPlugin createFakePlugin(final StringBuilder results, final File base) {
-    return new XmlReportPlugin(EventDispatcher.create(AgentLifeCycleListener.class),
-      createInspectionReporter(myContext), createDuplicatesReporter(myContext)) {
-      @Override
-      public File getCheckoutDir() {
-        return myCheckoutDir;
-      }
-
-      @Override
-      public void processReports(@NotNull Map<String, String> params, @NotNull Set<File> reportDirs) {
+  private RulesProcessor createRulesProcessor(final StringBuilder results) {
+    return new RulesProcessor() {
+      public void processRules(@NotNull File rulesFile, @NotNull Map<String, String> params) {
         for (String key : params.keySet()) {
           results.append("<").append(key).append(", ").append(params.get(key)).append(">\n");
         }
-        for (File f : reportDirs) {
-          results.append(f.getPath()).append("\n");
-        }
+        results.append(rulesFile.getName()).append("\n");
       }
     };
   }

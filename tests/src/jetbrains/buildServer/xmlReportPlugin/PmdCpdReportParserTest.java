@@ -1,36 +1,34 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.xmlReportPlugin.pmdCpd.PmdCpdReportParser;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
-
-import java.util.Map;
 
 /**
  * User: vbedrosova
  * Date: 07.09.2010
  * Time: 15:08:19
  */
-public class PmdCpdReportParserTest extends ParserTestCase {
+public class PmdCpdReportParserTest extends BaseParserTestCase {
+  @NotNull
   @Override
-  protected String getType() {
-    return PmdCpdReportParser.TYPE;
+  protected Parser getParser() {
+    return new PmdCpdReportParser(getXMLReader(), getDuplicatesReporter(), getBaseDir());
   }
 
+  @NotNull
   @Override
-  protected XmlReportParser getParser(StringBuilder results) {
-    final DuplicatesReporter reporter = TestUtil.createDuplicatesReporter(results);
-
-    return new PmdCpdReportParser(reporter, "##BASE_DIR##");
-  }
-
-  @Override
-  protected void prepareParams(Map<String, String> paramsMap) {
-    XmlReportPluginUtil.enableXmlReportParsing(paramsMap, getType());
+  protected String getReportDir() {
+    return "pmdCpd";
   }
 
   @Test
   public void testSimple() throws Exception {
     runTest("result.xml");
+  }
+
+  private void runTest(final String reportName) throws Exception {
+    parse(reportName);
+    assertResultEquals(getExpectedResult(reportName + ".gold"));
   }
 }

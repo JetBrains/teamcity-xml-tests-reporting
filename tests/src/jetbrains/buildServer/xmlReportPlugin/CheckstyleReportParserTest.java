@@ -16,61 +16,33 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
-import junit.framework.TestCase;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.util.HashMap;
-import java.util.Map;
-
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.getAbsoluteTestDataPath;
-import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFile;
 
 /**
  * User: vbedrosova
  * Date: 25.12.2009
  * Time: 15:01:28
  */
-public class CheckstyleReportParserTest extends TestCase {
+public class CheckstyleReportParserTest extends BaseParserTestCase {
+  private static final String TYPE = "checkstyle";
+
+  @NotNull
+  @Override
+  protected Parser getParser() {
+    return new CheckstyleReportParser(getXMLReader(), getInspectionReporter(), getBaseDir(), getLogger());
+  }
+
+  @NotNull
+  @Override
+  protected String getReportDir() {
+    return TYPE;
+  }
+
   private void runTest(final String fileName) throws Exception {
-    final String reportName = getAbsoluteTestDataPath(fileName, "checkstyle");
-    final String resultsFile = reportName + ".tmp";
-    final String expectedFile = reportName + ".gold";
-    final String baseDir = getAbsoluteTestDataPath(null, "checkstyle");
-
-    //noinspection ResultOfMethodCallIgnored
-    new File(resultsFile).delete();
-
-    final StringBuilder results = new StringBuilder();
-
-    final BuildProgressLogger logger = new BuildLoggerForTesting(results);
-    final InspectionReporter reporter = TestUtil.createInspectionReporter(results);
-
-    final CheckstyleReportParser parser = new CheckstyleReportParser(reporter, "##BASE_DIR##");
-
-    final File report = new File(reportName);
-    final ReportContext context = TestUtil.createReportContext(report, "checkstyle", logger);
-    final Map<String, String> params = new HashMap<String, String>();
-    XmlReportPluginUtil.enableXmlReportParsing(params, CheckstyleReportParser.TYPE);
-    XmlReportPluginUtil.setMaxErrors(params, 5);
-    XmlReportPluginUtil.setMaxWarnings(params, 5);
-    parser.parse(context);
-    parser.logReportTotals(context, true);
-    parser.logParsingTotals(TestUtil.createParameters(logger, null, null, null, params));
-
-    final File expected = new File(expectedFile);
-    final String actual = results.toString().replace(baseDir, "##BASE_DIR##").replace("/", File.separator).replace("\\", File.separator).trim();
-    if (!readFile(expected, true).equals(actual)) {
-      final FileWriter resultsWriter = new FileWriter(resultsFile);
-      resultsWriter.write(actual);
-      resultsWriter.close();
-
-      assertEquals(readFile(expected, true), actual);
-    }
+    parse(fileName);
+    assertResultEquals(getExpectedResult(fileName + ".gold"));
   }
 
   @Test

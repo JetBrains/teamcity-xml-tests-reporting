@@ -18,189 +18,429 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
 import jetbrains.buildServer.util.EventDispatcher;
-import org.apache.log4j.Logger;
+import jetbrains.buildServer.util.FileUtil;
+import jetbrains.buildServer.util.NamedThreadFactory;
+import jetbrains.buildServer.util.ThreadUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 import java.io.File;
 import java.util.*;
-
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginConstants.*;
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.getXmlReportPaths;
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.isParsingEnabled;
+import java.util.concurrent.*;
 
 
-public class XmlReportPlugin extends AgentLifeCycleAdapter implements InspectionReporterListener {
-  public static final Logger LOG = Logger.getLogger(XmlReportPlugin.class);
+public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProcessor {
+  @NotNull
+  private static final NamedThreadFactory THREAD_FACTORY = new NamedThreadFactory("xml-report-plugin");
 
+  @NotNull
   private final InspectionReporter myInspectionReporter;
+  @NotNull
   private final DuplicatesReporter myDuplicatesReporter;
 
   @Nullable
-  private volatile BuildRunnerContext myRunner;
+  private AgentRunningBuild myBuild;
+
+  private long myStartTime;
+
   @Nullable
-  private volatile Date myStartTime;
-  @Nullable
-  private volatile ReportProcessingContext myContext;
+  private XMLReader myXMLReader;
 
-  private volatile boolean myStopped;
+  @NotNull
+  private final ScheduledExecutorService myMonitorExecutor;
 
-  private volatile File myCheckoutDir;
+  @NotNull
+  private final ScheduledExecutorService myParseExecutor;
 
-  public XmlReportPlugin(@NotNull final EventDispatcher<AgentLifeCycleListener> agentDispatcher,
-                         @NotNull final InspectionReporter inspectionReporter,
-                         @NotNull final DuplicatesReporter duplicatesReporter) {
+  @NotNull
+  private final List<RulesContext> myRulesContexts = new ArrayList<RulesContext>();
+
+  @NotNull
+  private final Map<String, ParserFactory> myParserFactoryMap;
+
+  public XmlReportPlugin(@NotNull Map<String, ParserFactory> parserFactoryMap,
+                         @NotNull EventDispatcher<AgentLifeCycleListener> agentDispatcher,
+                         @NotNull InspectionReporter inspectionReporter,
+                         @NotNull DuplicatesReporter duplicatesReporter) {
+    myParserFactoryMap = parserFactoryMap;
+
     agentDispatcher.addListener(this);
+
     myInspectionReporter = inspectionReporter;
-    myInspectionReporter.addListener(this);
     myDuplicatesReporter = duplicatesReporter;
+
+    myMonitorExecutor = createExecutor();
+    myParseExecutor = createExecutor();
   }
 
   @Override
   public void buildStarted(@NotNull AgentRunningBuild runningBuild) {
-    myCheckoutDir = runningBuild.getCheckoutDirectory();
-  }
-
-  public File getCheckoutDir() {
-    return myCheckoutDir;
+    myBuild = runningBuild;
   }
 
   @Override
   public void beforeRunnerStart(@NotNull BuildRunnerContext runner) {
-    myStopped = false;
+    myStartTime = new Date().getTime();
 
-    myRunner = runner;
-    final Date startTime = new Date();
-    myStartTime = startTime;
+    final AgentRunningBuild build = myBuild;
+    assert build != null;
+    final File checkoutDir = build.getCheckoutDirectory();
 
-    if (!isParsingEnabled(runner.getRunnerParameters())) return;
+    final Map<String, String> runnerParameters = runner.getRunnerParameters();
 
-    final ReportProcessingContext context = createContext(runner, startTime, null, null);
+    if (XmlReportPluginUtil.isParsingEnabled(runnerParameters)) {
+      final Rules rules = new Rules(getRules(runnerParameters), checkoutDir);
+      final RulesData rulesData = new RulesData(rules, runnerParameters);
 
-    context.myDirectoryWatcher.start();
-    context.myReportProcessor.start();
-
-    myContext = context;
-  }
-
-  private ReportProcessingContext createContext(@NotNull BuildRunnerContext runner,
-                                                @NotNull final Date startTime,
-                                                @Nullable final Set<File> paths,
-                                                @Nullable final Map<String, String> additionalParams
-  ) {
-    Map<String, String> parametersMap = new HashMap<String, String>(runner.getRunnerParameters());
-
-    parametersMap.put(BUILD_START, "" + startTime.getTime());
-    parametersMap.put(TMP_DIR, runner.getBuild().getBuildTempDirectory().getAbsolutePath());
-    parametersMap.put(TREAT_DLL_AS_SUITE, runner.getBuildParameters().getSystemProperties().get(TREAT_DLL_AS_SUITE));
-    parametersMap.put(CHECK_REPORT_GROWS, runner.getBuildParameters().getSystemProperties().get(CHECK_REPORT_GROWS));
-    parametersMap.put(CHECK_REPORT_COMPLETE, runner.getBuildParameters().getSystemProperties().get(CHECK_REPORT_COMPLETE));
-    parametersMap.put(LOG_AS_INTERNAL, runner.getBuildParameters().getSystemProperties().get(LOG_AS_INTERNAL));
-
-    if (additionalParams != null) parametersMap.putAll(additionalParams);
-
-    final Set<File> reportPaths = paths != null ? paths : getReportPathsFromDirProperty(getXmlReportPaths(parametersMap));
-
-    final ReportQueue reportsQueue = new ReportQueue();
-    final XmlReportPluginParameters parameters = new XmlReportPluginParametersImpl(runner.getBuild().getBuildLogger(), myInspectionReporter, myDuplicatesReporter);
-
-    final XmlReportDirectoryWatcher directoryWatcher = new XmlReportDirectoryWatcher(parameters, reportsQueue);
-    final XmlReportProcessor reportProcessor = new XmlReportProcessor(parameters, reportsQueue, directoryWatcher);
-
-    parameters.updateParameters(reportPaths, parametersMap);
-
-    return new ReportProcessingContext(parameters, directoryWatcher, reportProcessor);
-  }
-
-  private static final Collection<String> SILENT_PATHS = Arrays.asList("");
-
-  private static Set<File> getReportPathsFromDirProperty(String pathsStr) {
-    final Set<File> dirs = new HashSet<File>();
-    if (pathsStr != null && pathsStr.length() > 0) {
-      for (String path : pathsStr.split(SPLIT_REGEX)) {
-        dirs.add(new File(path));
-      }
-    } else {
-      throw new RuntimeException("Report paths are empty");
-    }
-    dirs.removeAll(SILENT_PATHS);
-    return dirs;
-  }
-
-  public synchronized void processReports(@NotNull Map<String, String> params, @NotNull Set<File> reportPaths) {
-    final BuildRunnerContext runner = myRunner;
-    final Date startTime = myStartTime;
-
-    assert runner != null;
-    assert startTime != null;
-
-    ReportProcessingContext context = myContext;
-
-    if (context == null) {
-      context = createContext(runner, startTime, reportPaths, params);
-      context.myDirectoryWatcher.start();
-      context.myReportProcessor.start();
-      myContext = context;
-    } else {
-      updateContext(context, params, reportPaths);
+      scheduleProcessing(rulesData);
     }
   }
 
-  private void updateContext(final ReportProcessingContext context,
-                             final Map<String, String> params,
-                             final Set<File> reportPaths) {
-    context.myParameters.updateParameters(reportPaths, params);
+  public synchronized void processRules(@NotNull File rulesFile,
+                                        @NotNull Map<String, String> params) {
+    final AgentRunningBuild build = myBuild;
+    assert build != null;
+    final File checkoutDir = build.getCheckoutDirectory();
+
+    final Rules rules = new Rules(getRules(rulesFile, checkoutDir), checkoutDir);
+    final RulesData rulesData = new RulesData(rules, params);
+
+    scheduleProcessing(rulesData);
   }
 
   @Override
   public void runnerFinished(@NotNull BuildRunnerContext runner, @NotNull BuildFinishedStatus status) {
-    finishWork();
+    if (myRulesContexts.isEmpty()) return;
+
+    for (final RulesContext rulesContext : myRulesContexts) {
+
+      try {
+        rulesContext.getMonitorTask().cancel(false);
+
+        myMonitorExecutor.submit(new Runnable() {
+          public void run() {
+            waitParseTasksFinish(rulesContext);
+            rulesContext.getMonitorRulesCommand().run();
+          }
+        }).get();
+
+      } catch (Exception e) {
+        LoggingUtils.logError("Exception occurred while finishing paths watching",
+          e, myBuild.getBuildLogger());
+      }
+
+      waitParseTasksFinish(rulesContext);
+
+      logStatistics(rulesContext);
+    }
+
+    myRulesContexts.clear();
   }
 
-  private synchronized void finishWork() {
-    if (myStopped) return;
-
-    myStopped = true;
-
-    final ReportProcessingContext context = myContext;
-    if (context == null)
-      return; // beforeRunnerStart was not called, i.e. build has failed before runner started
-
-    context.myReportProcessor.signalStop();
-    context.myDirectoryWatcher.signalStop();
-
-    final BuildRunnerContext runner = myRunner;
-    context.myReportProcessor.join();
-
-    if (runner != null)
-      context.myDirectoryWatcher.logTotals(runner.getBuild().getBuildLogger());
-
-    myRunner = null;
-    myStartTime = null;
-    myContext = null;
+  @Override
+  public void buildFinished(@NotNull AgentRunningBuild build, @NotNull BuildFinishedStatus buildStatus) {
+    myBuild = null;
   }
 
-  public void beforeInspectionsSent(@NotNull AgentRunningBuild build) {
-    finishWork();
+  @Override
+  public void agentShutdown() {
+    shutdownExecutor(myMonitorExecutor);
+    shutdownExecutor(myParseExecutor);
   }
 
-  private static class ReportProcessingContext {
-    @NotNull
-    private final XmlReportPluginParameters myParameters;
-    @NotNull
-    private final XmlReportDirectoryWatcher myDirectoryWatcher;
-    @NotNull
-    private final XmlReportProcessor myReportProcessor;
+  private synchronized void scheduleProcessing(@NotNull final RulesData rulesData) {
+    if (myXMLReader == null) {
+      myXMLReader = createXMLReader();
+    }
 
-    private ReportProcessingContext(@NotNull final XmlReportPluginParameters parameters,
-                                    @NotNull final XmlReportDirectoryWatcher directoryWatcher,
-                                    @NotNull final XmlReportProcessor reportProcessor) {
+    final RulesFilesState rulesFilesState = new RulesFilesState();
+    final Map<File, ParsingResult> failedToParse = new HashMap<File, ParsingResult>();
+    final ParserFactory parserFactory = getParserFactory(rulesData.getType());
+
+    final RulesContext rulesContext = new RulesContext(rulesData, rulesFilesState, failedToParse);
+    myRulesContexts.add(rulesContext);
+
+    final MonitorRulesCommand monitorRulesCommand = new MonitorRulesCommand(rulesData.getMonitorRulesParameters(), rulesFilesState,
+      new MonitorRulesCommand.MonitorRulesListener() {
+        public void modificationDetected(@NotNull File file) {
+          synchronized (XmlReportPlugin.this) {
+            final Future future
+              = myParseExecutor.submit(
+              new ParseReportCommand(file, rulesData.getParseReportParameters(),
+                rulesFilesState, failedToParse, parserFactory));
+
+            rulesContext.addParseTask(future);
+          }
+        }
+      });
+
+    rulesContext.setMonitorRulesCommand(monitorRulesCommand);
+
+    final ScheduledFuture future = myMonitorExecutor.scheduleWithFixedDelay(new Runnable() {
+      public void run() {
+        monitorRulesCommand.run();
+      }
+    }, 0L, 200L, TimeUnit.MILLISECONDS);
+
+    rulesContext.setMonitorTask(future);
+  }
+
+  private void waitParseTasksFinish(@NotNull RulesContext rulesContext) {
+    final AgentRunningBuild build = myBuild;
+    assert build != null;
+    for (Future future : rulesContext.getParseTasks()) {
+      try {
+        future.get();
+      } catch (Exception e) {
+        LoggingUtils.logError("Exception occurred while finishing reports processing", e, build.getBuildLogger());
+      }
+    }
+    rulesContext.clearParseTasks();
+  }
+
+  @NotNull
+  private XMLReader createXMLReader() {
+    try {
+      return ParserUtils.createXmlReader(false);
+    } catch (SAXException e) {
+      throw new RuntimeException("Unable to parse xml, failed to load parser");
+    }
+  }
+
+  private void shutdownExecutor(@NotNull ExecutorService executor) {
+    executor.shutdown();
+    try {
+      executor.awaitTermination(5, TimeUnit.SECONDS);
+      if (!executor.isTerminated()) {
+        LoggingUtils.LOG.warn("Waiting for one of xml-report-plugin executors to complete");
+      }
+
+      executor.shutdownNow();
+
+      executor.awaitTermination(30, TimeUnit.SECONDS);
+    } catch (InterruptedException e) {
+      LoggingUtils.LOG.warn(e);
+    }
+
+    if (!executor.isTerminated()) {
+      LoggingUtils.LOG.warn("Stopped waiting for one xml-report-plugin executors to complete, it is still running");
+      ThreadUtil.threadDump(THREAD_FACTORY);
+    }
+  }
+
+  private static ScheduledExecutorService createExecutor() {
+    return Executors.newSingleThreadScheduledExecutor(THREAD_FACTORY);
+  }
+
+  private static Collection<String> getRules(@NotNull Map<String, String> parameters) {
+    final String rulesStr = XmlReportPluginUtil.getXmlReportPaths(parameters);
+    if (rulesStr == null || rulesStr.length() == 0) {
+      throw new RuntimeException("Rules are empty");
+    }
+    return Arrays.asList(rulesStr.split(XmlReportPluginConstants.SPLIT_REGEX));
+  }
+
+  private static Collection<String> getRules(@NotNull File rulesFile, @NotNull File baseDir) {
+    final List<String> rules = new ArrayList<String>();
+    final String reportPathStr = FileUtil.getRelativePath(baseDir, rulesFile);
+    rules.add(reportPathStr == null ? rulesFile.getPath() : reportPathStr);
+    return rules;
+  }
+
+  public void logStatistics(@NotNull final RulesContext rulesContext) {
+    final AgentRunningBuild build = myBuild;
+    assert build != null;
+    final BuildProgressLogger logger = build.getBuildLogger();
+
+    final ParsingResult result = myParserFactoryMap.get(rulesContext.getRulesData().getType()).createEmptyResult();
+
+    final Map<File, ParsingResult> failedToParse = rulesContext.getFailedToParse();
+
+    for (File file : failedToParse.keySet()) {
+      LoggingUtils.logFailedToParse(file, rulesContext.getRulesData().getType(), null, logger);
+      result.accumulate(failedToParse.get(file));
+    }
+
+    LoggingUtils.logInTarget(LoggingUtils.getTypeDisplayName(rulesContext.getRulesData().getType()) + " report watcher",
+      new Runnable() {
+        public void run() {
+          String message = "Stop watching paths:";
+
+          final List<String> rules = rulesContext.getRulesData().getRules().getBody();
+
+          if (rules.size() == 0) {
+            message += " <no paths>";
+            LoggingUtils.warn(message, logger);
+          } else {
+            LoggingUtils.message(message, logger);
+            for (String r : rules) {
+              LoggingUtils.message(r, logger);
+            }
+          }
+
+          final Map<File, ParsingResult> processedFiles = rulesContext.getRulesFilesState().getFiles();
+
+          final int totalFileCount = processedFiles.size() + failedToParse.size();
+
+          if (totalFileCount == 0) {
+            rulesContext.getRulesData().getWhenNoDataPublished().doLogAction("No reports found", logger, LoggingUtils.LOG);
+          } else {
+            LoggingUtils.message(totalFileCount + " report" + (totalFileCount == 1 ? "" : "s") + " found", logger);
+
+            for (File file : processedFiles.keySet()) {
+              if (rulesContext.getRulesData().isVerbose()) {
+                logger.message(file + " found");
+              }
+              result.accumulate(processedFiles.get(file));
+            }
+          }
+        }
+      }, logger);
+
+      myParserFactoryMap.get(rulesContext.getRulesData().getType()).createResultsProcessor().processTotalResult(result, rulesContext.getRulesData().getParseReportParameters());
+  }
+
+  @NotNull
+  private ParserFactory getParserFactory(@NotNull String type) {
+    if (!myParserFactoryMap.containsKey(type))
+      throw new IllegalArgumentException("No factory for " + type);
+    return myParserFactoryMap.get(type);
+  }
+
+  public class RulesData {
+    @NotNull
+    private final Rules myRules;
+
+    @NotNull
+    private final Map<String, String> myParameters;
+
+    public RulesData(@NotNull Rules rules,
+                     @NotNull Map<String, String> parameters) {
+      myRules = rules;
       myParameters = parameters;
-      myDirectoryWatcher = directoryWatcher;
-      myReportProcessor = reportProcessor;
+    }
+
+    @NotNull
+    public Rules getRules() {
+      return myRules;
+    }
+
+    @NotNull
+    public String getType() {
+      return XmlReportPluginUtil.getReportType(myParameters);
+    }
+
+    public boolean isVerbose() {
+      return XmlReportPluginUtil.isOutputVerbose(myParameters);
+    }
+
+    @NotNull
+    public LogAction getWhenNoDataPublished() {
+      return LogAction.getAction(XmlReportPluginUtil.whenNoDataPublished(myParameters));
+    }
+
+    @NotNull
+    private MonitorRulesCommand.MonitorRulesParameters getMonitorRulesParameters() {
+      return new MonitorRulesCommand.MonitorRulesParameters() {
+        @NotNull
+        public Rules getRules() {
+          return myRules;
+        }
+
+        @NotNull
+        public String getType() {
+          return XmlReportPluginUtil.getReportType(myParameters);
+        }
+
+        public boolean isParseOutOfDate() {
+          return XmlReportPluginUtil.isParseOutOfDateReports(myParameters);
+        }
+
+        public long getStartTime() {
+          return myStartTime;
+        }
+
+        @NotNull
+        public BuildProgressLogger getThreadLogger() {
+          final AgentRunningBuild build = myBuild;
+          assert build != null;
+          return build.getBuildLogger().getThreadLogger();
+        }
+      };
+    }
+
+    @NotNull
+    private ParseParameters getParseReportParameters() {
+      return new ParseParameters() {
+        public boolean isVerbose() {
+          return XmlReportPluginUtil.isOutputVerbose(myParameters);
+        }
+
+        @NotNull
+        public BuildProgressLogger getThreadLogger() {
+          final AgentRunningBuild build = myBuild;
+          assert build != null;
+          return build.getBuildLogger().getThreadLogger();
+        }
+
+        @NotNull
+        public BuildProgressLogger getInternalizingThreadLogger() {
+          return isLogAsInternal() ?
+            ((MessageTweakingSupport) getThreadLogger()).getTweakedLogger(MessageInternalizer.MESSAGE_INTERNALIZER)
+            : getThreadLogger();
+        }
+
+        private boolean isLogAsInternal() {
+          return XmlReportPluginUtil.isLogIsInternal(myParameters);
+        }
+
+        @NotNull
+        public InspectionReporter getInspectionReporter() {
+          return myInspectionReporter;
+        }
+
+        @NotNull
+        public DuplicatesReporter getDuplicatesReporter() {
+          return myDuplicatesReporter;
+        }
+
+        @NotNull
+        public Map<String, String> getParameters() {
+          return Collections.unmodifiableMap(myParameters);
+        }
+
+        @NotNull
+        public XMLReader getXmlReader() {
+          final XMLReader xmlReader = myXMLReader;
+          assert xmlReader != null;
+          return xmlReader;
+        }
+
+        @NotNull
+        public String getType() {
+          return XmlReportPluginUtil.getReportType(myParameters);
+        }
+
+        @NotNull
+        public File getCheckoutDir() {
+          final AgentRunningBuild build = myBuild;
+          assert build != null;
+          return build.getCheckoutDirectory();
+        }
+
+        @NotNull
+        public File getTempDir() {
+          final AgentRunningBuild build = myBuild;
+          assert build != null;
+          return build.getBuildTempDirectory();
+        }
+      };
     }
   }
 }
+

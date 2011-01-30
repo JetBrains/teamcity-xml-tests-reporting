@@ -1,4 +1,4 @@
-ERROR: Exception in report ##BASE_DIR##\exception.xml
+ERROR: Exception in report ##BASE_DIR##/exception.xml
 java.lang.NullPointerException
 	at jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser.startElement(CheckstyleReportParser.java:67)
 	at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.startElement(AbstractSAXParser.java:533)
@@ -36,4 +36,3 @@ java.lang.NullPointerException
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
 	at java.lang.reflect.Method.invoke(Method.java:585)
 	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:110)
-MESSAGE: ##BASE_DIR##\exception.xml report processed

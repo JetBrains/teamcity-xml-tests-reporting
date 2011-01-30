@@ -16,8 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
@@ -35,24 +33,6 @@ import java.util.*;
 
 
 public final class TestUtil {
-  static public String readFile(@NotNull final File file, boolean unifyFileSeparators) throws IOException {
-    final FileInputStream inputStream = new FileInputStream(file);
-    try {
-      final BufferedInputStream bis = new BufferedInputStream(inputStream);
-      final byte[] bytes = new byte[(int) file.length()];
-      bis.read(bytes);
-      bis.close();
-
-      String line = new String(bytes);
-      if (unifyFileSeparators) {
-        line = line.replace("/", File.separator).replace("\\", File.separator);
-      }
-      return line;
-    } finally {
-      inputStream.close();
-    }
-  }
-
   static public List<String> readFileToList(@NotNull final File file) throws IOException {
     final BufferedReader reader = new BufferedReader(new FileReader(file));
     final List<String> lines = new ArrayList<String>();
@@ -160,6 +140,7 @@ public final class TestUtil {
     return reporter;
   }
 
+/*
   private static PathParameters createPathParameters(@NotNull final BuildProgressLogger logger) {
     return new PathParameters() {
       @NotNull
@@ -285,6 +266,7 @@ public final class TestUtil {
       }
     };
   }
+*/
 
   @NotNull
   private static Set<String> getPathsStrings(@NotNull final Collection<File> paths, @NotNull final File checkoutDir) {

@@ -1,0 +1,15 @@
+SUITE STARTED: api.brightcove.catalog.AudioFacadeReadServletTest ##TIMESTAMP##
+MESSAGE: [System out]
+Tangosol 3.3.1/389p7 Info 2009-03-25 15:55:59.296  (thread=main, member=n/a): Loaded operational configuration from resource "jar:file:/home/buildacct/work/r1.20/dev/origin/lib/coherence.jar!/tangosol-coherence.xml"
+Tangosol 3.3.1/389p7 Info 2009-03-25 15:55:59.314  (thread=main, member=n/a): Loaded operational overrides from resource "file:/home/buildacct/work/r1.20/dev/origin/build/config/services/WEB-INF/classes/tangosol-coherence-override-dev.xml"
+Tangosol 3.3.1/389p7 D5 2009-03-25 15:55:59.315  (thread=main, member=n/a): Optional configuration override "tangosol-coherence-override.xml" is not specified
+
+Oracle Coherence Version 3.3.1/389p7
+ Standard Edition: Development mode
+Copyright (c) 2000-2007 Oracle. All rights reserved.
+
+Tangosol 3.3.1/389p7 D5 2009-03-25 15:56:00.312  (thread=Cluster, member=n/a): Service Cluster joined the cluster with senior service member n/a
+Tangosol 3.3.1/389p7 Info 2009-03-25 15:56:01.519  (thread=Cluster, member=n/a): Created a new cluster "buildacct" with Member(Id=1, Timestamp=2009-03-25 15:55:59.891, Address=192.168.255.236:8088, MachineId=38892, Location=process:4899@rebuild3, Edition=Standard Edition, Mode=Development, CpuCount=4, SocketCount=1) UID=0xC0A8FFEC000001203F34181397EC1F98
+Tangosol 3.3.1/389p7 Info 2009-03-25 15:56:01.692  (thread=main, member=1): Loaded cache configuration from resource "file:/home/buildacct/work/r1.20/dev/origin/build/config/services/WEB-INF/classes/coherence-cache-config.xml"
+Tangosol 3.3.1/389p7 D5 2009-03-25 15:56:02.077  (thread=DistributedCache:PartitionedCache, member=1): Service PartitionedCache joined the cluster with senior service member 1
+SUITE FINISHED: api.brightcove.catalog.AudioFacadeReadServletTest ##TIMESTAMP##

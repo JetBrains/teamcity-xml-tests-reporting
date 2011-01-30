@@ -3,12 +3,14 @@ package jetbrains.buildServer.xmlReportPlugin.pmdCpd;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.duplicator.DuplicateInfo;
 import jetbrains.buildServer.util.FileUtil;
-import jetbrains.buildServer.xmlReportPlugin.ReportContext;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
+import jetbrains.buildServer.xmlReportPlugin.*;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,26 +19,36 @@ import java.util.List;
  * Date: 27.08.2010
  * Time: 16:50:03
  */
-public class PmdCpdReportParser extends XmlReportParser {
+public class PmdCpdReportParser extends XmlReportParser implements Parser {
   public static final String TYPE = "pmdCpd";
   private static final char SEPARATOR = '/';
 
-  private final DuplicatesReporter myDuplicatesReporter;
-  private final String myCheckoutDirectory;
+  private DuplicatesReporter myDuplicatesReporter;
+  private String myCheckoutDirectory;
 
   private DuplicationInfo myCurrentDuplicate;
 
-  public PmdCpdReportParser(@NotNull final DuplicatesReporter duplicatesReporter,
-                            @NotNull final String checkoutDirectory) {
+  public PmdCpdReportParser(@NotNull XMLReader reader,
+                            @NotNull DuplicatesReporter duplicatesReporter,
+                            @NotNull File checkoutDirectory) {
+    super(reader, true);
     myDuplicatesReporter = duplicatesReporter;
-    myCheckoutDirectory = unifySlashes(checkoutDirectory);
-    myCData = new StringBuilder();
+    myCheckoutDirectory = unifySlashes(checkoutDirectory.getAbsolutePath());
   }
 
-  @Override
-  public void parse(@NotNull ReportContext context) throws Exception {
-    doSAXParse(context);
-    context.setProcessedEvents(-1);
+  public boolean parse(@NotNull File file, @Nullable ParsingResult prevResult) throws ParsingException {
+    if (!ParserUtils.isReportComplete(file, "pmd-cpd")) {
+      return false;
+    }
+    parse(file);
+    return true;
+  }
+
+  public ParsingResult getParsingResult() {
+    return new ParsingResult() {
+      public void accumulate(@NotNull ParsingResult parsingResult) {
+      }
+    };
   }
 
   @Override
@@ -71,7 +83,7 @@ public class PmdCpdReportParser extends XmlReportParser {
     if ("pmd-cpd".equals(localName)) {
       myDuplicatesReporter.finishDuplicates();
     } else if ("codefragment".equals(localName)) {
-      myCurrentDuplicate.setHash(myCData.toString().trim().hashCode());
+      myCurrentDuplicate.setHash(getCData().toString().trim().hashCode());
     } else if ("duplication".equals(localName)) {
       final List<FragmentInfo> fragmentsList = myCurrentDuplicate.getFragments();
       final DuplicateInfo.Fragment[] fragmentsArray = new DuplicateInfo.Fragment[fragmentsList.size()];
@@ -154,11 +166,5 @@ public class PmdCpdReportParser extends XmlReportParser {
     public void setHash(int hash) {
       myHash = hash;
     }
-  }
-
-  @NotNull
-  @Override
-  protected String getRootTag() {
-    return "pmd-cpd";
   }
 }

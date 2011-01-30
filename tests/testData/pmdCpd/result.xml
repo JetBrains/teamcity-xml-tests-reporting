@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
 <duplication lines="12" tokens="115">
-<file line="235" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="276" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="379" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="235" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="276" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="379" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
 <codefragment>
 <![CDATA[
   public void testOneDeletedStrict() throws Exception {
@@ -22,8 +22,8 @@
 </codefragment>
 </duplication>
 <duplication lines="10" tokens="113">
-<file line="235" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="411" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="235" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="411" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
 <codefragment>
 <![CDATA[
   public void testOneCreatedOneModifiedOneNotChangedStrict3() throws Exception {
@@ -40,8 +40,8 @@
 </codefragment>
 </duplication>
 <duplication lines="13" tokens="96">
-<file line="59" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\FilesComparisonTest.java"/>
-<file line="47" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
+<file line="59" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\FilesComparisonTest.java"/>
+<file line="47" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
 <codefragment>
 <![CDATA[
     final File goldFile = getTestData(resultsFileName + ".gold", null);
@@ -61,9 +61,9 @@
 </codefragment>
 </duplication>
 <duplication lines="10" tokens="91">
-<file line="223" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="263" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="366" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="223" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="263" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="366" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
 <codefragment>
 <![CDATA[
   public void testOneDeletedNonStrict() throws Exception {
@@ -80,8 +80,8 @@
 </codefragment>
 </duplication>
 <duplication lines="8" tokens="89">
-<file line="223" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="394" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="223" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="394" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
 <codefragment>
 <![CDATA[
   public void testOneCreatedOneModifiedOneNotChangedNonStrict3() throws Exception {
@@ -96,8 +96,8 @@
 </codefragment>
 </duplication>
 <duplication lines="13" tokens="73">
-<file line="55" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
-<file line="50" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
+<file line="55" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
+<file line="50" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
 <codefragment>
 <![CDATA[
     final String actual = results.toString().trim().replace("/", "\\");
@@ -117,8 +117,8 @@
 </codefragment>
 </duplication>
 <duplication lines="10" tokens="63">
-<file line="62" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\FilesComparisonTest.java"/>
-<file line="55" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
+<file line="62" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\FilesComparisonTest.java"/>
+<file line="55" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
 <codefragment>
 <![CDATA[
     final String actual = results.toString().trim().replace(root.getAbsolutePath(), "##ROOT##").replace("/", "\\");
@@ -135,8 +135,8 @@
 </codefragment>
 </duplication>
 <duplication lines="8" tokens="55">
-<file line="48" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
-<file line="43" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
+<file line="48" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
+<file line="43" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
 <codefragment>
 <![CDATA[
           results.append(file.getPath()).append(" ").append(file.getLength()).append(" ").append(file.getLastModified()).append("\n");
@@ -151,8 +151,8 @@
 </codefragment>
 </duplication>
 <duplication lines="6" tokens="53">
-<file line="400" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="419" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="400" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="419" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
 <codefragment>
 <![CDATA[
     secondCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
@@ -165,8 +165,8 @@
 </codefragment>
 </duplication>
 <duplication lines="6" tokens="53">
-<file line="225" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="238" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="225" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="238" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
 <codefragment>
 <![CDATA[
     firstCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
@@ -179,8 +179,8 @@
 </codefragment>
 </duplication>
 <duplication lines="13" tokens="52">
-<file line="147" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
-<file line="160" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="147" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="160" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
 <codefragment>
 <![CDATA[
       "+:some/path/content/inner/**"));
@@ -200,8 +200,8 @@
 </codefragment>
 </duplication>
 <duplication lines="5" tokens="48">
-<file line="72" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\FilesCollectionProcessorTest.java"/>
-<file line="82" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\FilesCollectionProcessorTest.java"/>
+<file line="72" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\FilesCollectionProcessorTest.java"/>
+<file line="82" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\FilesCollectionProcessorTest.java"/>
 <codefragment>
 <![CDATA[
     doTest("added_several_dirs_with_content",
@@ -213,8 +213,8 @@
 </codefragment>
 </duplication>
 <duplication lines="8" tokens="47">
-<file line="74" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
-<file line="174" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="74" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="174" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
 <codefragment>
 <![CDATA[
       "+:some/path"));
@@ -229,8 +229,8 @@
 </codefragment>
 </duplication>
 <duplication lines="4" tokens="41">
-<file line="223" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="235" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="223" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="235" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
 <codefragment>
 <![CDATA[
   public void testEmptyCheckoutDirStrict() throws Exception {
@@ -241,8 +241,8 @@
 </codefragment>
 </duplication>
 <duplication lines="4" tokens="37">
-<file line="59" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\FilesComparisonTest.java"/>
-<file line="52" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
+<file line="59" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\FilesComparisonTest.java"/>
+<file line="52" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
 <codefragment>
 <![CDATA[
     final File goldFile = getTestData(resultsFileName + ".gold", null);
@@ -253,8 +253,8 @@
 </codefragment>
 </duplication>
 <duplication lines="6" tokens="31">
-<file line="142" path="##BASE_DIR##\.\agent\src\jetbrains\buildServer\swabra\SwabraPropertiesProcessor.java"/>
-<file line="173" path="##BASE_DIR##\.\agent\src\jetbrains\buildServer\swabra\SwabraPropertiesProcessor.java"/>
+<file line="142" path="##BASE_DIR##\agent\src\jetbrains\buildServer\swabra\SwabraPropertiesProcessor.java"/>
+<file line="173" path="##BASE_DIR##\agent\src\jetbrains\buildServer\swabra\SwabraPropertiesProcessor.java"/>
 <codefragment>
 <![CDATA[
           writer.close();
@@ -267,8 +267,8 @@
 </codefragment>
 </duplication>
 <duplication lines="6" tokens="30">
-<file line="404" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="424" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="404" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="424" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
 <codefragment>
 <![CDATA[
     thirdCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
@@ -281,8 +281,8 @@
 </codefragment>
 </duplication>
 <duplication lines="8" tokens="30">
-<file line="372" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="387" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="372" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="387" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
 <codefragment>
 <![CDATA[
     secondCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
@@ -297,8 +297,8 @@
 </codefragment>
 </duplication>
 <duplication lines="83" tokens="30">
-<file line="269" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="284" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="269" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="284" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
 <codefragment>
 <![CDATA[
     secondCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
@@ -388,8 +388,8 @@
 </codefragment>
 </duplication>
 <duplication lines="21" tokens="30">
-<file line="229" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="243" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="229" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="243" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
 <codefragment>
 <![CDATA[
     secondCallParams.put(SwabraUtil.STRICT, SwabraUtil.TRUE);
@@ -417,8 +417,8 @@
 </codefragment>
 </duplication>
 <duplication lines="4" tokens="30">
-<file line="45" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
-<file line="40" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
+<file line="45" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
+<file line="40" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
 <codefragment>
 <![CDATA[
     traversal.traverse(new SnapshotFilesIterator(getTestData("filesTraverse.snapshot", null)),
@@ -429,8 +429,8 @@
 </codefragment>
 </duplication>
 <duplication lines="7" tokens="30">
-<file line="14" path="##BASE_DIR##\.\agent\src\jetbrains\buildServer\swabra\snapshots\rules\AntMaskRule.java"/>
-<file line="11" path="##BASE_DIR##\.\agent\src\jetbrains\buildServer\swabra\snapshots\rules\PathRule.java"/>
+<file line="14" path="##BASE_DIR##\agent\src\jetbrains\buildServer\swabra\snapshots\rules\AntMaskRule.java"/>
+<file line="11" path="##BASE_DIR##\agent\src\jetbrains\buildServer\swabra\snapshots\rules\PathRule.java"/>
 <codefragment>
 <![CDATA[
   public PathRule(@NotNull String path, boolean exclude) {
@@ -444,8 +444,8 @@
 </codefragment>
 </duplication>
 <duplication lines="5" tokens="29">
-<file line="117" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
-<file line="131" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="117" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="131" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
 <codefragment>
 <![CDATA[
       "-:some/path/content/inner/another/path"));
@@ -457,8 +457,8 @@
 </codefragment>
 </duplication>
 <duplication lines="4" tokens="29">
-<file line="36" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
-<file line="35" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
+<file line="36" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
+<file line="35" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
 <codefragment>
 <![CDATA[
 public class SnapshotFilesTraversalTest extends TestCase {
@@ -469,8 +469,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="5" tokens="29">
-<file line="76" path="##BASE_DIR##\.\agent\src\jetbrains\buildServer\swabra\processes\LockedFileResolver.java"/>
-<file line="103" path="##BASE_DIR##\.\agent\src\jetbrains\buildServer\swabra\processes\LockedFileResolver.java"/>
+<file line="76" path="##BASE_DIR##\agent\src\jetbrains\buildServer\swabra\processes\LockedFileResolver.java"/>
+<file line="103" path="##BASE_DIR##\agent\src\jetbrains\buildServer\swabra\processes\LockedFileResolver.java"/>
 <codefragment>
 <![CDATA[
         alivePids = myPidsProvider.getPids(f);
@@ -482,9 +482,9 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="3" tokens="28">
-<file line="193" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="199" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="206" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="193" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="199" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="206" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
 <codefragment>
 <![CDATA[
     FileUtil.copyDir(getTestData(dirName + File.separator + AFTER_BUILD, null), myCheckoutDir);
@@ -494,8 +494,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="6" tokens="28">
-<file line="116" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
-<file line="159" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="116" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="159" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
 <codefragment>
 <![CDATA[
     final Rules rules = new Rules(Arrays.asList("-:some/path",
@@ -508,8 +508,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="5" tokens="26">
-<file line="117" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
-<file line="147" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="117" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="147" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
 <codefragment>
 <![CDATA[
       "+:some/path/content/inner"));
@@ -521,8 +521,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="6" tokens="26">
-<file line="26" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
-<file line="86" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="26" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="86" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
 <codefragment>
 <![CDATA[
     final Rules rules = new Rules(Arrays.asList("-:some/path/**"));
@@ -535,8 +535,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="4" tokens="26">
-<file line="47" path="##BASE_DIR##\.\server\src\jetbrains\buildServer\swabra\web\actions\DownloadAction.java"/>
-<file line="45" path="##BASE_DIR##\.\server\src\jetbrains\buildServer\swabra\web\actions\UploadAction.java"/>
+<file line="47" path="##BASE_DIR##\server\src\jetbrains\buildServer\swabra\web\actions\DownloadAction.java"/>
+<file line="45" path="##BASE_DIR##\server\src\jetbrains\buildServer\swabra\web\actions\UploadAction.java"/>
 <codefragment>
 <![CDATA[
       form.addMessage("Successfully uploaded handle.exe", Status.NORMAL);
@@ -547,8 +547,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="8" tokens="25">
-<file line="38" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
-<file line="46" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="38" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="46" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
 <codefragment>
 <![CDATA[
     final Rules rules = new Rules(Arrays.asList("some/path"));
@@ -563,8 +563,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="3" tokens="25">
-<file line="133" path="##BASE_DIR##\.\agent\src\jetbrains\buildServer\swabra\SwabraSettings.java"/>
-<file line="20" path="##BASE_DIR##\.\handle-provider\src\jetbrains\buildServer\handleProvider\HandleProvider.java"/>
+<file line="133" path="##BASE_DIR##\agent\src\jetbrains\buildServer\swabra\SwabraSettings.java"/>
+<file line="20" path="##BASE_DIR##\handle-provider\src\jetbrains\buildServer\handleProvider\HandleProvider.java"/>
 <codefragment>
 <![CDATA[
   private static boolean notDefined(String value) {
@@ -574,8 +574,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="8" tokens="23">
-<file line="37" path="##BASE_DIR##\.\server\src\jetbrains\buildServer\swabra\web\actions\DownloadAction.java"/>
-<file line="35" path="##BASE_DIR##\.\server\src\jetbrains\buildServer\swabra\web\actions\UploadAction.java"/>
+<file line="37" path="##BASE_DIR##\server\src\jetbrains\buildServer\swabra\web\actions\DownloadAction.java"/>
+<file line="35" path="##BASE_DIR##\server\src\jetbrains\buildServer\swabra\web\actions\UploadAction.java"/>
 <codefragment>
 <![CDATA[
       errors.addError("wrongFile", "File name must be handle.exe");
@@ -590,8 +590,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="3" tokens="23">
-<file line="35" path="##BASE_DIR##\.\server\src\jetbrains\buildServer\swabra\URLDownloader.java"/>
-<file line="70" path="##BASE_DIR##\.\server\src\jetbrains\buildServer\swabra\URLDownloader.java"/>
+<file line="35" path="##BASE_DIR##\server\src\jetbrains\buildServer\swabra\URLDownloader.java"/>
+<file line="70" path="##BASE_DIR##\server\src\jetbrains\buildServer\swabra\URLDownloader.java"/>
 <codefragment>
 <![CDATA[
     LOG.error(new StringBuilder("Unable to download object from ").append(source).
@@ -601,8 +601,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="2" tokens="23">
-<file line="71" path="##BASE_DIR##\.\common\src\jetbrains\buildServer\swabra\SwabraUtil.java"/>
-<file line="79" path="##BASE_DIR##\.\common\src\jetbrains\buildServer\swabra\SwabraUtil.java"/>
+<file line="71" path="##BASE_DIR##\common\src\jetbrains\buildServer\swabra\SwabraUtil.java"/>
+<file line="79" path="##BASE_DIR##\common\src\jetbrains\buildServer\swabra\SwabraUtil.java"/>
 <codefragment>
 <![CDATA[
   public static boolean isLockingProcessesReport(@NotNull final Map<String, String> params) {
@@ -611,8 +611,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="5" tokens="22">
-<file line="195" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="202" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="195" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="202" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
 <codefragment>
 <![CDATA[
     dispatcher.getMulticaster().beforeBuildFinish(BuildFinishedStatus.FINISHED_SUCCESS);
@@ -624,8 +624,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="6" tokens="22">
-<file line="40" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
-<file line="57" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="40" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="57" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
 <codefragment>
 <![CDATA[
     assertTrue(rules.exclude("some/path"));
@@ -638,8 +638,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="5" tokens="22">
-<file line="20" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\FilesComparisonTest.java"/>
-<file line="36" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
+<file line="20" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\FilesComparisonTest.java"/>
+<file line="36" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SnapshotFilesTraversalTest.java"/>
 <codefragment>
 <![CDATA[
   private void runTest(String resultsFileName) throws Exception {
@@ -651,8 +651,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="4" tokens="22">
-<file line="69" path="##BASE_DIR##\.\agent\src\jetbrains\buildServer\swabra\snapshots\iteration\FilesTraversal.java"/>
-<file line="82" path="##BASE_DIR##\.\agent\src\jetbrains\buildServer\swabra\snapshots\iteration\FilesTraversal.java"/>
+<file line="69" path="##BASE_DIR##\agent\src\jetbrains\buildServer\swabra\snapshots\iteration\FilesTraversal.java"/>
+<file line="82" path="##BASE_DIR##\agent\src\jetbrains\buildServer\swabra\snapshots\iteration\FilesTraversal.java"/>
 <codefragment>
 <![CDATA[
     while (info1 != null) {
@@ -663,8 +663,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="4" tokens="22">
-<file line="66" path="##BASE_DIR##\.\agent\src\jetbrains\buildServer\swabra\snapshots\iteration\FilesTraversal.java"/>
-<file line="86" path="##BASE_DIR##\.\agent\src\jetbrains\buildServer\swabra\snapshots\iteration\FilesTraversal.java"/>
+<file line="66" path="##BASE_DIR##\agent\src\jetbrains\buildServer\swabra\snapshots\iteration\FilesTraversal.java"/>
+<file line="86" path="##BASE_DIR##\agent\src\jetbrains\buildServer\swabra\snapshots\iteration\FilesTraversal.java"/>
 <codefragment>
 <![CDATA[
     while (info2 != null) {
@@ -675,8 +675,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="7" tokens="21">
-<file line="16" path="##BASE_DIR##\.\server\src\jetbrains\buildServer\swabra\web\actions\DownloadAction.java"/>
-<file line="18" path="##BASE_DIR##\.\server\src\jetbrains\buildServer\swabra\web\actions\UploadAction.java"/>
+<file line="16" path="##BASE_DIR##\server\src\jetbrains\buildServer\swabra\web\actions\DownloadAction.java"/>
+<file line="18" path="##BASE_DIR##\server\src\jetbrains\buildServer\swabra\web\actions\UploadAction.java"/>
 <codefragment>
 <![CDATA[
   public UploadAction(@NotNull HandleProvider handleProvider) {
@@ -690,8 +690,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="2" tokens="21">
-<file line="35" path="##BASE_DIR##\.\server\src\jetbrains\buildServer\swabra\URLDownloader.java"/>
-<file line="62" path="##BASE_DIR##\.\server\src\jetbrains\buildServer\swabra\URLDownloader.java"/>
+<file line="35" path="##BASE_DIR##\server\src\jetbrains\buildServer\swabra\URLDownloader.java"/>
+<file line="62" path="##BASE_DIR##\server\src\jetbrains\buildServer\swabra\URLDownloader.java"/>
 <codefragment>
 <![CDATA[
         LOG.info(new StringBuilder("Successfully downloaded object from ").append(source).
@@ -700,8 +700,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="5" tokens="21">
-<file line="48" path="##BASE_DIR##\.\agent\src\jetbrains\buildServer\swabra\SwabraLogger.java"/>
-<file line="63" path="##BASE_DIR##\.\agent\src\jetbrains\buildServer\swabra\SwabraLogger.java"/>
+<file line="48" path="##BASE_DIR##\agent\src\jetbrains\buildServer\swabra\SwabraLogger.java"/>
+<file line="63" path="##BASE_DIR##\agent\src\jetbrains\buildServer\swabra\SwabraLogger.java"/>
 <codefragment>
 <![CDATA[
     CLASS_LOGGER.warn(message);
@@ -713,8 +713,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="4" tokens="20">
-<file line="270" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
-<file line="405" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="270" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
+<file line="405" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\SwabraTest.java"/>
 <codefragment>
 <![CDATA[
     thirdCallParams.put(SwabraUtil.VERBOSE, SwabraUtil.TRUE);
@@ -725,8 +725,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="4" tokens="20">
-<file line="181" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
-<file line="189" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="181" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="189" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
 <codefragment>
 <![CDATA[
       "+:some/path/**"));
@@ -737,8 +737,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="4" tokens="20">
-<file line="121" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
-<file line="137" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="121" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="137" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
 <codefragment>
 <![CDATA[
     assertTrue(rules.exclude("some/path/content/inner/another/path/content"));
@@ -749,8 +749,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="4" tokens="20">
-<file line="86" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
-<file line="117" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="86" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="117" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
 <codefragment>
 <![CDATA[
       "+:some/path/content/inner/**"));
@@ -761,8 +761,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="4" tokens="20">
-<file line="55" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
-<file line="65" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="55" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="65" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
 <codefragment>
 <![CDATA[
       "-:some/path/content/inner"));
@@ -773,8 +773,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="4" tokens="20">
-<file line="38" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
-<file line="189" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="38" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="189" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
 <codefragment>
 <![CDATA[
       "+:some/path/**"));
@@ -785,8 +785,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="4" tokens="20">
-<file line="26" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
-<file line="117" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="26" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
+<file line="117" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\RulesTest.java"/>
 <codefragment>
 <![CDATA[
       "+:some/path/content/inner/**"));
@@ -797,8 +797,8 @@ public class SnapshotFilesTraversalTest extends TestCase {
 </codefragment>
 </duplication>
 <duplication lines="3" tokens="20">
-<file line="20" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\FilesComparisonTest.java"/>
-<file line="37" path="##BASE_DIR##\.\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
+<file line="20" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\FilesComparisonTest.java"/>
+<file line="37" path="##BASE_DIR##\tests\src\jetbrains\buildServer\swabra\FileSystemFilesTraversalTest.java"/>
 <codefragment>
 <![CDATA[
   private void runTest(String resultsFileName) throws Exception {

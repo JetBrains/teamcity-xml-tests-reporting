@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * User: vbedrosova
@@ -27,7 +27,7 @@ public class XmlReportPluginRulesTest extends TestCase {
 
   @Test
   public void test_path_include() {
-    final XmlReportPluginRules rules = createRules("+:some/path");
+    final Rules rules = createRules("+:some/path");
 
     assertTrue(rules.shouldInclude(getFile("some/path")));
     assertTrue(rules.shouldInclude(getFile("some/path/content")));
@@ -38,7 +38,7 @@ public class XmlReportPluginRulesTest extends TestCase {
 
   @Test
   public void test_path_include_dot() {
-    final XmlReportPluginRules rules = createRules("+:./some/path");
+    final Rules rules = createRules("+:./some/path");
 
     assertTrue(rules.shouldInclude(getFile("some/path")));
     assertTrue(rules.shouldInclude(getFile("some/path/content")));
@@ -49,7 +49,7 @@ public class XmlReportPluginRulesTest extends TestCase {
 
   @Test
   public void test_mask_include_content() {
-    final XmlReportPluginRules rules = createRules("+:some/path/*");
+    final Rules rules = createRules("+:some/path/*");
 
     assertTrue(rules.shouldInclude(getFile("some/path/content")));
 
@@ -61,7 +61,7 @@ public class XmlReportPluginRulesTest extends TestCase {
 
   @Test
   public void test_mask_include_content_dot() {
-    final XmlReportPluginRules rules = createRules("+:./some/path/*");
+    final Rules rules = createRules("+:./some/path/*");
 
     assertTrue(rules.shouldInclude(getFile("some/path/content")));
 
@@ -73,7 +73,7 @@ public class XmlReportPluginRulesTest extends TestCase {
 
   @Test
   public void test_mask_include_content_recursive() {
-    final XmlReportPluginRules rules = createRules("+:some/path/**");
+    final Rules rules = createRules("+:some/path/**");
 
     assertTrue(rules.shouldInclude(getFile("some/path/content")));
 
@@ -84,7 +84,7 @@ public class XmlReportPluginRulesTest extends TestCase {
 
   @Test
   public void test_mask_include_content_recursive_dot() {
-    final XmlReportPluginRules rules = createRules("+:./some/path/**");
+    final Rules rules = createRules("+:./some/path/**");
 
     assertTrue(rules.shouldInclude(getFile("some/path/content")));
 
@@ -95,7 +95,7 @@ public class XmlReportPluginRulesTest extends TestCase {
 
   @Test
   public void test_path_exclude_some_content() {
-    final XmlReportPluginRules rules = createRules("+:some/path", "-:some/path/content", "+:some/path/content/inner");
+    final Rules rules = createRules("+:some/path", "-:some/path/content", "+:some/path/content/inner");
 
     assertTrue(rules.shouldInclude(getFile("some/path")));
     assertTrue(rules.shouldInclude(getFile("some/path/another")));
@@ -110,7 +110,7 @@ public class XmlReportPluginRulesTest extends TestCase {
 
   @Test
   public void test_mask_exclude_some_content() {
-    final XmlReportPluginRules rules = createRules("+:some/path", "-:some/path/content/**");
+    final Rules rules = createRules("+:some/path", "-:some/path/content/**");
 
     assertTrue(rules.shouldInclude(getFile("some/path")));
     assertTrue(rules.shouldInclude(getFile("some/path/another")));
@@ -123,11 +123,11 @@ public class XmlReportPluginRulesTest extends TestCase {
     assertFalse(rules.shouldInclude(getFile("some/path/content/inner/content")));
   }
 
-  private XmlReportPluginRules createRules(@NotNull String... rules) {
-    return new XmlReportPluginRules(getRulesSet(rules), myCheckoutDir.getAbsolutePath());
+  private Rules createRules(@NotNull String... rules) {
+    return new Rules(getRulesSet(rules), myCheckoutDir);
   }
 
-  private Set<String> getRulesSet(@NotNull String... rules) {
+  private Collection<String> getRulesSet(@NotNull String... rules) {
     return new HashSet<String>(Arrays.asList(rules));
   }
 

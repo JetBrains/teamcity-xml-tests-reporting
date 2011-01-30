@@ -88,10 +88,6 @@ public class XmlReportPluginUtil {
     }
   }
 
-  public static void setWhenNoDataPublished(@NotNull final Map<String, String> systemProperties, String value) {
-    systemProperties.put(WHEN_NO_DATA_PUBLISHED, value);
-  }
-
   public static void setXmlReportPaths(@NotNull final Map<String, String> params, String reportDirs) {
     if (isParsingEnabled(params)) {
       params.put(REPORT_DIRS, reportDirs);
@@ -137,45 +133,21 @@ public class XmlReportPluginUtil {
     return -1;
   }
 
-  public static boolean isInspection(String type) {
-    return INSPECTIONS_TYPES.contains(type);
-  }
-
   public static String getFindBugsHomePath(@NotNull final Map<String, String> params) {
     return params.get(FINDBUGS_HOME);
-  }
-
-  public static boolean isDuplication(String type) {
-    return DUPLICATES_TYPES.contains(type);
-  }
-
-  public static String getCheckoutDirPath(@NotNull final Map<String, String> params) {
-    return params.get(CHECKOUT_DIR);
-  }
-
-  public static long getBuildStart(@NotNull final Map<String, String> params) {
-    try {
-      return params.containsKey(BUILD_START) ? Long.parseLong(params.get(BUILD_START)) : 0L;
-    } catch (NumberFormatException e) {
-      return 0L;
-    }
-  }
-
-  public static String getTempFolder(@NotNull final Map<String, String> params) {
-    return params.containsKey(TMP_DIR) ? params.get(TMP_DIR) : System.getProperty("java.io.tmpdir");
   }
 
   public static String getNUnitSchemaPath(@NotNull final Map<String, String> params) {
     return "false".equalsIgnoreCase(params.get(TREAT_DLL_AS_SUITE)) ? NUNIT_TO_JUNIT_OLD_XSL : NUNIT_TO_JUNIT_XSL;
   }
 
-  public static boolean isCheckReportComplete(@NotNull final Map<String, String> params) {
-    return !"false".equalsIgnoreCase(params.get(CHECK_REPORT_COMPLETE));
-  }
-
-  public static boolean isCheckReportGrows(@NotNull final Map<String, String> params) {
-    return !"false".equalsIgnoreCase(params.get(CHECK_REPORT_GROWS));
-  }
+//  public static boolean isCheckReportComplete(@NotNull final Map<String, String> params) {
+//    return !"false".equalsIgnoreCase(params.get(CHECK_REPORT_COMPLETE));
+//  }
+//
+//  public static boolean isCheckReportGrows(@NotNull final Map<String, String> params) {
+//    return !"false".equalsIgnoreCase(params.get(CHECK_REPORT_GROWS));
+//  }
 
   @NotNull
   public static String whenNoDataPublished(@NotNull final Map<String, String> params) {

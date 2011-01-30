@@ -16,1025 +16,596 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import com.intellij.openapi.util.io.FileUtil;
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestsParsingResult;
 import junit.framework.Assert;
-import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.Sequence;
-import org.jmock.integration.junit4.JMock;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Date;
 
 
-@SuppressWarnings({"ThrowableResultOfMethodCallIgnored"})
-@RunWith(JMock.class)
-public class AntJUnitReportParserTest extends TestCase {
+public class AntJUnitReportParserTest extends BaseParserTestCase {
   private static final String REPORT_DIR = "junit";
-  private static final String SUITE_NAME = "TestCase";
-  private static final String CASE_NAME = SUITE_NAME+".test";
 
-  private static final String FAILURE_MESSAGE = "junit.framework.AssertionFailedError: Assertion message form test";
-  private static final String ERROR_MESSAGE = "java.lang.NullPointerException: Error message from test";
+  private static final String SINGLE_CASE_FAILURE = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+    "TEST STARTED: TestCase.test ##TIMESTAMP##\n" +
+    "TEST FAILED: TestCase.test\n" +
+    "junit.framework.AssertionFailedError: Assertion message form test\n" +
+    "junit.framework.AssertionFailedError: Assertion message form test\n" +
+    "      at TestCase.test(Unknown Source)\n" +
+    "TEST FINISHED: TestCase.test ##TIMESTAMP##\n" +
+    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
 
-  private static final String SYSO_MESSAGE1 = "from test1";
-  private static final String SYSO_MESSAGE2 = "from test2";
+  private static final String SINGLE_CASE_FAILURE_EXTRA_SUITE = SINGLE_CASE_FAILURE +
+    "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
 
-  private static final String REPORT_1 = "report.xml";
-  private static final String REPORT_2 = "report1.xml";
-  private static final String REPORT_3 = "report2.xml";
-  private static final String REPORT_4 = "report3.xml";
+  private static final String TWO_CASES = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+    "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+    "TEST FAILED: TestCase.test1\n" +
+    "junit.framework.AssertionFailedError: Assertion message form test\n" +
+    "junit.framework.AssertionFailedError: Assertion message form test\n" +
+    "      at TestCase.test(Unknown Source)\n" +
+    "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+    "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
+    "TEST FAILED: TestCase.test2\n" +
+    "java.lang.NullPointerException: Error message from test\n" +
+    "java.lang.NullPointerException:\n" +
+    "      Error message from test\n" +
+    "      at TestCase.test(Unknown Source)\n" +
+    "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
+    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
 
-  private XmlReportParser myParser;
-  private BuildProgressLogger myLogger;
+  private static final String ONE_LINE_SYSOUT = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+    "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+    "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+    "MESSAGE: [System out]\n" +
+    "from test1\n" +
+    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
 
-  private Mockery myContext;
-  private Sequence mySequence;
+  private static final String ONE_LINE_SYSERR = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+    "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+    "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+    "WARNING: [System error]\n" +
+    "from test1\n" +
+    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
+  private static final String FIVE_LINE_SYSOUT = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+    "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+    "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+    "MESSAGE: [System out]\n" +
+    "from test1 line1\n" +
+    "from test1 line2\n" +
+    "from test1 line3\n" +
+    "from test1 line4\n" +
+    "from test1 line5\n" +
+    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
+  private static final String FIVE_LINE_SYSERR = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+    "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+    "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+    "WARNING: [System error]\n" +
+    "from test1 line1\n" +
+    "from test1 line2\n" +
+    "from test1 line3\n" +
+    "from test1 line4\n" +
+    "from test1 line5\n" +
+    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
+  private static final String TWO_CASES_FAILED = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+    "SUITE FINISHED: TestCase ##TIMESTAMP##\n" +
+    "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+    "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+    "TEST FAILED: TestCase.test1\n" +
+    "junit.framework.AssertionFailedError: Assertion message form test\n" +
+    "junit.framework.AssertionFailedError: Assertion message form test\n" +
+    "      at TestCase.test(Unknown Source)\n" +
+    "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+    "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
+    "TEST FAILED: TestCase.test2\n" +
+    "java.lang.NullPointerException: Error message from test\n" +
+    "java.lang.NullPointerException:\n" +
+    "      Error message from test\n" +
+    "      at TestCase.test(Unknown Source)\n" +
+    "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
+    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
 
-  private void createBaseServerLoggerFacade() {
-    myLogger = myContext.mock(FlowLogger.class);
+  @NotNull
+  protected AntJUnitReportParser getParser() {
+    return new AntJUnitReportParser(getXMLReader(), getLogger());
   }
 
-  private ReportContext reportData(@NotNull final String fileName) throws FileNotFoundException {
-    final File dataFile = TestUtil.getTestDataFile(fileName, REPORT_DIR);
-    return TestUtil.createReportContext(dataFile, "junit", myLogger);
-  }
-
-  private File file(@NotNull final String fileName) throws FileNotFoundException {
-    return TestUtil.getTestDataFile(fileName, REPORT_DIR);
-  }
-
+  @NotNull
   @Override
-  @Before
-  public void setUp() {
-    myContext = new JUnit4Mockery() {
-      {
-        setImposteriser(ClassImposteriser.INSTANCE);
-      }
-    };
-    createBaseServerLoggerFacade();
-    myParser = new AntJUnitReportParser();
-    mySequence = myContext.sequence("Log Sequence");
-  }
-
-  @Test
-  public void testUnexistingReport() throws Exception {
-    try {
-      myParser.parse(reportData("unexisting"));
-    } catch (FileNotFoundException e) {
-      return;
-    }
-    fail();
+  protected String getReportDir() {
+    return REPORT_DIR;
   }
 
   @Test
   public void testEmptyReport() throws Exception {
-    final ReportContext context = reportData("empty.xml");
-    myParser.parse(context);
-    final int testsLogged = context.getProcessedEvents();
-    Assert.assertTrue("Empty reportData contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
-    myContext.assertIsSatisfied();
-  }
+    final TestsParsingResult result = (TestsParsingResult) parse("empty.xml");
 
-  @Test
-  public void testWrongFormatReport() throws Exception {
-    myParser.parse(reportData("wrongFormat"));
-    myContext.assertIsSatisfied();
+    final int suitesLogged = result.getSuites();
+    Assert.assertTrue("Empty reportData contains 0 suites, but " + suitesLogged + " suites logged", suitesLogged == 0);
+
+    final int testsLogged = result.getTests();
+    Assert.assertTrue("Empty reportData contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
   }
 
   @Test
   public void testNoCases() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("noCase.xml"));
-    myContext.assertIsSatisfied();
+    parse("noCase.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void testSingleCaseSuccess() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("singleCaseSuccess.xml"));
-    myContext.assertIsSatisfied();
+    parse("singleCaseSuccess.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test ##TIMESTAMP##\n" +
+        "TEST FINISHED: TestCase.test ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test1CaseFailure() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME), with(FAILURE_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("singleCaseFailure.xml"));
-    myContext.assertIsSatisfied();
+    parse("singleCaseFailure.xml");
+    assertResultEquals(
+      SINGLE_CASE_FAILURE);
   }
 
   @Test
   public void test1CaseError() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME), with(ERROR_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("singleCaseError.xml"));
-    myContext.assertIsSatisfied();
-  }
-
-  private void singleCaseIn2PartsCaseAndSuiteFrom2Try(String unfinishedReportName) throws Exception {
-    final ReportContext context = reportData(REPORT_1);
-    FileUtil.copy(file(unfinishedReportName), context.getFile());
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME), with(FAILURE_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    FileUtil.copy(file("singleCaseFailure.xml"), context.getFile());
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
+    parse("singleCaseError.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test ##TIMESTAMP##\n" +
+        "TEST FAILED: TestCase.test\n" +
+        "java.lang.NullPointerException: Error message from test\n" +
+        "java.lang.NullPointerException:\n" +
+        "      Error message from test\n" +
+        "      at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: TestCase.test ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test1CaseIn2PartsBreakTestSuiteBetweenAttrs() throws Exception {
-    singleCaseIn2PartsCaseAndSuiteFrom2Try("singleCaseBreakTestSuiteBetweenAttrs.xml");
+    parse("singleCaseBreakTestSuiteBetweenAttrs.xml", parse("singleCaseFailure.xml"));
+    assertResultEquals(
+      SINGLE_CASE_FAILURE);
   }
 
   @Test
   public void test1CaseIn2PartsBreakTestSuiteAfterAttrs() throws Exception {
-    singleCaseIn2PartsCaseAndSuiteFrom2Try("singleCaseBreakTestSuiteAfterAttrs.xml");
-  }
-
-  private void singleCaseIn2PartsFrom2TrySuiteFrom1(String unfinishedReportName) throws Exception {
-    final ReportContext context = reportData(REPORT_1);
-    FileUtil.copy(file(unfinishedReportName), context.getFile());
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME), with(FAILURE_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    FileUtil.copy(file("singleCaseFailure.xml"), context.getFile());
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
+    parse("singleCaseBreakTestSuiteAfterAttrs.xml", parse("singleCaseFailure.xml"));
+    assertResultEquals(
+      SINGLE_CASE_FAILURE);
   }
 
   @Test
   public void test1CaseIn2PartsBreakAfterTestSuite() throws Exception {
-    singleCaseIn2PartsFrom2TrySuiteFrom1("singleCaseBreakAfterTestSuite.xml");
+    parse("singleCaseBreakAfterTestSuite.xml", parse("singleCaseFailure.xml"));
+    assertResultEquals(
+      SINGLE_CASE_FAILURE_EXTRA_SUITE);
   }
 
   @Test
   public void test1CaseIn2PartsBreakAfterAttrs() throws Exception {
-    singleCaseIn2PartsFrom2TrySuiteFrom1("singleCaseBreakAfterAttrs.xml");
+    parse("singleCaseBreakAfterAttrs.xml", parse("singleCaseFailure.xml"));
+    assertResultEquals(
+      SINGLE_CASE_FAILURE_EXTRA_SUITE);
   }
 
   @Test
   public void test1CaseIn2PartsBreakClosing() throws Exception {
-    singleCaseIn2PartsFrom2TrySuiteFrom1("singleCaseBreakClosing.xml");
+    parse("singleCaseBreakClosing.xml", parse("singleCaseFailure.xml"));
+    assertResultEquals(
+      SINGLE_CASE_FAILURE_EXTRA_SUITE);
   }
 
   @Test
   public void test1CaseIn2PartsFrom1TrySuiteFrom2() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME), with(FAILURE_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    final ReportContext context = reportData(REPORT_1);
-    FileUtil.copy(file("singleCaseBreakAfter.xml"), context.getFile());
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    FileUtil.copy(file("singleCaseFailure.xml"), context.getFile());
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
+    parse("singleCaseBreakAfter.xml", parse("singleCaseFailure.xml"));
+    assertResultEquals(
+      SINGLE_CASE_FAILURE_EXTRA_SUITE);
   }
 
   @Test
   public void test2CasesSuccess() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("twoCasesSuccess.xml"));
-    myContext.assertIsSatisfied();
+    parse("twoCasesSuccess.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
+        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test2CasesFirstSuccess() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "2"), with(FAILURE_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("twoCasesFirstSuccess.xml"));
-    myContext.assertIsSatisfied();
+    parse("twoCasesFirstSuccess.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
+        "TEST FAILED: TestCase.test2\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "      at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test2CasesSecondSuccess() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "1"), with(FAILURE_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("twoCasesSecondSuccess.xml"));
-    myContext.assertIsSatisfied();
+    parse("twoCasesSecondSuccess.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST FAILED: TestCase.test1\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "      at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
+        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test2CasesFailed() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "1"), with(FAILURE_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "2"), with(ERROR_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("twoCasesFailed.xml"));
-    myContext.assertIsSatisfied();
-  }
-
-  private void twoCasesIn2PartsBothFrom2TrySuiteFrom1(String unfinishedReportName) throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    final ReportContext context = reportData(REPORT_1);
-    FileUtil.copy(file(unfinishedReportName), context.getFile());
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "1"), with(FAILURE_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "2"), with(ERROR_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    FileUtil.copy(file("twoCasesFailed.xml"), context.getFile());
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
+    parse("twoCasesFailed.xml");
+    assertResultEquals(
+      TWO_CASES);
   }
 
   @Test
   public void test2CasesIn2PartsFirstBreakBetweenAttrs() throws Exception {
-    twoCasesIn2PartsBothFrom2TrySuiteFrom1("twoCasesFirstBreakBetweenAttrs.xml");
+    parse("twoCasesFailed.xml", parse("twoCasesFirstBreakBetweenAttrs.xml"));
+    assertResultEquals(
+      TWO_CASES_FAILED);
   }
 
   @Test
   public void test2CasesIn2PartsFirstBreakFailureST() throws Exception {
-    twoCasesIn2PartsBothFrom2TrySuiteFrom1("twoCasesFirstBreakFailureST.xml");
+    parse("twoCasesFailed.xml", parse("twoCasesFirstBreakFailureST.xml"));
+    assertResultEquals(
+      TWO_CASES_FAILED);
   }
 
   @Test
   public void test2CasesIn2PartsFirstBreakAfterFailure() throws Exception {
-    twoCasesIn2PartsBothFrom2TrySuiteFrom1("twoCasesFirstBreakAfterFailure.xml");
-  }
-
-  private void twoCasesIn2PartsSecondFrom2Try(String unfinishedReportName) throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "1"), with(FAILURE_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    final ReportContext context = reportData(REPORT_1);
-    FileUtil.copy(file(unfinishedReportName), context.getFile());
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "2"), with(ERROR_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    FileUtil.copy(file("twoCasesFailed.xml"), context.getFile());
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
+    parse("twoCasesFailed.xml", parse("twoCasesFirstBreakAfterFailure.xml"));
+    assertResultEquals(
+      TWO_CASES_FAILED);
   }
 
   @Test
   public void test2CasesIn2PartsBreakAfterFirst() throws Exception {
-    twoCasesIn2PartsSecondFrom2Try("twoCasesBreakAfterFirst.xml");
+    parse("twoCasesFailed.xml", parse("twoCasesBreakAfterFirst.xml"));
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST FAILED: TestCase.test1\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "      at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n" +
+        "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
+        "TEST FAILED: TestCase.test2\n" +
+        "java.lang.NullPointerException: Error message from test\n" +
+        "java.lang.NullPointerException:\n" +
+        "      Error message from test\n" +
+        "      at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test2CasesIn2PartsSecondBreakBetweenAttrs() throws Exception {
-    twoCasesIn2PartsSecondFrom2Try("twoCasesSecondBreakBetweenAttrs.xml");
+    parse("twoCasesFailed.xml", parse("twoCasesSecondBreakBetweenAttrs.xml"));
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST FAILED: TestCase.test1\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "      at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n" +
+        "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
+        "TEST FAILED: TestCase.test2\n" +
+        "java.lang.NullPointerException: Error message from test\n" +
+        "java.lang.NullPointerException:\n" +
+        "      Error message from test\n" +
+        "      at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test2CasesIn2PartsSecondBreakFailureMessage() throws Exception {
-    twoCasesIn2PartsSecondFrom2Try("twoCasesSecondBreakErrorMessage.xml");
+    parse("twoCasesFailed.xml", parse("twoCasesSecondBreakErrorMessage.xml"));
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST FAILED: TestCase.test1\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "      at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n" +
+        "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
+        "TEST FAILED: TestCase.test2\n" +
+        "java.lang.NullPointerException: Error message from test\n" +
+        "java.lang.NullPointerException:\n" +
+        "      Error message from test\n" +
+        "      at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test2CasesIn2PartsSecondBreakFailureST() throws Exception {
-    twoCasesIn2PartsSecondFrom2Try("twoCasesSecondBreakErrorST.xml");
+    parse("twoCasesFailed.xml", parse("twoCasesSecondBreakErrorST.xml"));
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST FAILED: TestCase.test1\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "      at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n" +
+        "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
+        "TEST FAILED: TestCase.test2\n" +
+        "java.lang.NullPointerException: Error message from test\n" +
+        "java.lang.NullPointerException:\n" +
+        "      Error message from test\n" +
+        "      at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test2CasesIn2PartsSecondBreakErrorClosing() throws Exception {
-    twoCasesIn2PartsSecondFrom2Try("twoCasesSecondBreakErrorClosing.xml");
+    parse("twoCasesFailed.xml", parse("twoCasesSecondBreakErrorClosing.xml"));
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST FAILED: TestCase.test1\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "      at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n" +
+        "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
+        "TEST FAILED: TestCase.test2\n" +
+        "java.lang.NullPointerException: Error message from test\n" +
+        "java.lang.NullPointerException:\n" +
+        "      Error message from test\n" +
+        "      at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test2CasesIn2PartsSecondBreakClosing() throws Exception {
-    twoCasesIn2PartsSecondFrom2Try("twoCasesSecondBreakClosing.xml");
+    parse("twoCasesFailed.xml", parse("twoCasesSecondBreakClosing.xml"));
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST FAILED: TestCase.test1\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "junit.framework.AssertionFailedError: Assertion message form test\n" +
+        "      at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n" +
+        "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
+        "TEST FAILED: TestCase.test2\n" +
+        "java.lang.NullPointerException: Error message from test\n" +
+        "java.lang.NullPointerException:\n" +
+        "      Error message from test\n" +
+        "      at TestCase.test(Unknown Source)\n" +
+        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test2CasesIn2PartsBothFrom1TrySuiteFrom2() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "1"), with(FAILURE_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "2"), with(ERROR_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    final ReportContext context = reportData(REPORT_1);
-    FileUtil.copy(file("twoCasesBreakAfterSecond.xml"), context.getFile());
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    FileUtil.copy(file("twoCasesFailed.xml"), context.getFile());
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
-  }
-
-  private void twoCasesIn2PartsBothAndSuiteFrom2Try(String unfinishedReportName) throws Exception {
-    final ReportContext context = reportData(REPORT_1);
-    FileUtil.copy(file(unfinishedReportName), context.getFile());
-    myParser.parse(context);
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "1"), with(FAILURE_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFailed(with(CASE_NAME + "2"), with(ERROR_MESSAGE), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    FileUtil.copy(file("twoCasesFailed.xml"), context.getFile());
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
+    parse("twoCasesFailed.xml", parse("twoCasesBreakAfterSecond.xml"));
+    assertResultEquals(
+      TWO_CASES +
+        "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void test2CasesIn2PartsBreakHeading() throws Exception {
-    twoCasesIn2PartsBothAndSuiteFrom2Try("twoCasesBreakHeading.xml");
+    parse("twoCasesFailed.xml", parse("twoCasesBreakHeading.xml"));
+    assertResultEquals(
+      TWO_CASES);
   }
 
   @Test
   public void test2CasesIn2PartsBreakTestSuite() throws Exception {
-    twoCasesIn2PartsBothAndSuiteFrom2Try("twoCasesBreakTestSuite.xml");
+    parse("twoCasesFailed.xml", parse("twoCasesBreakTestSuite.xml"));
+    assertResultEquals(
+      TWO_CASES);
   }
 
   @Test
   public void test2CasesIn2PartsBreakTestSuiteInAttr() throws Exception {
-    twoCasesIn2PartsBothAndSuiteFrom2Try("twoCasesBreakTestSuiteInAttr.xml");
+    parse("twoCasesFailed.xml", parse("twoCasesBreakTestSuiteInAttr.xml"));
+    assertResultEquals(
+      TWO_CASES);
   }
 
   @Test
   public void test9CasesIn3Parts() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        exactly(3).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
-        exactly(3).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    final ReportContext context = reportData(REPORT_1);
-    FileUtil.copy(file("nineCasesBreakAfterThird.xml"), context.getFile());
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        exactly(3).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
-        exactly(3).of(myLogger).logTestFailed(with(any(String.class)), with(FAILURE_MESSAGE), with(any(String.class)));
-        exactly(3).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    FileUtil.copy(file("nineCasesBreakAfterSixth.xml"), context.getFile());
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        exactly(3).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
-        exactly(3).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    FileUtil.copy(file("nineCases.xml"), context.getFile());
-    myParser.parse(context);
-    myContext.assertIsSatisfied();
-  }
-
-  private void oneLineSystemOut(String reportName) throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).message(with("[System out]\nfrom test1"));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData(reportName));
-    myContext.assertIsSatisfied();
+    parse("nineCases.xml", parse("nineCasesBreakAfterSixth.xml", parse("nineCasesBreakAfterThird.xml")));
+    assertResultEquals(
+      getExpectedResult("nineCases.gold"));
   }
 
   @Test
   public void testPrintSystemOut() throws Exception {
-    oneLineSystemOut("printSystemOut.xml");
+    parse("printSystemOut.xml");
+    assertResultEquals(
+      ONE_LINE_SYSOUT);
   }
 
   @Test
   public void testPrintlnSystemOut() throws Exception {
-    oneLineSystemOut("printlnSystemOut.xml");
-  }
-
-  private void oneLineSystemErr(String reportName) throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).warning(with("[System error]\nfrom test1"));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData(reportName));
-    myContext.assertIsSatisfied();
+    parse("printlnSystemOut.xml");
+    assertResultEquals(
+      ONE_LINE_SYSOUT);
   }
 
   @Test
   public void testPrintSystemErr() throws Exception {
-    oneLineSystemErr("printSystemErr.xml");
+    parse("printSystemErr.xml");
+    assertResultEquals(
+      ONE_LINE_SYSERR);
   }
 
   @Test
   public void testPrintlnSystemErr() throws Exception {
-    oneLineSystemErr("printlnSystemErr.xml");
-  }
-
-  private void fiveLineSystemOut(String reportName) throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).message(with("[System out]\n" +
-          "from test1 line1\nfrom test1 line2\nfrom test1 line3\nfrom test1 line4\nfrom test1 line5"));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData(reportName));
-    myContext.assertIsSatisfied();
+    parse("printlnSystemErr.xml");
+    assertResultEquals(
+      ONE_LINE_SYSERR);
   }
 
   @Test
   public void testPrintFiveLineSystemOut() throws Exception {
-    fiveLineSystemOut("printFiveLineSystemOut.xml");
+    parse("printFiveLineSystemOut.xml");
+    assertResultEquals(
+      FIVE_LINE_SYSOUT);
   }
 
   @Test
   public void testPrintlnFiveLineSystemOut() throws Exception {
-    fiveLineSystemOut("printlnFiveLineSystemOut.xml");
-  }
-
-  private void fiveLineSystemErr(String reportName) throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).warning(with("[System error]\n" +
-          "from test1 line1\nfrom test1 line2\nfrom test1 line3\nfrom test1 line4\nfrom test1 line5"));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData(reportName));
-    myContext.assertIsSatisfied();
+    parse("printlnFiveLineSystemOut.xml");
+    assertResultEquals(
+      FIVE_LINE_SYSOUT);
   }
 
   @Test
   public void testPrintFiveLineSystemErr() throws Exception {
-    fiveLineSystemErr("printFiveLineSystemErr.xml");
+    parse("printFiveLineSystemErr.xml");
+    assertResultEquals(
+      FIVE_LINE_SYSERR);
   }
 
   @Test
   public void testPrintlnFiveLineSystemErr() throws Exception {
-    fiveLineSystemErr("printlnFiveLineSystemErr.xml");
+    parse("printlnFiveLineSystemErr.xml");
+    assertResultEquals(
+      FIVE_LINE_SYSERR);
   }
 
   @Test
-  public void fiveLineSystemOutAndErr() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).message(with("[System out]\n" +
-          "out from test1 line1\nout from test1 line2\nout from test1 line3\nout from test1 line4\nout from test1 line5"));
-        oneOf(myLogger).warning(with("[System error]\n" +
-          "err from test1 line1\nerr from test1 line2\nerr from test1 line3\nerr from test1 line4\nerr from test1 line5"));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("fiveLineSystemOutAndErr.xml"));
-    myContext.assertIsSatisfied();
+  public void testFiveLineSystemOutAndErr() throws Exception {
+    parse("fiveLineSystemOutAndErr.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+        "MESSAGE: [System out]\n" +
+        "out from test1 line1\n" +
+        "out from test1 line2\n" +
+        "out from test1 line3\n" +
+        "out from test1 line4\n" +
+        "out from test1 line5\n" +
+        "WARNING: [System error]\n" +
+        "err from test1 line1\n" +
+        "err from test1 line2\n" +
+        "err from test1 line3\n" +
+        "err from test1 line4\n" +
+        "err from test1 line5\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void testLogCaseSystemOut() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStdOut(with(CASE_NAME + "1"), with(SYSO_MESSAGE1));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("caseWithSystemOut.xml"));
-    myContext.assertIsSatisfied();
+    parse("caseWithSystemOut.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST STDOUT: TestCase.test1\n" +
+        "from test1\n" +
+        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void testLogCaseSystemErr() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStdErr(with(CASE_NAME + "1"), with(SYSO_MESSAGE1));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("caseWithSystemErr.xml"));
-    myContext.assertIsSatisfied();
+    parse("caseWithSystemErr.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST STDERR: TestCase.test1\n" +
+        "from test1\n" +
+        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   @Test
   public void testLog2CasesSystemOut() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStdOut(with(CASE_NAME + "1"), with(SYSO_MESSAGE1));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStdOut(with(CASE_NAME + "2"), with(SYSO_MESSAGE2));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("twoCasesWithSystemOut.xml"));
-    myContext.assertIsSatisfied();
+    parse("twoCasesWithSystemOut.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST STDOUT: TestCase.test1\n" +
+        "from test1\n" +
+        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
+        "TEST STDOUT: TestCase.test2\n" +
+        "from test2\n" +
+        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   // TW-7649: junit tests results being ignored
   @Test
   public void testNoSuites() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with("api.brightcove.catalog.AudioFacadeReadServletTest"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).message(with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with("api.brightcove.catalog.AudioFacadeReadServletTest"), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    final ReportContext context = reportData("noSuite.xml");
-    myParser.parse(context);
-    assertEquals(-1, context.getProcessedEvents());
-    myContext.assertIsSatisfied();
+    parse("noSuite.xml");
+    assertResultEquals(
+      getExpectedResult("noSuites.gold"));
   }
 
-  @Test
-  public void testManyCasesInManyFilesFromManyTries() throws Exception {
-    final ReportContext data1 = reportData(REPORT_1);
-    FileUtil.copy(file("TestClass0_0_500.xml"), data1.getFile());
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with("org.jetbrains.testProject.TestClass0_0"), with(any(Date.class)));
-        inSequence(mySequence);
-        exactly(500).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
-        exactly(500).of(myLogger).logTestFailed(with(any(String.class)), with(any(String.class)), with(any(String.class)));
-        exactly(500).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with("org.jetbrains.testProject.TestClass0_0"), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(data1);
-    myContext.assertIsSatisfied();
-
-    final ReportContext data2 = reportData(REPORT_2);
-    FileUtil.copy(file("TestClass1_0.xml"), data2.getFile());
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with("org.jetbrains.testProject.TestClass1_0"), with(any(Date.class)));
-        inSequence(mySequence);
-        exactly(1000).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
-        exactly(1000).of(myLogger).logTestFailed(with(any(String.class)), with(any(String.class)), with(any(String.class)));
-        exactly(1000).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with("org.jetbrains.testProject.TestClass1_0"), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(data2);
-    myContext.assertIsSatisfied();
-
-    final ReportContext data3 = reportData(REPORT_3);
-    FileUtil.copy(file("TestClass0_1_700.xml"), data3.getFile());
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with("org.jetbrains.testProject.TestClass0_1"), with(any(Date.class)));
-        inSequence(mySequence);
-        exactly(700).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
-        exactly(700).of(myLogger).logTestFailed(with(any(String.class)), with(any(String.class)), with(any(String.class)));
-        exactly(700).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with("org.jetbrains.testProject.TestClass0_1"), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(data3);
-    myContext.assertIsSatisfied();
-
-    FileUtil.copy(file("TestClass0_0_800.xml"), data1.getFile());
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with("org.jetbrains.testProject.TestClass0_0"), with(any(Date.class)));
-        inSequence(mySequence);
-        exactly(300).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
-        exactly(300).of(myLogger).logTestFailed(with(any(String.class)), with(any(String.class)), with(any(String.class)));
-        exactly(300).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with("org.jetbrains.testProject.TestClass0_0"), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(data1);
-    myContext.assertIsSatisfied();
-
-    final ReportContext data4 = reportData(REPORT_4);
-    FileUtil.copy(file("TestClass1_1.xml"), data4.getFile());
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with("org.jetbrains.testProject.TestClass1_1"), with(any(Date.class)));
-        inSequence(mySequence);
-        exactly(1000).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
-        exactly(1000).of(myLogger).logTestFailed(with(any(String.class)), with(any(String.class)), with(any(String.class)));
-        exactly(1000).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with("org.jetbrains.testProject.TestClass1_1"), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(data4);
-    myContext.assertIsSatisfied();
-
-    FileUtil.copy(file("TestClass0_1.xml"), data3.getFile());
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with("org.jetbrains.testProject.TestClass0_1"), with(any(Date.class)));
-        inSequence(mySequence);
-        exactly(300).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
-        exactly(300).of(myLogger).logTestFailed(with(any(String.class)), with(any(String.class)), with(any(String.class)));
-        exactly(300).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with("org.jetbrains.testProject.TestClass0_1"), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(data3);
-    myContext.assertIsSatisfied();
-
-    FileUtil.copy(file("TestClass0_0.xml"), data1.getFile());
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with("org.jetbrains.testProject.TestClass0_0"), with(any(Date.class)));
-        inSequence(mySequence);
-        exactly(200).of(myLogger).logTestStarted(with(any(String.class)), with(any(Date.class)));
-        exactly(200).of(myLogger).logTestFailed(with(any(String.class)), with(any(String.class)), with(any(String.class)));
-        exactly(200).of(myLogger).logTestFinished(with(any(String.class)), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with("org.jetbrains.testProject.TestClass0_0"), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(data1);
-    myContext.assertIsSatisfied();
-  }
-
-  //TW-9343
+  // TW-9343
   @Test
   public void test2CasesFirstSuccessSecondSkipped() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "1"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with(CASE_NAME + "2"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with(CASE_NAME + "2"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with(SUITE_NAME), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("twoCasesFirstSuccessSecondSkipped.xml"));
-    myContext.assertIsSatisfied();
+    parse("twoCasesFirstSuccessSecondSkipped.xml");
+    assertResultEquals(
+      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
+        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
+        "TEST IGNORED: TestCase.test2\n" +
+        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
+        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
   }
 
   //TW-9343 strange class name
   @Test
   public void testSuiteNameEqualsTestName() throws Exception {
-    myContext.checking(new Expectations() {
-      {
-        oneOf(myLogger).logSuiteStarted(with("ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestStarted(with("ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestIgnored(with("ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest"), with(any(String.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logTestFinished(with("ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest"), with(any(Date.class)));
-        inSequence(mySequence);
-        oneOf(myLogger).logSuiteFinished(with("ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest"), with(any(Date.class)));
-        inSequence(mySequence);
-      }
-    });
-    myParser.parse(reportData("TEST-ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest.xml"));
-    myContext.assertIsSatisfied();
+    parse("TEST-ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest.xml");
+    assertResultEquals(
+      "SUITE STARTED: ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest ##TIMESTAMP##\n" +
+        "TEST STARTED: ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest ##TIMESTAMP##\n" +
+        "TEST IGNORED: ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest\n" +
+        "TEST FINISHED: ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest ##TIMESTAMP##\n" +
+        "SUITE FINISHED: ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest ##TIMESTAMP##\n");
   }
 }

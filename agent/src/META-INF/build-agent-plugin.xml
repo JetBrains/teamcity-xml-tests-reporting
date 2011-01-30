@@ -2,8 +2,32 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans default-autowire="constructor" default-lazy-init="false" default-dependency-check="none">
-    <bean id="TestReportParserPlugin" class="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin"
-          lazy-init="default" autowire="default" dependency-check="default"/>
+    <bean id="junitFactory"
+          class="jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitFactory"/>
+    <bean id="nunitFactory"
+          class="jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitFactory"/>
+    <bean id="findBugsFactory"
+          class="jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsFactory"/>
+    <bean id="pmdFactory"
+          class="jetbrains.buildServer.xmlReportPlugin.pmd.PmdFactory"/>
+    <bean id="checkstyleFactory"
+          class="jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleFactory"/>
+    <bean id="pmdCpdFactory"
+          class="jetbrains.buildServer.xmlReportPlugin.pmdCpd.PmdCpdFactory"/>
+
+    <bean class="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin" lazy-init="default" autowire="default" dependency-check="default">
+        <constructor-arg index="0">
+            <map>
+                <entry key="junit" value-ref="junitFactory"/>
+                <entry key="nunit" value-ref="nunitFactory"/>
+                <entry key="findBugs" value-ref="findBugsFactory"/>
+                <entry key="pmd" value-ref="pmdFactory"/>
+                <entry key="checkstyle" value-ref="checkstyleFactory"/>
+                <entry key="pmdCpd" value-ref="pmdCpdFactory"/>
+                <entry key="surefire" value-ref="junitFactory"/>
+            </map>
+        </constructor-arg>
+    </bean>
 
     <bean id="JUnitDataProcessor"
           class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$JUnitDataProcessor"/>

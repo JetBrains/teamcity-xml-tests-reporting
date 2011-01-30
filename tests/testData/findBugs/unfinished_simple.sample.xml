@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BugCollection version="1.3.7" sequence="0" timestamp="1233912287130" analysisTimestamp="1233912289536" release="">
+    <Project filename="&lt;&lt;unnamed project&gt;&gt;" projectName="">
+        <Jar>
+            ##BASE_DIR##\simple\org\jetbrains\testProject\BuggyClass.class
+        </Jar>
+        <SrcDir>##BASE_DIR##\simple</SrcDir>
+    </Project>
+    <BugInstance type="NM_BAD_EQUAL" priority="1" abbrev="Nm" category="CORRECTNESS">
+        <Class classname="org.jetbrains.testProject.BuggyClass">
+            <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="4" end="13" sourcefile="BuggyClass.java"
+                        sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+        </Class>
+        <Method classname="org.jetbrains.testProject.BuggyClass" name="equal" signature="(Ljava/lang/Object;)Z"
+                isStatic="false">
+            <SourceLine classname="org.jetbrains.testProject.BuggyClass" start="9" end="9" startBytecode="0"
+                        endBytecode="53"
+                        sourcefile="BuggyClass.java" sourcepath="org/jetbrains/testProject/BuggyClass.java"/>
+        </Method>
+    </BugInstance>

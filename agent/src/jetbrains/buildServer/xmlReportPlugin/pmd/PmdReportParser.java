@@ -16,13 +16,20 @@
 
 package jetbrains.buildServer.xmlReportPlugin.pmd;
 
+import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
-import jetbrains.buildServer.xmlReportPlugin.ReportContext;
+import jetbrains.buildServer.xmlReportPlugin.ParserUtils;
+import jetbrains.buildServer.xmlReportPlugin.ParsingException;
+import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionsReportParser;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+
+import java.io.File;
 
 
 public class PmdReportParser extends InspectionsReportParser {
@@ -31,20 +38,19 @@ public class PmdReportParser extends InspectionsReportParser {
 
   private String myCurrentFile;
 
-  public PmdReportParser(@NotNull InspectionReporter inspectionReporter,
-                         @NotNull String checkoutDirectory) {
-    super(inspectionReporter, checkoutDirectory);
-    myCData = new StringBuilder();
+  public PmdReportParser(@NotNull XMLReader xmlReader,
+                         @NotNull InspectionReporter inspectionReporter,
+                         @NotNull File checkoutDirectory,
+                         @NotNull BuildProgressLogger logger) {
+    super(xmlReader, inspectionReporter, checkoutDirectory, logger, true);
   }
 
-  @Override
-  public void parse(@NotNull final ReportContext context) throws Exception {
-    try {
-      doSAXParse(context);
-    } finally {
-      myInspectionReporter.flush();
+  public boolean parse(@NotNull File file, @Nullable ParsingResult prevResult) throws ParsingException {
+    if (!ParserUtils.isReportComplete(file, "pmd")) {
+      return false;
     }
-    context.setProcessedEvents(-1);
+    parse(file);
+    return true;
   }
 
   //  Handler methods
@@ -53,7 +59,7 @@ public class PmdReportParser extends InspectionsReportParser {
   public void startElement(String uri, String localName,
                            String qName, Attributes attributes) throws SAXException {
     if ("file".equals(localName)) {
-      myCurrentFile = resolveSourcePath(attributes.getValue("name"));
+      myCurrentFile = getRelativePath(attributes.getValue("name"), myCheckoutDirectory);
     } else if ("violation".equals(localName)) {
       myCurrentBug = new InspectionInstance();
       myCurrentBug.setLine(getNumber(attributes.getValue("beginline")));
@@ -68,7 +74,7 @@ public class PmdReportParser extends InspectionsReportParser {
   @Override
   public void endElement(String uri, String localName, String qName) throws SAXException {
     if ("violation".equals(localName)) {
-      myCurrentBug.setMessage(formatText(myCData));
+      myCurrentBug.setMessage(ParserUtils.formatText(getCData()));
       myInspectionReporter.reportInspection(myCurrentBug);
     }
     clearCData();
@@ -79,12 +85,6 @@ public class PmdReportParser extends InspectionsReportParser {
   private void reportInspectionType(Attributes attributes) {
     final String id = attributes.getValue("rule");
     final String category = attributes.getValue("ruleset");
-    reportInspectionType(id, id, category, category);
-  }
-
-  @NotNull
-  @Override
-  protected String getRootTag() {
-    return "pmd";
+    reportInspectionType(id, id, category, category, myInspectionReporter);
   }
 }

@@ -16,31 +16,23 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
+import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
-import java.util.Map;
 
-
-public class PmdReportParserTest extends ParserTestCase {
+public class PmdReportParserTest extends BaseParserTestCase {
+  private static final String TYPE = "pmd";
+  @NotNull
   @Override
-  protected String getType() {
-    return PmdReportParser.TYPE;
+  protected Parser getParser() {
+    return new PmdReportParser(getXMLReader(), getInspectionReporter(), getBaseDir(), getLogger());
   }
 
+  @NotNull
   @Override
-  protected XmlReportParser getParser(StringBuilder results) {
-    final InspectionReporter reporter = TestUtil.createInspectionReporter(results);
-
-    return new PmdReportParser(reporter, "##BASE_DIR##");
-  }
-
-  @Override
-  protected void prepareParams(Map<String, String> paramsMap) {
-    XmlReportPluginUtil.enableXmlReportParsing(paramsMap, getType());
-    XmlReportPluginUtil.setMaxErrors(paramsMap, 5);
-    XmlReportPluginUtil.setMaxWarnings(paramsMap, 5);
+  protected String getReportDir() {
+    return TYPE;
   }
 
   @Test
@@ -51,5 +43,10 @@ public class PmdReportParserTest extends ParserTestCase {
   @Test
   public void testInner() throws Exception {
     runTest("inner.xml");
+  }
+
+  private void runTest(final String reportName) throws Exception {
+    parse(reportName);
+    assertResultEquals(getExpectedResult(reportName + ".gold"));
   }
 }

@@ -16,13 +16,14 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.util.Date;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.agent.impl.BuildMessageTweaker;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
 import jetbrains.buildServer.messages.BuildMessage1;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Date;
 
 class BuildLoggerForTesting implements FlowLogger, MessageTweakingSupport {
   private final StringBuilder myText;
@@ -83,59 +84,117 @@ class BuildLoggerForTesting implements FlowLogger, MessageTweakingSupport {
   }
 
   public void logTestStarted(final String name) {
-
+    myText.append("TEST STARTED: ");
+    myText.append(name);
+    myText.append("\n");
   }
 
   public void logTestStarted(final String name, final Date timestamp) {
-
+    myText.append("TEST STARTED: ");
+    myText.append(name);
+    myText.append(" ");
+    myText.append("##TIMESTAMP##");
+    myText.append("\n");
   }
 
   public void logTestFinished(final String name) {
-
+    myText.append("TEST FINISHED: ");
+    myText.append(name);
+    myText.append("\n");
   }
 
   public void logTestFinished(final String name, final Date timestamp) {
-
+    myText.append("TEST FINISHED: ");
+    myText.append(name);
+    myText.append(" ");
+    myText.append("##TIMESTAMP##");
+    myText.append("\n");
   }
 
   public void logTestIgnored(final String name, final String reason) {
-
+    myText.append("TEST IGNORED: ");
+    myText.append(name);
+    if (reason != null && reason.length() > 0) {
+      myText.append(" ");
+      myText.append(reason);
+    }
+    myText.append("\n");
   }
 
   public void logSuiteStarted(final String name) {
-
+    myText.append("SUITE STARTED: ");
+    myText.append(name);
+    myText.append("\n");
   }
 
   public void logSuiteStarted(final String name, final Date timestamp) {
-
+    myText.append("SUITE STARTED: ");
+    myText.append(name);
+    myText.append(" ");
+    myText.append("##TIMESTAMP##");
+    myText.append("\n");
   }
 
   public void logSuiteFinished(final String name) {
-
+    myText.append("SUITE FINISHED: ");
+    myText.append(name);
+    myText.append("\n");
   }
 
   public void logSuiteFinished(final String name, final Date timestamp) {
-
+    myText.append("SUITE FINISHED: ");
+    myText.append(name);
+    myText.append(" ");
+    myText.append("##TIMESTAMP##");
+    myText.append("\n");
   }
 
   public void logTestStdOut(final String testName, final String out) {
-
+    myText.append("TEST STDOUT: ");
+    myText.append(testName);
+    myText.append("\n");
+    myText.append(out);
+    myText.append("\n");
   }
 
   public void logTestStdErr(final String testName, final String out) {
-
+    myText.append("TEST STDERR: ");
+    myText.append(testName);
+    myText.append("\n");
+    myText.append(out);
+    myText.append("\n");
   }
 
   public void logTestFailed(final String testName, final Throwable e) {
-
+    myText.append("TEST FAILED: ");
+    myText.append(testName);
+    myText.append("\n");
+    myText.append(e);
+    myText.append("\n");
   }
 
   public void logComparisonFailure(final String testName, final Throwable e, final String expected, final String actual) {
-
+    myText.append("TEST FAILED: ");
+    myText.append(testName);
+    myText.append("\n");
+    myText.append(e);
+    myText.append("\n");
+    myText.append("EXPECTED: ");
+    myText.append(expected);
+    myText.append("\n");
+    myText.append("ACTUAL: ");
+    myText.append(actual);
+    myText.append("\n");
   }
 
   public void logTestFailed(final String testName, final String message, final String stackTrace) {
-
+    myText.append("TEST FAILED: ");
+    myText.append(testName);
+    myText.append("\n");
+    myText.append(message);
+    myText.append("\n");
+    myText.append(stackTrace);
+    myText.append("\n");
   }
 
   

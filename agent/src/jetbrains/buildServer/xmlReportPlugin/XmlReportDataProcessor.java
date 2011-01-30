@@ -18,15 +18,11 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.agent.DataProcessor;
 import jetbrains.buildServer.agent.DataProcessorContext;
-import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 //"##teamcity[importData type='sometype' file='somedir']"
 // service message activates watching "somedir" directory for reports of sometype type
@@ -52,10 +48,11 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
   public static final String WHEN_NO_DATA_PUBLISHED_ARGUMENT = "whenNoDataPublished";
   public static final String LOG_AS_INTERNAL_ARGUMENT = "logAsInternal";
 
-  private final XmlReportPlugin myPlugin;
+  @NotNull
+  private final RulesProcessor myRulesProcessor;
 
-  XmlReportDataProcessor(@NotNull XmlReportPlugin plugin) {
-    myPlugin = plugin;
+  XmlReportDataProcessor(@NotNull RulesProcessor rulesProcessor) {
+    myRulesProcessor = rulesProcessor;
   }
 
   public void processData(@NotNull final DataProcessorContext context) {
@@ -77,12 +74,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
     pass(params, XmlReportPluginConstants.MAX_ERRORS, arguments, ERRORS_LIMIT_ARGUMENT, null);
     pass(params, XmlReportPluginConstants.MAX_WARNINGS, arguments, WARNINGS_LIMIT_ARGUMENT, null);
 
-    final Set<File> reportPaths = new HashSet<File>();
-    final File reportPath = context.getFile();
-    final String reportPathStr = FileUtil.getRelativePath(myPlugin.getCheckoutDir(), reportPath);
-    reportPaths.add(reportPathStr == null ? reportPath : new File(reportPathStr));
-
-    myPlugin.processReports(params, reportPaths);
+    myRulesProcessor.processRules(context.getFile(), params);
   }
 
   private static void pass(final Map<String, String> target,
@@ -95,7 +87,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
   }
 
   public static final class JUnitDataProcessor extends XmlReportDataProcessor {
-    public JUnitDataProcessor(XmlReportPlugin plugin) {
+    public JUnitDataProcessor(RulesProcessor plugin) {
       super(plugin);
     }
 
@@ -106,7 +98,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
   }
 
   public static final class NUnitDataProcessor extends XmlReportDataProcessor {
-    public NUnitDataProcessor(XmlReportPlugin plugin) {
+    public NUnitDataProcessor(RulesProcessor plugin) {
       super(plugin);
     }
 
@@ -117,7 +109,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
   }
 
   public static final class SurefireDataProcessor extends XmlReportDataProcessor {
-    public SurefireDataProcessor(XmlReportPlugin plugin) {
+    public SurefireDataProcessor(RulesProcessor plugin) {
       super(plugin);
     }
 
@@ -128,7 +120,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
   }
 
   public static final class FindBugsDataProcessor extends XmlReportDataProcessor {
-    public FindBugsDataProcessor(XmlReportPlugin plugin) {
+    public FindBugsDataProcessor(RulesProcessor plugin) {
       super(plugin);
     }
 
@@ -139,7 +131,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
   }
 
   public static final class PmdDataProcessor extends XmlReportDataProcessor {
-    public PmdDataProcessor(XmlReportPlugin plugin) {
+    public PmdDataProcessor(RulesProcessor plugin) {
       super(plugin);
     }
 
@@ -150,7 +142,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
   }
 
   public static final class CheckstyleDataProcessor extends XmlReportDataProcessor {
-    public CheckstyleDataProcessor(XmlReportPlugin plugin) {
+    public CheckstyleDataProcessor(RulesProcessor plugin) {
       super(plugin);
     }
 
@@ -161,7 +153,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
   }
 
   public static final class PmdCpdDataProcessor extends XmlReportDataProcessor {
-    public PmdCpdDataProcessor(XmlReportPlugin plugin) {
+    public PmdCpdDataProcessor(RulesProcessor plugin) {
       super(plugin);
     }
 

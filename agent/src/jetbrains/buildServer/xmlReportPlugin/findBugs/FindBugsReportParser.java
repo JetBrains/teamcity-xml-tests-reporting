@@ -19,14 +19,16 @@ package jetbrains.buildServer.xmlReportPlugin.findBugs;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
-import jetbrains.buildServer.xmlReportPlugin.ReportContext;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginParameters;
+import jetbrains.buildServer.xmlReportPlugin.LoggingUtils;
+import jetbrains.buildServer.xmlReportPlugin.ParserUtils;
+import jetbrains.buildServer.xmlReportPlugin.ParsingException;
+import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionsReportParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -54,23 +56,21 @@ public class FindBugsReportParser extends InspectionsReportParser {
 
   private String myCurrentClass;
 
-  @Nullable
-  private BuildProgressLogger myLogger;
-
   private List<InspectionInstance> myWaitingForTypeBugs;
 
   private boolean myPatternsFromFindBugsLoaded;
   private boolean myBundledPatternsLoaded;
 
-  public FindBugsReportParser(@NotNull InspectionReporter inspectionReporter,
-                              @NotNull String checkoutDirectory,
-                              @Nullable String findBugsHome) {
-    super(inspectionReporter, checkoutDirectory);
+  public FindBugsReportParser(@NotNull XMLReader xmlReader,
+                                 @NotNull InspectionReporter inspectionReporter,
+                                 @NotNull File checkoutDirectory,
+                                 @Nullable String findBugsHome,
+                                 @NotNull BuildProgressLogger logger) {
+    super(xmlReader, inspectionReporter, checkoutDirectory, logger, true);
+    myFindBugsHome = findBugsHome;
     myPatternsFromFindBugsLoaded = false;
     myBundledPatternsLoaded = false;
     myBugCollection = new BugCollection();
-    myFindBugsHome = findBugsHome;
-    myCData = new StringBuilder();
   }
 
   private static boolean hasNoMessage(InspectionInstance i) {
@@ -81,14 +81,15 @@ public class FindBugsReportParser extends InspectionsReportParser {
     return "".equals(i.getFilePath());
   }
 
-  @Override
-  public void parse(@NotNull final ReportContext context) throws Exception {
-    myInspectionReporter.markBuildAsInspectionsBuild();
-    final File report = context.getFile();
-    myCurrentReport = report.getAbsolutePath();
+  public boolean parse(@NotNull File file, @Nullable ParsingResult prevResult) throws ParsingException {
+    if (!ParserUtils.isReportComplete(file, "BugCollection")) {
+      return false;
+    }
+
+    myCurrentReport = file.getAbsolutePath();
+
     myFileFinder = new FileFinder();
     myWaitingForTypeBugs = new ArrayList<InspectionInstance>();
-    myLogger = context.getLogger();
 
     try {
       if (!myPatternsFromFindBugsLoaded && !myBundledPatternsLoaded) {
@@ -100,7 +101,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
           myBugCollection.loadBundledPatterns();
         }
       }
-      doSAXParse(context);
+      parse(file);
       for (InspectionInstance bug : myWaitingForTypeBugs) {
         if (hasNoMessage(bug)) {
           if (isTypeKnown(bug)) {
@@ -111,18 +112,10 @@ public class FindBugsReportParser extends InspectionsReportParser {
         reportInspectionType(bug.getInspectionId());
       }
     } finally {
-      myLogger = null;
       myFileFinder.close();
       myInspectionReporter.flush();
     }
-    context.setProcessedEvents(-1);
-  }
-
-  @Override
-  public void logParsingTotals(@NotNull XmlReportPluginParameters parameters) {
-    if (myPatternsFromFindBugsLoaded || myBundledPatternsLoaded) {
-      super.logParsingTotals(parameters);
-    }
+    return true;
   }
 
 //  Handler methods
@@ -133,7 +126,6 @@ public class FindBugsReportParser extends InspectionsReportParser {
     if ("BugCollection".equals(name)) {
       final String version = attributes.getValue("version");
       if (myBundledPatternsLoaded && !BUNDLED_VERSION.equals(version)) {
-        assert myLogger != null;
         myLogger.warning("FindBugs report " + myCurrentReport + " version is " + version + ", but bundled with xml-report-plugin patterns version is " + BUNDLED_VERSION
           + ". Plugin can be unacquainted with some names and descriptions. Specify FindBugs home path setting for loading patterns straight from FindBugs.");
       }
@@ -164,7 +156,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
   @Override
   public void endElement(String uri, String name, String qName) throws SAXException {
     if ("Jar".equals(name) || "SrcDir".equals(name)) {
-      myFileFinder.addJar(formatText(myCData));
+      myFileFinder.addJar(ParserUtils.formatText(getCData()));
     } else if ("BugCategory".equals(name)) {
       myCurrentCategory = null;
     } else if ("BugPattern".equals(name)) {
@@ -184,19 +176,19 @@ public class FindBugsReportParser extends InspectionsReportParser {
       }
       myCurrentBug = null;
       myCurrentClass = null;
-    } else if (myCData.length() > 0) {
-      final String text = formatText(myCData);
+    } else if (getCData().length() > 0) {
+      final String text = ParserUtils.formatText(getCData());
       if ("Description".equals(name)) {
         if (myCurrentCategory != null) {
           getCategory(myCurrentCategory).setName(text);
         }
-      } else if ("Details".equals(name) && (myCData.length() > 0)) {
+      } else if ("Details".equals(name) && (getCData().length() > 0)) {
         if (myCurrentCategory != null) {
           getCategory(myCurrentCategory).setDescription(text);
         } else if (myCurrentPattern != null) {
           getPattern(myCurrentPattern).setDescription(text);
         }
-      } else if ("ShortDescription".equals(name) && (myCData.length() > 0)) {
+      } else if ("ShortDescription".equals(name) && (getCData().length() > 0)) {
         if (myCurrentPattern != null) {
           getPattern(myCurrentPattern).setName(text);
         }
@@ -205,7 +197,6 @@ public class FindBugsReportParser extends InspectionsReportParser {
           myCurrentBug.setMessage(text);
         }
       } else if ("MissingClass".equals(name)) {
-        assert myLogger != null;
         myLogger.warning("Missing class " + text);
       }
     }
@@ -218,7 +209,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
     if (myBugCollection.getCategories().containsKey(id)) {
       return myBugCollection.getCategories().get(id);
     } else {
-      XmlReportPlugin.LOG.error("Couldn't get category for " + id);
+      LoggingUtils.LOG.error("Couldn't get category for " + id);
       return UNKNOWN_CATEGORY;
     }
   }
@@ -227,7 +218,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
     if (myBugCollection.getPatterns().containsKey(id)) {
       return myBugCollection.getPatterns().get(id);
     } else {
-      XmlReportPlugin.LOG.error("Couldn't get patterns for " + id);
+      LoggingUtils.LOG.error("Couldn't get patterns for " + id);
       return UNKNOWN_PATTERN;
     }
   }
@@ -235,7 +226,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
   private void reportInspectionType(String id) {
     final BugCollection.Pattern pattern = getPattern(id);
     final BugCollection.Category category = getCategory(pattern.getCategory());
-    reportInspectionType(id, pattern.getName(), category.getName(), category.getDescription());
+    reportInspectionType(id, pattern.getName(), category.getName(), category.getDescription(), myInspectionReporter);
   }
 
   private boolean isTypeKnown(InspectionInstance bug) {
@@ -262,10 +253,4 @@ public class FindBugsReportParser extends InspectionsReportParser {
 
   private static final BugCollection.Category UNKNOWN_CATEGORY = new BugCollection.Category();
   private static final BugCollection.Pattern UNKNOWN_PATTERN = new BugCollection.Pattern();
-
-  @NotNull
-  @Override
-  protected String getRootTag() {
-    return "BugCollection";
-  }
 }

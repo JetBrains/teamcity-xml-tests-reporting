@@ -7,7 +7,7 @@
                        time="0.453">
                 <failure>
                     <message>
-                        <![CDATA[Input and Output of test case are not equal. See .\testCases\EDI\Invalid\]]></message>
+                        <![CDATA[Input and Output of test case are not equal. See ./testCases/EDI/Invalid/]]></message>
                     <stack-trace><![CDATA[Input:
 UNA:+.? '
 UNB+UNOC:3+9903214000009:500+4038777000004:500+090421:1134+00000002154600'

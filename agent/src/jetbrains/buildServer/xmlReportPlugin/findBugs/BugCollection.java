@@ -16,21 +16,22 @@
 
 package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.xmlReportPlugin.LoggingUtils;
+import jetbrains.buildServer.xmlReportPlugin.ParserUtils;
+import org.jetbrains.annotations.NotNull;
+import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
+import org.xml.sax.helpers.DefaultHandler;
+
+import javax.swing.text.html.parser.DTD;
+import javax.swing.text.html.parser.Parser;
+import javax.swing.text.html.parser.TagElement;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-import javax.swing.text.html.parser.DTD;
-import javax.swing.text.html.parser.Parser;
-import javax.swing.text.html.parser.TagElement;
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
-import org.jetbrains.annotations.NotNull;
-import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
-import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * User: vbedrosova
@@ -51,7 +52,7 @@ class BugCollection {
     try {
       DETAILS_PARSER = new DetailsParser(DTD.getDTD(""));
     } catch (IOException e) {
-      XmlReportPlugin.LOG.error("Couldn't create empty DTD", e);
+      LoggingUtils.LOG.error("Couldn't create empty DTD", e);
     }
   }
 
@@ -64,19 +65,19 @@ class BugCollection {
   }
 
   public void loadBundledPatterns() {
-    XmlReportPlugin.LOG.debug("Loading bundled bug patterns");
+    LoggingUtils.LOG.debug("Loading bundled bug patterns");
     myCategories = new HashMap<String, Category>();
     myBugPatterns = new HashMap<String, Pattern>();
     try {
       parse(new FindBugsHandler(), new InputSource(this.getClass().getResourceAsStream("findbugs.xml")));
       parse(new MessagesHandler(), new InputSource(this.getClass().getResourceAsStream("messages.xml")));
     } catch (Exception e) {
-      XmlReportPlugin.LOG.error("Couldn't load bug patterns from bundled findbugs.xml and messages.xml", e);
+      LoggingUtils.LOG.error("Couldn't load bug patterns from bundled findbugs.xml and messages.xml", e);
     }
   }
 
   public void loadPatternsFromFindBugs(@NotNull final File findBugsHome, @NotNull final BuildProgressLogger logger) {
-    XmlReportPlugin.LOG.debug("Loading bug patterns from FindBugs home " + findBugsHome.getAbsolutePath());
+    LoggingUtils.LOG.debug("Loading bug patterns from FindBugs home " + findBugsHome.getAbsolutePath());
     myCategories = new HashMap<String, Category>();
     myBugPatterns = new HashMap<String, Pattern>();
     final File corePlugin = new File(findBugsHome.getAbsolutePath() + File.separator + "lib", "findbugs.jar");
@@ -98,31 +99,31 @@ class BugCollection {
   }
 
   private void load(@NotNull File file) {
-    XmlReportPlugin.LOG.debug("Loading bug patterns from plugin jar " + file.getAbsolutePath());
+    LoggingUtils.LOG.debug("Loading bug patterns from plugin jar " + file.getAbsolutePath());
     JarFile jar = null;
     try {
       jar = new JarFile(file);
       final JarEntry findugs = jar.getJarEntry(FINDBUGS_XML);
       final JarEntry messages = jar.getJarEntry(MESSAGES_XML);
       if (findugs == null) {
-        XmlReportPlugin.LOG.warn("Couldn't find findbugs.xml in plugin jar " + file.getAbsolutePath());
+        LoggingUtils.LOG.warn("Couldn't find findbugs.xml in plugin jar " + file.getAbsolutePath());
         return;
       }
       if (messages == null) {
-        XmlReportPlugin.LOG.warn("Couldn't find messages.xml in plugin jar " + file.getAbsolutePath());
+        LoggingUtils.LOG.warn("Couldn't find messages.xml in plugin jar " + file.getAbsolutePath());
         return;
       }
       parse(new FindBugsHandler(), new InputSource(jar.getInputStream(findugs)));
       parse(new MessagesHandler(), new InputSource(jar.getInputStream(messages)));
     } catch (Exception e) {
-      XmlReportPlugin.LOG.error("Couldn't load bug patterns from findbugs.xml and messages.xml from plugin jar " + file.getAbsolutePath(), e);
+      LoggingUtils.LOG.error("Couldn't load bug patterns from findbugs.xml and messages.xml from plugin jar " + file.getAbsolutePath(), e);
     } finally {
       try {
         if (jar != null) {
           jar.close();
         }
       } catch (IOException e) {
-        XmlReportPlugin.LOG.error("Couldn't close plugin jar " + file.getAbsolutePath(), e);
+        LoggingUtils.LOG.error("Couldn't close plugin jar " + file.getAbsolutePath(), e);
       }
     }
   }
@@ -169,14 +170,14 @@ class BugCollection {
       } else if (BUG_PATTERN.equals(localName)) {
         myCurrentPattern = null;
       } else if (DESCRIPTION.equals(localName)) {
-        myCurrentCategory.setName(XmlReportParser.formatText(myCData));
+        myCurrentCategory.setName(ParserUtils.formatText(myCData));
       } else if (SHORT_DESCRIPTION.equals(localName)) {
         if (myCurrentPattern != null) {
-          myCurrentPattern.setName(XmlReportParser.formatText(myCData));
+          myCurrentPattern.setName(ParserUtils.formatText(myCData));
         }
       } else if (DETAILS.equals(localName)) {
         if (myCurrentCategory != null) {
-          final String text = XmlReportParser.formatText(myCData);
+          final String text = ParserUtils.formatText(myCData);
           myCurrentCategory.setDescription(text.substring(0, 1).toUpperCase() + text.substring(1));
         } else if (myCurrentPattern != null) {
           myCurrentPattern.setDescription(formatText(myCData));
@@ -196,13 +197,13 @@ class BugCollection {
     try {
       DETAILS_PARSER.parse(new BufferedReader(new StringReader(sb.toString())));
     } catch (IOException e) {
-      XmlReportPlugin.LOG.error("Couldn't format html description to text", e);
+      LoggingUtils.LOG.error("Couldn't format html description to text", e);
     }
     return DETAILS_PARSER.getText().replace("&nbsp", "");
   }
 
   private void parse(@NotNull DefaultHandler handler, @NotNull InputSource source) throws Exception {
-    XmlReportParser.createXmlReader(handler, handler, false).parse(source);
+    ParserUtils.createXmlReader(handler, handler, false).parse(source);
   }
 
   public static final class Category {
@@ -219,7 +220,7 @@ class BugCollection {
       this(name, "No description");
     }
 
-    private Category(String name, String description) {
+    private Category(@NotNull String name, @NotNull String description) {
       myName = name;
       myDescription = description;
     }

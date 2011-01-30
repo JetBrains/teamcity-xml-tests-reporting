@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd version="4.2.4" timestamp="2009-03-03T12:15:22.940">
-    <file name="##BASE_DIR##\org\jetbrains\testProject\BuggyClass.java">
+    <file name="org\jetbrains\testProject\BuggyClass.java">
         <violation beginline="6" endline="6" begincolumn="18" endcolumn="20" rule="UnusedPrivateField"
                    ruleset="Unused Code Rules" package="org.jetbrains.testProject" class="BuggyClass" variable="str"
                    externalInfoUrl="http://pmd.sourceforge.net/rules/unusedcode.html#UnusedPrivateField" priority="3">
@@ -20,7 +20,7 @@
         </violation>
     </file>
     <file
-            name="##BASE_DIR##\org\jetbrains\testProject\TestGenerator.java">
+            name="org\jetbrains\testProject\TestGenerator.java">
         <violation beginline="23" endline="61" begincolumn="8" endcolumn="1" rule="CyclomaticComplexity"
                    ruleset="Code Size Rules" package="org.jetbrains.testProject"
                    externalInfoUrl="http://pmd.sourceforge.net/rules/codesize.html#CyclomaticComplexity" priority="3">

@@ -19,13 +19,16 @@ package jetbrains.buildServer.xmlReportPlugin.checkstyle;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
-import jetbrains.buildServer.xmlReportPlugin.ReportContext;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
+import jetbrains.buildServer.xmlReportPlugin.LoggingUtils;
+import jetbrains.buildServer.xmlReportPlugin.ParserUtils;
+import jetbrains.buildServer.xmlReportPlugin.ParsingException;
+import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionsReportParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 import java.io.File;
 
@@ -35,31 +38,23 @@ import java.io.File;
  * Time: 16:11:49
  */
 public class CheckstyleReportParser extends InspectionsReportParser {
-  public static final String TYPE = "checkstyle";
-
   private File myCurrentReport;
   private String myCurrentFile;
 
-  @Nullable
-  private BuildProgressLogger myLogger;
-
-  public CheckstyleReportParser(@NotNull InspectionReporter inspectionReporter,
-                                @NotNull String checkoutDirectory) {
-    super(inspectionReporter, checkoutDirectory);
-    myCData = new StringBuilder();
+  public CheckstyleReportParser(@NotNull XMLReader xmlReader,
+                                   @NotNull InspectionReporter inspectionReporter,
+                                   @NotNull File checkoutDirectory,
+                                   @NotNull BuildProgressLogger logger) {
+    super(xmlReader, inspectionReporter, checkoutDirectory, logger, true);
   }
 
-  @Override
-  public void parse(@NotNull ReportContext context) throws Exception {
-    myCurrentReport = context.getFile();
-    myLogger = context.getLogger();
-    try {
-      doSAXParse(context);
-    } finally {
-      myLogger = null;
-      myInspectionReporter.flush();
+  public boolean parse(@NotNull File file, @Nullable ParsingResult prevResult) throws ParsingException {
+    if (!ParserUtils.isReportComplete(file, "checkstyle")) {
+      return false;
     }
-    context.setProcessedEvents(-1);
+    myCurrentReport = file;
+    parse(file);
+    return true;
   }
 
 //  Handler methods
@@ -67,12 +62,12 @@ public class CheckstyleReportParser extends InspectionsReportParser {
   @Override
   public void startElement(String uri, String name, String qName, Attributes attributes) throws SAXException {
     if ("checkstyle".equals(name)) {
-      XmlReportPlugin.LOG.info(specifyMessage("Parsing report of version " + attributes.getValue("version")));
+      LoggingUtils.LOG.info(specifyMessage("Parsing report of version " + attributes.getValue("version")));
     } else if ("file".equals(name)) {
-      myCurrentFile = resolveSourcePath(attributes.getValue("name"));
+      myCurrentFile = getRelativePath(attributes.getValue("name"), myCheckoutDirectory);
     } else if ("error".equals(name)) {
       if (myCurrentFile == null) {
-        XmlReportPlugin.LOG.error(specifyMessage("Unexpected report structure: error tag comes outside file tag"));
+        LoggingUtils.LOG.error(specifyMessage("Unexpected report structure: error tag comes outside file tag"));
       }
       reportInspectionType(attributes);
 
@@ -92,9 +87,7 @@ public class CheckstyleReportParser extends InspectionsReportParser {
     if ("file".equals(name)) {
       myCurrentFile = null;
     } else if ("exception".equals(name)) {
-      final BuildProgressLogger logger = myLogger;
-      assert logger != null;
-      logger.error("Exception in report " + myCurrentReport.getAbsolutePath() + "\n" + myCData.toString().trim());
+      myLogger.error("Exception in report " + myCurrentReport.getAbsolutePath() + "\n" + getCData().toString().trim());
     }
     clearCData();
   }
@@ -103,7 +96,7 @@ public class CheckstyleReportParser extends InspectionsReportParser {
 
   private void reportInspectionType(Attributes attributes) {
     final String source = attributes.getValue("source");
-    reportInspectionType(source, source, attributes.getValue("severity"), "From " + source);
+    reportInspectionType(source, source, attributes.getValue("severity"), "From " + source, myInspectionReporter);
   }
 
   private int getPriority(String severity) {
@@ -114,18 +107,12 @@ public class CheckstyleReportParser extends InspectionsReportParser {
     } else if ("info".equals(severity)) {
       return 3;
     } else {
-      XmlReportPlugin.LOG.error(specifyMessage("Came across illegal severity value: " + severity));
+      LoggingUtils.LOG.error(specifyMessage("Came across illegal severity value: " + severity));
       return 3;
     }
   }
 
   public String specifyMessage(String message) {
     return "<CheckstyleReportParser> " + message;
-  }
-
-  @NotNull
-  @Override
-  protected String getRootTag() {
-    return "checkstyle";
   }
 }

@@ -22,11 +22,6 @@ package jetbrains.buildServer.xmlReportPlugin;
  * Time: 12:28
  */
 public interface XmlReportPluginConstants {
-  static final String BUILD_START = "xmlReportParsing.buildStart";
-
-  static final String TMP_DIR = "xmlReportParsing.tmpDir";
-  static final String CHECKOUT_DIR = "teamcity.build.checkoutDir";
-
   static final String REPORT_TYPE = "xmlReportParsing.reportType";
   static final String REPORT_DIRS = "xmlReportParsing.reportDirs";
 
@@ -43,8 +38,8 @@ public interface XmlReportPluginConstants {
 
   static final String TREAT_DLL_AS_SUITE = "xmlReportParsing.nunit.treatDllAsRootSuite";
 
-  static final String CHECK_REPORT_GROWS = "xmlReportParsing.check.report.grows";
-  static final String CHECK_REPORT_COMPLETE = "xmlReportParsing.check.report.complete";
+//  static final String CHECK_REPORT_GROWS = "xmlReportParsing.check.report.grows";
+//  static final String CHECK_REPORT_COMPLETE = "xmlReportParsing.check.report.complete";
 
   static final String NUNIT_TO_JUNIT_XSL = "nunit-to-junit.xsl";
   static final String NUNIT_TO_JUNIT_OLD_XSL = "nunit-to-junit-old.xsl";

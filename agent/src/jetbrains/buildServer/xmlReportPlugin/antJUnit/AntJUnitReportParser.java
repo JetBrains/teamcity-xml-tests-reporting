@@ -17,27 +17,23 @@
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.xmlReportPlugin.ReportContext;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportParser;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
+import jetbrains.buildServer.xmlReportPlugin.*;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestsParsingResult;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 import java.io.File;
 import java.util.Date;
 import java.util.Stack;
 
-import static jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin.LOG;
-
-
 public class AntJUnitReportParser extends XmlReportParser {
-  public static final String TYPE = "junit";
-
-  public static final String COMMA = ",";
-  public static final String DOT = ".";
-  public static final String MARK = "'";
-  public static final String NBSP = "\u00A0";
+  private static final String COMMA = ",";
+  private static final String DOT = ".";
+  private static final String MARK = "'";
+  private static final String NBSP = "\u00A0";
 
   private static final String TEST_SUITE = "testsuite";
   private static final String TEST_CASE = "testcase";
@@ -61,7 +57,9 @@ public class AntJUnitReportParser extends XmlReportParser {
   private static final String DEFAULT_NAMESPACE = "";
 
   private SuiteData myCurrentSuite;
-  private final Stack<TestData> myTests;
+
+  private final Stack<TestData> myTests = new Stack<TestData>();
+
   private String mySystemOut;
   private String mySystemErr;
 
@@ -69,50 +67,13 @@ public class AntJUnitReportParser extends XmlReportParser {
   private int myLoggedTests;
   private int myTestsToSkip;
 
-  private BuildProgressLogger myLogger;
+  @NotNull
+  private final BuildProgressLogger myLogger;
 
-  private static long getExecutionTime(String timeStr) {
-    if (timeStr == null || "".equals(timeStr)) {
-      return 0L;
-    }
-    try {
-      return (long) (Double.parseDouble(getUniformTimeStr(timeStr)) * 1000.0);
-    } catch (NumberFormatException e) {
-      XmlReportPlugin.LOG.warn("Unable to parse execution time string " + timeStr, e);
-      return 0L;
-    }
-  }
-
-  private static String getUniformTimeStr(@NotNull String str) {
-    final int commaIndex = str.lastIndexOf(COMMA);
-    final int dotIndex = str.lastIndexOf(DOT);
-    String result;
-    if (commaIndex > dotIndex) {
-      result = str.replace(DOT, "").replace(COMMA, DOT);
-    } else if (commaIndex < dotIndex) {
-      result = str.replace(COMMA, "");
-    } else {
-      result = str;
-    }
-    return result.replace(MARK, "").replace(NBSP, "");
-  }
-
-  private static String getTimestamp(String timestampStr) {
-    if (timestampStr == null) {
-      return "";
-    }
-    return timestampStr;
-  }
-
-  private static boolean getBoolean(String str) {
-    return (str == null) || Boolean.parseBoolean(str);
-  }
-
-  public AntJUnitReportParser() {
-    super();
-    myLoggedSuites = 0;
-    myTests = new Stack<TestData>();
-    myCData = new StringBuilder();
+  public AntJUnitReportParser(@NotNull XMLReader reader,
+                              @NotNull BuildProgressLogger logger) {
+    super(reader, true);
+    myLogger = logger;
   }
 
   /*  As of now the DTD is:
@@ -154,47 +115,31 @@ public class AntJUnitReportParser extends XmlReportParser {
 
 <!ELEMENT system-out (#PCDATA)> */
 
-  @Override
-  public void parse(@NotNull final ReportContext context) throws Exception {
-    myLoggedSuites = 0;
-    myLoggedTests = 0;
-    myTestsToSkip = context.getProcessedEvents();
-    myTests.clear();
-    myLogger = context.getLogger();
-
-    final File report = context.getFile();
-    try {
-      doSAXParse(context);
-    } catch (SAXException e) {
-      if (myCurrentSuite != null) endSuite();
-
-      XmlReportPlugin.LOG.debug("Couldn't completely parse " + report.getPath()
-        + " report - SAXParseException occured: " + e.toString() + ", "
-        + myLoggedTests + " events logged");
-
-      final int processedEvents = (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip;
-      context.setProcessedEvents(processedEvents);
-      return;
-    } finally {
-      myLogger = null;
+  public boolean parse(@NotNull File file, @Nullable ParsingResult prevResult) {
+    if (prevResult != null) {
+      myTestsToSkip = ((TestsParsingResult) prevResult).getTests();
     }
-    myCurrentSuite = null;
-    context.setProcessedEvents(-1);
+    try {
+      parse(file);
+      return true;
+    } catch (ParsingException e) {
+      finishOnException(file, e);
+    }
+
+    return false;
   }
 
-  @Override
-  public void logReportTotals(@NotNull ReportContext context, boolean verbose) {
-    String message = context.getFile().getAbsolutePath() + " report processed";
-    if (myLoggedSuites > 0) {
-      message = message.concat(": " + myLoggedSuites + " suite(s)");
-      if (myLoggedTests > 0) {
-        message = message.concat(", " + myLoggedTests + " test(s)");
-      }
-    }
-    if (verbose) {
-      context.getLogger().message(message);
-    }
-    LOG.debug(message);
+  private void finishOnException(@NotNull File file, @NotNull Exception e) {
+    endSuite();
+
+    LoggingUtils.LOG.debug("Couldn't completely parse " + file.getPath()
+      + " report, exception occurred: " + e.toString() + ", "
+      + myLoggedTests + " events logged");
+  }
+
+  public ParsingResult getParsingResult() {
+    return new TestsParsingResult(myLoggedSuites,
+      (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip);
   }
 
   //  Handler methods
@@ -211,7 +156,7 @@ public class AntJUnitReportParser extends XmlReportParser {
       } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
         startFailure(attributes);
       } else if (SKIPPED.equals(localName)) {
-        if (myTests.size() != 0) {
+        if (insideTest()) {
           myTests.peek().setExecuted(false);
         }
       }
@@ -234,18 +179,18 @@ public class AntJUnitReportParser extends XmlReportParser {
       } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
         endFailure();
       } else if (SYSTEM_OUT.equals(localName)) {
-        final String trimmedCData = myCData.toString().trim();
+        final String trimmedCData = getCData().toString().trim();
         if (trimmedCData.length() > 0) {
           mySystemOut = trimmedCData;
         }
       } else if (SYSTEM_ERR.equals(localName)) {
-        final String trimmedCData = myCData.toString().trim();
+        final String trimmedCData = getCData().toString().trim();
         if (trimmedCData.length() > 0) {
           mySystemErr = trimmedCData;
         }
       } else if (TIME.equals(localName)) {
-        if (myTests.size() != 0) {
-          myTests.peek().setDuration(getExecutionTime(formatText(myCData)));
+        if (insideTest()) {
+          myTests.peek().setDuration(getExecutionTime(ParserUtils.formatText(getCData())));
         }
       }
     } finally {
@@ -253,13 +198,11 @@ public class AntJUnitReportParser extends XmlReportParser {
     }
   }
 
-
   // Auxiliary methods
 
   private void startSuite(Attributes attributes) {
-    if (myCurrentSuite != null) {
-      return;
-    }
+    if (myCurrentSuite != null) return;
+
     String name = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
     final String pack = attributes.getValue(DEFAULT_NAMESPACE, PACKAGE_ATTR);
     final Date startTime = new Date();
@@ -275,24 +218,26 @@ public class AntJUnitReportParser extends XmlReportParser {
   }
 
   private void endSuite() {
-    if (myCurrentSuite == null) {
-      return;
-    }
+    if (myCurrentSuite == null) return;
+
     if (myCurrentSuite.isFailure()) {
       myLogger.error(getFailureMessage(myCurrentSuite.getFailureType(), myCurrentSuite.getFailureMessage()));
     }
+
     if (mySystemOut != null) {
       myLogger.message("[System out]\n" + mySystemOut);
       mySystemOut = null;
     }
+
     if (mySystemErr != null) {
       myLogger.warning("[System error]\n" + mySystemErr);
       mySystemErr = null;
     }
+
     myLogger.logSuiteFinished(myCurrentSuite.getName(), new Date(myCurrentSuite.getStartTime() + myCurrentSuite.getDuraion()));
     myLoggedSuites = myLoggedSuites + 1;
 
-    if (myTests.size() != 0) {
+    if (insideTest()) {
 //      myFlowLogger.debugToAgentLog("Some tests were not logged in suite " + myCurrentSuite);
       myTests.clear();
     }
@@ -366,7 +311,7 @@ public class AntJUnitReportParser extends XmlReportParser {
 
     final String failureType = attributes.getValue(DEFAULT_NAMESPACE, TYPE_ATTR);
 
-    if (myTests.size() != 0) {
+    if (insideTest()) {
       final TestData test = myTests.peek();
       test.setFailureMessage(failureMessage);
       test.setFailureType(failureType);
@@ -377,8 +322,8 @@ public class AntJUnitReportParser extends XmlReportParser {
   }
 
   private void endFailure() {
-    if (myTests.size() != 0) {
-      myTests.peek().setFailureStackTrace(myCData.toString().trim());
+    if (insideTest()) {
+      myTests.peek().setFailureStackTrace(getCData().toString().trim());
     }
   }
 
@@ -386,14 +331,44 @@ public class AntJUnitReportParser extends XmlReportParser {
     return (myLoggedTests < myTestsToSkip);
   }
 
-  @Override
-  public boolean supportOnTheFlyParsing() {
-    return true;
+  private boolean insideTest() {
+    return !myTests.isEmpty();
   }
 
-  @NotNull
-  @Override
-  protected String getRootTag() {
-    return "testsuite";
+  private static long getExecutionTime(@Nullable String timeStr) {
+    if (timeStr == null || "".equals(timeStr)) {
+      return 0L;
+    }
+    try {
+      return (long) (Double.parseDouble(getUniformTimeStr(timeStr)) * 1000.0);
+    } catch (NumberFormatException e) {
+      LoggingUtils.LOG.warn("Unable to parse execution time string " + timeStr, e);
+      return 0L;
+    }
+  }
+
+  private static String getUniformTimeStr(@NotNull String str) {
+    final int commaIndex = str.lastIndexOf(COMMA);
+    final int dotIndex = str.lastIndexOf(DOT);
+    String result;
+    if (commaIndex > dotIndex) {
+      result = str.replace(DOT, "").replace(COMMA, DOT);
+    } else if (commaIndex < dotIndex) {
+      result = str.replace(COMMA, "");
+    } else {
+      result = str;
+    }
+    return result.replace(MARK, "").replace(NBSP, "");
+  }
+
+  private static String getTimestamp(@Nullable String timestampStr) {
+    if (timestampStr == null) {
+      return "";
+    }
+    return timestampStr;
+  }
+
+  private static boolean getBoolean(@Nullable String str) {
+    return (str == null) || Boolean.parseBoolean(str);
   }
 }
