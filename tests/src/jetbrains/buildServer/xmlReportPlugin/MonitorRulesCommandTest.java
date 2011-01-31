@@ -28,10 +28,9 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
   @Override
   public void setUp() throws Exception {
     super.setUp();
-    myFile = writeFile("folder/file.xml");
+    myFile = writeFile("folder/file.xml", true);
     myRulesFilesState = new RulesFileStateHolder();
     myResult = new StringBuilder();
-    Thread.sleep(10L);
   }
 
   @NotNull
@@ -177,7 +176,7 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
     assertFileState(FileStateHolder.FileState.ON_PROCESSING);
 
     myRulesFilesState.removeFile(myFile);
-    writeFile(myFile);
+    writeFile(myFile, true);
     myResult.delete(0, myResult.length());
     command.run();
 

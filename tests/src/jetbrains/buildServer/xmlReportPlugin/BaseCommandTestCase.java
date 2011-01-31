@@ -61,17 +61,22 @@ public abstract class BaseCommandTestCase extends TestCase {
   }
 
   @NotNull
-  protected File writeFile(@NotNull String baseDirRelativePath) throws Exception {
+  protected File writeFile(@NotNull String baseDirRelativePath, boolean withDelay) throws Exception {
     final File file = new File(myBaseFolder, baseDirRelativePath);
     //noinspection ResultOfMethodCallIgnored
     file.getParentFile().mkdirs();
-    return writeFile(file);
+    return writeFile(file, withDelay);
   }
 
   @NotNull
-  protected File writeFile(@NotNull File file) throws Exception {
-    Thread.sleep(1000L); // to make sure time in seconds changes
+  protected File writeFile(@NotNull File file, boolean withDelay) throws Exception {
+    if (withDelay) {
+      Thread.sleep(1000L); // to make sure time in seconds changes
+    }
     FileUtil.writeFile(file, "some data");
+    if (withDelay) {
+      Thread.sleep(1000L); // to make sure time in seconds changes
+    }
     return file;
   }
 }

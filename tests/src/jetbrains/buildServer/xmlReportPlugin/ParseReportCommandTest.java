@@ -31,7 +31,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
   @Override
   public void setUp() throws Exception {
     super.setUp();
-    myFile = writeFile("file.xml");
+    myFile = writeFile("file.xml", false);
     myRulesFilesState = new RulesFileStateHolder();
     myResult = new StringBuilder();
     myPrevResults = new HashMap<File, ParsingResult>();
