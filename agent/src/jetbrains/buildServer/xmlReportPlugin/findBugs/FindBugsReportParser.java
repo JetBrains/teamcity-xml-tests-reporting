@@ -62,10 +62,10 @@ public class FindBugsReportParser extends InspectionsReportParser {
   private boolean myBundledPatternsLoaded;
 
   public FindBugsReportParser(@NotNull XMLReader xmlReader,
-                                 @NotNull InspectionReporter inspectionReporter,
-                                 @NotNull File checkoutDirectory,
-                                 @Nullable String findBugsHome,
-                                 @NotNull BuildProgressLogger logger) {
+                              @NotNull InspectionReporter inspectionReporter,
+                              @NotNull File checkoutDirectory,
+                              @Nullable String findBugsHome,
+                              @NotNull BuildProgressLogger logger) {
     super(xmlReader, inspectionReporter, checkoutDirectory, logger, true);
     myFindBugsHome = findBugsHome;
     myPatternsFromFindBugsLoaded = false;
