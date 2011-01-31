@@ -11,7 +11,7 @@ import java.util.Map;
  * Date: 20.01.11
  * Time: 16:52
  */
-public class RulesFilesState implements FilesState {
+public class RulesFileStateHolder implements FileStateHolder {
   @NotNull
   private final Map<File, ParsingResult> myParsingResults = new HashMap<File, ParsingResult>();
 
@@ -19,11 +19,11 @@ public class RulesFilesState implements FilesState {
   public synchronized FileState getFileState(@NotNull File file) {
     if (myParsingResults.containsKey(file)) {
       if (myParsingResults.get(file) != null) {
-        return FilesState.FileState.PROCESSED;
+        return FileStateHolder.FileState.PROCESSED;
       }
-      return FilesState.FileState.ON_PROCESSING;
+      return FileStateHolder.FileState.ON_PROCESSING;
     }
-    return FilesState.FileState.UNKNOWN;
+    return FileStateHolder.FileState.UNKNOWN;
   }
 
   public synchronized void setFileProcessed(@NotNull File file, @NotNull ParsingResult parsingResult) {

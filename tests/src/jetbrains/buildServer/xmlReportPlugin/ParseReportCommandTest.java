@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class ParseReportCommandTest extends BaseCommandTestCase {
   private File myFile;
-  private RulesFilesState myRulesFilesState;
+  private RulesFileStateHolder myRulesFilesState;
   private StringBuilder myResult;
   private Map<File, ParsingResult> myPrevResults;
   private ResultProcessor myResultProcessor;
@@ -32,7 +32,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
   public void setUp() throws Exception {
     super.setUp();
     myFile = writeFile("file.xml");
-    myRulesFilesState = new RulesFilesState();
+    myRulesFilesState = new RulesFileStateHolder();
     myResult = new StringBuilder();
     myPrevResults = new HashMap<File, ParsingResult>();
     myResultProcessor = createResultProcessor();
@@ -73,7 +73,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
     };
   }
 
-  private void assertFileState(@NotNull FilesState.FileState state) {
+  private void assertFileState(@NotNull FileStateHolder.FileState state) {
     assertTrue("Wrong file state", myRulesFilesState.getFileState(myFile) == state);
   }
 
@@ -97,7 +97,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
       "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
     assertNotInPrevState();
-    assertFileState(FilesState.FileState.PROCESSED);
+    assertFileState(FileStateHolder.FileState.PROCESSED);
   }
 
   @Test
@@ -112,7 +112,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
     assertNotContains(myResult, "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
     assertInPrevState();
-    assertFileState(FilesState.FileState.UNKNOWN);
+    assertFileState(FileStateHolder.FileState.UNKNOWN);
   }
 
   @Test
@@ -128,7 +128,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
       "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
     assertNotInPrevState();
-    assertFileState(FilesState.FileState.PROCESSED);
+    assertFileState(FileStateHolder.FileState.PROCESSED);
   }
 
   @Test
@@ -144,7 +144,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
       "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
     assertNotInPrevState();
-    assertFileState(FilesState.FileState.PROCESSED);
+    assertFileState(FileStateHolder.FileState.PROCESSED);
   }
 
   @Test
@@ -160,7 +160,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
     assertNotContains(myResult, "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
     assertInPrevState();
-    assertFileState(FilesState.FileState.UNKNOWN);
+    assertFileState(FileStateHolder.FileState.UNKNOWN);
   }
 
   @Test
@@ -177,7 +177,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
       "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
     assertNotInPrevState();
-    assertFileState(FilesState.FileState.PROCESSED);
+    assertFileState(FileStateHolder.FileState.PROCESSED);
   }
 
   @NotNull

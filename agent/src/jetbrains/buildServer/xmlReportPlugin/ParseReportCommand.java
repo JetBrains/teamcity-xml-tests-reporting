@@ -18,7 +18,7 @@ public class ParseReportCommand implements Runnable {
   private final ParseParameters myParameters;
 
   @NotNull
-  private final FilesState myFilesState;
+  private final FileStateHolder myFileStateHolder;
 
   @NotNull
   private final Map<File, ParsingResult> myPrevResults;
@@ -28,12 +28,12 @@ public class ParseReportCommand implements Runnable {
 
   public ParseReportCommand(@NotNull File file,
                             @NotNull ParseParameters parameters,
-                            @NotNull FilesState filesState,
+                            @NotNull FileStateHolder fileStateHolder,
                             @NotNull Map<File, ParsingResult> prevResults,
                             @NotNull ParserFactory parserFactory) {
     myFile = file;
     myParameters = parameters;
-    myFilesState = filesState;
+    myFileStateHolder = fileStateHolder;
     myPrevResults = prevResults;
     myParserFactory = parserFactory;
   }
@@ -55,11 +55,11 @@ public class ParseReportCommand implements Runnable {
     if (finished) { // file processed
       myParserFactory.createResultsProcessor().processResult(myFile, parsingResult, myParameters);
       myPrevResults.remove(myFile);
-      myFilesState.setFileProcessed(myFile, parsingResult);
+      myFileStateHolder.setFileProcessed(myFile, parsingResult);
     } else {
       //todo: log file not processed
       myPrevResults.put(myFile, parsingResult);
-      myFilesState.removeFile(myFile);
+      myFileStateHolder.removeFile(myFile);
     }
   }
 

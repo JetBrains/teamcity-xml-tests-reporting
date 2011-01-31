@@ -20,7 +20,7 @@ public class RulesContext {
   private final XmlReportPlugin.RulesData myRulesData;
 
   @NotNull
-  private final RulesFilesState myRulesFilesState;
+  private final RulesFileStateHolder myRulesFilesState;
 
   @NotNull
   private final Map<File, ParsingResult> myFailedToParse;
@@ -35,7 +35,7 @@ public class RulesContext {
   private MonitorRulesCommand myMonitorRulesCommand;
 
   public RulesContext(@NotNull XmlReportPlugin.RulesData rulesData,
-                      @NotNull RulesFilesState rulesFilesState,
+                      @NotNull RulesFileStateHolder rulesFilesState,
                       @NotNull Map<File, ParsingResult> failedToParse) {
     myRulesData = rulesData;
     myRulesFilesState = rulesFilesState;
@@ -79,7 +79,7 @@ public class RulesContext {
   }
 
   @NotNull
-  public RulesFilesState getRulesFilesState() {
+  public RulesFileStateHolder getRulesFilesState() {
     return myRulesFilesState;
   }
 

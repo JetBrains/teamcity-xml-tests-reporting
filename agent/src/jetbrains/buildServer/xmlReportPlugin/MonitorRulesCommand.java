@@ -38,7 +38,7 @@ public class MonitorRulesCommand {
   private final MonitorRulesParameters myParameters;
 
   @NotNull
-  private final FilesState myFilesState;
+  private final FileStateHolder myFileStateHolder;
 
   @NotNull
   private final MonitorRulesListener myListener;
@@ -52,10 +52,10 @@ public class MonitorRulesCommand {
   private final Map<File, FileState> myFileStates = new HashMap<File, FileState>();
 
   public MonitorRulesCommand(@NotNull MonitorRulesParameters parameters,
-                             @NotNull FilesState filesState,
+                             @NotNull FileStateHolder fileStateHolder,
                              @NotNull MonitorRulesListener listener) {
     myParameters = parameters;
-    myFilesState = filesState;
+    myFileStateHolder = fileStateHolder;
     myListener = listener;
 
     myInitialized = false;
@@ -72,7 +72,7 @@ public class MonitorRulesCommand {
       new MonitorRulesFileProcessor() {
         public void processFile(@NotNull File file) {
           if (acceptFile(file)) { //TODO: also is fully written or grows
-            switch (myFilesState.getFileState(file)) {
+            switch (myFileStateHolder.getFileState(file)) {
               case ON_PROCESSING:
                 return;
               case PROCESSED:
@@ -130,7 +130,7 @@ public class MonitorRulesCommand {
   }
 
   private void modificationDetected(File file) {
-    myFilesState.addFile(file);
+    myFileStateHolder.addFile(file);
     myListener.modificationDetected(file);
   }
 

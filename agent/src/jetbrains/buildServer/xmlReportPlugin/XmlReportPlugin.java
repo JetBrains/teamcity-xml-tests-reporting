@@ -158,7 +158,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
       myXMLReader = createXMLReader();
     }
 
-    final RulesFilesState rulesFilesState = new RulesFilesState();
+    final RulesFileStateHolder rulesFilesState = new RulesFileStateHolder();
     final Map<File, ParsingResult> failedToParse = new HashMap<File, ParsingResult>();
     final ParserFactory parserFactory = getParserFactory(rulesData.getType());
 
