@@ -77,7 +77,6 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
 
     final MonitorRulesCommand.MonitorRulesListener listener = new MonitorRulesCommand.MonitorRulesListener() {
       public void modificationDetected(@NotNull File file) {
-        System.out.println("DETECTED: " + file);
         result.append("DETECTED: ").append(file);
       }
     };
