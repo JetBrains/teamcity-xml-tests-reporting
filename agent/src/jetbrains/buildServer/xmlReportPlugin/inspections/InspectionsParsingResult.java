@@ -1,7 +1,15 @@
 package jetbrains.buildServer.xmlReportPlugin.inspections;
 
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.messages.Status;
+import jetbrains.buildServer.messages.serviceMessages.BuildStatus;
+import jetbrains.buildServer.xmlReportPlugin.LoggingUtils;
+import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
 
 /**
  * User: vbedrosova
@@ -41,5 +49,54 @@ public class InspectionsParsingResult implements ParsingResult {
   @NotNull
   public static InspectionsParsingResult createEmptyResult() {
     return new InspectionsParsingResult(0, 0, 0);
+  }
+
+  public void logAsFileResult(@NotNull File file,
+                              @NotNull ParseParameters parameters) {
+    final StringBuilder message = new StringBuilder(file.getAbsolutePath()).append(" report processed: ");
+
+    message.append(myErrors).append(" error").append(getEnding(myErrors));
+    message.append(", ");
+    message.append(myWarnings).append(" warning").append(getEnding(myWarnings));
+    message.append(", ");
+    message.append(myInfos).append(" info message").append(getEnding(myInfos));
+
+    if (parameters.isVerbose()) {
+      parameters.getThreadLogger().message(message.toString());
+    }
+
+    LoggingUtils.LOG.debug(message.toString());
+  }
+
+  public void logAsTotalResult(@NotNull ParseParameters parameters) {
+    final BuildProgressLogger logger = parameters.getThreadLogger();
+
+    boolean limitReached = false;
+
+    final int errorLimit = XmlReportPluginUtil.getMaxErrors(parameters.getParameters());
+    if ((errorLimit != -1) && (myErrors > errorLimit)) {
+      logger.error("Errors limit " + errorLimit + " reached: found " + myErrors + " error" + getEnding(myErrors));
+      limitReached = true;
+    }
+
+    final int warningLimit = XmlReportPluginUtil.getMaxWarnings(parameters.getParameters());
+    if ((warningLimit != -1) && (myWarnings > warningLimit)) {
+      logger.error("Warnings limit " + warningLimit + " reached: found " + myWarnings + " warning" + getEnding(myWarnings));
+      limitReached = true;
+    }
+
+    if (limitReached) {
+      logger.message(new BuildStatus(generateBuildStatus(myErrors, myWarnings, myInfos), Status.FAILURE).asString());
+    }
+  }
+
+  @NotNull
+  private static String generateBuildStatus(int errors, int warnings, int infos) {
+    return "Errors: " + errors + ", warnings: " + warnings + ", information: " + infos;
+  }
+
+  @NotNull
+  private static String getEnding(int number) {
+    return (number == 1 ? "" : "s");
   }
 }

@@ -9,6 +9,5 @@ import org.jetbrains.annotations.NotNull;
  */
 public interface ParserFactory {
   @NotNull Parser createParser(@NotNull ParseParameters parameters);
-  @NotNull ResultProcessor createResultsProcessor();
   @NotNull ParsingResult createEmptyResult();
 }

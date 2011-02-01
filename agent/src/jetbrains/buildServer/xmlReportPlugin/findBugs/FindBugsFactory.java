@@ -2,7 +2,6 @@ package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
 import jetbrains.buildServer.xmlReportPlugin.*;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionsParsingResult;
-import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionsResultProcessor;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -16,11 +15,6 @@ public class FindBugsFactory implements ParserFactory {
     return new FindBugsReportParser(parameters.getXmlReader(), parameters.getInspectionReporter(),
       parameters.getCheckoutDir(), XmlReportPluginUtil.getFindBugsHomePath(parameters.getParameters()),
       parameters.getThreadLogger());
-  }
-
-  @NotNull
-  public ResultProcessor createResultsProcessor() {
-    return new InspectionsResultProcessor();
   }
 
   @NotNull

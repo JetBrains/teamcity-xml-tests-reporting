@@ -23,7 +23,6 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
   private RulesFileStateHolder myRulesFilesState;
   private StringBuilder myResult;
   private Map<File, ParsingResult> myPrevResults;
-  private ResultProcessor myResultProcessor;
   private BuildProgressLogger myLogger;
   private ParseParameters myParseParameters;
 
@@ -35,27 +34,13 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
     myRulesFilesState = new RulesFileStateHolder();
     myResult = new StringBuilder();
     myPrevResults = new HashMap<File, ParsingResult>();
-    myResultProcessor = createResultProcessor();
     myLogger = new BuildLoggerForTesting(myResult);
     myParseParameters = createParseParameters();
   }
 
   @NotNull
-  private ResultProcessor createResultProcessor() {
-    return new ResultProcessor() {
-      public void processResult(@NotNull File file, @NotNull ParsingResult result, @NotNull ParseParameters parameters) {
-        myResult.append("PROCESSING RESULT: FILE: ").append(file).append(" RESULT: ").append(result).append("\n");
-      }
-
-      public void processTotalResult(@NotNull ParsingResult result, @NotNull ParseParameters parameters) {
-        throw new IllegalStateException(UNEXPECTED_CALL_MESSAGE);
-      }
-    };
-  }
-
-  @NotNull
   private ParseReportCommand createParseReportCommand(@NotNull Parser parser) {
-    return new ParseReportCommand(myFile, myParseParameters, myRulesFilesState, myPrevResults, createParserFactory(parser, myResultProcessor));
+    return new ParseReportCommand(myFile, myParseParameters, myRulesFilesState, myPrevResults, createParserFactory(parser));
   }
 
   @NotNull
@@ -68,7 +53,18 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
       }
 
       public ParsingResult getParsingResult() {
-        return EMPTY_RESULT;
+        return new ParsingResult() {
+          public void accumulate(@NotNull ParsingResult parsingResult) {
+          }
+
+          public void logAsFileResult(@NotNull File file, @NotNull ParseParameters parameters) {
+            myResult.append("PROCESSING RESULT: FILE: ").append(file).append(" RESULT: ").append("EMPTY_RESULT").append("\n");
+          }
+
+          public void logAsTotalResult(@NotNull ParseParameters parameters) {
+            throw new IllegalStateException(UNEXPECTED_CALL_MESSAGE);
+          }
+        };
       }
     };
   }
@@ -239,16 +235,11 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
   private static String UNEXPECTED_CALL_MESSAGE = "Unexpected method call";
 
   @NotNull
-  private static ParserFactory createParserFactory(@NotNull final Parser parser, @NotNull final ResultProcessor resultProcessor) {
+  private static ParserFactory createParserFactory(@NotNull final Parser parser) {
     return new ParserFactory() {
       @NotNull
       public Parser createParser(@NotNull ParseParameters parameters) {
         return parser;
-      }
-
-      @NotNull
-      public ResultProcessor createResultsProcessor() {
-        return resultProcessor;
       }
 
       @NotNull

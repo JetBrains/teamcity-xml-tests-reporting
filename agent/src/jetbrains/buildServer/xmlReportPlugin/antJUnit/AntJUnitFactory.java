@@ -1,8 +1,10 @@
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
-import jetbrains.buildServer.xmlReportPlugin.*;
+import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
+import jetbrains.buildServer.xmlReportPlugin.Parser;
+import jetbrains.buildServer.xmlReportPlugin.ParserFactory;
+import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestsParsingResult;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestsResultProcessor;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -14,11 +16,6 @@ public class AntJUnitFactory implements ParserFactory {
   @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
     return new AntJUnitReportParser(parameters.getXmlReader(), parameters.getInternalizingThreadLogger());
-  }
-
-  @NotNull
-  public ResultProcessor createResultsProcessor() {
-    return new TestsResultProcessor();
   }
 
   @NotNull

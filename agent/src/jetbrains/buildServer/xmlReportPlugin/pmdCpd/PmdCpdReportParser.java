@@ -20,7 +20,6 @@ import java.util.List;
  * Time: 16:50:03
  */
 public class PmdCpdReportParser extends XmlReportParser implements Parser {
-  public static final String TYPE = "pmdCpd";
   private static final char SEPARATOR = '/';
 
   private DuplicatesReporter myDuplicatesReporter;
@@ -47,6 +46,12 @@ public class PmdCpdReportParser extends XmlReportParser implements Parser {
   public ParsingResult getParsingResult() {
     return new ParsingResult() {
       public void accumulate(@NotNull ParsingResult parsingResult) {
+      }
+
+      public void logAsFileResult(@NotNull File file, @NotNull ParseParameters parameters) {
+      }
+
+      public void logAsTotalResult(@NotNull ParseParameters parameters) {
       }
     };
   }

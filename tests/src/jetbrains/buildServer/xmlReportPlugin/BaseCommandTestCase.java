@@ -22,6 +22,12 @@ public abstract class BaseCommandTestCase extends TestCase {
     public void accumulate(@NotNull ParsingResult parsingResult) {
     }
 
+    public void logAsFileResult(@NotNull File file, @NotNull ParseParameters parameters) {
+    }
+
+    public void logAsTotalResult(@NotNull ParseParameters parameters) {
+    }
+
     @Override
     public String toString() {
       return "EMPTY_RESULT";

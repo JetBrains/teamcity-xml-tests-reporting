@@ -306,7 +306,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         }
       }, logger);
 
-      myParserFactoryMap.get(rulesContext.getRulesData().getType()).createResultsProcessor().processTotalResult(result, rulesContext.getRulesData().getParseReportParameters());
+      result.logAsTotalResult(rulesContext.getRulesData().getParseReportParameters());
   }
 
   @SuppressWarnings({"NullableProblems"})

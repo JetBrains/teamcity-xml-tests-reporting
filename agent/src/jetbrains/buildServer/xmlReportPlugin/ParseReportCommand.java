@@ -53,7 +53,7 @@ public class ParseReportCommand implements Runnable {
     assert parsingResult != null;
 
     if (finished) { // file processed
-      myParserFactory.createResultsProcessor().processResult(myFile, parsingResult, myParameters);
+      parsingResult.logAsFileResult(myFile, myParameters);
       myPrevResults.remove(myFile);
       myFileStateHolder.setFileProcessed(myFile, parsingResult);
     } else {
