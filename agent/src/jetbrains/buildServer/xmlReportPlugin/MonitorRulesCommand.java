@@ -71,7 +71,7 @@ public class MonitorRulesCommand {
     monitorRules(
       new MonitorRulesFileProcessor() {
         public void processFile(@NotNull File file) {
-          if (acceptFile(file)) { //TODO: also is fully written or grows
+          if (acceptFile(file)) { //TODO: also grows
             switch (myFileStateHolder.getFileState(file)) {
               case ON_PROCESSING:
                 return;
