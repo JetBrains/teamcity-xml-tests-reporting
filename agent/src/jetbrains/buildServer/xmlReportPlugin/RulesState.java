@@ -1,3 +1,19 @@
+/*
+ * Copyright 2000-2011 JetBrains s.r.o.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package jetbrains.buildServer.xmlReportPlugin;
 
 import org.jetbrains.annotations.NotNull;
@@ -11,7 +27,7 @@ import java.util.Map;
  * Date: 20.01.11
  * Time: 16:52
  */
-public class RulesFileStateHolder implements FileStateHolder {
+public class RulesState implements FilesState {
   @NotNull
   private final Map<File, ParsingResult> myParsingResults = new HashMap<File, ParsingResult>();
 
@@ -19,11 +35,11 @@ public class RulesFileStateHolder implements FileStateHolder {
   public synchronized FileState getFileState(@NotNull File file) {
     if (myParsingResults.containsKey(file)) {
       if (myParsingResults.get(file) != null) {
-        return FileStateHolder.FileState.PROCESSED;
+        return FilesState.FileState.PROCESSED;
       }
-      return FileStateHolder.FileState.ON_PROCESSING;
+      return FilesState.FileState.ON_PROCESSING;
     }
-    return FileStateHolder.FileState.UNKNOWN;
+    return FilesState.FileState.UNKNOWN;
   }
 
   public synchronized void setFileProcessed(@NotNull File file, @NotNull ParsingResult parsingResult) {

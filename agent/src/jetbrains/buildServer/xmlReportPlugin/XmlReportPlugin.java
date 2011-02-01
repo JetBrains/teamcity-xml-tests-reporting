@@ -157,13 +157,13 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     createXMLReader();
     startMonitoring();
 
-    final RulesFileStateHolder fileStateHolder = new RulesFileStateHolder();
+    final RulesState fileStateHolder = new RulesState();
     final Map<File, ParsingResult> failedToParse = new HashMap<File, ParsingResult>();
     final ParserFactory parserFactory = getParserFactory(rulesData.getType());
 
     final RulesContext rulesContext = new RulesContext(rulesData, fileStateHolder, failedToParse);
 
-    final MonitorRulesCommand monitorRulesCommand = new MonitorRulesCommand(rulesData.getMonitorRulesParameters(), rulesContext.getRulesFilesState(),
+    final MonitorRulesCommand monitorRulesCommand = new MonitorRulesCommand(rulesData.getMonitorRulesParameters(), rulesContext.getRulesState(),
       new MonitorRulesCommand.MonitorRulesListener() {
         public void modificationDetected(@NotNull File file) {
           submitParsing(file, rulesContext, parserFactory);
@@ -197,7 +197,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   private void submitParsing(@NotNull File file, @NotNull final RulesContext rulesContext, @NotNull ParserFactory parserFactory) {
     final ParseReportCommand parseReportCommand = new ParseReportCommand(file, rulesContext.getRulesData().getParseReportParameters(),
-      rulesContext.getRulesFilesState(), rulesContext.getFailedToParse(), parserFactory);
+      rulesContext.getRulesState(), rulesContext.getFailedToParse(), parserFactory);
 
     final Future future = myParseExecutor.submit(new Runnable() {
       public void run() {
@@ -287,7 +287,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
             }
           }
 
-          final Map<File, ParsingResult> processedFiles = rulesContext.getRulesFilesState().getFiles();
+          final Map<File, ParsingResult> processedFiles = rulesContext.getRulesState().getFiles();
 
           final int totalFileCount = processedFiles.size() + failedToParse.size();
 

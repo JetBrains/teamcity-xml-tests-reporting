@@ -29,7 +29,7 @@ import java.io.File;
 /**
  * Holds information about current state of files
  */
-public interface FileStateHolder {
+public interface FilesState {
   public static enum FileState {
     UNKNOWN, ON_PROCESSING, PROCESSED
   }
