@@ -48,20 +48,25 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   private long myStartTime;
 
+  private volatile boolean myFinished;
+
   @Nullable
-  private XMLReader myXMLReader;
+  private volatile XMLReader myXMLReader;
 
   @NotNull
-  private final ScheduledExecutorService myMonitorExecutor;
+  private final ExecutorService myMonitorExecutor;
 
   @NotNull
-  private final ScheduledExecutorService myParseExecutor;
+  private final ExecutorService myParseExecutor;
 
   @NotNull
-  private final List<RulesContext> myRulesContexts = new ArrayList<RulesContext>();
+  private final List<RulesContext> myRulesContexts = new CopyOnWriteArrayList<RulesContext>();
 
   @NotNull
   private final Map<String, ParserFactory> myParserFactoryMap;
+
+  @Nullable
+  private Future myMonitorRulesFuture;
 
   public XmlReportPlugin(@NotNull Map<String, ParserFactory> parserFactoryMap,
                          @NotNull EventDispatcher<AgentLifeCycleListener> agentDispatcher,
@@ -86,60 +91,55 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   @Override
   public void beforeRunnerStart(@NotNull BuildRunnerContext runner) {
     myStartTime = new Date().getTime();
-
-    final AgentRunningBuild build = myBuild;
-    assert build != null;
-    final File checkoutDir = build.getCheckoutDirectory();
+    myFinished = false;
 
     final Map<String, String> runnerParameters = runner.getRunnerParameters();
 
     if (XmlReportPluginUtil.isParsingEnabled(runnerParameters)) {
-      final Rules rules = new Rules(getRules(runnerParameters), checkoutDir);
+      final Rules rules = new Rules(getRules(runnerParameters), getBuild().getCheckoutDirectory());
       final RulesData rulesData = new RulesData(rules, runnerParameters);
 
-      scheduleProcessing(rulesData);
+      startProcessing(rulesData);
     }
   }
 
   public synchronized void processRules(@NotNull File rulesFile,
                                         @NotNull Map<String, String> params) {
-    final AgentRunningBuild build = myBuild;
-    assert build != null;
-    final File checkoutDir = build.getCheckoutDirectory();
+    if (myFinished) return;
+
+    final File checkoutDir = getBuild().getCheckoutDirectory();
 
     final Rules rules = new Rules(getRules(rulesFile, checkoutDir), checkoutDir);
     final RulesData rulesData = new RulesData(rules, params);
 
-    scheduleProcessing(rulesData);
+    startProcessing(rulesData);
   }
 
   @Override
-  public void runnerFinished(@NotNull BuildRunnerContext runner, @NotNull BuildFinishedStatus status) {
+  public synchronized void runnerFinished(@NotNull BuildRunnerContext runner, @NotNull BuildFinishedStatus status) {
+    myFinished = true;
+
     if (myRulesContexts.isEmpty()) return;
 
-    for (final RulesContext rulesContext : myRulesContexts) {
+    try {
+      if (myMonitorRulesFuture != null) myMonitorRulesFuture.get();
 
-      try {
-        rulesContext.getMonitorTask().cancel(false);
+      for (RulesContext rulesContext : myRulesContexts) {
 
-        myMonitorExecutor.submit(new Runnable() {
-          public void run() {
-            waitParseTasksFinish(rulesContext);
-            rulesContext.getMonitorRulesCommand().run();
-          }
-        }).get();
+        rulesContext.getMonitorRulesCommand().run();
 
-      } catch (Exception e) {
-        LoggingUtils.logError("Exception occurred while finishing paths watching",
-          e, myBuild.getBuildLogger());
+        for (Future future : rulesContext.getParseTasks()) {
+          future.get();
+        }
+
+        logStatistics(rulesContext);
       }
-
-      waitParseTasksFinish(rulesContext);
-
-      logStatistics(rulesContext);
+    } catch (Exception e) {
+      LoggingUtils.logError("Exception occurred while finishing rules monitoring", e, getBuild().getBuildLogger());
     }
 
     myRulesContexts.clear();
+    myMonitorRulesFuture = null;
   }
 
   @Override
@@ -153,60 +153,66 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     shutdownExecutor(myParseExecutor);
   }
 
-  private synchronized void scheduleProcessing(@NotNull final RulesData rulesData) {
-    if (myXMLReader == null) {
-      myXMLReader = createXMLReader();
-    }
+  private synchronized void startProcessing(@NotNull final RulesData rulesData) {
+    createXMLReader();
+    startMonitoring();
 
-    final RulesFileStateHolder rulesFilesState = new RulesFileStateHolder();
+    final RulesFileStateHolder fileStateHolder = new RulesFileStateHolder();
     final Map<File, ParsingResult> failedToParse = new HashMap<File, ParsingResult>();
     final ParserFactory parserFactory = getParserFactory(rulesData.getType());
 
-    final RulesContext rulesContext = new RulesContext(rulesData, rulesFilesState, failedToParse);
-    myRulesContexts.add(rulesContext);
+    final RulesContext rulesContext = new RulesContext(rulesData, fileStateHolder, failedToParse);
 
-    final MonitorRulesCommand monitorRulesCommand = new MonitorRulesCommand(rulesData.getMonitorRulesParameters(), rulesFilesState,
+    final MonitorRulesCommand monitorRulesCommand = new MonitorRulesCommand(rulesData.getMonitorRulesParameters(), rulesContext.getRulesFilesState(),
       new MonitorRulesCommand.MonitorRulesListener() {
         public void modificationDetected(@NotNull File file) {
-          synchronized (XmlReportPlugin.this) {
-            final Future future
-              = myParseExecutor.submit(
-              new ParseReportCommand(file, rulesData.getParseReportParameters(),
-                rulesFilesState, failedToParse, parserFactory));
-
-            rulesContext.addParseTask(future);
-          }
+          submitParsing(file, rulesContext, parserFactory);
         }
       });
 
     rulesContext.setMonitorRulesCommand(monitorRulesCommand);
+    myRulesContexts.add(rulesContext);
+  }
 
-    final ScheduledFuture future = myMonitorExecutor.scheduleWithFixedDelay(new Runnable() {
+  private void startMonitoring() {
+    if (myMonitorRulesFuture != null) return;
+
+    myMonitorRulesFuture = myMonitorExecutor.submit(
+      new Runnable() {
+        public void run() {
+          while (!myFinished) {
+            for (RulesContext rulesContext : myRulesContexts) {
+              rulesContext.getMonitorRulesCommand().run();
+            }
+
+            try {
+              Thread.sleep(500L);
+            } catch (InterruptedException e) {
+              getBuild().getBuildLogger().exception(e);
+            }
+          }
+        }
+      });
+  }
+
+  private void submitParsing(@NotNull File file, @NotNull final RulesContext rulesContext, @NotNull ParserFactory parserFactory) {
+    final ParseReportCommand parseReportCommand = new ParseReportCommand(file, rulesContext.getRulesData().getParseReportParameters(),
+      rulesContext.getRulesFilesState(), rulesContext.getFailedToParse(), parserFactory);
+
+    final Future future = myParseExecutor.submit(new Runnable() {
       public void run() {
-        monitorRulesCommand.run();
+        parseReportCommand.run();
       }
-    }, 0L, 200L, TimeUnit.MILLISECONDS);
+    });
 
-    rulesContext.setMonitorTask(future);
+    rulesContext.addParseTask(future);
   }
 
-  private void waitParseTasksFinish(@NotNull RulesContext rulesContext) {
-    final AgentRunningBuild build = myBuild;
-    assert build != null;
-    for (Future future : rulesContext.getParseTasks()) {
-      try {
-        future.get();
-      } catch (Exception e) {
-        LoggingUtils.logError("Exception occurred while finishing reports processing", e, build.getBuildLogger());
-      }
-    }
-    rulesContext.clearParseTasks();
-  }
+  private void createXMLReader() {
+    if (myXMLReader != null) return;
 
-  @NotNull
-  private XMLReader createXMLReader() {
     try {
-      return ParserUtils.createXmlReader(false);
+      myXMLReader = ParserUtils.createXmlReader(false);
     } catch (SAXException e) {
       throw new RuntimeException("Unable to parse xml, failed to load parser");
     }
@@ -233,7 +239,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     }
   }
 
-  private static ScheduledExecutorService createExecutor() {
+  private static ExecutorService createExecutor() {
     return Executors.newSingleThreadScheduledExecutor(THREAD_FACTORY);
   }
 
@@ -253,9 +259,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   }
 
   public void logStatistics(@NotNull final RulesContext rulesContext) {
-    final AgentRunningBuild build = myBuild;
-    assert build != null;
-    final BuildProgressLogger logger = build.getBuildLogger();
+    final BuildProgressLogger logger = getBuild().getBuildLogger();
 
     final ParsingResult result = myParserFactoryMap.get(rulesContext.getRulesData().getType()).createEmptyResult();
 
@@ -305,6 +309,15 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
       myParserFactoryMap.get(rulesContext.getRulesData().getType()).createResultsProcessor().processTotalResult(result, rulesContext.getRulesData().getParseReportParameters());
   }
 
+  @SuppressWarnings({"NullableProblems"})
+  @NotNull
+  private AgentRunningBuild getBuild() {
+    if (myBuild == null) {
+      throw new IllegalStateException("Build is null");
+    }
+    return myBuild;
+  }
+
   @NotNull
   private ParserFactory getParserFactory(@NotNull String type) {
     if (!myParserFactoryMap.containsKey(type))
@@ -345,7 +358,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     }
 
     @NotNull
-    private MonitorRulesCommand.MonitorRulesParameters getMonitorRulesParameters() {
+    public MonitorRulesCommand.MonitorRulesParameters getMonitorRulesParameters() {
       return new MonitorRulesCommand.MonitorRulesParameters() {
         @NotNull
         public Rules getRules() {
@@ -367,15 +380,13 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
         @NotNull
         public BuildProgressLogger getThreadLogger() {
-          final AgentRunningBuild build = myBuild;
-          assert build != null;
-          return build.getBuildLogger().getThreadLogger();
+          return getBuild().getBuildLogger().getThreadLogger();
         }
       };
     }
 
     @NotNull
-    private ParseParameters getParseReportParameters() {
+    public ParseParameters getParseReportParameters() {
       return new ParseParameters() {
         public boolean isVerbose() {
           return XmlReportPluginUtil.isOutputVerbose(myParameters);
@@ -383,9 +394,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
         @NotNull
         public BuildProgressLogger getThreadLogger() {
-          final AgentRunningBuild build = myBuild;
-          assert build != null;
-          return build.getBuildLogger().getThreadLogger();
+          return getBuild().getBuildLogger().getThreadLogger();
         }
 
         @NotNull
@@ -428,19 +437,14 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
         @NotNull
         public File getCheckoutDir() {
-          final AgentRunningBuild build = myBuild;
-          assert build != null;
-          return build.getCheckoutDirectory();
+          return getBuild().getCheckoutDirectory();
         }
 
         @NotNull
         public File getTempDir() {
-          final AgentRunningBuild build = myBuild;
-          assert build != null;
-          return build.getBuildTempDirectory();
+          return getBuild().getBuildTempDirectory();
         }
       };
     }
   }
 }
-

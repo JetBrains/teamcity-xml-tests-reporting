@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledFuture;
 
 /**
  * User: vbedrosova
@@ -26,9 +25,6 @@ public class RulesContext {
   private final Map<File, ParsingResult> myFailedToParse;
 
   @NotNull
-  private ScheduledFuture myMonitorTask;
-
-  @NotNull
   private final List<Future> myParseTasks = new ArrayList<Future>();
 
   @NotNull
@@ -42,26 +38,13 @@ public class RulesContext {
     myFailedToParse = failedToParse;
   }
 
-  public void setMonitorTask(@NotNull ScheduledFuture monitorTask) {
-    myMonitorTask = monitorTask;
-  }
-
   public void addParseTask(@NotNull Future parseTask) {
     myParseTasks.add(parseTask);
   }
 
   @NotNull
-  public ScheduledFuture getMonitorTask() {
-    return myMonitorTask;
-  }
-
-  @NotNull
   public List<Future> getParseTasks() {
     return Collections.unmodifiableList(myParseTasks);
-  }
-
-  public void clearParseTasks() {
-    myParseTasks.clear();
   }
 
   public void setMonitorRulesCommand(@NotNull MonitorRulesCommand monitorRulesCommand) {
