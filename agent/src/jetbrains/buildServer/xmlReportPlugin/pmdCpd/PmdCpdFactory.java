@@ -1,9 +1,10 @@
 package jetbrains.buildServer.xmlReportPlugin.pmdCpd;
 
-import jetbrains.buildServer.xmlReportPlugin.*;
+import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
+import jetbrains.buildServer.xmlReportPlugin.Parser;
+import jetbrains.buildServer.xmlReportPlugin.ParserFactory;
+import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
 
 /**
  * User: vbedrosova
@@ -19,22 +20,6 @@ public class PmdCpdFactory implements ParserFactory {
 
   @NotNull
   public ParsingResult createEmptyResult() {
-    return new ParsingResult() {
-      public void accumulate(@NotNull ParsingResult parsingResult) {
-      }
-
-      public void logAsFileResult(@NotNull File file, @NotNull ParseParameters parameters) {
-        final String message = file.getAbsolutePath() + " report processed: ";
-
-        if (parameters.isVerbose()) {
-          parameters.getThreadLogger().message(message);
-        }
-
-        LoggingUtils.LOG.debug(message);
-      }
-
-      public void logAsTotalResult(@NotNull ParseParameters parameters) {
-      }
-    };
+    return new PmdCpdParsingResult();
   }
 }
