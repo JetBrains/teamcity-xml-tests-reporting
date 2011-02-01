@@ -18,7 +18,6 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitReportParser;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestsParsingResult;
 import junit.framework.Assert;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;

@@ -1,10 +1,6 @@
 package jetbrains.buildServer.xmlReportPlugin.pmd;
 
-import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
-import jetbrains.buildServer.xmlReportPlugin.Parser;
-import jetbrains.buildServer.xmlReportPlugin.ParserFactory;
-import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
-import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionsParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.*;
 import org.jetbrains.annotations.NotNull;
 
 /**

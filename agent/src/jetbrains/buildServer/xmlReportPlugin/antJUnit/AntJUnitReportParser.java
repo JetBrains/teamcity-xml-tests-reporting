@@ -18,7 +18,6 @@ package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.*;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestsParsingResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.xml.sax.Attributes;

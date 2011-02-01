@@ -1,8 +1,5 @@
-package jetbrains.buildServer.xmlReportPlugin.tests;
+package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.xmlReportPlugin.LoggingUtils;
-import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
-import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
