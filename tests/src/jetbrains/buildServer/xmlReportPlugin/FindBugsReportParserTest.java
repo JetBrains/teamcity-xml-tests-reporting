@@ -31,21 +31,12 @@ public class FindBugsReportParserTest extends BaseParserTestCase {
   private static final String FINDBUGS_HOME = System.getProperty("findbugs");
   private static final String TYPE = "findBugs";
 
-  @Override
-  public void setUp() throws Exception {
-    super.setUp();
-    if (FINDBUGS_HOME == null) {
-      fail("FindBugs home path is not specified in JVM arguments." +
-        "Use -Dfindbugs=\"...\" jvm option or build.properties file to specify FindBugs home path");
-    }
-  }
-
   @NotNull
   @Override
   protected Parser getParser() {
     try {
       return new FindBugsReportParser(getXMLReader(), getInspectionReporter(), getTestDataFile(null, TYPE),
-        new File(FINDBUGS_HOME).exists() ? FINDBUGS_HOME : TestUtil.getTestDataPath(FINDBUGS_HOME, null), getLogger());
+        FINDBUGS_HOME != null && new File(FINDBUGS_HOME).exists() ? FINDBUGS_HOME : TestUtil.getTestDataPath(TYPE, null), getLogger());
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }
