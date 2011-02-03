@@ -54,9 +54,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   private volatile XMLReader myXMLReader;
 
   @NotNull
-  private final ExecutorService myMonitorExecutor;
-
-  @NotNull
   private final ExecutorService myParseExecutor;
 
   @NotNull
@@ -66,7 +63,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   private final Map<String, ParserFactory> myParserFactoryMap;
 
   @Nullable
-  private Future myMonitorRulesFuture;
+  private volatile Thread myMonitorRulesThread;
 
   public XmlReportPlugin(@NotNull Map<String, ParserFactory> parserFactoryMap,
                          @NotNull EventDispatcher<AgentLifeCycleListener> agentDispatcher,
@@ -79,7 +76,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     myInspectionReporter = inspectionReporter;
     myDuplicatesReporter = duplicatesReporter;
 
-    myMonitorExecutor = createExecutor();
     myParseExecutor = createExecutor();
   }
 
@@ -122,7 +118,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     if (myRulesContexts.isEmpty()) return;
 
     try {
-      if (myMonitorRulesFuture != null) myMonitorRulesFuture.get();
+      if (myMonitorRulesThread != null) myMonitorRulesThread.join();
 
       for (RulesContext rulesContext : myRulesContexts) {
 
@@ -139,7 +135,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     }
 
     myRulesContexts.clear();
-    myMonitorRulesFuture = null;
+    myMonitorRulesThread = null;
   }
 
   @Override
@@ -149,7 +145,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   @Override
   public void agentShutdown() {
-    shutdownExecutor(myMonitorExecutor);
     shutdownExecutor(myParseExecutor);
   }
 
@@ -175,24 +170,24 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   }
 
   private void startMonitoring() {
-    if (myMonitorRulesFuture != null) return;
+    if (myMonitorRulesThread != null) return;
 
-    myMonitorRulesFuture = myMonitorExecutor.submit(
-      new Runnable() {
-        public void run() {
-          while (!myFinished) {
-            for (RulesContext rulesContext : myRulesContexts) {
-              rulesContext.getMonitorRulesCommand().run();
-            }
+    myMonitorRulesThread = new Thread(new Runnable() {
+      public void run() {
+        while (!myFinished) {
+          for (RulesContext rulesContext : myRulesContexts) {
+            rulesContext.getMonitorRulesCommand().run();
+          }
 
-            try {
-              Thread.sleep(500L);
-            } catch (InterruptedException e) {
-              getBuild().getBuildLogger().exception(e);
-            }
+          try {
+            Thread.sleep(500L);
+          } catch (InterruptedException e) {
+            getBuild().getBuildLogger().exception(e);
           }
         }
-      });
+      }
+    });
+    myMonitorRulesThread.start();
   }
 
   private void submitParsing(@NotNull File file, @NotNull final RulesContext rulesContext, @NotNull ParserFactory parserFactory) {
