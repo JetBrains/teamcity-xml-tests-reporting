@@ -253,17 +253,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     return rules;
   }
 
-  public void logStatistics(@NotNull final RulesContext rulesContext) {
+  private void logStatistics(@NotNull final RulesContext rulesContext) {
     final BuildProgressLogger logger = getBuild().getBuildLogger();
-
-    final ParsingResult result = myParserFactoryMap.get(rulesContext.getRulesData().getType()).createEmptyResult();
-
-    final Map<File, ParsingResult> failedToParse = rulesContext.getFailedToParse();
-
-    for (File file : failedToParse.keySet()) {
-      LoggingUtils.logFailedToParse(file, rulesContext.getRulesData().getType(), null, logger);
-      result.accumulate(failedToParse.get(file));
-    }
 
     LoggingUtils.logInTarget(LoggingUtils.getTypeDisplayName(rulesContext.getRulesData().getType()) + " report watcher",
       new Runnable() {
@@ -282,7 +273,10 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
             }
           }
 
+          final ParsingResult result = myParserFactoryMap.get(rulesContext.getRulesData().getType()).createEmptyResult();
+
           final Map<File, ParsingResult> processedFiles = rulesContext.getRulesState().getFiles();
+          final Map<File, ParsingResult> failedToParse = rulesContext.getFailedToParse();
 
           final int totalFileCount = processedFiles.size() + failedToParse.size();
 
@@ -298,10 +292,15 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
               result.accumulate(processedFiles.get(file));
             }
           }
+
+          for (File file : failedToParse.keySet()) {
+            LoggingUtils.logFailedToParse(file, rulesContext.getRulesData().getType(), null, logger);
+            result.accumulate(failedToParse.get(file));
+          }
+
+          result.logAsTotalResult(rulesContext.getRulesData().getParseReportParameters());
         }
       }, logger);
-
-      result.logAsTotalResult(rulesContext.getRulesData().getParseReportParameters());
   }
 
   @SuppressWarnings({"NullableProblems"})
