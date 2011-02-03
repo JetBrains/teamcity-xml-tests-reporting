@@ -47,6 +47,7 @@ public class LoggingUtils {
     LOG.warn(message);
     logger.warning(message);
   }
+
   public static void logError(@Nullable String error,
                               @Nullable Throwable throwable,
                               @NotNull BuildProgressLogger logger) {
@@ -65,7 +66,7 @@ public class LoggingUtils {
   }
 
   public static void logFailedToParse(@NotNull File file, @NotNull String type, @Nullable Throwable t, @NotNull BuildProgressLogger logger) {
-    logError("Failed to parse " + file.getAbsolutePath() + " with " + getTypeDisplayName(type) + " parser", t, logger);
+    logError("Failed to parse " + file + " with " + getTypeDisplayName(type) + " parser", t, logger);
   }
 
   public static String getTypeDisplayName(@NotNull String type) {
