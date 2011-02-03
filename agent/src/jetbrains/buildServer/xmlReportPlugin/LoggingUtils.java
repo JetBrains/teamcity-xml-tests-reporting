@@ -20,8 +20,6 @@ import jetbrains.buildServer.agent.BuildProgressLogger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-
 /**
  * User: vbedrosova
  * Date: 12.01.11
@@ -48,6 +46,11 @@ public class LoggingUtils {
     logger.warning(message);
   }
 
+  public static void error(@NotNull String message, @NotNull BuildProgressLogger logger) {
+    LOG.warn(message);
+    logger.error(message);
+  }
+
   public static void logError(@Nullable String error,
                               @Nullable Throwable throwable,
                               @NotNull BuildProgressLogger logger) {
@@ -63,10 +66,6 @@ public class LoggingUtils {
     if (throwable != null) {
       LOG.warn(throwable.getMessage(), throwable);
     }
-  }
-
-  public static void logFailedToParse(@NotNull File file, @NotNull String type, @Nullable Throwable t, @NotNull BuildProgressLogger logger) {
-    logError("Failed to parse " + file + " with " + getTypeDisplayName(type) + " parser", t, logger);
   }
 
   public static String getTypeDisplayName(@NotNull String type) {

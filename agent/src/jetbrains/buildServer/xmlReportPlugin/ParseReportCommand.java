@@ -80,6 +80,7 @@ public class ParseReportCommand implements Runnable {
   }
 
   private void logFailedToParse(@NotNull ParsingException e) {
-    LoggingUtils.logFailedToParse(myFile, myParameters.getType(), e.getCause(), myParameters.getThreadLogger());
+    LoggingUtils.logError("Failed to parse " + myFile + " with " + LoggingUtils.getTypeDisplayName(myParameters.getType())
+      + " parser", e.getCause(), myParameters.getThreadLogger());
   }
 }

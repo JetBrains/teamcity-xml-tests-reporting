@@ -283,7 +283,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
           if (totalFileCount == 0) {
             rulesContext.getRulesData().getWhenNoDataPublished().doLogAction("No reports found", logger, LoggingUtils.LOG);
           } else {
-            LoggingUtils.message(totalFileCount + " report" + (totalFileCount == 1 ? "" : "s") + " found", logger);
+            LoggingUtils.message(totalFileCount + " report" + getEnding(totalFileCount) + " found", logger);
 
             for (File file : processedFiles.keySet()) {
               if (rulesContext.getRulesData().isVerbose()) {
@@ -293,14 +293,28 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
             }
           }
 
-          for (File file : failedToParse.keySet()) {
-            LoggingUtils.logFailedToParse(file, rulesContext.getRulesData().getType(), null, logger);
-            result.accumulate(failedToParse.get(file));
+          if (!failedToParse.isEmpty()) {
+            LoggingUtils.error("Failed to parse " + failedToParse.size() + " report" + getEnding(failedToParse.size()), logger);
+
+            int i = 0;
+            for (File file : failedToParse.keySet()) {
+              if (rulesContext.getRulesData().isVerbose()) {
+                LoggingUtils.logError("Failed to parse " + file, null, logger);
+              } else if (i++ < 10) {
+                LoggingUtils.LOG.warn("Failed to parse " + file);
+              }
+              result.accumulate(failedToParse.get(file));
+            }
           }
 
           result.logAsTotalResult(rulesContext.getRulesData().getParseReportParameters());
         }
       }, logger);
+  }
+
+  @NotNull
+  private static String getEnding(int count) {
+    return count == 1 ? "" : "s";
   }
 
   @SuppressWarnings({"NullableProblems"})
