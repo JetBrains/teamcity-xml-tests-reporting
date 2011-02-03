@@ -63,6 +63,10 @@ public class RulesContext {
     return Collections.unmodifiableList(myParseTasks);
   }
 
+  public void clearParseTasks() {
+    myParseTasks.clear();
+  }
+
   public void setMonitorRulesCommand(@NotNull MonitorRulesCommand monitorRulesCommand) {
     myMonitorRulesCommand = monitorRulesCommand;
   }

@@ -121,6 +121,11 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
       if (myMonitorRulesThread != null) myMonitorRulesThread.join();
 
       for (RulesContext rulesContext : myRulesContexts) {
+        for (Future future : rulesContext.getParseTasks()) {
+          future.get();
+        }
+
+        rulesContext.clearParseTasks();
 
         rulesContext.getMonitorRulesCommand().run();
 
