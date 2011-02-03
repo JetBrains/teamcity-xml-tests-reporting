@@ -52,7 +52,7 @@ class BugCollection {
     try {
       DETAILS_PARSER = new DetailsParser(DTD.getDTD(""));
     } catch (IOException e) {
-      LoggingUtils.LOG.error("Couldn't create empty DTD", e);
+      LoggingUtils.LOG.warn("Couldn't create empty DTD", e);
     }
   }
 
@@ -72,7 +72,7 @@ class BugCollection {
       parse(new FindBugsHandler(), new InputSource(this.getClass().getResourceAsStream("findbugs.xml")));
       parse(new MessagesHandler(), new InputSource(this.getClass().getResourceAsStream("messages.xml")));
     } catch (Exception e) {
-      LoggingUtils.LOG.error("Couldn't load bug patterns from bundled findbugs.xml and messages.xml", e);
+      LoggingUtils.LOG.warn("Couldn't load bug patterns from bundled findbugs.xml and messages.xml", e);
     }
   }
 
@@ -116,14 +116,14 @@ class BugCollection {
       parse(new FindBugsHandler(), new InputSource(jar.getInputStream(findugs)));
       parse(new MessagesHandler(), new InputSource(jar.getInputStream(messages)));
     } catch (Exception e) {
-      LoggingUtils.LOG.error("Couldn't load bug patterns from findbugs.xml and messages.xml from plugin jar " + file.getAbsolutePath(), e);
+      LoggingUtils.LOG.warn("Couldn't load bug patterns from findbugs.xml and messages.xml from plugin jar " + file.getAbsolutePath(), e);
     } finally {
       try {
         if (jar != null) {
           jar.close();
         }
       } catch (IOException e) {
-        LoggingUtils.LOG.error("Couldn't close plugin jar " + file.getAbsolutePath(), e);
+        LoggingUtils.LOG.warn("Couldn't close plugin jar " + file.getAbsolutePath(), e);
       }
     }
   }
@@ -197,7 +197,7 @@ class BugCollection {
     try {
       DETAILS_PARSER.parse(new BufferedReader(new StringReader(sb.toString())));
     } catch (IOException e) {
-      LoggingUtils.LOG.error("Couldn't format html description to text", e);
+      LoggingUtils.LOG.warn("Couldn't format html description to text", e);
     }
     return DETAILS_PARSER.getText().replace("&nbsp", "");
   }
