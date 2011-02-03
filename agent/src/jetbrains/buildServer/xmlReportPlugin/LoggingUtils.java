@@ -41,10 +41,10 @@ public class LoggingUtils {
 
     if (message.length() > 0) {
       logger.error(message);
-      LOG.error(message);
+      LOG.warn(message);
     }
     if (throwable != null) {
-      LOG.error(throwable.getMessage(), throwable);
+      LOG.warn(throwable.getMessage(), throwable);
     }
   }
 

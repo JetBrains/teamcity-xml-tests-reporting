@@ -205,7 +205,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
     if (myBugCollection.getCategories().containsKey(id)) {
       return myBugCollection.getCategories().get(id);
     } else {
-      LoggingUtils.LOG.error("Couldn't get category for " + id);
+      LoggingUtils.LOG.warn("Couldn't get category for " + id);
       return UNKNOWN_CATEGORY;
     }
   }
@@ -214,7 +214,7 @@ public class FindBugsReportParser extends InspectionsReportParser {
     if (myBugCollection.getPatterns().containsKey(id)) {
       return myBugCollection.getPatterns().get(id);
     } else {
-      LoggingUtils.LOG.error("Couldn't get patterns for " + id);
+      LoggingUtils.LOG.warn("Couldn't get patterns for " + id);
       return UNKNOWN_PATTERN;
     }
   }

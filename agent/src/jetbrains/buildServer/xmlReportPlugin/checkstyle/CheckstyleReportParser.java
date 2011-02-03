@@ -63,7 +63,7 @@ public class CheckstyleReportParser extends InspectionsReportParser {
       myCurrentFile = getRelativePath(attributes.getValue("name"), myCheckoutDirectory);
     } else if ("error".equals(name)) {
       if (myCurrentFile == null) {
-        LoggingUtils.LOG.error(specifyMessage("Unexpected report structure: error tag comes outside file tag"));
+        LoggingUtils.LOG.warn(specifyMessage("Unexpected report structure: error tag comes outside file tag"));
       }
       reportInspectionType(attributes);
 
@@ -103,7 +103,7 @@ public class CheckstyleReportParser extends InspectionsReportParser {
     } else if ("info".equals(severity)) {
       return 3;
     } else {
-      LoggingUtils.LOG.error(specifyMessage("Came across illegal severity value: " + severity));
+      LoggingUtils.LOG.warn(specifyMessage("Came across illegal severity value: " + severity));
       return 3;
     }
   }
