@@ -43,7 +43,7 @@ public enum LogAction {
   ERROR("error") {
     @Override
     public void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger, @NotNull org.apache.log4j.Logger log) {
-      log.error(message);
+      log.warn(message);
       logger.error(message);
     }
   };
