@@ -156,8 +156,7 @@ public class MonitorRulesCommand {
     monitorRules(
       new MonitorRulesFileProcessor() {
         public void processFile(@NotNull File file) {
-          if (file.getName().endsWith(".xml") &&
-            file.isFile() && file.canRead() &&
+          if (file.isFile() && file.canRead() &&
             !isFresh(file) &&
             isIncluded(file)) {
             existingPaths.add(file);
