@@ -59,7 +59,7 @@ public class MonitorRulesCommand {
   @NotNull
   private final MonitorRulesListener myListener;
 
-  private boolean myInitialized;
+  private boolean myFirstRun;
 
   @NotNull
   private final Map<File, MaskData> myMasks = new HashMap<File, MaskData>();
@@ -74,14 +74,14 @@ public class MonitorRulesCommand {
     myFilesState = filesState;
     myListener = listener;
 
-    myInitialized = false;
+    myFirstRun = true;
   }
 
   public void run() {
-    if (!myInitialized) {
+    if (myFirstRun) {
       logWatchingPaths();
       checkExistingPaths();
-      myInitialized = true;
+      myFirstRun = false;
     }
 
     monitorRules(
