@@ -201,8 +201,7 @@ public class MonitorRulesCommand {
   }
 
   private boolean acceptFile(@NotNull File f) {
-    return f.getName().endsWith(".xml") &&
-           f.isFile() && f.canRead() &&
+    return f.isFile() && f.canRead() &&
            timeConstraintsSatisfied(f) &&
            isIncluded(f);
   }
