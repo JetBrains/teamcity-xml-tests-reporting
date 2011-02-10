@@ -16,15 +16,14 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import org.jetbrains.annotations.NotNull;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import jetbrains.buildServer.agent.BuildProgressLogger;
+import org.jetbrains.annotations.NotNull;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * User: vbedrosova
@@ -63,8 +62,8 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
   private MonitorRulesCommand createMonitorRulesCommand(@NotNull FilesState filesState,
                                                         @NotNull final StringBuilder result,
                                                         final boolean parseOutOfDate, final long startTime) {
-    final List<String> rulesList = Arrays.asList("*.xml", "**/*.xml");
-    final Rules rules = new Rules(rulesList, myBaseFolder);
+    final List<String> rulesList = Arrays.asList(myBaseFolder + "/*.xml", myBaseFolder + "/**/*.xml");
+    final Rules rules = new Rules(rulesList);
     final MonitorRulesCommand.MonitorRulesParameters parameters = new MonitorRulesCommand.MonitorRulesParameters() {
       @NotNull
       public Rules getRules() {
@@ -117,12 +116,12 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
     final MonitorRulesCommand command = createMonitorRulesCommand();
     command.run();
 
-    assertContains(myResult, "MESSAGE: Watching paths:", "MESSAGE: *.xml", "MESSAGE: **/*.xml");
+    assertContains(myResult, "MESSAGE: Watching paths:", "MESSAGE: ##BASE_DIR##/*.xml", "MESSAGE: ##BASE_DIR##/**/*.xml");
 
     myResult.delete(0, myResult.length());
     command.run();
 
-    assertNotContains(myResult, "MESSAGE: Watching paths:", "MESSAGE: *.xml", "MESSAGE: **/*.xml");
+    assertNotContains(myResult, "MESSAGE: Watching paths:", "##BASE_DIR##/MESSAGE: *.xml", "##BASE_DIR##/MESSAGE: **/*.xml");
   }
 
   @Test

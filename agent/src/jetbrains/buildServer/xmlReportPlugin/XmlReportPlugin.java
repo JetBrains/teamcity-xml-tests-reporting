@@ -16,6 +16,9 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.util.*;
+import java.util.concurrent.*;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
@@ -28,10 +31,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
-
-import java.io.File;
-import java.util.*;
-import java.util.concurrent.*;
 
 
 public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProcessor {
@@ -92,7 +91,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     final Map<String, String> runnerParameters = runner.getRunnerParameters();
 
     if (XmlReportPluginUtil.isParsingEnabled(runnerParameters)) {
-      final Rules rules = new Rules(getRules(runnerParameters), getBuild().getCheckoutDirectory());
+      final Rules rules = getRules(runnerParameters);
       final RulesData rulesData = new RulesData(rules, runnerParameters);
 
       startProcessing(rulesData);
@@ -103,9 +102,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
                                         @NotNull Map<String, String> params) {
     if (myFinished) return;
 
-    final File checkoutDir = getBuild().getCheckoutDirectory();
-
-    final Rules rules = new Rules(getRules(rulesFile, checkoutDir), checkoutDir);
+    final Rules rules = getRules(rulesFile);
     final RulesData rulesData = new RulesData(rules, params);
 
     startProcessing(rulesData);
@@ -243,19 +240,22 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     return Executors.newSingleThreadScheduledExecutor(THREAD_FACTORY);
   }
 
-  private static Collection<String> getRules(@NotNull Map<String, String> parameters) {
+  private Rules getRules(@NotNull Map<String, String> parameters) {
     final String rulesStr = XmlReportPluginUtil.getXmlReportPaths(parameters);
     if (rulesStr == null || rulesStr.length() == 0) {
       throw new RuntimeException("Rules are empty");
     }
-    return Arrays.asList(rulesStr.split(XmlReportPluginConstants.SPLIT_REGEX));
+    final List<String> rules = new ArrayList<String>();
+    for (String rule : rulesStr.split(XmlReportPluginConstants.SPLIT_REGEX)) {
+      rules.add(FileUtil.resolvePath(getBuild().getCheckoutDirectory(), rule).getPath());
+    }
+    return new Rules(rules);
   }
 
-  private static Collection<String> getRules(@NotNull File rulesFile, @NotNull File baseDir) {
+  private Rules getRules(@NotNull File rulesFile) {
     final List<String> rules = new ArrayList<String>();
-    final String reportPathStr = FileUtil.getRelativePath(baseDir, rulesFile);
-    rules.add(reportPathStr == null ? rulesFile.getPath() : reportPathStr);
-    return rules;
+    rules.add(FileUtil.resolvePath(getBuild().getCheckoutDirectory(), rulesFile.getPath()).getPath());
+    return new Rules(rules);
   }
 
   private void logStatistics(@NotNull final RulesContext rulesContext) {

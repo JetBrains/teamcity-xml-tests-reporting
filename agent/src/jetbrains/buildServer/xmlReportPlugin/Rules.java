@@ -16,13 +16,11 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.util.FileUtil;
+import java.io.File;
+import java.util.*;
 import jetbrains.buildServer.vcs.FileRule;
 import jetbrains.buildServer.vcs.FileRuleSet;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
-import java.util.*;
 
 /**
  * User: vbedrosova
@@ -30,15 +28,10 @@ import java.util.*;
  * Time: 13:19
  */
 public class Rules extends FileRuleSet<FileRule, FileRule> {
-  @NotNull
-  private final File myBaseDir;
-
   private Set<File> myRootIncludePaths;
 
-  public Rules(@NotNull Collection<String> body,
-               @NotNull File baseDir) {
+  public Rules(@NotNull Collection<String> body) {
     super(new ArrayList<String>(body));
-    myBaseDir = baseDir;
   }
 
   @Override
@@ -52,7 +45,7 @@ public class Rules extends FileRuleSet<FileRule, FileRule> {
   }
 
   private FileRule createRule(@NotNull String line, boolean isInclude) {
-    return new FileRule(line, this, isInclude);
+    return new FileRule(line, null, this, isInclude);
   }
 
   @Override
@@ -96,7 +89,7 @@ public class Rules extends FileRuleSet<FileRule, FileRule> {
 
     myRootIncludePaths = new HashSet<File>();
     for (FileRule rule : resultRules) {
-      myRootIncludePaths.add(FileUtil.resolvePath(myBaseDir, rule.getFrom()));
+      myRootIncludePaths.add(new File(rule.getFrom()));
     }
     return myRootIncludePaths;
   }
@@ -108,6 +101,6 @@ public class Rules extends FileRuleSet<FileRule, FileRule> {
   }
 
   public boolean shouldInclude(@NotNull File path) {
-    return super.shouldInclude(FileUtil.getRelativePath(myBaseDir, path));
+    return super.shouldInclude(path.getPath());
   }
 }

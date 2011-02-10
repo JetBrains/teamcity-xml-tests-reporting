@@ -16,16 +16,13 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import jetbrains.buildServer.util.FileUtil;
-import junit.framework.TestCase;
-import org.jetbrains.annotations.NotNull;
-import org.junit.Before;
-import org.junit.Test;
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import junit.framework.TestCase;
+import org.jetbrains.annotations.NotNull;
+import org.junit.Test;
 
 /**
  * User: vbedrosova
@@ -33,14 +30,6 @@ import java.util.HashSet;
  * Time: 19:32
  */
 public class XmlReportPluginRulesTest extends TestCase {
-  private File myCheckoutDir;
-
-  @Before
-  @Override
-  protected void setUp() throws Exception {
-    myCheckoutDir = FileUtil.createTempDirectory("", "");
-  }
-
   @Test
   public void test_path_include() {
     final Rules rules = createRules("+:some/path");
@@ -139,8 +128,20 @@ public class XmlReportPluginRulesTest extends TestCase {
     assertFalse(rules.shouldInclude(getFile("some/path/content/inner/content")));
   }
 
+  @Test
+  public void test_absolute_path_include() {
+    final Rules rules = createRules("+:C:\\some\\path");
+
+    assertTrue(rules.shouldInclude(getFile("C:\\some\\path")));
+    assertTrue(rules.shouldInclude(getFile("C:\\some\\path\\content")));
+
+    assertFalse(rules.shouldInclude(getFile("C:\\some")));
+    assertFalse(rules.shouldInclude(getFile("another")));
+    assertFalse(rules.shouldInclude(getFile("C:\\another")));
+  }
+
   private Rules createRules(@NotNull String... rules) {
-    return new Rules(getRulesSet(rules), myCheckoutDir);
+    return new Rules(getRulesSet(rules));
   }
 
   private Collection<String> getRulesSet(@NotNull String... rules) {
@@ -148,6 +149,6 @@ public class XmlReportPluginRulesTest extends TestCase {
   }
 
   private File getFile(@NotNull final String path) {
-    return new File(myCheckoutDir, path);
+    return new File(path);
   }
 }
