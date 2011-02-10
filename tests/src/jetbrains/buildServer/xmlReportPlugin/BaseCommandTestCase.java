@@ -73,7 +73,7 @@ public abstract class BaseCommandTestCase extends TestCase {
   }
 
   private void assertContains(@NotNull StringBuilder result, boolean shouldContain, @NotNull String ... lines) {
-    final String resultStr = result.toString().replace(myBaseFolder.getAbsolutePath(), "##BASE_DIR##").replace("\\", "/");
+    final String resultStr = result.toString().replace("\\", "/").replace(myBaseFolder.getPath().replace("\\", "/"), "##BASE_DIR##");
 
     final List<String> actualLines = Arrays.asList(resultStr.split("\\n"));
     for (String line : Arrays.asList(lines)) {
