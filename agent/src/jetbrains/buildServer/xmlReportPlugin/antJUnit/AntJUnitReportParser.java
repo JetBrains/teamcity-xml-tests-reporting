@@ -131,7 +131,7 @@ public class AntJUnitReportParser extends XmlReportParser {
   private void finishOnException(@NotNull File file, @NotNull Exception e) {
     endSuite();
 
-    LoggingUtils.LOG.debug("Couldn't completely parse " + file.getPath()
+    LoggingUtils.LOG.debug("Couldn't completely parse " + file
       + " report, exception occurred: " + e + ", " + myLoggedTests + " events logged");
   }
 
