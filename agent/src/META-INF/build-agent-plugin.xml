@@ -30,6 +30,8 @@
           class="jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleFactory"/>
     <bean id="pmdCpdFactory"
           class="jetbrains.buildServer.xmlReportPlugin.pmdCpd.PmdCpdFactory"/>
+    <bean id="mstestFactory"
+          class="jetbrains.buildServer.xmlReportPlugin.mstest.MSTestFactory"/>
 
     <bean class="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin" lazy-init="default" autowire="default" dependency-check="default">
         <constructor-arg index="0">
@@ -41,6 +43,7 @@
                 <entry key="checkstyle" value-ref="checkstyleFactory"/>
                 <entry key="pmdCpd" value-ref="pmdCpdFactory"/>
                 <entry key="surefire" value-ref="junitFactory"/>
+                <entry key="mstest" value-ref="mstestFactory"/>
             </map>
         </constructor-arg>
     </bean>
@@ -59,4 +62,6 @@
           class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$CheckstyleDataProcessor"/>
     <bean id="PmdCpdDataProcessor"
           class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$PmdCpdDataProcessor"/>
+    <bean id="MSTestDataProcessor"
+          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$MSTestDataProcessor"/>
 </beans>

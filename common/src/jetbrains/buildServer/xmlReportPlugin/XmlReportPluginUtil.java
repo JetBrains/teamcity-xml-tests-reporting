@@ -16,12 +16,11 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import org.jetbrains.annotations.NotNull;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginConstants.*;
 
@@ -39,6 +38,7 @@ public class XmlReportPluginUtil {
     SUPPORTED_REPORT_TYPES.put("pmd", "PMD");
     SUPPORTED_REPORT_TYPES.put("checkstyle", "Checkstyle");
     SUPPORTED_REPORT_TYPES.put("pmdCpd", "PMD CPD");
+    SUPPORTED_REPORT_TYPES.put("mstest", "MSTest");
 
     INSPECTIONS_TYPES.add("findBugs");
     INSPECTIONS_TYPES.add("pmd");

@@ -16,13 +16,12 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.util.HashMap;
+import java.util.Map;
 import jetbrains.buildServer.agent.DataProcessor;
 import jetbrains.buildServer.agent.DataProcessorContext;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
-import java.util.Map;
 
 //"##teamcity[importData type='sometype' file='somedir']"
 // service message activates watching "somedir" directory for reports of sometype type
@@ -160,6 +159,17 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
     @NotNull
     public String getType() {
       return "pmdCpd";
+    }
+  }
+
+  public static final class MSTestDataProcessor extends XmlReportDataProcessor {
+    public MSTestDataProcessor(RulesProcessor plugin) {
+      super(plugin);
+    }
+
+    @NotNull
+    public String getType() {
+      return "mstest";
     }
   }
 }
