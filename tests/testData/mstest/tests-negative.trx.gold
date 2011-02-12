@@ -1,0 +1,58 @@
+TestSuite:MSTest
+-->Info: Found 15 test definitions.
+  Test:Test1.InternalTestClass.TestInternalMethod
+    Ignored:UTA004: Illegal use of attribute on Test1.InternalTestClass.TestInternalMethod. The TestMethodAttribute can be defined only inside a class marked with the TestClass attribute.
+  EndTest:0
+------------------------
+  Test:Test1.InternalTestClass.TestPrivateMethod
+    Ignored:UTA004: Illegal use of attribute on Test1.InternalTestClass.TestPrivateMethod. The TestMethodAttribute can be defined only inside a class marked with the TestClass attribute.
+  EndTest:0
+------------------------
+  Test:Test1.InternalTestClass.TestProtectedMethod
+    Ignored:UTA004: Illegal use of attribute on Test1.InternalTestClass.TestProtectedMethod. The TestMethodAttribute can be defined only inside a class marked with the TestClass attribute.
+  EndTest:0
+------------------------
+  Test:Test1.PublicTestClass.TestInternalMethod
+    Ignored:UTA007: Method TestInternalMethod defined in class Test1.PublicTestClass does not have correct signature. Test method marked with the [TestMethod] attribute must be non-static, public, does not return a value and should not take any parameter. for example: public void Test.Class1.Test().
+  EndTest:0
+------------------------
+  Test:Test1.PublicTestClass.TestPrivateMethod
+    Ignored:UTA007: Method TestPrivateMethod defined in class Test1.PublicTestClass does not have correct signature. Test method marked with the [TestMethod] attribute must be non-static, public, does not return a value and should not take any parameter. for example: public void Test.Class1.Test().
+  EndTest:0
+------------------------
+  Test:Test1.PublicTestClass.TestProtectedMethod
+    Ignored:UTA007: Method TestProtectedMethod defined in class Test1.PublicTestClass does not have correct signature. Test method marked with the [TestMethod] attribute must be non-static, public, does not return a value and should not take any parameter. for example: public void Test.Class1.Test().
+  EndTest:0
+------------------------
+  Test:Test2.DerivedTest.Test
+  EndTest:9
+------------------------
+  Test:Test4.BaseClass`1.testMethod
+    Ignored:UTA004: Illegal use of attribute on Test4.BaseClass`1.testMethod. The TestMethodAttribute can be defined only inside a class marked with the TestClass attribute.
+  EndTest:0
+------------------------
+  Test:Test4.DerivedClass.testMethod
+  EndTest:1
+------------------------
+  Test:Test4.DerivedClass.testMethod2
+  EndTest:1
+------------------------
+  Test:Test6.ProgramTest.Test
+    Ignored:UTA004: Illegal use of attribute on Test6.ProgramTest.Test. The TestMethodAttribute can be defined only inside a class marked with the TestClass attribute.
+  EndTest:0
+------------------------
+  Test:Test7.AbstractProgramTest.Test
+    Ignored:UTA004: Illegal use of attribute on Test7.AbstractProgramTest.Test. The TestMethodAttribute can be defined only inside a class marked with the TestClass attribute.
+  EndTest:0
+------------------------
+  Test:Test7.ProgramTest.Test
+  EndTest:1
+------------------------
+  Test:Test8.Class1+TestClass1.TestMyMethod
+  EndTest:3
+------------------------
+  Test:Test9.ProgramTest.Test
+  EndTest:1
+------------------------
+-->Info: 15 test(s) were reported
+EndSuite

@@ -1,0 +1,16 @@
+TestSuite:MSTest
+-->Info: Found 1 test definitions.
+  Test:TestProject1.UnitTest1.TestMethod1(0)
+  EndTest:11
+------------------------
+  Test:TestProject1.UnitTest1.TestMethod1(1)
+  EndTest:1
+------------------------
+  Test:TestProject1.UnitTest1.TestMethod1(2)
+    Fail:Assert.AreEqual failed. Expected:<0>. Actual:<1>.  Message:    at TestProject1.UnitTest1.ExecSumTest(Int32 a1, Int32 a2, Int32 result) in e:\Temp\tests\mstest\TestProject1\UnitTest1.cs:line 79
+   at TestProject1.UnitTest1.TestMethod1() in e:\Temp\tests\mstest\TestProject1\UnitTest1.cs:line 74
+
+  EndTest:13
+------------------------
+-->Info: 3 test(s) were reported
+EndSuite

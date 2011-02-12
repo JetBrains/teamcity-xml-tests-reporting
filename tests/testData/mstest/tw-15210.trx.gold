@@ -1,0 +1,3446 @@
+TestSuite:MSTest
+-->Info: Found 810 test definitions.
+  Test:BM.FinOM.TestN.DividendSwapTest.PriceNameTest
+  EndTest:64259
+------------------------
+  Test:BM.FinOM.TestN.TSTests.OnTheRunCdxTest
+  EndTest:922
+------------------------
+  Test:BM.FinOM.TestN.TSTests.OnTheRunCdxTestUsingExpression
+  EndTest:17
+------------------------
+  Test:FinOM.Analytics.Test.CashInstrumentTest.PriceFutureCashFlowTrade
+  EndTest:24313
+------------------------
+  Test:FinOM.Analytics.Test.FinancialPeriodTests.BasicFiscalQuarter
+  EndTest:48
+------------------------
+  Test:FinOM.Analytics.Test.FinancialPeriodTests.BasicFiscalQuarter2
+  EndTest:3
+------------------------
+  Test:FinOM.Analytics.Test.FinancialPeriodTests.BasicFiscalQuarterList
+  EndTest:3
+------------------------
+  Test:FinOM.Analytics.Test.FinancialPeriodTests.BasicFiscalYear
+  EndTest:1
+------------------------
+  Test:FinOM.Analytics.Test.FinancialPeriodTests.CheckInterning
+  EndTest:1
+------------------------
+  Test:FinOM.Analytics.Test.FinancialStatementTests.BasicCorpFiscalYearConstantDate
+    Fail:Test method FinOM.Analytics.Test.FinancialStatementTests.BasicCorpFiscalYearConstantDate threw exception: 
+System.NullReferenceException: Object reference not set to an instance of an object. Message:     at FinOM.Analytics.Test.FinancialStatementTests.BasicCorpFiscalYearConstantDate() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Corporation\FinancialStatementTests.cs:line 252
+
+  EndTest:155
+------------------------
+  Test:FinOM.Analytics.Test.FinancialStatementTests.BasicCorpFiscalYearMutableDate
+    Fail:Test method FinOM.Analytics.Test.FinancialStatementTests.BasicCorpFiscalYearMutableDate threw exception: 
+System.NullReferenceException: Object reference not set to an instance of an object. Message:     at FinOM.Analytics.Test.FinancialStatementTests.BasicCorpFiscalYearMutableDate() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Corporation\FinancialStatementTests.cs:line 295
+
+  EndTest:3
+------------------------
+  Test:FinOM.Analytics.Test.FinancialStatementTests.BasicYearEndGet
+    Fail:Test method FinOM.Analytics.Test.FinancialStatementTests.BasicYearEndGet threw exception: 
+System.NullReferenceException: Object reference not set to an instance of an object. Message:     at FinOM.Analytics.Test.FinancialStatementTests.BasicYearEndGet() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Corporation\FinancialStatementTests.cs:line 131
+
+  EndTest:7
+------------------------
+  Test:FinOM.Analytics.Test.FinancialStatementTests.BasicYearEndSet
+    Fail:Test method FinOM.Analytics.Test.FinancialStatementTests.BasicYearEndSet threw exception: 
+System.NullReferenceException: Object reference not set to an instance of an object. Message:     at FinOM.Analytics.Test.FinancialStatementTests.BasicYearEndSet() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Corporation\FinancialStatementTests.cs:line 156
+
+  EndTest:11
+------------------------
+  Test:FinOM.Analytics.Test.JumpRatingTest.JumpRatingStoreChanges
+  EndTest:776
+------------------------
+  Test:FinOM.Analytics.Test.JumpRatingTest.JumpRatingTranscription1
+  EndTest:3
+------------------------
+  Test:FinOM.Analytics.Test.JumpRatingTest.JumpRatingTranscription2
+  EndTest:1
+------------------------
+  Test:FinOM.Analytics.Test.MarketDataTests.resbasis_loadSpreads1
+  EndTest:3525
+------------------------
+  Test:FinOM.Analytics.Test.MarketDataTests.resbasis_loadSpreads2
+  EndTest:3342
+------------------------
+  Test:FinOM.Analytics.Test.MarketDataTests.resbasis_loadSpreads3
+  EndTest:5587
+------------------------
+  Test:FinOM.Analytics.Test.MarketDataTests.resbasis_retrieveMapTable
+  EndTest:1
+------------------------
+  Test:FinOM.Analytics.Test.MarketDataTests.resbasis_saveSpreads1
+  EndTest:139
+------------------------
+  Test:FinOM.Analytics.Test.QuantlibXBondTests.XBondTest
+  EndTest:410
+------------------------
+  Test:FinOM.Analytics.Test.TradedCFDTest.FuturesPriceTest
+  EndTest:6
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.Counterparty
+  EndTest:415
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.PriceTradeModelLoadedCds
+    StdOutput:11:03:32  Agent: adapter run thread for test 'PriceTradeModelLoadedCds' with id '2eb758ba-adce-4eac-a56c-0463f0964623' TradeExpressionVisitor is about to call SqlInstrumentProvider on 1..2500 of 1
+11:03:32  Agent: adapter run thread for test 'PriceTradeModelLoadedCds' with id '2eb758ba-adce-4eac-a56c-0463f0964623' SqlInstrumentProvider Loading instrument Cds t.insguid in ('f12044e5-f8a9-4a81-a39a-db66c54f5d3b')
+Effective: 2009-01-20 Payment: 1/23/2009 0.00 USD Upfront,Effective: 2009-03-20 Payment: 3/20/2009 -6,062.22 USD Interest,Effective: 2009-06-22 Payment: 6/22/2009 -6,475.56 USD Interest
+11:03:37  Agent: adapter run thread for test 'PriceTradeModelLoadedCds' with id '2eb758ba-adce-4eac-a56c-0463f0964623' BeginTask Retrieve Market Data
+11:03:37  Agent: adapter run thread for test 'PriceTradeModelLoadedCds' with id '2eb758ba-adce-4eac-a56c-0463f0964623' reading market snapshot...
+11:03:39  Agent: adapter run thread for test 'PriceTradeModelLoadedCds' with id '2eb758ba-adce-4eac-a56c-0463f0964623' market snapshot read in 1.5567004 \\bcna.corp\DFS\BMData\market\2009-08-05\2009-08-05_2009-08-06T205103Z_temp.bin
+11:03:39  Agent: adapter run thread for test 'PriceTradeModelLoadedCds' with id '2eb758ba-adce-4eac-a56c-0463f0964623' EndTask Retrieve Market Data 00:00:01.5581447
+11:03:39  Agent: adapter run thread for test 'PriceTradeModelLoadedCds' with id '2eb758ba-adce-4eac-a56c-0463f0964623' reading market changes...
+11:03:41  Agent: adapter run thread for test 'PriceTradeModelLoadedCds' with id '2eb758ba-adce-4eac-a56c-0463f0964623' finished reading market changes in 2.6036156 \\bcna.corp\DFS\BMData\market\2009-08-05\2009-08-05_2009-08-06T205103Z_temp.bin
+Effective: 2009-03-20 Payment: 3/20/2009 -6,062.22 USD Interest,Effective: 2009-06-22 Payment: 6/22/2009 -6,475.56 USD Interest
+Legacy - SierraTransactionLoader: 00:00:29.4737880
+New Transaction Model: 00:00:10.4466902
+  EndTest:39929
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.QueryActionExcludingNonVerifiedChanges
+    StdOutput:11:04:11  Agent: adapter run thread for test 'QueryActionExcludingNonVerifiedChanges' with id '675f302a-332f-4d59-96ac-61e88a742ba1' TradeExpressionVisitor is about to call SqlInstrumentProvider on 1..2500 of 1
+11:04:11  Agent: adapter run thread for test 'QueryActionExcludingNonVerifiedChanges' with id '675f302a-332f-4d59-96ac-61e88a742ba1' SqlInstrumentProvider Loading instrument EqiVar t.insguid in ('70e0a171-40b1-4f11-b962-10a796975f96')
+  EndTest:860
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.QueryByBmid
+    StdOutput:11:04:12  Agent: adapter run thread for test 'QueryByBmid' with id '22e959ce-8e3e-49cf-b83e-d4e4ed7a049d' TradeExpressionVisitor is about to call SqlInstrumentProvider on 1..2500 of 1
+11:04:12  Agent: adapter run thread for test 'QueryByBmid' with id '22e959ce-8e3e-49cf-b83e-d4e4ed7a049d' SqlInstrumentProvider Loading instrument Cdi t.insguid in ('7ee17329-86cc-4252-b975-d562567497c7')
+  EndTest:686
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.QueryByBmid2
+    StdOutput:11:04:13  Agent: adapter run thread for test 'QueryByBmid2' with id '0e68bce8-8646-4125-a1fc-e219983b9156' TradeExpressionVisitor is about to call SqlInstrumentProvider on 1..2500 of 1
+11:04:13  Agent: adapter run thread for test 'QueryByBmid2' with id '0e68bce8-8646-4125-a1fc-e219983b9156' SqlInstrumentProvider Loading instrument Cds (3)
+  EndTest:614
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.QueryByBmidWithIDCorrection
+    Fail:Assert.IsNotNull failed.  Message:    at FinOM.Analytics.Test.TransactionTests.QueryByBmidWithIDCorrection() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Trades\TransactionTests.cs:line 515
+
+  EndTest:1443
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.QueryById
+    Fail:Assert.IsTrue failed.  Message:    at FinOM.Analytics.Test.TransactionTests.QueryById() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Trades\TransactionTests.cs:line 404
+
+  EndTest:677
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.QueryByTicker
+  EndTest:5250
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.QueryByTradeAndOldStrategy
+    StdOutput:11:04:21  Agent: adapter run thread for test 'QueryByTradeAndOldStrategy' with id 'f36c825f-6557-417c-a0aa-ee5cd367ce56' TradeExpressionVisitor is about to call SqlInstrumentProvider on 1..2500 of 1
+11:04:21  Agent: adapter run thread for test 'QueryByTradeAndOldStrategy' with id 'f36c825f-6557-417c-a0aa-ee5cd367ce56' SqlInstrumentProvider Loading instrument Cdi t.insguid in ('9c05cfa3-ed4e-456d-9189-1693225fea60')
+11:04:25  Agent: adapter run thread for test 'QueryByTradeAndOldStrategy' with id 'f36c825f-6557-417c-a0aa-ee5cd367ce56' TradeExpressionVisitor is about to call SqlInstrumentProvider on 1..2500 of 136
+11:04:25  Agent: adapter run thread for test 'QueryByTradeAndOldStrategy' with id 'f36c825f-6557-417c-a0aa-ee5cd367ce56' SqlInstrumentProvider Loading instrument Trn (19)
+11:04:25  Agent: adapter run thread for test 'QueryByTradeAndOldStrategy' with id 'f36c825f-6557-417c-a0aa-ee5cd367ce56' SqlInstrumentProvider Loading instrument Cdi (76)
+11:04:25  Agent: adapter run thread for test 'QueryByTradeAndOldStrategy' with id 'f36c825f-6557-417c-a0aa-ee5cd367ce56' SqlInstrumentProvider Loading instrument Cash t.insguid in ('930374ce-2145-4823-a60c-bf8457dff31c')
+11:04:28  Agent: adapter run thread for test 'QueryByTradeAndOldStrategy' with id 'f36c825f-6557-417c-a0aa-ee5cd367ce56' TradeExpressionVisitor is about to call SqlInstrumentProvider on 1..2500 of 1
+11:04:28  Agent: adapter run thread for test 'QueryByTradeAndOldStrategy' with id 'f36c825f-6557-417c-a0aa-ee5cd367ce56' SqlInstrumentProvider Loading instrument Cdi t.insguid in ('9c05cfa3-ed4e-456d-9189-1693225fea60')
+  EndTest:7444
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.RetrieveTradesUsingStartWith
+    StdOutput:11:04:29  Agent: adapter run thread for test 'RetrieveTradesUsingStartWith' with id 'bfe1ba4a-4b22-44d5-9a67-894e1e84fe55' TradeExpressionVisitor is about to call SqlInstrumentProvider on 1..2500 of 6
+11:04:29  Agent: adapter run thread for test 'RetrieveTradesUsingStartWith' with id 'bfe1ba4a-4b22-44d5-9a67-894e1e84fe55' SqlInstrumentProvider Loading instrument EqiVar (6)
+11:04:29  Agent: adapter run thread for test 'RetrieveTradesUsingStartWith' with id 'bfe1ba4a-4b22-44d5-9a67-894e1e84fe55' SqlInstrumentProvider Loading instrument Cds t.insguid in ('d1c581cc-764c-480e-9617-3472763c9cc3')
+  EndTest:1781
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.RetrieveTrnTrades
+    StdOutput:11:04:30  Agent: adapter run thread for test 'RetrieveTrnTrades' with id '32884738-02d1-4783-8ae4-259c1433b3db' TradeExpressionVisitor is about to call SqlInstrumentProvider on 1..2500 of 46
+11:04:30  Agent: adapter run thread for test 'RetrieveTrnTrades' with id '32884738-02d1-4783-8ae4-259c1433b3db' SqlInstrumentProvider Loading instrument Trn (26)
+  EndTest:356
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.SerializeMoney
+  EndTest:14
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.SumNotionalOfGeneratedTrades
+    StdOutput:11:04:30  Agent: adapter run thread for test 'SumNotionalOfGeneratedTrades' with id '28e64a3a-5d5a-4ff2-aba3-158cb0cf8f63' Built trades in 131 ms
+11:04:31  Agent: adapter run thread for test 'SumNotionalOfGeneratedTrades' with id '28e64a3a-5d5a-4ff2-aba3-158cb0cf8f63' Net Notional Calced in 708 ms
+11:04:31  Agent: adapter run thread for test 'SumNotionalOfGeneratedTrades' with id '28e64a3a-5d5a-4ff2-aba3-158cb0cf8f63' Terminated trades in 53 ms
+11:04:32  Agent: adapter run thread for test 'SumNotionalOfGeneratedTrades' with id '28e64a3a-5d5a-4ff2-aba3-158cb0cf8f63' Net Notional on PTermed calced in 519 ms
+  EndTest:1423
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.TestAsyncQueue
+  EndTest:2005
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.TestQueryTrs
+    StdOutput:11:04:35  Agent: adapter run thread for test 'TestQueryTrs' with id '4b4b5500-fccf-47be-a5d5-b42c3aca1d50' TradeExpressionVisitor is about to call SqlInstrumentProvider on 1..2500 of 1
+11:04:35  Agent: adapter run thread for test 'TestQueryTrs' with id '4b4b5500-fccf-47be-a5d5-b42c3aca1d50' SqlInstrumentProvider Loading instrument EqiTrs t.insguid in ('12a91ebe-e7c9-de11-be95-00145ef56a90')
+  EndTest:1629
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.TestTradeActiveBetween
+    StdOutput:11:04:37  Agent: adapter run thread for test 'TestTradeActiveBetween' with id '6d24fbd9-4658-487e-9484-603e0638c618' TradeExpressionVisitor is about to call SqlInstrumentProvider on 1..2500 of 1
+11:04:37  Agent: adapter run thread for test 'TestTradeActiveBetween' with id '6d24fbd9-4658-487e-9484-603e0638c618' SqlInstrumentProvider Loading instrument EqyDiv t.insguid in ('734e0665-179b-4ca0-81ac-06f846bb2fab')
+  EndTest:5783
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.TradeActionsAdd1
+  EndTest:3
+------------------------
+  Test:FinOM.Analytics.Test.TransactionTests.TradeActionSetting
+  EndTest:2
+------------------------
+  Test:FinOM.Analytics.Test.UnmodelledInstrumentTest.MarketDataTest
+    Fail:Test method FinOM.Analytics.Test.UnmodelledInstrumentTest.MarketDataTest threw exception: 
+System.NotImplementedException: Cannot Price UnmodelledInstrument. Use SierraPrice or SierraPriceScenario Message:     at BM.FinOM.FinanceCore.UnmodelledInstrument.<get_Price>b__0() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\FinanceCore\UnmodelledInstrument.cs:line 52
+   at ExceptionRecorder.ExceptionRecorderVB.ExceptionRecorder.RecordException[T](Func`1 func, Action`1 onError) in E:\TeamCity_Data\Build\Sierra\src\FinOM\ExceptionRecorder\ExceptionRecorder\ExceptionRecorder.vb:line 7
+   at BM.FinOM.Cells.Cell`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 547
+   at FinOM.Analytics.Test.UnmodelledInstrumentTest.MarketDataTest() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Trades\UnmodelledInstrumentTest.cs:line 33
+
+  EndTest:5
+------------------------
+  Test:FinOM.Core.Test.FrameTest.FrameCellAsk
+  EndTest:8
+------------------------
+  Test:FinOM.Core.Test.FrameTest.FrameCellAskWrongType
+  EndTest:7
+------------------------
+  Test:FinOM.Core.Test.FrameTest.FrameCellIdentity
+  EndTest:1
+------------------------
+  Test:FinOM.Core.Test.FrameTest.FrameCellIdentityFail
+  EndTest:1
+------------------------
+  Test:FinOM.Core.Test.FrameTest.FrameCellTranscribe
+  EndTest:1
+------------------------
+  Test:FinOM.Core.Test.FrameTest.FrameCellTranscribeNonPreset
+  EndTest:2
+------------------------
+  Test:FinOM.Core.Test.SparseDataTests.BasicReadSqlMemory
+    Fail:Test method FinOM.Core.Test.SparseDataTests.BasicReadSqlMemory threw exception: 
+System.NullReferenceException: Object reference not set to an instance of an object. Message:     at BM.FinOM.SparseData.SparseSQLProvider.GetSparseName(String sparseClassName, String name) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\SparseData\SparseProvider.cs:line 285
+   at BM.FinOM.SparseData.SparseSQLProvider.GetMemoryFor(String ticker) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\SparseData\SparseProvider.cs:line 159
+   at FinOM.Core.Test.SparseDataTests.BasicReadSqlMemory() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\SparseData\SparseDataTest.cs:line 270
+
+  EndTest:213
+------------------------
+  Test:FinOM.Core.Test.SparseDataTests.Fill2SparseMemorySimpleRetrieve
+  EndTest:1
+------------------------
+  Test:FinOM.Core.Test.SparseDataTests.Fill2WaterSparseMemorySimpleRetrieve
+  EndTest:1
+------------------------
+  Test:FinOM.Core.Test.SparseDataTests.FillMiddleWaterMorePropsSparseMemorySimpleRetrieve
+  EndTest:1
+------------------------
+  Test:FinOM.Core.Test.SparseDataTests.FillMiddleWaterSparseMemorySimpleRetrieve
+  EndTest:1
+------------------------
+  Test:FinOM.Core.Test.SparseDataTests.FillSparseMemorySimpleDelete
+    Fail:Assert.AreEqual failed. Expected:<True>. Actual:<False>.  Message:    at FinOM.Core.Test.SparseDataTests.FillSparseMemorySimpleDelete() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\SparseData\SparseDataTest.cs:line 106
+
+  EndTest:2
+------------------------
+  Test:FinOM.Core.Test.SparseDataTests.FillSparseMemorySimpleRetrieve
+  EndTest:1
+------------------------
+  Test:FinOM.Core.Test.SparseDataTests.JumpRatingsScenarioTest
+    StdOutput:11:04:42  Agent: adapter run thread for test 'JumpRatingsScenarioTest' with id '77d69b8b-b0c9-4292-982c-9ae5a7aef5aa' GetChanges 0
+  EndTest:2408
+------------------------
+  Test:FinOM.Core.Test.SparseDataTests.JumpRatingsSqlProvider1
+    StdOutput:11:04:44  Agent: adapter run thread for test 'JumpRatingsSqlProvider1' with id '217502d5-5eb5-4c55-9de8-cd6efe6fc598' GetChanges 0
+  EndTest:1684
+------------------------
+  Test:FinOM.Core.Test.SparseDataTests.SparseSqlProviderGetChanges1
+    StdOutput:11:04:46  Agent: adapter run thread for test 'SparseSqlProviderGetChanges1' with id '96dda5e8-6d62-4bdc-aacb-c31c139c382f' GetChanges 0
+11:04:46  Agent: adapter run thread for test 'SparseSqlProviderGetChanges1' with id '96dda5e8-6d62-4bdc-aacb-c31c139c382f' GetChanges 1
+  EndTest:133
+------------------------
+  Test:FinOM.Core.Test.SparseDataTests.SparseSqlProviderGetChanges2
+    StdOutput:11:04:46  Agent: adapter run thread for test 'SparseSqlProviderGetChanges2' with id '7557fdd2-dbb7-488a-b063-3522ecec6771' GetChanges 0
+  EndTest:30
+------------------------
+  Test:FinOM.Test.Analytics.EquityDerivatives.OptionTests.OptionTest1
+  EndTest:4
+------------------------
+  Test:FinOM.Test.Analytics.StrategyTest.SparseStrategyScenarioGetChanges
+  EndTest:5
+------------------------
+  Test:FinOM.Test.Analytics.StrategyTest.SparseStrategyScenarioGetDeletedStrategy
+  EndTest:1997
+------------------------
+  Test:FinOM.Test.Analytics.StrategyTest.SparseStrategyScenarioGetStrategyOverTime
+    Fail:Test method FinOM.Test.Analytics.StrategyTest.SparseStrategyScenarioGetStrategyOverTime threw exception: 
+System.Exception: Duplicate strategies found TIMBCA_04. Make sure that there are no duplicate strids in strategyasof valid on date 1/1/2007 12:00:00 AM ---> System.ArgumentException: An item with the same key has already been added. Message:     at System.ThrowHelper.ThrowArgumentException(ExceptionResource resource)
+   at System.Collections.Generic.Dictionary`2.Insert(TKey key, TValue value, Boolean add)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey](IEnumerable`1 source, Func`2 keySelector)
+   at BM.FinOM.Trades.FundHierarchy.<get_StrategyMap>b__0() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Trades\Strategy.cs:line 445
+ --- End of inner exception stack trace ---
+    at BM.FinOM.Trades.FundHierarchy.<get_StrategyMap>b__0() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Trades\Strategy.cs:line 449
+   at ExceptionRecorder.ExceptionRecorderVB.ExceptionRecorder.RecordException[T](Func`1 func, Action`1 onError) in E:\TeamCity_Data\Build\Sierra\src\FinOM\ExceptionRecorder\ExceptionRecorder\ExceptionRecorder.vb:line 7
+   at BM.FinOM.Cells.Cell`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 547
+   at BM.FinOM.Cells.CellName`1.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1246
+   at BM.FinOM.Cells.CellName`2.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 138
+   at BM.FinOM.Cells.CellName`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1274
+   at FinOM.Test.Analytics.StrategyTest.SparseStrategyScenarioGetStrategyOverTime() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Trades\StrategyTest.cs:line 129
+
+  EndTest:1904
+------------------------
+  Test:FinOM.Test.Cells.AnonymousCellTests.AnonCellBasic
+  EndTest:5
+------------------------
+  Test:FinOM.Test.Cells.AnonymousCellTests.AnonCellBasic2a
+  EndTest:1
+------------------------
+  Test:FinOM.Test.Cells.AnonymousCellTests.AnonCellBasic2b
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.AnonymousCellTests.AnonCellBasic2c
+  EndTest:3
+------------------------
+  Test:FinOM.Test.Cells.AnonymousCellTests.AnonCellBasic2d
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.AnonymousCellTests.AnonCellChangeBTop
+  EndTest:3
+------------------------
+  Test:FinOM.Test.Cells.AnonymousCellTests.TestAddPrecendentExplicitly
+  EndTest:6
+------------------------
+  Test:FinOM.Test.Cells.AnonymousCellTests.TestCachedValueCell
+  EndTest:3
+------------------------
+  Test:FinOM.Test.Cells.AnonymousCellTests.TestMultiFormula
+  EndTest:10
+------------------------
+  Test:FinOM.Test.Cells.AnonymousCellTests.TestRecursion
+    Fail:Assert.IsTrue failed.  Message:    at FinOM.Test.Cells.AnonymousCellTests.TestRecursion() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 1855
+
+  EndTest:9
+------------------------
+  Test:FinOM.Test.Cells.AnonymousCellTests.TestSharedBaseScenario
+    Fail:Assert.IsFalse failed. Cells not in the stack should not be affected Message:    at FinOM.Test.Cells.AnonymousCellTests.TestSharedBaseScenario() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 1764
+
+  EndTest:13
+------------------------
+  Test:FinOM.Test.Cells.AnonymousCellTests.TestSharedBaseScenario2
+  EndTest:961
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddCellAndInt
+    Fail:Assert.AreEqual failed. Expected:<35>. Actual:<26>.  Message:    at FinOM.Test.Cells.CellMathTests.AddCellAndInt() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 1185
+
+  EndTest:15
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddCellDateAndDateInterval
+    Fail:Assert.AreEqual failed. Expected:<9/23/2011>. Actual:<3/23/2011>.  Message:    at FinOM.Test.Cells.CellMathTests.AddCellDateAndDateInterval() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 1486
+
+  EndTest:14
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddCellDates
+    Fail:Assert.AreEqual failed. Expected:<8/23/2011>. Actual:<2/23/2011>.  Message:    at FinOM.Test.Cells.CellMathTests.AddCellDates() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 1466
+
+  EndTest:5
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddCellStringAndString
+    Fail:Assert.AreEqual failed. Expected:<ozbx>. Actual:<azbx>.  Message:    at FinOM.Test.Cells.CellMathTests.AddCellStringAndString() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 1234
+
+  EndTest:15
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddCellStrings
+    Fail:Assert.AreEqual failed. Expected:<snorkbar>. Actual:<foobar>.  Message:    at FinOM.Test.Cells.CellMathTests.AddCellStrings() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 1209
+
+  EndTest:8
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddViaCell2Long
+    Fail:Assert.AreEqual failed. Expected:<26>. Actual:<16>.  Message:    at FinOM.Test.Cells.CellMathTests.AddViaCell2Long() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 934
+
+  EndTest:8
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddViaCell3Long
+    Fail:Assert.AreEqual failed. Expected:<25>. Actual:<15>.  Message:    at FinOM.Test.Cells.CellMathTests.AddViaCell3Long() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 971
+
+  EndTest:4
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddViaCellNameUsingLocalInternalCells
+  EndTest:9
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddViaCellNameWithCells
+    Fail:Assert.IsTrue failed. Expected {21 2 23} encountered {21 2 13} Message:    at FinOM.Test.Cells.CellMathTests.AssertEqualValues[T](IEnumerable`1 values, IEnumerable`1 names) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 1494
+   at FinOM.Test.Cells.CellMathTests.DerivedSum(Action`3 initialization) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 1034
+   at FinOM.Test.Cells.CellMathTests.AddViaCellNameWithCells() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 1109
+
+  EndTest:5
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddViaCellNameWithValues
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddViaCells
+    Fail:Assert.IsTrue failed. Expected {21 2 23} encountered {21 2 13} Message:    at FinOM.Test.Cells.CellMathTests.AssertEqualValues[T](IEnumerable`1 values, IEnumerable`1 names) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 1494
+   at FinOM.Test.Cells.CellMathTests.DerivedSum(Action`3 initialization) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 1034
+   at FinOM.Test.Cells.CellMathTests.AddViaCells() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 1083
+
+  EndTest:3
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddViaCellsLong
+    Fail:Assert.IsTrue failed. Expected {21 2 23} encountered {21 2 13} Message:    at FinOM.Test.Cells.CellMathTests.AssertEqualValues[T](IEnumerable`1 values, IEnumerable`1 names) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 1494
+   at FinOM.Test.Cells.CellMathTests.AddViaCellsLong() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 898
+
+  EndTest:5
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddViaCellsLongDebug
+    Fail:Assert.AreEqual failed. Expected:<23>. Actual:<3>.  Message:    at FinOM.Test.Cells.CellMathTests.AddViaCellsLongDebug() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Cells\CellTest.cs:line 1002
+
+  EndTest:3
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddViaCellUsingLocalInternalCells
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddViaLocalCell
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddViaLocalCellValues
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddViaValues
+  EndTest:1
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.AddViaValuesLong
+  EndTest:3
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.BottomCellNotPointer
+  EndTest:3
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.BottomCellNotPointerOneMoreIndirect
+  EndTest:4
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.ChangeTopBAndExpectBottomCNotStale
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.ChangeTopBAndExpectTopCStale
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.CheckNummberDependsOfB
+  EndTest:12605
+------------------------
+  Test:FinOM.Test.Cells.CellMathTests.CheckNummberDependsOfB1
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.CellTest.BasicDependencyTest
+  EndTest:4
+------------------------
+  Test:FinOM.Test.Cells.CellTest.CellPrecedentTest
+  EndTest:3
+------------------------
+  Test:FinOM.Test.Cells.CellTest.CircularityTest
+  EndTest:4
+------------------------
+  Test:FinOM.Test.Cells.CellTest.DereferencingTest
+  EndTest:5
+------------------------
+  Test:FinOM.Test.Cells.CellTest.DeriveSetValueTest
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.CellTest.EmptyScenarioTest
+  EndTest:1187
+------------------------
+  Test:FinOM.Test.Cells.CellTest.EqualityTest
+  EndTest:4
+------------------------
+  Test:FinOM.Test.Cells.CellTest.ErrorDependencyTest
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.CellTest.ErrorTest
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.CellTest.ExplicitAndNonExplicitPrecedentTest
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.CellTest.ListCellTest
+  EndTest:5
+------------------------
+  Test:FinOM.Test.Cells.CellTest.ListTest
+  EndTest:30
+------------------------
+  Test:FinOM.Test.Cells.CellTest.NestedScenarioTest
+    StdOutput:11:05:06  Agent: adapter run thread for test 'NestedScenarioTest' with id '44777337-e009-4c15-8851-a1de9afef7e5' Warning:  Cell<double>(FinOM.Test.Cells.CellTest+MockObj.Two=real=2.4) in: nested 577374926 is higher than eval sheet 2
+  EndTest:5
+------------------------
+  Test:FinOM.Test.Cells.CellTest.NestedScenarioTest2
+    StdOutput:11:05:06  Agent: adapter run thread for test 'NestedScenarioTest2' with id 'fbb4a280-c9ff-4b4d-972b-cd456d39c16e' Warning:  Cell<double>(FinOM.Test.Cells.CellTest+MockObj.Three=real=2.3) in: nested -94308202 is higher than eval sheet 1
+  EndTest:4
+------------------------
+  Test:FinOM.Test.Cells.CellTest.PrecedentSymmetryMarketDataTest
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.CellTest.PrecedentSymmetryTest1
+  EndTest:1
+------------------------
+  Test:FinOM.Test.Cells.CellTest.PrecedentSymmetryTest2
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.CellTest.ScenarioDeriveTest
+  EndTest:3
+------------------------
+  Test:FinOM.Test.Cells.CellTest.ScenarioDeriveTest2
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.CellTest.ScenarioDeriveTest3
+  EndTest:3
+------------------------
+  Test:FinOM.Test.Cells.CellTest.SetAndOverrideTwoTest
+  EndTest:53
+------------------------
+  Test:FinOM.Test.Cells.CellTest.SetFormulaTest
+  EndTest:3
+------------------------
+  Test:FinOM.Test.Cells.CellTest.SpecificPrecedentTest
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Cells.CellTest.SpecificPrecedentTestBenchmark
+  EndTest:10874
+------------------------
+  Test:FinOM.Test.Cells.ExhaustiveCellTests.Flat2X3CellTest
+  EndTest:77188
+------------------------
+  Test:FinOM.Test.Cells.ExhaustiveCellTests.Flat3X4CellTest
+  EndTest:140455
+------------------------
+  Test:FinOM.Test.Cells.ExhaustiveCellTests.Tree3X4CellTest
+  EndTest:208130
+------------------------
+  Test:FinOM.Test.Cells.ListCellHelperTests.TestMaxDateTime
+  EndTest:11
+------------------------
+  Test:FinOM.Test.Cells.ListCellHelperTests.TestMaxLastChanged
+  EndTest:12
+------------------------
+  Test:FinOM.Test.Core.SierraDBReferenceDataTest.CreditBasketTest
+  EndTest:591
+------------------------
+  Test:FinOM.Test.Core.SierraDBReferenceDataTest.GetFundNamesTest
+  EndTest:776
+------------------------
+  Test:FinOM.Test.Core.SierraDBReferenceDataTest.GetPortfolioNamesTest
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Core.SierraDBReferenceDataTest.GetStrategyNamesTest
+  EndTest:228
+------------------------
+  Test:FinOM.Test.Credit.BondReferenceObligationIdTests.BondReferenceObligationIdTest
+  EndTest:5777
+------------------------
+  Test:FinOM.Test.Credit.BondTest.AccruedDaysTest
+    StdOutput:11:12:36  Agent: adapter run thread for test 'AccruedDaysTest' with id '32874cf0-9f02-4e48-b67f-5da736f556d7' BeginTask Retrieve Market Data
+11:12:36  Agent: adapter run thread for test 'AccruedDaysTest' with id '32874cf0-9f02-4e48-b67f-5da736f556d7' reading market snapshot...
+11:12:37  Agent: adapter run thread for test 'AccruedDaysTest' with id '32874cf0-9f02-4e48-b67f-5da736f556d7' market snapshot read in 1.865306 \\bcna.corp\DFS\BMData\market\2010-12-21\2010-12-21_2010-12-22T024300Z_temp.bin
+11:12:37  Agent: adapter run thread for test 'AccruedDaysTest' with id '32874cf0-9f02-4e48-b67f-5da736f556d7' EndTask Retrieve Market Data 00:00:01.8667863
+11:12:37  Agent: adapter run thread for test 'AccruedDaysTest' with id '32874cf0-9f02-4e48-b67f-5da736f556d7' reading market changes...
+11:12:38  Agent: adapter run thread for test 'AccruedDaysTest' with id '32874cf0-9f02-4e48-b67f-5da736f556d7' finished reading market changes in 0.2265712 \\bcna.corp\DFS\BMData\market\2010-12-21\2010-12-21_2010-12-22T024300Z_temp.bin
+  EndTest:41337
+------------------------
+  Test:FinOM.Test.Credit.BondTest.CDSSpreadMonotonicityTest
+    Fail:Assert.IsTrue failed. HEI_8.5%_OCT19 Message:    at FinOM.Test.Credit.BondTest.CDSSpreadMonotonicityTest(IBond bond) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Securities\BondTest.cs:line 304
+   at FinOM.Test.Credit.BondTest.CDSSpreadMonotonicityTest() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Securities\BondTest.cs:line 283
+
+  EndTest:11417
+------------------------
+  Test:FinOM.Test.Credit.BondTest.PriceBasisRoundtripTest
+  EndTest:36980
+------------------------
+  Test:FinOM.Test.Credit.BondTest.PriceCleanAccruedTest
+  EndTest:36269
+------------------------
+  Test:FinOM.Test.Credit.BondTypesTests.BondTypesTest
+    StdOutput:Bnd 180 Mbs 41 Frn 17 Clo 51 Hybrid 3
+  EndTest:7282
+------------------------
+  Test:FinOM.Test.Credit.CDITest.CDIIntrinsicFromUnderyingPriceTest
+  EndTest:5442
+------------------------
+  Test:FinOM.Test.Credit.CDITest.CdiIrdv01
+    StdOutput:11:14:54  Agent: adapter run thread for test 'CdiIrdv01' with id 'd9c6e09b-a00a-4b7b-911d-203f1db9e8e0' TradeExpressionVisitor is about to call SqlInstrumentProvider on 1..2500 of 970
+11:14:54  Agent: adapter run thread for test 'CdiIrdv01' with id 'd9c6e09b-a00a-4b7b-911d-203f1db9e8e0' SqlInstrumentProvider Loading instrument Cdi (288)
+11:15:21  Agent: adapter run thread for test 'CdiIrdv01' with id 'd9c6e09b-a00a-4b7b-911d-203f1db9e8e0' TradeExpressionVisitor is about to call SqlInstrumentProvider on 1..2500 of 970
+11:15:21  Agent: adapter run thread for test 'CdiIrdv01' with id 'd9c6e09b-a00a-4b7b-911d-203f1db9e8e0' SqlInstrumentProvider Loading instrument Cdi (288)
+    Fail:Assert.IsFalse failed. position-69740961 Message:    at FinOM.Test.Credit.CDITest.CdiIrdv01() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Credit\CDITest.cs:line 257
+
+  EndTest:50972
+------------------------
+  Test:FinOM.Test.Credit.CDITest.CDIMarketFromUnderyingPriceTest
+  EndTest:13975
+------------------------
+  Test:FinOM.Test.Credit.CDITest.CDIPriceTests
+  EndTest:9540
+------------------------
+  Test:FinOM.Test.Credit.CDITest.MultipleDefaultIntrinsicTest
+  EndTest:11687
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.AnnuityDeltaPricerTest
+    StdOutput:11:16:43  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' pricing BHII.D_JUN14_0-3_0_UF on pricingDate=12/22/2010
+11:16:44  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' loss grid model LossGridModel<BHII.D_20JUN14> basisRatio=1
+11:16:46  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' loss grid model LossGridModel<BHII.D_20JUN14> basisRatio=1
+11:16:47  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' calibrating mapped grid for LossGridModel<BHII.D_20JUN14> on calibrationDate=12/22/2010
+11:16:48  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' calibrating loss grid for LossGridModel<BM.BSPK9.X125_20DEC14>_GI:3 in Market 12/22/2010 on 12/22/2010.  TargetMaturity=12/20/2014 gridInterval=3
+11:16:48  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' calibrating loss grid for LossGridModel<CDX9_20DEC14> in Market 12/22/2010 on 12/22/2010.  TargetMaturity=12/20/2014 gridInterval=3
+11:16:55  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' loss grid model LossGridModel<CDX9_20DEC14> basisRatio=0.956166044634306
+11:17:01  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' finished calibrating grid for LossGridModel<CDX9_20DEC14>
+11:17:07  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' loss grid model LossGridModel<BM.BSPK9.X125_20DEC14>_GI:3 basisRatio=1.22106800437852
+11:17:14  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' finished calibrating grid for LossGridModel<BM.BSPK9.X125_20DEC14>_GI:3
+11:17:17  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' Warning:  Cell<NativeHandle>(BM.FinOM.Credit.LossGridCDOCollateral.LossGridCDOCollateral=derived=NativeHandle<1090985624>) in: BucketedCreditCurveShock 796825660 is higher than eval sheet BasketInstrumentDeltas
+11:17:17  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' tranche annuity pricer for BHII.D_JUN14_0-3_0_UF in BasketInstrumentDeltas
+11:17:17  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' pricing BHII.D_JUN14_0-3_500_UF on pricingDate=12/22/2010
+11:17:18  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' loss grid model LossGridModel<BHII.D_20JUN14> basisRatio=1
+11:17:20  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' loss grid model LossGridModel<BHII.D_20JUN14> basisRatio=1
+11:17:21  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' calibrating mapped grid for LossGridModel<BHII.D_20JUN14> on calibrationDate=12/22/2010
+11:17:21  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' calibrating loss grid for LossGridModel<BM.BSPK9.X125_20DEC14>_GI:3 in Market 12/22/2010 on 12/22/2010.  TargetMaturity=12/20/2014 gridInterval=3
+11:17:21  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' calibrating loss grid for LossGridModel<CDX9_20DEC14> in Market 12/22/2010 on 12/22/2010.  TargetMaturity=12/20/2014 gridInterval=3
+11:17:28  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' loss grid model LossGridModel<CDX9_20DEC14> basisRatio=0.956166044634306
+11:17:34  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' finished calibrating grid for LossGridModel<CDX9_20DEC14>
+11:17:40  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' loss grid model LossGridModel<BM.BSPK9.X125_20DEC14>_GI:3 basisRatio=1.22106800437852
+11:17:48  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' finished calibrating grid for LossGridModel<BM.BSPK9.X125_20DEC14>_GI:3
+11:17:50  Agent: adapter run thread for test 'AnnuityDeltaPricerTest' with id '876f5623-738a-401a-93c9-ebd683855d83' Warning:  Cell<NativeHandle>(BM.FinOM.Credit.LossGridCDOCollateral.LossGridCDOCollateral=derived=NativeHandle<1391540824>) in: BucketedCreditCurveShock 812400780 is higher than eval sheet BasketInstrumentDeltas
+  EndTest:94695
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.AnnuityPricerTest
+    StdOutput:11:17:50  Agent: adapter run thread for test 'AnnuityPricerTest' with id '4ee58c11-b942-47a0-9778-b15d744100fa' pricing CDX9_DEC12_0-5 on pricingDate=12/22/2010
+11:17:57  Agent: adapter run thread for test 'AnnuityPricerTest' with id '4ee58c11-b942-47a0-9778-b15d744100fa' loss grid model LossGridModel<CDX9_20DEC12> basisRatio=0.956166044634306
+11:17:59  Agent: adapter run thread for test 'AnnuityPricerTest' with id '4ee58c11-b942-47a0-9778-b15d744100fa' calibrating loss grid for LossGridModel<CDX9_20DEC12> in TrancheAnnuityPricer on 12/22/2010.  TargetMaturity=12/20/2012 gridInterval=3
+11:18:03  Agent: adapter run thread for test 'AnnuityPricerTest' with id '4ee58c11-b942-47a0-9778-b15d744100fa' finished calibrating grid for LossGridModel<CDX9_20DEC12>
+11:18:03  Agent: adapter run thread for test 'AnnuityPricerTest' with id '4ee58c11-b942-47a0-9778-b15d744100fa' tranche annuity pricer for CDX9_DEC12_0-5 in TrancheAnnuityPricer
+11:18:03  Agent: adapter run thread for test 'AnnuityPricerTest' with id '4ee58c11-b942-47a0-9778-b15d744100fa' pricing CDX9_DEC12_0-5 on pricingDate=12/22/2010
+11:18:10  Agent: adapter run thread for test 'AnnuityPricerTest' with id '4ee58c11-b942-47a0-9778-b15d744100fa' loss grid model LossGridModel<CDX9_20DEC12> basisRatio=0.956166044634306
+11:18:12  Agent: adapter run thread for test 'AnnuityPricerTest' with id '4ee58c11-b942-47a0-9778-b15d744100fa' calibrating loss grid for LossGridModel<CDX9_20DEC12> in TrancheAnnuityPricer on 12/22/2010.  TargetMaturity=12/20/2012 gridInterval=3
+11:18:17  Agent: adapter run thread for test 'AnnuityPricerTest' with id '4ee58c11-b942-47a0-9778-b15d744100fa' finished calibrating grid for LossGridModel<CDX9_20DEC12>
+  EndTest:27055
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.AnnuityTest
+  EndTest:120
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.AssignIntoDealerBids
+    StdOutput:11:18:19  Agent: adapter run thread for test 'AssignIntoDealerBids' with id 'dcef8316-4b8b-40cf-8661-b8045dbcec50' BeginTask Retrieve Market Data
+11:18:19  Agent: adapter run thread for test 'AssignIntoDealerBids' with id 'dcef8316-4b8b-40cf-8661-b8045dbcec50' reading market snapshot...
+11:18:21  Agent: adapter run thread for test 'AssignIntoDealerBids' with id 'dcef8316-4b8b-40cf-8661-b8045dbcec50' market snapshot read in 1.4092338 \\bcna.corp\DFS\BMData\market\2009-06-05\2009-06-05_2009-06-08T155428Z_temp.bin
+11:18:21  Agent: adapter run thread for test 'AssignIntoDealerBids' with id 'dcef8316-4b8b-40cf-8661-b8045dbcec50' EndTask Retrieve Market Data 00:00:01.4101452
+11:18:21  Agent: adapter run thread for test 'AssignIntoDealerBids' with id 'dcef8316-4b8b-40cf-8661-b8045dbcec50' reading market changes...
+11:18:21  Agent: adapter run thread for test 'AssignIntoDealerBids' with id 'dcef8316-4b8b-40cf-8661-b8045dbcec50' finished reading market changes in 0.6123282 \\bcna.corp\DFS\BMData\market\2009-06-05\2009-06-05_2009-06-08T155428Z_temp.bin
+  EndTest:4550
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.AssignIntoDealerBids2
+  EndTest:2
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.BestBidDealers
+    StdOutput:11:18:23  Agent: adapter run thread for test 'BestBidDealers' with id 'cb71d78d-8443-4dec-90ea-064bafa98daf' BeginTask Retrieve Market Data
+11:18:23  Agent: adapter run thread for test 'BestBidDealers' with id 'cb71d78d-8443-4dec-90ea-064bafa98daf' reading market snapshot...
+11:18:25  Agent: adapter run thread for test 'BestBidDealers' with id 'cb71d78d-8443-4dec-90ea-064bafa98daf' market snapshot read in 1.4287658 \\bcna.corp\DFS\BMData\market\2009-02-11\2009-02-11_2009-02-12T030026Z_temp.bin
+11:18:25  Agent: adapter run thread for test 'BestBidDealers' with id 'cb71d78d-8443-4dec-90ea-064bafa98daf' EndTask Retrieve Market Data 00:00:01.4293552
+11:18:25  Agent: adapter run thread for test 'BestBidDealers' with id 'cb71d78d-8443-4dec-90ea-064bafa98daf' reading market changes...
+11:18:26  Agent: adapter run thread for test 'BestBidDealers' with id 'cb71d78d-8443-4dec-90ea-064bafa98daf' finished reading market changes in 1.2100074 \\bcna.corp\DFS\BMData\market\2009-02-11\2009-02-11_2009-02-12T030026Z_temp.bin
+  EndTest:4353
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.BestDealerBid
+  EndTest:3
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.BestDealerBidAcrossDates
+    StdOutput:11:18:28  Agent: adapter run thread for test 'BestDealerBidAcrossDates' with id 'ccd1265e-4cad-426b-9634-ba402fcac814' BeginTask Retrieve Market Data
+11:18:28  Agent: adapter run thread for test 'BestDealerBidAcrossDates' with id 'ccd1265e-4cad-426b-9634-ba402fcac814' reading market snapshot...
+11:18:29  Agent: adapter run thread for test 'BestDealerBidAcrossDates' with id 'ccd1265e-4cad-426b-9634-ba402fcac814' market snapshot read in 1.5957644 \\bcna.corp\DFS\BMData\market\2009-02-10\2009-02-10_2009-02-11T220505Z_temp.bin
+11:18:29  Agent: adapter run thread for test 'BestDealerBidAcrossDates' with id 'ccd1265e-4cad-426b-9634-ba402fcac814' EndTask Retrieve Market Data 00:00:01.5965259
+11:18:29  Agent: adapter run thread for test 'BestDealerBidAcrossDates' with id 'ccd1265e-4cad-426b-9634-ba402fcac814' reading market changes...
+11:18:32  Agent: adapter run thread for test 'BestDealerBidAcrossDates' with id 'ccd1265e-4cad-426b-9634-ba402fcac814' finished reading market changes in 3.0967986 \\bcna.corp\DFS\BMData\market\2009-02-10\2009-02-10_2009-02-11T220505Z_temp.bin
+  EndTest:6518
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.BestDealerBidChangeMark
+  EndTest:8
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.BestDealerBidDeleteMark
+  EndTest:4
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.BestDealerUpfrontBid
+    StdOutput:11:18:34  Agent: adapter run thread for test 'BestDealerUpfrontBid' with id '11bc6f4c-af92-4196-b04b-38b5c47dce8f' BeginTask Retrieve Market Data
+11:18:34  Agent: adapter run thread for test 'BestDealerUpfrontBid' with id '11bc6f4c-af92-4196-b04b-38b5c47dce8f' reading market snapshot...
+11:18:36  Agent: adapter run thread for test 'BestDealerUpfrontBid' with id '11bc6f4c-af92-4196-b04b-38b5c47dce8f' market snapshot read in 1.6367816 \\bcna.corp\DFS\BMData\market\2009-05-22\2009-05-22_2009-05-23T020004Z_temp.bin
+11:18:36  Agent: adapter run thread for test 'BestDealerUpfrontBid' with id '11bc6f4c-af92-4196-b04b-38b5c47dce8f' EndTask Retrieve Market Data 00:00:01.6384744
+11:18:36  Agent: adapter run thread for test 'BestDealerUpfrontBid' with id '11bc6f4c-af92-4196-b04b-38b5c47dce8f' reading market changes...
+11:18:37  Agent: adapter run thread for test 'BestDealerUpfrontBid' with id '11bc6f4c-af92-4196-b04b-38b5c47dce8f' finished reading market changes in 1.5049406 \\bcna.corp\DFS\BMData\market\2009-05-22\2009-05-22_2009-05-23T020004Z_temp.bin
+  EndTest:4504
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.CollateralEqualityTest1
+  EndTest:1
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.NotStaleAfterRefresh
+  EndTest:1
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.ParPriceTest
+    StdOutput:11:18:37  Agent: adapter run thread for test 'ParPriceTest' with id '01ac0fcb-a234-4e3e-a8b4-e807db6cb4df' pricing CDX5_DEC12_0-3_500_UF on pricingDate=12/22/2010
+11:18:40  Agent: adapter run thread for test 'ParPriceTest' with id '01ac0fcb-a234-4e3e-a8b4-e807db6cb4df' loss grid model LossGridModel<CDX5_20DEC12> basisRatio=0.972667628197451
+11:18:42  Agent: adapter run thread for test 'ParPriceTest' with id '01ac0fcb-a234-4e3e-a8b4-e807db6cb4df' calibrating loss grid for LossGridModel<CDX5_20DEC12> in Market 12/22/2010 on 12/22/2010.  TargetMaturity=12/20/2012 gridInterval=3
+11:18:42  Agent: adapter run thread for test 'ParPriceTest' with id '01ac0fcb-a234-4e3e-a8b4-e807db6cb4df' calibrating loss grid for LossGridModel<CDX9_20DEC12> in Market 12/22/2010 on 12/22/2010.  TargetMaturity=12/20/2012 gridInterval=3
+11:18:48  Agent: adapter run thread for test 'ParPriceTest' with id '01ac0fcb-a234-4e3e-a8b4-e807db6cb4df' loss grid model LossGridModel<CDX9_20DEC12> basisRatio=0.956166044634306
+11:18:55  Agent: adapter run thread for test 'ParPriceTest' with id '01ac0fcb-a234-4e3e-a8b4-e807db6cb4df' finished calibrating grid for LossGridModel<CDX9_20DEC12>
+11:18:55  Agent: adapter run thread for test 'ParPriceTest' with id '01ac0fcb-a234-4e3e-a8b4-e807db6cb4df' finished calibrating grid for LossGridModel<CDX5_20DEC12>
+11:18:55  Agent: adapter run thread for test 'ParPriceTest' with id '01ac0fcb-a234-4e3e-a8b4-e807db6cb4df' pricing CDX5_DEC12_3-7 on pricingDate=12/22/2010
+11:18:55  Agent: adapter run thread for test 'ParPriceTest' with id '01ac0fcb-a234-4e3e-a8b4-e807db6cb4df' pricing CDX5_DEC12_7-10 on pricingDate=12/22/2010
+11:18:55  Agent: adapter run thread for test 'ParPriceTest' with id '01ac0fcb-a234-4e3e-a8b4-e807db6cb4df' pricing CDX5_DEC12_10-15 on pricingDate=12/22/2010
+11:18:56  Agent: adapter run thread for test 'ParPriceTest' with id '01ac0fcb-a234-4e3e-a8b4-e807db6cb4df' pricing CDX5_DEC12_15-30 on pricingDate=12/22/2010
+  EndTest:18791
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.PriceFromLossGridCorrelationTest
+    StdOutput:11:18:56  Agent: adapter run thread for test 'PriceFromLossGridCorrelationTest' with id '0f47f4c8-7341-4a9b-87a5-e7bf679ba6c9' pricing CDX9_DEC12_1-15 on pricingDate=12/22/2010
+11:19:03  Agent: adapter run thread for test 'PriceFromLossGridCorrelationTest' with id '0f47f4c8-7341-4a9b-87a5-e7bf679ba6c9' loss grid model LossGridModel<CDX9_20DEC12> basisRatio=0.956166044634306
+11:19:05  Agent: adapter run thread for test 'PriceFromLossGridCorrelationTest' with id '0f47f4c8-7341-4a9b-87a5-e7bf679ba6c9' calibrating loss grid for LossGridModel<CDX9_20DEC12> in Market 12/22/2010 on 12/22/2010.  TargetMaturity=12/20/2012 gridInterval=3
+11:19:09  Agent: adapter run thread for test 'PriceFromLossGridCorrelationTest' with id '0f47f4c8-7341-4a9b-87a5-e7bf679ba6c9' finished calibrating grid for LossGridModel<CDX9_20DEC12>
+11:19:17  Agent: adapter run thread for test 'PriceFromLossGridCorrelationTest' with id '0f47f4c8-7341-4a9b-87a5-e7bf679ba6c9' loss grid model LossGridModel<CDX9_20DEC12> basisRatio=0.956166044634306
+11:19:18  Agent: adapter run thread for test 'PriceFromLossGridCorrelationTest' with id '0f47f4c8-7341-4a9b-87a5-e7bf679ba6c9' pricing CDX9_DEC12_1-15 on pricingDate=12/22/2010
+11:19:19  Agent: adapter run thread for test 'PriceFromLossGridCorrelationTest' with id '0f47f4c8-7341-4a9b-87a5-e7bf679ba6c9' calibrating loss grid for LossGridModel<CDX9_20DEC12> in PriceFromLossGridCorrelation on 12/22/2010.  TargetMaturity=12/20/2012 gridInterval=3
+11:19:23  Agent: adapter run thread for test 'PriceFromLossGridCorrelationTest' with id '0f47f4c8-7341-4a9b-87a5-e7bf679ba6c9' finished calibrating grid for LossGridModel<CDX9_20DEC12>
+11:19:23  Agent: adapter run thread for test 'PriceFromLossGridCorrelationTest' with id '0f47f4c8-7341-4a9b-87a5-e7bf679ba6c9' pricing CDX9_DEC12_1-15 on pricingDate=12/22/2010
+  EndTest:27338
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.RefreshOutsideContext
+  EndTest:1
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.RoundTripPricingTest
+    StdOutput:11:19:23  Agent: adapter run thread for test 'RoundTripPricingTest' with id '3f1609f9-b4f1-4615-be93-66351d844b92' pricing CDX9_DEC14_30-100 on pricingDate=12/22/2010
+11:19:30  Agent: adapter run thread for test 'RoundTripPricingTest' with id '3f1609f9-b4f1-4615-be93-66351d844b92' loss grid model LossGridModel<CDX9_20DEC14> basisRatio=0.956166044634306
+11:19:33  Agent: adapter run thread for test 'RoundTripPricingTest' with id '3f1609f9-b4f1-4615-be93-66351d844b92' calibrating loss grid for LossGridModel<CDX9_20DEC14> in Market 12/22/2010 on 12/22/2010.  TargetMaturity=12/20/2014 gridInterval=3
+11:19:37  Agent: adapter run thread for test 'RoundTripPricingTest' with id '3f1609f9-b4f1-4615-be93-66351d844b92' finished calibrating grid for LossGridModel<CDX9_20DEC14>
+  EndTest:16981
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.SameCellFromList
+  EndTest:1
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.SeniorTranchePriceTest
+    StdOutput:11:19:40  Agent: adapter run thread for test 'SeniorTranchePriceTest' with id '7631f593-8a54-475a-81f5-d4489e79aef2' pricing CDX6_JUN11_10-20_0_UF on pricingDate=12/22/2010
+11:19:43  Agent: adapter run thread for test 'SeniorTranchePriceTest' with id '7631f593-8a54-475a-81f5-d4489e79aef2' loss grid model LossGridModel<CDX6_20JUN11> basisRatio=0.713105873391448
+11:19:45  Agent: adapter run thread for test 'SeniorTranchePriceTest' with id '7631f593-8a54-475a-81f5-d4489e79aef2' calibrating loss grid for LossGridModel<CDX6_20JUN11> in Market 12/22/2010 on 12/22/2010.  TargetMaturity=6/20/2011 gridInterval=1
+11:19:45  Agent: adapter run thread for test 'SeniorTranchePriceTest' with id '7631f593-8a54-475a-81f5-d4489e79aef2' calibrating loss grid for LossGridModel<CDX9_20DEC12> in Market 12/22/2010 on 12/22/2010.  TargetMaturity=12/20/2012 gridInterval=3
+11:19:51  Agent: adapter run thread for test 'SeniorTranchePriceTest' with id '7631f593-8a54-475a-81f5-d4489e79aef2' loss grid model LossGridModel<CDX9_20DEC12> basisRatio=0.956166044634306
+11:19:57  Agent: adapter run thread for test 'SeniorTranchePriceTest' with id '7631f593-8a54-475a-81f5-d4489e79aef2' finished calibrating grid for LossGridModel<CDX9_20DEC12>
+11:19:58  Agent: adapter run thread for test 'SeniorTranchePriceTest' with id '7631f593-8a54-475a-81f5-d4489e79aef2' finished calibrating grid for LossGridModel<CDX6_20JUN11>
+11:19:58  Agent: adapter run thread for test 'SeniorTranchePriceTest' with id '7631f593-8a54-475a-81f5-d4489e79aef2' pricing CDX6_JUN11_20-30_0_UF on pricingDate=12/22/2010
+  EndTest:18255
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.TrancheIrdv01Test
+    StdOutput:11:20:03  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' TradeExpressionVisitor is about to call SqlInstrumentProvider on 1..2500 of 497
+11:20:03  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' SqlInstrumentProvider Loading instrument Trn (488)
+11:20:18  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' TradeExpressionVisitor is about to call SqlInstrumentProvider on 1..2500 of 497
+11:20:18  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' SqlInstrumentProvider Loading instrument Trn (488)
+11:20:22  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' pricing CDX9_DEC17_7-10 on pricingDate=12/22/2010
+11:20:29  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' loss grid model LossGridModel<CDX9_20DEC17> basisRatio=0.956166044634306
+11:20:34  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' calibrating loss grid for LossGridModel<CDX9_20DEC17> in Market 12/22/2010 on 12/22/2010.  TargetMaturity=12/20/2017 gridInterval=3
+11:20:41  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' loss grid model LossGridModel<CDX9_20DEC17> basisRatio=0.956166044634306
+11:20:47  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' finished calibrating grid for LossGridModel<CDX9_20DEC17>
+11:20:47  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' pricing CDX9_DEC17_7-10 on pricingDate=12/22/2010
+11:20:52  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' pricing CDX9_DEC17_7-10 on pricingDate=12/22/2010
+11:20:55  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' pricing CDX9_DEC17_7-10 on pricingDate=12/22/2010
+11:20:59  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' pricing CDX9_DEC17_7-10 on pricingDate=12/22/2010
+11:21:02  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' pricing CDX9_DEC17_7-10 on pricingDate=12/22/2010
+11:21:05  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' pricing CDX9_DEC17_7-10 on pricingDate=12/22/2010
+11:21:10  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' pricing CDX9_DEC17_7-10 on pricingDate=12/22/2010
+11:21:14  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' pricing CDX9_DEC17_7-10 on pricingDate=12/22/2010
+11:21:20  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' pricing CDX9_DEC17_7-10 on pricingDate=12/22/2010
+11:21:26  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' pricing CDX9_DEC17_7-10 on pricingDate=12/22/2010
+11:21:32  Agent: adapter run thread for test 'TrancheIrdv01Test' with id 'b92b5e45-9e16-4a9a-97b9-04a77ed43c53' pricing CDX9_DEC17_7-10 on pricingDate=12/22/2010
+    Fail:Assert.IsFalse failed. position-69850714 Message:    at FinOM.Test.Credit.CDOTrancheTest.TrancheIrdv01Test() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Credit\CDOTrancheTest.cs:line 291
+
+  EndTest:98832
+------------------------
+  Test:FinOM.Test.Credit.CDOTrancheTest.ZeroToOneHunderTranchePriceTest
+    StdOutput:11:21:40  Agent: adapter run thread for test 'ZeroToOneHunderTranchePriceTest' with id 'a9a43d04-13c7-417a-84b1-e29c3288fda4' pricing ITRX5_JUN13_0-100 on pricingDate=12/22/2010
+11:21:40  Agent: adapter run thread for test 'ZeroToOneHunderTranchePriceTest' with id 'a9a43d04-13c7-417a-84b1-e29c3288fda4' loss grid model LossGridModel<ITRX5_20JUN13> basisRatio=1
+11:21:43  Agent: adapter run thread for test 'ZeroToOneHunderTranchePriceTest' with id 'a9a43d04-13c7-417a-84b1-e29c3288fda4' calibrating mapped grid for LossGridModel<ITRX5_20JUN13> on calibrationDate=12/22/2010
+11:21:46  Agent: adapter run thread for test 'ZeroToOneHunderTranchePriceTest' with id 'a9a43d04-13c7-417a-84b1-e29c3288fda4' loss grid model LossGridModel<ITRX5_20JUN13> basisRatio=0.960005635800367
+11:21:48  Agent: adapter run thread for test 'ZeroToOneHunderTranchePriceTest' with id 'a9a43d04-13c7-417a-84b1-e29c3288fda4' calibrating loss grid for LossGridModel<ITRX5.B_20JUN13>_GI:3 in Market 12/22/2010 on 12/22/2010.  TargetMaturity=6/20/2013 gridInterval=3
+11:21:48  Agent: adapter run thread for test 'ZeroToOneHunderTranchePriceTest' with id 'a9a43d04-13c7-417a-84b1-e29c3288fda4' calibrating loss grid for LossGridModel<ITRX9_20JUN13> in Market 12/22/2010 on 12/22/2010.  TargetMaturity=6/20/2013 gridInterval=3
+11:22:24  Agent: adapter run thread for test 'ZeroToOneHunderTranchePriceTest' with id 'a9a43d04-13c7-417a-84b1-e29c3288fda4' loss grid model LossGridModel<ITRX9_20JUN13> basisRatio=0.901815439925248
+11:22:33  Agent: adapter run thread for test 'ZeroToOneHunderTranchePriceTest' with id 'a9a43d04-13c7-417a-84b1-e29c3288fda4' BM.FinOM.Credit.CreditCurveException: CreditCurve(NGP_Senior_MM-EUR) Failed to build credit curve on: 2010-12-22: Analytics Library Version 1.0.1GtoMallocSafe: Insufficient memory to allocate 1328 bytes. [0M=10.92 3M=13.12 6M=15.76 9M=18.94 1Y=22.75 2Y=37.63 3Y=50.96 5Y=73.52 7Y=82.74 10Y=89.64 30Y=93.67 recov=0.40]
+   at BM.FinOM.Credit.CreditCurve.Calibrate(Cell`1 pricingDateCell, List`1 spreadCells, List`1 upfrontCells, Cell`1 recoveryRateCell, Cell`1 defaultEventCell, Cell`1 zeroCurveCell, Int32[] includes, Cell`1 shock, Cell`1 shockTenor, Cell`1 method, DateInterval gridInterval, Cell`1 bestEfforts, Cell`1 observableFrequency) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\CreditCurve.cs:line 1332
+   at BM.FinOM.Credit.CreditCurve.get_ShockedCalibratedCurveFormula() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\CreditCurve.cs:line 1201
+   at BM.FinOM.Credit.LossGridCDOModelBasisAdjustedCreditCurve.<>c__DisplayClass4.<ShockedCalibratedCurveNameFor>b__3() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\BasisAdjustedCreditCurve.cs:line 143
+   at ExceptionRecorder.ExceptionRecorderVB.ExceptionRecorder.RecordException[T](Func`1 func, Action`1 onError) in E:\TeamCity_Data\Build\Sierra\src\FinOM\ExceptionRecorder\ExceptionRecorder\ExceptionRecorder.vb:line 7
+   at BM.FinOM.Cells.Cell`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 547
+   at BM.FinOM.Cells.CellName`1.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1246
+   at BM.FinOM.Cells.CellName`2.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 138
+   at BM.FinOM.Cells.CellName`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1274
+   at BM.FinOM.Cells.CellName`1.op_OnesComplement(CellName`1 name) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1267
+   at BM.FinOM.Credit.LossGridCDOCollateral.<NativeHandle>b__2(CellName`1 c) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\LossGridCDOCollateral.cs:line 104
+   at System.Linq.Enumerable.WhereSelectListIterator`2.MoveNext()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at BM.FinOM.Credit.CollapsedCreditBasket.CollapseCreditCurves[T](IEnumerable`1 originalCurves) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\CreditBasket.cs:line 667
+   at BM.FinOM.Credit.LossGridCDOCollateral.NativeHandle() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\LossGridCDOCollateral.cs:line 104
+    Fail:Test method FinOM.Test.Credit.CDOTrancheTest.ZeroToOneHunderTranchePriceTest threw exception: 
+BM.FinOM.Credit.CreditCurveException: CreditCurve(NGP_Senior_MM-EUR) Failed to build credit curve on: 2010-12-22: Analytics Library Version 1.0.1GtoMallocSafe: Insufficient memory to allocate 1328 bytes. [0M=10.92 3M=13.12 6M=15.76 9M=18.94 1Y=22.75 2Y=37.63 3Y=50.96 5Y=73.52 7Y=82.74 10Y=89.64 30Y=93.67 recov=0.40] Message:     at BM.FinOM.Credit.CreditCurve.Calibrate(Cell`1 pricingDateCell, List`1 spreadCells, List`1 upfrontCells, Cell`1 recoveryRateCell, Cell`1 defaultEventCell, Cell`1 zeroCurveCell, Int32[] includes, Cell`1 shock, Cell`1 shockTenor, Cell`1 method, DateInterval gridInterval, Cell`1 bestEfforts, Cell`1 observableFrequency) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\CreditCurve.cs:line 1332
+   at BM.FinOM.Credit.CreditCurve.get_ShockedCalibratedCurveFormula() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\CreditCurve.cs:line 1201
+   at BM.FinOM.Credit.LossGridCDOModelBasisAdjustedCreditCurve.<>c__DisplayClass4.<ShockedCalibratedCurveNameFor>b__3() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\BasisAdjustedCreditCurve.cs:line 143
+   at ExceptionRecorder.ExceptionRecorderVB.ExceptionRecorder.RecordException[T](Func`1 func, Action`1 onError) in E:\TeamCity_Data\Build\Sierra\src\FinOM\ExceptionRecorder\ExceptionRecorder\ExceptionRecorder.vb:line 7
+   at BM.FinOM.Cells.Cell`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 547
+   at BM.FinOM.Cells.CellName`1.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1246
+   at BM.FinOM.Cells.CellName`2.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 138
+   at BM.FinOM.Cells.CellName`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1274
+   at BM.FinOM.Cells.CellName`1.op_OnesComplement(CellName`1 name) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1267
+   at BM.FinOM.Credit.LossGridCDOCollateral.<NativeHandle>b__2(CellName`1 c) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\LossGridCDOCollateral.cs:line 104
+   at System.Linq.Enumerable.WhereSelectListIterator`2.MoveNext()
+   at System.Linq.Buffer`1..ctor(IEnumerable`1 source)
+   at System.Linq.Enumerable.ToArray[TSource](IEnumerable`1 source)
+   at BM.FinOM.Credit.CollapsedCreditBasket.CollapseCreditCurves[T](IEnumerable`1 originalCurves) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\CreditBasket.cs:line 667
+   at BM.FinOM.Credit.LossGridCDOCollateral.NativeHandle() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\LossGridCDOCollateral.cs:line 153
+   at ExceptionRecorder.ExceptionRecorderVB.ExceptionRecorder.RecordException[T](Func`1 func, Action`1 onError) in E:\TeamCity_Data\Build\Sierra\src\FinOM\ExceptionRecorder\ExceptionRecorder\ExceptionRecorder.vb:line 7
+   at BM.FinOM.Cells.Cell`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 547
+   at BM.FinOM.Cells.CellName`1.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1246
+   at BM.FinOM.Cells.CellName`2.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 138
+   at BM.FinOM.Cells.CellName`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1274
+   at BM.FinOM.Cells.CellName`1.op_OnesComplement(CellName`1 name) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1267
+   at BM.FinOM.Credit.LossGridModel.CalibrateLossGrid() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\LossGridModel.cs:line 547
+   at BM.FinOM.Credit.LossGridModel.<get_GridSpecificMaturity>b__11() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\LossGridModel.cs:line 443
+   at ExceptionRecorder.ExceptionRecorderVB.ExceptionRecorder.RecordException[T](Func`1 func, Action`1 onError) in E:\TeamCity_Data\Build\Sierra\src\FinOM\ExceptionRecorder\ExceptionRecorder\ExceptionRecorder.vb:line 7
+   at BM.FinOM.Cells.Cell`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 547
+   at BM.FinOM.Cells.CellName`1.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1246
+   at BM.FinOM.Cells.CellName`2.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 138
+   at BM.FinOM.Cells.CellName`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1274
+   at BM.FinOM.Cells.CellName`1.op_OnesComplement(CellName`1 name) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1267
+   at BM.FinOM.Credit.LossGridModel.<get_LeaderGrid>b__14() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\LossGridModel.cs:line 497
+   at ExceptionRecorder.ExceptionRecorderVB.ExceptionRecorder.RecordException[T](Func`1 func, Action`1 onError) in E:\TeamCity_Data\Build\Sierra\src\FinOM\ExceptionRecorder\ExceptionRecorder\ExceptionRecorder.vb:line 7
+   at BM.FinOM.Cells.Cell`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 547
+   at BM.FinOM.Cells.CellName`1.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1246
+   at BM.FinOM.Cells.CellName`2.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 138
+   at BM.FinOM.Cells.CellName`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1274
+   at BM.FinOM.Cells.CellName`1.op_OnesComplement(CellName`1 name) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1267
+   at BM.FinOM.Credit.LossGridModel.CalibrateLossGrid() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\LossGridModel.cs:line 519
+   at BM.FinOM.Credit.LossGridModel.<get_GridSpecificMaturity>b__11() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\LossGridModel.cs:line 443
+   at ExceptionRecorder.ExceptionRecorderVB.ExceptionRecorder.RecordException[T](Func`1 func, Action`1 onError) in E:\TeamCity_Data\Build\Sierra\src\FinOM\ExceptionRecorder\ExceptionRecorder\ExceptionRecorder.vb:line 7
+   at BM.FinOM.Cells.Cell`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 547
+   at BM.FinOM.Cells.CellName`1.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1246
+   at BM.FinOM.Cells.CellName`2.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 138
+   at BM.FinOM.Cells.CellName`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1274
+   at BM.FinOM.Cells.CellName`1.op_OnesComplement(CellName`1 name) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1267
+   at BM.FinOM.Credit.LossGridModel.<get_LeaderGrid>b__14() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\LossGridModel.cs:line 497
+   at ExceptionRecorder.ExceptionRecorderVB.ExceptionRecorder.RecordException[T](Func`1 func, Action`1 onError) in E:\TeamCity_Data\Build\Sierra\src\FinOM\ExceptionRecorder\ExceptionRecorder\ExceptionRecorder.vb:line 7
+   at BM.FinOM.Cells.Cell`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 547
+   at BM.FinOM.Cells.CellName`1.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1246
+   at BM.FinOM.Cells.CellName`2.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 138
+   at BM.FinOM.Cells.CellName`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1274
+   at BM.FinOM.Cells.CellName`1.op_OnesComplement(CellName`1 name) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1267
+   at BM.FinOM.Credit.MappedLossGridModel.CalibrateLossGrid() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\LossGridModel.cs:line 90
+   at BM.FinOM.Credit.LossGridModel.<get_GridSpecificMaturity>b__11() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\LossGridModel.cs:line 443
+   at ExceptionRecorder.ExceptionRecorderVB.ExceptionRecorder.RecordException[T](Func`1 func, Action`1 onError) in E:\TeamCity_Data\Build\Sierra\src\FinOM\ExceptionRecorder\ExceptionRecorder\ExceptionRecorder.vb:line 7
+   at BM.FinOM.Cells.Cell`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 547
+   at BM.FinOM.Cells.CellName`1.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1246
+   at BM.FinOM.Cells.CellName`2.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 138
+   at BM.FinOM.Cells.CellName`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1274
+   at BM.FinOM.Cells.CellName`1.op_OnesComplement(CellName`1 name) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1267
+   at BM.FinOM.Credit.LossGridModel.<get_Grid>b__12() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\LossGridModel.cs:line 473
+   at ExceptionRecorder.ExceptionRecorderVB.ExceptionRecorder.RecordException[T](Func`1 func, Action`1 onError) in E:\TeamCity_Data\Build\Sierra\src\FinOM\ExceptionRecorder\ExceptionRecorder\ExceptionRecorder.vb:line 7
+   at BM.FinOM.Cells.Cell`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 547
+   at BM.FinOM.Cells.Cell`1.op_OnesComplement(Cell`1 cell) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 949
+   at BM.FinOM.FinanceScenarios.Tranche.FixedLossGrid.<>c__DisplayClass1.<GetFormula>b__0() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\FinanceScenarios\Tranche\FixedLossGrid.cs:line 92
+   at ExceptionRecorder.ExceptionRecorderVB.ExceptionRecorder.RecordException[T](Func`1 func, Action`1 onError) in E:\TeamCity_Data\Build\Sierra\src\FinOM\ExceptionRecorder\ExceptionRecorder\ExceptionRecorder.vb:line 7
+   at BM.FinOM.Cells.Cell`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 547
+   at BM.FinOM.Cells.CellName`1.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1246
+   at BM.FinOM.Cells.CellName`2.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 138
+   at BM.FinOM.Cells.CellName`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1274
+   at BM.FinOM.Cells.CellName`1.op_OnesComplement(CellName`1 name) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1267
+   at BM.FinOM.Credit.CDOTrancheCalc.GetLossGridPricingModel(Dictionary`2[]& deltasPricingErrors) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\CDOTrancheCalc.cs:line 380
+   at BM.FinOM.Credit.CDOTrancheCalc.CalculateLossGridPrice() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\CDOTrancheCalc.cs:line 426
+   at BM.FinOM.Credit.CDOTrancheCalc.get_LossGridCalcResult() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\CDOTrancheCalc.cs:line 293
+   at BM.FinOM.Credit.CDOTranche.<get_LossGridCalcResult>b__6() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\CDOTranche.cs:line 216
+   at ExceptionRecorder.ExceptionRecorderVB.ExceptionRecorder.RecordException[T](Func`1 func, Action`1 onError) in E:\TeamCity_Data\Build\Sierra\src\FinOM\ExceptionRecorder\ExceptionRecorder\ExceptionRecorder.vb:line 7
+   at BM.FinOM.Cells.Cell`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 547
+   at BM.FinOM.Cells.CellName`1.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1246
+   at BM.FinOM.Cells.CellName`2.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 138
+   at BM.FinOM.Cells.CellName`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1274
+   at BM.FinOM.Cells.CellName`1.op_OnesComplement(CellName`1 name) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1267
+   at BM.FinOM.Credit.CDOTranche.<get_CalcResult>b__5() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\CDOTranche.cs:line 209
+   at ExceptionRecorder.ExceptionRecorderVB.ExceptionRecorder.RecordException[T](Func`1 func, Action`1 onError) in E:\TeamCity_Data\Build\Sierra\src\FinOM\ExceptionRecorder\ExceptionRecorder\ExceptionRecorder.vb:line 7
+   at BM.FinOM.Cells.Cell`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 547
+   at BM.FinOM.Cells.CellName`1.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1246
+   at BM.FinOM.Cells.CellName`2.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 138
+   at BM.FinOM.Cells.CellName`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1274
+   at BM.FinOM.Credit.CDOTranche.<get_CleanPrice>b__b() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Credit\CDOTranche.cs:line 254
+   at ExceptionRecorder.ExceptionRecorderVB.ExceptionRecorder.RecordException[T](Func`1 func, Action`1 onError) in E:\TeamCity_Data\Build\Sierra\src\FinOM\ExceptionRecorder\ExceptionRecorder\ExceptionRecorder.vb:line 7
+   at BM.FinOM.Cells.Cell`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\Cell.cs:line 547
+   at BM.FinOM.Cells.CellName`1.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1246
+   at BM.FinOM.Cells.CellName`2.CurrentValueIn(Scenario s) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 138
+   at BM.FinOM.Cells.CellName`1.get_CurrentValue() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1274
+   at BM.FinOM.Cells.CellName`1.op_OnesComplement(CellName`1 name) in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM\Cells\CellName.cs:line 1267
+   at FinOM.Test.Credit.CDOTrancheTest.ZeroToOneHunderTranchePriceTest() in e:\TeamCity_Data\Build\Sierra\src\FinOM\FinOM.Test\Credit\CDOTrancheTest.cs:line 204
+
+  EndTest:55353
+------------------------
+  Test:FinOM.Test.Credit.CDSTest.AnnuityTest
+    Fail:Aborted Message: null
+  EndTest:8357
+------------------------
+  Test:FinOM.Test.Credit.CDSTest.CdsIrdv01Test
+    Fail:Aborted Message: null
+  EndTest:8155
+------------------------
+  Test:FinOM.Test.Credit.CDSTest.FeeLegTest
+    Fail:Aborted Message: null
+  EndTest:8146
+------------------------
+  Test:FinOM.Test.Credit.CDSTest.FullStubTest
+    Fail:Aborted Message: null
+  EndTest:8139
+------------------------
+  Test:FinOM.Test.Credit.CDSTest.MarkedTenorParSpreadTest
+    Fail:Aborted Message: null
+  EndTest:8132
+------------------------
+  Test:FinOM.Test.Credit.CDSTest.MaturityTest
+    Fail:Aborted Message: null
+  EndTest:8121
+------------------------
+  Test:FinOM.Test.Credit.CDSTest.ParSpreadRoundTripTest
+    Fail:Aborted Message: null
+  EndTest:8113
+------------------------
+  Test:FinOM.Test.Credit.CDSTest.RecoveryMonotinicityTest
+    Fail:Aborted Message: null
+  EndTest:8107
+------------------------
+  Test:FinOM.Test.Credit.CDSTest.RecoveryTest
+    Fail:Aborted Message: null
+  EndTest:8102
+------------------------
+  Test:FinOM.Test.Credit.CDSTest.RetrieveNewRecovery
+    Fail:Aborted Message: null
+  EndTest:8097
+------------------------
+  Test:FinOM.Test.Credit.CDSTest.RiskFreeTest
+    Fail:Aborted Message: null
+  EndTest:8092
+------------------------
+  Test:FinOM.Test.Credit.CDSTest.SpreadMonotinicityTest
+    Fail:Aborted Message: null
+  EndTest:8085
+------------------------
+  Test:FinOM.Test.Credit.CreditCurveTest.RollForwardTest1
+    Fail:Aborted Message: null
+  EndTest:8078
+------------------------
+  Test:FinOM.Test.Credit.CreditCurveTest.RollForwardTest2
+    Fail:Aborted Message: null
+  EndTest:8073
+------------------------
+  Test:FinOM.Test.Credit.CreditCurveTest.RollForwardTest3
+    Fail:Aborted Message: null
+  EndTest:8066
+------------------------
+  Test:FinOM.Test.Credit.CreditCurveTest.RollForwardTest4
+    Fail:Aborted Message: null
+  EndTest:8060
+------------------------
+  Test:FinOM.Test.Credit.CreditEntityTest.TickerChangeDefaultTest
+    Fail:Aborted Message: null
+  EndTest:8055
+------------------------
+  Test:FinOM.Test.Credit.CreditEntityTest.TickerChangeDefaultTest1
+    Fail:Aborted Message: null
+  EndTest:8049
+------------------------
+  Test:FinOM.Test.Credit.IsdaCdsModelTest.TestCashFlows
+    Fail:Aborted Message: null
+  EndTest:8042
+------------------------
+  Test:FinOM.Test.Credit.IsdaCdsModelTest.TestCashSettlement
+    Fail:Aborted Message: null
+  EndTest:8035
+------------------------
+  Test:FinOM.Test.Credit.IsdaCdsModelTest.TestCleanAndDirtyEqual
+    Fail:Aborted Message: null
+  EndTest:8028
+------------------------
+  Test:FinOM.Test.Credit.IsdaCdsModelTest.TestConvertToSpread
+    Fail:Aborted Message: null
+  EndTest:8022
+------------------------
+  Test:FinOM.Test.Credit.IsdaCdsModelTest.TestConvertToUpfront
+    Fail:Aborted Message: null
+  EndTest:8016
+------------------------
+  Test:FinOM.Test.Credit.IsdaCdsModelTest.TestCreditCurveFromQuotedSpread
+    Fail:Aborted Message: null
+  EndTest:8002
+------------------------
+  Test:FinOM.Test.Credit.IsdaCdsModelTest.TestFromQuotedSpread
+    Fail:Aborted Message: null
+  EndTest:7991
+------------------------
+  Test:FinOM.Test.Credit.IsdaCdsModelTest.TestIRZeroCurve
+    Fail:Aborted Message: null
+  EndTest:7976
+------------------------
+  Test:FinOM.Test.Credit.IsdaCdsModelTest.TestIsdaDiscountCurve
+    Fail:Aborted Message: null
+  EndTest:7971
+------------------------
+  Test:FinOM.Test.Credit.IsdaCdsModelTest.TestReadMarkItRateDownload
+    Fail:Aborted Message: null
+  EndTest:7965
+------------------------
+  Test:FinOM.Test.Credit.RecSwapTest.FullRecoveryTest
+    Fail:Aborted Message: null
+  EndTest:7959
+------------------------
+  Test:FinOM.Test.Credit.RecSwapTest.LegSumTest
+    Fail:Aborted Message: null
+  EndTest:7953
+------------------------
+  Test:FinOM.Test.Credit.RecSwapTest.MonotonicityTest
+    Fail:Aborted Message: null
+  EndTest:7947
+------------------------
+  Test:FinOM.Test.Credit.RecSwapTest.ParTest
+    Fail:Aborted Message: null
+  EndTest:7942
+------------------------
+  Test:FinOM.Test.Credit.RecSwapTest.ZeroRecoveryTest
+    Fail:Aborted Message: null
+  EndTest:7937
+------------------------
+  Test:FinOM.Test.CurveMarker.CreditHierarchyTests.LoadFromCacheTest
+    Fail:Aborted Message: null
+  EndTest:7931
+------------------------
+  Test:FinOM.Test.CurveMarker.CreditHierarchyTests.LoadFromDatabaseSaveToCacheTest
+    Fail:Aborted Message: null
+  EndTest:7926
+------------------------
+  Test:FinOM.Test.CurveMarker.CreditHierarchyTests.LoadFromDatabaseTest
+    Fail:Aborted Message: null
+  EndTest:7917
+------------------------
+  Test:FinOM.Test.CurveMarker.CreditHierarchyTests.LoadTest
+    Fail:Aborted Message: null
+  EndTest:7910
+------------------------
+  Test:FinOM.Test.Data.BasketTest.FinOMvsDBConstituentCheck
+    Fail:Aborted Message: null
+  EndTest:7904
+------------------------
+  Test:FinOM.Test.Data.BasketTest.RemoveAndAddSameEntity
+    Fail:Aborted Message: null
+  EndTest:7897
+------------------------
+  Test:FinOM.Test.Data.BasketTest.RemoveEntity
+    Fail:Aborted Message: null
+  EndTest:7892
+------------------------
+  Test:FinOM.Test.Data.TradeConsolidatorTest.CDSPriceTestFullStub
+    Fail:Aborted Message: null
+  EndTest:7887
+------------------------
+  Test:FinOM.Test.Data.TradeConsolidatorTest.CDSPriceTestPartStub
+    Fail:Aborted Message: null
+  EndTest:7882
+------------------------
+  Test:FinOM.Test.Data.TradeConsolidatorTest.OptiomalCDIConsolidator1
+    Fail:Aborted Message: null
+  EndTest:7877
+------------------------
+  Test:FinOM.Test.Data.TradeConsolidatorTest.OptiomalCDIConsolidatorZeroNotional
+    Fail:Aborted Message: null
+  EndTest:7870
+------------------------
+  Test:FinOM.Test.Data.TradeConsolidatorTest.OptiomalCDSConsolidator1
+    Fail:Aborted Message: null
+  EndTest:7864
+------------------------
+  Test:FinOM.Test.Data.TradeConsolidatorTest.OptiomalCDSConsolidatorWithNegativeCoupon
+    Fail:Aborted Message: null
+  EndTest:7859
+------------------------
+  Test:FinOM.Test.Data.TradeConsolidatorTest.OptiomalCDSConsolidatorWithZeroNotional
+    Fail:Aborted Message: null
+  EndTest:7854
+------------------------
+  Test:FinOM.Test.EquityDerivatives.EquityTests.ConditionalVarTest
+    Fail:Aborted Message: null
+  EndTest:7847
+------------------------
+  Test:FinOM.Test.EquityDerivatives.EquityTests.CorrSwapTest
+    Fail:Aborted Message: null
+  EndTest:7855
+------------------------
+  Test:FinOM.Test.EquityDerivatives.EquityTests.EqVarCompositeVolTest
+    Fail:Aborted Message: null
+  EndTest:7851
+------------------------
+  Test:FinOM.Test.EquityDerivatives.EquityTests.EqVarImpliedUpTest
+    Fail:Aborted Message: null
+  EndTest:7845
+------------------------
+  Test:FinOM.Test.EquityDerivatives.EquityTests.EqVarRealizedUpTest
+    Fail:Aborted Message: null
+  EndTest:7839
+------------------------
+  Test:FinOM.Test.EquityDerivatives.EquityTests.OptionImpliedUpTest
+    Fail:Aborted Message: null
+  EndTest:7832
+------------------------
+  Test:FinOM.Test.FinanceAnalytics.NativeAnalyticsTest.CreditCurveMakeParallelTest
+    Fail:Aborted Message: null
+  EndTest:7825
+------------------------
+  Test:FinOM.Test.FinanceAnalytics.NativeAnalyticsTest.CreditCurveMakeTest
+    Fail:Aborted Message: null
+  EndTest:7819
+------------------------
+  Test:FinOM.Test.FinanceAnalytics.TracerTest.ExecuteCDSParSpreadTest
+    Fail:Aborted Message: null
+  EndTest:7813
+------------------------
+  Test:FinOM.Test.FinanceAnalytics.TracerTest.ExecuteCreditCurveTest
+    Fail:Aborted Message: null
+  EndTest:7807
+------------------------
+  Test:FinOM.Test.FinanceAnalytics.TracerTest.ExecuteIntrinsicSpreadTest
+    Fail:Aborted Message: null
+  EndTest:7802
+------------------------
+  Test:FinOM.Test.FinanceAnalytics.TracerTest.ExecuteTranchePriceTest
+    Fail:Aborted Message: null
+  EndTest:7796
+------------------------
+  Test:FinOM.Test.FinanceAnalytics.TracerTest.NativeHandleTracerAddPointerTest
+    Fail:Aborted Message: null
+  EndTest:7792
+------------------------
+  Test:FinOM.Test.FinanceAnalytics.TracerTest.NativeHandleTracerDeletePointerTest
+    Fail:Aborted Message: null
+  EndTest:7786
+------------------------
+  Test:FinOM.Test.FinanceAnalytics.TracerTest.TracerTest1
+    Fail:Aborted Message: null
+  EndTest:7781
+------------------------
+  Test:FinOM.Test.FinanceAnalytics.TracerTest.TracerTest2
+    Fail:Aborted Message: null
+  EndTest:7774
+------------------------
+  Test:FinOM.Test.FinanceAnalytics.TracerTest.XmlTracerTest1
+    Fail:Aborted Message: null
+  EndTest:7768
+------------------------
+  Test:FinOM.Test.FinanceData.QVCDSTests.QVCurveQuotes2Test
+    Fail:Aborted Message: null
+  EndTest:7763
+------------------------
+  Test:FinOM.Test.FinanceScenarios.CreditCurve.SpreadFillerTest.ShortEndSpreadCalcComprehensiveTest
+    Fail:Aborted Message: null
+  EndTest:7755
+------------------------
+  Test:FinOM.Test.FinanceScenarios.CreditCurve.SpreadFillerTest.ShortEndSpreadCalcExtrapolateTest1
+    Fail:Aborted Message: null
+  EndTest:7749
+------------------------
+  Test:FinOM.Test.FinanceScenarios.CreditCurve.SpreadFillerTest.ShortEndSpreadCalcExtrapolateTest2
+    Fail:Aborted Message: null
+  EndTest:7743
+------------------------
+  Test:FinOM.Test.FinanceScenarios.CreditCurve.SpreadFillerTest.ShortEndSpreadCalcHaveValueTest
+    Fail:Aborted Message: null
+  EndTest:7738
+------------------------
+  Test:FinOM.Test.FinanceScenarios.FixedLossGridTest.EquivalentGridNoopTest
+    Fail:Aborted Message: null
+  EndTest:7733
+------------------------
+  Test:FinOM.Test.FinanceScenarios.FixedLossGridTest.EquivGridPnlTest
+    Fail:Aborted Message: null
+  EndTest:7727
+------------------------
+  Test:FinOM.Test.FinanceScenarios.FixedLossGridTest.FixedGridNoopTest
+    Fail:Aborted Message: null
+  EndTest:7722
+------------------------
+  Test:FinOM.Test.FinanceScenarios.FixedLossGridTest.FixedGridPnlParityTest
+    Fail:Aborted Message: null
+  EndTest:7716
+------------------------
+  Test:FinOM.Test.FinanceScenarios.FixedLossGridTest.ResetTrancheBaseRoundTripTest
+    Fail:Aborted Message: null
+  EndTest:7707
+------------------------
+  Test:FinOM.Test.FinanceScenarios.InsightHelperTest.TestCDIInstrumentIsHY
+    Fail:Aborted Message: null
+  EndTest:7701
+------------------------
+  Test:FinOM.Test.FinanceScenarios.InsightHelperTest.TestCDIInstrumentIsIG
+    Fail:Aborted Message: null
+  EndTest:7696
+------------------------
+  Test:FinOM.Test.FinanceScenarios.InsightHelperTest.TestCDSInstrumentIsHY
+    Fail:Aborted Message: null
+  EndTest:7690
+------------------------
+  Test:FinOM.Test.FinanceScenarios.InsightHelperTest.TestCDSIsHY
+    Fail:Aborted Message: null
+  EndTest:7685
+------------------------
+  Test:FinOM.Test.FinanceScenarios.InsightHelperTest.TestTrnInstrument
+    Fail:Aborted Message: null
+  EndTest:7679
+------------------------
+  Test:FinOM.Test.FinanceScenarios.LossGridCorrelationParallelShiftSimpleTest.LossGridCorrelationShiftTest
+    Fail:Aborted Message: null
+  EndTest:7674
+------------------------
+  Test:FinOM.Test.FinanceScenarios.LossGridCorrelationParallelShiftSimpleTest.PricingTest
+    Fail:Aborted Message: null
+  EndTest:7667
+------------------------
+  Test:FinOM.Test.FinanceScenarios.MappedLossGridTest.MappedGridNoOpTest
+    Fail:Aborted Message: null
+  EndTest:7660
+------------------------
+  Test:FinOM.Test.Mongo.MongoTests.TestCreatePerson
+    Fail:Aborted Message: null
+  EndTest:7654
+------------------------
+  Test:FinOM.Test.Mongo.MongoTests.TestLists
+    Fail:Aborted Message: null
+  EndTest:7648
+------------------------
+  Test:FinOM.Test.Trades.CounterpatyTradeTests.MultipleMatchTest
+    Fail:Aborted Message: null
+  EndTest:7642
+------------------------
+  Test:FinOM.Test.Trades.MongoPositionTest.TestSave
+    Fail:Aborted Message: null
+  EndTest:7637
+------------------------
+  Test:FinOM.Test.Trades.MongoPositionTest.TestValuesTrade
+    Fail:Aborted Message: null
+  EndTest:7631
+------------------------
+  Test:FinOM.Test.TS.Core.AggregateTimeSeriesTests.AggregateTest
+    Fail:Aborted Message: null
+  EndTest:7627
+------------------------
+  Test:FinOM.Test.TS.Core.AggregateTimeSeriesTests.AggregateWithOutliersTest
+    Fail:Aborted Message: null
+  EndTest:7620
+------------------------
+  Test:FinOM.Test.TS.Core.AggregateTimeSeriesTests.SyntheticAggregationTest
+    Fail:Aborted Message: null
+  EndTest:7615
+------------------------
+  Test:FinOM.Test.TS.Core.BinaryExpectedCombinedTimelinesTests.BinaryDifference1Test
+    Fail:Aborted Message: null
+  EndTest:7609
+------------------------
+  Test:FinOM.Test.TS.Core.BinaryExpectedCombinedTimelinesTests.BinaryDifference2Test
+    Fail:Aborted Message: null
+  EndTest:7603
+------------------------
+  Test:FinOM.Test.TS.Core.BinaryExpectedCombinedTimelinesTests.BinaryGuide1Test
+    Fail:Aborted Message: null
+  EndTest:7598
+------------------------
+  Test:FinOM.Test.TS.Core.BinaryExpectedCombinedTimelinesTests.BinaryGuide2Test
+    Fail:Aborted Message: null
+  EndTest:7594
+------------------------
+  Test:FinOM.Test.TS.Core.BinaryExpectedCombinedTimelinesTests.BinaryIntersectionTest
+    Fail:Aborted Message: null
+  EndTest:7588
+------------------------
+  Test:FinOM.Test.TS.Core.BinaryExpectedCombinedTimelinesTests.BinarySymDiff1Test
+    Fail:Aborted Message: null
+  EndTest:7582
+------------------------
+  Test:FinOM.Test.TS.Core.BinaryExpectedCombinedTimelinesTests.BinarySymDiff2Test
+    Fail:Aborted Message: null
+  EndTest:7577
+------------------------
+  Test:FinOM.Test.TS.Core.BinaryExpectedCombinedTimelinesTests.BinaryUnionTest
+    Fail:Aborted Message: null
+  EndTest:7571
+------------------------
+  Test:FinOM.Test.TS.Core.ConstantTimeSeriesExprTests.TestA
+    Fail:Aborted Message: null
+  EndTest:7565
+------------------------
+  Test:FinOM.Test.TS.Core.ConstantTimeSeriesExprTests.TestB
+    Fail:Aborted Message: null
+  EndTest:7559
+------------------------
+  Test:FinOM.Test.TS.Core.ConstantTimeSeriesExprTests.TestC
+    Fail:Aborted Message: null
+  EndTest:7555
+------------------------
+  Test:FinOM.Test.TS.Core.ConstantTimeSeriesExprTests.TestD
+    Fail:Aborted Message: null
+  EndTest:7549
+------------------------
+  Test:FinOM.Test.TS.Core.CustomTimeSeriesExprTests.ArrayMultiPointExprTest
+    Fail:Aborted Message: null
+  EndTest:7543
+------------------------
+  Test:FinOM.Test.TS.Core.CustomTimeSeriesExprTests.BinaryPointExprTest
+    Fail:Aborted Message: null
+  EndTest:7538
+------------------------
+  Test:FinOM.Test.TS.Core.CustomTimeSeriesExprTests.UnaryPointExprTest
+    Fail:Aborted Message: null
+  EndTest:7532
+------------------------
+  Test:FinOM.Test.TS.Core.DailyRecurrenceTests.CompatibleWithTest
+    Fail:Aborted Message: null
+  EndTest:7526
+------------------------
+  Test:FinOM.Test.TS.Core.DailyRecurrenceTests.IndexToTimeTest
+    Fail:Aborted Message: null
+  EndTest:7521
+------------------------
+  Test:FinOM.Test.TS.Core.DailyRecurrenceTests.IntradayTest
+    Fail:Aborted Message: null
+  EndTest:7516
+------------------------
+  Test:FinOM.Test.TS.Core.DailyRecurrenceTests.TimeToIndexTest
+    Fail:Aborted Message: null
+  EndTest:7511
+------------------------
+  Test:FinOM.Test.TS.Core.DateTimeTimeSeriesExprTests.DateTest
+    Fail:Aborted Message: null
+  EndTest:7506
+------------------------
+  Test:FinOM.Test.TS.Core.DateTimeTimeSeriesExprTests.DayOfWeekTest
+    Fail:Aborted Message: null
+  EndTest:7500
+------------------------
+  Test:FinOM.Test.TS.Core.DateTimeTimeSeriesExprTests.DayOfYearTest
+    Fail:Aborted Message: null
+  EndTest:7494
+------------------------
+  Test:FinOM.Test.TS.Core.DateTimeTimeSeriesExprTests.DayTest
+    Fail:Aborted Message: null
+  EndTest:7487
+------------------------
+  Test:FinOM.Test.TS.Core.DateTimeTimeSeriesExprTests.HourTest
+    Fail:Aborted Message: null
+  EndTest:7482
+------------------------
+  Test:FinOM.Test.TS.Core.DateTimeTimeSeriesExprTests.MillisecondTest
+    Fail:Aborted Message: null
+  EndTest:7476
+------------------------
+  Test:FinOM.Test.TS.Core.DateTimeTimeSeriesExprTests.MinuteTest
+    Fail:Aborted Message: null
+  EndTest:7471
+------------------------
+  Test:FinOM.Test.TS.Core.DateTimeTimeSeriesExprTests.MonthTest
+    Fail:Aborted Message: null
+  EndTest:7466
+------------------------
+  Test:FinOM.Test.TS.Core.DateTimeTimeSeriesExprTests.NowTest
+    Fail:Aborted Message: null
+  EndTest:7448
+------------------------
+  Test:FinOM.Test.TS.Core.DateTimeTimeSeriesExprTests.SecondTest
+    Fail:Aborted Message: null
+  EndTest:7442
+------------------------
+  Test:FinOM.Test.TS.Core.DateTimeTimeSeriesExprTests.ThenTest
+    Fail:Aborted Message: null
+  EndTest:7427
+------------------------
+  Test:FinOM.Test.TS.Core.DateTimeTimeSeriesExprTests.TimeOfDayTest
+    Fail:Aborted Message: null
+  EndTest:7419
+------------------------
+  Test:FinOM.Test.TS.Core.DateTimeTimeSeriesExprTests.TodayTest
+    Fail:Aborted Message: null
+  EndTest:7412
+------------------------
+  Test:FinOM.Test.TS.Core.DateTimeTimeSeriesExprTests.YearTest
+    Fail:Aborted Message: null
+  EndTest:7405
+------------------------
+  Test:FinOM.Test.TS.Core.DBTimeSeriesExprTests.DJIATest
+    Fail:Aborted Message: null
+  EndTest:7399
+------------------------
+  Test:FinOM.Test.TS.Core.EmptyTimelineTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:7393
+------------------------
+  Test:FinOM.Test.TS.Core.EmptyTimelineTests.EndTimeTest
+    Fail:Aborted Message: null
+  EndTest:7388
+------------------------
+  Test:FinOM.Test.TS.Core.EmptyTimelineTests.IndexerTest
+    Fail:Aborted Message: null
+  EndTest:7384
+------------------------
+  Test:FinOM.Test.TS.Core.EmptyTimelineTests.StartTimeTest
+    Fail:Aborted Message: null
+  EndTest:7378
+------------------------
+  Test:FinOM.Test.TS.Core.ExhaustiveTimelinesCombiningTests.ExhaustiveTimelinesCombiningTest
+    Fail:Aborted Message: null
+  EndTest:7372
+------------------------
+  Test:FinOM.Test.TS.Core.ExhaustiveTimelinesCombiningTests.HierarchicalTimelinesCombiningTest
+    Fail:Aborted Message: null
+  EndTest:7367
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:7362
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.DecreasingTimePointsTest
+    Fail:Aborted Message: null
+  EndTest:7357
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.EndTimeTest
+    Fail:Aborted Message: null
+  EndTest:7352
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.EnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:7346
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.EqualTimePointsTest
+    Fail:Aborted Message: null
+  EndTest:7341
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.IndexerOutOfBoundsTest
+    Fail:Aborted Message: null
+  EndTest:7335
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.IndexerTest
+    Fail:Aborted Message: null
+  EndTest:7330
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.IndexOfNonExistingTest
+    Fail:Aborted Message: null
+  EndTest:7324
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.IndexOfTest
+    Fail:Aborted Message: null
+  EndTest:7318
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.StartTimeTest
+    Fail:Aborted Message: null
+  EndTest:7313
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.SubTimelineIndirectTest
+    Fail:Aborted Message: null
+  EndTest:7306
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.SubTimelineSegmentTest
+    Fail:Aborted Message: null
+  EndTest:7301
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.TimeIndexCeilingSegmentTest
+    Fail:Aborted Message: null
+  EndTest:7295
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.TimeIndexCeilingTest
+    Fail:Aborted Message: null
+  EndTest:7289
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.TimeIndexFloorSegmentTest
+    Fail:Aborted Message: null
+  EndTest:7283
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.TimeIndexFloorTest
+    Fail:Aborted Message: null
+  EndTest:7278
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.TimePointsSameTest
+    Fail:Aborted Message: null
+  EndTest:7273
+------------------------
+  Test:FinOM.Test.TS.Core.ExplicitTimelineTests.TimePointsTest
+    Fail:Aborted Message: null
+  EndTest:7267
+------------------------
+  Test:FinOM.Test.TS.Core.FileLoadableSeriesTests.SaveLoadTest
+    Fail:Aborted Message: null
+  EndTest:7090
+------------------------
+  Test:FinOM.Test.TS.Core.FunctionOfTimeTests.ExpOfTimeTest
+    Fail:Aborted Message: null
+  EndTest:7082
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfExplicitTimelineTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:7076
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfExplicitTimelineTests.EndTimeTest
+    Fail:Aborted Message: null
+  EndTest:7070
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfExplicitTimelineTests.EnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:7064
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfExplicitTimelineTests.IndexerOutOfBoundsTest
+    Fail:Aborted Message: null
+  EndTest:7058
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfExplicitTimelineTests.IndexerTest
+    Fail:Aborted Message: null
+  EndTest:7053
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfExplicitTimelineTests.IndexOfNonExistingTest
+    Fail:Aborted Message: null
+  EndTest:7047
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfExplicitTimelineTests.IndexOfTest
+    Fail:Aborted Message: null
+  EndTest:7042
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfExplicitTimelineTests.StartTimeTest
+    Fail:Aborted Message: null
+  EndTest:7037
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfExplicitTimelineTests.SubTimelineIndirectTest
+    Fail:Aborted Message: null
+  EndTest:7031
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfExplicitTimelineTests.SubTimelineSegmentTest
+    Fail:Aborted Message: null
+  EndTest:7025
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfExplicitTimelineTests.TimeIndexCeilingSegmentTest
+    Fail:Aborted Message: null
+  EndTest:7020
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfExplicitTimelineTests.TimeIndexCeilingTest
+    Fail:Aborted Message: null
+  EndTest:7014
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfExplicitTimelineTests.TimeIndexFloorSegmentTest
+    Fail:Aborted Message: null
+  EndTest:7009
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfExplicitTimelineTests.TimeIndexFloorTest
+    Fail:Aborted Message: null
+  EndTest:7003
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfExplicitTimelineTests.TimePointsTest
+    Fail:Aborted Message: null
+  EndTest:6997
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfRecurringTimelineTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:6991
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfRecurringTimelineTests.EndTimeTest
+    Fail:Aborted Message: null
+  EndTest:6986
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfRecurringTimelineTests.EnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:6980
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfRecurringTimelineTests.IndexerOutOfBoundsTest
+    Fail:Aborted Message: null
+  EndTest:6974
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfRecurringTimelineTests.IndexerTest
+    Fail:Aborted Message: null
+  EndTest:6970
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfRecurringTimelineTests.IndexOfNonExistingTest
+    Fail:Aborted Message: null
+  EndTest:6965
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfRecurringTimelineTests.IndexOfTest
+    Fail:Aborted Message: null
+  EndTest:6959
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfRecurringTimelineTests.StartTimeTest
+    Fail:Aborted Message: null
+  EndTest:6953
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfRecurringTimelineTests.SubTimelineIndirectTest
+    Fail:Aborted Message: null
+  EndTest:6948
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfRecurringTimelineTests.SubTimelineSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6941
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfRecurringTimelineTests.TimeIndexCeilingSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6936
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfRecurringTimelineTests.TimeIndexCeilingTest
+    Fail:Aborted Message: null
+  EndTest:6931
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfRecurringTimelineTests.TimeIndexFloorSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6927
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfRecurringTimelineTests.TimeIndexFloorTest
+    Fail:Aborted Message: null
+  EndTest:6921
+------------------------
+  Test:FinOM.Test.TS.Core.IndirectOfRecurringTimelineTests.TimePointsTest
+    Fail:Aborted Message: null
+  EndTest:6916
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyTimelineTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:6911
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyTimelineTests.EndTimeTest
+    Fail:Aborted Message: null
+  EndTest:6906
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyTimelineTests.EnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:6900
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyTimelineTests.IndexerOutOfBoundsTest
+    Fail:Aborted Message: null
+  EndTest:6894
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyTimelineTests.IndexerTest
+    Fail:Aborted Message: null
+  EndTest:6889
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyTimelineTests.IndexOfNonExistingTest
+    Fail:Aborted Message: null
+  EndTest:6885
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyTimelineTests.IndexOfTest
+    Fail:Aborted Message: null
+  EndTest:6880
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyTimelineTests.StartTimeTest
+    Fail:Aborted Message: null
+  EndTest:6875
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyTimelineTests.SubTimelineIndirectTest
+    Fail:Aborted Message: null
+  EndTest:6869
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyTimelineTests.SubTimelineSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6863
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyTimelineTests.TimeIndexCeilingSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6857
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyTimelineTests.TimeIndexCeilingTest
+    Fail:Aborted Message: null
+  EndTest:6852
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyTimelineTests.TimeIndexFloorSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6846
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyTimelineTests.TimeIndexFloorTest
+    Fail:Aborted Message: null
+  EndTest:6839
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyTimelineTests.TimePointsTest
+    Fail:Aborted Message: null
+  EndTest:6833
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyWithCutTimelineTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:6829
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyWithCutTimelineTests.EndTimeTest
+    Fail:Aborted Message: null
+  EndTest:6823
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyWithCutTimelineTests.EnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:6815
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyWithCutTimelineTests.IndexerOutOfBoundsTest
+    Fail:Aborted Message: null
+  EndTest:6809
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyWithCutTimelineTests.IndexerTest
+    Fail:Aborted Message: null
+  EndTest:6803
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyWithCutTimelineTests.IndexOfNonExistingTest
+    Fail:Aborted Message: null
+  EndTest:6797
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyWithCutTimelineTests.IndexOfTest
+    Fail:Aborted Message: null
+  EndTest:6791
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyWithCutTimelineTests.StartTimeTest
+    Fail:Aborted Message: null
+  EndTest:6785
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyWithCutTimelineTests.SubTimelineIndirectTest
+    Fail:Aborted Message: null
+  EndTest:6779
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyWithCutTimelineTests.SubTimelineSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6773
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyWithCutTimelineTests.TimeIndexCeilingSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6767
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyWithCutTimelineTests.TimeIndexCeilingTest
+    Fail:Aborted Message: null
+  EndTest:6762
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyWithCutTimelineTests.TimeIndexFloorSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6757
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyWithCutTimelineTests.TimeIndexFloorTest
+    Fail:Aborted Message: null
+  EndTest:6750
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfDailyWithCutTimelineTests.TimePointsTest
+    Fail:Aborted Message: null
+  EndTest:6745
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayTimelineTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:6739
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayTimelineTests.EndTimeTest
+    Fail:Aborted Message: null
+  EndTest:6733
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayTimelineTests.EnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:6728
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayTimelineTests.IndexerOutOfBoundsTest
+    Fail:Aborted Message: null
+  EndTest:6723
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayTimelineTests.IndexerTest
+    Fail:Aborted Message: null
+  EndTest:6718
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayTimelineTests.IndexOfNonExistingTest
+    Fail:Aborted Message: null
+  EndTest:6712
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayTimelineTests.IndexOfTest
+    Fail:Aborted Message: null
+  EndTest:6703
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayTimelineTests.StartTimeTest
+    Fail:Aborted Message: null
+  EndTest:6698
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayTimelineTests.SubTimelineIndirectTest
+    Fail:Aborted Message: null
+  EndTest:6692
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayTimelineTests.SubTimelineSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6686
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayTimelineTests.TimeIndexCeilingSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6681
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayTimelineTests.TimeIndexCeilingTest
+    Fail:Aborted Message: null
+  EndTest:6677
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayTimelineTests.TimeIndexFloorSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6670
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayTimelineTests.TimeIndexFloorTest
+    Fail:Aborted Message: null
+  EndTest:6664
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayTimelineTests.TimePointsTest
+    Fail:Aborted Message: null
+  EndTest:6658
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayWithCutTimelineTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:6651
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayWithCutTimelineTests.EndTimeTest
+    Fail:Aborted Message: null
+  EndTest:6645
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayWithCutTimelineTests.EnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:6639
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayWithCutTimelineTests.IndexerOutOfBoundsTest
+    Fail:Aborted Message: null
+  EndTest:6633
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayWithCutTimelineTests.IndexerTest
+    Fail:Aborted Message: null
+  EndTest:6624
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayWithCutTimelineTests.IndexOfNonExistingTest
+    Fail:Aborted Message: null
+  EndTest:6617
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayWithCutTimelineTests.IndexOfTest
+    Fail:Aborted Message: null
+  EndTest:6612
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayWithCutTimelineTests.StartTimeTest
+    Fail:Aborted Message: null
+  EndTest:6607
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayWithCutTimelineTests.SubTimelineIndirectTest
+    Fail:Aborted Message: null
+  EndTest:6601
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayWithCutTimelineTests.SubTimelineSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6595
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayWithCutTimelineTests.TimeIndexCeilingSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6591
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayWithCutTimelineTests.TimeIndexCeilingTest
+    Fail:Aborted Message: null
+  EndTest:6585
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayWithCutTimelineTests.TimeIndexFloorSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6579
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayWithCutTimelineTests.TimeIndexFloorTest
+    Fail:Aborted Message: null
+  EndTest:6574
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWeekdayWithCutTimelineTests.TimePointsTest
+    Fail:Aborted Message: null
+  EndTest:6569
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayTimelineTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:6563
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayTimelineTests.EndTimeTest
+    Fail:Aborted Message: null
+  EndTest:6555
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayTimelineTests.EnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:6552
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayTimelineTests.IndexerOutOfBoundsTest
+    Fail:Aborted Message: null
+  EndTest:6546
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayTimelineTests.IndexerTest
+    Fail:Aborted Message: null
+  EndTest:6540
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayTimelineTests.IndexOfNonExistingTest
+    Fail:Aborted Message: null
+  EndTest:6533
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayTimelineTests.IndexOfTest
+    Fail:Aborted Message: null
+  EndTest:6527
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayTimelineTests.StartTimeTest
+    Fail:Aborted Message: null
+  EndTest:6522
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayTimelineTests.SubTimelineIndirectTest
+    Fail:Aborted Message: null
+  EndTest:6517
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayTimelineTests.SubTimelineSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6512
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayTimelineTests.TimeIndexCeilingSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6507
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayTimelineTests.TimeIndexCeilingTest
+    Fail:Aborted Message: null
+  EndTest:6501
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayTimelineTests.TimeIndexFloorSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6496
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayTimelineTests.TimeIndexFloorTest
+    Fail:Aborted Message: null
+  EndTest:6490
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayTimelineTests.TimePointsTest
+    Fail:Aborted Message: null
+  EndTest:6484
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayWithCutTimelineTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:6477
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayWithCutTimelineTests.EndTimeTest
+    Fail:Aborted Message: null
+  EndTest:6472
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayWithCutTimelineTests.EnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:6465
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayWithCutTimelineTests.IndexerOutOfBoundsTest
+    Fail:Aborted Message: null
+  EndTest:6459
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayWithCutTimelineTests.IndexerTest
+    Fail:Aborted Message: null
+  EndTest:6452
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayWithCutTimelineTests.IndexOfNonExistingTest
+    Fail:Aborted Message: null
+  EndTest:6446
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayWithCutTimelineTests.IndexOfTest
+    Fail:Aborted Message: null
+  EndTest:6442
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayWithCutTimelineTests.StartTimeTest
+    Fail:Aborted Message: null
+  EndTest:6436
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayWithCutTimelineTests.SubTimelineIndirectTest
+    Fail:Aborted Message: null
+  EndTest:6431
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayWithCutTimelineTests.SubTimelineSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6426
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayWithCutTimelineTests.TimeIndexCeilingSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6420
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayWithCutTimelineTests.TimeIndexCeilingTest
+    Fail:Aborted Message: null
+  EndTest:6414
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayWithCutTimelineTests.TimeIndexFloorSegmentTest
+    Fail:Aborted Message: null
+  EndTest:6409
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayWithCutTimelineTests.TimeIndexFloorTest
+    Fail:Aborted Message: null
+  EndTest:6403
+------------------------
+  Test:FinOM.Test.TS.Core.IntradayOfWorkdayWithCutTimelineTests.TimePointsTest
+    Fail:Aborted Message: null
+  EndTest:6398
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.AbsTest
+    Fail:Aborted Message: null
+  EndTest:6391
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.AcosTest
+    Fail:Aborted Message: null
+  EndTest:6388
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.AsinTest
+    Fail:Aborted Message: null
+  EndTest:6382
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.Atan2Test
+    Fail:Aborted Message: null
+  EndTest:6376
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.AtanTest
+    Fail:Aborted Message: null
+  EndTest:6371
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.CeilingTest
+    Fail:Aborted Message: null
+  EndTest:6366
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.CoshTest
+    Fail:Aborted Message: null
+  EndTest:6360
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.CosTest
+    Fail:Aborted Message: null
+  EndTest:6354
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.ExpTest
+    Fail:Aborted Message: null
+  EndTest:6348
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.FloorTest
+    Fail:Aborted Message: null
+  EndTest:6344
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.Log10Test
+    Fail:Aborted Message: null
+  EndTest:6338
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.LogBTest
+    Fail:Aborted Message: null
+  EndTest:6333
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.LogTest
+    Fail:Aborted Message: null
+  EndTest:6327
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.PowTest
+    Fail:Aborted Message: null
+  EndTest:6322
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.RandomTest
+    Fail:Aborted Message: null
+  EndTest:6316
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.RemTest
+    Fail:Aborted Message: null
+  EndTest:6311
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.RoundDTest
+    Fail:Aborted Message: null
+  EndTest:6304
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.RoundTest
+    Fail:Aborted Message: null
+  EndTest:6300
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.SignTest
+    Fail:Aborted Message: null
+  EndTest:6294
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.SinhTest
+    Fail:Aborted Message: null
+  EndTest:6289
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.SinTest
+    Fail:Aborted Message: null
+  EndTest:6283
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.SqrtTest
+    Fail:Aborted Message: null
+  EndTest:6277
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.TanhTest
+    Fail:Aborted Message: null
+  EndTest:6271
+------------------------
+  Test:FinOM.Test.TS.Core.MathTimeSeriesExprTests.TanTest
+    Fail:Aborted Message: null
+  EndTest:6266
+------------------------
+  Test:FinOM.Test.TS.Core.MiscTimeSeriesExprTests.DataTest
+    Fail:Aborted Message: null
+  EndTest:6261
+------------------------
+  Test:FinOM.Test.TS.Core.MiscTimeSeriesExprTests.Random10Test
+    Fail:Aborted Message: null
+  EndTest:6255
+------------------------
+  Test:FinOM.Test.TS.Core.MiscTimeSeriesExprTests.RandomTest
+    Fail:Aborted Message: null
+  EndTest:6248
+------------------------
+  Test:FinOM.Test.TS.Core.MiscTimeSeriesExprTests.TodayMinusThenTest
+    Fail:Aborted Message: null
+  EndTest:6243
+------------------------
+  Test:FinOM.Test.TS.Core.MovingMultiTimeSeriesExprTests.CorrelTest
+    Fail:Aborted Message: null
+  EndTest:6237
+------------------------
+  Test:FinOM.Test.TS.Core.MovingMultiTimeSeriesExprTests.CovarTest
+    Fail:Aborted Message: null
+  EndTest:6232
+------------------------
+  Test:FinOM.Test.TS.Core.MovingMultiTimeSeriesExprTests.InterceptTest
+    Fail:Aborted Message: null
+  EndTest:6227
+------------------------
+  Test:FinOM.Test.TS.Core.MovingMultiTimeSeriesExprTests.SlopeTest
+    Fail:Aborted Message: null
+  EndTest:6219
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.AvgTest
+    Fail:Aborted Message: null
+  EndTest:6214
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.DiffTest
+    Fail:Aborted Message: null
+  EndTest:6208
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.DiffWTest
+    Fail:Aborted Message: null
+  EndTest:6202
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.ExpMATest
+    Fail:Aborted Message: null
+  EndTest:6196
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.GeoMeanTest
+    Fail:Aborted Message: null
+  EndTest:6191
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.HarMeanTest
+    Fail:Aborted Message: null
+  EndTest:6185
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.LagTest
+    Fail:Aborted Message: null
+  EndTest:6179
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.LagWTest
+    Fail:Aborted Message: null
+  EndTest:6175
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.MaxTest
+    Fail:Aborted Message: null
+  EndTest:6170
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.MinTest
+    Fail:Aborted Message: null
+  EndTest:6164
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.ProdTest
+    Fail:Aborted Message: null
+  EndTest:6158
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.RatioTest
+    Fail:Aborted Message: null
+  EndTest:6152
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.RatioWTest
+    Fail:Aborted Message: null
+  EndTest:6146
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.StDevTest
+    Fail:Aborted Message: null
+  EndTest:6141
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.SumTest
+    Fail:Aborted Message: null
+  EndTest:6135
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.VarTest
+    Fail:Aborted Message: null
+  EndTest:6130
+------------------------
+  Test:FinOM.Test.TS.Core.MovingUnaryTimeSeriesExprTests.WeightedMATest
+    Fail:Aborted Message: null
+  EndTest:6123
+------------------------
+  Test:FinOM.Test.TS.Core.MultipleTimelinesIntersectionTests.MultipleTimelinesIntersectionComprehensiveTest
+    Fail:Aborted Message: null
+  EndTest:6118
+------------------------
+  Test:FinOM.Test.TS.Core.MultipleTimelinesIntersectionTests.MultipleTimelinesIntersectionTest1
+    Fail:Aborted Message: null
+  EndTest:6113
+------------------------
+  Test:FinOM.Test.TS.Core.MultipleTimelinesIntersectionTests.MultipleTimelinesIntersectionTest2
+    Fail:Aborted Message: null
+  EndTest:6108
+------------------------
+  Test:FinOM.Test.TS.Core.MultiPointTimeSeriesExprTests.AvgTest
+    Fail:Aborted Message: null
+  EndTest:6102
+------------------------
+  Test:FinOM.Test.TS.Core.MultiPointTimeSeriesExprTests.GeoMeanTest
+    Fail:Aborted Message: null
+  EndTest:6094
+------------------------
+  Test:FinOM.Test.TS.Core.MultiPointTimeSeriesExprTests.HarMeanTest
+    Fail:Aborted Message: null
+  EndTest:6087
+------------------------
+  Test:FinOM.Test.TS.Core.MultiPointTimeSeriesExprTests.MaxTest
+    Fail:Aborted Message: null
+  EndTest:6081
+------------------------
+  Test:FinOM.Test.TS.Core.MultiPointTimeSeriesExprTests.MinTest
+    Fail:Aborted Message: null
+  EndTest:6076
+------------------------
+  Test:FinOM.Test.TS.Core.MultiPointTimeSeriesExprTests.ProdTest
+    Fail:Aborted Message: null
+  EndTest:6070
+------------------------
+  Test:FinOM.Test.TS.Core.MultiPointTimeSeriesExprTests.StDevTest
+    Fail:Aborted Message: null
+  EndTest:6062
+------------------------
+  Test:FinOM.Test.TS.Core.MultiPointTimeSeriesExprTests.SumTest
+    Fail:Aborted Message: null
+  EndTest:6057
+------------------------
+  Test:FinOM.Test.TS.Core.MultiPointTimeSeriesExprTests.VarTest
+    Fail:Aborted Message: null
+  EndTest:6052
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfExplicitTimelineTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:6047
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfExplicitTimelineTests.EndTimeTest
+    Fail:Aborted Message: null
+  EndTest:6041
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfExplicitTimelineTests.EnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:6036
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfExplicitTimelineTests.IndexerOutOfBoundsTest
+    Fail:Aborted Message: null
+  EndTest:6029
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfExplicitTimelineTests.IndexerTest
+    Fail:Aborted Message: null
+  EndTest:6024
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfExplicitTimelineTests.IndexOfNonExistingTest
+    Fail:Aborted Message: null
+  EndTest:6017
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfExplicitTimelineTests.IndexOfTest
+    Fail:Aborted Message: null
+  EndTest:6012
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfExplicitTimelineTests.StartTimeTest
+    Fail:Aborted Message: null
+  EndTest:6007
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfExplicitTimelineTests.SubTimelineIndirectTest
+    Fail:Aborted Message: null
+  EndTest:6003
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfExplicitTimelineTests.SubTimelineSegmentTest
+    Fail:Aborted Message: null
+  EndTest:5997
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfExplicitTimelineTests.TimeIndexCeilingSegmentTest
+    Fail:Aborted Message: null
+  EndTest:5992
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfExplicitTimelineTests.TimeIndexCeilingTest
+    Fail:Aborted Message: null
+  EndTest:5986
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfExplicitTimelineTests.TimeIndexFloorSegmentTest
+    Fail:Aborted Message: null
+  EndTest:5980
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfExplicitTimelineTests.TimeIndexFloorTest
+    Fail:Aborted Message: null
+  EndTest:5975
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfExplicitTimelineTests.TimePointsTest
+    Fail:Aborted Message: null
+  EndTest:5969
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfRecurringTimelineTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:5963
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfRecurringTimelineTests.EndTimeTest
+    Fail:Aborted Message: null
+  EndTest:5958
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfRecurringTimelineTests.EnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:5952
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfRecurringTimelineTests.IndexerOutOfBoundsTest
+    Fail:Aborted Message: null
+  EndTest:5946
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfRecurringTimelineTests.IndexerTest
+    Fail:Aborted Message: null
+  EndTest:5940
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfRecurringTimelineTests.IndexOfNonExistingTest
+    Fail:Aborted Message: null
+  EndTest:5934
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfRecurringTimelineTests.IndexOfTest
+    Fail:Aborted Message: null
+  EndTest:5928
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfRecurringTimelineTests.StartTimeTest
+    Fail:Aborted Message: null
+  EndTest:5924
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfRecurringTimelineTests.SubTimelineIndirectTest
+    Fail:Aborted Message: null
+  EndTest:5917
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfRecurringTimelineTests.SubTimelineSegmentTest
+    Fail:Aborted Message: null
+  EndTest:5912
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfRecurringTimelineTests.TimeIndexCeilingSegmentTest
+    Fail:Aborted Message: null
+  EndTest:5906
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfRecurringTimelineTests.TimeIndexCeilingTest
+    Fail:Aborted Message: null
+  EndTest:5898
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfRecurringTimelineTests.TimeIndexFloorSegmentTest
+    Fail:Aborted Message: null
+  EndTest:5893
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfRecurringTimelineTests.TimeIndexFloorTest
+    Fail:Aborted Message: null
+  EndTest:5887
+------------------------
+  Test:FinOM.Test.TS.Core.OffsetOfRecurringTimelineTests.TimePointsTest
+    Fail:Aborted Message: null
+  EndTest:5882
+------------------------
+  Test:FinOM.Test.TS.Core.OperatorTests.DifferenceTest
+    Fail:Aborted Message: null
+  EndTest:5877
+------------------------
+  Test:FinOM.Test.TS.Core.OperatorTests.IntersectionTest
+    Fail:Aborted Message: null
+  EndTest:5871
+------------------------
+  Test:FinOM.Test.TS.Core.OperatorTests.SymDiffTest
+    Fail:Aborted Message: null
+  EndTest:5865
+------------------------
+  Test:FinOM.Test.TS.Core.OperatorTests.UnionTest
+    Fail:Aborted Message: null
+  EndTest:5857
+------------------------
+  Test:FinOM.Test.TS.Core.OutOfIterationTimelinesEnumeratorTests.BinaryTimelineAfterFinishStartEnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:5852
+------------------------
+  Test:FinOM.Test.TS.Core.OutOfIterationTimelinesEnumeratorTests.BinaryTimelineBeforeStartEnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:5845
+------------------------
+  Test:FinOM.Test.TS.Core.OutOfIterationTimelinesEnumeratorTests.EmptyTimelineAfterFinishStartEnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:5840
+------------------------
+  Test:FinOM.Test.TS.Core.OutOfIterationTimelinesEnumeratorTests.EmptyTimelineBeforeStartEnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:5834
+------------------------
+  Test:FinOM.Test.TS.Core.OutOfIterationTimelinesEnumeratorTests.SingleTimelineAfterFinishStartEnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:5829
+------------------------
+  Test:FinOM.Test.TS.Core.OutOfIterationTimelinesEnumeratorTests.SingleTimelineBeforeStartEnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:5823
+------------------------
+  Test:FinOM.Test.TS.Core.RandomBlindCombinedTimelinesTests.DifferenceTest
+    Fail:Aborted Message: null
+  EndTest:5818
+------------------------
+  Test:FinOM.Test.TS.Core.RandomBlindCombinedTimelinesTests.GuideTest
+    Fail:Aborted Message: null
+  EndTest:5812
+------------------------
+  Test:FinOM.Test.TS.Core.RandomBlindCombinedTimelinesTests.IntersectionTest
+    Fail:Aborted Message: null
+  EndTest:5807
+------------------------
+  Test:FinOM.Test.TS.Core.RandomBlindCombinedTimelinesTests.SymDiffTest
+    Fail:Aborted Message: null
+  EndTest:5802
+------------------------
+  Test:FinOM.Test.TS.Core.RandomBlindCombinedTimelinesTests.UnionTest
+    Fail:Aborted Message: null
+  EndTest:5796
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.DifferenceOfDifferenceTest
+    Fail:Aborted Message: null
+  EndTest:5790
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.DifferenceOfGuideTest
+    Fail:Aborted Message: null
+  EndTest:5785
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.DifferenceOfIntersectionTest
+    Fail:Aborted Message: null
+  EndTest:5779
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.DifferenceOfSymDiffTest
+    Fail:Aborted Message: null
+  EndTest:5773
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.DifferenceOfUnionTest
+    Fail:Aborted Message: null
+  EndTest:5767
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.GuideOfDifferenceTest
+    Fail:Aborted Message: null
+  EndTest:5761
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.GuideOfGuideTest
+    Fail:Aborted Message: null
+  EndTest:5756
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.GuideOfIntersectionTest
+    Fail:Aborted Message: null
+  EndTest:5750
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.GuideOfSymDiffTest
+    Fail:Aborted Message: null
+  EndTest:5744
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.GuideOfUnionTest
+    Fail:Aborted Message: null
+  EndTest:5739
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.IntersectionOfDifferenceTest
+    Fail:Aborted Message: null
+  EndTest:5733
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.IntersectionOfGuideTest
+    Fail:Aborted Message: null
+  EndTest:5728
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.IntersectionOfIntersectionTest
+    Fail:Aborted Message: null
+  EndTest:5722
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.IntersectionOfSymDiffTest
+    Fail:Aborted Message: null
+  EndTest:5718
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.IntersectionOfUnionTest
+    Fail:Aborted Message: null
+  EndTest:5711
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.SymDiffOfDifferenceTest
+    Fail:Aborted Message: null
+  EndTest:5704
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.SymDiffOfGuideTest
+    Fail:Aborted Message: null
+  EndTest:5699
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.SymDiffOfIntersectionTest
+    Fail:Aborted Message: null
+  EndTest:5692
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.SymDiffOfSymDiffTest
+    Fail:Aborted Message: null
+  EndTest:5686
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.SymDiffOfUnionTest
+    Fail:Aborted Message: null
+  EndTest:5680
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.UnionOfDifferenceTest
+    Fail:Aborted Message: null
+  EndTest:5675
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.UnionOfGuideTest
+    Fail:Aborted Message: null
+  EndTest:5670
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.UnionOfIntersectionTest
+    Fail:Aborted Message: null
+  EndTest:4520
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.UnionOfSymDiffTest
+    Fail:Aborted Message: null
+  EndTest:4514
+------------------------
+  Test:FinOM.Test.TS.Core.RandomMixedCombinedTimelinesTests.UnionOfUnionTest
+    Fail:Aborted Message: null
+  EndTest:4508
+------------------------
+  Test:FinOM.Test.TS.Core.RecurrenceConsistencyTests.TimeIndexConsistencyTest
+    Fail:Aborted Message: null
+  EndTest:4503
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineCreationPermormanceTests.RecurringTimelineCreationPerformanceTest
+    Fail:Aborted Message: null
+  EndTest:4498
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineCreationTests.EveryDayTimelineCreationTest
+    Fail:Aborted Message: null
+  EndTest:4491
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineCreationTests.EveryWeekdayTimelineCreationTest
+    Fail:Aborted Message: null
+  EndTest:4485
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineCreationTests.EveryWorkdayTimelineCreationTest
+    Fail:Aborted Message: null
+  EndTest:4480
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineCreationTests.StartEndDeltaTimelineCreationTest
+    Fail:Aborted Message: null
+  EndTest:4475
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineCreationTests.StartEndTimelineCreationTest
+    Fail:Aborted Message: null
+  EndTest:4469
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:4464
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineTests.EndTimeTest
+    Fail:Aborted Message: null
+  EndTest:4458
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineTests.EnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:4452
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineTests.IndexerOutOfBoundsTest
+    Fail:Aborted Message: null
+  EndTest:4446
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineTests.IndexerTest
+    Fail:Aborted Message: null
+  EndTest:4440
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineTests.IndexOfNonExistingTest
+    Fail:Aborted Message: null
+  EndTest:4434
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineTests.IndexOfTest
+    Fail:Aborted Message: null
+  EndTest:4429
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineTests.StartTimeTest
+    Fail:Aborted Message: null
+  EndTest:4424
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineTests.SubTimelineIndirectTest
+    Fail:Aborted Message: null
+  EndTest:4420
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineTests.SubTimelineSegmentTest
+    Fail:Aborted Message: null
+  EndTest:4415
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineTests.TimeIndexCeilingSegmentTest
+    Fail:Aborted Message: null
+  EndTest:4409
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineTests.TimeIndexCeilingTest
+    Fail:Aborted Message: null
+  EndTest:4404
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineTests.TimeIndexFloorSegmentTest
+    Fail:Aborted Message: null
+  EndTest:4398
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineTests.TimeIndexFloorTest
+    Fail:Aborted Message: null
+  EndTest:4393
+------------------------
+  Test:FinOM.Test.TS.Core.RecurringTimelineTests.TimePointsTest
+    Fail:Aborted Message: null
+  EndTest:4387
+------------------------
+  Test:FinOM.Test.TS.Core.RunningMultiTimeSeriesExprTests.CorrelTest
+    Fail:Aborted Message: null
+  EndTest:4383
+------------------------
+  Test:FinOM.Test.TS.Core.RunningMultiTimeSeriesExprTests.CovarTest
+    Fail:Aborted Message: null
+  EndTest:4377
+------------------------
+  Test:FinOM.Test.TS.Core.RunningMultiTimeSeriesExprTests.InterceptTest
+    Fail:Aborted Message: null
+  EndTest:4369
+------------------------
+  Test:FinOM.Test.TS.Core.RunningMultiTimeSeriesExprTests.SlopeTest
+    Fail:Aborted Message: null
+  EndTest:4364
+------------------------
+  Test:FinOM.Test.TS.Core.RunningUnaryTimeSeriesExprTests.RAvgTest
+    Fail:Aborted Message: null
+  EndTest:4357
+------------------------
+  Test:FinOM.Test.TS.Core.RunningUnaryTimeSeriesExprTests.RDiffTest
+    Fail:Aborted Message: null
+  EndTest:4352
+------------------------
+  Test:FinOM.Test.TS.Core.RunningUnaryTimeSeriesExprTests.RGeoMeanTest
+    Fail:Aborted Message: null
+  EndTest:4344
+------------------------
+  Test:FinOM.Test.TS.Core.RunningUnaryTimeSeriesExprTests.RHarMeanTest
+    Fail:Aborted Message: null
+  EndTest:4339
+------------------------
+  Test:FinOM.Test.TS.Core.RunningUnaryTimeSeriesExprTests.RMaxTest
+    Fail:Aborted Message: null
+  EndTest:4333
+------------------------
+  Test:FinOM.Test.TS.Core.RunningUnaryTimeSeriesExprTests.RMinTest
+    Fail:Aborted Message: null
+  EndTest:4328
+------------------------
+  Test:FinOM.Test.TS.Core.RunningUnaryTimeSeriesExprTests.RProdTest
+    Fail:Aborted Message: null
+  EndTest:4322
+------------------------
+  Test:FinOM.Test.TS.Core.RunningUnaryTimeSeriesExprTests.RRatioTest
+    Fail:Aborted Message: null
+  EndTest:4316
+------------------------
+  Test:FinOM.Test.TS.Core.RunningUnaryTimeSeriesExprTests.RStDevTest
+    Fail:Aborted Message: null
+  EndTest:4309
+------------------------
+  Test:FinOM.Test.TS.Core.RunningUnaryTimeSeriesExprTests.RSumTest
+    Fail:Aborted Message: null
+  EndTest:4304
+------------------------
+  Test:FinOM.Test.TS.Core.RunningUnaryTimeSeriesExprTests.RVarTest
+    Fail:Aborted Message: null
+  EndTest:4299
+------------------------
+  Test:FinOM.Test.TS.Core.ScalarMultiTimeSeriesExprTests.CorrelTest
+    Fail:Aborted Message: null
+  EndTest:4293
+------------------------
+  Test:FinOM.Test.TS.Core.ScalarMultiTimeSeriesExprTests.CovarTest
+    Fail:Aborted Message: null
+  EndTest:4287
+------------------------
+  Test:FinOM.Test.TS.Core.ScalarMultiTimeSeriesExprTests.InterceptTest
+    Fail:Aborted Message: null
+  EndTest:4279
+------------------------
+  Test:FinOM.Test.TS.Core.ScalarMultiTimeSeriesExprTests.SlopeTest
+    Fail:Aborted Message: null
+  EndTest:4273
+------------------------
+  Test:FinOM.Test.TS.Core.ScalarUnaryTimeSeriesExprTests.AvgTest
+    Fail:Aborted Message: null
+  EndTest:4267
+------------------------
+  Test:FinOM.Test.TS.Core.ScalarUnaryTimeSeriesExprTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:4261
+------------------------
+  Test:FinOM.Test.TS.Core.ScalarUnaryTimeSeriesExprTests.GeoMeanTest
+    Fail:Aborted Message: null
+  EndTest:4256
+------------------------
+  Test:FinOM.Test.TS.Core.ScalarUnaryTimeSeriesExprTests.HarMeanTest
+    Fail:Aborted Message: null
+  EndTest:4252
+------------------------
+  Test:FinOM.Test.TS.Core.ScalarUnaryTimeSeriesExprTests.MaxTest
+    Fail:Aborted Message: null
+  EndTest:4245
+------------------------
+  Test:FinOM.Test.TS.Core.ScalarUnaryTimeSeriesExprTests.MinTest
+    Fail:Aborted Message: null
+  EndTest:4238
+------------------------
+  Test:FinOM.Test.TS.Core.ScalarUnaryTimeSeriesExprTests.ProdTest
+    Fail:Aborted Message: null
+  EndTest:4232
+------------------------
+  Test:FinOM.Test.TS.Core.ScalarUnaryTimeSeriesExprTests.StDevTest
+    Fail:Aborted Message: null
+  EndTest:4224
+------------------------
+  Test:FinOM.Test.TS.Core.ScalarUnaryTimeSeriesExprTests.SumTest
+    Fail:Aborted Message: null
+  EndTest:4218
+------------------------
+  Test:FinOM.Test.TS.Core.ScalarUnaryTimeSeriesExprTests.VarTest
+    Fail:Aborted Message: null
+  EndTest:4213
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfExplicitTimelineTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:4208
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfExplicitTimelineTests.EndTimeTest
+    Fail:Aborted Message: null
+  EndTest:4202
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfExplicitTimelineTests.EnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:4198
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfExplicitTimelineTests.IndexerOutOfBoundsTest
+    Fail:Aborted Message: null
+  EndTest:4192
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfExplicitTimelineTests.IndexerTest
+    Fail:Aborted Message: null
+  EndTest:4187
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfExplicitTimelineTests.IndexOfNonExistingTest
+    Fail:Aborted Message: null
+  EndTest:4181
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfExplicitTimelineTests.IndexOfTest
+    Fail:Aborted Message: null
+  EndTest:4175
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfExplicitTimelineTests.StartTimeTest
+    Fail:Aborted Message: null
+  EndTest:4169
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfExplicitTimelineTests.SubTimelineIndirectTest
+    Fail:Aborted Message: null
+  EndTest:4164
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfExplicitTimelineTests.SubTimelineSegmentTest
+    Fail:Aborted Message: null
+  EndTest:4158
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfExplicitTimelineTests.TimeIndexCeilingSegmentTest
+    Fail:Aborted Message: null
+  EndTest:4150
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfExplicitTimelineTests.TimeIndexCeilingTest
+    Fail:Aborted Message: null
+  EndTest:4145
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfExplicitTimelineTests.TimeIndexFloorSegmentTest
+    Fail:Aborted Message: null
+  EndTest:4141
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfExplicitTimelineTests.TimeIndexFloorTest
+    Fail:Aborted Message: null
+  EndTest:4132
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfExplicitTimelineTests.TimePointsTest
+    Fail:Aborted Message: null
+  EndTest:4127
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfRecurringTimelineTests.CountTest
+    Fail:Aborted Message: null
+  EndTest:4119
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfRecurringTimelineTests.EndTimeTest
+    Fail:Aborted Message: null
+  EndTest:4112
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfRecurringTimelineTests.EnumeratorTest
+    Fail:Aborted Message: null
+  EndTest:4107
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfRecurringTimelineTests.IndexerOutOfBoundsTest
+    Fail:Aborted Message: null
+  EndTest:4100
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfRecurringTimelineTests.IndexerTest
+    Fail:Aborted Message: null
+  EndTest:4094
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfRecurringTimelineTests.IndexOfNonExistingTest
+    Fail:Aborted Message: null
+  EndTest:4089
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfRecurringTimelineTests.IndexOfTest
+    Fail:Aborted Message: null
+  EndTest:4085
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfRecurringTimelineTests.StartTimeTest
+    Fail:Aborted Message: null
+  EndTest:4079
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfRecurringTimelineTests.SubTimelineIndirectTest
+    Fail:Aborted Message: null
+  EndTest:4073
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfRecurringTimelineTests.SubTimelineSegmentTest
+    Fail:Aborted Message: null
+  EndTest:4066
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfRecurringTimelineTests.TimeIndexCeilingSegmentTest
+    Fail:Aborted Message: null
+  EndTest:4061
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfRecurringTimelineTests.TimeIndexCeilingTest
+    Fail:Aborted Message: null
+  EndTest:4054
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfRecurringTimelineTests.TimeIndexFloorSegmentTest
+    Fail:Aborted Message: null
+  EndTest:4049
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfRecurringTimelineTests.TimeIndexFloorTest
+    Fail:Aborted Message: null
+  EndTest:4043
+------------------------
+  Test:FinOM.Test.TS.Core.SegmentOfRecurringTimelineTests.TimePointsTest
+    Fail:Aborted Message: null
+  EndTest:4038
+------------------------
+  Test:FinOM.Test.TS.Core.SelfBinaryTimelinesEnumeratorTests.SelfBinaryTimelinesEnumeratorTest1
+    Fail:Aborted Message: null
+  EndTest:4032
+------------------------
+  Test:FinOM.Test.TS.Core.SelfBinaryTimelinesEnumeratorTests.SelfBinaryTimelinesEnumeratorTest2
+    Fail:Aborted Message: null
+  EndTest:4028
+------------------------
+  Test:FinOM.Test.TS.Core.SelfExpectedCombinedTimelinesTests.GuideTest
+    Fail:Aborted Message: null
+  EndTest:4021
+------------------------
+  Test:FinOM.Test.TS.Core.SelfExpectedCombinedTimelinesTests.IntersectionTest
+    Fail:Aborted Message: null
+  EndTest:4016
+------------------------
+  Test:FinOM.Test.TS.Core.SelfExpectedCombinedTimelinesTests.SelfDifferenceTest
+    Fail:Aborted Message: null
+  EndTest:4010
+------------------------
+  Test:FinOM.Test.TS.Core.SelfExpectedCombinedTimelinesTests.SelfSymDiffTest
+    Fail:Aborted Message: null
+  EndTest:4006
+------------------------
+  Test:FinOM.Test.TS.Core.SelfExpectedCombinedTimelinesTests.UnionTest
+    Fail:Aborted Message: null
+  EndTest:4001
+------------------------
+  Test:FinOM.Test.TS.Core.SingularExpectedCombinedTimelinesTests.DifferenceTest
+    Fail:Aborted Message: null
+  EndTest:3995
+------------------------
+  Test:FinOM.Test.TS.Core.SingularExpectedCombinedTimelinesTests.GuideTest
+    Fail:Aborted Message: null
+  EndTest:3989
+------------------------
+  Test:FinOM.Test.TS.Core.SingularExpectedCombinedTimelinesTests.IntersectionTest
+    Fail:Aborted Message: null
+  EndTest:3984
+------------------------
+  Test:FinOM.Test.TS.Core.SingularExpectedCombinedTimelinesTests.SymDiffTest
+    Fail:Aborted Message: null
+  EndTest:3980
+------------------------
+  Test:FinOM.Test.TS.Core.SingularExpectedCombinedTimelinesTests.UnionTest
+    Fail:Aborted Message: null
+  EndTest:3972
+------------------------
+  Test:FinOM.Test.TS.Core.SpliceGeometricTimeSeriesExprTests.ABCTest
+    Fail:Aborted Message: null
+  EndTest:3965
+------------------------
+  Test:FinOM.Test.TS.Core.SpliceGeometricTimeSeriesExprTests.ABTest
+    Fail:Aborted Message: null
+  EndTest:3960
+------------------------
+  Test:FinOM.Test.TS.Core.SpliceGeometricTimeSeriesExprTests.ACTest
+    Fail:Aborted Message: null
+  EndTest:3954
+------------------------
+  Test:FinOM.Test.TS.Core.SpliceGeometricTimeSeriesExprTests.BATest
+    Fail:Aborted Message: null
+  EndTest:3946
+------------------------
+  Test:FinOM.Test.TS.Core.SpliceGeometricTimeSeriesExprTests.CATest
+    Fail:Aborted Message: null
+  EndTest:3938
+------------------------
+  Test:FinOM.Test.TS.Core.SpliceGeometricTimeSeriesExprTests.CBATest
+    Fail:Aborted Message: null
+  EndTest:3929
+------------------------
+  Test:FinOM.Test.TS.Core.SpliceTimeSeriesExprTests.ABCTest
+    Fail:Aborted Message: null
+  EndTest:3922
+------------------------
+  Test:FinOM.Test.TS.Core.SpliceTimeSeriesExprTests.ABTest
+    Fail:Aborted Message: null
+  EndTest:3917
+------------------------
+  Test:FinOM.Test.TS.Core.SpliceTimeSeriesExprTests.ACTest
+    Fail:Aborted Message: null
+  EndTest:3911
+------------------------
+  Test:FinOM.Test.TS.Core.SpliceTimeSeriesExprTests.BATest
+    Fail:Aborted Message: null
+  EndTest:3904
+------------------------
+  Test:FinOM.Test.TS.Core.SpliceTimeSeriesExprTests.CATest
+    Fail:Aborted Message: null
+  EndTest:3899
+------------------------
+  Test:FinOM.Test.TS.Core.SpliceTimeSeriesExprTests.CBATest
+    Fail:Aborted Message: null
+  EndTest:3893
+------------------------
+  Test:FinOM.Test.TS.Core.StepsBlindCombinedTimelinesTests.DifferenceTest
+    Fail:Aborted Message: null
+  EndTest:3887
+------------------------
+  Test:FinOM.Test.TS.Core.StepsBlindCombinedTimelinesTests.GuideTest
+    Fail:Aborted Message: null
+  EndTest:3882
+------------------------
+  Test:FinOM.Test.TS.Core.StepsBlindCombinedTimelinesTests.IntersectionTest
+    Fail:Aborted Message: null
+  EndTest:3878
+------------------------
+  Test:FinOM.Test.TS.Core.StepsBlindCombinedTimelinesTests.SymDiffTest
+    Fail:Aborted Message: null
+  EndTest:3872
+------------------------
+  Test:FinOM.Test.TS.Core.StepsBlindCombinedTimelinesTests.UnionTest
+    Fail:Aborted Message: null
+  EndTest:3866
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.DifferenceOfDifferenceTest
+    Fail:Aborted Message: null
+  EndTest:3861
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.DifferenceOfGuideTest
+    Fail:Aborted Message: null
+  EndTest:3856
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.DifferenceOfIntersectionTest
+    Fail:Aborted Message: null
+  EndTest:3850
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.DifferenceOfSymDiffTest
+    Fail:Aborted Message: null
+  EndTest:3844
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.DifferenceOfUnionTest
+    Fail:Aborted Message: null
+  EndTest:3840
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.GuideOfDifferenceTest
+    Fail:Aborted Message: null
+  EndTest:3834
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.GuideOfGuideTest
+    Fail:Aborted Message: null
+  EndTest:3829
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.GuideOfIntersectionTest
+    Fail:Aborted Message: null
+  EndTest:3823
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.GuideOfSymDiffTest
+    Fail:Aborted Message: null
+  EndTest:3818
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.GuideOfUnionTest
+    Fail:Aborted Message: null
+  EndTest:3812
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.IntersectionOfDifferenceTest
+    Fail:Aborted Message: null
+  EndTest:3808
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.IntersectionOfGuideTest
+    Fail:Aborted Message: null
+  EndTest:3803
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.IntersectionOfIntersectionTest
+    Fail:Aborted Message: null
+  EndTest:3798
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.IntersectionOfSymDiffTest
+    Fail:Aborted Message: null
+  EndTest:3792
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.IntersectionOfUnionTest
+    Fail:Aborted Message: null
+  EndTest:3786
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.SymDiffOfDifferenceTest
+    Fail:Aborted Message: null
+  EndTest:3781
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.SymDiffOfGuideTest
+    Fail:Aborted Message: null
+  EndTest:3773
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.SymDiffOfIntersectionTest
+    Fail:Aborted Message: null
+  EndTest:3765
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.SymDiffOfSymDiffTest
+    Fail:Aborted Message: null
+  EndTest:3759
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.SymDiffOfUnionTest
+    Fail:Aborted Message: null
+  EndTest:3756
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.UnionOfDifferenceTest
+    Fail:Aborted Message: null
+  EndTest:3749
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.UnionOfGuideTest
+    Fail:Aborted Message: null
+  EndTest:3744
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.UnionOfIntersectionTest
+    Fail:Aborted Message: null
+  EndTest:3738
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.UnionOfSymDiffTest
+    Fail:Aborted Message: null
+  EndTest:3732
+------------------------
+  Test:FinOM.Test.TS.Core.StepsMixedCombinedTimelinesTests.UnionOfUnionTest
+    Fail:Aborted Message: null
+  EndTest:3727
+------------------------
+  Test:FinOM.Test.TS.Core.SubsetAndIndexTests.NegativeIndexTest1
+    Fail:Aborted Message: null
+  EndTest:3721
+------------------------
+  Test:FinOM.Test.TS.Core.SubsetAndIndexTests.NegativeIndexTest2
+    Fail:Aborted Message: null
+  EndTest:3715
+------------------------
+  Test:FinOM.Test.TS.Core.SubsetAndIndexTests.NegativeSubsetTest
+    Fail:Aborted Message: null
+  EndTest:3710
+------------------------
+  Test:FinOM.Test.TS.Core.SubsetAndIndexTests.PositiveIndexTest
+    Fail:Aborted Message: null
+  EndTest:3704
+------------------------
+  Test:FinOM.Test.TS.Core.SubsetAndIndexTests.PositiveSubsetTest
+    Fail:Aborted Message: null
+  EndTest:3699
+------------------------
+  Test:FinOM.Test.TS.Core.SubsetAndIndexTests.SelfIndexTest
+    Fail:Aborted Message: null
+  EndTest:3694
+------------------------
+  Test:FinOM.Test.TS.Core.SubsetAndIndexTests.SelfSubsetTest
+    Fail:Aborted Message: null
+  EndTest:3687
+------------------------
+  Test:FinOM.Test.TS.Core.TinyTimelinesCombiningTests.TinyTimelinesCombiningTest1
+    Fail:Aborted Message: null
+  EndTest:3682
+------------------------
+  Test:FinOM.Test.TS.Core.TinyTimelinesCombiningTests.TinyTimelinesCombiningTest2
+    Fail:Aborted Message: null
+  EndTest:3676
+------------------------
+  Test:FinOM.Test.TS.Core.TinyTimelinesCombiningTests.TinyTimelinesCombiningTest3
+    Fail:Aborted Message: null
+  EndTest:3669
+------------------------
+  Test:FinOM.Test.TS.Core.UniformRecurrenceTests.CompatibleWithTest
+    Fail:Aborted Message: null
+  EndTest:3661
+------------------------
+  Test:FinOM.Test.TS.Core.UniformRecurrenceTests.IndexToTimeTest
+    Fail:Aborted Message: null
+  EndTest:3655
+------------------------
+  Test:FinOM.Test.TS.Core.UniformRecurrenceTests.IntradayTest
+    Fail:Aborted Message: null
+  EndTest:3649
+------------------------
+  Test:FinOM.Test.TS.Core.UniformRecurrenceTests.TimeToIndexTest
+    Fail:Aborted Message: null
+  EndTest:3644
+------------------------
+  Test:FinOM.Test.TS.Core.WeekdayCompositeRecurrenceTests.CompatibleWithTest
+    Fail:Aborted Message: null
+  EndTest:3638
+------------------------
+  Test:FinOM.Test.TS.Core.WeekdayCompositeRecurrenceTests.IndexToTimeEvenTest
+    Fail:Aborted Message: null
+  EndTest:3632
+------------------------
+  Test:FinOM.Test.TS.Core.WeekdayCompositeRecurrenceTests.IndexToTimeShiftedNegativeTest
+    Fail:Aborted Message: null
+  EndTest:3627
+------------------------
+  Test:FinOM.Test.TS.Core.WeekdayCompositeRecurrenceTests.IndexToTimeShiftedPositiveTest
+    Fail:Aborted Message: null
+  EndTest:3621
+------------------------
+  Test:FinOM.Test.TS.Core.WeekdayCompositeRecurrenceTests.IntradayTest
+    Fail:Aborted Message: null
+  EndTest:3615
+------------------------
+  Test:FinOM.Test.TS.Core.WeekdayCompositeRecurrenceTests.TimeToIndexEvenTest
+    Fail:Aborted Message: null
+  EndTest:3610
+------------------------
+  Test:FinOM.Test.TS.Core.WeekdayCompositeRecurrenceTests.TimeToIndexShiftedNegativeTest
+    Fail:Aborted Message: null
+  EndTest:3603
+------------------------
+  Test:FinOM.Test.TS.Core.WeekdayCompositeRecurrenceTests.TimeToIndexShiftedPositiveTest
+    Fail:Aborted Message: null
+  EndTest:3598
+------------------------
+  Test:FinOM.Test.TS.Core.WeekdayRecurrenceTests.CompatibleWithTest
+    Fail:Aborted Message: null
+  EndTest:3592
+------------------------
+  Test:FinOM.Test.TS.Core.WeekdayRecurrenceTests.IndexToTimeTest
+    Fail:Aborted Message: null
+  EndTest:3588
+------------------------
+  Test:FinOM.Test.TS.Core.WeekdayRecurrenceTests.IntradayTest
+    Fail:Aborted Message: null
+  EndTest:3580
+------------------------
+  Test:FinOM.Test.TS.Core.WeekdayRecurrenceTests.TimeToIndexTest
+    Fail:Aborted Message: null
+  EndTest:3575
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayCompositeRecurrenceTests.CompatibleWithTest
+    Fail:Aborted Message: null
+  EndTest:3569
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayCompositeRecurrenceTests.IndexToTimeEvenTest
+    Fail:Aborted Message: null
+  EndTest:3561
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayCompositeRecurrenceTests.IndexToTimeShiftedNegativeTest
+    Fail:Aborted Message: null
+  EndTest:3555
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayCompositeRecurrenceTests.IndexToTimeShiftedPositiveTest
+    Fail:Aborted Message: null
+  EndTest:3549
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayCompositeRecurrenceTests.IntradayTest
+    Fail:Aborted Message: null
+  EndTest:3544
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayCompositeRecurrenceTests.TimeToIndexEvenTest
+    Fail:Aborted Message: null
+  EndTest:3539
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayCompositeRecurrenceTests.TimeToIndexShiftedNegativeTest
+    Fail:Aborted Message: null
+  EndTest:3534
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayCompositeRecurrenceTests.TimeToIndexShiftedPositiveTest
+    Fail:Aborted Message: null
+  EndTest:3528
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.CompositeRecurrenceNegativeCreationTest5
+    Fail:Aborted Message: null
+  EndTest:3522
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.CompositeRecurrenceNegativeCreationTest6
+    Fail:Aborted Message: null
+  EndTest:3516
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.CompositeRecurrenceNegativeCreationTest7
+    Fail:Aborted Message: null
+  EndTest:3510
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.CompositeRecurrencePositiveCreationTest1
+    Fail:Aborted Message: null
+  EndTest:3505
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.CompositeRecurrencePositiveCreationTest2
+    Fail:Aborted Message: null
+  EndTest:3497
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.CompositeRecurrencePositiveCreationTest3
+    Fail:Aborted Message: null
+  EndTest:3492
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.CompositeRecurrencePositiveCreationTest4
+    Fail:Aborted Message: null
+  EndTest:3486
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.NonUniformCompositeRecurrenceCeilingTest
+    Fail:Aborted Message: null
+  EndTest:3480
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.NonUniformCompositeRecurrenceFloorTest
+    Fail:Aborted Message: null
+  EndTest:3472
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.NonUniformCompositeRecurrenceIndexToTimeTest
+    Fail:Aborted Message: null
+  EndTest:3467
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.NonUniformCompositeRecurrenceMinimumIntervalTest
+    Fail:Aborted Message: null
+  EndTest:3462
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.NonUniformCompositeRecurrenceMixedOriginsIndexToTimeTest
+    Fail:Aborted Message: null
+  EndTest:3454
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.NonUniformCompositeRecurrenceTimeToIndexTest
+    Fail:Aborted Message: null
+  EndTest:3448
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.UniformCompositeRecurrenceCeilingTest
+    Fail:Aborted Message: null
+  EndTest:3442
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.UniformCompositeRecurrenceFloorTest
+    Fail:Aborted Message: null
+  EndTest:3437
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.UniformCompositeRecurrenceIndexToTimeTest
+    Fail:Aborted Message: null
+  EndTest:3431
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.UniformCompositeRecurrenceMinimumIntervalTest
+    Fail:Aborted Message: null
+  EndTest:3425
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.UniformCompositeRecurrenceMixedOriginsIndexToTimeTest
+    Fail:Aborted Message: null
+  EndTest:3422
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayPartialCompositeRecurrenceTests.UniformCompositeRecurrenceTimeToIndexTest
+    Fail:Aborted Message: null
+  EndTest:3417
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayRecurrenceTests.CompatibleWithTest
+    Fail:Aborted Message: null
+  EndTest:3410
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayRecurrenceTests.IndexToTimeTest
+    Fail:Aborted Message: null
+  EndTest:3404
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayRecurrenceTests.IntradayTest
+    Fail:Aborted Message: null
+  EndTest:3396
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayRecurrenceTests.TimeToIndexTest
+    Fail:Aborted Message: null
+  EndTest:3390
+------------------------
+  Test:FinOM.Test.TS.Core.WorkdayTest.WorkdayBugTest
+    Fail:Aborted Message: null
+  EndTest:3384
+------------------------
+  Test:FinOM.Test.TS.Data.QVLoadableSeriesTests.QVDailyLoadableSeriesTest
+    Fail:Aborted Message: null
+  EndTest:3379
+------------------------
+  Test:FinOM.Test.TS.Data.QVLoadableSeriesTests.QVIntradayAggregationExprDailyTest
+    Fail:Aborted Message: null
+  EndTest:3372
+------------------------
+  Test:FinOM.Test.TS.Data.QVLoadableSeriesTests.QVIntradayAggregationExprHourlyTest
+    Fail:Aborted Message: null
+  EndTest:3368
+------------------------
+  Test:FinOM.Test.TS.Data.QVLoadableSeriesTests.QVIntradayLoadableSeriesFinOMTest
+    Fail:Aborted Message: null
+  EndTest:3360
+------------------------
+  Test:FinOM.Test.TS.Data.QVLoadableSeriesTests.QVIntradayLoadableSeriesInvalidSeniorityTest
+    Fail:Aborted Message: null
+  EndTest:3354
+------------------------
+  Test:FinOM.Test.TS.Data.QVLoadableSeriesTests.QVIntradayLoadableSeriesNativeTest
+    Fail:Aborted Message: null
+  EndTest:3348
+------------------------
+  Test:FinOM.Test.TS.Data.QVLoadableSeriesTests.QVIntradayToDailyTest
+    Fail:Aborted Message: null
+  EndTest:3342
+------------------------
+  Test:FinOM.Test.TS.Data.QVLoadableSeriesTests.QVIntradayToHourlyTest
+    Fail:Aborted Message: null
+  EndTest:3337
+------------------------
+  Test:FinOM.Test.TS.Data.TSLoadableSeriesTests.TSDailyLoadableSeriesTest1
+    Fail:Aborted Message: null
+  EndTest:3331
+------------------------
+  Test:FinOM.Test.TS.Data.TSLoadableSeriesTests.TSDailyLoadableSeriesTest2
+    Fail:Aborted Message: null
+  EndTest:3325
+------------------------
+  Test:FinOM.Test.TS.TimelineTester.CombineExplicitTimelines
+    Fail:Aborted Message: null
+  EndTest:3318
+------------------------
+  Test:FinOM.Test.TS.Tool.DateSpecTests.Test1
+    Fail:Aborted Message: null
+  EndTest:3310
+------------------------
+  Test:FinOM.Test.TS.Tool.DateSpecTests.Test1_5
+    Fail:Aborted Message: null
+  EndTest:3305
+------------------------
+  Test:FinOM.Test.TS.Tool.DateSpecTests.Test2
+    Fail:Aborted Message: null
+  EndTest:3300
+------------------------
+  Test:FinOM.Test.TS.Tool.DateSpecTests.Test3
+    Fail:Aborted Message: null
+  EndTest:3295
+------------------------
+  Test:FinOM.Test.TS.Tool.DateSpecTests.Test4
+    Fail:Aborted Message: null
+  EndTest:3290
+------------------------
+  Test:FinOM.Test.TS.Tool.DateSpecTests.Test5
+    Fail:Aborted Message: null
+  EndTest:3284
+------------------------
+  Test:FinOM.Test.TS.Tool.DateSpecTests.Test7
+    Fail:Aborted Message: null
+  EndTest:3277
+------------------------
+  Test:FinOM.Test.TS.Tool.ScriptTests.EqSpxCloseForwardRefTest
+    Fail:Aborted Message: null
+  EndTest:3271
+------------------------
+  Test:FinOM.Test.TS.Tool.ScriptTests.EqSpxCloseTest
+    Fail:Aborted Message: null
+  EndTest:3266
+------------------------
+  Test:FinOM.Test.TS.Tool.ScriptTests.TodayMinusThenTest
+    Fail:Aborted Message: null
+  EndTest:3260
+------------------------
+  Test:FinOM.Test.TS.UseCases.IntradayTests.CleaningTest
+    Fail:Aborted Message: null
+  EndTest:3256
+------------------------
+  Test:FinOM.Test.TS.UseCases.IntradayTests.FilterUpDownMedianTest
+    Fail:Aborted Message: null
+  EndTest:3250
+------------------------
+  Test:FinOM.Test.TS.UseCases.IntradayTests.FilterUpDownTest
+    Fail:Aborted Message: null
+  EndTest:3244
+------------------------
+  Test:FinOM.Test.TS.UseCases.IntradayTests.HourlyTest
+    Fail:Aborted Message: null
+  EndTest:3237
+------------------------
+  Test:FinOM.Test.TS.UseCases.IntradayTests.LoadQVTickDataTest
+    Fail:Aborted Message: null
+  EndTest:3231
+------------------------
+  Test:FinOM.Test.TS.UseCases.IntradayTests.NonUniformTest
+    Fail:Aborted Message: null
+  EndTest:3226
+------------------------
+  Test:FinOM.Test.TS.UseCases.IntradayTests.RemoveDailyOutliersTest
+    Fail:Aborted Message: null
+  EndTest:3221
+------------------------
+  Test:FinOM.Test.TS.Util.AZStringTests.AZTest
+    Fail:Aborted Message: null
+  EndTest:3214
+------------------------
+  Test:FinOM.Test.TS.Util.HeapTests.NormalHeapTest
+    Fail:Aborted Message: null
+  EndTest:3206
+------------------------
+  Test:FinOM.Test.TS.Util.HeapTests.ReversedHeapTest
+    Fail:Aborted Message: null
+  EndTest:3202
+------------------------
+  Test:FinOM.Test.TS.Util.TimeTests.AddTest
+    Fail:Aborted Message: null
+  EndTest:3196
+------------------------
+  Test:FinOM.Test.TS.Util.TimeTests.DivCeilineFractionalTest
+    Fail:Aborted Message: null
+  EndTest:3190
+------------------------
+  Test:FinOM.Test.TS.Util.TimeTests.DivCeilineIntegralTest
+    Fail:Aborted Message: null
+  EndTest:3185
+------------------------
+  Test:FinOM.Test.TS.Util.TimeTests.DivFloorFractionalTest
+    Fail:Aborted Message: null
+  EndTest:3179
+------------------------
+  Test:FinOM.Test.TS.Util.TimeTests.DivFloorIntegralTest
+    Fail:Aborted Message: null
+  EndTest:3173
+------------------------
+  Test:FinOM.Test.TS.Util.TimeTests.ExcelToTimesTest
+    Fail:Aborted Message: null
+  EndTest:3167
+------------------------
+  Test:FinOM.Test.TS.Util.TimeTests.NowTest
+    Fail:Aborted Message: null
+  EndTest:3161
+------------------------
+  Test:FinOM.Test.TS.Util.TimeTests.TimesToExcelTest
+    Fail:Aborted Message: null
+  EndTest:3154
+------------------------
+  Test:FinOM.Test.TS.Util.TimeTests.TodayTest
+    Fail:Aborted Message: null
+  EndTest:3147
+------------------------
+  Test:FinOM.Test.Types.DateTest.EquityExpirationTest
+    Fail:Aborted Message: null
+  EndTest:3142
+------------------------
+  Test:FinOM.Test.Types.WeakSetTest.BasicTest1
+    Fail:Aborted Message: null
+  EndTest:3137
+------------------------
+  Test:FinOM.Test.Util.FlagsTests.SomeTest2Zeros4Ones
+    Fail:Aborted Message: null
+  EndTest:3131
+------------------------
+  Test:FinOM.Test.Util.PermutationTests.CombinationsTest
+    Fail:Aborted Message: null
+  EndTest:3127
+------------------------
+  Test:FinOM.Test.Util.PermutationTests.NestedPermutationsTest
+    Fail:Aborted Message: null
+  EndTest:3121
+------------------------
+  Test:FinOM.Test.Util.PermutationTests.OrderedNestedPermutationsTest
+    Fail:Aborted Message: null
+  EndTest:3116
+------------------------
+  Test:FinOM.Test.Util.PermutationTests.PermutationsTest
+    Fail:Aborted Message: null
+  EndTest:3110
+------------------------
+  Test:FinOM.Test.Util.PgpTest.PgpFileEncryptArmouredTest
+    Fail:Aborted Message: null
+  EndTest:3105
+------------------------
+  Test:FinOM.Test.Util.PgpTest.PgpFileEncryptTest
+    Fail:Aborted Message: null
+  EndTest:3099
+------------------------
+  Test:FinOM.Test.Util.PgpTest.PgpStreamingEncryptTest
+    Fail:Aborted Message: null
+  EndTest:3094
+------------------------
+  Test:FinOM.Test.Util.ProductTests.ProductOfThreeTest
+    Fail:Aborted Message: null
+  EndTest:3089
+------------------------
+  Test:FinOM.Test.Util.ProductTests.ProductOfTwoTest
+    Fail:Aborted Message: null
+  EndTest:3084
+------------------------
+-->Info: 810 test(s) were reported
+EndSuite

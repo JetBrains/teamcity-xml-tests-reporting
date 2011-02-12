@@ -1,0 +1,2065 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="667934eb-e7ed-401b-b985-8bf7b504423e" name="BosOperator@DEVELOPMENT07 2010-08-11 16:06:36" runUser="ICAP\BosOperator" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Default Test Settings" id="22daf225-090b-4820-849e-b32d98fde385">
+    <Deployment userDeploymentRoot="C:\BuildAgent\temp\buildTmp" useDefaultDeploymentRoot="false" runDeploymentRoot="BosOperator_DEVELOPMENT07 2010-08-11 16_06_36" />
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2010-08-11T16:06:36.2812500+01:00" queuing="2010-08-11T16:06:53.6406250+01:00" start="2010-08-11T16:06:58.1093750+01:00" finish="2010-08-11T17:18:26.0781250+01:00" />
+  <ResultSummary outcome="Failed">
+    <Counters total="19" executed="19" passed="4" error="0" failed="15" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="AddDepartment" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="1ef1b82f-9f32-e2b0-d6a1-35d77b4eaaf9">
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.ReportTests.ReportTests, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="AddDepartment" />
+    </UnitTest>
+    <UnitTest name="ADummyTest" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="54c12ef2-25b0-ecd2-af80-a5e7c46f0b30">
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.DummyTest, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="ADummyTest" />
+    </UnitTest>
+    <UnitTest name="AddNewBuildSalesAndPurchaseReportScenarios" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="b3f21e08-6cb3-8caf-0906-0aa23d27c0e0">
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.ReportTests.ReportTests, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="AddNewBuildSalesAndPurchaseReportScenarios" />
+    </UnitTest>
+    <UnitTest name="AddBooks" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="942ac55a-b012-661a-18bd-e1b09a915f01">
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.ReportTests.ReportTests, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="AddBooks" />
+    </UnitTest>
+    <OrderedTest name="Main" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\main.orderedtest" id="0816edc3-a0a2-472b-9a7a-c5d4d62c142d" continueAfterFailure="true">
+      <Execution timeOut="2147483647" id="8f083eec-fe85-4171-8402-f0b52446e519" />
+      <TestLinks>
+        <TestLink id="54c12ef2-25b0-ecd2-af80-a5e7c46f0b30" name="ADummyTest" storage="bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="ed913779-54a9-433b-bb08-db864972eb1c" name="GeneralTestsOrdered" storage="generaltests\generaltestsordered.orderedtest" type="Microsoft.VisualStudio.TestTools.TestTypes.Ordered.AutoSuite, Microsoft.VisualStudio.QualityTools.Tips.OrderedTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="9de7781c-f2c9-4aeb-8442-ccdf99cbd5c8" name="reporttestsordered" storage="reporttests\reporttestsordered.orderedtest" type="Microsoft.VisualStudio.TestTools.TestTypes.Ordered.AutoSuite, Microsoft.VisualStudio.QualityTools.Tips.OrderedTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      </TestLinks>
+    </OrderedTest>
+    <UnitTest name="AddDryTimeCharterAndDryTimeCharterMGMTReportScenarios" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="13ee1b22-34fd-898c-23d9-6ac8d2c42134">
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.ReportTests.ReportTests, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="AddDryTimeCharterAndDryTimeCharterMGMTReportScenarios" />
+    </UnitTest>
+    <UnitTest name="GeneralCheckAllFixtureVersionsLoadCorrectly" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="94de555b-3cea-465b-fdad-05876f2ece34">
+      <Execution timeOut="2147483647" />
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.GeneralTests.FixtureTests, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="GeneralCheckAllFixtureVersionsLoadCorrectly" />
+    </UnitTest>
+    <UnitTest name="AddDryVoyageReportScenarios" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="5d6b0974-d166-46a5-c0f9-5f9f59e94ac0">
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.ReportTests.ReportTests, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="AddDryVoyageReportScenarios" />
+    </UnitTest>
+    <UnitTest name="AddBroker" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="28da1734-d9c1-9ac7-2ead-a2f3916fc2f3">
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.ReportTests.ReportTests, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="AddBroker" />
+    </UnitTest>
+    <UnitTest name="AddCompany" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="53a32daa-5760-9f12-164e-a17ebc968f3a">
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.ReportTests.ReportTests, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="AddCompany" />
+    </UnitTest>
+    <UnitTest name="AddWetVoyageReportScenarios" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="91a8079e-a148-d8f2-f903-9958f286df26">
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.ReportTests.ReportTests, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="AddWetVoyageReportScenarios" />
+    </UnitTest>
+    <OrderedTest name="generaltestsordered" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\generaltests\generaltestsordered.orderedtest" id="ed913779-54a9-433b-bb08-db864972eb1c" continueAfterFailure="true">
+      <Execution timeOut="2147483647" id="7847f903-e47f-4422-96d9-4fa69d701ede" />
+      <TestLinks>
+        <TestLink id="94de555b-3cea-465b-fdad-05876f2ece34" name="GeneralCheckAllFixtureVersionsLoadCorrectly" storage="..\bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      </TestLinks>
+    </OrderedTest>
+    <OrderedTest name="reporttestsordered" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\reporttests\reporttestsordered.orderedtest" id="9de7781c-f2c9-4aeb-8442-ccdf99cbd5c8" continueAfterFailure="true">
+      <Execution timeOut="2147483647" id="afa7755f-02f3-461b-b320-14d4a5ee981f" />
+      <TestLinks>
+        <TestLink id="942ac55a-b012-661a-18bd-e1b09a915f01" name="AddBooks" storage="..\bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="53a32daa-5760-9f12-164e-a17ebc968f3a" name="AddCompany" storage="..\bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="28da1734-d9c1-9ac7-2ead-a2f3916fc2f3" name="AddBroker" storage="..\bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="1ef1b82f-9f32-e2b0-d6a1-35d77b4eaaf9" name="AddDepartment" storage="..\bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="abac37df-1501-98d5-f9bb-a7dbf6d89a8f" name="AddCounterparties" storage="..\bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="13ee1b22-34fd-898c-23d9-6ac8d2c42134" name="AddDryTimeCharterAndDryTimeCharterMGMTReportScenarios" storage="..\bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="5d6b0974-d166-46a5-c0f9-5f9f59e94ac0" name="AddDryVoyageReportScenarios" storage="..\bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="b3f21e08-6cb3-8caf-0906-0aa23d27c0e0" name="AddNewBuildSalesAndPurchaseReportScenarios" storage="..\bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="d73f1a48-e8ba-5ce1-da0c-4685bbbf78f0" name="AddSecondHandSalesAndPurchaseReportScenarios" storage="..\bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="194afd46-a0ac-b44f-23a1-aeaec08545d5" name="AddSecurityReportScenarios" storage="..\bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="a21368aa-51d2-4bff-0537-85e9cfa5102d" name="AddValuationReportScenarios" storage="..\bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="c94ac467-8cf6-1bda-5779-86536782a4b0" name="AddWetTimeCharterAndWetTimeCharterMGMTReportScenarios" storage="..\bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="91a8079e-a148-d8f2-f903-9958f286df26" name="AddWetVoyageReportScenarios" storage="..\bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="f347f416-691e-8677-21d6-e9dcbbfed14d" name="CheckAllFixtureVersionsLoadCorrectly" storage="..\bin\dev_ut\integrationtests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      </TestLinks>
+    </OrderedTest>
+    <UnitTest name="AddValuationReportScenarios" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="a21368aa-51d2-4bff-0537-85e9cfa5102d">
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.ReportTests.ReportTests, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="AddValuationReportScenarios" />
+    </UnitTest>
+    <UnitTest name="AddCounterparties" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="abac37df-1501-98d5-f9bb-a7dbf6d89a8f">
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.ReportTests.ReportTests, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="AddCounterparties" />
+    </UnitTest>
+    <UnitTest name="AddSecurityReportScenarios" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="194afd46-a0ac-b44f-23a1-aeaec08545d5">
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.ReportTests.ReportTests, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="AddSecurityReportScenarios" />
+    </UnitTest>
+    <UnitTest name="AddWetTimeCharterAndWetTimeCharterMGMTReportScenarios" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="c94ac467-8cf6-1bda-5779-86536782a4b0">
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.ReportTests.ReportTests, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="AddWetTimeCharterAndWetTimeCharterMGMTReportScenarios" />
+    </UnitTest>
+    <UnitTest name="CheckAllFixtureVersionsLoadCorrectly" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="f347f416-691e-8677-21d6-e9dcbbfed14d">
+      <Execution timeOut="2147483647" />
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.ReportTests.ReportTests, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="CheckAllFixtureVersionsLoadCorrectly" />
+    </UnitTest>
+    <UnitTest name="AddSecondHandSalesAndPurchaseReportScenarios" storage="c:\buildagent\work\16b01f9d38525c04\shipping\integrationtests\bin\dev_ut\integrationtests.dll" id="d73f1a48-e8ba-5ce1-da0c-4685bbbf78f0">
+      <TestMethod codeBase="c:/buildagent/work/16b01f9d38525c04/shipping/integrationtests/bin/dev_ut/IntegrationTests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="IntegrationTests.ReportTests.ReportTests, IntegrationTests, Version=1.24.3875.27186, Culture=neutral, PublicKeyToken=null" name="AddSecondHandSalesAndPurchaseReportScenarios" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="0816edc3-a0a2-472b-9a7a-c5d4d62c142d" executionId="8f083eec-fe85-4171-8402-f0b52446e519" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <TestEntries>
+        <TestEntry testId="54c12ef2-25b0-ecd2-af80-a5e7c46f0b30" executionId="e29fe8a5-8257-4f09-a172-73c7c18f158b" parentExecutionId="8f083eec-fe85-4171-8402-f0b52446e519" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+        <TestEntry testId="ed913779-54a9-433b-bb08-db864972eb1c" executionId="0304a265-d2b1-426e-9746-cbf529d340aa" parentExecutionId="8f083eec-fe85-4171-8402-f0b52446e519" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+          <TestEntries>
+            <TestEntry testId="94de555b-3cea-465b-fdad-05876f2ece34" executionId="cdbf071a-1e88-47ac-84af-26ad9d321472" parentExecutionId="0304a265-d2b1-426e-9746-cbf529d340aa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+          </TestEntries>
+        </TestEntry>
+        <TestEntry testId="9de7781c-f2c9-4aeb-8442-ccdf99cbd5c8" executionId="41051e67-2cbf-4063-99de-3788cddf7ee6" parentExecutionId="8f083eec-fe85-4171-8402-f0b52446e519" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+          <TestEntries>
+            <TestEntry testId="942ac55a-b012-661a-18bd-e1b09a915f01" executionId="1cc84135-ce92-473b-9546-039d8664efae" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry testId="53a32daa-5760-9f12-164e-a17ebc968f3a" executionId="69f58417-8af7-450d-95f8-dce2c0c4a051" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry testId="28da1734-d9c1-9ac7-2ead-a2f3916fc2f3" executionId="a5e1337a-ae5f-4274-8e4d-bf7f005bc117" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry testId="1ef1b82f-9f32-e2b0-d6a1-35d77b4eaaf9" executionId="57a1bbf8-895a-4550-888c-5f0adccb631d" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry testId="abac37df-1501-98d5-f9bb-a7dbf6d89a8f" executionId="ba649373-84be-4bfd-814b-cbef6c4b9a02" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry testId="13ee1b22-34fd-898c-23d9-6ac8d2c42134" executionId="65ad4bf8-4c41-46d6-94c7-3c79969173e9" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry testId="5d6b0974-d166-46a5-c0f9-5f9f59e94ac0" executionId="ea61b468-b2ef-4109-8872-25d55bc43942" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry testId="b3f21e08-6cb3-8caf-0906-0aa23d27c0e0" executionId="88658d5c-93f2-4f18-897a-71621869af4a" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry testId="d73f1a48-e8ba-5ce1-da0c-4685bbbf78f0" executionId="7576f702-bea8-4e6a-b769-1bb877f7b902" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry testId="194afd46-a0ac-b44f-23a1-aeaec08545d5" executionId="ca5c5e97-a9c8-4de3-97ba-c6eb02d51c19" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry testId="a21368aa-51d2-4bff-0537-85e9cfa5102d" executionId="851b28c1-2aa3-4982-9cc5-227704216258" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry testId="c94ac467-8cf6-1bda-5779-86536782a4b0" executionId="09375641-774d-4acc-b2ba-3adc6b85e2ae" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry testId="91a8079e-a148-d8f2-f903-9958f286df26" executionId="7d6443df-3ea9-4642-81f8-a2422ffc3a3d" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry testId="f347f416-691e-8677-21d6-e9dcbbfed14d" executionId="96ff106c-a979-4e39-9b10-94a6e0823547" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+          </TestEntries>
+        </TestEntry>
+      </TestEntries>
+    </TestEntry>
+  </TestEntries>
+  <Results>
+    <TestResultAggregation executionId="8f083eec-fe85-4171-8402-f0b52446e519" testId="0816edc3-a0a2-472b-9a7a-c5d4d62c142d" testName="Main" computerName="DEVELOPMENT07" duration="01:11:23.0567777" startTime="2010-08-11T16:06:58.4843750+01:00" endTime="2010-08-11T17:18:22.4687500+01:00" testType="ec4800e8-40e5-4ab3-8510-b8bf29b1904d" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8f083eec-fe85-4171-8402-f0b52446e519">
+      <Counters error="0" failed="14" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="4" completed="0" inProgress="0" pending="0" />
+      <InnerResults>
+        <UnitTestResult executionId="e29fe8a5-8257-4f09-a172-73c7c18f158b" parentExecutionId="8f083eec-fe85-4171-8402-f0b52446e519" testId="54c12ef2-25b0-ecd2-af80-a5e7c46f0b30" testName="ADummyTest" computerName="DEVELOPMENT07" duration="00:00:00.3325705" startTime="2010-08-11T16:06:58.7343750+01:00" endTime="2010-08-11T16:07:06.3750000+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e29fe8a5-8257-4f09-a172-73c7c18f158b">
+          <Output>
+          </Output>
+        </UnitTestResult>
+        <TestResultAggregation executionId="0304a265-d2b1-426e-9746-cbf529d340aa" parentExecutionId="8f083eec-fe85-4171-8402-f0b52446e519" testId="ed913779-54a9-433b-bb08-db864972eb1c" testName="generaltestsordered" computerName="DEVELOPMENT07" duration="01:09:27.8527883" startTime="2010-08-11T16:07:06.3906250+01:00" endTime="2010-08-11T17:16:34.8437500+01:00" testType="ec4800e8-40e5-4ab3-8510-b8bf29b1904d" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0304a265-d2b1-426e-9746-cbf529d340aa">
+          <Counters error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="1" completed="0" inProgress="0" pending="0" />
+          <InnerResults>
+            <UnitTestResult executionId="cdbf071a-1e88-47ac-84af-26ad9d321472" parentExecutionId="0304a265-d2b1-426e-9746-cbf529d340aa" testId="94de555b-3cea-465b-fdad-05876f2ece34" testName="GeneralCheckAllFixtureVersionsLoadCorrectly" computerName="DEVELOPMENT07" duration="01:08:04.4184513" startTime="2010-08-11T16:07:06.3906250+01:00" endTime="2010-08-11T17:16:34.8437500+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cdbf071a-1e88-47ac-84af-26ad9d321472">
+              <Output>
+                <DebugTrace>Loaded fixture IS0000001
+Fixture 1 () versions are OK
+Fixture 1 () invoices are OK
+Loaded fixture IS0000002
+Fixture 2 () versions are OK
+Fixture 2 () invoices are OK
+Loaded fixture IS0000003
+Fixture 3 () versions are OK
+Fixture 3 () invoices are OK
+Loaded fixture IS0000004
+Fixture 4 (Turkish Straits delays included in freight invoice) versions are OK
+Fixture 4 (Turkish Straits delays included in freight invoice) invoices are OK
+Loaded fixture IS0000005
+Fixture 5 () versions are OK
+Fixture 5 () invoices are OK
+Loaded fixture IS0000006
+Fixture 6 () versions are OK
+Fixture 6 () invoices are OK
+Loaded fixture IS0000007
+Fixture 7 () versions are OK
+Fixture 7 () invoices are OK
+Loaded fixture IS0000008
+Fixture 8 () versions are OK
+Fixture 8 () invoices are OK
+Loaded fixture IS0000009
+Fixture 9 () versions are OK
+Fixture 9 () invoices are OK
+Loaded fixture IS0000010
+Fixture 10 () versions are OK
+Fixture 10 () invoices are OK
+Loaded fixture IS0000011
+Fixture 11 () versions are OK
+Fixture 11 () invoices are OK
+Loaded fixture IS0000012
+Fixture 12 () versions are OK
+Fixture 12 () invoices are OK
+Loaded fixture IS0000013
+Fixture 13 () versions are OK
+Fixture 13 () invoices are OK
+Loaded fixture IS0000014
+Fixture 14 () versions are OK
+Fixture 14 () invoices are OK
+Loaded fixture IS0000015
+Fixture 15 () versions are OK
+Fixture 15 () invoices are OK
+Loaded fixture IS0000016
+Fixture 16 () versions are OK
+Fixture 16 () invoices are OK
+Loaded fixture IS0000017
+Fixture 17 () versions are OK
+Fixture 17 () invoices are OK
+Loaded fixture IS0000018
+Fixture 18 () versions are OK
+Fixture 18 () invoices are OK
+Loaded fixture IS0000019
+Fixture 19 () versions are OK
+Fixture 19 () invoices are OK
+Loaded fixture IS0000020
+Fixture 20 () versions are OK
+Fixture 20 () invoices are OK
+Loaded fixture IS0000021
+Fixture 21 () versions are OK
+Fixture 21 () invoices are OK
+Loaded fixture IS0000022
+Fixture 22 () versions are OK
+Fixture 22 () invoices are OK
+Loaded fixture IS0000023
+Fixture 23 () versions are OK
+Fixture 23 () invoices are OK
+Loaded fixture IS0000024
+Fixture 24 () versions are OK
+Fixture 24 () invoices are OK
+Loaded fixture IS0000025
+Fixture 25 () versions are OK
+Fixture 25 () invoices are OK
+Loaded fixture IS0000026
+Fixture 26 () versions are OK
+Fixture 26 () invoices are OK
+Loaded fixture IS0000027
+Fixture 27 () versions are OK
+Fixture 27 () invoices are OK
+Loaded fixture IS0000028
+Fixture 28 () versions are OK
+Fixture 28 () invoices are OK
+Loaded fixture IS0000029
+Fixture 29 () versions are OK
+Fixture 29 () invoices are OK
+Loaded fixture IS0000030
+Fixture 30 () versions are OK
+Fixture 30 () invoices are OK
+Loaded fixture IS0000031
+Fixture 31 () versions are OK
+Fixture 31 () invoices are OK
+Loaded fixture IS0000032
+Fixture 32 () versions are OK
+Fixture 32 () invoices are OK
+Loaded fixture IS0000033
+Fixture 33 () versions are OK
+Fixture 33 () invoices are OK
+Loaded fixture IS0000034
+Fixture 34 () versions are OK
+Fixture 34 () invoices are OK
+Loaded fixture IS0000035
+Fixture 35 () versions are OK
+Fixture 35 () invoices are OK
+Loaded fixture IS0000036
+Fixture 36 () versions are OK
+Fixture 36 () invoices are OK
+Loaded fixture IS0000037
+Fixture 37 () versions are OK
+Fixture 37 () invoices are OK
+Loaded fixture IS0000038
+Fixture 38 () versions are OK
+Fixture 38 () invoices are OK
+Loaded fixture IS0000039
+Fixture 39 () versions are OK
+Fixture 39 () invoices are OK
+Loaded fixture IS0000040
+Fixture 40 () versions are OK
+Fixture 40 () invoices are OK
+Loaded fixture IS0000041
+Fixture 41 () versions are OK
+Fixture 41 () invoices are OK
+Loaded fixture IS0000042
+Fixture 42 () versions are OK
+Fixture 42 () invoices are OK
+Loaded fixture IS0000043
+Fixture 43 () versions are OK
+Fixture 43 () invoices are OK
+Loaded fixture IS0000044
+Fixture 44 () versions are OK
+Fixture 44 () invoices are OK
+Loaded fixture IS0000045
+Fixture 45 () versions are OK
+Fixture 45 () invoices are OK
+Loaded fixture IS0000046
+Fixture 46 () versions are OK
+Fixture 46 () invoices are OK
+Loaded fixture IS0000047
+Fixture 47 (DEMURRAGE IT &amp; OUT - 23/06/2010) versions are OK
+Fixture 47 (DEMURRAGE IT &amp; OUT - 23/06/2010) invoices are OK
+Loaded fixture IS0000048
+Fixture 48 () versions are OK
+Fixture 48 () invoices are OK
+Loaded fixture IS0000049
+Fixture 49 () versions are OK
+Fixture 49 () invoices are OK
+Loaded fixture IS0000050
+Fixture 50 () versions are OK
+Fixture 50 () invoices are OK
+Loaded fixture IS0000051
+Fixture 51 () versions are OK
+Fixture 51 () invoices are OK
+Loaded fixture IS0000052
+Fixture 52 () versions are OK
+Fixture 52 () invoices are OK
+Loaded fixture IS0000053
+Fixture 53 () versions are OK
+Fixture 53 () invoices are OK
+Loaded fixture IS0000054
+Fixture 54 () versions are OK
+Fixture 54 () invoices are OK
+Loaded fixture IS0000055
+Fixture 55 () versions are OK
+Fixture 55 () invoices are OK
+Loaded fixture IS0000056
+Fixture 56 (DEM IN &amp; OUT - 10/06/2010) versions are OK
+Fixture 56 (DEM IN &amp; OUT - 10/06/2010) invoices are OK
+Loaded fixture IS0000057
+Fixture 57 () versions are OK
+Fixture 57 () invoices are OK
+Loaded fixture IS0000058
+Fixture 58 () versions are OK
+Fixture 58 () invoices are OK
+Loaded fixture IS0000059
+Fixture 59 () versions are OK
+Fixture 59 () invoices are OK
+Loaded fixture IS0000060
+Fixture 60 () versions are OK
+Fixture 60 () invoices are OK
+Loaded fixture IS0000061
+Fixture 61 () versions are OK
+Fixture 61 () invoices are OK
+Loaded fixture IS0000062
+Fixture 62 () versions are OK
+Fixture 62 () invoices are OK
+Loaded fixture IS0000063
+Fixture 63 () versions are OK
+Fixture 63 () invoices are OK
+Loaded fixture IS0000064
+Fixture 64 () versions are OK
+Fixture 64 () invoices are OK
+Loaded fixture IS0000065
+Fixture 65 () versions are OK
+Fixture 65 () invoices are OK
+Loaded fixture IS0000066
+Fixture 66 () versions are OK
+Fixture 66 () invoices are OK
+Loaded fixture IS0000067
+Fixture 67 () versions are OK
+Fixture 67 () invoices are OK
+Loaded fixture IS0000068
+Fixture 68 () versions are OK
+Fixture 68 () invoices are OK
+Loaded fixture IS0000069
+Fixture 69 () versions are OK
+Fixture 69 () invoices are OK
+Loaded fixture IS0000070
+Fixture 70 () versions are OK
+Fixture 70 () invoices are OK
+Loaded fixture IS0000071
+Fixture 71 () versions are OK
+Fixture 71 () invoices are OK
+Loaded fixture IS0000072
+Fixture 72 () versions are OK
+Fixture 72 () invoices are OK
+Loaded fixture IS0000073
+Fixture 73 () versions are OK
+Fixture 73 () invoices are OK
+Loaded fixture IS0000074
+Fixture 74 () versions are OK
+Fixture 74 () invoices are OK
+Loaded fixture IS0000075
+Fixture 75 () versions are OK
+Fixture 75 () invoices are OK
+Loaded fixture IS0000076
+Fixture 76 () versions are OK
+Fixture 76 () invoices are OK
+Loaded fixture IS0000077
+Fixture 77 () versions are OK
+Fixture 77 () invoices are OK
+Loaded fixture IS0000078
+Fixture 78 () versions are OK
+Fixture 78 () invoices are OK
+Loaded fixture IS0000079
+Fixture 79 () versions are OK
+Fixture 79 () invoices are OK
+Loaded fixture IS0000080
+Fixture 80 () versions are OK
+Fixture 80 () invoices are OK
+Loaded fixture IS0000081
+Fixture 81 () versions are OK
+Fixture 81 () invoices are OK
+Loaded fixture IS0000082
+Fixture 82 () versions are OK
+Fixture 82 () invoices are OK
+Loaded fixture IS0000083
+Fixture 83 () versions are OK
+Fixture 83 () invoices are OK
+Loaded fixture IS0000084
+Fixture 84 () versions are OK
+Fixture 84 () invoices are OK
+Loaded fixture IS0000085
+Fixture 85 () versions are OK
+Fixture 85 () invoices are OK
+Loaded fixture IS0000086
+Fixture 86 () versions are OK
+Fixture 86 () invoices are OK
+Loaded fixture IS0000087
+Fixture 87 (DEADWEIGHT IS 12680 WOULD NOT ALLOW FIXTURE TO BE ADDED UNLESS DEADWEIGHT WAS OVER 50,000
+
+_________________________________________________ 
+ Artemis Evangelou (30/04/2010 12:53:33) : ) versions are OK
+Fixture 87 (DEADWEIGHT IS 12680 WOULD NOT ALLOW FIXTURE TO BE ADDED UNLESS DEADWEIGHT WAS OVER 50,000
+
+_________________________________________________ 
+ Artemis Evangelou (30/04/2010 12:53:33) : ) invoices are OK
+Loaded fixture IS0000088
+Fixture 88 () versions are OK
+Fixture 88 () invoices are OK
+Loaded fixture IS0000089
+Fixture 89 () versions are OK
+Fixture 89 () invoices are OK
+Loaded fixture IS0000090
+Fixture 90 () versions are OK
+Fixture 90 () invoices are OK
+Loaded fixture IS0000091
+Fixture 91 (
+_________________________________________________ 
+ Jessica Appel (04/05/2010 15:52:18) : c/p date should be 20/04/2010) versions are OK
+Fixture 91 (
+_________________________________________________ 
+ Jessica Appel (04/05/2010 15:52:18) : c/p date should be 20/04/2010) invoices are OK
+Loaded fixture IS0000092
+Fixture 92 () versions are OK
+Fixture 92 () invoices are OK
+Loaded fixture IS0000093
+Fixture 93 () versions are OK
+Fixture 93 () invoices are OK
+Loaded fixture IS0000094
+Fixture 94 () versions are OK
+Fixture 94 () invoices are OK
+Loaded fixture IS0000095
+Fixture 95 () versions are OK
+Fixture 95 () invoices are OK
+Loaded fixture IS0000096
+Fixture 96 () versions are OK
+Fixture 96 () invoices are OK
+Loaded fixture IS0000097
+Fixture 97 () versions are OK
+Fixture 97 () invoices are OK
+Loaded fixture IS0000098
+Fixture 98 () versions are OK
+Fixture 98 () invoices are OK
+Loaded fixture IS0000099
+Fixture 99 () versions are OK
+Fixture 99 () invoices are OK
+Loaded fixture IS0000100
+Fixture 100 () versions are OK
+Fixture 100 () invoices are OK
+Loaded fixture IS0000101
+Fixture 101 (DEMURRAGE IN &amp; OUT - 10/06/2010) versions are OK
+Fixture 101 (DEMURRAGE IN &amp; OUT - 10/06/2010) invoices are OK
+Loaded fixture IS0000102
+Fixture 102 () versions are OK
+Fixture 102 () invoices are OK
+Loaded fixture IS0000103
+Fixture 103 () versions are OK
+Fixture 103 () invoices are OK
+Loaded fixture IS0000104
+Fixture 104 () versions are OK
+Fixture 104 () invoices are OK
+Loaded fixture IS0000105
+Fixture 105 () versions are OK
+Fixture 105 () invoices are OK
+Loaded fixture IS0000106
+Fixture 106 () versions are OK
+Fixture 106 () invoices are OK
+Loaded fixture IS0000107
+Fixture 107 () versions are OK
+Fixture 107 () invoices are OK
+Loaded fixture IS0000108
+Fixture 108 () versions are OK
+Fixture 108 () invoices are OK
+Loaded fixture IS0000109
+Fixture 109 () versions are OK
+Fixture 109 () invoices are OK
+Loaded fixture IS0000110
+Fixture 110 () versions are OK
+Fixture 110 () invoices are OK
+Loaded fixture IS0000111
+Fixture 111 () versions are OK
+Fixture 111 () invoices are OK
+Loaded fixture IS0000112
+Fixture 112 (DEMURRAGE IN &amp; OUT - 18/06/2010) versions are OK
+Fixture 112 (DEMURRAGE IN &amp; OUT - 18/06/2010) invoices are OK
+Loaded fixture IS0000113
+Fixture 113 () versions are OK
+Fixture 113 () invoices are OK
+Loaded fixture IS0000114
+Fixture 114 () versions are OK
+Fixture 114 () invoices are OK
+Loaded fixture IS0000115
+Fixture 115 () versions are OK
+Fixture 115 () invoices are OK
+Loaded fixture IS0000116
+Fixture 116 () versions are OK
+Fixture 116 () invoices are OK
+Loaded fixture IS0000117
+Fixture 117 () versions are OK
+Fixture 117 () invoices are OK
+Loaded fixture IS0000118
+Fixture 118 () versions are OK
+Fixture 118 () invoices are OK
+Loaded fixture IS0000119
+Fixture 119 () versions are OK
+Fixture 119 () invoices are OK
+Loaded fixture IS0000120
+Fixture 120 () versions are OK
+Fixture 120 () invoices are OK
+Loaded fixture IS0000121
+Fixture 121 () versions are OK
+Fixture 121 () invoices are OK
+Loaded fixture IS0000122
+Fixture 122 () versions are OK
+Fixture 122 () invoices are OK
+Loaded fixture IS0000123
+Fixture 123 () versions are OK
+Fixture 123 () invoices are OK
+Loaded fixture IS0000124
+Fixture 124 (DEMURRAGE CLAIM IN 04/06/2010; OUT 04/06/2010) versions are OK
+Fixture 124 (DEMURRAGE CLAIM IN 04/06/2010; OUT 04/06/2010) invoices are OK
+Loaded fixture IS0000125
+Fixture 125 () versions are OK
+Fixture 125 () invoices are OK
+Loaded fixture IS0000126
+Fixture 126 () versions are OK
+Fixture 126 () invoices are OK
+Loaded fixture IS0000127
+Fixture 127 () versions are OK
+Fixture 127 () invoices are OK
+Loaded fixture IS0000128
+Fixture 128 () versions are OK
+Fixture 128 () invoices are OK
+Loaded fixture IS0000129
+Fixture 129 () versions are OK
+Fixture 129 () invoices are OK
+Loaded fixture IS0000130
+Fixture 130 () versions are OK
+Fixture 130 () invoices are OK
+Loaded fixture IS0000131
+Fixture 131 () versions are OK
+Fixture 131 () invoices are OK
+Loaded fixture IS0000132
+Fixture 132 () versions are OK
+Fixture 132 () invoices are OK
+Loaded fixture IS0000133
+Fixture 133 () versions are OK
+Fixture 133 () invoices are OK
+Loaded fixture IS0000134
+Fixture 134 () versions are OK
+Fixture 134 () invoices are OK
+Loaded fixture IS0000135
+Fixture 135 () versions are OK
+Fixture 135 () invoices are OK
+Loaded fixture IS0000136
+Fixture 136 () versions are OK
+Fixture 136 () invoices are OK
+Loaded fixture IS0000137
+Fixture 137 () versions are OK
+Fixture 137 () invoices are OK
+Loaded fixture IS0000138
+Fixture 138 () versions are OK
+Fixture 138 () invoices are OK
+Loaded fixture IS0000139
+Fixture 139 (DEMURRAGE IN &amp; OUT - 15/06/2010) versions are OK
+Fixture 139 (DEMURRAGE IN &amp; OUT - 15/06/2010) invoices are OK
+Loaded fixture IS0000140
+Fixture 140 () versions are OK
+Fixture 140 () invoices are OK
+Loaded fixture IS0000141
+Fixture 141 () versions are OK
+Fixture 141 () invoices are OK
+Loaded fixture IS0000142
+Fixture 142 () versions are OK
+Fixture 142 () invoices are OK
+Loaded fixture IS0000143
+Fixture 143 () versions are OK
+Fixture 143 () invoices are OK
+Loaded fixture IS0000144
+Fixture 144 () versions are OK
+Fixture 144 () invoices are OK
+Loaded fixture IS0000145
+Fixture 145 () versions are OK
+Fixture 145 () invoices are OK
+Loaded fixture IS0000146
+Fixture 146 (NO DEMURRAGE - MSG NO. 12949735) versions are OK
+Fixture 146 (NO DEMURRAGE - MSG NO. 12949735) invoices are OK
+Loaded fixture IS0000147
+Fixture 147 () versions are OK
+Fixture 147 () invoices are OK
+Loaded fixture IS0000148
+Fixture 148 () versions are OK
+Fixture 148 () invoices are OK
+Loaded fixture IS0000149
+Fixture 149 () versions are OK
+Fixture 149 () invoices are OK
+Loaded fixture IS0000150
+Fixture 150 () versions are OK
+Fixture 150 () invoices are OK
+Loaded fixture IS0000151
+Fixture 151 () versions are OK
+Fixture 151 () invoices are OK
+Loaded fixture IS0000152
+Fixture 152 () versions are OK
+Fixture 152 () invoices are OK
+Loaded fixture IS0000153
+Fixture 153 () versions are OK
+Fixture 153 () invoices are OK
+Loaded fixture IS0000154
+Fixture 154 () versions are OK
+Fixture 154 () invoices are OK
+Loaded fixture IS0000155
+Fixture 155 () versions are OK
+Fixture 155 () invoices are OK
+Loaded fixture IS0000156
+Fixture 156 () versions are OK
+Fixture 156 () invoices are OK
+Loaded fixture IS0000157
+Fixture 157 () versions are OK
+Fixture 157 () invoices are OK
+Loaded fixture IS0000158
+Fixture 158 () versions are OK
+Fixture 158 () invoices are OK
+Loaded fixture IS0000159
+Fixture 159 () versions are OK
+Fixture 159 () invoices are OK
+Loaded fixture IS0000160
+Fixture 160 () versions are OK
+Fixture 160 () invoices are OK
+Loaded fixture IS0000161
+Fixture 161 () versions are OK
+Fixture 161 () invoices are OK
+Loaded fixture IS0000162
+Fixture 162 () versions are OK
+Fixture 162 () invoices are OK
+Loaded fixture IS0000163
+Fixture 163 () versions are OK
+Fixture 163 () invoices are OK
+Loaded fixture IS0000164
+Fixture 164 () versions are OK
+Fixture 164 () invoices are OK
+Loaded fixture IS0000165
+Fixture 165 () versions are OK
+Fixture 165 () invoices are OK
+Loaded fixture IS0000166
+Fixture 166 () versions are OK
+Fixture 166 () invoices are OK
+Loaded fixture IS0000167
+Fixture 167 () versions are OK
+Fixture 167 () invoices are OK
+Loaded fixture IS0000168
+Fixture 168 () versions are OK
+Fixture 168 () invoices are OK
+Loaded fixture IS0000169
+Fixture 169 () versions are OK
+Fixture 169 () invoices are OK
+Loaded fixture IS0000170
+Fixture 170 () versions are OK
+Fixture 170 () invoices are OK
+Loaded fixture IS0000171
+Fixture 171 () versions are OK
+Fixture 171 () invoices are OK
+Loaded fixture IS0000172
+Fixture 172 () versions are OK
+Fixture 172 () invoices are OK
+Loaded fixture IS0000173
+Fixture 173 () versions are OK
+Fixture 173 () invoices are OK
+Loaded fixture IS0000174
+Fixture 174 () versions are OK
+Fixture 174 () invoices are OK
+Loaded fixture IS0000175
+Fixture 175 () versions are OK
+Fixture 175 () invoices are OK
+Loaded fixture IS0000176
+Fixture 176 () versions are OK
+Fixture 176 () invoices are OK
+Loaded fixture IS0000177
+Fixture 177 () versions are OK
+Fixture 177 () invoices are OK
+Loaded fixture IS0000178
+Fixture 178 () versions are OK
+Fixture 178 () invoices are OK
+Loaded fixture IS0000179
+Fixture 179 () versions are OK
+Fixture 179 () invoices are OK
+Loaded fixture IS0000180
+Fixture 180 () versions are OK
+Fixture 180 () invoices are OK
+Loaded fixture IS0000181
+Fixture 181 () versions are OK
+Fixture 181 () invoices are OK
+Loaded fixture IS0000182
+Fixture 182 () versions are OK
+Fixture 182 () invoices are OK
+Loaded fixture IS0000183
+Fixture 183 () versions are OK
+Fixture 183 () invoices are OK
+Loaded fixture IS0000184
+Fixture 184 () versions are OK
+Fixture 184 () invoices are OK
+Loaded fixture IS0000185
+Fixture 185 () versions are OK
+Fixture 185 () invoices are OK
+Loaded fixture IS0000186
+Fixture 186 () versions are OK
+Fixture 186 () invoices are OK
+Loaded fixture IS0000187
+Fixture 187 () versions are OK
+Fixture 187 () invoices are OK
+Loaded fixture IS0000188
+Fixture 188 () versions are OK
+Fixture 188 () invoices are OK
+Loaded fixture IS0000189
+Fixture 189 () versions are OK
+Fixture 189 () invoices are OK
+Loaded fixture IS0000190
+Fixture 190 () versions are OK
+Fixture 190 () invoices are OK
+Loaded fixture IS0000191
+Fixture 191 () versions are OK
+Fixture 191 () invoices are OK
+Loaded fixture IS0000192
+Fixture 192 () versions are OK
+Fixture 192 () invoices are OK
+Loaded fixture IS0000193
+Fixture 193 () versions are OK
+Fixture 193 () invoices are OK
+Loaded fixture IS0000194
+Fixture 194 () versions are OK
+Fixture 194 () invoices are OK
+Loaded fixture IS0000195
+Fixture 195 () versions are OK
+Fixture 195 () invoices are OK
+Loaded fixture IS0000196
+Fixture 196 () versions are OK
+Fixture 196 () invoices are OK
+Loaded fixture IS0000197
+Fixture 197 () versions are OK
+Fixture 197 () invoices are OK
+Loaded fixture IS0000198
+Fixture 198 () versions are OK
+Fixture 198 () invoices are OK
+Loaded fixture IS0000199
+Fixture 199 () versions are OK
+Fixture 199 () invoices are OK
+Loaded fixture IS0000200
+Fixture 200 () versions are OK
+Fixture 200 () invoices are OK
+Loaded fixture IS0000201
+Fixture 201 () versions are OK
+Fixture 201 () invoices are OK
+Loaded fixture IS0000202
+Fixture 202 () versions are OK
+Fixture 202 () invoices are OK
+Loaded fixture IS0000203
+Fixture 203 () versions are OK
+Fixture 203 () invoices are OK
+Loaded fixture IS0000204
+Fixture 204 () versions are OK
+Fixture 204 () invoices are OK
+Loaded fixture IS0000205
+Fixture 205 () versions are OK
+Fixture 205 () invoices are OK
+Loaded fixture IS0000206
+Fixture 206 () versions are OK
+Fixture 206 () invoices are OK
+Loaded fixture IS0000207
+Fixture 207 () versions are OK
+Fixture 207 () invoices are OK
+Loaded fixture IS0000208
+Fixture 208 () versions are OK
+Fixture 208 () invoices are OK
+Loaded fixture IS0000209
+Fixture 209 () versions are OK
+Fixture 209 () invoices are OK
+Loaded fixture IS0000210
+Fixture 210 () versions are OK
+Fixture 210 () invoices are OK
+Loaded fixture IS0000211
+Fixture 211 () versions are OK
+Fixture 211 () invoices are OK
+Loaded fixture IS0000212
+Fixture 212 () versions are OK
+Fixture 212 () invoices are OK
+Loaded fixture IS0000213
+Fixture 213 () versions are OK
+Fixture 213 () invoices are OK
+Loaded fixture IS0000214
+Fixture 214 () versions are OK
+Fixture 214 () invoices are OK
+Loaded fixture IS0000215
+Fixture 215 () versions are OK
+Fixture 215 () invoices are OK
+Loaded fixture IS0000216
+Fixture 216 () versions are OK
+Fixture 216 () invoices are OK
+Loaded fixture IS0000217
+Fixture 217 () versions are OK
+Fixture 217 () invoices are OK
+Loaded fixture IS0000218
+Fixture 218 (NO DEMURRAGE - MSG NO.12956503) versions are OK
+Fixture 218 (NO DEMURRAGE - MSG NO.12956503) invoices are OK
+Loaded fixture IS0000219
+Fixture 219 () versions are OK
+Fixture 219 () invoices are OK
+Loaded fixture IS0000220
+Fixture 220 () versions are OK
+Fixture 220 () invoices are OK
+Loaded fixture IS0000221
+Fixture 221 () versions are OK
+Fixture 221 () invoices are OK
+Loaded fixture IS0000222
+Fixture 222 () versions are OK
+Fixture 222 () invoices are OK
+Loaded fixture IS0000223
+Fixture 223 () versions are OK
+Fixture 223 () invoices are OK
+Loaded fixture IS0000224
+Fixture 224 () versions are OK
+Fixture 224 () invoices are OK
+Loaded fixture IS0000225
+Fixture 225 () versions are OK
+Fixture 225 () invoices are OK
+Loaded fixture IS0000226
+Fixture 226 () versions are OK
+Fixture 226 () invoices are OK
+Loaded fixture IS0000227
+Fixture 227 () versions are OK
+Fixture 227 () invoices are OK
+Loaded fixture IS0000228
+Fixture 228 () versions are OK
+Fixture 228 () invoices are OK
+Loaded fixture IS0000229
+Fixture 229 () versions are OK
+Fixture 229 () invoices are OK
+Loaded fixture IS0000230
+Fixture 230 () versions are OK
+Fixture 230 () invoices are OK
+Loaded fixture IS0000231
+Fixture 231 () versions are OK
+Fixture 231 () invoices are OK
+Loaded fixture IS0000232
+Fixture 232 () versions are OK
+Fixture 232 () invoices are OK
+Loaded fixture IS0000233
+Fixture 233 () versions are OK
+Fixture 233 () invoices are OK
+Loaded fixture IS0000234
+Fixture 234 () versions are OK
+Fixture 234 () invoices are OK
+Loaded fixture IS0000235
+Fixture 235 () versions are OK
+Fixture 235 () invoices are OK
+Loaded fixture IS0000236
+Fixture 236 () versions are OK
+Fixture 236 () invoices are OK
+Loaded fixture IS0000237
+Fixture 237 () versions are OK
+Fixture 237 () invoices are OK
+Loaded fixture IS0000238
+Fixture 238 () versions are OK
+Fixture 238 () invoices are OK
+Loaded fixture IS0000239
+Fixture 239 () versions are OK
+Fixture 239 () invoices are OK
+Loaded fixture IS0000240
+Fixture 240 () versions are OK
+Fixture 240 () invoices are OK
+Loaded fixture IS0000241
+Fixture 241 () versions are OK
+Fixture 241 () invoices are OK
+Loaded fixture IS0000242
+Fixture 242 () versions are OK
+Fixture 242 () invoices are OK
+Loaded fixture IS0000243
+Fixture 243 () versions are OK
+Fixture 243 () invoices are OK
+Loaded fixture IS0000244
+Fixture 244 () versions are OK
+Fixture 244 () invoices are OK
+Loaded fixture IS0000245
+Fixture 245 () versions are OK
+Fixture 245 () invoices are OK
+Loaded fixture IS0000246
+Fixture 246 () versions are OK
+Fixture 246 () invoices are OK
+Loaded fixture IS0000247
+Fixture 247 () versions are OK
+Fixture 247 () invoices are OK
+Loaded fixture IS0000248
+Fixture 248 () versions are OK
+Fixture 248 () invoices are OK
+Loaded fixture IS0000249
+Fixture 249 () versions are OK
+Fixture 249 () invoices are OK
+Loaded fixture IS0000250
+Fixture 250 () versions are OK
+Fixture 250 () invoices are OK
+Loaded fixture IS0000251
+Fixture 251 () versions are OK
+Fixture 251 () invoices are OK
+Loaded fixture IS0000252
+Fixture 252 () versions are OK
+Fixture 252 () invoices are OK
+Loaded fixture IS0000253
+Fixture 253 () versions are OK
+Fixture 253 () invoices are OK
+Loaded fixture IS0000254
+Fixture 254 () versions are OK
+Fixture 254 () invoices are OK
+Loaded fixture IS0000255
+Fixture 255 () versions are OK
+Fixture 255 () invoices are OK
+Loaded fixture IS0000256
+Fixture 256 () versions are OK
+Fixture 256 () invoices are OK
+Loaded fixture IS0000257
+Fixture 257 () versions are OK
+Fixture 257 () invoices are OK
+Loaded fixture IS0000258
+Fixture 258 () versions are OK
+Fixture 258 () invoices are OK
+Loaded fixture IS0000259
+Fixture 259 () versions are OK
+Fixture 259 () invoices are OK
+Loaded fixture IS0000260
+Fixture 260 () versions are OK
+Fixture 260 () invoices are OK
+Loaded fixture IS0000261
+Fixture 261 () versions are OK
+Fixture 261 () invoices are OK
+Loaded fixture IS0000262
+Fixture 262 () versions are OK
+Fixture 262 () invoices are OK
+Loaded fixture IS0000263
+Fixture 263 () versions are OK
+Fixture 263 () invoices are OK
+Loaded fixture IS0000264
+Fixture 264 () versions are OK
+Fixture 264 () invoices are OK
+Loaded fixture IS0000265
+Fixture 265 () versions are OK
+Fixture 265 () invoices are OK
+Loaded fixture IS0000266
+Fixture 266 () versions are OK
+Fixture 266 () invoices are OK
+Loaded fixture IS0000267
+Fixture 267 () versions are OK
+Fixture 267 () invoices are OK
+Loaded fixture IS0000268
+Fixture 268 () versions are OK
+Fixture 268 () invoices are OK
+Loaded fixture IS0000269
+Fixture 269 () versions are OK
+Fixture 269 () invoices are OK
+Loaded fixture IS0000270
+Fixture 270 () versions are OK
+Fixture 270 () invoices are OK
+Loaded fixture IS0000271
+Fixture 271 () versions are OK
+Fixture 271 () invoices are OK
+Loaded fixture IS0000272
+Fixture 272 () versions are OK
+Fixture 272 () invoices are OK
+Loaded fixture IS0000273
+Fixture 273 () versions are OK
+Fixture 273 () invoices are OK
+Loaded fixture IS0000274
+Fixture 274 () versions are OK
+Fixture 274 () invoices are OK
+Loaded fixture IS0000275
+Fixture 275 () versions are OK
+Fixture 275 () invoices are OK
+Loaded fixture IS0000276
+Fixture 276 () versions are OK
+Fixture 276 () invoices are OK
+Loaded fixture IS0000277
+Fixture 277 () versions are OK
+Fixture 277 () invoices are OK
+Loaded fixture IS0000278
+Fixture 278 () versions are OK
+Fixture 278 () invoices are OK
+Loaded fixture IS0000279
+Fixture 279 () versions are OK
+Fixture 279 () invoices are OK
+Loaded fixture IS0000280
+Fixture 280 () versions are OK
+Fixture 280 () invoices are OK
+Loaded fixture IS0000281
+Fixture 281 () versions are OK
+Fixture 281 () invoices are OK
+Loaded fixture IS0000282
+Fixture 282 () versions are OK
+Fixture 282 () invoices are OK
+Loaded fixture IS0000283
+Fixture 283 () versions are OK
+Fixture 283 () invoices are OK
+Loaded fixture IS0000284
+Fixture 284 () versions are OK
+Fixture 284 () invoices are OK
+Loaded fixture IS0000285
+Fixture 285 () versions are OK
+Fixture 285 () invoices are OK
+Loaded fixture IS0000286
+Fixture 286 () versions are OK
+Fixture 286 () invoices are OK
+Loaded fixture IS0000287
+Fixture 287 () versions are OK
+Fixture 287 () invoices are OK
+Loaded fixture IS0000288
+Fixture 288 () versions are OK
+Fixture 288 () invoices are OK
+Loaded fixture IS0000289
+Fixture 289 () versions are OK
+Fixture 289 () invoices are OK
+Loaded fixture IS0000290
+Fixture 290 () versions are OK
+Fixture 290 () invoices are OK
+Loaded fixture IS0000291
+Fixture 291 () versions are OK
+Fixture 291 () invoices are OK
+Loaded fixture IS0000292
+Fixture 292 () versions are OK
+Fixture 292 () invoices are OK
+Loaded fixture IS0000293
+Fixture 293 () versions are OK
+Fixture 293 () invoices are OK
+Loaded fixture IS0000294
+Fixture 294 () versions are OK
+Fixture 294 () invoices are OK
+Loaded fixture IS0000295
+Fixture 295 () versions are OK
+Fixture 295 () invoices are OK
+Loaded fixture IS0000296
+Fixture 296 () versions are OK
+Fixture 296 () invoices are OK
+Loaded fixture IS0000297
+Fixture 297 () versions are OK
+Fixture 297 () invoices are OK
+Loaded fixture IS0000298
+Fixture 298 () versions are OK
+Fixture 298 () invoices are OK
+Loaded fixture IS0000299
+Fixture 299 () versions are OK
+Fixture 299 () invoices are OK
+Loaded fixture IS0000300
+Fixture 300 () versions are OK
+Fixture 300 () invoices are OK
+Loaded fixture IS0000301
+Fixture 301 () versions are OK
+Fixture 301 () invoices are OK
+Loaded fixture IS0000302
+Fixture 302 () versions are OK
+Fixture 302 () invoices are OK
+Loaded fixture IS0000303
+Fixture 303 () versions are OK
+Fixture 303 () invoices are OK
+Loaded fixture IS0000304
+Fixture 304 () versions are OK
+Fixture 304 () invoices are OK
+Loaded fixture IS0000305
+Fixture 305 () versions are OK
+Fixture 305 () invoices are OK
+Loaded fixture IS0000306
+Fixture 306 () versions are OK
+Fixture 306 () invoices are OK
+Loaded fixture IS0000307
+Fixture 307 () versions are OK
+Fixture 307 () invoices are OK
+Loaded fixture IS0000308
+Fixture 308 () versions are OK
+Fixture 308 () invoices are OK
+Loaded fixture IS0000309
+Fixture 309 () versions are OK
+Fixture 309 () invoices are OK
+Loaded fixture IS0000310
+Fixture 310 () versions are OK
+Fixture 310 () invoices are OK
+Loaded fixture IS0000311
+Fixture 311 () versions are OK
+Fixture 311 () invoices are OK
+Loaded fixture IS0000312
+Fixture 312 () versions are OK
+Fixture 312 () invoices are OK
+Loaded fixture IS0000313
+Fixture 313 () versions are OK
+Fixture 313 () invoices are OK
+Loaded fixture IS0000314
+Fixture 314 () versions are OK
+Fixture 314 () invoices are OK
+Loaded fixture IS0000315
+Fixture 315 () versions are OK
+Fixture 315 () invoices are OK
+Loaded fixture IS0000316
+Fixture 316 () versions are OK
+Fixture 316 () invoices are OK
+Loaded fixture IS0000317
+Fixture 317 () versions are OK
+Fixture 317 () invoices are OK
+Loaded fixture IS0000318
+Fixture 318 () versions are OK
+Fixture 318 () invoices are OK
+Loaded fixture IS0000319
+Fixture 319 () versions are OK
+Fixture 319 () invoices are OK
+Loaded fixture IS0000320
+Fixture 320 () versions are OK
+Fixture 320 () invoices are OK
+Loaded fixture IS0000321
+Fixture 321 () versions are OK
+Fixture 321 () invoices are OK
+Loaded fixture IS0000322
+Fixture 322 () versions are OK
+Fixture 322 () invoices are OK
+Loaded fixture IS0000323
+Fixture 323 () versions are OK
+Fixture 323 () invoices are OK
+Loaded fixture IS0000324
+Fixture 324 () versions are OK
+Fixture 324 () invoices are OK
+Loaded fixture IS0000325
+Fixture 325 () versions are OK
+Fixture 325 () invoices are OK
+Loaded fixture IS0000326
+Fixture 326 () versions are OK
+Fixture 326 () invoices are OK
+Loaded fixture IS0000327
+Fixture 327 () versions are OK
+Fixture 327 () invoices are OK
+Loaded fixture IS0000328
+Fixture 328 () versions are OK
+Fixture 328 () invoices are OK
+Loaded fixture IS0000329
+Fixture 329 () versions are OK
+Fixture 329 () invoices are OK
+Loaded fixture IS0000330
+Fixture 330 () versions are OK
+Fixture 330 () invoices are OK
+Loaded fixture IS0000331
+Fixture 331 () versions are OK
+Fixture 331 () invoices are OK
+Loaded fixture IS0000332
+Fixture 332 () versions are OK
+Fixture 332 () invoices are OK
+Loaded fixture IS0000333
+Fixture 333 () versions are OK
+Fixture 333 () invoices are OK
+Loaded fixture IS0000334
+Fixture 334 () versions are OK
+Fixture 334 () invoices are OK
+Loaded fixture IS0000335
+Fixture 335 () versions are OK
+Fixture 335 () invoices are OK
+Loaded fixture IS0000336
+Fixture 336 () versions are OK
+Fixture 336 () invoices are OK
+Loaded fixture IS0000337
+Fixture 337 () versions are OK
+Fixture 337 () invoices are OK
+Loaded fixture IS0000338
+Fixture 338 () versions are OK
+Fixture 338 () invoices are OK
+Loaded fixture IS0000339
+Fixture 339 () versions are OK
+Fixture 339 () invoices are OK
+Loaded fixture IS0000340
+Fixture 340 () versions are OK
+Fixture 340 () invoices are OK
+Loaded fixture IS0000341
+Fixture 341 () versions are OK
+Fixture 341 () invoices are OK
+Loaded fixture IS0000342
+Fixture 342 () versions are OK
+Fixture 342 () invoices are OK
+Loaded fixture IS0000343
+Fixture 343 () versions are OK
+Fixture 343 () invoices are OK
+Loaded fixture IS0000344
+Fixture 344 () versions are OK
+Fixture 344 () invoices are OK
+</DebugTrace>
+              </Output>
+            </UnitTestResult>
+          </InnerResults>
+        </TestResultAggregation>
+        <TestResultAggregation executionId="41051e67-2cbf-4063-99de-3788cddf7ee6" parentExecutionId="8f083eec-fe85-4171-8402-f0b52446e519" testId="9de7781c-f2c9-4aeb-8442-ccdf99cbd5c8" testName="reporttestsordered" computerName="DEVELOPMENT07" duration="00:01:47.4802238" startTime="2010-08-11T17:16:34.8437500+01:00" endTime="2010-08-11T17:18:22.4687500+01:00" testType="ec4800e8-40e5-4ab3-8510-b8bf29b1904d" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="41051e67-2cbf-4063-99de-3788cddf7ee6">
+          <Counters error="0" failed="13" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="1" completed="0" inProgress="0" pending="0" />
+          <InnerResults>
+            <UnitTestResult executionId="1cc84135-ce92-473b-9546-039d8664efae" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testId="942ac55a-b012-661a-18bd-e1b09a915f01" testName="AddBooks" computerName="DEVELOPMENT07" duration="00:00:04.3188884" startTime="2010-08-11T17:16:34.9062500+01:00" endTime="2010-08-11T17:17:55.4062500+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1cc84135-ce92-473b-9546-039d8664efae">
+              <Output>
+                <DebugTrace>|DEVELOPMENT07|Agent: adapter run thread for test 'AddBooks' with id '1cc84135-ce92-473b-9546-039d8664efae'|81924|    6|Error|2010-08-11 17:17:51.609|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ An error occurred while executing the command definition. See the inner exception for details.
+ A transport-level error has occurred when sending the request to the server. (provider: TCP Provider, error: 0 - An existing connection was forcibly closed by the remote host.)
+     AdditionalData:
+         HelpLink.ProdName=Microsoft SQL Server
+         HelpLink.EvtSrc=MSSQLServer
+         HelpLink.EvtID=10054
+         HelpLink.BaseHelpUrl=http://go.microsoft.com/fwlink
+         HelpLink.LinkId=20476
+ 
+ Stack Trace: 
+    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+    at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+    at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+    at System.Data.SqlClient.TdsParserStateObject.WriteSni()
+    at System.Data.SqlClient.TdsParserStateObject.WritePacket(Byte flushMode)
+    at System.Data.SqlClient.TdsParserStateObject.ExecuteFlush()
+    at System.Data.SqlClient.TdsParser.TdsExecuteSQLBatch(String text, Int32 timeout, SqlNotificationRequest notificationRequest, TdsParserStateObject stateObj)
+    at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+    at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+    at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+    at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+    at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+    at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+    at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddBooks' with id '1cc84135-ce92-473b-9546-039d8664efae'|81924|    6|Error|2010-08-11 17:17:51.609|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ An error occurred while executing the command definition. See the inner exception for details.
+ A transport-level error has occurred when sending the request to the server. (provider: TCP Provider, error: 0 - An existing connection was forcibly closed by the remote host.)
+     AdditionalData:
+         HelpLink.ProdName=Microsoft SQL Server
+         HelpLink.EvtSrc=MSSQLServer
+         HelpLink.EvtID=10054
+         HelpLink.BaseHelpUrl=http://go.microsoft.com/fwlink
+         HelpLink.LinkId=20476
+ 
+ Stack Trace: 
+    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+    at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+    at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+    at System.Data.SqlClient.TdsParserStateObject.WriteSni()
+    at System.Data.SqlClient.TdsParserStateObject.WritePacket(Byte flushMode)
+    at System.Data.SqlClient.TdsParserStateObject.ExecuteFlush()
+    at System.Data.SqlClient.TdsParser.TdsExecuteSQLBatch(String text, Int32 timeout, SqlNotificationRequest notificationRequest, TdsParserStateObject stateObj)
+    at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+    at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+    at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+    at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+    at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+    at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+    at System.Data.EntityClient.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)||
+</DebugTrace>
+                <ErrorInfo>
+                  <Message>Test method IntegrationTests.ReportTests.ReportTests.AddBooks threw exception: 
+System.Exception: Error applying standing data changes ---&gt; System.Data.UpdateException: An error occurred while updating the entries. See the inner exception for details. ---&gt; System.Data.SqlClient.SqlException: String or binary data would be truncated.
+The statement has been terminated.</Message>
+                  <StackTrace>    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Mapping.Update.Internal.DynamicUpdateCommand.Execute(UpdateTranslator translator, EntityConnection connection, Dictionary`2 identifierValues, List`1 generatedValues)
+   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+ --- End of inner exception stack trace ---
+    at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   at System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at DataProvider.StandingDataManager.ApplyItemUpdates(String entitySetName, Object updatedItem) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 216
+ --- End of inner exception stack trace ---
+    at DataProvider.StandingDataManager.ApplyItemUpdates(String entitySetName, Object updatedItem) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 235
+   at IntegrationTests.ReportTests.ReportTests.InsertAndCheckStandingData[T1,T2,T3](IEnumerable`1 boundList, T1 newVMObject, String entitySetName, String tagName) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 36
+   at IntegrationTests.ReportTests.ReportTests.AddBooks() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 171
+</StackTrace>
+                </ErrorInfo>
+              </Output>
+            </UnitTestResult>
+            <UnitTestResult executionId="69f58417-8af7-450d-95f8-dce2c0c4a051" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testId="53a32daa-5760-9f12-164e-a17ebc968f3a" testName="AddCompany" computerName="DEVELOPMENT07" duration="00:00:00.2712209" startTime="2010-08-11T17:17:55.4062500+01:00" endTime="2010-08-11T17:17:55.7187500+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="69f58417-8af7-450d-95f8-dce2c0c4a051">
+              <Output>
+                <DebugTrace>|DEVELOPMENT07|Agent: adapter run thread for test 'AddCompany' with id '69f58417-8af7-450d-95f8-dce2c0c4a051'|81924|   18|Error|2010-08-11 17:17:55.468|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddCompany' with id '69f58417-8af7-450d-95f8-dce2c0c4a051'|81924|   18|Error|2010-08-11 17:17:55.468|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddCompany' with id '69f58417-8af7-450d-95f8-dce2c0c4a051'|81924|   18|Error|2010-08-11 17:17:55.625|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveCompanies() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 348||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddCompany' with id '69f58417-8af7-450d-95f8-dce2c0c4a051'|81924|   18|Error|2010-08-11 17:17:55.625|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveCompanies() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 348||
+</DebugTrace>
+                <ErrorInfo>
+                  <Message>Assert.IsTrue failed. NewCompanies failed to insert</Message>
+                  <StackTrace>   at IntegrationTests.ReportTests.ReportTests.InsertAndCheckStandingData[T1,T2,T3](IEnumerable`1 boundList, T1 newVMObject, String entitySetName, String tagName) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 42
+   at IntegrationTests.ReportTests.ReportTests.AddCompany() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 188
+</StackTrace>
+                </ErrorInfo>
+              </Output>
+            </UnitTestResult>
+            <UnitTestResult executionId="a5e1337a-ae5f-4274-8e4d-bf7f005bc117" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testId="28da1734-d9c1-9ac7-2ead-a2f3916fc2f3" testName="AddBroker" computerName="DEVELOPMENT07" duration="00:00:00.1578049" startTime="2010-08-11T17:17:55.7187500+01:00" endTime="2010-08-11T17:17:55.9062500+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a5e1337a-ae5f-4274-8e4d-bf7f005bc117">
+              <Output>
+                <DebugTrace>|DEVELOPMENT07|Agent: adapter run thread for test 'AddBroker' with id 'a5e1337a-ae5f-4274-8e4d-bf7f005bc117'|81924|   31|Error|2010-08-11 17:17:55.750|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddBroker' with id 'a5e1337a-ae5f-4274-8e4d-bf7f005bc117'|81924|   31|Error|2010-08-11 17:17:55.750|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+</DebugTrace>
+                <ErrorInfo>
+                  <Message>Test method IntegrationTests.ReportTests.ReportTests.AddBroker threw exception: 
+System.Exception: Error applying standing data changes ---&gt; System.Data.UpdateException: An error occurred while updating the entries. See the inner exception for details. ---&gt; System.Data.SqlClient.SqlException: The INSERT statement conflicted with the FOREIGN KEY constraint "FK_User_Department". The conflict occurred in database "TRITON_DEV_UT", table "dbo.Department", column 'Id'.
+The statement has been terminated.</Message>
+                  <StackTrace>    at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Mapping.Update.Internal.DynamicUpdateCommand.Execute(UpdateTranslator translator, EntityConnection connection, Dictionary`2 identifierValues, List`1 generatedValues)
+   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+ --- End of inner exception stack trace ---
+    at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   at System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at DataProvider.StandingDataManager.ApplyItemUpdates(String entitySetName, Object updatedItem) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 216
+ --- End of inner exception stack trace ---
+    at DataProvider.StandingDataManager.ApplyItemUpdates(String entitySetName, Object updatedItem) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 235
+   at IntegrationTests.ReportTests.ReportTests.InsertAndCheckStandingData[T1,T2,T3](IEnumerable`1 boundList, T1 newVMObject, String entitySetName, String tagName) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 36
+   at IntegrationTests.ReportTests.ReportTests.AddBroker() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 283
+</StackTrace>
+                </ErrorInfo>
+              </Output>
+            </UnitTestResult>
+            <UnitTestResult executionId="57a1bbf8-895a-4550-888c-5f0adccb631d" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testId="1ef1b82f-9f32-e2b0-d6a1-35d77b4eaaf9" testName="AddDepartment" computerName="DEVELOPMENT07" duration="00:00:00.1067598" startTime="2010-08-11T17:17:55.9062500+01:00" endTime="2010-08-11T17:17:56.0468750+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="57a1bbf8-895a-4550-888c-5f0adccb631d">
+              <Output>
+                <DebugTrace>|DEVELOPMENT07|Agent: adapter run thread for test 'AddDepartment' with id '57a1bbf8-895a-4550-888c-5f0adccb631d'|81924|   33|Error|2010-08-11 17:17:55.937|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddDepartment' with id '57a1bbf8-895a-4550-888c-5f0adccb631d'|81924|   33|Error|2010-08-11 17:17:55.937|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddDepartment' with id '57a1bbf8-895a-4550-888c-5f0adccb631d'|81924|   33|Error|2010-08-11 17:17:56.046|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveDepartments() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 370||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddDepartment' with id '57a1bbf8-895a-4550-888c-5f0adccb631d'|81924|   33|Error|2010-08-11 17:17:56.046|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveDepartments() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 370||
+</DebugTrace>
+                <ErrorInfo>
+                  <Message>Assert.IsTrue failed. NewDepartments failed to insert</Message>
+                  <StackTrace>   at IntegrationTests.ReportTests.ReportTests.InsertAndCheckStandingData[T1,T2,T3](IEnumerable`1 boundList, T1 newVMObject, String entitySetName, String tagName) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 42
+   at IntegrationTests.ReportTests.ReportTests.AddDepartment() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 233
+</StackTrace>
+                </ErrorInfo>
+              </Output>
+            </UnitTestResult>
+            <UnitTestResult executionId="ba649373-84be-4bfd-814b-cbef6c4b9a02" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testId="abac37df-1501-98d5-f9bb-a7dbf6d89a8f" testName="AddCounterparties" computerName="DEVELOPMENT07" duration="00:00:00.0360902" startTime="2010-08-11T17:17:56.0468750+01:00" endTime="2010-08-11T17:17:56.1250000+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba649373-84be-4bfd-814b-cbef6c4b9a02">
+              <Output>
+                <DebugTrace>|DEVELOPMENT07|Agent: adapter run thread for test 'AddCounterparties' with id 'ba649373-84be-4bfd-814b-cbef6c4b9a02'|81924|   35|Error|2010-08-11 17:17:56.078|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddCounterparties' with id 'ba649373-84be-4bfd-814b-cbef6c4b9a02'|81924|   35|Error|2010-08-11 17:17:56.078|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+</DebugTrace>
+                <ErrorInfo>
+                  <Message>Test method IntegrationTests.ReportTests.ReportTests.AddCounterparties threw exception: 
+System.InvalidOperationException: Execution of the command requires an open and available connection. The connection's current state is broken.</Message>
+                  <StackTrace>    at System.Data.Objects.ObjectContext.EnsureConnection()
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable&lt;T&gt;.GetEnumerator()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at DataProvider.StandingDataManager.get_AllCounterparties() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 550
+   at Shipping.ViewModels.StandingData.CounterpartyVM.CoerceOFCode() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataVM\CounterpartyVM.cs:line 98
+   at Shipping.ViewModels.StandingData.CounterpartyVM.set_OFCode(String value) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataVM\CounterpartyVM.cs:line 117
+   at Shipping.ViewModels.StandingData.CounterpartyVM..ctor() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataVM\CounterpartyVM.cs:line 26
+   at IntegrationTests.ReportTests.ReportTests.AddCounterparties() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 49
+</StackTrace>
+                </ErrorInfo>
+              </Output>
+            </UnitTestResult>
+            <UnitTestResult executionId="65ad4bf8-4c41-46d6-94c7-3c79969173e9" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testId="13ee1b22-34fd-898c-23d9-6ac8d2c42134" testName="AddDryTimeCharterAndDryTimeCharterMGMTReportScenarios" computerName="DEVELOPMENT07" duration="00:00:00.4491736" startTime="2010-08-11T17:17:56.1250000+01:00" endTime="2010-08-11T17:17:56.6093750+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="65ad4bf8-4c41-46d6-94c7-3c79969173e9">
+              <Output>
+                <DebugTrace>|DEVELOPMENT07|Agent: adapter run thread for test 'AddDryTimeCharterAndDryTimeCharterMGMTReportScenarios' with id '65ad4bf8-4c41-46d6-94c7-3c79969173e9'|81924|   37|Error|2010-08-11 17:17:56.156|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddDryTimeCharterAndDryTimeCharterMGMTReportScenarios' with id '65ad4bf8-4c41-46d6-94c7-3c79969173e9'|81924|   37|Error|2010-08-11 17:17:56.156|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+</DebugTrace>
+                <ErrorInfo>
+                  <Message>Test method IntegrationTests.ReportTests.ReportTests.AddDryTimeCharterAndDryTimeCharterMGMTReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements</Message>
+                  <StackTrace>    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.CreateCounterpartiesForOwnerChartererPayawayOnBothButInvoiceOnOneSide(CommissionSplits ownerCommissionSplits, CommissionSplits chartererCommissionSplits) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 114
+   at IntegrationTests.ReportTests.ReportTests.SetupTimeCharterVMWithASingleHireLine(TimeCharterVM timeCharterVM, TimeCharter timeCharter) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 578
+   at IntegrationTests.ReportTests.ReportTests.AddDryTimeCharterAndDryTimeCharterMGMTReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 705
+</StackTrace>
+                </ErrorInfo>
+              </Output>
+            </UnitTestResult>
+            <UnitTestResult executionId="ea61b468-b2ef-4109-8872-25d55bc43942" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testId="5d6b0974-d166-46a5-c0f9-5f9f59e94ac0" testName="AddDryVoyageReportScenarios" computerName="DEVELOPMENT07" duration="00:00:00.1662761" startTime="2010-08-11T17:17:56.6093750+01:00" endTime="2010-08-11T17:17:56.8125000+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ea61b468-b2ef-4109-8872-25d55bc43942">
+              <Output>
+                <DebugTrace>|DEVELOPMENT07|Agent: adapter run thread for test 'AddDryVoyageReportScenarios' with id 'ea61b468-b2ef-4109-8872-25d55bc43942'|81924|   39|Error|2010-08-11 17:17:56.656|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddDryVoyageReportScenarios' with id 'ea61b468-b2ef-4109-8872-25d55bc43942'|81924|   39|Error|2010-08-11 17:17:56.656|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+</DebugTrace>
+                <ErrorInfo>
+                  <Message>Test method IntegrationTests.ReportTests.ReportTests.AddDryVoyageReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements</Message>
+                  <StackTrace>    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.AddDryVoyageReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 198
+</StackTrace>
+                </ErrorInfo>
+              </Output>
+            </UnitTestResult>
+            <UnitTestResult executionId="88658d5c-93f2-4f18-897a-71621869af4a" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testId="b3f21e08-6cb3-8caf-0906-0aa23d27c0e0" testName="AddNewBuildSalesAndPurchaseReportScenarios" computerName="DEVELOPMENT07" duration="00:00:00.1858175" startTime="2010-08-11T17:17:56.8125000+01:00" endTime="2010-08-11T17:17:57.0312500+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="88658d5c-93f2-4f18-897a-71621869af4a">
+              <Output>
+                <DebugTrace>|DEVELOPMENT07|Agent: adapter run thread for test 'AddNewBuildSalesAndPurchaseReportScenarios' with id '88658d5c-93f2-4f18-897a-71621869af4a'|81924|   41|Error|2010-08-11 17:17:56.843|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddNewBuildSalesAndPurchaseReportScenarios' with id '88658d5c-93f2-4f18-897a-71621869af4a'|81924|   41|Error|2010-08-11 17:17:56.843|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+</DebugTrace>
+                <ErrorInfo>
+                  <Message>Test method IntegrationTests.ReportTests.ReportTests.AddNewBuildSalesAndPurchaseReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements</Message>
+                  <StackTrace>    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.SetupSalesAndPurchaseWithScenarioACounterparties(SaleAndPurchaseVM saleAndPurchaseVM, SaleAndPurchase salesAndPurchase) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 1068
+   at IntegrationTests.ReportTests.ReportTests.AddNewBuildSalesAndPurchaseReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 1105
+</StackTrace>
+                </ErrorInfo>
+              </Output>
+            </UnitTestResult>
+            <UnitTestResult executionId="7576f702-bea8-4e6a-b769-1bb877f7b902" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testId="d73f1a48-e8ba-5ce1-da0c-4685bbbf78f0" testName="AddSecondHandSalesAndPurchaseReportScenarios" computerName="DEVELOPMENT07" duration="00:00:00.1482932" startTime="2010-08-11T17:17:57.0312500+01:00" endTime="2010-08-11T17:17:57.2187500+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7576f702-bea8-4e6a-b769-1bb877f7b902">
+              <Output>
+                <DebugTrace>|DEVELOPMENT07|Agent: adapter run thread for test 'AddSecondHandSalesAndPurchaseReportScenarios' with id '7576f702-bea8-4e6a-b769-1bb877f7b902'|81924|   43|Error|2010-08-11 17:17:57.062|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddSecondHandSalesAndPurchaseReportScenarios' with id '7576f702-bea8-4e6a-b769-1bb877f7b902'|81924|   43|Error|2010-08-11 17:17:57.062|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+</DebugTrace>
+                <ErrorInfo>
+                  <Message>Test method IntegrationTests.ReportTests.ReportTests.AddSecondHandSalesAndPurchaseReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements</Message>
+                  <StackTrace>    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.SetupSalesAndPurchaseWithScenarioACounterparties(SaleAndPurchaseVM saleAndPurchaseVM, SaleAndPurchase salesAndPurchase) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 1068
+   at IntegrationTests.ReportTests.ReportTests.AddSecondHandSalesAndPurchaseReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 1232
+</StackTrace>
+                </ErrorInfo>
+              </Output>
+            </UnitTestResult>
+            <UnitTestResult executionId="ca5c5e97-a9c8-4de3-97ba-c6eb02d51c19" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testId="194afd46-a0ac-b44f-23a1-aeaec08545d5" testName="AddSecurityReportScenarios" computerName="DEVELOPMENT07" duration="00:00:00.1565249" startTime="2010-08-11T17:17:57.2187500+01:00" endTime="2010-08-11T17:17:57.4062500+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ca5c5e97-a9c8-4de3-97ba-c6eb02d51c19">
+              <Output>
+                <DebugTrace>|DEVELOPMENT07|Agent: adapter run thread for test 'AddSecurityReportScenarios' with id 'ca5c5e97-a9c8-4de3-97ba-c6eb02d51c19'|81924|   45|Error|2010-08-11 17:17:57.250|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddSecurityReportScenarios' with id 'ca5c5e97-a9c8-4de3-97ba-c6eb02d51c19'|81924|   45|Error|2010-08-11 17:17:57.250|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+</DebugTrace>
+                <ErrorInfo>
+                  <Message>Test method IntegrationTests.ReportTests.ReportTests.AddSecurityReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements</Message>
+                  <StackTrace>    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.SetupSecurityWithScenario1Counterparties(SecurityVM securityVM, Security security) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\SecurityReportTests.cs:line 58
+   at IntegrationTests.ReportTests.ReportTests.AddSecurityReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\SecurityReportTests.cs:line 96
+</StackTrace>
+                </ErrorInfo>
+              </Output>
+            </UnitTestResult>
+            <UnitTestResult executionId="851b28c1-2aa3-4982-9cc5-227704216258" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testId="a21368aa-51d2-4bff-0537-85e9cfa5102d" testName="AddValuationReportScenarios" computerName="DEVELOPMENT07" duration="00:00:00.2092651" startTime="2010-08-11T17:17:57.4062500+01:00" endTime="2010-08-11T17:17:57.6406250+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="851b28c1-2aa3-4982-9cc5-227704216258">
+              <Output>
+                <DebugTrace>|DEVELOPMENT07|Agent: adapter run thread for test 'AddValuationReportScenarios' with id '851b28c1-2aa3-4982-9cc5-227704216258'|81924|   47|Error|2010-08-11 17:17:57.421|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddValuationReportScenarios' with id '851b28c1-2aa3-4982-9cc5-227704216258'|81924|   47|Error|2010-08-11 17:17:57.421|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+</DebugTrace>
+                <ErrorInfo>
+                  <Message>Test method IntegrationTests.ReportTests.ReportTests.AddValuationReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements</Message>
+                  <StackTrace>    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.CreateCounterparty(CommissionSplits ownerCommissionSplits, CommissionSplits chartererCommissionSplits) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ValuationReportTests.cs:line 31
+   at IntegrationTests.ReportTests.ReportTests.SetupValuationScenario1(ValuationVM valuationVMA, Valuation valuationA) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ValuationReportTests.cs:line 45
+   at IntegrationTests.ReportTests.ReportTests.AddValuationReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ValuationReportTests.cs:line 73
+</StackTrace>
+                </ErrorInfo>
+              </Output>
+            </UnitTestResult>
+            <UnitTestResult executionId="09375641-774d-4acc-b2ba-3adc6b85e2ae" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testId="c94ac467-8cf6-1bda-5779-86536782a4b0" testName="AddWetTimeCharterAndWetTimeCharterMGMTReportScenarios" computerName="DEVELOPMENT07" duration="00:00:00.2218562" startTime="2010-08-11T17:17:57.6406250+01:00" endTime="2010-08-11T17:17:57.8906250+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="09375641-774d-4acc-b2ba-3adc6b85e2ae">
+              <Output>
+                <DebugTrace>|DEVELOPMENT07|Agent: adapter run thread for test 'AddWetTimeCharterAndWetTimeCharterMGMTReportScenarios' with id '09375641-774d-4acc-b2ba-3adc6b85e2ae'|81924|   49|Error|2010-08-11 17:17:57.671|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddWetTimeCharterAndWetTimeCharterMGMTReportScenarios' with id '09375641-774d-4acc-b2ba-3adc6b85e2ae'|81924|   49|Error|2010-08-11 17:17:57.671|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+</DebugTrace>
+                <ErrorInfo>
+                  <Message>Test method IntegrationTests.ReportTests.ReportTests.AddWetTimeCharterAndWetTimeCharterMGMTReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements</Message>
+                  <StackTrace>    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.CreateCounterpartiesForOwnerChartererPayawayOnBothButInvoiceOnOneSide(CommissionSplits ownerCommissionSplits, CommissionSplits chartererCommissionSplits) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 114
+   at IntegrationTests.ReportTests.ReportTests.SetupTimeCharterVMWithASingleHireLine(TimeCharterVM timeCharterVM, TimeCharter timeCharter) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 578
+   at IntegrationTests.ReportTests.ReportTests.AddWetTimeCharterAndWetTimeCharterMGMTReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 887
+</StackTrace>
+                </ErrorInfo>
+              </Output>
+            </UnitTestResult>
+            <UnitTestResult executionId="7d6443df-3ea9-4642-81f8-a2422ffc3a3d" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testId="91a8079e-a148-d8f2-f903-9958f286df26" testName="AddWetVoyageReportScenarios" computerName="DEVELOPMENT07" duration="00:00:00.1539706" startTime="2010-08-11T17:17:57.8906250+01:00" endTime="2010-08-11T17:17:58.0937500+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7d6443df-3ea9-4642-81f8-a2422ffc3a3d">
+              <Output>
+                <DebugTrace>|DEVELOPMENT07|Agent: adapter run thread for test 'AddWetVoyageReportScenarios' with id '7d6443df-3ea9-4642-81f8-a2422ffc3a3d'|81924|   45|Error|2010-08-11 17:17:57.937|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+|DEVELOPMENT07|Agent: adapter run thread for test 'AddWetVoyageReportScenarios' with id '7d6443df-3ea9-4642-81f8-a2422ffc3a3d'|81924|   45|Error|2010-08-11 17:17:57.937|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+</DebugTrace>
+                <ErrorInfo>
+                  <Message>Test method IntegrationTests.ReportTests.ReportTests.AddWetVoyageReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements</Message>
+                  <StackTrace>    at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.AddWetVoyageReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 383
+</StackTrace>
+                </ErrorInfo>
+              </Output>
+            </UnitTestResult>
+            <UnitTestResult executionId="96ff106c-a979-4e39-9b10-94a6e0823547" parentExecutionId="41051e67-2cbf-4063-99de-3788cddf7ee6" testId="f347f416-691e-8677-21d6-e9dcbbfed14d" testName="CheckAllFixtureVersionsLoadCorrectly" computerName="DEVELOPMENT07" duration="00:00:24.2916017" startTime="2010-08-11T17:17:58.0937500+01:00" endTime="2010-08-11T17:18:22.4531250+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="96ff106c-a979-4e39-9b10-94a6e0823547">
+              <Output>
+                <DebugTrace>|DEVELOPMENT07|Agent: adapter run thread for test 'CheckAllFixtureVersionsLoadCorrectly' with id '96ff106c-a979-4e39-9b10-94a6e0823547'|81924|   42|Error|2010-08-11 17:17:58.140|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+|DEVELOPMENT07|Agent: adapter run thread for test 'CheckAllFixtureVersionsLoadCorrectly' with id '96ff106c-a979-4e39-9b10-94a6e0823547'|81924|   42|Error|2010-08-11 17:17:58.140|Error loading standing data. Exception has been thrown by the target of an invocation.|DataProvider|c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs|Void Refresh(System.String)|Exception has been thrown by the target of an invocation.
+ Execution of the command requires an open and available connection. The connection's current state is broken.
+ 
+ Stack Trace: 
+    at System.Data.Objects.ObjectContext.EnsureConnection()
+    at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+    at System.Data.Objects.ObjectQuery`1.Execute(MergeOption mergeOption)
+    at DataProvider.StandingDataManager.updateActiveWildcardResolving() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 315||
+Fixture 1 () is OK
+Fixture 2 () is OK
+Fixture 3 () is OK
+Fixture 4 (Turkish Straits delays included in freight invoice) is OK
+Fixture 5 () is OK
+Fixture 6 () is OK
+Fixture 7 () is OK
+Fixture 8 () is OK
+Fixture 9 () is OK
+Fixture 10 () is OK
+Fixture 11 () is OK
+Fixture 12 () is OK
+Fixture 13 () is OK
+Fixture 14 () is OK
+Fixture 15 () is OK
+Fixture 16 () is OK
+Fixture 17 () is OK
+Fixture 18 () is OK
+Fixture 19 () is OK
+Fixture 20 () is OK
+Fixture 21 () is OK
+Fixture 22 () is OK
+Fixture 23 () is OK
+Fixture 24 () is OK
+Fixture 25 () is OK
+Fixture 26 () is OK
+Fixture 27 () is OK
+Fixture 28 () is OK
+Fixture 29 () is OK
+Fixture 30 () is OK
+Fixture 31 () is OK
+Fixture 32 () is OK
+Fixture 33 () is OK
+Fixture 34 () is OK
+Fixture 35 () is OK
+Fixture 36 () is OK
+Fixture 37 () is OK
+Fixture 38 () is OK
+Fixture 39 () is OK
+Fixture 40 () is OK
+Fixture 41 () is OK
+Fixture 42 () is OK
+Fixture 43 () is OK
+Fixture 44 () is OK
+Fixture 45 () is OK
+Fixture 46 () is OK
+Fixture 47 (DEMURRAGE IT &amp; OUT - 23/06/2010) is OK
+Fixture 48 () is OK
+Fixture 49 () is OK
+Fixture 50 () is OK
+Fixture 51 () is OK
+Fixture 52 () is OK
+Fixture 53 () is OK
+Fixture 54 () is OK
+Fixture 55 () is OK
+Fixture 56 (DEM IN &amp; OUT - 10/06/2010) is OK
+Fixture 57 () is OK
+Fixture 58 () is OK
+Fixture 59 () is OK
+Fixture 60 () is OK
+Fixture 61 () is OK
+Fixture 62 () is OK
+Fixture 63 () is OK
+Fixture 64 () is OK
+Fixture 65 () is OK
+Fixture 66 () is OK
+Fixture 67 () is OK
+Fixture 68 () is OK
+Fixture 69 () is OK
+Fixture 70 () is OK
+Fixture 71 () is OK
+Fixture 72 () is OK
+Fixture 73 () is OK
+Fixture 74 () is OK
+Fixture 75 () is OK
+Fixture 76 () is OK
+Fixture 77 () is OK
+Fixture 78 () is OK
+Fixture 79 () is OK
+Fixture 80 () is OK
+Fixture 81 () is OK
+Fixture 82 () is OK
+Fixture 83 () is OK
+Fixture 84 () is OK
+Fixture 85 () is OK
+Fixture 86 () is OK
+Fixture 87 (DEADWEIGHT IS 12680 WOULD NOT ALLOW FIXTURE TO BE ADDED UNLESS DEADWEIGHT WAS OVER 50,000
+
+_________________________________________________ 
+ Artemis Evangelou (30/04/2010 12:53:33) : ) is OK
+Fixture 88 () is OK
+Fixture 89 () is OK
+Fixture 90 () is OK
+Fixture 91 (
+_________________________________________________ 
+ Jessica Appel (04/05/2010 15:52:18) : c/p date should be 20/04/2010) is OK
+Fixture 92 () is OK
+Fixture 93 () is OK
+Fixture 94 () is OK
+Fixture 95 () is OK
+Fixture 96 () is OK
+Fixture 97 () is OK
+Fixture 98 () is OK
+Fixture 99 () is OK
+Fixture 100 () is OK
+Fixture 101 (DEMURRAGE IN &amp; OUT - 10/06/2010) is OK
+Fixture 102 () is OK
+Fixture 103 () is OK
+Fixture 104 () is OK
+Fixture 105 () is OK
+Fixture 106 () is OK
+Fixture 107 () is OK
+Fixture 108 () is OK
+Fixture 109 () is OK
+Fixture 110 () is OK
+Fixture 111 () is OK
+Fixture 112 (DEMURRAGE IN &amp; OUT - 18/06/2010) is OK
+Fixture 113 () is OK
+Fixture 114 () is OK
+Fixture 115 () is OK
+Fixture 116 () is OK
+Fixture 117 () is OK
+Fixture 118 () is OK
+Fixture 119 () is OK
+Fixture 120 () is OK
+Fixture 121 () is OK
+Fixture 122 () is OK
+Fixture 123 () is OK
+Fixture 124 (DEMURRAGE CLAIM IN 04/06/2010; OUT 04/06/2010) is OK
+Fixture 125 () is OK
+Fixture 126 () is OK
+Fixture 127 () is OK
+Fixture 128 () is OK
+Fixture 129 () is OK
+Fixture 130 () is OK
+Fixture 131 () is OK
+Fixture 132 () is OK
+Fixture 133 () is OK
+Fixture 134 () is OK
+Fixture 135 () is OK
+Fixture 136 () is OK
+Fixture 137 () is OK
+Fixture 138 () is OK
+Fixture 139 (DEMURRAGE IN &amp; OUT - 15/06/2010) is OK
+Fixture 140 () is OK
+Fixture 141 () is OK
+Fixture 142 () is OK
+Fixture 143 () is OK
+Fixture 144 () is OK
+Fixture 145 () is OK
+Fixture 146 (NO DEMURRAGE - MSG NO. 12949735) is OK
+Fixture 147 () is OK
+Fixture 148 () is OK
+Fixture 149 () is OK
+Fixture 150 () is OK
+Fixture 151 () is OK
+Fixture 152 () is OK
+Fixture 153 () is OK
+Fixture 154 () is OK
+Fixture 155 () is OK
+Fixture 156 () is OK
+Fixture 157 () is OK
+Fixture 158 () is OK
+Fixture 159 () is OK
+Fixture 160 () is OK
+Fixture 161 () is OK
+Fixture 162 () is OK
+Fixture 163 () is OK
+Fixture 164 () is OK
+Fixture 165 () is OK
+Fixture 166 () is OK
+Fixture 167 () is OK
+Fixture 168 () is OK
+Fixture 169 () is OK
+Fixture 170 () is OK
+Fixture 171 () is OK
+Fixture 172 () is OK
+Fixture 173 () is OK
+Fixture 174 () is OK
+Fixture 175 () is OK
+Fixture 176 () is OK
+Fixture 177 () is OK
+Fixture 178 () is OK
+Fixture 179 () is OK
+Fixture 180 () is OK
+Fixture 181 () is OK
+Fixture 182 () is OK
+Fixture 183 () is OK
+Fixture 184 () is OK
+Fixture 185 () is OK
+Fixture 186 () is OK
+Fixture 187 () is OK
+Fixture 188 () is OK
+Fixture 189 () is OK
+Fixture 190 () is OK
+Fixture 191 () is OK
+Fixture 192 () is OK
+Fixture 193 () is OK
+Fixture 194 () is OK
+Fixture 195 () is OK
+Fixture 196 () is OK
+Fixture 197 () is OK
+Fixture 198 () is OK
+Fixture 199 () is OK
+Fixture 200 () is OK
+Fixture 201 () is OK
+Fixture 202 () is OK
+Fixture 203 () is OK
+Fixture 204 () is OK
+Fixture 205 () is OK
+Fixture 206 () is OK
+Fixture 207 () is OK
+Fixture 208 () is OK
+Fixture 209 () is OK
+Fixture 210 () is OK
+Fixture 211 () is OK
+Fixture 212 () is OK
+Fixture 213 () is OK
+Fixture 214 () is OK
+Fixture 215 () is OK
+Fixture 216 () is OK
+Fixture 217 () is OK
+Fixture 218 (NO DEMURRAGE - MSG NO.12956503) is OK
+Fixture 219 () is OK
+Fixture 220 () is OK
+Fixture 221 () is OK
+Fixture 222 () is OK
+Fixture 223 () is OK
+Fixture 224 () is OK
+Fixture 225 () is OK
+Fixture 226 () is OK
+Fixture 227 () is OK
+Fixture 228 () is OK
+Fixture 229 () is OK
+Fixture 230 () is OK
+Fixture 231 () is OK
+Fixture 232 () is OK
+Fixture 233 () is OK
+Fixture 234 () is OK
+Fixture 235 () is OK
+Fixture 236 () is OK
+Fixture 237 () is OK
+Fixture 238 () is OK
+Fixture 239 () is OK
+Fixture 240 () is OK
+Fixture 241 () is OK
+Fixture 242 () is OK
+Fixture 243 () is OK
+Fixture 244 () is OK
+Fixture 245 () is OK
+Fixture 246 () is OK
+Fixture 247 () is OK
+Fixture 248 () is OK
+Fixture 249 () is OK
+Fixture 250 () is OK
+Fixture 251 () is OK
+Fixture 252 () is OK
+Fixture 253 () is OK
+Fixture 254 () is OK
+Fixture 255 () is OK
+Fixture 256 () is OK
+Fixture 257 () is OK
+Fixture 258 () is OK
+Fixture 259 () is OK
+Fixture 260 () is OK
+Fixture 261 () is OK
+Fixture 262 () is OK
+Fixture 263 () is OK
+Fixture 264 () is OK
+Fixture 265 () is OK
+Fixture 266 () is OK
+Fixture 267 () is OK
+Fixture 268 () is OK
+Fixture 269 () is OK
+Fixture 270 () is OK
+Fixture 271 () is OK
+Fixture 272 () is OK
+Fixture 273 () is OK
+Fixture 274 () is OK
+Fixture 275 () is OK
+Fixture 276 () is OK
+Fixture 277 () is OK
+Fixture 278 () is OK
+Fixture 279 () is OK
+Fixture 280 () is OK
+Fixture 281 () is OK
+Fixture 282 () is OK
+Fixture 283 () is OK
+Fixture 284 () is OK
+Fixture 285 () is OK
+Fixture 286 () is OK
+Fixture 287 () is OK
+Fixture 288 () is OK
+Fixture 289 () is OK
+Fixture 290 () is OK
+Fixture 291 () is OK
+Fixture 292 () is OK
+Fixture 293 () is OK
+Fixture 294 () is OK
+Fixture 295 () is OK
+Fixture 296 () is OK
+Fixture 297 () is OK
+Fixture 298 () is OK
+Fixture 299 () is OK
+Fixture 300 () is OK
+Fixture 301 () is OK
+Fixture 302 () is OK
+Fixture 303 () is OK
+Fixture 304 () is OK
+Fixture 305 () is OK
+Fixture 306 () is OK
+Fixture 307 () is OK
+Fixture 308 () is OK
+Fixture 309 () is OK
+Fixture 310 () is OK
+Fixture 311 () is OK
+Fixture 312 () is OK
+Fixture 313 () is OK
+Fixture 314 () is OK
+Fixture 315 () is OK
+Fixture 316 () is OK
+Fixture 317 () is OK
+Fixture 318 () is OK
+Fixture 319 () is OK
+Fixture 320 () is OK
+Fixture 321 () is OK
+Fixture 322 () is OK
+Fixture 323 () is OK
+Fixture 324 () is OK
+Fixture 325 () is OK
+Fixture 326 () is OK
+Fixture 327 () is OK
+Fixture 328 () is OK
+Fixture 329 () is OK
+Fixture 330 () is OK
+Fixture 331 () is OK
+Fixture 332 () is OK
+Fixture 333 () is OK
+Fixture 334 () is OK
+Fixture 335 () is OK
+Fixture 336 () is OK
+Fixture 337 () is OK
+Fixture 338 () is OK
+Fixture 339 () is OK
+Fixture 340 () is OK
+Fixture 341 () is OK
+Fixture 342 () is OK
+Fixture 343 () is OK
+Fixture 344 () is OK
+</DebugTrace>
+              </Output>
+            </UnitTestResult>
+          </InnerResults>
+        </TestResultAggregation>
+      </InnerResults>
+    </TestResultAggregation>
+  </Results>
+</TestRun>

@@ -1,0 +1,1321 @@
+TestSuite:MSTest
+-->Info: Found 235 test definitions.
+  Test:UtilityTest.TreeNodeTest.TestAdd
+  EndTest:54
+------------------------
+  Test:UtilityTest.TreeNodeTest.TestCount
+  EndTest:3
+------------------------
+  Test:UtilityTest.TreeNodeTest.TestEnumerate
+  EndTest:7
+------------------------
+  Test:UtilityTest.TreeNodeTest.TestRemoveWithChildrenClearMethodology
+  EndTest:16
+------------------------
+  Test:UtilityTest.TreeNodeTest.TestRemoveWithChildrenRemoveMethodology
+  EndTest:14
+------------------------
+  Test:UtilityTest.TreeNodeTest.TestRemoveWithParentNullMethodology
+  EndTest:8
+------------------------
+  Test:VulcanTests.AstAttributeNodeTests.Attribute_IsRelatedToKey
+  EndTest:724
+------------------------
+  Test:VulcanTests.AstAttributeNodeTests.Attribute_RecursiveRelationship
+  EndTest:87
+------------------------
+  Test:VulcanTests.AstCubeNodeTests.Cube_CubeDimensionSameName
+  EndTest:196
+------------------------
+  Test:VulcanTests.AstDimensionHierarchyNodeTests.Hierarchy_IsNatural
+  EndTest:96
+------------------------
+  Test:VulcanTests.AstDimensionNodeTests.Attribute_DimensionAttributeWithMultipleKeyColumns
+  EndTest:80
+------------------------
+  Test:VulcanTests.AstDimensionNodeTests.Attribute_NameWithSpace
+  EndTest:101
+------------------------
+  Test:VulcanTests.AstDimensionNodeTests.Dimension_NoKeyAttribute
+  EndTest:104
+------------------------
+  Test:VulcanTests.AstDimensionNodeTests.Dimension_RecursiveRelationship
+  EndTest:84
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicAndEmpty
+  EndTest:489
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_AddColumn
+  EndTest:235
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_AddEverything
+  EndTest:209
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_IdentityKey_AddColumnsAndIdentityKey
+  EndTest:199
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_IdentityKey_AddIdentityKey
+  EndTest:197
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_Indexes_AddColumnsAndIndexes
+  EndTest:197
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_Indexes_AddIndexes
+  EndTest:239
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_MultipleKeys_AddColumnsAndMultipleKeys
+  EndTest:188
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_MultipleKeys_AddMultipleKeys
+  EndTest:196
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_PrimaryKey_AddColumnsAndPrimaryKey
+  EndTest:242
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_PrimaryKey_AddPrimaryKey
+  EndTest:197
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_UniqueKey_AddColumnsAndUniqueKey
+  EndTest:197
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_UniqueKey_AddUniqueKey
+  EndTest:230
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_CloneKeys
+  EndTest:245
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_AddColumns
+  EndTest:251
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_CloneAllFalse
+  EndTest:213
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_CloneAllFalseAndAddColumns
+  EndTest:205
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_CloneAllFalseAndAddEverything
+  EndTest:240
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_CloneAllTrue
+  EndTest:207
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_CloneAllTrueAndAddColumns
+  EndTest:242
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_CloneAllTrueAndAddEverything
+  EndTest:211
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_Default
+  EndTest:253
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_IdentityKey_CloneAllFalseAndAddIdentityKey
+  EndTest:216
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_IdentityKey_CloneAllTrueAndAddIdentityKey
+  EndTest:247
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_Indexes_CloneAllFalseAndAddIndexes
+  EndTest:232
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_Indexes_CloneAllTrueAndAddIndexes
+  EndTest:241
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_Indexes_CloneIndexesFalse
+  EndTest:251
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_Indexes_CloneIndexesTrue
+  EndTest:239
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_MultipleKeys_CloneAllFalseAndAddMultipleKeys
+  EndTest:269
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_MultipleKeys_CloneAllTrueAndAddMultipleKeys
+  EndTest:247
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_MultipleKeys_CloneKeysFalse
+  EndTest:237
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_MultipleKeys_CloneKeysTrue
+  EndTest:263
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_PrimaryKey_CloneAllFalseAndAddPrimaryKey
+  EndTest:238
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_PrimaryKey_CloneAllTrueAndAddPrimaryKey
+  EndTest:232
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_UniqueKey_CloneAllFalseAndAddUniqueKey
+  EndTest:238
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_UniqueKey_CloneAllTrueAndAddUniqueKey
+  EndTest:249
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.IsNullPatcher_Basic
+  EndTest:252
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.IsNullPatcher_MultipleColumns
+  EndTest:216
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.IsNullPatcher_ValidateExternalMetadata
+  EndTest:221
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_Basic
+  EndTest:319
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_Columns
+  EndTest:291
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_DelayValidation
+  EndTest:259
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_DisableScd
+  EndTest:300
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_IsolationLevel
+  EndTest:260
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_NoUpdate
+  EndTest:306
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_PrecedenceConstraint
+  EndTest:280
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_UnspecifiedColumnDefaultUsageType
+  EndTest:268
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_UpdateTargetTable
+  EndTest:227
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_WithEvent
+  EndTest:291
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Package_BasicAndEmpty
+  EndTest:173
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Package_NoEmit
+  EndTest:169
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Package_TransformationTemplateInstance
+  EndTest:243
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.RetryContainer_Basic
+  EndTest:207
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_Basic
+  EndTest:209
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_Event
+  EndTest:239
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_ParametersBasic
+  EndTest:184
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_ParametersDefault
+  EndTest:184
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_ParametersOutput
+  EndTest:207
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_ParametersReadOnly
+  EndTest:183
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_Permission
+  EndTest:242
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_PrecedenceConstraint
+  EndTest:188
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_Schema
+  EndTest:202
+------------------------
+  Test:VulcanTests.AstLowererPrincipalTests.Principal_ApplicationRole
+  EndTest:207
+------------------------
+  Test:VulcanTests.AstLowererPrincipalTests.Principal_DatabasePermissions
+  EndTest:185
+------------------------
+  Test:VulcanTests.AstLowererPrincipalTests.Principal_DatabaseRole
+  EndTest:170
+------------------------
+  Test:VulcanTests.AstLowererPrincipalTests.Principal_NoEmit
+  EndTest:182
+------------------------
+  Test:VulcanTests.AstLowererPrincipalTests.Principal_SqlUser
+  EndTest:195
+------------------------
+  Test:VulcanTests.AstLowererPrincipalTests.Principal_WindowsGroup
+  EndTest:188
+------------------------
+  Test:VulcanTests.AstLowererPrincipalTests.Principal_WindowsUser
+  EndTest:181
+------------------------
+  Test:VulcanTests.AstLowererSchemaTests.Schema_BasicAndEmpty
+  EndTest:216
+------------------------
+  Test:VulcanTests.AstLowererSchemaTests.Schema_CustomExtensions
+  EndTest:210
+------------------------
+  Test:VulcanTests.AstLowererSchemaTests.Schema_NoEmit
+  EndTest:163
+------------------------
+  Test:VulcanTests.AstLowererSchemaTests.Schema_Permissions
+  EndTest:234
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_BasicAndEmpty
+  EndTest:183
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Column_DefaultValues
+  EndTest:183
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Column_PermissionBasic
+  EndTest:231
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Column_Properties
+  EndTest:184
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Column_Scd
+  EndTest:197
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Column_Types
+  EndTest:228
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_CustomExtensions
+  EndTest:196
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_IdentityKey_Basic
+  EndTest:181
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Index_Basic
+  EndTest:226
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Index_ColumnProperties
+  EndTest:193
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Index_Properties
+  EndTest:197
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_LateArriving
+  EndTest:220
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_PermissionBasic
+  EndTest:209
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_PrimaryKey_Basic
+  EndTest:221
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_PrimaryKey_ColumnProperties
+  EndTest:187
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_PrimaryKey_Properties
+  EndTest:188
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Schema
+  EndTest:225
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_SpacedTable
+  EndTest:185
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_StaticSource_Basic
+  EndTest:1
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_StaticSource_NoEmitMergePackage
+  EndTest:242
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_UniqueKey_Basic
+  EndTest:193
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_UniqueKey_ColumnProperties
+  EndTest:187
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_UniqueKey_Properties
+  EndTest:218
+------------------------
+  Test:VulcanTests.AstPackageNodeTests.EtlNode_HasDuplicateTransformNames
+  EndTest:103
+------------------------
+  Test:VulcanTests.AstPackageNodeTests.Variable_WithUnderscore
+  EndTest:84
+------------------------
+  Test:VulcanTests.AstTableNodeTests.Table_StaticSourceBadBitValue
+  EndTest:96
+------------------------
+  Test:VulcanTests.AstTableNodeTests.Table_StaticSourceDuplicateKeyValues
+  EndTest:87
+------------------------
+  Test:VulcanTests.AstTableNodeTests.Table_StaticSourceEscapedQuotes
+  EndTest:84
+------------------------
+  Test:VulcanTests.AstTableNodeTests.Table_StaticSourceValidation
+  EndTest:116
+------------------------
+  Test:VulcanTests.AstTableNodeTests.Table_StaticSourceValues
+  EndTest:86
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCalculationTests.CalculatedMemberAssociatedMeasureGroup
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Calculation.CalculatedMemberAssociatedMG_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Calculation.CalculatedMemberAssociatedMG_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Calculation.CalculatedMemberAssociatedMG_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:1305
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCalculationTests.CalculatedMemberMeasureFormat
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Calculation.CalculatedMemberMeasureFormat_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Calculation.CalculatedMemberMeasureFormat_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Calculation.CalculatedMemberMeasureFormat_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:224
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Actions
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Actions_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Actions_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Actions_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:248
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Basic
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Basic_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Basic_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Basic_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:169
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Calculations
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Calculations_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Calculations_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Calculations_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:218
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_DistinctCount
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DistinctCount_PRE.xml_\SSAS\AdventureWorksDW2008.ds
+Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DistinctCount_PRE.xml_\SSAS\AdvWorksCube.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DistinctCount_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DistinctCount_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:183
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Hierarchy
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Hierarchy_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Hierarchy_PRE.xml_\SSAS\DimGeography.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Hierarchy_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:262
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Kpi
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.KPI_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.KPI_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.KPI_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:206
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Measures
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Measures_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Measures_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Measures_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:177
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Perspectives
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Perspectives_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Perspectives_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Perspectives_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:289
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Translations
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Translations_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Translations_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Translations_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:195
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDataSourceTests.DataSource_Basic
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSource.Basic_PRE.xml_\SSAS\Conn1.ds
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSource.Basic_PRE.xml_\SSAS\Cube1.cube
+  EndTest:125
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDataSourceViewTests.DataSourceView_MultipleKeysReferringToSameTable
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.MultipleKeysReferringToSameTable_PRE.xml_\SSAS\AdventureWorksDW2008.ds
+Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.MultipleKeysReferringToSameTable_PRE.xml_\SSAS\AdvWorksCube.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.MultipleKeysReferringToSameTable_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.MultipleKeysReferringToSameTable_PRE.xml_\SSAS\DimGeography.dim
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.MultipleKeysReferringToSameTable_PRE.xml_\SSAS\DimReseller.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.MultipleKeysReferringToSameTable_PRE.xml_\SSAS\AdvWorks.cube
+  EndTest:269
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDataSourceViewTests.DataSourceView_NoUniqueConstraint
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.NoUniqueConstraint_PRE.xml_\SSAS\Conn1.ds
+Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.NoUniqueConstraint_PRE.xml_\SSAS\CubeConn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.NoUniqueConstraint_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.NoUniqueConstraint_PRE.xml_\SSAS\Cube1.cube
+  EndTest:156
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDataSourceViewTests.DataSourceView_TwoMeasureGroupsSameFact
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.TwoMeasureGroupsSameFact_PRE.xml_\SSAS\AdventureWorksDW2008.ds
+Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.TwoMeasureGroupsSameFact_PRE.xml_\SSAS\AdvWorksCube.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.TwoMeasureGroupsSameFact_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.TwoMeasureGroupsSameFact_PRE.xml_\SSAS\AdvWorks.cube
+  EndTest:154
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionRelationshipTests.DimensionRelationship_ManyToMany
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.ManyToMany_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.ManyToMany_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.ManyToMany_PRE.xml_\SSAS\DimGeography.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.ManyToMany_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:250
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionRelationshipTests.DimensionRelationship_Referenced
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.Referenced_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.Referenced_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.Referenced_PRE.xml_\SSAS\DimGeography.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.Referenced_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:175
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionRelationshipTests.DimensionRelationship_RolePlaying
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.RolePlaying_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.RolePlaying_PRE.xml_\SSAS\DimDate.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.RolePlaying_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:161
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionTests.Dimension_Basic
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Basic_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Basic_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Basic_PRE.xml_\SSAS\Cube1.cube
+  EndTest:227
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionTests.Dimension_ColumnTypes
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.ColumnTypes_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.ColumnTypes_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.ColumnTypes_PRE.xml_\SSAS\Cube1.cube
+  EndTest:164
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionTests.Dimension_Hierarchy
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Hierarchy_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Hierarchy_PRE.xml_\SSAS\DimGeography.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Hierarchy_PRE.xml_\SSAS\Cube1.cube
+  EndTest:183
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionTests.Dimension_Ordering
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Ordering_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Ordering_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Ordering_PRE.xml_\SSAS\Cube1.cube
+  EndTest:194
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionTests.Dimension_Snowflake
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Snowflake_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Snowflake_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Snowflake_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:163
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionTests.Dimension_Translation
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Translation_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Translation_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Translation_PRE.xml_\SSAS\Cube1.cube
+  EndTest:195
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_Aggregations
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Aggregations_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Aggregations_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Aggregations_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:301
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_ClientNotification
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ClientNotification_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ClientNotification_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ClientNotification_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:193
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_NullProactiveCachingSource
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.NullProactiveCachingSource_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.NullProactiveCachingSource_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.NullProactiveCachingSource_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:175
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_Partitions
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Partitions_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Partitions_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Partitions_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:226
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_ProactiveCachingScheduledPolling
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ScheduledPolling_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ScheduledPolling_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ScheduledPolling_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:186
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_ProactiveCachingScheduledPollingIncrementalUpdates
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ScheduledPollingIncrementalUpdates_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ScheduledPollingIncrementalUpdates_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ScheduledPollingIncrementalUpdates_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:184
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_ProactiveCachingTableNotificationClient
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.TableNotificationsClient_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.TableNotificationsClient_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.TableNotificationsClient_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:224
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_ProactiveCachingTableNotificationServer
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.TableNotificationsServer_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.TableNotificationsServer_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.TableNotificationsServer_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:185
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_ServerNotification
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ServerNotification_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ServerNotification_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ServerNotification_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:179
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterRoleTests.Role_Admin
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Role.Admin_PRE.xml_\SSAS\Conn1.ds
+Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Role.Admin_PRE.xml_\SSAS\Conn2.ds
+Emitted Role C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Role.Admin_PRE.xml_\SSAS\User.role
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Role.Admin_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Role.Admin_PRE.xml_\SSAS\Cube1.cube
+  EndTest:274
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterRoleTests.Role_Basic
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Role.Basic_PRE.xml_\SSAS\Conn1.ds
+Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Role.Basic_PRE.xml_\SSAS\Conn2.ds
+Emitted Role C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Role.Basic_PRE.xml_\SSAS\User.role
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Role.Basic_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[9]\Out\VulcanTests.Ssas2008EmitterTests_Role.Basic_PRE.xml_\SSAS\Cube1.cube
+  EndTest:232
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Basic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Basic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Basic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 13
+
+  EndTest:67
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_DelayValidation
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_DelayValidation threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_DelayValidation() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 25
+
+  EndTest:23
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Events
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Events threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Events() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 37
+
+  EndTest:23
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_IsolationLevelChaos
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_IsolationLevelChaos threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_IsolationLevelChaos() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 31
+
+  EndTest:24
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_PrecedenceConstraints
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_PrecedenceConstraints threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_PrecedenceConstraints() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 43
+
+  EndTest:20
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_QuerySourceSpace
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_QuerySourceSpace threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_QuerySourceSpace() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 19
+
+  EndTest:29
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_TransformationOrderCyclic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_TransformationOrderCyclic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_TransformationOrderCyclic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 173
+
+  EndTest:23
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_ConditionalSplitBasic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_ConditionalSplitBasic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_ConditionalSplitBasic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 81
+
+  EndTest:30
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DerivedColumnBasic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DerivedColumnBasic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DerivedColumnBasic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 57
+
+  EndTest:20
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DerivedColumnErrorRowDisposition
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DerivedColumnErrorRowDisposition threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DerivedColumnErrorRowDisposition() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 69
+
+  EndTest:29
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DestinationBasic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DestinationBasic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DestinationBasic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 87
+
+  EndTest:47
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DestinationFastLoad
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DestinationFastLoad threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DestinationFastLoad() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 93
+
+  EndTest:39
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_LookupBasic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_LookupBasic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_LookupBasic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 101
+
+  EndTest:21
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_MulticastBasic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_MulticastBasic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_MulticastBasic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 109
+
+  EndTest:27
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_OleDBCommandBasic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_OleDBCommandBasic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_OleDBCommandBasic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 115
+
+  EndTest:27
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_QuerySourceBasic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_QuerySourceBasic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_QuerySourceBasic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 51
+
+  EndTest:28
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_QuerySourceParameters
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_QuerySourceParameters threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_QuerySourceParameters() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 75
+
+  EndTest:29
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_SortBasic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_SortBasic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_SortBasic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 123
+
+  EndTest:29
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_SortDefault
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_SortDefault threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_SortDefault() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 129
+
+  EndTest:27
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_TransformationTemplateInstanceBasic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_TransformationTemplateInstanceBasic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_TransformationTemplateInstanceBasic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 161
+
+  EndTest:25
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_UnionAllBasic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_UnionAllBasic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_UnionAllBasic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 139
+
+  EndTest:25
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_UnionAllTransformationOrder
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_UnionAllTransformationOrder threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_UnionAllTransformationOrder() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 145
+
+  EndTest:23
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_XmlSourceBasic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_XmlSourceBasic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_XmlSourceBasic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 167
+
+  EndTest:20
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.RowCount_Basic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.RowCount_Basic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.RowCount_Basic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 63
+
+  EndTest:28
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_AccessConnection
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_AccessConnection threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_AccessConnection() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 100
+
+  EndTest:29
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_ConnectionWithUserName
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_ConnectionWithUserName threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_ConnectionWithUserName() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 106
+
+  EndTest:31
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_ConstraintModeLinear
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_ConstraintModeLinear threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_ConstraintModeLinear() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 56
+
+  EndTest:24
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_ConstraintModeParallel
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_ConstraintModeParallel threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_ConstraintModeParallel() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 62
+
+  EndTest:25
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_DelayValidation
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_DelayValidation threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_DelayValidation() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 68
+
+  EndTest:25
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Events
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Events threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Events() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 19
+
+  EndTest:24
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_IsolationLevelChaos
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_IsolationLevelChaos threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_IsolationLevelChaos() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 74
+
+  EndTest:21
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Log
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Log threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Log() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 50
+
+  EndTest:25
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_PrecedenceConstraints
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_PrecedenceConstraints threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_PrecedenceConstraints() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 13
+
+  EndTest:22
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Schema
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Schema threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Schema() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 44
+
+  EndTest:27
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_SystemVariables
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_SystemVariables threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_SystemVariables() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 31
+
+  EndTest:55
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_TaskOrder
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_TaskOrder threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_TaskOrder() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 92
+
+  EndTest:27
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_TransactionModeNoTransaction
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_TransactionModeNoTransaction threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_TransactionModeNoTransaction() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 80
+
+  EndTest:18
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_TransactionModeRequiredTransaction
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_TransactionModeRequiredTransaction threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_TransactionModeRequiredTransaction() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 86
+
+  EndTest:24
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_VariableExpression
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_VariableExpression threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_VariableExpression() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 37
+
+  EndTest:21
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Variables
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Variables threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Variables() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 25
+
+  EndTest:18
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.CommitPersistentVariable_Basic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.CommitPersistentVariable_Basic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.CommitPersistentVariable_Basic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 31
+
+  EndTest:27
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_Basic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_Basic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_Basic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 37
+
+  EndTest:19
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_ConstraintModeLinear
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_ConstraintModeLinear threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_ConstraintModeLinear() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 43
+
+  EndTest:21
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_ConstraintModeParallel
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_ConstraintModeParallel threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_ConstraintModeParallel() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 49
+
+  EndTest:21
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_DelayValidation
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_DelayValidation threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_DelayValidation() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 55
+
+  EndTest:25
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_Events
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_Events threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_Events() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 92
+
+  EndTest:20
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_IsolationLevelChaos
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_IsolationLevelChaos threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_IsolationLevelChaos() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 61
+
+  EndTest:21
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_PrecedenceConstraints
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_PrecedenceConstraints threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_PrecedenceConstraints() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 86
+
+  EndTest:21
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_TransactionModeNoTransaction
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_TransactionModeNoTransaction threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_TransactionModeNoTransaction() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 74
+
+  EndTest:21
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_TransactionModeRequiredTransaction
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_TransactionModeRequiredTransaction threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_TransactionModeRequiredTransaction() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 80
+
+  EndTest:21
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_VariableExpression
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_VariableExpression threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_VariableExpression() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 104
+
+  EndTest:21
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_Variables
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_Variables threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_Variables() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 98
+
+  EndTest:20
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ExecutePackage_Basic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ExecutePackage_Basic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ExecutePackage_Basic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 25
+
+  EndTest:21
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ExecuteSql_Basic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ExecuteSql_Basic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ExecuteSql_Basic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 13
+
+  EndTest:28
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ExecuteSql_CoreProperties
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ExecuteSql_CoreProperties threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ExecuteSql_CoreProperties() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 19
+
+  EndTest:37
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ForLoop_Basic
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ForLoop_Basic threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ForLoop_Basic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 110
+
+  EndTest:18
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Taskflow_DataflowReverseTopologicalSort
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Taskflow_DataflowReverseTopologicalSort threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Taskflow_DataflowReverseTopologicalSort() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 122
+
+  EndTest:27
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Taskflow_TaskflowReverseTopologicalSort
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Taskflow_TaskflowReverseTopologicalSort threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Taskflow_TaskflowReverseTopologicalSort() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 128
+
+  EndTest:23
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Taskflow_TaskOrder
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Taskflow_TaskOrder threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Taskflow_TaskOrder() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTaskTests.cs:line 116
+
+  EndTest:20
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTemplateTests.Templates_Package
+    Fail:Test method VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTemplateTests.Templates_Package threw exception: 
+System.ComponentModel.Win32Exception: The system cannot find the file specified Message:     at System.Diagnostics.Process.StartWithCreateProcess(ProcessStartInfo startInfo)
+   at System.Diagnostics.Process.Start()
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 141
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTemplateTests.Templates_Package() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterTemplateTests.cs:line 13
+
+  EndTest:29
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Configurations_AutoCreateSql
+    ErrOutput:VulcanTests.SsisEmitterTests_Package.Configurations.AutogenerateSql_PRE.xml_.xml(22,41): Error ErrorGeneric: The 'ConfigurationSqlServerConnectionName' attribute is not declared.
+VulcanTests.SsisEmitterTests_Package.Configurations.AutogenerateSql_PRE.xml_.xml(9,6): Error ErrorGeneric: Could not resolve reference to 'TestSqlConnection' of type 'Connection'. 'ConnectionName="TestSqlConnection"' is invalid.
+VulcanTests.SsisEmitterTests_Package.Configurations.AutogenerateSql_PRE.xml_.xml(12,6): Error ErrorGeneric: Could not resolve reference to 'TestSqlConnection' of type 'Connection'. 'ConnectionName="TestSqlConnection"' is invalid.
+    Fail:Test method VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Configurations_AutoCreateSql threw exception: 
+System.InvalidOperationException: Fatal Error Occurred. Message:     at VulcanEngine.Kernel.PhaseWorkflow.ExecutePhaseWorkflowGraph(IIR rootIR) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanEngine\Kernel\PhaseWorkflow.cs:line 174
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.RunVulcan(String bimlFileName, String targetDirectoryPath, String includeFileName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 160
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath, String fileExtension, String includeFileName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 90
+   at VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Configurations_AutoCreateSql() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisEmitterPackageTests.cs:line 79
+
+  EndTest:201
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Configurations_AutoCreateXml
+  EndTest:453
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_EmptyPackage
+  EndTest:226
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Events
+  EndTest:188
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Executables
+  EndTest:214
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Expressions
+  EndTest:265
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_LogProvider
+  EndTest:285
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_OleDBConnectionManager
+  EndTest:169
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Variables
+  EndTest:326
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterProjectTests.Project_Basic
+  EndTest:169
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterProjectTests.Project_MultiplePackages
+    Fail:Test method VulcanTests.SsisEmitterTests.SsisEmitterProjectTests.Project_MultiplePackages threw exception: 
+System.IndexOutOfRangeException: Index was outside the bounds of the array. Message:     at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareDirectories(DirectoryInfo directoryInfo1, DirectoryInfo directoryInfo2, String fileExtensions) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 104
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareDirectories(DirectoryInfo directoryInfo1, DirectoryInfo directoryInfo2, String fileExtensions) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 135
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareDirectories(String directoryPath1, String directoryPath2, String fileExtension) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 99
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath, String fileExtension, String includeFileName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 92
+   at VulcanTests.SsisEmitterTests.SsisEmitterProjectTests.Project_MultiplePackages() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisEmitterProjectTests.cs:line 21
+
+  EndTest:173
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.AnalysisServicesExecuteDdl_DirectInput
+  EndTest:235
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.AnalysisServicesExecuteDdl_File
+  EndTest:182
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.AnalysisServicesExecuteDdl_Variable
+  EndTest:189
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.BulkInsert_Basic
+  EndTest:249
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.ExecutePackage_File
+  EndTest:195
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.ExecutePackage_Sql
+  EndTest:279
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.ExecuteSql_Basic
+  EndTest:194
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.ExecuteSql_CoreProperties
+  EndTest:436
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.ExecuteSql_Events
+  EndTest:204
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.ExecuteSql_Parameters
+  EndTest:235
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.ExecuteSql_ResultSetFull
+  EndTest:196
+------------------------
+  Test:VulcanTests.TemplateTransformationTests.Transformation_DerivedColumnBasic
+  EndTest:294
+------------------------
+-->Info: 235 test(s) were reported
+EndSuite

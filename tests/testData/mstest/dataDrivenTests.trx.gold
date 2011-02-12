@@ -1,0 +1,709 @@
+TestSuite:MSTest
+-->Info: Found 22 test definitions.
+  Test:mycompany.Library.Test.AccountTests.AccountGetListTest
+  EndTest:206
+------------------------
+  Test:mycompany.Library.Test.AccountTests.AccountGetTest(0)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.AccountTests.AccountGetTest(1)
+  EndTest:26
+------------------------
+  Test:mycompany.Library.Test.BillingFamilyTests.BillingFamilyAddTest
+  EndTest:27
+------------------------
+  Test:mycompany.Library.Test.BillingFamilyTests.BillingFamilyGetListTest
+  EndTest:14
+------------------------
+  Test:mycompany.Library.Test.BillingFamilyTests.BillingFamilyGetTest(0)
+  EndTest:2
+------------------------
+  Test:mycompany.Library.Test.BillingFamilyTests.BillingFamilyGetTest(1)
+  EndTest:15
+------------------------
+  Test:mycompany.Library.Test.BillingFamilyTests.BillingFamilyRepositoryConstructorTest
+  EndTest:1
+------------------------
+  Test:mycompany.Library.Test.BillingFamilyTests.BillingFamilyUpdateTest
+  EndTest:54
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(0)
+  EndTest:56
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(1)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(2)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(3)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(4)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(5)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(6)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(7)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(8)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(9)
+  EndTest:13
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(10)
+  EndTest:12
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(11)
+  EndTest:12
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(12)
+  EndTest:11
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(13)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(14)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(15)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(16)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(17)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(18)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(19)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(20)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(21)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(22)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(23)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(24)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(25)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(26)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(27)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(28)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(29)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(30)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(31)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(32)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(33)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(34)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(35)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(36)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(37)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(38)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(39)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(40)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(41)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(42)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(43)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(44)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(45)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(46)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(47)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(48)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(49)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(50)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(51)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(52)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(53)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(54)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(55)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(56)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(57)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(58)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(59)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(60)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(61)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(62)
+  EndTest:11
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(63)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(64)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(65)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(66)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(67)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(68)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(69)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(70)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(71)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(72)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(73)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(74)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(75)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(76)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(77)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(78)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(79)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(80)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(81)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(82)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(83)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(84)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(85)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(86)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(87)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(88)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(89)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(90)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(91)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(92)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(93)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(94)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(95)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(96)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(97)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(98)
+  EndTest:11
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(99)
+  EndTest:12
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(100)
+  EndTest:11
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(101)
+  EndTest:11
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(102)
+  EndTest:12
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(103)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(104)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(105)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(106)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(107)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(108)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(109)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(110)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(111)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(112)
+  EndTest:11
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(113)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(114)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(115)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(116)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(117)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(118)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(119)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(120)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(121)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(122)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(123)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(124)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(125)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(126)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(127)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(128)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(129)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(130)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(131)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(132)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(133)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(134)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(135)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(136)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(137)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(138)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(139)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(140)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(141)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(142)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(143)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(144)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(145)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(146)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(147)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(148)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(149)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(150)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(151)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(152)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(153)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(154)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(155)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(156)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(157)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(158)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(159)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(160)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(161)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(162)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(163)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(164)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(165)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(166)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(167)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(168)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(169)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(170)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(171)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(172)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(173)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(174)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountLookup(175)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetDiscountTierList
+  EndTest:11
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetPackageTypeList
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetPackageTypeLookup(0)
+  EndTest:17
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetPackageTypeLookup(1)
+  EndTest:13
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetPackageTypeLookup(2)
+  EndTest:3
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetPackageTypeLookup(3)
+  EndTest:3
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetRoleList
+  EndTest:7
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetRoleLookup(0)
+  EndTest:13
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetRoleLookup(1)
+  EndTest:3
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetRoleLookup(2)
+  EndTest:3
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetRoleLookup(3)
+  EndTest:3
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetServiceTypeList
+  EndTest:5
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetServiceTypeLookup(0)
+  EndTest:17
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetServiceTypeLookup(1)
+  EndTest:3
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetServiceTypeLookup(2)
+  EndTest:3
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetServiceTypeLookup(3)
+  EndTest:3
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffList
+  EndTest:7
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(0)
+  EndTest:34
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(1)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(2)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(3)
+  EndTest:21
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(4)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(5)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(6)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(7)
+  EndTest:8
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(8)
+  EndTest:14
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(9)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(10)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(11)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(12)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(13)
+  EndTest:12
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(14)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(15)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(16)
+  EndTest:11
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(17)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(18)
+  EndTest:11
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(19)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(20)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(21)
+  EndTest:11
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(22)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(23)
+  EndTest:11
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(24)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(25)
+  EndTest:10
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(26)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.GetTariffLookup(27)
+  EndTest:9
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.InvalidDateAfterEnd
+  EndTest:28
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.InvalidDateBeforeStart
+  EndTest:17
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.InvalidWeightForCustomerPackage
+  EndTest:17
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.InvalidWeightForEnvelopeIsIgnored
+  EndTest:16
+------------------------
+  Test:mycompany.Library.Test.LookupDataTests.LookupRepositoryConstructorTest
+  EndTest:1
+------------------------
+-->Info: 235 test(s) were reported
+EndSuite

@@ -1,0 +1,167 @@
+TestSuite:MSTest
+-->Info: Found 19 test definitions.
+  Test:IntegrationTests.DummyTest.ADummyTest
+  EndTest:333
+------------------------
+  Test:IntegrationTests.GeneralTests.FixtureTests.GeneralCheckAllFixtureVersionsLoadCorrectly
+  EndTest:4084419
+------------------------
+  Test:IntegrationTests.ReportTests.ReportTests.AddBooks
+    Fail:Test method IntegrationTests.ReportTests.ReportTests.AddBooks threw exception: 
+System.Exception: Error applying standing data changes ---> System.Data.UpdateException: An error occurred while updating the entries. See the inner exception for details. ---> System.Data.SqlClient.SqlException: String or binary data would be truncated.
+The statement has been terminated. Message:     at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Mapping.Update.Internal.DynamicUpdateCommand.Execute(UpdateTranslator translator, EntityConnection connection, Dictionary`2 identifierValues, List`1 generatedValues)
+   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+ --- End of inner exception stack trace ---
+    at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   at System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at DataProvider.StandingDataManager.ApplyItemUpdates(String entitySetName, Object updatedItem) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 216
+ --- End of inner exception stack trace ---
+    at DataProvider.StandingDataManager.ApplyItemUpdates(String entitySetName, Object updatedItem) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 235
+   at IntegrationTests.ReportTests.ReportTests.InsertAndCheckStandingData[T1,T2,T3](IEnumerable`1 boundList, T1 newVMObject, String entitySetName, String tagName) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 36
+   at IntegrationTests.ReportTests.ReportTests.AddBooks() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 171
+
+  EndTest:4319
+------------------------
+  Test:IntegrationTests.ReportTests.ReportTests.AddCompany
+    Fail:Assert.IsTrue failed. NewCompanies failed to insert Message:    at IntegrationTests.ReportTests.ReportTests.InsertAndCheckStandingData[T1,T2,T3](IEnumerable`1 boundList, T1 newVMObject, String entitySetName, String tagName) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 42
+   at IntegrationTests.ReportTests.ReportTests.AddCompany() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 188
+
+  EndTest:272
+------------------------
+  Test:IntegrationTests.ReportTests.ReportTests.AddBroker
+    Fail:Test method IntegrationTests.ReportTests.ReportTests.AddBroker threw exception: 
+System.Exception: Error applying standing data changes ---> System.Data.UpdateException: An error occurred while updating the entries. See the inner exception for details. ---> System.Data.SqlClient.SqlException: The INSERT statement conflicted with the FOREIGN KEY constraint "FK_User_Department". The conflict occurred in database "TRITON_DEV_UT", table "dbo.Department", column 'Id'.
+The statement has been terminated. Message:     at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Mapping.Update.Internal.DynamicUpdateCommand.Execute(UpdateTranslator translator, EntityConnection connection, Dictionary`2 identifierValues, List`1 generatedValues)
+   at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+ --- End of inner exception stack trace ---
+    at System.Data.Mapping.Update.Internal.UpdateTranslator.Update(IEntityStateManager stateManager, IEntityAdapter adapter)
+   at System.Data.EntityClient.EntityAdapter.Update(IEntityStateManager entityCache)
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at DataProvider.StandingDataManager.ApplyItemUpdates(String entitySetName, Object updatedItem) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 216
+ --- End of inner exception stack trace ---
+    at DataProvider.StandingDataManager.ApplyItemUpdates(String entitySetName, Object updatedItem) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 235
+   at IntegrationTests.ReportTests.ReportTests.InsertAndCheckStandingData[T1,T2,T3](IEnumerable`1 boundList, T1 newVMObject, String entitySetName, String tagName) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 36
+   at IntegrationTests.ReportTests.ReportTests.AddBroker() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 283
+
+  EndTest:158
+------------------------
+  Test:IntegrationTests.ReportTests.ReportTests.AddDepartment
+    Fail:Assert.IsTrue failed. NewDepartments failed to insert Message:    at IntegrationTests.ReportTests.ReportTests.InsertAndCheckStandingData[T1,T2,T3](IEnumerable`1 boundList, T1 newVMObject, String entitySetName, String tagName) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 42
+   at IntegrationTests.ReportTests.ReportTests.AddDepartment() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 233
+
+  EndTest:107
+------------------------
+  Test:IntegrationTests.ReportTests.ReportTests.AddCounterparties
+    Fail:Test method IntegrationTests.ReportTests.ReportTests.AddCounterparties threw exception: 
+System.InvalidOperationException: Execution of the command requires an open and available connection. The connection's current state is broken. Message:     at System.Data.Objects.ObjectContext.EnsureConnection()
+   at System.Data.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Objects.ObjectQuery`1.System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at DataProvider.StandingDataManager.get_AllCounterparties() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataManager.cs:line 550
+   at Shipping.ViewModels.StandingData.CounterpartyVM.CoerceOFCode() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataVM\CounterpartyVM.cs:line 98
+   at Shipping.ViewModels.StandingData.CounterpartyVM.set_OFCode(String value) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataVM\CounterpartyVM.cs:line 117
+   at Shipping.ViewModels.StandingData.CounterpartyVM..ctor() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\DataProvider\StandingDataVM\CounterpartyVM.cs:line 26
+   at IntegrationTests.ReportTests.ReportTests.AddCounterparties() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\StandingDataSetup.cs:line 49
+
+  EndTest:37
+------------------------
+  Test:IntegrationTests.ReportTests.ReportTests.AddDryTimeCharterAndDryTimeCharterMGMTReportScenarios
+    Fail:Test method IntegrationTests.ReportTests.ReportTests.AddDryTimeCharterAndDryTimeCharterMGMTReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements Message:     at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.CreateCounterpartiesForOwnerChartererPayawayOnBothButInvoiceOnOneSide(CommissionSplits ownerCommissionSplits, CommissionSplits chartererCommissionSplits) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 114
+   at IntegrationTests.ReportTests.ReportTests.SetupTimeCharterVMWithASingleHireLine(TimeCharterVM timeCharterVM, TimeCharter timeCharter) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 578
+   at IntegrationTests.ReportTests.ReportTests.AddDryTimeCharterAndDryTimeCharterMGMTReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 705
+
+  EndTest:450
+------------------------
+  Test:IntegrationTests.ReportTests.ReportTests.AddDryVoyageReportScenarios
+    Fail:Test method IntegrationTests.ReportTests.ReportTests.AddDryVoyageReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements Message:     at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.AddDryVoyageReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 198
+
+  EndTest:167
+------------------------
+  Test:IntegrationTests.ReportTests.ReportTests.AddNewBuildSalesAndPurchaseReportScenarios
+    Fail:Test method IntegrationTests.ReportTests.ReportTests.AddNewBuildSalesAndPurchaseReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements Message:     at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.SetupSalesAndPurchaseWithScenarioACounterparties(SaleAndPurchaseVM saleAndPurchaseVM, SaleAndPurchase salesAndPurchase) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 1068
+   at IntegrationTests.ReportTests.ReportTests.AddNewBuildSalesAndPurchaseReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 1105
+
+  EndTest:186
+------------------------
+  Test:IntegrationTests.ReportTests.ReportTests.AddSecondHandSalesAndPurchaseReportScenarios
+    Fail:Test method IntegrationTests.ReportTests.ReportTests.AddSecondHandSalesAndPurchaseReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements Message:     at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.SetupSalesAndPurchaseWithScenarioACounterparties(SaleAndPurchaseVM saleAndPurchaseVM, SaleAndPurchase salesAndPurchase) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 1068
+   at IntegrationTests.ReportTests.ReportTests.AddSecondHandSalesAndPurchaseReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 1232
+
+  EndTest:149
+------------------------
+  Test:IntegrationTests.ReportTests.ReportTests.AddSecurityReportScenarios
+    Fail:Test method IntegrationTests.ReportTests.ReportTests.AddSecurityReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements Message:     at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.SetupSecurityWithScenario1Counterparties(SecurityVM securityVM, Security security) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\SecurityReportTests.cs:line 58
+   at IntegrationTests.ReportTests.ReportTests.AddSecurityReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\SecurityReportTests.cs:line 96
+
+  EndTest:157
+------------------------
+  Test:IntegrationTests.ReportTests.ReportTests.AddValuationReportScenarios
+    Fail:Test method IntegrationTests.ReportTests.ReportTests.AddValuationReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements Message:     at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.CreateCounterparty(CommissionSplits ownerCommissionSplits, CommissionSplits chartererCommissionSplits) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ValuationReportTests.cs:line 31
+   at IntegrationTests.ReportTests.ReportTests.SetupValuationScenario1(ValuationVM valuationVMA, Valuation valuationA) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ValuationReportTests.cs:line 45
+   at IntegrationTests.ReportTests.ReportTests.AddValuationReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ValuationReportTests.cs:line 73
+
+  EndTest:210
+------------------------
+  Test:IntegrationTests.ReportTests.ReportTests.AddWetTimeCharterAndWetTimeCharterMGMTReportScenarios
+    Fail:Test method IntegrationTests.ReportTests.ReportTests.AddWetTimeCharterAndWetTimeCharterMGMTReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements Message:     at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.CreateCounterpartiesForOwnerChartererPayawayOnBothButInvoiceOnOneSide(CommissionSplits ownerCommissionSplits, CommissionSplits chartererCommissionSplits) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 114
+   at IntegrationTests.ReportTests.ReportTests.SetupTimeCharterVMWithASingleHireLine(TimeCharterVM timeCharterVM, TimeCharter timeCharter) in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 578
+   at IntegrationTests.ReportTests.ReportTests.AddWetTimeCharterAndWetTimeCharterMGMTReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 887
+
+  EndTest:222
+------------------------
+  Test:IntegrationTests.ReportTests.ReportTests.AddWetVoyageReportScenarios
+    Fail:Test method IntegrationTests.ReportTests.ReportTests.AddWetVoyageReportScenarios threw exception: 
+System.InvalidOperationException: Sequence contains no elements Message:     at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)
+   at IntegrationTests.ReportTests.ReportTests.AddWetVoyageReportScenarios() in c:\BuildAgent\work\16b01f9d38525c04\Shipping\IntegrationTests\ReportTests\ReportTests.cs:line 383
+
+  EndTest:154
+------------------------
+  Test:IntegrationTests.ReportTests.ReportTests.CheckAllFixtureVersionsLoadCorrectly
+  EndTest:24292
+------------------------
+-->Info: 16 test(s) were reported
+EndSuite

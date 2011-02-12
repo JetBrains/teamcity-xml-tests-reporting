@@ -1,0 +1,39 @@
+TestSuite:MSTest
+-->Info: Found 10 test definitions.
+  Test:TestProject1.UnitTest1.TestMethod13
+  EndTest:10
+------------------------
+  Test:TestProject1.UnitTest1.TestMethod16
+  EndTest:1
+------------------------
+  Test:TestProject1.UnitTest1.TestMethod19
+    Fail:Assert.IsFalse failed.  Message:    at TestProject1.UnitTest1.TestMethod19() in e:\temp\xddd5\ClassLibrary1\TestProject1\UnitTest1.cs:line 28
+
+  EndTest:23
+------------------------
+  Test:TestProject1.UnitTest1.TestMethod15
+  EndTest:1
+------------------------
+  Test:TestProject1.UnitTest1.TestMethod134
+    Fail:Test method TestProject1.UnitTest1.TestMethod134 threw exception: 
+System.Exception: Fail Message:     at TestProject1.UnitTest1.TestMethod134() in e:\temp\xddd5\ClassLibrary1\TestProject1\UnitTest1.cs:line 30
+
+  EndTest:3
+------------------------
+  Test:TestProject1.UnitTest1.TestMethod1
+  EndTest:1
+------------------------
+  Test:TestProject1.UnitTest1.TestMethod12
+  EndTest:1
+------------------------
+  Test:TestProject1.UnitTest1.TestMethod14
+  EndTest:1
+------------------------
+  Test:TestProject1.UnitTest1.TestMethod18
+  EndTest:1
+------------------------
+  Test:TestProject1.UnitTest1.TestMethod71
+  EndTest:1
+------------------------
+-->Info: 10 test(s) were reported
+EndSuite

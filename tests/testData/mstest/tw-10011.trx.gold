@@ -1,0 +1,1251 @@
+TestSuite:MSTest
+-->Info: Found 383 test definitions.
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.AttachmentTests.TestAttachmentKeyWithApostrophe
+  EndTest:149
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.AttachmentTests.TestAttachmentOnCurveShift
+  EndTest:3739
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.AttachmentTests.TestAttachmentOnTrade
+  EndTest:8067
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.AttachmentTests.TestAttachmentOnTradeAsFile
+  EndTest:1008
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.AttachmentTests.TestAttachmentVersions
+  EndTest:1792
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.AttachmentTests.TestGetAttachment
+  EndTest:120
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.AttachmentTests.TestMissingAttachment
+  EndTest:113
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.AttachmentTests.TestStringAttachment
+  EndTest:95
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.AttachmentTests.TestValidAttachment
+  EndTest:88
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CallTests.TestCreateCallManager
+  EndTest:3
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CallTests.TestCreateCallManagerOnABackgroundWorker
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CommodityIndexTests.TestCreateCommodityIndexDescription
+  EndTest:16
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CommodityIndexTests.TestDeleteCommodityIndexDescription
+  EndTest:150
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CommodityIndexTests.TestGetDistinctCommodityIndexDescriptions
+  EndTest:117
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CommodityIndexTests.TestIndexDescriptionAll
+  EndTest:337
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CommodityIndexTests.TestLengthCommodityIndexDescription
+  EndTest:84
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CommodityIndexTests.TestLengthCommodityIndexDescriptionName
+  EndTest:8
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CommodityIndexTests.TestRetrieveCommodityIndexDescription
+  EndTest:136
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CommodityIndexTests.TestSaveCommodityIndexDescription
+  EndTest:105
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CounterPartiesTests.TestChangeParty
+  EndTest:214
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CounterPartiesTests.TestCounterPartiesDisable
+  EndTest:329
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CounterPartiesTests.TestCounterPartiesEnable
+  EndTest:414
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CounterPartiesTests.TestCounterPartyKeyCopy
+  EndTest:1121
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CounterPartiesTests.TestCounterPartyKeyIsEmpty
+  EndTest:126
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CounterPartiesTests.TestCreateCounterParty
+  EndTest:123
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CounterPartiesTests.TestGetPartyByKey
+  EndTest:166
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CounterPartiesTests.TestRetrieveCounterPartiesCombineExpressions
+  EndTest:2110
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CounterPartiesTests.TestRetrieveCounterPartyBykey
+  EndTest:138
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CounterPartiesTests.TestTryRetrieveCounterPartyWithDummyKey
+  EndTest:99
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CreditIndexTests.TestChangeCreditIndexID
+  EndTest:126
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CreditIndexTests.TestCreditIndexCreateDuplicate
+    Ignored:Assert.Inconclusive failed. This test is invalid: credit index has versioning. It is legal to save the same index multiple times, and its version number will be changed.    at WallStreetSystems.StructuredProducts.Interop.Test.CreditIndexTests.TestCreditIndexCreateDuplicate()
+
+  EndTest:141
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CreditSpreadTests.TestCreditEntities
+  EndTest:283
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CreditSpreadTests.TestCreditIndexLabels
+  EndTest:149
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CreditSpreadTests.TestCreditRatings
+  EndTest:316
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CreditSpreadTests.TestCreditSectors
+  EndTest:202
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurrencyTests.TestAddCurrency
+  EndTest:232
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurrencyTests.TestAddCurrencyMoreThanThreeChars
+  EndTest:99
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurrencyTests.TestAddMultipleCurrencies
+  EndTest:723
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurrencyTests.TestGetCurrencyByCode
+  EndTest:231
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurrencyTests.TestGetCurrencyByName
+  EndTest:239
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestAgeMarketCurveToDate
+  EndTest:943
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildAll
+  EndTest:1677
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildBOND_ISS_SPREAD_CURVE
+  EndTest:1555
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildBS_SPREAD_CURVES
+  EndTest:1582
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildCashRates
+  EndTest:1289
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildCashToSpotRates
+  EndTest:1302
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildCR_SPREAD_CRVS
+  EndTest:2848
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildCV_MS
+  EndTest:2848
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildDF
+  EndTest:1256
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildFutureRates
+  EndTest:1418
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildFX
+  EndTest:4610
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildFXFailed
+  EndTest:6811
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildGOVT_DF
+  EndTest:1909
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildINDEX_CURVES
+  EndTest:2592
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildIR_FUT_VOL_FROM_CVMS
+  EndTest:4731
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildMktCrvObjectNotChanged
+  EndTest:1155
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildRECOVERY_RATE_CRVS
+  EndTest:5031
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildSV
+  EndTest:1982
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildSwapRates
+  EndTest:1935
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestBuildTSY_SPREADS
+  EndTest:2779
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCapVolSmileAdd
+  EndTest:654
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCapVolSmileRemove
+  EndTest:652
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCapVolSmilesNumberIncrease
+  EndTest:262
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCapVolTenorAdd
+  EndTest:655
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCapVolTenorRemove
+  EndTest:635
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCapVolVolPtsAdd
+  EndTest:642
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCapVolVolPtsRemove
+  EndTest:653
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestComputeFutVolFromSwaps
+  EndTest:1352
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestConvertMktCrvClientToClient
+  EndTest:654
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestConvertMktCrvFromClientToServer
+  EndTest:655
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestConvertMktCrvFromServerToClient
+  EndTest:660
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCreateAndStoreCV_MS
+  EndTest:6414
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCreateAndStorePseudoCvMS
+  EndTest:7614
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCreateAndStorePseudoDf
+  EndTest:5862
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCurveCalibrateSyncronizedFailErrorList
+  EndTest:5004
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCurveDescObjecToString
+  EndTest:97
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCurveDescStringToObject
+  EndTest:88
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCurveNameList
+  EndTest:89
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCurveObjectToString
+  EndTest:1998
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestCurveStringToObject
+  EndTest:4828
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestDeleteFirstCurveFromDB
+  EndTest:157
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestDeleteFirstCurveFromWarehouse
+  EndTest:97
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestExportImportMarket
+  EndTest:9753
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestFXMarketCurveName
+  EndTest:90
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestGenCapVolSmileFromEqn
+  EndTest:648
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestGenSwptnVolSmileFromEqn
+  EndTest:645
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestGetForwardCmtRate
+  EndTest:3454
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestGetLiveRatesUtils
+  EndTest:641
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestInitializeMarketCurve
+    Ignored:Assert.Inconclusive failed. Not completely valid test. Need more assertions.    at WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestInitializeMarketCurve()
+
+  EndTest:264
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestInsertFuturesSchedule
+  EndTest:647
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestInvalidMarketCurveBaseDateBuild
+  EndTest:1520
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestInvalidMarketCurveBaseDateSave
+  EndTest:419
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestInvalidMarketCurveRatesBuildNegativeRate
+  EndTest:1790
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestInvalidMarketCurveRatesBuildWithFlag
+  EndTest:1146
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestInvalidMarketCurveRatesSave
+  EndTest:402
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestLoadCurve
+  EndTest:853
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestLoadCurveFromWarehouse
+  EndTest:705
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestLoadFirstCurveFromDBViaMarketDesc
+  EndTest:418
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestLocalBuildAllNewEmptyMarket
+  EndTest:2182
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestLocalBuildDfNewEmptyMarket
+  EndTest:2237
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestLocalBuildDfNewMarket
+  EndTest:2167
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketAsyncCalibrateErrors
+  EndTest:9477
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveBuildErrorListContent
+  EndTest:3544
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveBuildFailedErrorList
+  EndTest:5500
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveBuildFailedTracking
+  EndTest:5266
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveBuildTracking
+  EndTest:727
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveCalibrateBDT
+  EndTest:7676
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveCalibrateBK
+  EndTest:7964
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveCalibrateHW
+  EndTest:7861
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveCalibrateSyncronized
+  EndTest:5543
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveCalibrateSyncronizedFail
+  EndTest:5449
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveCalibrateWithSampleCrv
+  EndTest:6417
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveCalibrateWithSampleCrvFail
+  EndTest:5715
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveIDGeneration
+  EndTest:395
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveName
+  EndTest:256
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveRatesBuild
+  EndTest:709
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveRatesSave
+  EndTest:441
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveUpdate
+  EndTest:3924
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketCurveUpdateFailure
+  EndTest:3707
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMarketSyncCalibrateErrors
+  EndTest:9975
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMktCurveDescriptionTimestampsUpdateWSC_BUILD_CV_MS
+  EndTest:6900
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMktCurveDescriptionTimestampsUpdateWSC_BUILD_DF
+  EndTest:3482
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestMktCurveDescriptionTimestampsUpdateWSC_BUILD_SV_MS
+    StdOutput:11/5/2009 10:06:06 AM
+  EndTest:7537
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestNegationBuildCashRates
+  EndTest:1592
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestNegationBuildCashToSpotRates
+  EndTest:324
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestNegationBuildFutureRates
+  EndTest:2111
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestNegationBuildSwapRates
+  EndTest:1788
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestNegationCapVolSmileRemove
+  EndTest:309
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestNegationCapVolTenorRemove
+  EndTest:316
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestNegationCapVolVolPtsRemove
+  EndTest:316
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestNegationCreateAndStoreFxIdxCrvsFrmIr
+  EndTest:480
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestNegationSwptnVolVolPtsRemove
+  EndTest:276
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestPopulateCurve
+  EndTest:659
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestPopulateFXCurve
+  EndTest:213
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestRetrieveCurve
+  EndTest:684
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestSaveCurve
+  EndTest:729
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestSelectCurveFromWarehouseCombineEx
+  EndTest:68
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestSelectCurveFromWarehouseEq
+  EndTest:50
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestSelectFromDatabase
+  EndTest:57
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestSelectFromDatabaseWithGroupBy
+  EndTest:76
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestSelectFromWarehouseNotEq
+  EndTest:49
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestSetCvSmileDataView
+  EndTest:619
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestSetSvSmileDataView
+  EndTest:597
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestSwptnVolSmileAdd
+  EndTest:606
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestSwptnVolSmileRemove
+  EndTest:615
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestSwptnVolSmilesNumberIncrease
+  EndTest:266
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestSwptnVolTenorAdd
+  EndTest:619
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestSwptnVolTenorRemove
+  EndTest:614
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestSwptnVolVolPtsAdd
+  EndTest:618
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestSwptnVolVolPtsRemove
+  EndTest:611
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestUpdateCurveStatus
+  EndTest:79
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestWarehouseBuildDfNewMarket
+  EndTest:900
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.CurveTests.TestWsOfficialCrvIndicator
+  EndTest:772
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.DBRateProviderTests.TestDBRateProvider
+  EndTest:6685
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.EnumTests.TestEnumGroups
+  EndTest:32
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ExpressionTests.TestExpressionFailParse
+  EndTest:351
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ExpressionTests.TestExpressionRetrieve
+  EndTest:139
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ExpressionTests.TestFilterLiveMarkets
+    Fail:Assert.AreEqual failed. Expected:<1>. Actual:<2>.  Message:    at WallStreetSystems.StructuredProducts.Interop.Test.ExpressionTests.TestFilterLiveMarkets()
+
+  EndTest:5085
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ExpressionTests.TestParseLargeLogicalExpression
+  EndTest:33
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ExpressionTests.TestParseLikeExpression
+  EndTest:12
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ExpressionTests.TestParseStringWithNewlineChar
+  EndTest:14
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ExpressionTests.TestParseTradeProperties
+  EndTest:12
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ExpressionTests.TestParseTradePropertiesAsList
+  EndTest:13
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ExpressionTests.TestParseTradePropertiesAsListOfSeparateOperands
+  EndTest:11
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ExpressionTests.TestSortMarkets
+  EndTest:5862
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ExpressionTests.TestSortRatesetInquiry
+  EndTest:10734
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ExpressionTests.TestStringLengthAsConstantExpression
+  EndTest:12
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.FuturesTests.TestFuturesContacts
+  EndTest:284
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.FuturesTests.TestFuturesContractListRemoveFail
+    Fail:Assert.AreEqual failed. Expected:<0>. Actual:<6>. After Remove Futures Contract List Count must be zero. Message:    at WallStreetSystems.StructuredProducts.Interop.Test.FuturesTests.TestFuturesContractListRemoveFail()
+
+  EndTest:213
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.FuturesTests.TestFuturesEnums
+  EndTest:17
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.FuturesTests.TestFuturesExchanges
+  EndTest:174
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.FuturesTests.TestFuturesTransactions
+  EndTest:644
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.FuturesTests.TestGetFuturesContractBySymbol
+  EndTest:2069
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.FuturesTests.TestSaveContractWithEmptyTenor
+  EndTest:90
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.GroupPermissionsTests.TestGroupPermissions
+  EndTest:253
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.HolidayTableTest.ClearHolidayList
+  EndTest:4
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.HolidayTableTest.GetHolidays
+  EndTest:14
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.HolidayTableTest.GetHolidaysTable
+  EndTest:3
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.HolidayTableTest.HolidayListToFile
+  EndTest:37
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.HolidayTableTest.HolidayListToString
+  EndTest:14
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LiborHistoryTests.TestCreateLiborHistoryCurves
+    Ignored:Assert.Inconclusive failed. Test disabled until a stress test suite is constructed    at WallStreetSystems.StructuredProducts.Interop.Test.LiborHistoryTests.TestCreateLiborHistoryCurves()
+
+  EndTest:17
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LiveRatesTests.TestAddLiveCvRate
+  EndTest:16
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LiveRatesTests.TestAddLiveSvRate
+  EndTest:13
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LiveRatesTests.TestLiveRatesDBSources
+  EndTest:61
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LiveRatesTests.TestLiveRatesWSSSources
+  EndTest:57
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LiveRatesTests.TestLiveRatesXMLSources
+  EndTest:63
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsPackageInventoryFolders
+    Fail:Assert.AreEqual failed. Expected:<514>. Actual:<515>. Input View Mode should match resulting View Mode. Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsPackageInventoryFolders()
+
+  EndTest:78
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsPackageLegs
+    Fail:Assert.AreEqual failed. Expected:<66>. Actual:<67>. Input View Mode should match resulting View Mode. Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsPackageLegs()
+
+  EndTest:145
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsPackageLegsInventoryFolders
+    Fail:Assert.AreEqual failed. Expected:<322>. Actual:<323>. Input View Mode should match resulting View Mode. Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsPackageLegsInventoryFolders()
+
+  EndTest:183
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsPackageTrades
+    Fail:Assert.AreEqual failed. Expected:<130>. Actual:<131>. Input View Mode should match resulting View Mode. Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsPackageTrades()
+
+  EndTest:77
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsPortfolioLegs
+  EndTest:66
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsPortfolioPackage
+    Ignored:Assert.Inconclusive failed. This test is disabled for now.    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsPortfolioPackage()
+
+  EndTest:73
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsPortfolioTrades
+  EndTest:64
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsTradeLegs
+    Fail:Assert.AreEqual failed. Expected:<192>. Actual:<193>.  Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsTradeLegs()
+
+  EndTest:71
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsTradesInventoryFolders
+    Fail:Assert.AreEqual failed. Expected:<640>. Actual:<641>. Input View Mode should match resulting View Mode. Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeCombinationsTradesInventoryFolders()
+
+  EndTest:65
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeHN_RESERVED_CHAR_VAL_SIZE
+  EndTest:57
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeLEG_NUM_NOT_APP
+    Fail:Test method WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeLEG_NUM_NOT_APP threw exception:  System.AccessViolationException: Attempted to read or write protected memory. This is often an indication that other memory is corrupt.. Message:     at WallStreetSystems.StructuredProducts.Interop.Server.LocalTreeClass.SetViewMode(Int32 nView)
+   at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeLEG_NUM_NOT_APP()
+
+  EndTest:608
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeMAX_HN_RESERVED_LONG_VAL
+  EndTest:83
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeMAX_TRADE_PACKAGE_NAME
+  EndTest:56
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeROOT_PORTFOLIO_NODE_NUMBER
+  EndTest:54
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_GROUP_SET_TERMINATOR
+    Fail:Test method WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_GROUP_SET_TERMINATOR threw exception:  System.AccessViolationException: Attempted to read or write protected memory. This is often an indication that other memory is corrupt.. Message:     at WallStreetSystems.StructuredProducts.Interop.Server.LocalTreeClass.Refresh()
+   at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_GROUP_SET_TERMINATOR()
+
+  EndTest:559
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_NODES_ALL
+  EndTest:69
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_NODES_FOLDERS
+  EndTest:53
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_NODES_LEAFS_ONLY
+  EndTest:68
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_NODES_LEGS_ONLY
+    Fail:Assert.AreEqual failed. Expected:<2>. Actual:<3>.  Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_NODES_LEGS_ONLY()
+
+  EndTest:1332
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_COMMODITY
+  EndTest:56
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_COUNTERPARTY
+  EndTest:56
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_CURRENCY
+  EndTest:50
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_CUSTOM
+    Fail:Assert.AreEqual failed. Expected:<8192>. Actual:<8193>.  Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_CUSTOM()
+
+  EndTest:55
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_INSTRUMENT
+  EndTest:54
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_INVENTORY_FOLDERS
+    Fail:Assert.AreEqual failed. Expected:<512>. Actual:<513>.  Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_INVENTORY_FOLDERS()
+
+  EndTest:73
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_INVENTORY_POS
+    Fail:Assert.AreEqual failed. Expected:<256>. Actual:<257>.  Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_INVENTORY_POS()
+
+  EndTest:68
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_LEGS
+    Fail:Assert.AreEqual failed. Expected:<64>. Actual:<65>.  Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_LEGS()
+
+  EndTest:55
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_NONEMPTY_ONLY
+    Fail:Assert.AreEqual failed. Expected:<2048>. Actual:<2049>.  Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_NONEMPTY_ONLY()
+
+  EndTest:65
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_NONEMPTY_SKELETON_ONLY
+    Fail:Assert.AreEqual failed. Expected:<16384>. Actual:<16385>.  Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_NONEMPTY_SKELETON_ONLY()
+
+  EndTest:53
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_PACKAGE
+    Fail:Assert.AreEqual failed. Expected:<2>. Actual:<3>.  Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_PACKAGE()
+
+  EndTest:87
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_PERMISSIONS
+    Fail:Assert.AreEqual failed. Expected:<4096>. Actual:<4097>.  Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_PERMISSIONS()
+
+  EndTest:125
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_PORTFOLIO
+  EndTest:57
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_PRODUCT
+  EndTest:81
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_TRADES
+    Fail:Assert.AreEqual failed. Expected:<128>. Actual:<129>.  Message:    at WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeModeTREE_VIEW_TRADES()
+
+  EndTest:66
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeTraversalByLegs
+  EndTest:618
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.LocalTreeTests.TestTreeTraversalByTrades
+  EndTest:694
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketBuildNoClientTests.TestBuildMarketViaExistingCrvDef
+  EndTest:10631
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketBuildNoClientTests.TestBuildMarketViaExistingCrvDefFromDB
+  EndTest:3359
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketBuildNoClientTests.TestBuildMarketViaNewCrvDef
+  EndTest:3335
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketBuildNoClientTests.TestBuildMarketViaNewCrvDefFails
+  EndTest:797
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveDescriptionTests.TestDeleteMktCrvFromWarehouseViaDescriptions
+  EndTest:3587
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveDescriptionTests.TestDeleteMrktCrvFromDatabaseViaDescriptions
+  EndTest:2353
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveDescriptionTests.TestMktCrvDescBldTracking
+  EndTest:3777
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveDescriptionTests.TestMktCrvDescFailedBldErrorList
+  EndTest:8766
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveDescriptionTests.TestMktCrvDescFailedBldErrorListContent
+  EndTest:8531
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveDescriptionTests.TestMktCrvDescFailedBldTracking
+  EndTest:8986
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveDescriptionTests.TestMktCrvDescProperties
+  EndTest:3529
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveDescriptionTests.TestSaveCurve100TimesAndRetrieve
+  EndTest:9782
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveDescriptionTests.TestSaveCurve3TimesNotCurrentUserAndRetrieve
+  EndTest:1314
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveDescriptionTests.TestSaveCurveRetrieve
+  EndTest:2136
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveDescriptionTests.TestSaveCurveRetrieveByID
+  EndTest:105322
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestCapVolPointDown
+  EndTest:3609
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestCapVolPointNoChange
+  EndTest:8024
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestCapVolPointUp
+  EndTest:3626
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestCashCurvePointDown
+  EndTest:3821
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestCashCurvePointNoChange
+  EndTest:8763
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestCashCurvePointUp
+  EndTest:3794
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestCurveAllPointsNeverChanged
+  EndTest:1089
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestFXCurveSpotPointDown
+  EndTest:13287
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestFXCurveSpotPointNeverChange
+  EndTest:206
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestFXCurveSpotPointNoChange
+  EndTest:14893
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestFXCurveSpotPointUp
+  EndTest:13850
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestGvtCurveCashPointDown
+  EndTest:3425
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestGvtCurveCashPointNoChange
+  EndTest:9300
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestGvtCurveCashPointUp
+  EndTest:3357
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestIndexCurvePointDown
+  EndTest:3609
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestIndexCurvePointNoChange
+  EndTest:8949
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestIndexCurvePointUp
+  EndTest:3192
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestIndexVolPointDown
+  EndTest:3623
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestIndexVolPointNoChange
+  EndTest:8808
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestIndexVolPointUp
+  EndTest:3320
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestSwaptionVolPointDown
+  EndTest:3399
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestSwaptionVolPointNoChange
+  EndTest:9115
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketCurveUpdateTests.TestSwaptionVolPointUp
+  EndTest:3281
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MarketUpdateNoClientTests.TestUpdateMarketViaCurvDef
+  EndTest:8589
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestAssignEmptyKey
+  EndTest:3
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestAssignEmptyUserKey
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestAssignKey
+  EndTest:3
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestAssignUserKey
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestClearKey
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestClearUserKey
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestClientInformation
+  EndTest:5
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestCopyKey
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestCopyUserKey
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestCreateBadDiscriminatorKey
+  EndTest:3
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestCreateBadKeyKey
+  EndTest:1
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestCreateBadSystemIdKey
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestCreateBadVersionKey
+  EndTest:1
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestCreateDefaultKey
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestCreateDefaultUserKey
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestCreateEmptyKey
+  EndTest:3
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestCreateEmptyUserKey
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestCreateKeyFromXml
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestCreateUserKeyFromXml
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestCreateValidKey
+  EndTest:3
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestCreateValidUserKey
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestExportImportKeyAsBlob
+  EndTest:4
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestExportImportKeyAsFile
+    Fail:Test method WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestExportImportKeyAsFile threw exception:  System.Runtime.InteropServices.COMException: Failed to create object from the XML string read from file C:\TeamCity\buildAgent\temp\buildTmp\tmp2925.tmp. Message:     at WallStreetSystems.StructuredProducts.Interop.Server.MiscUtilsClass.ObjectFromFile(String bsFileName, Boolean bCleanObject)
+   at WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestExportImportKeyAsFile()
+
+  EndTest:18
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestExportImportKeyAsXmlHuman
+  EndTest:5
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestExportImportKeyAsXmlInternal
+  EndTest:5
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestExportImportKeyAsXmlIntersystem
+  EndTest:5
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestExportImportUserKeyAsBlob
+  EndTest:3
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestExportImportUserKeyAsFile
+    Fail:Test method WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestExportImportUserKeyAsFile threw exception:  System.Runtime.InteropServices.COMException: Failed to create object from the XML string read from file C:\TeamCity\buildAgent\temp\buildTmp\tmp2926.tmp. Message:     at WallStreetSystems.StructuredProducts.Interop.Server.MiscUtilsClass.ObjectFromFile(String bsFileName, Boolean bCleanObject)
+   at WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestExportImportUserKeyAsFile()
+
+  EndTest:12
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestExportImportUserKeyAsXmlHuman
+  EndTest:12
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestExportImportUserKeyAsXmlInternal
+  EndTest:5
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestExportImportUserKeyAsXmlIntersystem
+  EndTest:11
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestExpressionPropertyEqProperty
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestKeyCopy
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestRandomString
+  EndTest:1
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestServerInformation
+  EndTest:89
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestServerInformationNoSession
+  EndTest:3
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestUserKeyAsExpression
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestUserKeyCopy
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.MiscTests.TestUserKeyEmptyCopy
+  EndTest:2
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.RateTests.TestAddDuplicateRates
+  EndTest:289
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.RateTests.TestCreateRateDescription
+  EndTest:91
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.RateTests.TestCreateRateDescriptionAndAddRates
+  EndTest:369
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.RateTests.TestCreateRateDescriptionDuplicate
+  EndTest:120
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.RateTests.TestRateFixingDateChangeFails
+    Ignored:Assert.Inconclusive failed. Give this a specific error code/exception: the code -2080374779 and message: 'Number of updated rows isn't exactly one' are not meaningful    at WallStreetSystems.StructuredProducts.Interop.Test.RateTests.TestRateFixingDateChangeFails()
+
+  EndTest:169
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.RateTests.TestRateFixingRateChange
+  EndTest:214
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ReportTests.TestActivityReport
+    Ignored:Assert.Inconclusive failed. Not sure about conditions need to exist for activities to be picked up.    at WallStreetSystems.StructuredProducts.Interop.Test.ReportTests.TestActivityReport()
+
+  EndTest:1325
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ReportTests.TestEODUpdate
+  EndTest:5857
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ReportTests.TestLoadReportWarehouseIntoHistorical
+  EndTest:16194
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ReportTests.TestMarkToMarketErrors
+  EndTest:799
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ReportTests.TestRateSetInquiryAndActionReport
+  EndTest:18823
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ReportTests.TestRateSetInquiryReport
+    Fail:[MESSAGE]:Test method WallStreetSystems.StructuredProducts.Interop.Test.ReportTests.TestRateSetInquiryReport threw exception:  System.AccessViolationException: Attempted to read or write protected memory. This is often an indication that other memory is corrupt..[/MESSAGE] Message: [STACK]    at WallStreetSystems.StructuredProducts.Interop.Server.RptLabelClass.ErrorList()
+   at WallStreetSystems.StructuredProducts.Interop.Test.ReportTests.TestRateSetInquiryReport()
+[STACK]
+  EndTest:24023
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ReportTests.TestRateSetInquiryReportError
+  EndTest:1826
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ReportTests.TestRateSetInquiryReportID
+  EndTest:1648
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ReportTests.TestRateSetInquiryReportRunDuration
+  EndTest:91900
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ReportTests.TestReportDescriptionRetrieve
+  EndTest:11147
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ReportTests.TestReportErrorLogging
+  EndTest:1826
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.ReportTests.TestTradeMigrationReport
+  EndTest:470
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.RPCTests.TestRPC
+    StdOutput:Intergrated Mode is OFF
+BackOffice communications are OFF.
+Current user id is: <MultisystemUserKey><Key>218927138</Key><SystemId>IRD</SystemId></MultisystemUserKey>, session id is: 110681
+Client Version: 20092617114
+Client Build: 8/11/2009 15:20:40
+Server Version: 20092617114
+Server Build: 
+Audit Mode forisTrue
+Audit Mode forwseCurveManagerisTrue
+Audit Mode forwseDateCalcManagerisTrue
+Audit Mode forwseInventoryManagerisTrue
+Audit Mode forwseLiveRatesManagerisTrue
+Audit Mode forwseReportManagerisTrue
+Audit Mode forwseReportDistributorisTrue
+Audit Mode forwseSessionManagerisTrue
+Audit Mode forwseUserManagerisTrue
+Audit Mode forwseProfileManagerisTrue
+Audit Mode forwseTradeManagerisTrue
+Audit Mode forwseTreeManagerisTrue
+Audit Mode forwseJobManagerisTrue
+Audit Mode forwseStaticDataManagerisTrue
+Audit Mode forwseAccessGatewayisTrue
+Audit Mode forwseBLOBConversionisTrue
+Audit Mode forwseDataAccessComponentsisTrue
+Audit Mode forwseOrdManagerisTrue
+Audit Mode forwseReportStagerisTrue
+Audit Mode forwseInventoryLoaderisTrue
+Audit Mode forwseValuationSubsystemisTrue
+Audit Mode forwseSenderisTrue
+Audit Mode forwseCurvesCollectionisTrue
+  EndTest:98
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.SecurityLogTests.TestReadFromSecurityLog
+  EndTest:211
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.SecurityLogTests.TestSecurityAuditLogAddDeleteIndexName
+  EndTest:463
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.SecurityLogTests.TestSecurityAuditLogAddDeleteMarketName
+  EndTest:316
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.SecurityLogTests.TestSecurityAuditLogAddEditDisableUser
+  EndTest:487
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.SecurityLogTests.TestSecurityAuditLogAddEditRemoveRateDescription
+  EndTest:360
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.SecurityLogTests.TestSecurityAuditLogAddEditRemoveRateFixing
+    Fail:Assert.AreEqual failed. Expected:<12.Simple.SecTest642946983.USD.3M.Annual.2009-11-05>. Actual:<12.Simple.SecTest642946983.USD..3M.Annual.2009-11-5>. Insert: Wrong item identity Message:    at WallStreetSystems.StructuredProducts.Interop.Test.SecurityLogTests.TestSecurityAuditLogAddEditRemoveRateFixing()
+
+  EndTest:419
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.SecurityLogTests.TestSecurityAuditLogAddRemoveUserGroup
+  EndTest:411
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.SecurityLogTests.TestWriteToSecurityLog
+  EndTest:179
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.SecurityLogTests.TestWriteToSecurityLogAllActions
+  EndTest:277
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.SessionInfoTests.TestProcessInfo
+  EndTest:126
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.SessionLoginLogoutTests.TestLoginLogoutTwoDifferentWays
+    Fail:Assert.Fail failed. Test commented out because is kills the server's ability to accept logins for the rest of the tests Message:    at WallStreetSystems.StructuredProducts.Interop.Test.SessionLoginLogoutTests.TestLoginLogoutTwoDifferentWays()
+
+  EndTest:15
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.SessionLoginLogoutTests.TestMultipleLogins
+  EndTest:4949
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeAuditTests.TestTradeAudit
+  EndTest:3089
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeAuditTests.TestTradeAuditFromFile
+  EndTest:14137
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeInfoTests.TestTradeInfo
+  EndTest:1484
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestAddTradeToPackage
+  EndTest:1243
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestCreateTradePackage
+  EndTest:226
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestDeletePackage
+  EndTest:152
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestFindPackageInTree
+  EndTest:1209
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestFindSubPackageInTree
+  EndTest:1216
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestGetSubpackages
+  EndTest:224
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestPackageGetTradeLegs
+  EndTest:1118
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestPackageGetTransactions
+  EndTest:1440
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestPackagePathOnTree
+  EndTest:191
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestPackagePathOnTreeByNodeID
+  EndTest:196
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestPakcageFindItem
+  EndTest:1158
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestRemoveTradeFromPackage
+  EndTest:1135
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestRenamePackage
+  EndTest:111
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestRetrievePackageByID
+  EndTest:297
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestSubPackageCreate
+  EndTest:145
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradePackagesTests.TestSubPackageDelete
+  EndTest:258
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeTests.TestBookCap
+  EndTest:12839
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeTests.TestBookSwap
+  EndTest:15700
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeTests.TestExpungeSwapTrade
+  EndTest:17726
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeTests.TestGenericTrades
+  EndTest:3321
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeTests.TestPriceCapTrade
+  EndTest:13994
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeTests.TestPriceSaveAndRetrieveCapTrade
+  EndTest:16045
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeTests.TestPriceSaveAndRetrieveSwapTrade
+  EndTest:16036
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeTests.TestPriceSaveCapTrade
+  EndTest:15682
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeTests.TestPriceSaveSwapTrade
+  EndTest:19624
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeTests.TestPriceSwapTrade
+  EndTest:15762
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeTests.TestTradeCopy
+  EndTest:927
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeTests.TestTradeCopyAsFile
+  EndTest:1765
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeTests.TestTradeCount
+  EndTest:215
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.TradeTests.TestTradeSerialization
+  EndTest:3077
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestChangePassword
+  EndTest:185
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestChangePasswordAndLoginWithOld
+  EndTest:2297
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestCreateNewUser
+  EndTest:185
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestCreateSameUserTwice
+  EndTest:184
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestCreateUserWithEmptyGroup
+  EndTest:31
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestCreateUserWithEmptyPassword
+  EndTest:28
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestCreateUserWithEmptyUserName
+  EndTest:29
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestCreateUserWithNullGroup
+  EndTest:31
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestCreateUserWithNullPassword
+  EndTest:30
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestCreateUserWithNullUserName
+  EndTest:35
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestDisable
+  EndTest:165
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestEnable
+  EndTest:225
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestLoadProfile
+  EndTest:519
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestSaveUserProfile
+  EndTest:214
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestUserKeyAsExpression
+  EndTest:16
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.UserProfileTests.TestUserName
+  EndTest:127
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.XMLRateProviderTests.TestXMLRateProvider
+  EndTest:11783
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.XMLRateProviderTests.TestXMLRateProviderFail
+  EndTest:11381
+------------------------
+  Test:WallStreetSystems.StructuredProducts.Interop.Test.XMLRateProviderTests.TestXMLRateProviderMultipleCreation
+  EndTest:28155
+------------------------
+-->Info: 383 test(s) were reported
+EndSuite

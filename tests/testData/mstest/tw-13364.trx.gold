@@ -1,0 +1,5 @@
+TestSuite:MSTest
+-->Info: Found 1 test definitions.
+-->Warning: Test 'myTest.TestClass.TestAdaptorThrowsException': Failed to read testOutcome
+-->Error: There were no tests reported. Wrong or broken .trx file?
+EndSuite

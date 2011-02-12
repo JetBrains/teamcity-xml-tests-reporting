@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="e4041845-8f01-4fe6-80e5-928115576652" name="eugene.petrenko@UNIT-235 2009-08-18 15:06:48" runUser="LABS\eugene.petrenko" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestRunConfiguration name="Default Run Configuration" id="ef8dd0a4-e4a1-4af7-8bb3-84614c351127">
+    <Deployment userDeploymentRoot="E:\Temp\tests\mstest\TestProject1\bin\Debug" useDefaultDeploymentRoot="false" runDeploymentRoot="E:\Temp\tests\mstest\TestProject1\bin\Debug\eugene.petrenko_UNIT-235 2009-08-18 15_06_48" />
+    <Hosts skipUnhostableTests="false" />
+    <TestTypeSpecific />
+  </TestRunConfiguration>
+  <ResultSummary outcome="Failed">
+    <Counters total="4" executed="4" passed="2" error="0" failed="2" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <Times creation="2009-08-18T15:06:48.6177137+04:00" queuing="2009-08-18T15:06:49.1372649+04:00" start="2009-08-18T15:06:49.2720357+04:00" finish="2009-08-18T15:06:49.7486165+04:00" />
+  <TestDefinitions>
+    <UnitTest name="TestMethod1" storage="testproject1.dll" id="59863143-3238-122e-4d8a-637b491cc755">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="TestProject1\zzz.xml" />
+      </DeploymentItems>
+      <Execution id="9d1ffbe5-4fd0-41ed-a7df-b852a1177155" />
+      <TestMethod codeBase="E:/Temp/tests/mstest/TestProject1/bin/Debug/TestProject1.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="TestProject1.UnitTest1, TestProject1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestMethod1" />
+      <DataSource connectionString="|DataDirectory|\zzz.xml" providerInvariantName="Microsoft.VisualStudio.TestTools.DataSource.XML" tableName="Row" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="59863143-3238-122e-4d8a-637b491cc755" executionId="9d1ffbe5-4fd0-41ed-a7df-b852a1177155" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="9d1ffbe5-4fd0-41ed-a7df-b852a1177155" testId="59863143-3238-122e-4d8a-637b491cc755" testName="TestMethod1" computerName="UNIT-235" duration="00:00:00.0396813" startTime="2009-08-18T15:06:49.3110997+04:00" endTime="2009-08-18T15:06:49.7075993+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" resultType="DataDrivenTest">
+      <Output>
+      </Output>
+      <Counters error="0" failed="1" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="2" completed="0" inProgress="0" pending="0" />
+      <InnerResults>
+        <UnitTestResult executionId="f9f7f584-ef4a-4479-a300-b8052ab6b6f9" parentExecutionId="9d1ffbe5-4fd0-41ed-a7df-b852a1177155" testId="59863143-3238-122e-4d8a-637b491cc755" testName="TestMethod1" computerName="UNIT-235" duration="00:00:00.0109424" startTime="2009-08-18T15:06:49.6607225+04:00" endTime="2009-08-18T15:06:49.6763481+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="0" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="d641b793-6868-42eb-98d8-66d6afb1e994" parentExecutionId="9d1ffbe5-4fd0-41ed-a7df-b852a1177155" testId="59863143-3238-122e-4d8a-637b491cc755" testName="TestMethod1" computerName="UNIT-235" duration="00:00:00.0000346" startTime="2009-08-18T15:06:49.6763481+04:00" endTime="2009-08-18T15:06:49.6763481+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="1" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="886a7f1a-aff8-49bf-8b71-15936fcb0414" parentExecutionId="9d1ffbe5-4fd0-41ed-a7df-b852a1177155" testId="59863143-3238-122e-4d8a-637b491cc755" testName="TestMethod1" computerName="UNIT-235" duration="00:00:00.0124990" startTime="2009-08-18T15:06:49.6763481+04:00" endTime="2009-08-18T15:06:49.6890439+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowInfo="2" resultType="DataDrivenDataRow">
+          <Output>
+            <ErrorInfo>
+              <Message>Assert.AreEqual failed. Expected:&lt;0&gt;. Actual:&lt;1&gt;. </Message>
+              <StackTrace>   at TestProject1.UnitTest1.ExecSumTest(Int32 a1, Int32 a2, Int32 result) in e:\Temp\tests\mstest\TestProject1\UnitTest1.cs:line 79
+   at TestProject1.UnitTest1.TestMethod1() in e:\Temp\tests\mstest\TestProject1\UnitTest1.cs:line 74
+</StackTrace>
+            </ErrorInfo>
+          </Output>
+        </UnitTestResult>
+      </InnerResults>
+    </UnitTestResult>
+  </Results>
+</TestRun>

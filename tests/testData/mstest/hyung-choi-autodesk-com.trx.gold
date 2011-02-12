@@ -1,0 +1,12 @@
+TestSuite:MSTest
+-->Info: Found 6 test definitions.
+  Test:FileUpload_webtest
+    Fail:Exception occurred: There is no context parameter with the name '$HIDDEN1.__LASTFOCUS' in the WebTestContext Message:    at Microsoft.VisualStudio.TestTools.WebTesting.WebTestContext.get_Item(String key)
+   at Load.LogOn.<GetRequestEnumerator>d__0.MoveNext() in C:\DEV\COLLABORATION\Release\SBUX\Test\Load\Utilities\LogOn.cs:line 68
+   at Microsoft.VisualStudio.TestTools.WebTesting.WebTest.<GetEnumerator>d__0.MoveNext()
+   at Microsoft.VisualStudio.TestTools.WebTesting.DeclarativeWebTest.<EnumerateRequests>d__0.MoveNext()
+   at Microsoft.VisualStudio.TestTools.WebStress.WebTestCaseVariation.ExecuteNextTopLevelRequest()
+  EndTest:8735
+------------------------
+-->Info: 1 test(s) were reported
+EndSuite

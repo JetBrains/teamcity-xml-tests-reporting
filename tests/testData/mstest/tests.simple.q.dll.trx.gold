@@ -1,0 +1,72 @@
+TestSuite:MSTest
+-->Info: Found 8 test definitions.
+  Test:XXXTest.SimpleOutcomeTest.OwnedTest
+  EndTest:9
+------------------------
+  Test:XXXTest.SimpleOutcomeTest.TestAllInOne
+    StdOutput:Hello from Console.Output
+    ErrOutput:Hello from Error.Output
+    Fail:Test method XXXTest.SimpleOutcomeTest.TestAllInOne threw exception:  System.Exception: So, How'd it parse exception?. Message:     at XXXTest.SimpleOutcomeTest.TestAllInOne()
+
+  EndTest:11
+------------------------
+  Test:XXXTest.SimpleOutcomeTest.TestComplicatedException
+    Fail:Test method XXXTest.SimpleOutcomeTest.TestComplicatedException threw exception:  System.Exception: C:10 --->  System.Exception: C:9 --->  System.Exception: C:8 --->  System.Exception: C:7 --->  System.Exception: C:6 --->  System.Exception: C:5 --->  System.Exception: C:4 --->  System.Exception: C:3 --->  System.Exception: C:2 --->  System.Exception: C:1 --->  System.Exception: Complicated. Message:     at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.TestComplicatedException()
+
+  EndTest:2
+------------------------
+  Test:XXXTest.SimpleOutcomeTest.TestShowConsoleErrorOutput
+    ErrOutput:Hello from Error.Output
+  EndTest:1
+------------------------
+  Test:XXXTest.SimpleOutcomeTest.TestShowConsoleOutput
+    StdOutput:Hello from Console.Output
+  EndTest:1
+------------------------
+  Test:XXXTest.SimpleOutcomeTest.TestShowExceptionOutput
+    Fail:Test method XXXTest.SimpleOutcomeTest.TestShowExceptionOutput threw exception:  System.Exception: So, How'd it parse exception?. Message:     at XXXTest.SimpleOutcomeTest.TestShowExceptionOutput()
+
+  EndTest:1
+------------------------
+  Test:XXXTest.SimpleOutcomeTest.TestSuccess
+  EndTest:1
+------------------------
+  Test:XXXTest.TestPreAndPost.MyFakeTest
+    StdOutput:TestMethodInit
+MyFakeTest
+TestMethodCleanup
+  EndTest:1
+------------------------
+-->Info: 8 test(s) were reported
+EndSuite

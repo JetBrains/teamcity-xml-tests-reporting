@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="df0c1aaa-937f-47de-af37-d86bab67140a" name="Administrator@SFOBTTEST01 2009-04-08 15:21:21" runUser="SFOBTTEST01\Administrator" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestRunConfiguration name="Default Run Configuration" id="b0e4abb3-c569-493b-ac1c-8f0ac68607db">
+    <Deployment runDeploymentRoot="C:\DEV\COLLABORATION\Release\SBUX\Test\Load\TestResults\Administrator_SFOBTTEST01 2009-04-08 15_21_21" />
+    <Hosts skipUnhostableTests="false" />
+    <TestTypeSpecific />
+  </TestRunConfiguration>
+  <ResultSummary outcome="Error">
+    <Counters total="1" executed="1" error="1" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <Times creation="2009-04-08T15:21:21.4393750-07:00" queuing="2009-04-08T15:21:59.9081250-07:00" start="2009-04-08T15:22:32.9706250-07:00" finish="2009-04-08T15:22:54.5018750-07:00" />
+  <TestDefinitions>
+    <CodedWebTest name="FolderCreate" storage="c:\dev\collaboration\release\sbux\test\load\bin\debug\load.dll" id="bc05dd4f-5133-f331-8af4-b38d7b70262c">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Config\Replacement.xml" outputDirectory="Config" />
+      </DeploymentItems>
+      <WebTestClass assembly="Load" namespace="Load" class="FolderCreate" />
+      <IncludedWebTests>
+        <IncludedWebTest name="LogOn" path="c:\dev\collaboration\release\sbux\test\load\bin\debug\load.dll" testId="1ddb5072-0934-e062-8288-0394a50fd514" isCodedWebTest="true" />
+        <IncludedWebTest name="LogOff" path="c:\dev\collaboration\release\sbux\test\load\bin\debug\load.dll" testId="40135c58-533c-6147-7bd5-ffaef488d195" isCodedWebTest="true" />
+      </IncludedWebTests>
+    </CodedWebTest>
+    <CodedWebTest name="LogOff" storage="c:\dev\collaboration\release\sbux\test\load\bin\debug\load.dll" id="40135c58-533c-6147-7bd5-ffaef488d195">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Config\Replacement.xml" outputDirectory="Config" />
+      </DeploymentItems>
+      <WebTestClass assembly="Load" namespace="Load" class="LogOff" />
+    </CodedWebTest>
+    <CodedWebTest name="Upload" storage="c:\dev\collaboration\release\sbux\test\load\bin\debug\load.dll" id="689d70a8-d5c3-ec69-a4cd-1ca823560c10">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Config\Replacement.xml" outputDirectory="Config" />
+      </DeploymentItems>
+      <WebTestClass assembly="Load" namespace="Load" class="Upload" />
+      <IncludedWebTests>
+        <IncludedWebTest name="LogOn" path="c:\dev\collaboration\release\sbux\test\load\bin\debug\load.dll" testId="1ddb5072-0934-e062-8288-0394a50fd514" isCodedWebTest="true" />
+        <IncludedWebTest name="LogOff" path="c:\dev\collaboration\release\sbux\test\load\bin\debug\load.dll" testId="40135c58-533c-6147-7bd5-ffaef488d195" isCodedWebTest="true" />
+      </IncludedWebTests>
+    </CodedWebTest>
+    <WebTest name="FileUpload_webtest" storage="c:\dev\collaboration\release\sbux\test\load\recordedwebtest\fileupload_webtest.webtest" id="57ba9b94-26e0-4dfd-9379-2084df51087b" persistedWebTest="77u/PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/Pg0KPFdlYlRlc3QgTmFtZT0iRmlsZVVwbG9hZF93ZWJ0ZXN0IiBJZD0iNTdiYTliOTQtMjZlMC00ZGZkLTkzNzktMjA4NGRmNTEwODdiIiBPd25lcj0iIiBQcmlvcml0eT0iMCIgRW5hYmxlZD0iVHJ1ZSIgQ3NzUHJvamVjdFN0cnVjdHVyZT0iIiBDc3NJdGVyYXRpb249IiIgVGltZW91dD0iMCIgV29ya0l0ZW1JZHM9IiIgeG1sbnM9Imh0dHA6Ly9taWNyb3NvZnQuY29tL3NjaGVtYXMvVmlzdWFsU3R1ZGlvL1RlYW1UZXN0LzIwMDYiIERlc2NyaXB0aW9uPSIiIENyZWRlbnRpYWxVc2VyTmFtZT0iIiBDcmVkZW50aWFsUGFzc3dvcmQ9IiIgUHJlQXV0aGVudGljYXRlPSJUcnVlIiBQcm94eT0iIiBTdG9wT25FcnJvcj0iVHJ1ZSI+DQogIDxJdGVtcz4NCiAgICA8SW5jbHVkZWRXZWJUZXN0IE5hbWU9IkxvYWQuTG9nT24iIFBhdGg9ImM6XGRldlxjb2xsYWJvcmF0aW9uXHJlbGVhc2Vcc2J1eFx0ZXN0XGxvYWRccmVjb3JkZWR3ZWJ0ZXN0XGJpblxkZWJ1Z1xsb2FkLmRsbCIgSWQ9IjFkZGI1MDcyLTA5MzQtZTA2Mi04Mjg4LTAzOTRhNTBmZDUxNCIgSXNDb2RlZFdlYlRlc3Q9IlRydWUiIEluaGVyaXRXZWJUZXN0U2V0dGluZ3M9IkZhbHNlIiAvPg0KICAgIDxJbmNsdWRlZFdlYlRlc3QgTmFtZT0iTG9hZC5Gb2xkZXJDcmVhdGUiIFBhdGg9ImM6XGRldlxjb2xsYWJvcmF0aW9uXHJlbGVhc2Vcc2J1eFx0ZXN0XGxvYWRcYmluXGRlYnVnXGxvYWQuZGxsIiBJZD0iYmMwNWRkNGYtNTEzMy1mMzMxLThhZjQtYjM4ZDdiNzAyNjJjIiBJc0NvZGVkV2ViVGVzdD0iVHJ1ZSIgSW5oZXJpdFdlYlRlc3RTZXR0aW5ncz0iRmFsc2UiIC8+DQogICAgPEluY2x1ZGVkV2ViVGVzdCBOYW1lPSJMb2FkLlVwbG9hZCIgUGF0aD0iYzpcZGV2XGNvbGxhYm9yYXRpb25ccmVsZWFzZVxzYnV4XHRlc3RcbG9hZFxiaW5cZGVidWdcbG9hZC5kbGwiIElkPSI2ODlkNzBhOC1kNWMzLWVjNjktYTRjZC0xY2E4MjM1NjBjMTAiIElzQ29kZWRXZWJUZXN0PSJUcnVlIiBJbmhlcml0V2ViVGVzdFNldHRpbmdzPSJGYWxzZSIgLz4NCiAgICA8SW5jbHVkZWRXZWJUZXN0IE5hbWU9IkxvYWQuRm9sZGVyRGVsZXRlIiBQYXRoPSJjOlxkZXZcY29sbGFib3JhdGlvblxyZWxlYXNlXHNidXhcdGVzdFxsb2FkXGJpblxkZWJ1Z1xsb2FkLmRsbCIgSWQ9ImM3MjQxZjI3LTY4MjktZDQxNy03NjhlLTI0NTgwODkwZGMwMCIgSXNDb2RlZFdlYlRlc3Q9IlRydWUiIEluaGVyaXRXZWJUZXN0U2V0dGluZ3M9IkZhbHNlIiAvPg0KICAgIDxJbmNsdWRlZFdlYlRlc3QgTmFtZT0iTG9hZC5Mb2dPZmYiIFBhdGg9ImM6XGRldlxjb2xsYWJvcmF0aW9uXHJlbGVhc2Vcc2J1eFx0ZXN0XGxvYWRccmVjb3JkZWR3ZWJ0ZXN0XGJpblxkZWJ1Z1xsb2FkLmRsbCIgSWQ9IjQwMTM1YzU4LTUzM2MtNjE0Ny03YmQ1LWZmYWVmNDg4ZDE5NSIgSXNDb2RlZFdlYlRlc3Q9IlRydWUiIEluaGVyaXRXZWJUZXN0U2V0dGluZ3M9IkZhbHNlIiAvPg0KICA8L0l0ZW1zPg0KPC9XZWJUZXN0Pg==">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="a54ed8f1-1447-4be2-a7ef-27b562056283" />
+    </WebTest>
+    <CodedWebTest name="LogOn" storage="c:\dev\collaboration\release\sbux\test\load\bin\debug\load.dll" id="1ddb5072-0934-e062-8288-0394a50fd514">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Config\Replacement.xml" outputDirectory="Config" />
+      </DeploymentItems>
+      <WebTestClass assembly="Load" namespace="Load" class="LogOn" />
+    </CodedWebTest>
+    <CodedWebTest name="FolderDelete" storage="c:\dev\collaboration\release\sbux\test\load\bin\debug\load.dll" id="c7241f27-6829-d417-768e-24580890dc00">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Config\Replacement.xml" outputDirectory="Config" />
+      </DeploymentItems>
+      <WebTestClass assembly="Load" namespace="Load" class="FolderDelete" />
+      <IncludedWebTests>
+        <IncludedWebTest name="LogOn" path="c:\dev\collaboration\release\sbux\test\load\bin\debug\load.dll" testId="1ddb5072-0934-e062-8288-0394a50fd514" isCodedWebTest="true" />
+        <IncludedWebTest name="LogOff" path="c:\dev\collaboration\release\sbux\test\load\bin\debug\load.dll" testId="40135c58-533c-6147-7bd5-ffaef488d195" isCodedWebTest="true" />
+      </IncludedWebTests>
+    </CodedWebTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry isTransparent="false" testId="57ba9b94-26e0-4dfd-9379-2084df51087b" executionId="a54ed8f1-1447-4be2-a7ef-27b562056283" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <TestEntries>
+        <TestEntry isTransparent="false" testId="1ddb5072-0934-e062-8288-0394a50fd514" executionId="2a7f4ba9-1bbd-4945-85f9-f5e9c9b6baf7" parentExecutionId="a54ed8f1-1447-4be2-a7ef-27b562056283" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+        <TestEntry isTransparent="false" testId="bc05dd4f-5133-f331-8af4-b38d7b70262c" executionId="a1d1f13c-80aa-4383-9218-2124c0881057" parentExecutionId="a54ed8f1-1447-4be2-a7ef-27b562056283" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+          <TestEntries>
+            <TestEntry isTransparent="false" testId="1ddb5072-0934-e062-8288-0394a50fd514" executionId="4e291356-122d-4f9a-a1f7-843b266bd6b0" parentExecutionId="a1d1f13c-80aa-4383-9218-2124c0881057" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry isTransparent="false" testId="40135c58-533c-6147-7bd5-ffaef488d195" executionId="5b147d5f-5537-4c88-a52a-5a24d7e0cf61" parentExecutionId="a1d1f13c-80aa-4383-9218-2124c0881057" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+          </TestEntries>
+        </TestEntry>
+        <TestEntry isTransparent="false" testId="689d70a8-d5c3-ec69-a4cd-1ca823560c10" executionId="9490dbec-a35f-408d-9077-7dba2e1b8ba7" parentExecutionId="a54ed8f1-1447-4be2-a7ef-27b562056283" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+          <TestEntries>
+            <TestEntry isTransparent="false" testId="1ddb5072-0934-e062-8288-0394a50fd514" executionId="fce1a332-c7ca-4f3d-8fee-d9738382982e" parentExecutionId="9490dbec-a35f-408d-9077-7dba2e1b8ba7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry isTransparent="false" testId="40135c58-533c-6147-7bd5-ffaef488d195" executionId="4fc66e3f-6242-4089-b8a6-4da7308c5a49" parentExecutionId="9490dbec-a35f-408d-9077-7dba2e1b8ba7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+          </TestEntries>
+        </TestEntry>
+        <TestEntry isTransparent="false" testId="c7241f27-6829-d417-768e-24580890dc00" executionId="ba6f62a7-95c0-4322-a72f-ec54eb5126bc" parentExecutionId="a54ed8f1-1447-4be2-a7ef-27b562056283" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+          <TestEntries>
+            <TestEntry isTransparent="false" testId="1ddb5072-0934-e062-8288-0394a50fd514" executionId="bb7bbf19-7da1-469d-88fc-1776935a4d8a" parentExecutionId="ba6f62a7-95c0-4322-a72f-ec54eb5126bc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+            <TestEntry isTransparent="false" testId="40135c58-533c-6147-7bd5-ffaef488d195" executionId="0dbb2154-60ef-492b-b32a-785b609928d2" parentExecutionId="ba6f62a7-95c0-4322-a72f-ec54eb5126bc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+          </TestEntries>
+        </TestEntry>
+        <TestEntry isTransparent="false" testId="40135c58-533c-6147-7bd5-ffaef488d195" executionId="054e925c-41fd-4278-826f-668080ce334f" parentExecutionId="a54ed8f1-1447-4be2-a7ef-27b562056283" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+      </TestEntries>
+    </TestEntry>
+  </TestEntries>
+  <Results>
+    <WebTestResult executionId="a54ed8f1-1447-4be2-a7ef-27b562056283" testId="57ba9b94-26e0-4dfd-9379-2084df51087b" testName="FileUpload_webtest" computerName="SFOBTTEST01" duration="00:00:08.7343750" startTime="2009-04-08T15:22:34.1581250-07:00" endTime="2009-04-08T15:22:53.9081250-07:00" testType="4e7599fa-5ecb-43e9-a887-cd63cf72d207" outcome="Error" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" dataRowCount="2">
+      <Output>
+        <ErrorInfo>
+          <Message>Exception occurred: There is no context parameter with the name '$HIDDEN1.__LASTFOCUS' in the WebTestContext</Message>
+          <StackTrace>   at Microsoft.VisualStudio.TestTools.WebTesting.WebTestContext.get_Item(String key)
+   at Load.LogOn.&lt;GetRequestEnumerator&gt;d__0.MoveNext() in C:\DEV\COLLABORATION\Release\SBUX\Test\Load\Utilities\LogOn.cs:line 68
+   at Microsoft.VisualStudio.TestTools.WebTesting.WebTest.&lt;GetEnumerator&gt;d__0.MoveNext()
+   at Microsoft.VisualStudio.TestTools.WebTesting.DeclarativeWebTest.&lt;EnumerateRequests&gt;d__0.MoveNext()
+   at Microsoft.VisualStudio.TestTools.WebStress.WebTestCaseVariation.ExecuteNextTopLevelRequest()</StackTrace>
+        </ErrorInfo>
+      </Output>
+      <ByteArrayCache nextHandle="0" />
+      <TestRunConfiguration name="Default Run Configuration" id="b0e4abb3-c569-493b-ac1c-8f0ac68607db">
+        <Deployment runDeploymentRoot="C:\DEV\COLLABORATION\Release\SBUX\Test\Load\TestResults\Administrator_SFOBTTEST01 2009-04-08 15_21_21" />
+        <Hosts skipUnhostableTests="false" />
+        <TestTypeSpecific>
+          <WebTestRunConfiguration testTypeId="4e7599fa-5ecb-43e9-a887-cd63cf72d207" />
+        </TestTypeSpecific>
+      </TestRunConfiguration>
+      <WebTestResultDetails>
+        <WebTestResultIterations>
+          <WebTestResultIteration iterationNumber="1">
+            <WebTestResultGroup>
+              <WebTestResultTransaction name="FileUpload_webtest.LogOn" responseTime="3.0959999999999996" isIncludedTest="true">
+                <WebTestResultGroup>
+                  <WebTestResultPage>
+                    <WebRequestResult exceptionMessage="The remote name could not be resolved: 'tqwebserver'" run="0" submitted="true" cached="false" isRedirectFollow="false" requestBodyBytesHandle="-2" responseBytesHandle="-2">
+                      <Request url="https://tqwebserver/Collaboration/LogOn.aspx" command="GET /Collaboration/LogOn.aspx HTTP/1.1" encoding="utf-8">
+                        <Headers>User-Agent : Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)
+Accept : */*
+Accept-Language : en-US
+Accept-Encoding : GZIP
+Host : tqwebserver
+</Headers>
+                      </Request>
+                      <Response url="" contentType="" statusLine="" pageTime="3.0959999999999996" time="3.096" statusCodeString="" contentLength="0">
+                        <Headers>
+                        </Headers>
+                      </Response>
+                      <Context>
+                        <Entry name="$TotalAgents" value="1" />
+                        <Entry name="$ControllerName" value="SFOBTTEST01" />
+                        <Entry name="$AgentName" value="SFOBTTEST01" />
+                        <Entry name="$TestLogsDir" value="C:\DEV\COLLABORATION\Release\SBUX\Test\Load\TestResults\Administrator_SFOBTTEST01 2009-04-08 15_21_21\In\SFOBTTEST01" />
+                        <Entry name="$TestDeploymentDir" value="C:\DEV\COLLABORATION\Release\SBUX\Test\Load\TestResults\Administrator_SFOBTTEST01 2009-04-08 15_21_21\Out" />
+                        <Entry name="$AgentId" value="1" />
+                        <Entry name="$AgentLoadDistributor" value="Microsoft.VisualStudio.TestTools.Execution.AgentLoadDistributor" />
+                        <Entry name="$TestDir" value="C:\DEV\COLLABORATION\Release\SBUX\Test\Load\TestResults\Administrator_SFOBTTEST01 2009-04-08 15_21_21" />
+                        <Entry name="$AgentWeighting" value="100" />
+                        <Entry name="$WebTestIteration" value="1" />
+                        <Entry name="Replacements.RuntimeData.Port" value="443" />
+                        <Entry name="Replacements.RuntimeData.Server" value="TQWEBSERVER" />
+                        <Entry name="Replacements.RuntimeData.Password" value="Password1" />
+                        <Entry name="Replacements.RuntimeData.SiteName" value="LoadTest1" />
+                        <Entry name="Replacements.RuntimeData.FileLocation" value="D:\Data" />
+                        <Entry name="Users.RuntimeData.Password" value="Password1" />
+                        <Entry name="Users.User.User_Text" value="SaffronUser1@autodesk.com" />
+                        <Entry name="$WebTestUserId" value="1" />
+                      </Context>
+                      <Errors>
+                        <Error type="Exception" subType="WebException" text="The remote name could not be resolved: 'tqwebserver'" time="2009-04-08T15:22:53.4862500-07:00">
+                          <StackTrace>   at System.Net.HttpWebRequest.EndGetResponse(IAsyncResult asyncResult)
+   at Microsoft.VisualStudio.TestTools.WebStress.WebTestTransaction.ResponseReceived(IAsyncResult result)</StackTrace>
+                          <ExceptionText>Microsoft.VisualStudio.TestTools.WebTesting.ConnectionFailedWebTestException: The following error occurred which may indicate you need to configure a proxy server in your Web test: The remote name could not be resolved: 'tqwebserver' ---&gt; System.Net.WebException: The remote name could not be resolved: 'tqwebserver'
+   at System.Net.HttpWebRequest.EndGetResponse(IAsyncResult asyncResult)
+   at Microsoft.VisualStudio.TestTools.WebStress.WebTestTransaction.ResponseReceived(IAsyncResult result)
+   --- End of inner exception stack trace ---</ExceptionText>
+                        </Error>
+                      </Errors>
+                    </WebRequestResult>
+                  </WebTestResultPage>
+                </WebTestResultGroup>
+              </WebTestResultTransaction>
+            </WebTestResultGroup>
+          </WebTestResultIteration>
+        </WebTestResultIterations>
+      </WebTestResultDetails>
+    </WebTestResult>
+  </Results>
+</TestRun>

@@ -1,0 +1,1334 @@
+TestSuite:MSTest
+-->Info: Found 35 test definitions.
+  Test:eSpares.Data.NHibernate.Tests.NHRepositoryTest.Delete_Deletes_Record
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:2000
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHRepositoryTest.Nested_UnitOfWork_With_Different_Transaction_Compatibility_Works
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHRepositoryTest.Query_Allows_Lazy_Load_While_UnitOfWork_Still_Running
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHRepositoryTest.Query_Allows_Projection_Using_Select_Projection
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHRepositoryTest.Query_Throws_Exception_When_LazyLoading_After_UnitOfWork_Is_Finished
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHRepositoryTest.Query_Using_OrderBy_With_QueryMethod_Returns_Matched_Records_Only
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHRepositoryTest.Query_Using_QueryMethod_Returns_Matched_Records_Only
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHRepositoryTest.Query_With_Incompatible_UnitOfWork_Throws_InvalidOperationException
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHRepositoryTest.Query_With_No_UnitOfWork_Throws_InvalidOperationException
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHRepositoryTest.Save_Does_Not_Save_New_Customer_When_UnitOfWork_Is_Aborted
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHRepositoryTest.Save_New_Customer_Saves_Customer_When_UnitOfWork_Is_Committed
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHRepositoryTest.Save_Updates_Existing_Order_Record
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHRepositoryTest.UnitOfWork_Rolledback_When_Containing_TransactionScope_Is_Rolledback
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHRepositoryTest.When_Calling_CalculateTotal_On_Order_Returns_Valid_When_Under_UnitOfWork
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:1000
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHRepositoryTest.When_Calling_CalculateTotal_On_Order_Returns_Valid_With_No_UnitOfWork_Throws
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHUnitOfWorkTransactionTest.changes_are_not_persisted_when_ambient_transaction_rolls_back
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHUnitOfWorkTransactionTest.changes_are_persisted_when_ambient_scope_is_committed
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHUnitOfWorkTransactionTest.UnitOfWorkScopeTransactionOptions_CreateNew_Wont_Reuse_Existing_Transaction
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHUnitOfWorkTransactionTest.when_ambient_transaction_is_running_and_a_previous_scope_rollsback_new_scope_still_works
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.NHUnitOfWorkTransactionTest.when_ambient_transaction_is_running_multiple_scopes_work
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.UnitOfWorkFactoryTest.Create_Returns_NHUnitOfWork_Instance_When_DataContextProvider_Has_Been_Set
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.UnitOfWorkFactoryTest.Create_Throws_InvalidOperationException_When_No_SessionProvider_Has_Been_Set
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.UnitOfWorkTest.Begin_Transaction_Should_Start_A_New_Transaction_With_Default_IsolationLevel
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.UnitOfWorkTest.BeginTransaction_Should_Start_A_New_Transaction_With_Specified_IsolatinLevel
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.UnitOfWorkTest.BeginTransaction_Throws_InvalidOperationException_When_Transaction_Already_Running
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.UnitOfWorkTest.Comitting_Transaction_Releases_Transaction_From_UnitOfWork
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.UnitOfWorkTest.Ctor_Throws_ArgumentNullException_When_ISession_Parameter_Is_Null
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.UnitOfWorkTest.Dispose_UnitOfWork_Disposed_Underlying_Transaction_And_Session
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.UnitOfWorkTest.Flush_Calls_Underlying_ISession_Flush
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.UnitOfWorkTest.IsInTransaction_Should_Return_False_When_No_Transaction_Exists
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.UnitOfWorkTest.Rollback_Transaction_Releases_Transaction_From_UnitOfWork
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.UnitOfWorkTest.TransactionalFlush_Rollsback_Transaction_When_Flush_Throws_Exception
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.UnitOfWorkTest.TransactionalFlush_Starts_A_Transaction_With_Default_Isolation_And_Commits_When_Flush_Succeeds
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.UnitOfWorkTest.TransactionalFlush_Starts_A_Transaction_With_Specified_IsolationLevel_And_Commits_When_Flush_Succeeds
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+  Test:eSpares.Data.NHibernate.Tests.UnitOfWorkTest.TransactionalFlush_Uses_Existing_Transaction_When_Transactional_AlreadyRunning
+    Fail:Assembly Initialization method eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory threw exception. FluentNHibernate.Cfg.FluentConfigurationException: FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> FluentNHibernate.Cfg.FluentConfigurationException: An invalid or incomplete configuration was used while creating a SessionFactory. Check PotentialReasons collection, and InnerException for more detail.
+
+ ---> NHibernate.HibernateException: Login failed for user 'ESPARES\teamcity.buildagent'. ---> System.Data.SqlClient.SqlException: Login failed for user 'ESPARES\teamcity.buildagent'.. Aborting test execution. Message:     at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at NHibernate.Connection.DriverConnectionProvider.GetConnection()
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+ --- End of inner exception stack trace ---
+    at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Action`1 scriptAction, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Execute(Boolean script, Boolean export, Boolean justDrop)
+   at NHibernate.Tool.hbm2ddl.SchemaExport.Create(Boolean script, Boolean export)
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.<SetUpFactory>b__0(Configuration config) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 52
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 112
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildConfiguration() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 119
+   at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 93
+ --- End of inner exception stack trace ---
+    at FluentNHibernate.Cfg.FluentConfiguration.BuildSessionFactory() in d:\Builds\FluentNH\src\FluentNHibernate\Cfg\FluentConfiguration.cs:line 98
+   at eSpares.Data.NHibernate.Tests.NHTestSetup.SetUpFactory(TestContext context) in c:\TeamCity.BuildAgent\work\1140675e932e9582\Framework\ORM\NHibernate\eSpares.Data.NHibernate.Tests\NHTestSetup.cs:line 41
+
+  EndTest:0
+------------------------
+-->Info: 35 test(s) were reported
+EndSuite

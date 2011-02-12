@@ -16,6 +16,8 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.*;
+import java.util.*;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
@@ -27,9 +29,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-
-import java.io.*;
-import java.util.*;
 
 
 public final class TestUtil {
@@ -67,7 +66,7 @@ public final class TestUtil {
     if (file3.exists()) {
       return file3;
     }
-    throw new FileNotFoundException(file1.getAbsolutePath() + ", " + file2.getAbsolutePath() + " or file " + file3.getAbsolutePath() + " should exist.");
+    return new File(getTestDataPath("", folderName), fileName);
   }
 
   public static InspectionReporter createInspectionReporter(final StringBuilder results) {

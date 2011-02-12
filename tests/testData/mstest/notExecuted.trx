@@ -1,0 +1,1542 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="4902e486-d3aa-4d9b-a002-d8d935dd9d05" name="TdsTest" runUser="NAM\es93023" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestRunConfiguration name="Local Test Run" id="ebf11f4c-685c-4978-96c3-be13ec117818">
+    <Description>This is a default test run configuration for a local test run.</Description>
+    <Deployment userDeploymentRoot="C:\dev\global\Razor\TDS\Main\dotNet" useDefaultDeploymentRoot="false" runDeploymentRoot="C:\dev\global\Razor\TDS\Main\dotNet\TdsTest" />
+    <NamingScheme baseName="TdsTest" appendTimeStamp="false" useDefault="false" />
+    <TestTypeSpecific />
+  </TestRunConfiguration>
+  <ResultSummary outcome="Error">
+    <Counters total="103" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="103" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+    <RunInfos>
+      <RunInfo computerName="MKTDEVPC0200" outcome="Error" timestamp="2009-09-01T20:31:42.1939575-04:00">
+        <Text>Failed to queue test run 'TdsTest': Test Run deployment issue: The location of the file or directory 'c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\Spring.Core.dll' is not trusted.</Text>
+        <Exception>Microsoft.VisualStudio.TestTools.TestManagement.ExecutionException: Test Run deployment issue: The location of the file or directory 'c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\Spring.Core.dll' is not trusted.
+   at Microsoft.VisualStudio.TestTools.TestManagement.DeploymentManager.DoDeployment(TestRun run, FileCopyService fileCopyService)
+   at Microsoft.VisualStudio.TestTools.TestManagement.ControllerProxy.SetupTestRun(TestRun run, Boolean isNewTestRun, FileCopyService&amp; fileCopyService)
+   at Microsoft.VisualStudio.TestTools.TestManagement.ControllerProxy.QueueTestRunWorker(Object state)</Exception>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+  <Times creation="2009-09-01T20:31:38.8189359-04:00" queuing="2009-09-01T20:31:38.8189359-04:00" start="2009-09-01T20:31:38.8189359-04:00" finish="2009-09-01T20:31:42.2095826-04:00" />
+  <TestDefinitions>
+    <UnitTest name="TestFirmAccount" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="1c8e6d98-7da4-a441-a86a-3a976140af99">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestFirmAccount" />
+    </UnitTest>
+    <UnitTest name="WorkflowModelBuilderConstructorTest" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="c561f605-2a7a-5c40-ff1b-b876b6dc2182">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Razor.Tds.Workflow.dll" />
+        <DeploymentItem filename="Workflow\WorkflowXml.xml" outputDirectory="Workflow" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.Workflow.WorkflowModelBuilderTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="WorkflowModelBuilderConstructorTest" />
+    </UnitTest>
+    <UnitTest name="TraderId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="9d57201d-3880-2c52-0aff-19641f4555fb">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TraderId" />
+    </UnitTest>
+    <UnitTest name="TestTrader" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="9a866eda-8b8f-19fc-561f-c7f76b48f185">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestTrader" />
+    </UnitTest>
+    <UnitTest name="TestFalseConditionFromProvider" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="62118f4b-2e8d-4bd0-189e-06a681faffe8">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.Workflow.ConditionTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestFalseConditionFromProvider" />
+    </UnitTest>
+    <UnitTest name="TestQuery1Standard" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="9323e8c7-0f20-5a0b-006c-a81280d35361">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Common.QueryModelTest, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestQuery1Standard" />
+    </UnitTest>
+    <UnitTest name="FirmAccount" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="029d7905-8ce4-bffb-13b7-346b468267d0">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="FirmAccount" />
+    </UnitTest>
+    <UnitTest name="TestSerializeTrade" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="b0efad5b-8d30-22b2-18b1-efe2fcf6a79b">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Common.TradeHelperTest, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestSerializeTrade" />
+    </UnitTest>
+    <UnitTest name="TestEnumGetStringValues" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="94f97dd4-0e3f-6d82-2146-d28e55576f1b">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Extensions.EnumExtensionTest, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestEnumGetStringValues" />
+    </UnitTest>
+    <UnitTest name="TestPartialUnwindEventShortPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="20fa6734-7444-434f-02ae-84bd3d8ad668">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.TdsEvents.TdsUnwindEventTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestPartialUnwindEventShortPosition" />
+    </UnitTest>
+    <UnitTest name="TestSalesperson" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="3d9bbd66-1321-f2bb-469f-b816cd2642c6">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestSalesperson" />
+    </UnitTest>
+    <UnitTest name="TestApplyChanges4" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="f4a281e5-a229-ab0e-525e-ac72646ff431">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeOut.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Common.XmlMergeTest, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestApplyChanges4" />
+    </UnitTest>
+    <UnitTest name="TestFullUnwindEventBuyPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="a3040350-fa83-0e18-e045-a01c09e83c1f">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.TdsEvents.TdsUnwindEventTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestFullUnwindEventBuyPosition" />
+    </UnitTest>
+    <UnitTest name="TradeStatus" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="2dfa42bd-92ef-bc46-a7fb-51c761cf88d6">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TradeStatus" />
+    </UnitTest>
+    <UnitTest name="TestApplyChanges1" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="6fe8fe91-6c2a-17b3-e712-2bf3d247ae4b">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeOut.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Common.XmlMergeTest, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestApplyChanges1" />
+    </UnitTest>
+    <UnitTest name="TestFees" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="9cca4186-9152-5169-9c44-5135799ca544">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestFees" />
+    </UnitTest>
+    <UnitTest name="TradeUnits" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="475000b6-fc10-322d-3450-e8334892633c">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TradeUnits" />
+    </UnitTest>
+    <UnitTest name="TestInvalidTransitions" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="2e21f8ad-e4e3-5cc2-7e3d-8fc93bf8bf48">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Razor.Tds.Workflow.dll" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.Workflow.TradeWorkflowServiceTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestInvalidTransitions" />
+    </UnitTest>
+    <UnitTest name="TestCurrency" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="da593bca-a9c8-43ea-3421-4da2a9336947">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestCurrency" />
+    </UnitTest>
+    <UnitTest name="TestBroker" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="d4ca592c-c086-cdfb-a008-0fd2526d349b">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestBroker" />
+    </UnitTest>
+    <UnitTest name="TestQuerySerialization" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="af5da109-13a9-8dba-c272-783726f6690a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Common.QueryModelTest, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestQuerySerialization" />
+    </UnitTest>
+    <UnitTest name="TestFullUnwindWithFeeOnLongPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="922d2038-fc84-7ed4-aa73-73a8b5cc04bd">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.TdsEvents.TdsUnwindEventTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestFullUnwindWithFeeOnLongPosition" />
+    </UnitTest>
+    <UnitTest name="ExternalId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="b28f7c45-ac2a-8c9f-ddfc-55ac975532b0">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="ExternalId" />
+    </UnitTest>
+    <UnitTest name="TestAmendTrade" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="155006e3-1cbc-7781-ac4a-49c30b4e0a1b">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.TdsEvents.TdsAmendTradeEventTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestAmendTrade" />
+    </UnitTest>
+    <UnitTest name="TestTradeVersion" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="62e45eec-5729-6b46-927e-9868177bb1ac">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestTradeVersion" />
+    </UnitTest>
+    <UnitTest name="AlternativeId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="9e1f3ddb-43f6-7875-c527-21f7eddfe6a1">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="AlternativeId" />
+    </UnitTest>
+    <UnitTest name="TestAbsAmount" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="6c4b574a-9dc6-3b54-f93e-9e32d277ebc5">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.ViewModels.TradeDetailsViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestAbsAmount" />
+    </UnitTest>
+    <UnitTest name="TestBuySell" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="57666166-8a80-cf89-1c00-84bc572507b3">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestBuySell" />
+    </UnitTest>
+    <UnitTest name="TestAmount" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="dad9e6d0-c1bd-1881-94c6-c344c6606614">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestAmount" />
+    </UnitTest>
+    <UnitTest name="TestStrike" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="56c060c4-1ec4-ba8d-c144-121747db2672">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestStrike" />
+    </UnitTest>
+    <UnitTest name="CustomerAccount" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="63f843b5-afeb-1cf5-f66e-53ca95d912e4">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="CustomerAccount" />
+    </UnitTest>
+    <UnitTest name="TradeNotional" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="09ed2ec3-82d7-d58e-5e54-6a3178fa52e9">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TradeNotional" />
+    </UnitTest>
+    <UnitTest name="CreateDataDocument" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="ba6271e2-259d-2ed0-158e-5b81bba39c9a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="CreateDataDocument" />
+    </UnitTest>
+    <UnitTest name="TestSettlementDateOffset" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="46a2ef3f-65f6-1c30-2565-29367839323a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestSettlementDateOffset" />
+    </UnitTest>
+    <UnitTest name="TestExpiryTime" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="404380d2-9736-ef49-94a3-7126db0bccc9">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestExpiryTime" />
+    </UnitTest>
+    <UnitTest name="TradeId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="6f13689f-8711-c476-0950-1b4bd72ae195">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TradeId" />
+    </UnitTest>
+    <UnitTest name="Price" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="bc8a2926-1dd0-837e-3152-b2138564f9b4">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="Price" />
+    </UnitTest>
+    <UnitTest name="TestEnumParseStringValues" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="0718d219-1023-0681-4b9d-6d809a1f95da">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Extensions.EnumExtensionTest, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestEnumParseStringValues" />
+    </UnitTest>
+    <UnitTest name="StpRouting" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="0a4449af-8d95-76ab-f90b-6bcda8ce8246">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="StpRouting" />
+    </UnitTest>
+    <UnitTest name="TestApplyChanges2" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="8319bdf9-199e-2892-c3cf-982e088163e7">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeOut.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Common.XmlMergeTest, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestApplyChanges2" />
+    </UnitTest>
+    <UnitTest name="TestTradeStatus" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="30670ecc-aeb3-0d23-13d1-1ff11976a68d">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestTradeStatus" />
+    </UnitTest>
+    <UnitTest name="TradeDate" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="0795a3a1-0007-ae8e-6311-31d04da9752d">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TradeDate" />
+    </UnitTest>
+    <UnitTest name="ProductId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="26d01551-2511-3b6a-a1c9-3ea0340f82e6">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Product, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="ProductId" />
+    </UnitTest>
+    <UnitTest name="TestCounterparty" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="48c2f00f-3044-143f-5ac5-c90a09f16dd9">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestCounterparty" />
+    </UnitTest>
+    <UnitTest name="TestTicketOwner" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="b6cd9e51-af7c-be9a-6062-8ffd5d7e1a2a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestTicketOwner" />
+    </UnitTest>
+    <UnitTest name="TestOptionType" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="cba30119-a5fc-760c-4abb-0df842e6f2ee">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestOptionType" />
+    </UnitTest>
+    <UnitTest name="TestSerializingAllocations" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="2c2aebf9-a0c6-d73f-9728-89e3ff71c5cb">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+        <DeploymentItem filename="TdsEvents\EqrmsAllocationBlob.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.TdsEvents.TdsAllocationEventTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestSerializingAllocations" />
+    </UnitTest>
+    <UnitTest name="TestUserId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="83145ce5-06ee-7dbd-3e36-5b201abe6722">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestUserId" />
+    </UnitTest>
+    <UnitTest name="TestApplyChanges3" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="0ceeecd7-164c-4e02-1932-8c998435816f">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeOut.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Common.XmlMergeTest, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestApplyChanges3" />
+    </UnitTest>
+    <UnitTest name="TestUnderlier" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="d90323fd-9f12-6db6-adb4-e93f61437d63">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestUnderlier" />
+    </UnitTest>
+    <UnitTest name="TestIsSettlementDateOverriden" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="22cc8021-ba03-dc29-985e-9301bb2452b7">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestIsSettlementDateOverriden" />
+    </UnitTest>
+    <UnitTest name="TestExpiryDate" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="d8f8b985-3f11-26d4-01d0-d89853684c99">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestExpiryDate" />
+    </UnitTest>
+    <UnitTest name="TestUpsizeEventShortPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="12c4452f-d93d-2f6f-c773-7af0e8e696d6">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.TdsEvents.TdsUpsizeEventTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestUpsizeEventShortPosition" />
+    </UnitTest>
+    <UnitTest name="Region" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="56c08d7a-aab9-0d86-27cb-1194abd375b3">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="Region" />
+    </UnitTest>
+    <UnitTest name="TestValidTransitions" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="b41ee7f9-6fee-88f8-c23f-0826be4ba037">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Razor.Tds.Workflow.dll" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.Workflow.TradeWorkflowServiceTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestValidTransitions" />
+    </UnitTest>
+    <UnitTest name="TestPrice" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="10040eb1-212e-8003-979a-0acb9a6fcd13">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestPrice" />
+    </UnitTest>
+    <UnitTest name="TestFullUnwindEventShortPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="525cd9cf-3b3e-2ecd-c4a1-edc5a0ad4916">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.TdsEvents.TdsUnwindEventTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestFullUnwindEventShortPosition" />
+    </UnitTest>
+    <UnitTest name="TradeTime" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="7cda3911-1755-2d43-2db9-62163b0718ee">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TradeTime" />
+    </UnitTest>
+    <UnitTest name="TestAmountType" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="4d542a1e-e8ec-3f0a-0edf-fe7251ff2387">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestAmountType" />
+    </UnitTest>
+    <UnitTest name="EffectiveDate" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="c9264490-3405-a34e-baea-bc8c60224b7a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="EffectiveDate" />
+    </UnitTest>
+    <UnitTest name="TestTradeId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="9daefa5c-594f-f060-f01a-137710df081e">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestTradeId" />
+    </UnitTest>
+    <UnitTest name="TestUpsizeLongPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="df20fb75-1e3c-c7bf-f0b7-1ce4e29354a7">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.TdsEvents.TdsUpsizeEventTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestUpsizeLongPosition" />
+    </UnitTest>
+    <UnitTest name="TestTrueConditionFromProvider" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="6213d667-ccd3-7b47-2b7b-6e001091061a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.Workflow.ConditionTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestTrueConditionFromProvider" />
+    </UnitTest>
+    <UnitTest name="Version" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="fe038a83-38c2-47fe-3286-fa0e409b7bba">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="Version" />
+    </UnitTest>
+    <UnitTest name="TestInternalAccount" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="f57f5aa8-5844-646b-d3bf-eedf9528a580">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestInternalAccount" />
+    </UnitTest>
+    <UnitTest name="TestListMerge" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="6d7eacd8-be68-30a6-c935-e5fa0949c1f9">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeSource4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget1.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget2.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeSource3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeOut4.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\MergeTarget3.xml" />
+        <DeploymentItem filename="Data\XmlMergeData\ListMergeOut.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Common.XmlMergeTest, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestListMerge" />
+    </UnitTest>
+    <UnitTest name="TestPartialUnwindEventLongPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="f318b7cf-05b3-e919-28af-5b3f51884917">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.TdsEvents.TdsUnwindEventTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestPartialUnwindEventLongPosition" />
+    </UnitTest>
+    <UnitTest name="TestSettlementDate" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="aa7ca807-f953-49fd-83a5-ece2e20a0298">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestSettlementDate" />
+    </UnitTest>
+    <UnitTest name="TestExerciseType" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="2c144fff-3830-0554-4693-0e584297925d">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestExerciseType" />
+    </UnitTest>
+    <UnitTest name="TestStpTicketEnabled" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="ba3d2947-cf81-780f-4248-43ad7e08c76a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.ViewModels.TradeDetailsViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestStpTicketEnabled" />
+    </UnitTest>
+    <UnitTest name="TestTradeLastUpdated" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="78fa3b45-a79b-ecda-ef97-05e2ca58e90d">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestTradeLastUpdated" />
+    </UnitTest>
+    <UnitTest name="TestQuery1Builder" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="396b85fc-1617-5bc8-ee0a-6e1c7705756d">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Common.QueryModelTest, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestQuery1Builder" />
+    </UnitTest>
+    <UnitTest name="Broker" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="0771c9e4-e903-60f8-c0e3-34d63e73778a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="Broker" />
+    </UnitTest>
+    <UnitTest name="TestMultiplier" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="678e5d4b-f55d-9a83-3bc8-60dc3c868ab7">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestMultiplier" />
+    </UnitTest>
+    <UnitTest name="TestTradeGuid" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="33086ec1-4a5c-538b-dd4d-76265db6a94a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestTradeGuid" />
+    </UnitTest>
+    <UnitTest name="TestCreditOfficer" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="21163dde-05c7-83a8-d4a7-d96b879d5d1d">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestCreditOfficer" />
+    </UnitTest>
+    <UnitTest name="TestToggleBuySellCommand" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="2090b83d-5da8-e7b3-49f2-c9e510a64f49">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.ViewModels.TradeDetailsViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestToggleBuySellCommand" />
+    </UnitTest>
+    <UnitTest name="DefaultSettlementOffset" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="ecc37a78-ed9c-1cde-125f-9d91b3f706d8">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="DefaultSettlementOffset" />
+    </UnitTest>
+    <UnitTest name="TestIsInternalTrade" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="4e677e55-39e5-3516-304f-84a9a9054256">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestIsInternalTrade" />
+    </UnitTest>
+    <UnitTest name="TestTicketGeneration" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="f23b14c5-8333-25d5-9616-a6fd7730148d">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestTicketGeneration" />
+    </UnitTest>
+    <UnitTest name="ToAccount" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="0e799481-dd26-da7f-a0a8-5bf8d33eb803">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="ToAccount" />
+    </UnitTest>
+    <UnitTest name="TradeQuantity" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="2cfbf152-680e-ad96-1169-57f2d21d0f00">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TradeQuantity" />
+    </UnitTest>
+    <UnitTest name="Currency" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="533d7cef-7f2c-de9b-21a3-58a373dde8f0">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="Currency" />
+    </UnitTest>
+    <UnitTest name="TestSettlementHolidayCalendars" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="781887d2-9587-7c34-5f2f-76a91b7d76ef">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestSettlementHolidayCalendars" />
+    </UnitTest>
+    <UnitTest name="TestEnumParseStringValuesCaseInsensitive" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="2d2b8c7b-2aab-22b3-b61a-3d440de52c7a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Extensions.EnumExtensionTest, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestEnumParseStringValuesCaseInsensitive" />
+    </UnitTest>
+    <UnitTest name="TestComment" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="8bf8c6bc-94df-3c10-dd92-37142a71b144">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestComment" />
+    </UnitTest>
+    <UnitTest name="FpmlProduct" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="e9a440fb-e702-1736-36c6-d1d9d52d1a93">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="FpmlProduct" expectedException="Cl.Engine.Fpml.Data.UnsupportedProductException, Cl.Engine.Fpml.Data, Version=1.0.307.1991, Culture=neutral, PublicKeyToken=26ff372b154ea46a" />
+    </UnitTest>
+    <UnitTest name="TestSettlementType" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="ffa83c65-8064-f1f8-5ea4-94b33ad51bcb">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestSettlementType" />
+    </UnitTest>
+    <UnitTest name="TestCEF" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="b02d6778-fb2f-8403-9f05-0d7088aa04ed">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestCEF" />
+    </UnitTest>
+    <UnitTest name="TraderName" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="a81666c4-d742-d4f2-2c18-79664d1591be">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TraderName" />
+    </UnitTest>
+    <UnitTest name="ModifiedBy" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="2d03f19a-7d06-e07b-31e2-e23527dca11c">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="ModifiedBy" />
+    </UnitTest>
+    <UnitTest name="CEF" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="98393be5-07bf-604a-9001-67353a758964">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="CEF" />
+    </UnitTest>
+    <UnitTest name="CreditOfficer" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="62802543-9042-fca5-a6e5-0e28d7ea2bf5">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="CreditOfficer" />
+    </UnitTest>
+    <UnitTest name="TestAllocationEventHandler" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="46d31b73-0be9-d37c-f713-4fbed727c09a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+        <DeploymentItem filename="TdsEvents\EqrmsAllocationBlob.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.TdsEvents.TdsAllocationEventTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestAllocationEventHandler" />
+    </UnitTest>
+    <UnitTest name="TestCurrency" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="5b3f6dc7-1854-9ff8-8664-0126b552a08a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestCurrency" />
+    </UnitTest>
+    <UnitTest name="TestFullUnwindWithPriceOnLongPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="91cc8e1e-4512-9c1b-a104-cb7961cde310">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.TdsEvents.TdsUnwindEventTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestFullUnwindWithPriceOnLongPosition" />
+    </UnitTest>
+    <UnitTest name="TestSettlementDate" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="990ab30b-4c48-b408-ac34-6516acd2080a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestSettlementDate" />
+    </UnitTest>
+    <UnitTest name="TestMethodExternalTradeAccountsVisiblity" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="4875c7ac-2d3c-c80e-e334-11e7f1b2da84">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.ViewModels.TradeDetailsViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestMethodExternalTradeAccountsVisiblity" />
+    </UnitTest>
+    <UnitTest name="TestSingleAmendProduct" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" id="0dda5c4a-46e7-fd9e-9d06-7cbfa5acf450">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.server.test/bin/debug/Razor.Tds.Server.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Server.Test.TdsEvents.TdsAmendProductEventTest, Razor.Tds.Server.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestSingleAmendProduct" />
+    </UnitTest>
+    <UnitTest name="TestLinkId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="6be673ac-c42e-4ddc-79a9-ab00c2b633f6">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestLinkId" />
+    </UnitTest>
+    <UnitTest name="DataDocumentContractSerialization" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="f71402ed-f2a8-4a8d-4230-42a31bf6ff71">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\EquityOption.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Model.Trade, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="DataDocumentContractSerialization" />
+    </UnitTest>
+    <UnitTest name="TestTradeDate" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" id="58e97e3e-e54d-30af-7d4c-e5640a5687a1">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <DeploymentItems>
+        <DeploymentItem filename="Data\Trade1.xml" />
+      </DeploymentItems>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.ui.test/bin/debug/Razor.Tds.UI.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest, Razor.Tds.UI.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestTradeDate" />
+    </UnitTest>
+    <UnitTest name="TestDataTableSerialization" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" id="f8b4dbd2-1c4f-06bb-3acd-c25d89c1954e">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="c:/dev/global/razor/tds/main/dotnet/unittest/razor.tds.test/bin/debug/Razor.Tds.Test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Razor.Tds.Test.Persistence.SerializationTest, Razor.Tds.Test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=26ff372b154ea46a" name="TestDataTableSerialization" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+    <TestList name="Persistence" id="a5757b6e-d12d-4e28-a153-1b0b83e82d5f" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+      <TestLinks>
+        <TestLink id="f8b4dbd2-1c4f-06bb-3acd-c25d89c1954e" name="TestDataTableSerialization" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      </TestLinks>
+    </TestList>
+    <TestList name="DataModal" id="d3394295-4585-4f23-a72f-71acd623bf78" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+      <TestLinks>
+        <TestLink id="f71402ed-f2a8-4a8d-4230-42a31bf6ff71" name="DataDocumentContractSerialization" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="c9264490-3405-a34e-baea-bc8c60224b7a" name="EffectiveDate" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="6f13689f-8711-c476-0950-1b4bd72ae195" name="TradeId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="ecc37a78-ed9c-1cde-125f-9d91b3f706d8" name="DefaultSettlementOffset" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="94f97dd4-0e3f-6d82-2146-d28e55576f1b" name="TestEnumGetStringValues" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="2cfbf152-680e-ad96-1169-57f2d21d0f00" name="TradeQuantity" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="029d7905-8ce4-bffb-13b7-346b468267d0" name="FirmAccount" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="fe038a83-38c2-47fe-3286-fa0e409b7bba" name="Version" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="533d7cef-7f2c-de9b-21a3-58a373dde8f0" name="Currency" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="e9a440fb-e702-1736-36c6-d1d9d52d1a93" name="FpmlProduct" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="ba6271e2-259d-2ed0-158e-5b81bba39c9a" name="CreateDataDocument" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="0718d219-1023-0681-4b9d-6d809a1f95da" name="TestEnumParseStringValues" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="63f843b5-afeb-1cf5-f66e-53ca95d912e4" name="CustomerAccount" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="62802543-9042-fca5-a6e5-0e28d7ea2bf5" name="CreditOfficer" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="56c08d7a-aab9-0d86-27cb-1194abd375b3" name="Region" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="2dfa42bd-92ef-bc46-a7fb-51c761cf88d6" name="TradeStatus" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="9d57201d-3880-2c52-0aff-19641f4555fb" name="TraderId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="a81666c4-d742-d4f2-2c18-79664d1591be" name="TraderName" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="bc8a2926-1dd0-837e-3152-b2138564f9b4" name="Price" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="9e1f3ddb-43f6-7875-c527-21f7eddfe6a1" name="AlternativeId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="0e799481-dd26-da7f-a0a8-5bf8d33eb803" name="ToAccount" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="6be673ac-c42e-4ddc-79a9-ab00c2b633f6" name="TestLinkId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="475000b6-fc10-322d-3450-e8334892633c" name="TradeUnits" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="0a4449af-8d95-76ab-f90b-6bcda8ce8246" name="StpRouting" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="0795a3a1-0007-ae8e-6311-31d04da9752d" name="TradeDate" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="7cda3911-1755-2d43-2db9-62163b0718ee" name="TradeTime" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="b28f7c45-ac2a-8c9f-ddfc-55ac975532b0" name="ExternalId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="0771c9e4-e903-60f8-c0e3-34d63e73778a" name="Broker" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="09ed2ec3-82d7-d58e-5e54-6a3178fa52e9" name="TradeNotional" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="98393be5-07bf-604a-9001-67353a758964" name="CEF" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="2d03f19a-7d06-e07b-31e2-e23527dca11c" name="ModifiedBy" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="2d2b8c7b-2aab-22b3-b61a-3d440de52c7a" name="TestEnumParseStringValuesCaseInsensitive" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="26d01551-2511-3b6a-a1c9-3ea0340f82e6" name="ProductId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      </TestLinks>
+    </TestList>
+    <TestList name="Service" id="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+      <TestLinks>
+        <TestLink id="91cc8e1e-4512-9c1b-a104-cb7961cde310" name="TestFullUnwindWithPriceOnLongPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="b0efad5b-8d30-22b2-18b1-efe2fcf6a79b" name="TestSerializeTrade" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="a3040350-fa83-0e18-e045-a01c09e83c1f" name="TestFullUnwindEventBuyPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="525cd9cf-3b3e-2ecd-c4a1-edc5a0ad4916" name="TestFullUnwindEventShortPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="6fe8fe91-6c2a-17b3-e712-2bf3d247ae4b" name="TestApplyChanges1" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="46d31b73-0be9-d37c-f713-4fbed727c09a" name="TestAllocationEventHandler" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="f4a281e5-a229-ab0e-525e-ac72646ff431" name="TestApplyChanges4" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="af5da109-13a9-8dba-c272-783726f6690a" name="TestQuerySerialization" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="12c4452f-d93d-2f6f-c773-7af0e8e696d6" name="TestUpsizeEventShortPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="2c2aebf9-a0c6-d73f-9728-89e3ff71c5cb" name="TestSerializingAllocations" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="9323e8c7-0f20-5a0b-006c-a81280d35361" name="TestQuery1Standard" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="0ceeecd7-164c-4e02-1932-8c998435816f" name="TestApplyChanges3" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="6d7eacd8-be68-30a6-c935-e5fa0949c1f9" name="TestListMerge" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="8319bdf9-199e-2892-c3cf-982e088163e7" name="TestApplyChanges2" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="922d2038-fc84-7ed4-aa73-73a8b5cc04bd" name="TestFullUnwindWithFeeOnLongPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="df20fb75-1e3c-c7bf-f0b7-1ce4e29354a7" name="TestUpsizeLongPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="f318b7cf-05b3-e919-28af-5b3f51884917" name="TestPartialUnwindEventLongPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="20fa6734-7444-434f-02ae-84bd3d8ad668" name="TestPartialUnwindEventShortPosition" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="60280258-0758-3bec-d33a-34b1ad8c8c40" name="TestAllObjectCreation" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" enabled="false" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="396b85fc-1617-5bc8-ee0a-6e1c7705756d" name="TestQuery1Builder" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.test\bin\debug\razor.tds.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      </TestLinks>
+    </TestList>
+    <TestList name="Lists of Results" id="8c43106b-9dc1-4907-a29f-aa66a61bf5b6" />
+    <TestList name="Workflow" id="750038d9-2b31-4d8d-93d3-3746dd6f6dff" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+      <TestLinks>
+        <TestLink id="f63e5a12-b4eb-b3cf-91a8-f0e9c4e977ff" name="TestInvalidTransitions" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="9ef0f122-eaba-b22f-f3c9-0ffb24c789fd" name="TestValidTransitions" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" enabled="false" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="c561f605-2a7a-5c40-ff1b-b876b6dc2182" name="WorkflowModelBuilderConstructorTest" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\razor.tds.server.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      </TestLinks>
+    </TestList>
+    <TestList name="UI" id="fadf7ca7-15bb-42b5-8a46-a551f86b444f" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+      <TestLinks>
+        <TestLink id="22cc8021-ba03-dc29-985e-9301bb2452b7" name="TestIsSettlementDateOverriden" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="10040eb1-212e-8003-979a-0acb9a6fcd13" name="TestPrice" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="d90323fd-9f12-6db6-adb4-e93f61437d63" name="TestUnderlier" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="ffa83c65-8064-f1f8-5ea4-94b33ad51bcb" name="TestSettlementType" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="b02d6778-fb2f-8403-9f05-0d7088aa04ed" name="TestCEF" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="46a2ef3f-65f6-1c30-2565-29367839323a" name="TestSettlementDateOffset" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="4e677e55-39e5-3516-304f-84a9a9054256" name="TestIsInternalTrade" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="2090b83d-5da8-e7b3-49f2-c9e510a64f49" name="TestToggleBuySellCommand" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="1c8e6d98-7da4-a441-a86a-3a976140af99" name="TestFirmAccount" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="58e97e3e-e54d-30af-7d4c-e5640a5687a1" name="TestTradeDate" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="62e45eec-5729-6b46-927e-9868177bb1ac" name="TestTradeVersion" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="781887d2-9587-7c34-5f2f-76a91b7d76ef" name="TestSettlementHolidayCalendars" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="990ab30b-4c48-b408-ac34-6516acd2080a" name="TestSettlementDate" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="f23b14c5-8333-25d5-9616-a6fd7730148d" name="TestTicketGeneration" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="4d542a1e-e8ec-3f0a-0edf-fe7251ff2387" name="TestAmountType" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="9cca4186-9152-5169-9c44-5135799ca544" name="TestFees" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="b6cd9e51-af7c-be9a-6062-8ffd5d7e1a2a" name="TestTicketOwner" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="4875c7ac-2d3c-c80e-e334-11e7f1b2da84" name="TestMethodExternalTradeAccountsVisiblity" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="33086ec1-4a5c-538b-dd4d-76265db6a94a" name="TestTradeGuid" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="78fa3b45-a79b-ecda-ef97-05e2ca58e90d" name="TestTradeLastUpdated" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="2c144fff-3830-0554-4693-0e584297925d" name="TestExerciseType" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="aa7ca807-f953-49fd-83a5-ece2e20a0298" name="TestSettlementDate" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="9a866eda-8b8f-19fc-561f-c7f76b48f185" name="TestTrader" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="678e5d4b-f55d-9a83-3bc8-60dc3c868ab7" name="TestMultiplier" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="6c4b574a-9dc6-3b54-f93e-9e32d277ebc5" name="TestAbsAmount" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="21163dde-05c7-83a8-d4a7-d96b879d5d1d" name="TestCreditOfficer" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="3d9bbd66-1321-f2bb-469f-b816cd2642c6" name="TestSalesperson" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="f57f5aa8-5844-646b-d3bf-eedf9528a580" name="TestInternalAccount" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="d8f8b985-3f11-26d4-01d0-d89853684c99" name="TestExpiryDate" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="48c2f00f-3044-143f-5ac5-c90a09f16dd9" name="TestCounterparty" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="cba30119-a5fc-760c-4abb-0df842e6f2ee" name="TestOptionType" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="dad9e6d0-c1bd-1881-94c6-c344c6606614" name="TestAmount" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="30670ecc-aeb3-0d23-13d1-1ff11976a68d" name="TestTradeStatus" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="56c060c4-1ec4-ba8d-c144-121747db2672" name="TestStrike" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="da593bca-a9c8-43ea-3421-4da2a9336947" name="TestCurrency" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="57666166-8a80-cf89-1c00-84bc572507b3" name="TestBuySell" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="9daefa5c-594f-f060-f01a-137710df081e" name="TestTradeId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="ba3d2947-cf81-780f-4248-43ad7e08c76a" name="TestStpTicketEnabled" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="d4ca592c-c086-cdfb-a008-0fd2526d349b" name="TestBroker" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="83145ce5-06ee-7dbd-3e36-5b201abe6722" name="TestUserId" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="8bf8c6bc-94df-3c10-dd92-37142a71b144" name="TestComment" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="5b3f6dc7-1854-9ff8-8664-0126b552a08a" name="TestCurrency" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="404380d2-9736-ef49-94a3-7126db0bccc9" name="TestExpiryTime" storage="c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.ui.test\bin\debug\razor.tds.ui.test.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      </TestLinks>
+    </TestList>
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="c561f605-2a7a-5c40-ff1b-b876b6dc2182" executionId="034f0d8f-173d-4987-9f0c-8a9fd81a5fa8" testListId="750038d9-2b31-4d8d-93d3-3746dd6f6dff" />
+    <TestEntry testId="af5da109-13a9-8dba-c272-783726f6690a" executionId="9af188be-5f9c-4545-b3e6-6dbdb44f1087" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="f318b7cf-05b3-e919-28af-5b3f51884917" executionId="61da48f1-b25e-4ed9-abbf-de2754152ad5" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="91cc8e1e-4512-9c1b-a104-cb7961cde310" executionId="c19ea254-2a49-43b5-9121-270b34135d84" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="df20fb75-1e3c-c7bf-f0b7-1ce4e29354a7" executionId="4f353d63-0e1b-44bc-8c2d-7a6f61342447" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="6fe8fe91-6c2a-17b3-e712-2bf3d247ae4b" executionId="f8914d3b-2330-4d32-9dec-da603345987b" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="f4a281e5-a229-ab0e-525e-ac72646ff431" executionId="a8071907-5d39-4675-b3cb-0309446f5068" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="922d2038-fc84-7ed4-aa73-73a8b5cc04bd" executionId="73533161-d3b6-465c-b8d2-4eb42d0f9e32" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="20fa6734-7444-434f-02ae-84bd3d8ad668" executionId="d27d2d4b-5f53-450b-b49a-07fcf39b6034" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="9323e8c7-0f20-5a0b-006c-a81280d35361" executionId="0c43fa0f-9d98-4e45-858a-a0cb41dd5745" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="a3040350-fa83-0e18-e045-a01c09e83c1f" executionId="b2959bfb-052d-421d-85e9-2a33addf75c5" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="525cd9cf-3b3e-2ecd-c4a1-edc5a0ad4916" executionId="9ff53374-44cf-434b-9796-e9420eefd522" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="396b85fc-1617-5bc8-ee0a-6e1c7705756d" executionId="069ae9cf-3736-4051-bf63-6c5ecf1ac7ab" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="8319bdf9-199e-2892-c3cf-982e088163e7" executionId="bf16bd5b-b3a0-485c-b508-18a4d86f90a2" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="0ceeecd7-164c-4e02-1932-8c998435816f" executionId="529624df-46e3-4b6c-857b-f8d2c11c1ff0" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="6d7eacd8-be68-30a6-c935-e5fa0949c1f9" executionId="611e138b-3858-45a8-a490-37dc6787f289" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="b0efad5b-8d30-22b2-18b1-efe2fcf6a79b" executionId="4938418a-070d-4045-9fa1-fe5198b0bc71" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="46d31b73-0be9-d37c-f713-4fbed727c09a" executionId="06ec8dc7-4854-4830-9367-ad4f9eb2044b" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="2c2aebf9-a0c6-d73f-9728-89e3ff71c5cb" executionId="0ff3c4b0-fdd3-4fae-be9d-3b3fd6504914" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="12c4452f-d93d-2f6f-c773-7af0e8e696d6" executionId="013b0241-9ece-4341-95d7-714b49348b91" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8" />
+    <TestEntry testId="f8b4dbd2-1c4f-06bb-3acd-c25d89c1954e" executionId="bd3d40b1-a28e-432f-b791-d7ab4eb0412e" testListId="a5757b6e-d12d-4e28-a153-1b0b83e82d5f" />
+    <TestEntry testId="f71402ed-f2a8-4a8d-4230-42a31bf6ff71" executionId="f275c1a0-c960-4d3b-b224-ceab00ebf273" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="c9264490-3405-a34e-baea-bc8c60224b7a" executionId="a6f1ba59-0fe0-4aec-a479-5ec09bd55bf1" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="6f13689f-8711-c476-0950-1b4bd72ae195" executionId="2603f53a-9520-451f-bcf3-26e4b7509dbf" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="ecc37a78-ed9c-1cde-125f-9d91b3f706d8" executionId="1cbb80fd-bc3a-4800-9ae1-0476606e531f" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="94f97dd4-0e3f-6d82-2146-d28e55576f1b" executionId="b9eb89ca-5c54-4626-b2b4-5e1e550b0185" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="2cfbf152-680e-ad96-1169-57f2d21d0f00" executionId="86996025-53df-470a-83c1-03cc31ff51a2" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="029d7905-8ce4-bffb-13b7-346b468267d0" executionId="5d24bd9b-201a-412c-8e30-e7439f225d33" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="fe038a83-38c2-47fe-3286-fa0e409b7bba" executionId="ea4cb096-05e4-4b71-be15-7765de760bed" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="533d7cef-7f2c-de9b-21a3-58a373dde8f0" executionId="d9d42b7a-f392-4a2e-9a04-4bc7df4eeae9" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="e9a440fb-e702-1736-36c6-d1d9d52d1a93" executionId="aa74d0a9-f119-40e1-98cd-e82de3d1c1c9" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="ba6271e2-259d-2ed0-158e-5b81bba39c9a" executionId="ceb0dcdb-d2c4-49ae-b361-c0dff9ed1906" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="0718d219-1023-0681-4b9d-6d809a1f95da" executionId="f17684ae-35af-4a03-9d47-0a580f3dc840" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="63f843b5-afeb-1cf5-f66e-53ca95d912e4" executionId="a83dc99d-eb8f-46d9-8b94-be237f727fbf" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="62802543-9042-fca5-a6e5-0e28d7ea2bf5" executionId="e0146c9b-1d03-418e-a7f9-ea737782fbb6" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="56c08d7a-aab9-0d86-27cb-1194abd375b3" executionId="b876dd40-7380-4c7f-a042-476112005b4c" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="2dfa42bd-92ef-bc46-a7fb-51c761cf88d6" executionId="e59a596e-4593-442c-99f7-c9332cb41420" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="9d57201d-3880-2c52-0aff-19641f4555fb" executionId="c6d770b5-8d61-4708-be9c-025508aaa343" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="a81666c4-d742-d4f2-2c18-79664d1591be" executionId="f17b1fcd-8b1a-460e-853f-a37febbb3ff0" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="bc8a2926-1dd0-837e-3152-b2138564f9b4" executionId="e4625811-5a6f-44bf-8224-fd035d95b103" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="9e1f3ddb-43f6-7875-c527-21f7eddfe6a1" executionId="056766f3-533a-46b8-a05b-62235dae9c76" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="0e799481-dd26-da7f-a0a8-5bf8d33eb803" executionId="c4bf93f1-3d66-493f-ae64-1dad3aad617e" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="6be673ac-c42e-4ddc-79a9-ab00c2b633f6" executionId="1bbdaaa1-2dda-42d1-b15a-b56cb37f7bcf" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="475000b6-fc10-322d-3450-e8334892633c" executionId="5fff7ff2-4b12-4948-85ea-2d42f1619ccf" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="0a4449af-8d95-76ab-f90b-6bcda8ce8246" executionId="68a2188c-f96a-4ddd-8b9a-5216e6606e22" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="0795a3a1-0007-ae8e-6311-31d04da9752d" executionId="7250dc8c-764b-4a45-be70-a1d8f0447ab0" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="7cda3911-1755-2d43-2db9-62163b0718ee" executionId="627b1a0b-e66f-496e-9792-b18d81dc88c2" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="b28f7c45-ac2a-8c9f-ddfc-55ac975532b0" executionId="8644a864-6b44-4158-9937-79079248afc7" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="0771c9e4-e903-60f8-c0e3-34d63e73778a" executionId="c4491a1d-5f43-4889-a5c6-c90c0142b814" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="09ed2ec3-82d7-d58e-5e54-6a3178fa52e9" executionId="6a4baf5e-e465-4cf4-b42a-a61008448c8d" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="98393be5-07bf-604a-9001-67353a758964" executionId="db075df8-6ed2-4ac1-8d9b-523616a39bea" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="2d03f19a-7d06-e07b-31e2-e23527dca11c" executionId="df1213ea-1d34-44b8-b05f-6eb4626b610b" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="2d2b8c7b-2aab-22b3-b61a-3d440de52c7a" executionId="bd1271b7-8cab-4f1e-ae09-11e3da561e87" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="26d01551-2511-3b6a-a1c9-3ea0340f82e6" executionId="6b9447d6-5335-406a-9095-ed4812ec2d21" testListId="d3394295-4585-4f23-a72f-71acd623bf78" />
+    <TestEntry testId="62e45eec-5729-6b46-927e-9868177bb1ac" executionId="99d9f692-0b95-469c-a768-bf12de37be9d" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="781887d2-9587-7c34-5f2f-76a91b7d76ef" executionId="3988728c-70f3-4eb3-b027-3bc53f9a3a88" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="9a866eda-8b8f-19fc-561f-c7f76b48f185" executionId="6ce70304-352d-4d4f-b8e3-52fec59ecb8f" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="58e97e3e-e54d-30af-7d4c-e5640a5687a1" executionId="15119894-525c-4e7c-956d-f8530593aee1" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="48c2f00f-3044-143f-5ac5-c90a09f16dd9" executionId="d8857ed3-1950-4fe4-ae13-ad899eb13461" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="33086ec1-4a5c-538b-dd4d-76265db6a94a" executionId="fdd96618-f41e-4abf-bc40-ca9e53b53b38" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="10040eb1-212e-8003-979a-0acb9a6fcd13" executionId="1a74290c-964e-4251-ad34-34fdbdb67599" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="78fa3b45-a79b-ecda-ef97-05e2ca58e90d" executionId="5917a60b-a472-4616-b717-649ee9ed9681" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="9cca4186-9152-5169-9c44-5135799ca544" executionId="3223f83b-9cd9-4603-95ae-7bf771692ad3" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="d4ca592c-c086-cdfb-a008-0fd2526d349b" executionId="f2b2c883-63ba-427f-aa64-5c9ea8e8e3f6" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="5b3f6dc7-1854-9ff8-8664-0126b552a08a" executionId="02d6317d-d07e-44f4-ba90-108d2877e538" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="46a2ef3f-65f6-1c30-2565-29367839323a" executionId="1bbfac2b-d054-40ad-9b8e-0e9bc5e49442" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="2090b83d-5da8-e7b3-49f2-c9e510a64f49" executionId="d4aa9b1e-b600-41b9-8ff0-e35ec88765fb" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="b6cd9e51-af7c-be9a-6062-8ffd5d7e1a2a" executionId="2ff1a602-3ba3-4245-9a7d-1931ba3d82c2" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="678e5d4b-f55d-9a83-3bc8-60dc3c868ab7" executionId="ae68ad67-3419-4a65-a034-d6baab7ff1f4" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="3d9bbd66-1321-f2bb-469f-b816cd2642c6" executionId="515117ee-9e28-40ac-a153-b0119762a9f9" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="ba3d2947-cf81-780f-4248-43ad7e08c76a" executionId="b6a65434-00f3-4923-b085-e352f8a0a482" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="cba30119-a5fc-760c-4abb-0df842e6f2ee" executionId="8a22ca96-5442-4ddf-bef9-d82a96dbce82" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="8bf8c6bc-94df-3c10-dd92-37142a71b144" executionId="a8c55f8c-f472-4fa7-9d6d-c31b4cc1cbbb" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="990ab30b-4c48-b408-ac34-6516acd2080a" executionId="97f008b1-2f0e-47fc-bbfc-54590c6c28bd" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="6c4b574a-9dc6-3b54-f93e-9e32d277ebc5" executionId="5ffd826b-5b61-450f-8305-f2db87f2bca0" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="d90323fd-9f12-6db6-adb4-e93f61437d63" executionId="de8659f3-0b4a-4dfa-ac07-9821eac3f017" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="57666166-8a80-cf89-1c00-84bc572507b3" executionId="c08347da-b3f2-431a-8a2d-fe01a441307b" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="21163dde-05c7-83a8-d4a7-d96b879d5d1d" executionId="872c666a-9afe-49e1-93b5-a8e74d5f6680" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="2c144fff-3830-0554-4693-0e584297925d" executionId="a168c973-6cc9-4444-b44a-116f5809de2e" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="4d542a1e-e8ec-3f0a-0edf-fe7251ff2387" executionId="4041bf15-c3fb-492f-8ed6-fec7fc3c17da" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="d8f8b985-3f11-26d4-01d0-d89853684c99" executionId="59616c69-75d0-4dfa-8856-a7f75cf1ac6f" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="ffa83c65-8064-f1f8-5ea4-94b33ad51bcb" executionId="5e1a282b-4756-41f6-b805-355469c071ef" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="f23b14c5-8333-25d5-9616-a6fd7730148d" executionId="e367badf-7ff0-43bf-9c93-27256575536e" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="1c8e6d98-7da4-a441-a86a-3a976140af99" executionId="0c0a7111-b164-4ba2-989e-c5e4ebc73440" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="30670ecc-aeb3-0d23-13d1-1ff11976a68d" executionId="414cfb9f-2278-439f-9c90-c3978aa30a42" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="b02d6778-fb2f-8403-9f05-0d7088aa04ed" executionId="cab6c72b-209b-4b3b-aa87-9b3358836cb1" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="83145ce5-06ee-7dbd-3e36-5b201abe6722" executionId="1074f28c-091e-492b-ad5d-404ac9e92e07" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="aa7ca807-f953-49fd-83a5-ece2e20a0298" executionId="b6c051b2-260c-461c-97d8-3dd8e787a23e" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="f57f5aa8-5844-646b-d3bf-eedf9528a580" executionId="ab40af5e-dc87-4cbf-9cbc-ecb3636193b4" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="9daefa5c-594f-f060-f01a-137710df081e" executionId="3ff26917-b57f-4b06-aef0-c4fc4f7225f1" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="dad9e6d0-c1bd-1881-94c6-c344c6606614" executionId="d403cf7f-0b2c-4b48-b96c-c397c17140e6" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="4875c7ac-2d3c-c80e-e334-11e7f1b2da84" executionId="5bd4afd5-90d3-4505-b3da-8d2386372b8d" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="4e677e55-39e5-3516-304f-84a9a9054256" executionId="0560c26f-33e3-4e9d-92e6-32d26127cf13" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="56c060c4-1ec4-ba8d-c144-121747db2672" executionId="0cc3d884-810b-4fd1-9535-82f2ae3a031d" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="404380d2-9736-ef49-94a3-7126db0bccc9" executionId="494095c9-30fd-4a63-b73d-2c3c50aeb0f5" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="da593bca-a9c8-43ea-3421-4da2a9336947" executionId="82642720-4632-405d-86af-c982496b44c1" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="22cc8021-ba03-dc29-985e-9301bb2452b7" executionId="6ee5f7d7-82c5-4d90-9e47-279e6b55670e" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f" />
+    <TestEntry testId="0dda5c4a-46e7-fd9e-9d06-7cbfa5acf450" executionId="19a7494e-fa45-415d-9615-5f945d7d5d39" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="155006e3-1cbc-7781-ac4a-49c30b4e0a1b" executionId="a68703ab-7097-49cb-b070-024203b620d3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6213d667-ccd3-7b47-2b7b-6e001091061a" executionId="c282d306-e538-4c7f-999f-92b311f1017b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="62118f4b-2e8d-4bd0-189e-06a681faffe8" executionId="cd67c01f-1936-4f69-886a-dc5b6e42128e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2e21f8ad-e4e3-5cc2-7e3d-8fc93bf8bf48" executionId="b6a0a87c-1f77-4b35-9ed8-1ebdcceaa5ed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b41ee7f9-6fee-88f8-c23f-0826be4ba037" executionId="0c1c35c5-78aa-40bb-8650-573e4b5cd575" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="034f0d8f-173d-4987-9f0c-8a9fd81a5fa8" testId="c561f605-2a7a-5c40-ff1b-b876b6dc2182" testName="WorkflowModelBuilderConstructorTest" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="750038d9-2b31-4d8d-93d3-3746dd6f6dff">
+    </UnitTestResult>
+    <UnitTestResult executionId="9af188be-5f9c-4545-b3e6-6dbdb44f1087" testId="af5da109-13a9-8dba-c272-783726f6690a" testName="TestQuerySerialization" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="61da48f1-b25e-4ed9-abbf-de2754152ad5" testId="f318b7cf-05b3-e919-28af-5b3f51884917" testName="TestPartialUnwindEventLongPosition" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="c19ea254-2a49-43b5-9121-270b34135d84" testId="91cc8e1e-4512-9c1b-a104-cb7961cde310" testName="TestFullUnwindWithPriceOnLongPosition" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="4f353d63-0e1b-44bc-8c2d-7a6f61342447" testId="df20fb75-1e3c-c7bf-f0b7-1ce4e29354a7" testName="TestUpsizeLongPosition" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="f8914d3b-2330-4d32-9dec-da603345987b" testId="6fe8fe91-6c2a-17b3-e712-2bf3d247ae4b" testName="TestApplyChanges1" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="a8071907-5d39-4675-b3cb-0309446f5068" testId="f4a281e5-a229-ab0e-525e-ac72646ff431" testName="TestApplyChanges4" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="73533161-d3b6-465c-b8d2-4eb42d0f9e32" testId="922d2038-fc84-7ed4-aa73-73a8b5cc04bd" testName="TestFullUnwindWithFeeOnLongPosition" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="d27d2d4b-5f53-450b-b49a-07fcf39b6034" testId="20fa6734-7444-434f-02ae-84bd3d8ad668" testName="TestPartialUnwindEventShortPosition" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="0c43fa0f-9d98-4e45-858a-a0cb41dd5745" testId="9323e8c7-0f20-5a0b-006c-a81280d35361" testName="TestQuery1Standard" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="b2959bfb-052d-421d-85e9-2a33addf75c5" testId="a3040350-fa83-0e18-e045-a01c09e83c1f" testName="TestFullUnwindEventBuyPosition" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="9ff53374-44cf-434b-9796-e9420eefd522" testId="525cd9cf-3b3e-2ecd-c4a1-edc5a0ad4916" testName="TestFullUnwindEventShortPosition" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="069ae9cf-3736-4051-bf63-6c5ecf1ac7ab" testId="396b85fc-1617-5bc8-ee0a-6e1c7705756d" testName="TestQuery1Builder" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="bf16bd5b-b3a0-485c-b508-18a4d86f90a2" testId="8319bdf9-199e-2892-c3cf-982e088163e7" testName="TestApplyChanges2" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="529624df-46e3-4b6c-857b-f8d2c11c1ff0" testId="0ceeecd7-164c-4e02-1932-8c998435816f" testName="TestApplyChanges3" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="611e138b-3858-45a8-a490-37dc6787f289" testId="6d7eacd8-be68-30a6-c935-e5fa0949c1f9" testName="TestListMerge" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="4938418a-070d-4045-9fa1-fe5198b0bc71" testId="b0efad5b-8d30-22b2-18b1-efe2fcf6a79b" testName="TestSerializeTrade" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="06ec8dc7-4854-4830-9367-ad4f9eb2044b" testId="46d31b73-0be9-d37c-f713-4fbed727c09a" testName="TestAllocationEventHandler" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="0ff3c4b0-fdd3-4fae-be9d-3b3fd6504914" testId="2c2aebf9-a0c6-d73f-9728-89e3ff71c5cb" testName="TestSerializingAllocations" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="013b0241-9ece-4341-95d7-714b49348b91" testId="12c4452f-d93d-2f6f-c773-7af0e8e696d6" testName="TestUpsizeEventShortPosition" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8ac0e5bb-5b8b-4b3d-b8ce-f8def9e8ebd8">
+    </UnitTestResult>
+    <UnitTestResult executionId="bd3d40b1-a28e-432f-b791-d7ab4eb0412e" testId="f8b4dbd2-1c4f-06bb-3acd-c25d89c1954e" testName="TestDataTableSerialization" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="a5757b6e-d12d-4e28-a153-1b0b83e82d5f">
+    </UnitTestResult>
+    <UnitTestResult executionId="f275c1a0-c960-4d3b-b224-ceab00ebf273" testId="f71402ed-f2a8-4a8d-4230-42a31bf6ff71" testName="DataDocumentContractSerialization" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="a6f1ba59-0fe0-4aec-a479-5ec09bd55bf1" testId="c9264490-3405-a34e-baea-bc8c60224b7a" testName="EffectiveDate" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="2603f53a-9520-451f-bcf3-26e4b7509dbf" testId="6f13689f-8711-c476-0950-1b4bd72ae195" testName="TradeId" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="1cbb80fd-bc3a-4800-9ae1-0476606e531f" testId="ecc37a78-ed9c-1cde-125f-9d91b3f706d8" testName="DefaultSettlementOffset" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="b9eb89ca-5c54-4626-b2b4-5e1e550b0185" testId="94f97dd4-0e3f-6d82-2146-d28e55576f1b" testName="TestEnumGetStringValues" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="86996025-53df-470a-83c1-03cc31ff51a2" testId="2cfbf152-680e-ad96-1169-57f2d21d0f00" testName="TradeQuantity" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="5d24bd9b-201a-412c-8e30-e7439f225d33" testId="029d7905-8ce4-bffb-13b7-346b468267d0" testName="FirmAccount" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="ea4cb096-05e4-4b71-be15-7765de760bed" testId="fe038a83-38c2-47fe-3286-fa0e409b7bba" testName="Version" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="d9d42b7a-f392-4a2e-9a04-4bc7df4eeae9" testId="533d7cef-7f2c-de9b-21a3-58a373dde8f0" testName="Currency" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="aa74d0a9-f119-40e1-98cd-e82de3d1c1c9" testId="e9a440fb-e702-1736-36c6-d1d9d52d1a93" testName="FpmlProduct" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="ceb0dcdb-d2c4-49ae-b361-c0dff9ed1906" testId="ba6271e2-259d-2ed0-158e-5b81bba39c9a" testName="CreateDataDocument" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="f17684ae-35af-4a03-9d47-0a580f3dc840" testId="0718d219-1023-0681-4b9d-6d809a1f95da" testName="TestEnumParseStringValues" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="a83dc99d-eb8f-46d9-8b94-be237f727fbf" testId="63f843b5-afeb-1cf5-f66e-53ca95d912e4" testName="CustomerAccount" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="e0146c9b-1d03-418e-a7f9-ea737782fbb6" testId="62802543-9042-fca5-a6e5-0e28d7ea2bf5" testName="CreditOfficer" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="b876dd40-7380-4c7f-a042-476112005b4c" testId="56c08d7a-aab9-0d86-27cb-1194abd375b3" testName="Region" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="e59a596e-4593-442c-99f7-c9332cb41420" testId="2dfa42bd-92ef-bc46-a7fb-51c761cf88d6" testName="TradeStatus" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="c6d770b5-8d61-4708-be9c-025508aaa343" testId="9d57201d-3880-2c52-0aff-19641f4555fb" testName="TraderId" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="f17b1fcd-8b1a-460e-853f-a37febbb3ff0" testId="a81666c4-d742-d4f2-2c18-79664d1591be" testName="TraderName" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="e4625811-5a6f-44bf-8224-fd035d95b103" testId="bc8a2926-1dd0-837e-3152-b2138564f9b4" testName="Price" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="056766f3-533a-46b8-a05b-62235dae9c76" testId="9e1f3ddb-43f6-7875-c527-21f7eddfe6a1" testName="AlternativeId" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="c4bf93f1-3d66-493f-ae64-1dad3aad617e" testId="0e799481-dd26-da7f-a0a8-5bf8d33eb803" testName="ToAccount" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="1bbdaaa1-2dda-42d1-b15a-b56cb37f7bcf" testId="6be673ac-c42e-4ddc-79a9-ab00c2b633f6" testName="TestLinkId" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="5fff7ff2-4b12-4948-85ea-2d42f1619ccf" testId="475000b6-fc10-322d-3450-e8334892633c" testName="TradeUnits" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="68a2188c-f96a-4ddd-8b9a-5216e6606e22" testId="0a4449af-8d95-76ab-f90b-6bcda8ce8246" testName="StpRouting" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="7250dc8c-764b-4a45-be70-a1d8f0447ab0" testId="0795a3a1-0007-ae8e-6311-31d04da9752d" testName="TradeDate" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="627b1a0b-e66f-496e-9792-b18d81dc88c2" testId="7cda3911-1755-2d43-2db9-62163b0718ee" testName="TradeTime" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="8644a864-6b44-4158-9937-79079248afc7" testId="b28f7c45-ac2a-8c9f-ddfc-55ac975532b0" testName="ExternalId" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="c4491a1d-5f43-4889-a5c6-c90c0142b814" testId="0771c9e4-e903-60f8-c0e3-34d63e73778a" testName="Broker" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="6a4baf5e-e465-4cf4-b42a-a61008448c8d" testId="09ed2ec3-82d7-d58e-5e54-6a3178fa52e9" testName="TradeNotional" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="db075df8-6ed2-4ac1-8d9b-523616a39bea" testId="98393be5-07bf-604a-9001-67353a758964" testName="CEF" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="df1213ea-1d34-44b8-b05f-6eb4626b610b" testId="2d03f19a-7d06-e07b-31e2-e23527dca11c" testName="ModifiedBy" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="bd1271b7-8cab-4f1e-ae09-11e3da561e87" testId="2d2b8c7b-2aab-22b3-b61a-3d440de52c7a" testName="TestEnumParseStringValuesCaseInsensitive" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="6b9447d6-5335-406a-9095-ed4812ec2d21" testId="26d01551-2511-3b6a-a1c9-3ea0340f82e6" testName="ProductId" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="d3394295-4585-4f23-a72f-71acd623bf78">
+    </UnitTestResult>
+    <UnitTestResult executionId="99d9f692-0b95-469c-a768-bf12de37be9d" testId="62e45eec-5729-6b46-927e-9868177bb1ac" testName="TestTradeVersion" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="3988728c-70f3-4eb3-b027-3bc53f9a3a88" testId="781887d2-9587-7c34-5f2f-76a91b7d76ef" testName="TestSettlementHolidayCalendars" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="6ce70304-352d-4d4f-b8e3-52fec59ecb8f" testId="9a866eda-8b8f-19fc-561f-c7f76b48f185" testName="TestTrader" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="15119894-525c-4e7c-956d-f8530593aee1" testId="58e97e3e-e54d-30af-7d4c-e5640a5687a1" testName="TestTradeDate" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="d8857ed3-1950-4fe4-ae13-ad899eb13461" testId="48c2f00f-3044-143f-5ac5-c90a09f16dd9" testName="TestCounterparty" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="fdd96618-f41e-4abf-bc40-ca9e53b53b38" testId="33086ec1-4a5c-538b-dd4d-76265db6a94a" testName="TestTradeGuid" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="1a74290c-964e-4251-ad34-34fdbdb67599" testId="10040eb1-212e-8003-979a-0acb9a6fcd13" testName="TestPrice" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="5917a60b-a472-4616-b717-649ee9ed9681" testId="78fa3b45-a79b-ecda-ef97-05e2ca58e90d" testName="TestTradeLastUpdated" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="3223f83b-9cd9-4603-95ae-7bf771692ad3" testId="9cca4186-9152-5169-9c44-5135799ca544" testName="TestFees" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="f2b2c883-63ba-427f-aa64-5c9ea8e8e3f6" testId="d4ca592c-c086-cdfb-a008-0fd2526d349b" testName="TestBroker" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="02d6317d-d07e-44f4-ba90-108d2877e538" testId="5b3f6dc7-1854-9ff8-8664-0126b552a08a" testName="TestCurrency" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="1bbfac2b-d054-40ad-9b8e-0e9bc5e49442" testId="46a2ef3f-65f6-1c30-2565-29367839323a" testName="TestSettlementDateOffset" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="d4aa9b1e-b600-41b9-8ff0-e35ec88765fb" testId="2090b83d-5da8-e7b3-49f2-c9e510a64f49" testName="TestToggleBuySellCommand" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="2ff1a602-3ba3-4245-9a7d-1931ba3d82c2" testId="b6cd9e51-af7c-be9a-6062-8ffd5d7e1a2a" testName="TestTicketOwner" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="ae68ad67-3419-4a65-a034-d6baab7ff1f4" testId="678e5d4b-f55d-9a83-3bc8-60dc3c868ab7" testName="TestMultiplier" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="515117ee-9e28-40ac-a153-b0119762a9f9" testId="3d9bbd66-1321-f2bb-469f-b816cd2642c6" testName="TestSalesperson" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="b6a65434-00f3-4923-b085-e352f8a0a482" testId="ba3d2947-cf81-780f-4248-43ad7e08c76a" testName="TestStpTicketEnabled" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="8a22ca96-5442-4ddf-bef9-d82a96dbce82" testId="cba30119-a5fc-760c-4abb-0df842e6f2ee" testName="TestOptionType" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="a8c55f8c-f472-4fa7-9d6d-c31b4cc1cbbb" testId="8bf8c6bc-94df-3c10-dd92-37142a71b144" testName="TestComment" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="97f008b1-2f0e-47fc-bbfc-54590c6c28bd" testId="990ab30b-4c48-b408-ac34-6516acd2080a" testName="TestSettlementDate" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="5ffd826b-5b61-450f-8305-f2db87f2bca0" testId="6c4b574a-9dc6-3b54-f93e-9e32d277ebc5" testName="TestAbsAmount" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="de8659f3-0b4a-4dfa-ac07-9821eac3f017" testId="d90323fd-9f12-6db6-adb4-e93f61437d63" testName="TestUnderlier" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="c08347da-b3f2-431a-8a2d-fe01a441307b" testId="57666166-8a80-cf89-1c00-84bc572507b3" testName="TestBuySell" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="872c666a-9afe-49e1-93b5-a8e74d5f6680" testId="21163dde-05c7-83a8-d4a7-d96b879d5d1d" testName="TestCreditOfficer" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="a168c973-6cc9-4444-b44a-116f5809de2e" testId="2c144fff-3830-0554-4693-0e584297925d" testName="TestExerciseType" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="4041bf15-c3fb-492f-8ed6-fec7fc3c17da" testId="4d542a1e-e8ec-3f0a-0edf-fe7251ff2387" testName="TestAmountType" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="59616c69-75d0-4dfa-8856-a7f75cf1ac6f" testId="d8f8b985-3f11-26d4-01d0-d89853684c99" testName="TestExpiryDate" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="5e1a282b-4756-41f6-b805-355469c071ef" testId="ffa83c65-8064-f1f8-5ea4-94b33ad51bcb" testName="TestSettlementType" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="e367badf-7ff0-43bf-9c93-27256575536e" testId="f23b14c5-8333-25d5-9616-a6fd7730148d" testName="TestTicketGeneration" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="0c0a7111-b164-4ba2-989e-c5e4ebc73440" testId="1c8e6d98-7da4-a441-a86a-3a976140af99" testName="TestFirmAccount" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="414cfb9f-2278-439f-9c90-c3978aa30a42" testId="30670ecc-aeb3-0d23-13d1-1ff11976a68d" testName="TestTradeStatus" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="cab6c72b-209b-4b3b-aa87-9b3358836cb1" testId="b02d6778-fb2f-8403-9f05-0d7088aa04ed" testName="TestCEF" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="1074f28c-091e-492b-ad5d-404ac9e92e07" testId="83145ce5-06ee-7dbd-3e36-5b201abe6722" testName="TestUserId" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="b6c051b2-260c-461c-97d8-3dd8e787a23e" testId="aa7ca807-f953-49fd-83a5-ece2e20a0298" testName="TestSettlementDate" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="ab40af5e-dc87-4cbf-9cbc-ecb3636193b4" testId="f57f5aa8-5844-646b-d3bf-eedf9528a580" testName="TestInternalAccount" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="3ff26917-b57f-4b06-aef0-c4fc4f7225f1" testId="9daefa5c-594f-f060-f01a-137710df081e" testName="TestTradeId" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="d403cf7f-0b2c-4b48-b96c-c397c17140e6" testId="dad9e6d0-c1bd-1881-94c6-c344c6606614" testName="TestAmount" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="5bd4afd5-90d3-4505-b3da-8d2386372b8d" testId="4875c7ac-2d3c-c80e-e334-11e7f1b2da84" testName="TestMethodExternalTradeAccountsVisiblity" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="0560c26f-33e3-4e9d-92e6-32d26127cf13" testId="4e677e55-39e5-3516-304f-84a9a9054256" testName="TestIsInternalTrade" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="0cc3d884-810b-4fd1-9535-82f2ae3a031d" testId="56c060c4-1ec4-ba8d-c144-121747db2672" testName="TestStrike" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="494095c9-30fd-4a63-b73d-2c3c50aeb0f5" testId="404380d2-9736-ef49-94a3-7126db0bccc9" testName="TestExpiryTime" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="82642720-4632-405d-86af-c982496b44c1" testId="da593bca-a9c8-43ea-3421-4da2a9336947" testName="TestCurrency" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="6ee5f7d7-82c5-4d90-9e47-279e6b55670e" testId="22cc8021-ba03-dc29-985e-9301bb2452b7" testName="TestIsSettlementDateOverriden" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="fadf7ca7-15bb-42b5-8a46-a551f86b444f">
+    </UnitTestResult>
+    <UnitTestResult executionId="19a7494e-fa45-415d-9615-5f945d7d5d39" testId="0dda5c4a-46e7-fd9e-9d06-7cbfa5acf450" testName="TestSingleAmendProduct" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+    </UnitTestResult>
+    <UnitTestResult executionId="a68703ab-7097-49cb-b070-024203b620d3" testId="155006e3-1cbc-7781-ac4a-49c30b4e0a1b" testName="TestAmendTrade" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+    </UnitTestResult>
+    <UnitTestResult executionId="c282d306-e538-4c7f-999f-92b311f1017b" testId="6213d667-ccd3-7b47-2b7b-6e001091061a" testName="TestTrueConditionFromProvider" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+    </UnitTestResult>
+    <UnitTestResult executionId="cd67c01f-1936-4f69-886a-dc5b6e42128e" testId="62118f4b-2e8d-4bd0-189e-06a681faffe8" testName="TestFalseConditionFromProvider" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+    </UnitTestResult>
+    <UnitTestResult executionId="b6a0a87c-1f77-4b35-9ed8-1ebdcceaa5ed" testId="2e21f8ad-e4e3-5cc2-7e3d-8fc93bf8bf48" testName="TestInvalidTransitions" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+    </UnitTestResult>
+    <UnitTestResult executionId="0c1c35c5-78aa-40bb-8650-573e4b5cd575" testId="b41ee7f9-6fee-88f8-c23f-0826be4ba037" testName="TestValidTransitions" computerName="MKTDEVPC0200" duration="00:00:00" startTime="0001-01-01T00:00:00.0000000-05:00" endTime="0001-01-01T00:00:00.0000000-05:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+    </UnitTestResult>
+  </Results>
+</TestRun>

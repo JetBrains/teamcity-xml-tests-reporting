@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="4ecfa239-ae28-4f22-8960-cbf1f13033f0" name="Eugene.Petrenko@UNIT-235 2008-10-23 21:49:54" runUser="LABS\Eugene.Petrenko" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestRunConfiguration name="Default Run Configuration" id="51b25ba5-8215-4d97-b4d7-f7dfeea71c07">
+    <Deployment userDeploymentRoot="E:\Work\Perforce\TeamServer\BuildServer\test\testData\mstest" useDefaultDeploymentRoot="false" runDeploymentRoot="E:\Work\Perforce\TeamServer\BuildServer\test\testData\mstest\Eugene.Petrenko_UNIT-235 2008-10-23 21_49_54" />
+    <Hosts skipUnhostableTests="false" />
+    <TestTypeSpecific />
+  </TestRunConfiguration>
+  <ResultSummary outcome="NotRunnable">
+    <Counters total="15" executed="6" passed="6" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="9" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <Times creation="2008-10-23T21:49:54.8882030+04:00" queuing="2008-10-23T21:49:55.5933082+04:00" start="2008-10-23T21:49:55.7437046+04:00" finish="2008-10-23T21:49:56.0640294+04:00" />
+  <TestDefinitions>
+    <UnitTest name="Test" storage="tests.lib9.dll" id="740c5a28-801d-834a-85ea-5c30ac2bb53f">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/test/testData/mstest/tests.lib9.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Test7.AbstractProgramTest, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="Test" />
+    </UnitTest>
+    <UnitTest name="testMethod" storage="tests.lib9.dll" id="2cc827bb-e585-75df-3d36-ad8a2a9aa4db">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/test/testData/mstest/tests.lib9.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Test4.BaseClass`1, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="testMethod" />
+    </UnitTest>
+    <UnitTest name="TestPrivateMethod" storage="tests.lib9.dll" id="8d7ca393-aa78-a2ea-ca3f-4f988e242e52">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/test/testData/mstest/tests.lib9.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Test1.InternalTestClass, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestPrivateMethod" />
+    </UnitTest>
+    <UnitTest name="testMethod" storage="tests.lib9.dll" id="8070b6dd-7e01-73bc-4695-b5fe6006f7aa">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="7cea8d56-1840-4f3a-bb64-855d28637e20" />
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/test/testData/mstest/tests.lib9.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Test4.DerivedClass, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="testMethod" />
+    </UnitTest>
+    <UnitTest name="testMethod2" storage="tests.lib9.dll" id="2d40220b-47e3-06d7-b472-33f13b2316f4">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="11811d9c-1954-4192-bec3-9d38ca2594cc" />
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/test/testData/mstest/tests.lib9.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Test4.DerivedClass, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="testMethod2" />
+    </UnitTest>
+    <UnitTest name="TestProtectedMethod" storage="tests.lib9.dll" id="fa6061ba-a455-f8b2-c33a-60b5ba65ee0c">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/test/testData/mstest/tests.lib9.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Test1.InternalTestClass, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestProtectedMethod" />
+    </UnitTest>
+    <UnitTest name="TestInternalMethod" storage="tests.lib9.dll" id="e7fbf181-e9f8-6db5-e185-faf413b67e45">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/test/testData/mstest/tests.lib9.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Test1.InternalTestClass, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestInternalMethod" />
+    </UnitTest>
+    <UnitTest name="Test" storage="tests.lib9.dll" id="56514086-6ff1-202f-2c4a-d00a4dc0b47a">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="f6c36ac1-6d0c-4b3b-83ec-bb93b62387c0" />
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/test/testData/mstest/tests.lib9.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Test7.ProgramTest, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="Test" />
+    </UnitTest>
+    <UnitTest name="TestPrivateMethod" storage="tests.lib9.dll" id="fa98cb04-92b5-b70a-1c53-7328c7b0a248">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/test/testData/mstest/tests.lib9.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Test1.PublicTestClass, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestPrivateMethod" />
+    </UnitTest>
+    <UnitTest name="TestMyMethod" storage="tests.lib9.dll" id="ab906736-74a6-8f10-6677-ccc3f3fe2bd1">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="af1ebbaf-2b9b-41f9-af21-fa319c4a22c1" />
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/test/testData/mstest/tests.lib9.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Test8.Class1+TestClass1, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestMyMethod" />
+    </UnitTest>
+    <UnitTest name="Test" storage="tests.lib9.dll" id="294e475d-f3c0-8479-e91f-dc1a50675068">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/test/testData/mstest/tests.lib9.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Test6.ProgramTest, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="Test" />
+    </UnitTest>
+    <UnitTest name="TestProtectedMethod" storage="tests.lib9.dll" id="d70aae34-0562-8ecf-2ab8-96cdcb1ca0df">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/test/testData/mstest/tests.lib9.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Test1.PublicTestClass, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestProtectedMethod" />
+    </UnitTest>
+    <UnitTest name="Test" storage="tests.lib9.dll" id="e93907ed-a992-c90d-876b-d86ecd5e6f70">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="ef6bb536-6b59-47d7-9ef3-4759081ef672" />
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/test/testData/mstest/tests.lib9.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Test2.DerivedTest, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="Test" />
+    </UnitTest>
+    <UnitTest name="Test" storage="tests.lib9.dll" id="01102a8c-d7e3-8fdb-d0e6-a8867a5d03e1">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="8521fb81-1d2d-4ce3-acf9-54e63320a651" />
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/test/testData/mstest/tests.lib9.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Test9.ProgramTest, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="Test" />
+    </UnitTest>
+    <UnitTest name="TestInternalMethod" storage="tests.lib9.dll" id="e77e418b-6087-ab71-a4b3-5133f43399b2">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/test/testData/mstest/tests.lib9.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Test1.PublicTestClass, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestInternalMethod" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="e7fbf181-e9f8-6db5-e185-faf413b67e45" executionId="e05eef69-e8ee-4471-aadb-7846d830e8d4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8d7ca393-aa78-a2ea-ca3f-4f988e242e52" executionId="b900b301-da9e-4aff-bff8-94b138cde752" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fa6061ba-a455-f8b2-c33a-60b5ba65ee0c" executionId="baa7ca8e-3c8f-4977-a0af-250cc3c33dd5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e77e418b-6087-ab71-a4b3-5133f43399b2" executionId="1be7b4f0-22b7-4d4f-83bd-0fdde93409fd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="fa98cb04-92b5-b70a-1c53-7328c7b0a248" executionId="da51c69c-8707-4943-a3c3-ee47443f5985" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d70aae34-0562-8ecf-2ab8-96cdcb1ca0df" executionId="b6316c59-5032-4e61-8db0-c4b69dbf9338" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e93907ed-a992-c90d-876b-d86ecd5e6f70" executionId="ef6bb536-6b59-47d7-9ef3-4759081ef672" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2cc827bb-e585-75df-3d36-ad8a2a9aa4db" executionId="9669aa30-f92c-419f-837c-56c77aab481d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8070b6dd-7e01-73bc-4695-b5fe6006f7aa" executionId="7cea8d56-1840-4f3a-bb64-855d28637e20" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2d40220b-47e3-06d7-b472-33f13b2316f4" executionId="11811d9c-1954-4192-bec3-9d38ca2594cc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="294e475d-f3c0-8479-e91f-dc1a50675068" executionId="7814a1f6-1beb-43ee-97cd-b9d6c1560abc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="740c5a28-801d-834a-85ea-5c30ac2bb53f" executionId="53ff998b-ebb8-4cc3-8199-409aa934087d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="56514086-6ff1-202f-2c4a-d00a4dc0b47a" executionId="f6c36ac1-6d0c-4b3b-83ec-bb93b62387c0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ab906736-74a6-8f10-6677-ccc3f3fe2bd1" executionId="af1ebbaf-2b9b-41f9-af21-fa319c4a22c1" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="01102a8c-d7e3-8fdb-d0e6-a8867a5d03e1" executionId="8521fb81-1d2d-4ce3-acf9-54e63320a651" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="e05eef69-e8ee-4471-aadb-7846d830e8d4" testId="e7fbf181-e9f8-6db5-e185-faf413b67e45" testName="TestInternalMethod" computerName="UNIT-235" duration="00:00:00" startTime="0001-01-01T03:00:00.0000000+03:00" endTime="0001-01-01T03:00:00.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotRunnable" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <ErrorInfo>
+          <Message>UTA004: Illegal use of attribute on Test1.InternalTestClass.TestInternalMethod. The TestMethodAttribute can be defined only inside a class marked with the TestClass attribute.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b900b301-da9e-4aff-bff8-94b138cde752" testId="8d7ca393-aa78-a2ea-ca3f-4f988e242e52" testName="TestPrivateMethod" computerName="UNIT-235" duration="00:00:00" startTime="0001-01-01T03:00:00.0000000+03:00" endTime="0001-01-01T03:00:00.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotRunnable" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <ErrorInfo>
+          <Message>UTA004: Illegal use of attribute on Test1.InternalTestClass.TestPrivateMethod. The TestMethodAttribute can be defined only inside a class marked with the TestClass attribute.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="baa7ca8e-3c8f-4977-a0af-250cc3c33dd5" testId="fa6061ba-a455-f8b2-c33a-60b5ba65ee0c" testName="TestProtectedMethod" computerName="UNIT-235" duration="00:00:00" startTime="0001-01-01T03:00:00.0000000+03:00" endTime="0001-01-01T03:00:00.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotRunnable" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <ErrorInfo>
+          <Message>UTA004: Illegal use of attribute on Test1.InternalTestClass.TestProtectedMethod. The TestMethodAttribute can be defined only inside a class marked with the TestClass attribute.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="1be7b4f0-22b7-4d4f-83bd-0fdde93409fd" testId="e77e418b-6087-ab71-a4b3-5133f43399b2" testName="TestInternalMethod" computerName="UNIT-235" duration="00:00:00" startTime="0001-01-01T03:00:00.0000000+03:00" endTime="0001-01-01T03:00:00.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotRunnable" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <ErrorInfo>
+          <Message>UTA007: Method TestInternalMethod defined in class Test1.PublicTestClass does not have correct signature. Test method marked with the [TestMethod] attribute must be non-static, public, does not return a value and should not take any parameter. for example: public void Test.Class1.Test().</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="da51c69c-8707-4943-a3c3-ee47443f5985" testId="fa98cb04-92b5-b70a-1c53-7328c7b0a248" testName="TestPrivateMethod" computerName="UNIT-235" duration="00:00:00" startTime="0001-01-01T03:00:00.0000000+03:00" endTime="0001-01-01T03:00:00.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotRunnable" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <ErrorInfo>
+          <Message>UTA007: Method TestPrivateMethod defined in class Test1.PublicTestClass does not have correct signature. Test method marked with the [TestMethod] attribute must be non-static, public, does not return a value and should not take any parameter. for example: public void Test.Class1.Test().</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b6316c59-5032-4e61-8db0-c4b69dbf9338" testId="d70aae34-0562-8ecf-2ab8-96cdcb1ca0df" testName="TestProtectedMethod" computerName="UNIT-235" duration="00:00:00" startTime="0001-01-01T03:00:00.0000000+03:00" endTime="0001-01-01T03:00:00.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotRunnable" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <ErrorInfo>
+          <Message>UTA007: Method TestProtectedMethod defined in class Test1.PublicTestClass does not have correct signature. Test method marked with the [TestMethod] attribute must be non-static, public, does not return a value and should not take any parameter. for example: public void Test.Class1.Test().</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="ef6bb536-6b59-47d7-9ef3-4759081ef672" testId="e93907ed-a992-c90d-876b-d86ecd5e6f70" testName="Test" computerName="UNIT-235" duration="00:00:00.0081943" startTime="2008-10-23T21:49:55.7896048+04:00" endTime="2008-10-23T21:49:56.0132462+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="9669aa30-f92c-419f-837c-56c77aab481d" testId="2cc827bb-e585-75df-3d36-ad8a2a9aa4db" testName="testMethod" computerName="UNIT-235" duration="00:00:00" startTime="0001-01-01T03:00:00.0000000+03:00" endTime="0001-01-01T03:00:00.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotRunnable" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <ErrorInfo>
+          <Message>UTA004: Illegal use of attribute on Test4.BaseClass`1.testMethod. The TestMethodAttribute can be defined only inside a class marked with the TestClass attribute.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7cea8d56-1840-4f3a-bb64-855d28637e20" testId="8070b6dd-7e01-73bc-4695-b5fe6006f7aa" testName="testMethod" computerName="UNIT-235" duration="00:00:00.0001564" startTime="2008-10-23T21:49:56.0142228+04:00" endTime="2008-10-23T21:49:56.0161760+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="11811d9c-1954-4192-bec3-9d38ca2594cc" testId="2d40220b-47e3-06d7-b472-33f13b2316f4" testName="testMethod2" computerName="UNIT-235" duration="00:00:00.0000600" startTime="2008-10-23T21:49:56.0171526+04:00" endTime="2008-10-23T21:49:56.0181292+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="7814a1f6-1beb-43ee-97cd-b9d6c1560abc" testId="294e475d-f3c0-8479-e91f-dc1a50675068" testName="Test" computerName="UNIT-235" duration="00:00:00" startTime="0001-01-01T03:00:00.0000000+03:00" endTime="0001-01-01T03:00:00.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotRunnable" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <ErrorInfo>
+          <Message>UTA004: Illegal use of attribute on Test6.ProgramTest.Test. The TestMethodAttribute can be defined only inside a class marked with the TestClass attribute.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="53ff998b-ebb8-4cc3-8199-409aa934087d" testId="740c5a28-801d-834a-85ea-5c30ac2bb53f" testName="Test" computerName="UNIT-235" duration="00:00:00" startTime="0001-01-01T03:00:00.0000000+03:00" endTime="0001-01-01T03:00:00.0000000+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotRunnable" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <ErrorInfo>
+          <Message>UTA004: Illegal use of attribute on Test7.AbstractProgramTest.Test. The TestMethodAttribute can be defined only inside a class marked with the TestClass attribute.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="f6c36ac1-6d0c-4b3b-83ec-bb93b62387c0" testId="56514086-6ff1-202f-2c4a-d00a4dc0b47a" testName="Test" computerName="UNIT-235" duration="00:00:00.0001732" startTime="2008-10-23T21:49:56.0181292+04:00" endTime="2008-10-23T21:49:56.0200824+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="af1ebbaf-2b9b-41f9-af21-fa319c4a22c1" testId="ab906736-74a6-8f10-6677-ccc3f3fe2bd1" testName="TestMyMethod" computerName="UNIT-235" duration="00:00:00.0022698" startTime="2008-10-23T21:49:56.0200824+04:00" endTime="2008-10-23T21:49:56.0239888+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8521fb81-1d2d-4ce3-acf9-54e63320a651" testId="01102a8c-d7e3-8fdb-d0e6-a8867a5d03e1" testName="Test" computerName="UNIT-235" duration="00:00:00.0001483" startTime="2008-10-23T21:49:56.0249654+04:00" endTime="2008-10-23T21:49:56.0259420+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

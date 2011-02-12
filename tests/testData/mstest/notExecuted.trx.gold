@@ -1,0 +1,421 @@
+TestSuite:MSTest
+-->Info: Found 103 test definitions.
+-->Error: Runner error: Failed to queue test run 'TdsTest': Test Run deployment issue: The location of the file or directory 'c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\Spring.Core.dll' is not trusted.
+Microsoft.VisualStudio.TestTools.TestManagement.ExecutionException: Test Run deployment issue: The location of the file or directory 'c:\dev\global\razor\tds\main\dotnet\unittest\razor.tds.server.test\bin\debug\Spring.Core.dll' is not trusted.
+   at Microsoft.VisualStudio.TestTools.TestManagement.DeploymentManager.DoDeployment(TestRun run, FileCopyService fileCopyService)
+   at Microsoft.VisualStudio.TestTools.TestManagement.ControllerProxy.SetupTestRun(TestRun run, Boolean isNewTestRun, FileCopyService& fileCopyService)
+   at Microsoft.VisualStudio.TestTools.TestManagement.ControllerProxy.QueueTestRunWorker(Object state)
+  Test:Razor.Tds.Server.Test.Workflow.WorkflowModelBuilderTest.WorkflowModelBuilderConstructorTest
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Common.QueryModelTest.TestQuerySerialization
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.TdsEvents.TdsUnwindEventTest.TestPartialUnwindEventLongPosition
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.TdsEvents.TdsUnwindEventTest.TestFullUnwindWithPriceOnLongPosition
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.TdsEvents.TdsUpsizeEventTest.TestUpsizeLongPosition
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Common.XmlMergeTest.TestApplyChanges1
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Common.XmlMergeTest.TestApplyChanges4
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.TdsEvents.TdsUnwindEventTest.TestFullUnwindWithFeeOnLongPosition
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.TdsEvents.TdsUnwindEventTest.TestPartialUnwindEventShortPosition
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Common.QueryModelTest.TestQuery1Standard
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.TdsEvents.TdsUnwindEventTest.TestFullUnwindEventBuyPosition
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.TdsEvents.TdsUnwindEventTest.TestFullUnwindEventShortPosition
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Common.QueryModelTest.TestQuery1Builder
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Common.XmlMergeTest.TestApplyChanges2
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Common.XmlMergeTest.TestApplyChanges3
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Common.XmlMergeTest.TestListMerge
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Common.TradeHelperTest.TestSerializeTrade
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.TdsEvents.TdsAllocationEventTest.TestAllocationEventHandler
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.TdsEvents.TdsAllocationEventTest.TestSerializingAllocations
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.TdsEvents.TdsUpsizeEventTest.TestUpsizeEventShortPosition
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Persistence.SerializationTest.TestDataTableSerialization
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.DataDocumentContractSerialization
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.EffectiveDate
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.TradeId
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.DefaultSettlementOffset
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Extensions.EnumExtensionTest.TestEnumGetStringValues
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.TradeQuantity
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.FirmAccount
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.Version
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.Currency
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.FpmlProduct
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.CreateDataDocument
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Extensions.EnumExtensionTest.TestEnumParseStringValues
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.CustomerAccount
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.CreditOfficer
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.Region
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.TradeStatus
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.TraderId
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.TraderName
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.Price
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.AlternativeId
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.ToAccount
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.TestLinkId
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.TradeUnits
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.StpRouting
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.TradeDate
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.TradeTime
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.ExternalId
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.Broker
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.TradeNotional
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.CEF
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Trade.ModifiedBy
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Extensions.EnumExtensionTest.TestEnumParseStringValuesCaseInsensitive
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Test.Model.Product.ProductId
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestTradeVersion
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestSettlementHolidayCalendars
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestTrader
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestTradeDate
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestCounterparty
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestTradeGuid
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestPrice
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestTradeLastUpdated
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestFees
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestBroker
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest.TestCurrency
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestSettlementDateOffset
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.ViewModels.TradeDetailsViewModelTest.TestToggleBuySellCommand
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestTicketOwner
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest.TestMultiplier
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestSalesperson
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.ViewModels.TradeDetailsViewModelTest.TestStpTicketEnabled
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest.TestOptionType
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestComment
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest.TestSettlementDate
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.ViewModels.TradeDetailsViewModelTest.TestAbsAmount
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest.TestUnderlier
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestBuySell
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestCreditOfficer
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest.TestExerciseType
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestAmountType
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest.TestExpiryDate
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest.TestSettlementType
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestTicketGeneration
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestFirmAccount
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestTradeStatus
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestCEF
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestUserId
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestSettlementDate
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestInternalAccount
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestTradeId
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestAmount
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.ViewModels.TradeDetailsViewModelTest.TestMethodExternalTradeAccountsVisiblity
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestIsInternalTrade
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest.TestStrike
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.EquityOptionDataViewModelTest.TestExpiryTime
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestCurrency
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.UI.Test.DataViewModels.TradeDataViewModelTest.TestIsSettlementDateOverriden
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.TdsEvents.TdsAmendProductEventTest.TestSingleAmendProduct
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.TdsEvents.TdsAmendTradeEventTest.TestAmendTrade
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.Workflow.ConditionTest.TestTrueConditionFromProvider
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.Workflow.ConditionTest.TestFalseConditionFromProvider
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.Workflow.TradeWorkflowServiceTest.TestInvalidTransitions
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+  Test:Razor.Tds.Server.Test.Workflow.TradeWorkflowServiceTest.TestValidTransitions
+    Ignored:NotExecuted
+  EndTest:0
+------------------------
+-->Info: 103 test(s) were reported
+EndSuite

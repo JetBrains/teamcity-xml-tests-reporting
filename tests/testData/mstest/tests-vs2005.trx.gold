@@ -1,0 +1,13 @@
+TestSuite:MSTest
+-->Info: Found 1 test definitions.
+  Test:Softerra.Adaxes.Tests.AccessControl.AccessControlConfigTest.TestXmlSerialization
+    StdOutput:
+    StdOutput:Calling assembly initialization method Softerra.Adaxes.Tests.TestInitializer.Init.
+Creating instance of class Softerra.Adaxes.Tests.AccessControl.AccessControlConfigTest.
+Calling Test method Softerra.Adaxes.Tests.AccessControl.AccessControlConfigTest.Microsoft.VisualStudio.TestTools.TestTypes.Unit.TestMethod.
+
+    ErrOutput:
+  EndTest:25653
+------------------------
+-->Info: 1 test(s) were reported
+EndSuite

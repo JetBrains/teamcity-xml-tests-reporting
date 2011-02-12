@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="d98e7d23-afc5-47c8-8b40-3486c977ee00" name="Eugene.Petrenko@UNIT-235 2008-10-27 12:32:55" runUser="LABS\Eugene.Petrenko" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestRunConfiguration name="Default Run Configuration" id="d157e3d9-f28b-4fb1-ac56-39e988b801db">
+    <Deployment userDeploymentRoot="E:\Work\Perforce\TeamServer\BuildServer\mstest-tests\testData" useDefaultDeploymentRoot="false" runDeploymentRoot="E:\Work\Perforce\TeamServer\BuildServer\mstest-tests\testData\Eugene.Petrenko_UNIT-235 2008-10-27 12_32_55" />
+    <Hosts skipUnhostableTests="false" />
+    <TestTypeSpecific />
+  </TestRunConfiguration>
+  <ResultSummary outcome="Failed">
+    <Counters total="8" executed="8" passed="5" error="0" failed="3" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>AssemblyInit OwnedTest
+ClassInit MyFakeTest
+ClassCleanup
+AssemblyCleanup
+</StdOut>
+    </Output>
+  </ResultSummary>
+  <Times creation="2008-10-27T12:32:55.9269357+03:00" queuing="2008-10-27T12:32:56.5722039+03:00" start="2008-10-27T12:32:56.7176577+03:00" finish="2008-10-27T12:32:57.0632325+03:00" />
+  <TestDefinitions>
+    <UnitTest name="TestShowExceptionOutput" storage="tests.simple.q.dll" id="8bfefd56-dd27-a42d-cdbb-c7fc71e5c7d7">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="0d910294-0671-4491-9b5c-5c69a8df3427" />
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/mstest-tests/testData/tests.simple.q.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="XXXTest.SimpleOutcomeTest, tests.simple.q, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestShowExceptionOutput" />
+    </UnitTest>
+    <UnitTest name="TestAllInOne" storage="tests.simple.q.dll" id="51e32dbc-c24a-9b52-5244-3902c5b6edd0">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="3f167515-d7bb-4f18-8416-8a248cecf74d" />
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/mstest-tests/testData/tests.simple.q.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="XXXTest.SimpleOutcomeTest, tests.simple.q, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestAllInOne" />
+    </UnitTest>
+    <UnitTest name="TestShowConsoleOutput" storage="tests.simple.q.dll" id="c684d4df-7f13-b8f9-3b37-fb3020694cde">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="803927ef-b71b-41ae-b050-6ac14e5fc00f" />
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/mstest-tests/testData/tests.simple.q.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="XXXTest.SimpleOutcomeTest, tests.simple.q, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestShowConsoleOutput" />
+    </UnitTest>
+    <UnitTest name="TestComplicatedException" storage="tests.simple.q.dll" id="dbd1e8d1-43c5-626f-0525-7a830f4a5492">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="6ae42b9a-8a42-4309-a6ab-3d64fea0f376" />
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/mstest-tests/testData/tests.simple.q.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="XXXTest.SimpleOutcomeTest, tests.simple.q, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestComplicatedException" />
+    </UnitTest>
+    <UnitTest name="MyFakeTest" storage="tests.simple.q.dll" id="7bd734d3-fab5-b872-cd90-1941dc93e26d">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="c110d154-ee6a-4379-ad64-f55036f6b87c" />
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/mstest-tests/testData/tests.simple.q.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="XXXTest.TestPreAndPost, tests.simple.q, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="MyFakeTest" />
+    </UnitTest>
+    <UnitTest name="TestSuccess" storage="tests.simple.q.dll" id="8c3d7aaa-4fee-311e-200c-fc335321db39">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="c78d0af5-6c2b-405d-9488-a04a03f76694" />
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/mstest-tests/testData/tests.simple.q.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="XXXTest.SimpleOutcomeTest, tests.simple.q, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestSuccess" />
+    </UnitTest>
+    <UnitTest name="TestShowConsoleErrorOutput" storage="tests.simple.q.dll" id="2ddb5c32-ab46-fbb6-6f17-ea1ef4e54dad">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <Execution id="6db51d9b-aa28-4674-9430-5b1ed1c28f78" />
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/mstest-tests/testData/tests.simple.q.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="XXXTest.SimpleOutcomeTest, tests.simple.q, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestShowConsoleErrorOutput" />
+    </UnitTest>
+    <UnitTest name="OwnedTest" storage="tests.simple.q.dll" id="277e2138-dc19-ca4e-1523-277f48325714">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="Jonnyzzz" />
+      </Owners>
+      <Execution id="ec8f5338-0c51-4ad4-b52f-1f37c2e122e9" />
+      <TestMethod codeBase="E:/Work/Perforce/TeamServer/BuildServer/mstest-tests/testData/tests.simple.q.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="XXXTest.SimpleOutcomeTest, tests.simple.q, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" name="OwnedTest" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="277e2138-dc19-ca4e-1523-277f48325714" executionId="ec8f5338-0c51-4ad4-b52f-1f37c2e122e9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="51e32dbc-c24a-9b52-5244-3902c5b6edd0" executionId="3f167515-d7bb-4f18-8416-8a248cecf74d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="dbd1e8d1-43c5-626f-0525-7a830f4a5492" executionId="6ae42b9a-8a42-4309-a6ab-3d64fea0f376" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2ddb5c32-ab46-fbb6-6f17-ea1ef4e54dad" executionId="6db51d9b-aa28-4674-9430-5b1ed1c28f78" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c684d4df-7f13-b8f9-3b37-fb3020694cde" executionId="803927ef-b71b-41ae-b050-6ac14e5fc00f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8bfefd56-dd27-a42d-cdbb-c7fc71e5c7d7" executionId="0d910294-0671-4491-9b5c-5c69a8df3427" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8c3d7aaa-4fee-311e-200c-fc335321db39" executionId="c78d0af5-6c2b-405d-9488-a04a03f76694" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7bd734d3-fab5-b872-cd90-1941dc93e26d" executionId="c110d154-ee6a-4379-ad64-f55036f6b87c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="ec8f5338-0c51-4ad4-b52f-1f37c2e122e9" testId="277e2138-dc19-ca4e-1523-277f48325714" testName="OwnedTest" computerName="UNIT-235" duration="00:00:00.0082532" startTime="2008-10-27T12:32:56.7635391+03:00" endTime="2008-10-27T12:32:56.9929461+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="3f167515-d7bb-4f18-8416-8a248cecf74d" testId="51e32dbc-c24a-9b52-5244-3902c5b6edd0" testName="TestAllInOne" computerName="UNIT-235" duration="00:00:00.0105862" startTime="2008-10-27T12:32:56.9939223+03:00" endTime="2008-10-27T12:32:57.0056367+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <StdOut>Hello from Console.Output</StdOut>
+        <StdErr>Hello from Error.Output</StdErr>
+        <ErrorInfo>
+          <Message>Test method XXXTest.SimpleOutcomeTest.TestAllInOne threw exception:  System.Exception: So, How'd it parse exception?.</Message>
+          <StackTrace>    at XXXTest.SimpleOutcomeTest.TestAllInOne()
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6ae42b9a-8a42-4309-a6ab-3d64fea0f376" testId="dbd1e8d1-43c5-626f-0525-7a830f4a5492" testName="TestComplicatedException" computerName="UNIT-235" duration="00:00:00.0019779" startTime="2008-10-27T12:32:57.0066129+03:00" endTime="2008-10-27T12:32:57.0105177+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <ErrorInfo>
+          <Message>Test method XXXTest.SimpleOutcomeTest.TestComplicatedException threw exception:  System.Exception: C:10 ---&gt;  System.Exception: C:9 ---&gt;  System.Exception: C:8 ---&gt;  System.Exception: C:7 ---&gt;  System.Exception: C:6 ---&gt;  System.Exception: C:5 ---&gt;  System.Exception: C:4 ---&gt;  System.Exception: C:3 ---&gt;  System.Exception: C:2 ---&gt;  System.Exception: C:1 ---&gt;  System.Exception: Complicated.</Message>
+          <StackTrace>    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+ --- End of inner exception stack trace ---
+    at XXXTest.SimpleOutcomeTest.ThrowComplicatedException(Int32 i)
+   at XXXTest.SimpleOutcomeTest.TestComplicatedException()
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="6db51d9b-aa28-4674-9430-5b1ed1c28f78" testId="2ddb5c32-ab46-fbb6-6f17-ea1ef4e54dad" testName="TestShowConsoleErrorOutput" computerName="UNIT-235" duration="00:00:00.0001729" startTime="2008-10-27T12:32:57.0114939+03:00" endTime="2008-10-27T12:32:57.0124701+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <StdErr>Hello from Error.Output</StdErr>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="803927ef-b71b-41ae-b050-6ac14e5fc00f" testId="c684d4df-7f13-b8f9-3b37-fb3020694cde" testName="TestShowConsoleOutput" computerName="UNIT-235" duration="00:00:00.0002419" startTime="2008-10-27T12:32:57.0134463+03:00" endTime="2008-10-27T12:32:57.0153987+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <StdOut>Hello from Console.Output</StdOut>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="0d910294-0671-4491-9b5c-5c69a8df3427" testId="8bfefd56-dd27-a42d-cdbb-c7fc71e5c7d7" testName="TestShowExceptionOutput" computerName="UNIT-235" duration="00:00:00.0005249" startTime="2008-10-27T12:32:57.0153987+03:00" endTime="2008-10-27T12:32:57.0183273+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <ErrorInfo>
+          <Message>Test method XXXTest.SimpleOutcomeTest.TestShowExceptionOutput threw exception:  System.Exception: So, How'd it parse exception?.</Message>
+          <StackTrace>    at XXXTest.SimpleOutcomeTest.TestShowExceptionOutput()
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c78d0af5-6c2b-405d-9488-a04a03f76694" testId="8c3d7aaa-4fee-311e-200c-fc335321db39" testName="TestSuccess" computerName="UNIT-235" duration="00:00:00.0001033" startTime="2008-10-27T12:32:57.0183273+03:00" endTime="2008-10-27T12:32:57.0202797+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="c110d154-ee6a-4379-ad64-f55036f6b87c" testId="7bd734d3-fab5-b872-cd90-1941dc93e26d" testName="MyFakeTest" computerName="UNIT-235" duration="00:00:00.0003022" startTime="2008-10-27T12:32:57.0202797+03:00" endTime="2008-10-27T12:32:57.0241845+03:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d">
+      <Output>
+        <StdOut>TestMethodInit
+MyFakeTest
+TestMethodCleanup</StdOut>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

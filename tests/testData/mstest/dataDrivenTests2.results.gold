@@ -1,0 +1,7 @@
+testFound[ (0)59863143-3238-122e-4d8a... ]
+testFinished[ (0)59863143-3238-122e-4d8a...,PASSED,11 ]
+testFound[ (1)59863143-3238-122e-4d8a... ]
+testFinished[ (1)59863143-3238-122e-4d8a...,PASSED,1 ]
+testFound[ (2)59863143-3238-122e-4d8a... ]
+testException[ (2)59863143-3238-122e-4d8a...,Assert.AreEqual failed. Ex...,   at TestProject1.UnitTes... ]
+testFinished[ (2)59863143-3238-122e-4d8a...,FAILED,13 ]

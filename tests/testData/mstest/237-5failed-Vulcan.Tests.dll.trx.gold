@@ -1,0 +1,866 @@
+TestSuite:MSTest
+-->Info: Found 237 test definitions.
+  Test:UtilityTest.TreeNodeTest.TestAdd
+  EndTest:55
+------------------------
+  Test:UtilityTest.TreeNodeTest.TestCount
+  EndTest:3
+------------------------
+  Test:UtilityTest.TreeNodeTest.TestEnumerate
+  EndTest:8
+------------------------
+  Test:UtilityTest.TreeNodeTest.TestRemoveWithChildrenClearMethodology
+  EndTest:17
+------------------------
+  Test:UtilityTest.TreeNodeTest.TestRemoveWithChildrenRemoveMethodology
+  EndTest:17
+------------------------
+  Test:UtilityTest.TreeNodeTest.TestRemoveWithParentNullMethodology
+  EndTest:9
+------------------------
+  Test:VulcanTests.AstAttributeNodeTests.Attribute_IsRelatedToKey
+  EndTest:803
+------------------------
+  Test:VulcanTests.AstAttributeNodeTests.Attribute_RecursiveRelationship
+  EndTest:92
+------------------------
+  Test:VulcanTests.AstCubeNodeTests.Cube_CubeDimensionSameName
+  EndTest:148
+------------------------
+  Test:VulcanTests.AstDimensionHierarchyNodeTests.Hierarchy_IsNatural
+  EndTest:92
+------------------------
+  Test:VulcanTests.AstDimensionNodeTests.Attribute_DimensionAttributeWithMultipleKeyColumns
+  EndTest:80
+------------------------
+  Test:VulcanTests.AstDimensionNodeTests.Attribute_NameWithSpace
+  EndTest:122
+------------------------
+  Test:VulcanTests.AstDimensionNodeTests.Dimension_NoKeyAttribute
+  EndTest:82
+------------------------
+  Test:VulcanTests.AstDimensionNodeTests.Dimension_RecursiveRelationship
+  EndTest:80
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicAndEmpty
+  EndTest:465
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_AddColumn
+  EndTest:207
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_AddEverything
+  EndTest:259
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_IdentityKey_AddColumnsAndIdentityKey
+  EndTest:193
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_IdentityKey_AddIdentityKey
+  EndTest:217
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_Indexes_AddColumnsAndIndexes
+  EndTest:182
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_Indexes_AddIndexes
+  EndTest:191
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_MultipleKeys_AddColumnsAndMultipleKeys
+  EndTest:222
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_MultipleKeys_AddMultipleKeys
+  EndTest:202
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_PrimaryKey_AddColumnsAndPrimaryKey
+  EndTest:226
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_PrimaryKey_AddPrimaryKey
+  EndTest:194
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_UniqueKey_AddColumnsAndUniqueKey
+  EndTest:215
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_BasicTable_UniqueKey_AddUniqueKey
+  EndTest:205
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_CloneKeys
+  EndTest:282
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_AddColumns
+  EndTest:277
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_CloneAllFalse
+  EndTest:253
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_CloneAllFalseAndAddColumns
+  EndTest:273
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_CloneAllFalseAndAddEverything
+  EndTest:240
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_CloneAllTrue
+  EndTest:229
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_CloneAllTrueAndAddColumns
+  EndTest:257
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_CloneAllTrueAndAddEverything
+  EndTest:231
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_Default
+  EndTest:241
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_IdentityKey_CloneAllFalseAndAddIdentityKey
+  EndTest:236
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_IdentityKey_CloneAllTrueAndAddIdentityKey
+  EndTest:237
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_Indexes_CloneAllFalseAndAddIndexes
+  EndTest:269
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_Indexes_CloneAllTrueAndAddIndexes
+  EndTest:262
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_Indexes_CloneIndexesFalse
+  EndTest:243
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_Indexes_CloneIndexesTrue
+  EndTest:244
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_MultipleKeys_CloneAllFalseAndAddMultipleKeys
+  EndTest:237
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_MultipleKeys_CloneAllTrueAndAddMultipleKeys
+  EndTest:278
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_MultipleKeys_CloneKeysFalse
+  EndTest:226
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_MultipleKeys_CloneKeysTrue
+  EndTest:265
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_PrimaryKey_CloneAllFalseAndAddPrimaryKey
+  EndTest:234
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_PrimaryKey_CloneAllTrueAndAddPrimaryKey
+  EndTest:241
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_UniqueKey_CloneAllFalseAndAddUniqueKey
+  EndTest:250
+------------------------
+  Test:VulcanTests.AstLowererCloneTableTests.CloneTable_FullTable_UniqueKey_CloneAllTrueAndAddUniqueKey
+  EndTest:232
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.IsNullPatcher_Basic
+  EndTest:285
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.IsNullPatcher_MultipleColumns
+  EndTest:178
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.IsNullPatcher_ValidateExternalMetadata
+  EndTest:211
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_Basic
+  EndTest:243
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_Columns
+  EndTest:273
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_DelayValidation
+  EndTest:223
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_DisableScd
+  EndTest:253
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_IsolationLevel
+  EndTest:225
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_NoUpdate
+  EndTest:268
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_PrecedenceConstraint
+  EndTest:227
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_UnspecifiedColumnDefaultUsageType
+  EndTest:272
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_UpdateTargetTable
+  EndTest:220
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Merge_WithEvent
+  EndTest:244
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Package_BasicAndEmpty
+  EndTest:166
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Package_NoEmit
+  EndTest:157
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.Package_TransformationTemplateInstance
+  EndTest:235
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.RetryContainer_Basic
+  EndTest:202
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_Basic
+  EndTest:184
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_Event
+  EndTest:216
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_ParametersBasic
+  EndTest:179
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_ParametersDefault
+  EndTest:173
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_ParametersOutput
+  EndTest:198
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_ParametersReadOnly
+  EndTest:163
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_Permission
+  EndTest:214
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_PrecedenceConstraint
+  EndTest:220
+------------------------
+  Test:VulcanTests.AstLowererPackageTests.StoredProcedure_Schema
+  EndTest:226
+------------------------
+  Test:VulcanTests.AstLowererPrincipalTests.Principal_ApplicationRole
+  EndTest:227
+------------------------
+  Test:VulcanTests.AstLowererPrincipalTests.Principal_DatabasePermissions
+  EndTest:181
+------------------------
+  Test:VulcanTests.AstLowererPrincipalTests.Principal_DatabaseRole
+  EndTest:161
+------------------------
+  Test:VulcanTests.AstLowererPrincipalTests.Principal_NoEmit
+  EndTest:203
+------------------------
+  Test:VulcanTests.AstLowererPrincipalTests.Principal_SqlUser
+  EndTest:165
+------------------------
+  Test:VulcanTests.AstLowererPrincipalTests.Principal_WindowsGroup
+  EndTest:162
+------------------------
+  Test:VulcanTests.AstLowererPrincipalTests.Principal_WindowsUser
+  EndTest:196
+------------------------
+  Test:VulcanTests.AstLowererSchemaTests.Schema_BasicAndEmpty
+  EndTest:173
+------------------------
+  Test:VulcanTests.AstLowererSchemaTests.Schema_CustomExtensions
+  EndTest:218
+------------------------
+  Test:VulcanTests.AstLowererSchemaTests.Schema_NoEmit
+  EndTest:139
+------------------------
+  Test:VulcanTests.AstLowererSchemaTests.Schema_Permissions
+  EndTest:174
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_BasicAndEmpty
+  EndTest:176
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Column_DefaultValues
+  EndTest:185
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Column_PermissionBasic
+  EndTest:203
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Column_Properties
+  EndTest:237
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Column_Scd
+  EndTest:178
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Column_Types
+  EndTest:183
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_CustomExtensions
+  EndTest:192
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_IdentityKey_Basic
+  EndTest:180
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Index_Basic
+  EndTest:207
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Index_ColumnProperties
+  EndTest:182
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Index_Properties
+  EndTest:184
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_LateArriving
+  EndTest:217
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_PermissionBasic
+  EndTest:207
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_PrimaryKey_Basic
+  EndTest:188
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_PrimaryKey_ColumnProperties
+  EndTest:208
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_PrimaryKey_Properties
+  EndTest:181
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_Schema
+  EndTest:244
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_SpacedTable
+  EndTest:226
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_StaticSource_Basic
+  EndTest:1
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_StaticSource_NoEmitMergePackage
+  EndTest:185
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_UniqueKey_Basic
+  EndTest:213
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_UniqueKey_ColumnProperties
+  EndTest:188
+------------------------
+  Test:VulcanTests.AstLowererTableTests.Table_UniqueKey_Properties
+  EndTest:218
+------------------------
+  Test:VulcanTests.AstPackageNodeTests.EtlNode_HasDuplicateTransformNames
+  EndTest:87
+------------------------
+  Test:VulcanTests.AstPackageNodeTests.Variable_WithUnderscore
+  EndTest:84
+------------------------
+  Test:VulcanTests.AstTableNodeTests.Table_StaticSourceBadBitValue
+  EndTest:96
+------------------------
+  Test:VulcanTests.AstTableNodeTests.Table_StaticSourceDuplicateKeyValues
+  EndTest:84
+------------------------
+  Test:VulcanTests.AstTableNodeTests.Table_StaticSourceEscapedQuotes
+  EndTest:82
+------------------------
+  Test:VulcanTests.AstTableNodeTests.Table_StaticSourceValidation
+  EndTest:82
+------------------------
+  Test:VulcanTests.AstTableNodeTests.Table_StaticSourceValues
+  EndTest:118
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCalculationTests.CalculatedMemberAssociatedMeasureGroup
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Calculation.CalculatedMemberAssociatedMG_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Calculation.CalculatedMemberAssociatedMG_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Calculation.CalculatedMemberAssociatedMG_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:1321
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCalculationTests.CalculatedMemberMeasureFormat
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Calculation.CalculatedMemberMeasureFormat_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Calculation.CalculatedMemberMeasureFormat_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Calculation.CalculatedMemberMeasureFormat_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:164
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Actions
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Actions_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Actions_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Actions_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:261
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Basic
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Basic_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Basic_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Basic_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:163
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Calculations
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Calculations_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Calculations_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Calculations_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:166
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_DistinctCount
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DistinctCount_PRE.xml_\SSAS\AdventureWorksDW2008.ds
+Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DistinctCount_PRE.xml_\SSAS\AdvWorksCube.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DistinctCount_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DistinctCount_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:189
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Hierarchy
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Hierarchy_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Hierarchy_PRE.xml_\SSAS\DimGeography.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Hierarchy_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:191
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Kpi
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.KPI_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.KPI_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.KPI_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:189
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Measures
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Measures_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Measures_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Measures_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:220
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Perspectives
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Perspectives_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Perspectives_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Perspectives_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:237
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterCubeTests.Cube_Translations
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Translations_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Translations_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Translations_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:227
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDataSourceTests.DataSource_Basic
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSource.Basic_PRE.xml_\SSAS\Conn1.ds
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSource.Basic_PRE.xml_\SSAS\Cube1.cube
+  EndTest:121
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDataSourceViewTests.DataSourceView_MultipleKeysReferringToSameTable
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.MultipleKeysReferringToSameTable_PRE.xml_\SSAS\AdventureWorksDW2008.ds
+Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.MultipleKeysReferringToSameTable_PRE.xml_\SSAS\AdvWorksCube.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.MultipleKeysReferringToSameTable_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.MultipleKeysReferringToSameTable_PRE.xml_\SSAS\DimGeography.dim
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.MultipleKeysReferringToSameTable_PRE.xml_\SSAS\DimReseller.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.MultipleKeysReferringToSameTable_PRE.xml_\SSAS\AdvWorks.cube
+  EndTest:190
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDataSourceViewTests.DataSourceView_NoUniqueConstraint
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.NoUniqueConstraint_PRE.xml_\SSAS\Conn1.ds
+Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.NoUniqueConstraint_PRE.xml_\SSAS\CubeConn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.NoUniqueConstraint_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.NoUniqueConstraint_PRE.xml_\SSAS\Cube1.cube
+  EndTest:166
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDataSourceViewTests.DataSourceView_TwoMeasureGroupsSameFact
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.TwoMeasureGroupsSameFact_PRE.xml_\SSAS\AdventureWorksDW2008.ds
+Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.TwoMeasureGroupsSameFact_PRE.xml_\SSAS\AdvWorksCube.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.TwoMeasureGroupsSameFact_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_DataSourceView.TwoMeasureGroupsSameFact_PRE.xml_\SSAS\AdvWorks.cube
+  EndTest:186
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionRelationshipTests.DimensionRelationship_ManyToMany
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.ManyToMany_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.ManyToMany_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.ManyToMany_PRE.xml_\SSAS\DimGeography.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.ManyToMany_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:172
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionRelationshipTests.DimensionRelationship_Referenced
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.Referenced_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.Referenced_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.Referenced_PRE.xml_\SSAS\DimGeography.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.Referenced_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:168
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionRelationshipTests.DimensionRelationship_RolePlaying
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.RolePlaying_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.RolePlaying_PRE.xml_\SSAS\DimDate.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.DimensionRelationships.RolePlaying_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:206
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionTests.Dimension_Basic
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Basic_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Basic_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Basic_PRE.xml_\SSAS\Cube1.cube
+  EndTest:145
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionTests.Dimension_ColumnTypes
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.ColumnTypes_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.ColumnTypes_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.ColumnTypes_PRE.xml_\SSAS\Cube1.cube
+  EndTest:162
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionTests.Dimension_Hierarchy
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Hierarchy_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Hierarchy_PRE.xml_\SSAS\DimGeography.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Hierarchy_PRE.xml_\SSAS\Cube1.cube
+  EndTest:219
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionTests.Dimension_Ordering
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Ordering_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Ordering_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Ordering_PRE.xml_\SSAS\Cube1.cube
+  EndTest:145
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionTests.Dimension_Snowflake
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Snowflake_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Snowflake_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Snowflake_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:158
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterDimensionTests.Dimension_Translation
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Translation_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Translation_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Dimension.Translation_PRE.xml_\SSAS\Cube1.cube
+  EndTest:222
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_Aggregations
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Aggregations_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Aggregations_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Aggregations_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:247
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_ClientNotification
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ClientNotification_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ClientNotification_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ClientNotification_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:181
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_NullProactiveCachingSource
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.NullProactiveCachingSource_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.NullProactiveCachingSource_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.NullProactiveCachingSource_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:241
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_Partitions
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Partitions_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Partitions_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.Partitions_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:163
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_ProactiveCachingScheduledPolling
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ScheduledPolling_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ScheduledPolling_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ScheduledPolling_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:170
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_ProactiveCachingScheduledPollingIncrementalUpdates
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ScheduledPollingIncrementalUpdates_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ScheduledPollingIncrementalUpdates_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ScheduledPollingIncrementalUpdates_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:236
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_ProactiveCachingTableNotificationClient
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.TableNotificationsClient_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.TableNotificationsClient_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.TableNotificationsClient_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:171
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_ProactiveCachingTableNotificationServer
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.TableNotificationsServer_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.TableNotificationsServer_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.TableNotificationsServer_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:232
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterPartitionTests.Cube_ServerNotification
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ServerNotification_PRE.xml_\SSAS\Conn1.ds
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ServerNotification_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Cube.ProactiveCaching.ServerNotification_PRE.xml_\SSAS\InternetSales.cube
+  EndTest:169
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterRoleTests.Role_Admin
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Role.Admin_PRE.xml_\SSAS\Conn1.ds
+Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Role.Admin_PRE.xml_\SSAS\Conn2.ds
+Emitted Role C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Role.Admin_PRE.xml_\SSAS\User.role
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Role.Admin_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Role.Admin_PRE.xml_\SSAS\Cube1.cube
+  EndTest:189
+------------------------
+  Test:VulcanTests.Ssas2008EmitterTests.Ssas2008EmitterRoleTests.Role_Basic
+    StdOutput:Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Role.Basic_PRE.xml_\SSAS\Conn1.ds
+Emitted DataSource C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Role.Basic_PRE.xml_\SSAS\Conn2.ds
+Emitted Role C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Role.Basic_PRE.xml_\SSAS\User.role
+Emitted Dimension C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Role.Basic_PRE.xml_\SSAS\DimCustomer.dim
+Emitted Cube C:\BuildAgent\work\c1e1d8ccf6867220\Vulcan\AnalysisResults\TestResults[13]\Out\VulcanTests.Ssas2008EmitterTests_Role.Basic_PRE.xml_\SSAS\Cube1.cube
+  EndTest:273
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Basic
+  EndTest:2038
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_DelayValidation
+  EndTest:1422
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Events
+  EndTest:1650
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_IsolationLevelChaos
+  EndTest:1661
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_PrecedenceConstraints
+  EndTest:1848
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_QuerySourceSpace
+  EndTest:2697
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_TransformationOrderCyclic
+  EndTest:3101
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_ConditionalSplitBasic
+  EndTest:3145
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DerivedColumnBasic
+  EndTest:2770
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DerivedColumnErrorRowDisposition
+  EndTest:3061
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DestinationBasic
+  EndTest:3253
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_DestinationFastLoad
+  EndTest:3119
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_LookupBasic
+  EndTest:2883
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_MulticastBasic
+  EndTest:2904
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_OleDBCommandBasic
+  EndTest:3073
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_QuerySourceBasic
+  EndTest:2721
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_QuerySourceParameters
+  EndTest:3046
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_SortBasic
+  EndTest:2819
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_SortDefault
+  EndTest:3112
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_TransformationTemplateInstanceBasic
+  EndTest:3190
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_UnionAllBasic
+  EndTest:2670
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_UnionAllTransformationOrder
+  EndTest:3417
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_XmlSourceBasic
+    Fail:Assert.IsTrue failed. Compilation of PRE file failed. Message:    at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 157
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.Etl_Transformations_XmlSourceBasic() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterEtlTests.cs:line 167
+
+  EndTest:2002
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterEtlTests.RowCount_Basic
+  EndTest:2748
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_AccessConnection
+  EndTest:2465
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_ConnectionWithUserName
+  EndTest:2780
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_ConstraintModeLinear
+  EndTest:1920
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_ConstraintModeParallel
+  EndTest:1860
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_DelayValidation
+  EndTest:1679
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Events
+  EndTest:1852
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_IsolationLevelChaos
+  EndTest:1729
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Log
+  EndTest:3031
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_PrecedenceConstraints
+  EndTest:1834
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Schema
+  EndTest:2768
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_SystemVariables
+  EndTest:2571
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_TaskOrder
+    Fail:Assert.IsTrue failed. Compilation of PRE file failed. Message:    at VulcanTests.Ssis2008EmitterTests.SsisComparer.RunVulcan(String bimlFileName, String targetDirectoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 157
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 59
+   at VulcanTests.Ssis2008EmitterTests.SsisComparer.CompareResourceBimlWithDtsx(String bimlResourceName, String resourceDirectoryName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\SsisComparer.cs:line 48
+   at VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_TaskOrder() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\Ssis2008EmitterPackageTests.cs:line 92
+
+  EndTest:37851
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_TransactionModeNoTransaction
+  EndTest:1908
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_TransactionModeRequiredTransaction
+  EndTest:1845
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_VariableExpression
+  EndTest:1684
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterPackageTests.Package_Variables
+  EndTest:2256
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.CommitPersistentVariable_Basic
+  EndTest:2864
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_Basic
+  EndTest:1719
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_ConstraintModeLinear
+  EndTest:1856
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_ConstraintModeParallel
+  EndTest:1728
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_DelayValidation
+  EndTest:1843
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_Events
+  EndTest:1814
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_IsolationLevelChaos
+  EndTest:1600
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_PrecedenceConstraints
+  EndTest:1679
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_TransactionModeNoTransaction
+  EndTest:1767
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_TransactionModeRequiredTransaction
+  EndTest:1783
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_VariableExpression
+  EndTest:1611
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Container_Variables
+  EndTest:2243
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ExecutePackage_Basic
+  EndTest:1739
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ExecuteSql_Basic
+  EndTest:2702
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ExecuteSql_CoreProperties
+  EndTest:2932
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.ForLoop_Basic
+  EndTest:1749
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Taskflow_DataflowReverseTopologicalSort
+  EndTest:2935
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Taskflow_TaskflowReverseTopologicalSort
+  EndTest:1935
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTaskTests.Taskflow_TaskOrder
+  EndTest:1752
+------------------------
+  Test:VulcanTests.Ssis2008EmitterTests.Ssis2008EmitterTemplateTests.Templates_Package
+  EndTest:2779
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Configurations_AutoCreateSql
+    ErrOutput:VulcanTests.SsisEmitterTests_Package.Configurations.AutogenerateSql_PRE.xml_.xml(22,41): Error ErrorGeneric: The 'ConfigurationSqlServerConnectionName' attribute is not declared.
+VulcanTests.SsisEmitterTests_Package.Configurations.AutogenerateSql_PRE.xml_.xml(9,6): Error ErrorGeneric: Could not resolve reference to 'TestSqlConnection' of type 'Connection'. 'ConnectionName="TestSqlConnection"' is invalid.
+VulcanTests.SsisEmitterTests_Package.Configurations.AutogenerateSql_PRE.xml_.xml(12,6): Error ErrorGeneric: Could not resolve reference to 'TestSqlConnection' of type 'Connection'. 'ConnectionName="TestSqlConnection"' is invalid.
+    Fail:Test method VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Configurations_AutoCreateSql threw exception: 
+System.InvalidOperationException: Fatal Error Occurred. Message:     at VulcanEngine.Kernel.PhaseWorkflow.ExecutePhaseWorkflowGraph(IIR rootIR) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanEngine\Kernel\PhaseWorkflow.cs:line 174
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.RunVulcan(String bimlFileName, String targetDirectoryPath, String includeFileName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 160
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath, String fileExtension, String includeFileName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 90
+   at VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Configurations_AutoCreateSql() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisEmitterPackageTests.cs:line 79
+
+  EndTest:201
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Configurations_AutoCreateXml
+  EndTest:398
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_EmptyPackage
+  EndTest:152
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Events
+  EndTest:181
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Executables
+  EndTest:205
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Expressions
+  EndTest:211
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_LogProvider
+  EndTest:206
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_OleDBConnectionManager
+  EndTest:157
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterPackageTests.Package_Variables
+  EndTest:278
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterProjectTests.Project_Basic
+  EndTest:164
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterProjectTests.Project_MultiplePackages
+  EndTest:327
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.AnalysisServicesExecuteDdl_DirectInput
+    Fail:Assert.AreEqual failed. Expected:<<DTS:Property DTS:Name="ConnectionString">Data Source=localhost;PROVIDER=MSOLAP;Impersonation Level=Impersonate;</DTS:Property>. Actual:<<DTS:Property DTS:Name="ConnectionString" /> <DTS:Property DTS:Name="Retain">. Dtsx contents do not match. Message:    at VulcanTests.Ssis2008EmitterTests.DtsxComparer.CompareDtsxContents(String content1, String content2) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\DtsxComparer.cs:line 174
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareDirectories(DirectoryInfo directoryInfo1, DirectoryInfo directoryInfo2, String fileExtensions) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 122
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareDirectories(DirectoryInfo directoryInfo1, DirectoryInfo directoryInfo2, String fileExtensions) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 135
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareDirectories(DirectoryInfo directoryInfo1, DirectoryInfo directoryInfo2, String fileExtensions) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 135
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareDirectories(String directoryPath1, String directoryPath2, String fileExtension) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 99
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath, String fileExtension, String includeFileName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 92
+   at VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.AnalysisServicesExecuteDdl_DirectInput() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisEmitterTaskTests.cs:line 67
+
+  EndTest:185
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.AnalysisServicesExecuteDdl_File
+  EndTest:216
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.AnalysisServicesExecuteDdl_Variable
+    Fail:Assert.AreEqual failed. Expected:<<DTS:Property DTS:Name="ConnectionString">Data Source=localhost;PROVIDER=MSOLAP;Impersonation Level=Impersonate;</DTS:Property>. Actual:<<DTS:Property DTS:Name="ConnectionString" /> <DTS:Property DTS:Name="Retain">. Dtsx contents do not match. Message:    at VulcanTests.Ssis2008EmitterTests.DtsxComparer.CompareDtsxContents(String content1, String content2) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\Ssis2008EmitterTests\DtsxComparer.cs:line 174
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareDirectories(DirectoryInfo directoryInfo1, DirectoryInfo directoryInfo2, String fileExtensions) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 122
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareDirectories(DirectoryInfo directoryInfo1, DirectoryInfo directoryInfo2, String fileExtensions) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 135
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareDirectories(DirectoryInfo directoryInfo1, DirectoryInfo directoryInfo2, String fileExtensions) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 135
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareDirectories(String directoryPath1, String directoryPath2, String fileExtension) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 99
+   at VulcanTests.SsisEmitterTests.SsisEmitterComparer.CompareBimlWithDirectory(String bimlFileName, String directoryPath, String fileExtension, String includeFileName) in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisIntermediateComparer.cs:line 92
+   at VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.AnalysisServicesExecuteDdl_Variable() in c:\BuildAgent\work\c1e1d8ccf6867220\vulcan\VulcanTests\SsisEmitterTests\SsisEmitterTaskTests.cs:line 73
+
+  EndTest:177
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.AnalysisServicesProcessing_Basic
+  EndTest:271
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.BulkInsert_Basic
+  EndTest:184
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.ExecutePackage_File
+  EndTest:179
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.ExecutePackage_Sql
+  EndTest:265
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.ExecuteProcess_Basic
+  EndTest:180
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.ExecuteSql_Basic
+  EndTest:245
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.ExecuteSql_CoreProperties
+  EndTest:351
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.ExecuteSql_Events
+  EndTest:195
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.ExecuteSql_Parameters
+  EndTest:178
+------------------------
+  Test:VulcanTests.SsisEmitterTests.SsisEmitterTaskTests.ExecuteSql_ResultSetFull
+  EndTest:264
+------------------------
+  Test:VulcanTests.TemplateTransformationTests.Transformation_DerivedColumnBasic
+  EndTest:229
+------------------------
+-->Info: 237 test(s) were reported
+EndSuite

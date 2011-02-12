@@ -1,0 +1,916 @@
+TestSuite:MSTest
+-->Info: Found 302 test definitions.
+  Test:Logitech.Dvs.Messaging.Test.XmppExceptionTests.KnownCode
+  EndTest:30
+------------------------
+  Test:Logitech.Dvs.Messaging.Test.XmppExceptionTests.UnknownCode
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_CustomResultCode
+  EndTest:3306
+------------------------
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_CustomResultData
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapBadRequestPacketException
+  EndTest:8
+------------------------
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapFeatureNotImplementedPacketException
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapForbiddenPacketException
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapItemNotFoundPacketException
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapPacketException
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapServiceUnavailablePacketException
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapStreamException
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapTimeoutException
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapXMPPException
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_OtherException
+  EndTest:6
+------------------------
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_ResultTypeMismatch
+  EndTest:6
+------------------------
+  Test:Logitech.Dvs.Entities.Test.DvsEntityContextTests.GetOptInList
+  EndTest:13
+------------------------
+  Test:Logitech.Dvs.Entities.Test.DvsEntityContextTests.GetUserByUserName_EmptyUserName
+  EndTest:1008
+------------------------
+  Test:Logitech.Dvs.Entities.Test.DvsEntityContextTests.GetUserByUserName_NullUserName
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Entities.Test.DvsEntityContextTests.GetUserByUserName_ValidUserName_Cache
+  EndTest:378
+------------------------
+  Test:Logitech.Dvs.Entities.Test.DvsEntityContextTests.GetUserByUserName_ValidUserName_CaseInsensitive
+  EndTest:7
+------------------------
+  Test:Logitech.Dvs.Entities.Test.DvsEntityContextTests.GetUserByUserName_ValidUserName_NoCache
+  EndTest:157
+------------------------
+  Test:Logitech.Dvs.Entities.Test.DvsEntityContextTests.GetUserOptIns
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Entities.Test.DvsEntityContextTests.ToUserEntity_EmptyUserName
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Entities.Test.DvsEntityContextTests.ToUserEntity_NoIdentity
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Entities.Test.DvsEntityContextTests.ToUserEntity_NoPrinciple
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Test.FileObjectStoreTests.FileNameSafe
+  EndTest:141
+------------------------
+  Test:Logitech.Dvs.Test.FileObjectStoreTests.PutObject
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Test.FileObjectStoreTests.Remove
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Test.FileObjectStoreTests.Retry
+  EndTest:309
+------------------------
+  Test:Logitech.Dvs.Test.FileObjectStoreTests.RetryLimited
+  EndTest:516
+------------------------
+  Test:Logitech.Dvs.Test.FileObjectStoreTests.RoundTrip
+  EndTest:12
+------------------------
+  Test:Logitech.Dvs.Test.FileSharedStorageTests.BasePathParent
+  EndTest:11
+------------------------
+  Test:Logitech.Dvs.Test.FileSharedStorageTests.BasePathSlash
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Test.FileSharedStorageTests.CreateFile
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Test.FileSharedStorageTests.CreateFileAndDirectory
+  EndTest:7
+------------------------
+  Test:Logitech.Dvs.Test.FileSharedStorageTests.CreateFileOverwrite
+  EndTest:8
+------------------------
+  Test:Logitech.Dvs.Test.FileSharedStorageTests.DeleteFile
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Test.FileSharedStorageTests.DeleteNoFile
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Test.FluentXmlExtensionsExamples.TestMethod1
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Test.FluentXmlExtensionsTest.AddElemActionNull
+  EndTest:9
+------------------------
+  Test:Logitech.Dvs.Test.FluentXmlExtensionsTest.AddElemActionWorks
+  EndTest:29
+------------------------
+  Test:Logitech.Dvs.Test.FluentXmlExtensionsTest.AddElementAppends
+  EndTest:8
+------------------------
+  Test:Logitech.Dvs.Test.FluentXmlExtensionsTest.AddElemNull
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Test.FluentXmlExtensionsTest.AddElemWorks
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Test.VideoFileServiceTests.MergeEnumerable_EliminatesDuplicates
+  EndTest:41
+------------------------
+  Test:Logitech.Dvs.Test.VideoFileServiceTests.MergeEnumerable_Multiple
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Test.VideoFileServiceTests.MergeEnumerable_Single
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.CameraIPCountryUpdated
+  EndTest:1438
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.FirmwareHistoryAdded
+  EndTest:91
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.FirmwareHistoryUnchanged
+  EndTest:16
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.NewCamera
+  EndTest:30
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.NewCameraInternalIP
+  EndTest:17
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.UpdateCamera
+  EndTest:11
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.GetPtz
+  EndTest:620
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.GetPtz_BadMac
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.GetPtz_NotAvailable
+  EndTest:15
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.GetPtz_NotFound
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.GetPtz_Offline
+  EndTest:6
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.UpdatePtz
+  EndTest:14
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.UpdatePtz_BadMac
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.UpdatePtz_NotFound
+  EndTest:11
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.UpdatePtz_Offline
+  EndTest:11
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraServiceTest.NewCameraSite
+  EndTest:146
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraServiceTest.NewSite
+  EndTest:161
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraServiceTest.NonExistingCameraPresence
+  EndTest:19
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraServiceTest.UpdatePresence_StatusChanged
+  EndTest:24
+------------------------
+  Test:Logitech.Dvs.Web.Test.CameraServiceTest.UpdatePresence_StatusNotChanged
+  EndTest:15
+------------------------
+  Test:Logitech.Dvs.Web.Test.ChunkOutputStreamTests.LengthFromHeader
+  EndTest:84
+------------------------
+  Test:Logitech.Dvs.Web.Test.ChunkOutputStreamTests.LengthTimeout
+  EndTest:284
+------------------------
+  Test:Logitech.Dvs.Web.Test.ChunkOutputStreamTests.ReadAll
+  EndTest:10
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipFromCamera
+  EndTest:381
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipFromCameraOffline
+  EndTest:20
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipFromStorage
+  EndTest:18
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipHostOverride
+  EndTest:15
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipInvalidMac
+  EndTest:8
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipNoMac
+  EndTest:7
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipNoMediaId
+  EndTest:8
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipToDestination
+  EndTest:22
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipUnknownMac
+  EndTest:20
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetShareStatus
+  EndTest:12
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetShareStatusRemove
+  EndTest:9
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetShareStatusUnknown
+  EndTest:8
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeFromCamera
+  EndTest:27
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeFromCameraOffline
+  EndTest:17
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeFromStorage
+  EndTest:9
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeInvalidMac
+  EndTest:7
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeNoMac
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeNoMediaId
+  EndTest:7
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeStatusUrl
+  EndTest:14
+------------------------
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeUnknownMac
+  EndTest:11
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.CreateOrUpdateCommander_BadId
+  EndTest:193
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.CreateOrUpdateCommander_Create
+  EndTest:55
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.CreateOrUpdateCommander_MissingRequired
+  EndTest:68
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.CreateOrUpdateCommander_UpdateModified
+  EndTest:17
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.CreateOrUpdateCommander_UpdateNotModified
+  EndTest:12
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommanderById_BadRequest
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommanderById_Found
+  EndTest:82
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommanderById_NotFound
+  EndTest:9
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommandersByQuery_NoCommanders
+  EndTest:29
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommandersByQuery_NoUserName
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommandersByQuery_WithCommanders
+  EndTest:14
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.CreateProductKeyBatch_BatchEntity
+  EndTest:274
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.CreateProductKeyBatch_Count
+  EndTest:30
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.CreateProductKeyBatch_InvalidProduct
+  EndTest:9
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.CreateProductKeyBatch_InvalidProductKeyCategory
+  EndTest:11
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfo_Malformed
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfo_NotFound
+  EndTest:10
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfo_Unused
+  EndTest:19
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfo_Used
+  EndTest:136
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfoForBatchCsv_AllKeys
+  EndTest:58
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfoForBatchCsv_BatchNotFound
+  EndTest:12
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfoForBatchCsv_BatchNotSpecified
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductKeyBatches_All
+  EndTest:35
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductKeyBatches_NotFound
+  EndTest:10
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductKeyBatches_One
+  EndTest:35
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductKeyCategories_ToProductKeyCategoryInfoCollection
+  EndTest:18
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistration_ById
+  EndTest:72
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistration_Invalid
+  EndTest:6
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistration_NotFound
+  EndTest:16
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistrationByUser_All
+    Fail:Test method Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistrationByUser_All threw exception:  System.NullReferenceException: Object reference not set to an instance of an object.. Message:     at Logitech.Dvs.Web.Services.CommerceService.GetProductRegistrationsByUser() in f:\TeamCity\buildAgent\work\eee3f59bf291369f\Logitech\Dvs\Web\Services\CommerceService.cs:line 429
+   at Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistrationByUser_All() in f:\TeamCity\buildAgent\work\eee3f59bf291369f\Logitech\Dvs\Web\Test\CommerceServiceTests.cs:line 1262
+
+  EndTest:54
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistrationByUser_UserNotFound
+    Fail:Test method Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistrationByUser_UserNotFound threw exception:  System.NullReferenceException: Object reference not set to an instance of an object.. Message:     at Logitech.Dvs.Web.Services.CommerceService.GetProductRegistrationsByUser() in f:\TeamCity\buildAgent\work\eee3f59bf291369f\Logitech\Dvs\Web\Services\CommerceService.cs:line 429
+   at Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistrationByUser_UserNotFound() in f:\TeamCity\buildAgent\work\eee3f59bf291369f\Logitech\Dvs\Web\Test\CommerceServiceTests.cs:line 1210
+
+  EndTest:8
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProducts_ToProductInfoCollection
+  EndTest:53
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_AlreadyRegistered
+  EndTest:42
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_Malformed
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_NotFound
+  EndTest:15
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_Twice
+  EndTest:24
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_Unused
+  EndTest:66
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_UserNotFound
+  EndTest:22
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RevokeKey_Malformed
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RevokeKey_NotFound
+  EndTest:13
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RevokeKey_Twice
+  EndTest:20
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RevokeKey_Unused
+  EndTest:16
+------------------------
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RevokeKey_Used
+  EndTest:19
+------------------------
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.Authenticate
+  EndTest:115
+------------------------
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateBadNOnceEmpty
+  EndTest:11
+------------------------
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateBadNOnceFormat
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateBadNOnceNotHex
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateBadNOnceShort
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateTimeout
+  EndTest:10
+------------------------
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateUnknownUser
+  EndTest:9
+------------------------
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateWrongPassword
+  EndTest:8
+------------------------
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateXHeader
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.DirectivesValidated
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.ParseDirectives
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.ToFromHex
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.UnauthenticatedException
+  EndTest:6
+------------------------
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.UnauthenticatedHeader
+  EndTest:6
+------------------------
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.WrongAuthException
+  EndTest:6
+------------------------
+  Test:Logitech.Dvs.Web.Test.EncryptionServiceTests.RoundTrip
+  EndTest:77
+------------------------
+  Test:Logitech.Dvs.Web.Test.EncryptionServiceTests.RoundTripBase64
+  EndTest:44
+------------------------
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.ActiveProductTest
+  EndTest:19
+------------------------
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.ActiveProductTodayTest
+  EndTest:8
+------------------------
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetActiationDateNoProducts
+  EndTest:31
+------------------------
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetActivationDateWithActiveProduct
+  EndTest:20
+------------------------
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetActivationDateWithMultipleProducts
+  EndTest:29
+------------------------
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetTrialTest
+  EndTest:25
+------------------------
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetUnconfirmedCancelledProductTest
+  EndTest:12
+------------------------
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetUnconfirmedExpiredProductTest
+  EndTest:13
+------------------------
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.NoActiveProductTest
+  EndTest:6
+------------------------
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.NoRegisteredProducts
+  EndTest:145
+------------------------
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.OtherUsersProductsAreNotIncluded
+  EndTest:12
+------------------------
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.SingleActivePurchase
+  EndTest:21
+------------------------
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.SingleActiveTrial
+  EndTest:22
+------------------------
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.SingleExpiredProduct
+  EndTest:30
+------------------------
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.SingleExpiredTrial
+  EndTest:25
+------------------------
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.DownloadNotFound
+  EndTest:272
+------------------------
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.DownloadSave
+  EndTest:35
+------------------------
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.DownloadSaveComplexQuery
+  EndTest:13
+------------------------
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.DownloadSaveNoFileName
+  EndTest:11
+------------------------
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.DownloadSuccess
+  EndTest:20
+------------------------
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.MethodNotAllowed
+  EndTest:9
+------------------------
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadBodyLarge
+  EndTest:22
+------------------------
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadBodySmall
+  EndTest:7
+------------------------
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadEof
+  EndTest:8
+------------------------
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadHeader
+  EndTest:9
+------------------------
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadNoData
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadNoType
+  EndTest:6
+------------------------
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadPut
+  EndTest:11
+------------------------
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadSuccess
+  EndTest:7
+------------------------
+  Test:Logitech.Dvs.Web.Test.HostIPServiceTest.TestGetCountry
+  EndTest:97
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.AudioChannelCountIsSet
+  EndTest:77
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.AudioDataRateIsSet
+  EndTest:11
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.AudioFormatIsCreated
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.AudioSampleRateIsSet
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.DeliveryDestIsSet
+  EndTest:12
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.DeliveryTypeIsSetForMJPEG
+  EndTest:18
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.ExplicitAudioTest
+  EndTest:9
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.ExplicitVideoTest
+  EndTest:11
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.ImplicitAudioTest
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.ImplicitVideoTest
+  EndTest:9
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.ParseStreamId
+  EndTest:7
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.ParseStreamIdFail
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.ParseStreamIdFailBadMac
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.SourceProtocolIsSet
+  EndTest:24
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.SourcesAreSet
+  EndTest:21
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.StopStreamIdOut
+  EndTest:12
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.StopStreamSetIn
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.StreamIdIsSet
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.TestParseStreamId
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.VideoDataRateIsSet
+  EndTest:7
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.VideoFormatIsCreated
+  EndTest:10
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.VideoFrameRateIsSet
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.VideoKeyFrameRateIsSet
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.VideoMJPEGBoundaryIsSet
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.VideoMJPEGGroupSizeIsSet
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.VideoMJPEGQualityIsSet
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.LiveStreamTests.VideoResolutionIsSet
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.MembershipServiceTest.TestObfuscateId
+  EndTest:22655
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.ExternalCredentialsTests.Delete
+  EndTest:218
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.ExternalCredentialsTests.DeleteNone
+  EndTest:8
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.ExternalCredentialsTests.LoadExisting
+  EndTest:25
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.ExternalCredentialsTests.SaveNew
+  EndTest:26
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.ExternalCredentialsTests.UpdateExisting
+  EndTest:21
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.CategoriesFromCache
+  EndTest:147
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.GetCategoriesFromYouTube
+  EndTest:12
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.NoSavedUserName
+  EndTest:7
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.SavedUserName
+  EndTest:6
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareAutoCategory
+  EndTest:66
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareAutoKeywords
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareMarketingTag
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareNoCredentials
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareNoTitle
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareSaveCredentials
+  EndTest:6
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareUseSavedCredentials
+  EndTest:6
+------------------------
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.StatusPending
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeBad
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeBad2
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeCase
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeDashes
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeLong
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeShort
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeWhiteSpace
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.FormatForDisplay
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.GenerateDifferent
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.GenerateLength
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.ReadChunkManagerTests.FileExistsWaitCreated
+  EndTest:32
+------------------------
+  Test:Logitech.Dvs.Web.Test.ReadChunkManagerTests.FileExistsWaitExists
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.ReadChunkManagerTests.FileExistsWaitTimeout
+  EndTest:264
+------------------------
+  Test:Logitech.Dvs.Web.Test.ReadChunkManagerTests.GetNextEof
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Web.Test.ResponseInspectorTests.ShouldWrapMessageFalse
+  EndTest:371
+------------------------
+  Test:Logitech.Dvs.Web.Test.ResponseInspectorTests.ShouldWrapMessageFalse_BadValue
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.ResponseInspectorTests.ShouldWrapMessageFalseWithValue
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.ResponseInspectorTests.ShouldWrapMessageTrue
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Web.Test.RoleSecurityAttributeTests.AllowRoles_IsAuthorized
+  EndTest:10
+------------------------
+  Test:Logitech.Dvs.Web.Test.RoleSecurityAttributeTests.AllowRoles_IsNotAuthorized
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Web.Test.RoleSecurityAttributeTests.DenyRoles_IsAuthorized
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.RoleSecurityAttributeTests.DenyRoles_IsNotAuthorized
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Web.Test.RoleSecurityAttributeTests.Mixed_IsAuthorized
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Web.Test.RoleSecurityAttributeTests.Mixed_IsNotAuthorized
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Web.Test.RoleSecurityAttributeTests.NotSet_IsAuthorized
+  EndTest:1
+------------------------
+  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.CallsAuthServiceWithUserId
+  EndTest:15
+------------------------
+  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.ResolveEntityEmptyStringTest
+  EndTest:77
+------------------------
+  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.ResolveEntityNullTest
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.ResolveNullUserThrows
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.UserNameForDeviceUser
+  EndTest:25
+------------------------
+  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.UserNameForEndUser
+  EndTest:14
+------------------------
+  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.UserWithNoDvsEntityKeyReturnsNull
+  EndTest:8
+------------------------
+  Test:Logitech.Dvs.Web.Test.SiteAdapterTests.SiteToSiteInfoIsMapped
+  EndTest:13
+------------------------
+  Test:Logitech.Dvs.Web.Test.SiteAdapterTests.ToExistingEntity
+  EndTest:21
+------------------------
+  Test:Logitech.Dvs.Web.Test.SiteAdapterTests.ToNewEntity
+  EndTest:15
+------------------------
+  Test:Logitech.Dvs.Web.Test.SiteServiceTests.ResourceIdIsBadOnDelete
+  EndTest:272
+------------------------
+  Test:Logitech.Dvs.Web.Test.SiteServiceTests.ResourceIdIsBadOnUpdate
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Web.Test.SiteServiceTests.ResourceIdMatchPutData
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Web.Test.SiteServiceTests.SiteChangeNotification
+  EndTest:352
+------------------------
+  Test:Logitech.Dvs.Web.Test.SiteServiceTests.SiteNotFound
+  EndTest:14
+------------------------
+  Test:Logitech.Dvs.Web.Test.SiteServiceTests.TestDeleteSite
+  EndTest:30
+------------------------
+  Test:Logitech.Dvs.Web.Test.SiteServiceTests.TestDeleteSiteSecurity
+  EndTest:16
+------------------------
+  Test:Logitech.Dvs.Web.Test.SiteServiceTests.UpdateSite
+  EndTest:35
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.DeleteSupportUser_Succeeds
+  EndTest:135
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomer_First_Last
+  EndTest:92
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_ExactEmail
+  EndTest:42
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_Last_Comma_First
+  EndTest:48
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_LastName_StartsWith
+  EndTest:26
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_MacAddress
+  EndTest:27
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_NoResults_LastName
+  EndTest:11
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_PartialEmail
+  EndTest:11
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_ProductKey_Delimited
+  EndTest:14
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetCustomerDetailInfo_UserNotFound
+  EndTest:18
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetQueryIndexParam_Invalid
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetQueryIndexParam_OutOfRange
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetQueryPageSizeParam_OutOfRange
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetQueryPageSizeParam_ParseFails
+  EndTest:6
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetSupportUserList_ReturnAll
+  EndTest:19
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetSupportUserList_ReturnAll_LocationNotFound
+  EndTest:6
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.MixedRolesStillWork
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.NonSupportUserReturnsNeg1
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.SupportAdminReturns2
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.SupportManagerReturns1
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.SupportTechReturns0
+  EndTest:2
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.UpdateSupportUser_Location_NotFound
+  EndTest:7
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.UpdateSupportUser_Location_Succeeds
+  EndTest:6
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.UpdateSupportUser_Role_SupportAdmin
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.UpdateSupportUser_Role_SupportManager
+  EndTest:4
+------------------------
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.UpdateSupportUser_Role_SupportTech
+  EndTest:5
+------------------------
+  Test:Logitech.Dvs.Web.Test.TemplateTests.TestAlertTemplate_Image
+  EndTest:221
+------------------------
+  Test:Logitech.Dvs.Web.Test.TemplateTests.TestAlertTemplate_TextOnly
+  EndTest:17
+------------------------
+  Test:Logitech.Dvs.Web.Test.TemplateTests.TestChangePasswordTemplate_TextOnly
+  EndTest:12
+------------------------
+  Test:Logitech.Dvs.Web.Test.TemplateTests.TestChangeUsernameTemplate_TextOnly
+  EndTest:14
+------------------------
+  Test:Logitech.Dvs.Web.Test.TemplateTests.TestResetPasswordTemplate_TextOnly
+  EndTest:25
+------------------------
+  Test:Logitech.Dvs.Web.Test.TemplateTests.TestWelcomeNewUserTemplate_TextOnly
+  EndTest:9
+------------------------
+  Test:Logitech.Dvs.Web.Test.TransferXMPPPacketTests.ValidateTransferXml
+  EndTest:3
+------------------------
+  Test:Logitech.Dvs.Web.Test.WebProtocolExceptionTests.HeadersAreAdded
+  EndTest:4
+------------------------
+-->Info: 302 test(s) were reported
+EndSuite

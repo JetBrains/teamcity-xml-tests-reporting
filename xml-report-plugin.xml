@@ -471,6 +471,7 @@
     <path refid="library.jdom.classpath"/>
     <pathelement location="${agent.output.dir}"/>
     <pathelement location="${common.output.dir}"/>
+    <path refid="library.common-impl.classpath"/>
   </path>
   
   <path id="tests.runtime.production.module.classpath">
@@ -484,6 +485,7 @@
     <path refid="library.jdom.classpath"/>
     <path refid="agent.runtime.production.module.classpath"/>
     <path refid="common.runtime.production.module.classpath"/>
+    <path refid="library.common-impl.classpath"/>
   </path>
   
   <path id="tests.module.classpath">
@@ -498,6 +500,7 @@
     <pathelement location="${agent.testoutput.dir}"/>
     <pathelement location="${agent.output.dir}"/>
     <pathelement location="${common.output.dir}"/>
+    <path refid="library.common-impl.classpath"/>
   </path>
   
   <path id="tests.runtime.module.classpath">
@@ -512,6 +515,7 @@
     <path refid="library.jdom.classpath"/>
     <path refid="agent.runtime.module.classpath"/>
     <path refid="common.runtime.module.classpath"/>
+    <path refid="library.common-impl.classpath"/>
   </path>
   
   

@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="3c1df10a-dac6-46d0-a3bd-b18d0e09376c" name="user_xxx 2009-09-04 17:40:10" runUser="user_xxx" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2006">
+  <TestRunConfiguration name="Local Test Run" id="a79039a8-54dc-4bc2-9d6f-60b1e74c30f4">
+    <Description>This is a default test run configuration for a local test run.</Description>
+    <Timeouts runTimeout="1800000" testTimeout="300000" />
+    <Deployment userDeploymentRoot="C:\TeamCity\Projects\Magistracy" useDefaultDeploymentRoot="false" runDeploymentRoot="C:\TeamCity\Projects\Magistracy\user_xxx 2009-09-04 17_40_10" />
+    <TestTypeSpecific />
+  </TestRunConfiguration>
+  <ResultSummary outcome="Completed">
+    <Counters total="5" executed="5" passed="5" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <Times creation="2009-09-04T17:40:10.2184578+04:00" queuing="2009-09-04T17:40:11.3277618+04:00" start="2009-09-04T17:40:11.7183618+04:00" finish="2009-09-04T17:40:32.9982498+04:00" />
+  <TestDefinitions>
+    <OrderedTest name="alltestsordered" storage="c:\teamcity\projects\magistracy\tests\alltestsordered.orderedtest" id="986ff9b0-44ff-4a8c-a114-31fbe081b208">
+      <Css projectStructure="" iteration="" />
+      <Execution timeOut="2147483647" id="d305ade4-9625-4594-ac55-95af64ce3bac" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestLinks>
+        <TestLink id="4ef1e6a4-cc7d-b40c-9b2c-0d569c2e3995" name="PropertiesNames" storage="bin\release\tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="1d6308b4-4b5c-329b-91d3-babf7f048f1f" name="DisplayableProperties" storage="bin\release\tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="a6eb9566-d4b2-95a8-1645-6dad6e081eb4" name="DBCreateStructure" storage="bin\release\tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="5d739e07-e51a-9044-1455-85bced713cfc" name="DBInitialFill" storage="bin\release\tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      </TestLinks>
+    </OrderedTest>
+    <UnitTest name="DisplayableProperties" storage="c:\teamcity\projects\magistracy\tests\bin\release\tests.dll" id="1d6308b4-4b5c-329b-91d3-babf7f048f1f">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="c:/teamcity/projects/magistracy/tests/bin/release/Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Tests.CodeTests, Tests, Version=1.0.0.1330, Culture=neutral, PublicKeyToken=null" name="DisplayableProperties" />
+    </UnitTest>
+    <UnitTest name="DBInitialFill" storage="c:\teamcity\projects\magistracy\tests\bin\release\tests.dll" id="5d739e07-e51a-9044-1455-85bced713cfc">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="c:/teamcity/projects/magistracy/tests/bin/release/Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Tests.DeploymentTests, Tests, Version=1.0.0.1330, Culture=neutral, PublicKeyToken=null" name="DBInitialFill" />
+    </UnitTest>
+    <UnitTest name="PropertiesNames" storage="c:\teamcity\projects\magistracy\tests\bin\release\tests.dll" id="4ef1e6a4-cc7d-b40c-9b2c-0d569c2e3995">
+      <Css projectStructure="" iteration="" />
+      <Description>Проверка наличия в классе свойств, имена которых прописаны в PropertyName</Description>
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="c:/teamcity/projects/magistracy/tests/bin/release/Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Tests.CodeTests, Tests, Version=1.0.0.1330, Culture=neutral, PublicKeyToken=null" name="PropertiesNames" />
+    </UnitTest>
+    <UnitTest name="DBCreateStructure" storage="c:\teamcity\projects\magistracy\tests\bin\release\tests.dll" id="a6eb9566-d4b2-95a8-1645-6dad6e081eb4">
+      <Css projectStructure="" iteration="" />
+      <Owners>
+        <Owner name="" />
+      </Owners>
+      <TestMethod codeBase="c:/teamcity/projects/magistracy/tests/bin/release/Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter" className="Tests.DeploymentTests, Tests, Version=1.0.0.1330, Culture=neutral, PublicKeyToken=null" name="DBCreateStructure" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="AllOrdered" id="bc52b518-735c-4190-9e9f-ea248a7ee97a" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+      <Description>Все тесты в правильном порядке.</Description>
+      <TestLinks>
+        <TestLink id="986ff9b0-44ff-4a8c-a114-31fbe081b208" name="alltestsordered" storage="c:\teamcity\projects\magistracy\tests\alltestsordered.orderedtest" type="Microsoft.VisualStudio.TestTools.TestTypes.Ordered.AutoSuite, Microsoft.VisualStudio.QualityTools.Tips.OrderedTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      </TestLinks>
+    </TestList>
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+    <TestList name="Lists of Results" id="8c43106b-9dc1-4907-a29f-aa66a61bf5b6" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="986ff9b0-44ff-4a8c-a114-31fbe081b208" executionId="d305ade4-9625-4594-ac55-95af64ce3bac" testListId="bc52b518-735c-4190-9e9f-ea248a7ee97a">
+      <TestEntries>
+        <TestEntry testId="4ef1e6a4-cc7d-b40c-9b2c-0d569c2e3995" executionId="b24739f4-94be-4b15-ba67-672901a15eca" parentExecutionId="d305ade4-9625-4594-ac55-95af64ce3bac" testListId="bc52b518-735c-4190-9e9f-ea248a7ee97a" />
+        <TestEntry testId="1d6308b4-4b5c-329b-91d3-babf7f048f1f" executionId="4fb1316e-be53-41ca-a6f0-471ed6a3890b" parentExecutionId="d305ade4-9625-4594-ac55-95af64ce3bac" testListId="bc52b518-735c-4190-9e9f-ea248a7ee97a" />
+        <TestEntry testId="a6eb9566-d4b2-95a8-1645-6dad6e081eb4" executionId="1628a757-9787-4a38-8925-8d28ec3a435a" parentExecutionId="d305ade4-9625-4594-ac55-95af64ce3bac" testListId="bc52b518-735c-4190-9e9f-ea248a7ee97a" />
+        <TestEntry testId="5d739e07-e51a-9044-1455-85bced713cfc" executionId="39cdf19e-96d8-45f2-90df-925e82b74f01" parentExecutionId="d305ade4-9625-4594-ac55-95af64ce3bac" testListId="bc52b518-735c-4190-9e9f-ea248a7ee97a" />
+      </TestEntries>
+    </TestEntry>
+  </TestEntries>
+  <Results>
+    <TestResultAggregation executionId="d305ade4-9625-4594-ac55-95af64ce3bac" testId="986ff9b0-44ff-4a8c-a114-31fbe081b208" testName="alltestsordered" computerName="S0112060232" duration="00:00:21.0711205" startTime="2009-09-04T17:40:11.7808578+04:00" endTime="2009-09-04T17:40:32.9045058+04:00" testType="ec4800e8-40e5-4ab3-8510-b8bf29b1904d" outcome="Passed" testListId="bc52b518-735c-4190-9e9f-ea248a7ee97a">
+      <Counters error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="4" completed="0" inProgress="0" pending="0" />
+      <InnerResults>
+        <UnitTestResult executionId="b24739f4-94be-4b15-ba67-672901a15eca" parentExecutionId="d305ade4-9625-4594-ac55-95af64ce3bac" testId="4ef1e6a4-cc7d-b40c-9b2c-0d569c2e3995" testName="PropertiesNames" computerName="S0112060232" duration="00:00:00.2085595" startTime="2009-09-04T17:40:11.8121058+04:00" endTime="2009-09-04T17:40:12.5933058+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="bc52b518-735c-4190-9e9f-ea248a7ee97a">
+          <Output>
+          </Output>
+        </UnitTestResult>
+        <UnitTestResult executionId="4fb1316e-be53-41ca-a6f0-471ed6a3890b" parentExecutionId="d305ade4-9625-4594-ac55-95af64ce3bac" testId="1d6308b4-4b5c-329b-91d3-babf7f048f1f" testName="DisplayableProperties" computerName="S0112060232" duration="00:00:00.0147639" startTime="2009-09-04T17:40:12.6089298+04:00" endTime="2009-09-04T17:40:12.7339218+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="bc52b518-735c-4190-9e9f-ea248a7ee97a">
+          <Output>
+          </Output>
+        </UnitTestResult>
+        <UnitTestResult executionId="1628a757-9787-4a38-8925-8d28ec3a435a" parentExecutionId="d305ade4-9625-4594-ac55-95af64ce3bac" testId="a6eb9566-d4b2-95a8-1645-6dad6e081eb4" testName="DBCreateStructure" computerName="S0112060232" duration="00:00:09.7884018" startTime="2009-09-04T17:40:12.7339218+04:00" endTime="2009-09-04T17:40:22.5301698+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="bc52b518-735c-4190-9e9f-ea248a7ee97a">
+          <Output>
+          </Output>
+        </UnitTestResult>
+        <UnitTestResult executionId="39cdf19e-96d8-45f2-90df-925e82b74f01" parentExecutionId="d305ade4-9625-4594-ac55-95af64ce3bac" testId="5d739e07-e51a-9044-1455-85bced713cfc" testName="DBInitialFill" computerName="S0112060232" duration="00:00:10.3586702" startTime="2009-09-04T17:40:22.5301698+04:00" endTime="2009-09-04T17:40:32.9045058+04:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="bc52b518-735c-4190-9e9f-ea248a7ee97a">
+          <Output>
+          </Output>
+        </UnitTestResult>
+      </InnerResults>
+    </TestResultAggregation>
+  </Results>
+</TestRun>

@@ -1,0 +1,16 @@
+TestSuite:MSTest
+-->Info: Found 5 test definitions.
+  Test:Tests.CodeTests.PropertiesNames
+  EndTest:209
+------------------------
+  Test:Tests.CodeTests.DisplayableProperties
+  EndTest:15
+------------------------
+  Test:Tests.DeploymentTests.DBCreateStructure
+  EndTest:9789
+------------------------
+  Test:Tests.DeploymentTests.DBInitialFill
+  EndTest:10359
+------------------------
+-->Info: 4 test(s) were reported
+EndSuite

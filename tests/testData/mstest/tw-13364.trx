@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="2ad374c3-583b-4315-b705-776ffa25d0b7" name="User@SomeMachine 2010-09-14 10:59:16" runUser="Domain\User" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="LocalTestRun" id="b4c655e5-b451-4d32-8092-05f4789291b6">
+    <Description>This is a default test run configuration for a local test run.</Description>
+    <Deployment userDeploymentRoot="C:\Source\TestResults" useDefaultDeploymentRoot="false" runDeploymentRoot="User_SomeMachine 2010-09-14 10_59_16" />
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+        <DataCollectors>
+          <DataCollector uri="datacollector://Microsoft/TestImpact/1.0" assemblyQualifiedName="Microsoft.VisualStudio.TraceCollector.TestImpactDataCollector, Microsoft.VisualStudio.TraceCollector, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+          </DataCollector>
+        </DataCollectors>
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2010-09-14T10:59:16.2773666+01:00" queuing="2010-09-14T10:59:17.5371806+01:00" start="2010-09-14T10:59:19.7462498+01:00" finish="2010-09-14T10:59:20.7443350+01:00" />
+  <ResultSummary outcome="Error">
+    <Counters total="1" executed="1" error="1" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="TestAdaptorThrowsException" storage="c:\test\myTest\bin\debug\myTest.dll" id="9f8c9602-a70c-b69e-ddb5-2bb475f450c3">
+      <TestCategory>
+        <TestCategoryItem TestCategory="Functional" />
+        <TestCategoryItem TestCategory="Integration" />
+      </TestCategory>
+      <Execution id="db44cc43-997a-456b-ae4b-bb6ac81a5c6b" />
+      <TestMethod codeBase="c:/test/myTest/bin/debug/myTest.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="myTest.TestClass, myTest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7668f0f2131043d9" name="TestAdaptorThrowsException" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="System" id="ae3bc896-94f1-4ec5-b50b-abded654d45c" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+    <TestList name="Lists of Results" id="8c43106b-9dc1-4907-a29f-aa66a61bf5b6" />
+    <TestList name="MyList" id="c7330184-ef0b-46dc-bd97-65e0d50b89fe" parentListId="ae3bc896-94f1-4ec5-b50b-abded654d45c">
+      <TestLinks>
+        <TestLink id="9f8c9602-a70c-b69e-ddb5-2bb475f450c3" name="TestAdaptorThrowsException" storage="c:\test\myTest\bin\debug\myTest.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+        <TestLink id="611a35f9-68b7-4476-8bd5-5f4d720a5ab9" name="ordtest" storage="c:\test\myTest\ordtest.orderedtest" type="Microsoft.VisualStudio.TestTools.TestTypes.Ordered.AutoSuite, Microsoft.VisualStudio.QualityTools.Tips.OrderedTest.ObjectModel,   PublicKeyToken=b03f5f7f11d50a3a" />
+      </TestLinks>
+    </TestList>
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="9f8c9602-a70c-b69e-ddb5-2bb475f450c3" executionId="db44cc43-997a-456b-ae4b-bb6ac81a5c6b" testListId="c7330184-ef0b-46dc-bd97-65e0d50b89fe" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="db44cc43-997a-456b-ae4b-bb6ac81a5c6b" testId="9f8c9602-a70c-b69e-ddb5-2bb475f450c3" testName="TestAdaptorThrowsException" computerName="SomeMachine" startTime="2010-09-14T10:59:19.9796572+01:00" endTime="2010-09-14T10:59:20.6652304+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" testListId="c7330184-ef0b-46dc-bd97-65e0d50b89fe" relativeResultsDirectory="db44cc43-997a-456b-ae4b-bb6ac81a5c6b">
+      <Output>
+        <ErrorInfo>
+          <Message>Unit Test Adapter threw exception: 
+Type is not resolved for member 'MyType,MyAssembly, Version=1.0.0.0, Culture=neutral, PublicKeyToken=123456781234'..</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>
