@@ -45,4 +45,8 @@ public interface XmlReportPluginConstants {
   static final String NUNIT_TO_JUNIT_OLD_XSL = "nunit-to-junit-old.xsl";
 
   static final String SPLIT_REGEX = " *[,\n\r] *";
+
+  static final String FEATURE_PARAMS = "xmlReportParsing.feature.settings";
+
+  static final String PARSING_ENABLED = "xmlReportParsing.enabled";
 }

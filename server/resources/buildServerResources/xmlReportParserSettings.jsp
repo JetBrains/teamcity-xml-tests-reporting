@@ -164,7 +164,7 @@
         style="${displayReportsSettings ? '' : 'display: none;'}">
         <th><label for="xmlReportParsing.reportDirs">Monitoring rules:</label></th>
         <td>
-            <props:multilineProperty name="xmlReportParsing.reportDirs" expanded="true" rows="5" cols="50"
+            <props:multilineProperty name="xmlReportParsing.reportDirs" expanded="true" rows="5" cols="40"
                                      linkTitle="Type report directories"/>
         <span class="smallNote">
           New line or comma separated set of rules in the form <strong>of +|-:checkout_dir_relative_path</strong>.<br/>
@@ -198,3 +198,8 @@
         </td>
     </tr>
 </l:settingsGroup>
+
+<script type="text/javascript">
+  BS.MultilineProperties.setVisible('xmlReportParsing.reportDirs', true);
+  BS.MultilineProperties.show('xmlReportParsing.reportDirs', true);
+</script>

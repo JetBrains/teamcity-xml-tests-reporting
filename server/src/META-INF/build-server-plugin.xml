@@ -18,22 +18,5 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans default-autowire="constructor">
-    <bean id="xmlReportPluginRunTypeExtension"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportPluginRunTypeExtension">
-        <property name="supportedRunTypes">
-            <list>
-                <value>simpleRunner</value>
-                <value>Ant</value>
-                <value>Ipr</value>
-                <value>Maven2</value>
-                <value>MSBuild</value>
-                <value>NAnt</value>
-                <value>rake-runner</value>
-                <value>sln2003</value>
-                <value>VS.Solution</value>
-                <value>gradle-runner</value>
-            </list>
-        </property>
-    </bean>
-    <!--<bean id="reportTypeForm" class="jetbrains.buildServer.xmlReportPlugin.ReportTypeForm"/>-->
+    <bean id="xmlReportPluginBuildFeature" class="jetbrains.buildServer.xmlReportPlugin.XmlReportPluginBuildFeature"/>
 </beans>
