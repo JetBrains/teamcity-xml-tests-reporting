@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import com.intellij.openapi.util.SystemInfo;
 import java.io.File;
 import java.util.*;
 import jetbrains.buildServer.vcs.FileRule;
@@ -89,7 +90,7 @@ public class Rules extends FileRuleSet<FileRule, FileRule> {
 
     myRootIncludePaths = new HashSet<File>();
     for (FileRule rule : resultRules) {
-      myRootIncludePaths.add(new File(rule.getFrom()));
+      myRootIncludePaths.add(new File((SystemInfo.isWindows ? "" : "/") + rule.getFrom()));
     }
     return myRootIncludePaths;
   }
@@ -101,6 +102,6 @@ public class Rules extends FileRuleSet<FileRule, FileRule> {
   }
 
   public boolean shouldInclude(@NotNull File path) {
-    return super.shouldInclude(path.getPath());
+    return super.shouldInclude(SystemInfo.isWindows ? path.getPath() : path.getPath().substring(1));
   }
 }
