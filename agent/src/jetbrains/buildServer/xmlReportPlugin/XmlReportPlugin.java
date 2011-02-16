@@ -16,10 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.text.ParseException;
-import java.util.*;
-import java.util.concurrent.*;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
@@ -33,6 +29,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
+
+import java.io.File;
+import java.text.ParseException;
+import java.util.*;
+import java.util.concurrent.*;
 
 
 public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProcessor {
@@ -219,13 +220,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
       rulesContext.getRulesState(), rulesContext.getFailedToParse(), parserFactory);
 
     synchronized (myParseExecutor) {
-      final Future future = myParseExecutor.submit(new Runnable() { // TODO why wrap runnable with runnable?
-        public void run() {
-          parseReportCommand.run();
-        }
-      });
-
-      rulesContext.addParseTask(future);
+      rulesContext.addParseTask(myParseExecutor.submit(parseReportCommand));
     }
   }
 
