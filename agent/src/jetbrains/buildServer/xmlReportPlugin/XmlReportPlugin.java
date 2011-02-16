@@ -219,7 +219,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
       rulesContext.getRulesState(), rulesContext.getFailedToParse(), parserFactory);
 
     synchronized (myParseExecutor) {
-      final Future future = myParseExecutor.submit(new Runnable() {
+      final Future future = myParseExecutor.submit(new Runnable() { // TODO why wrap runnable with runnable?
         public void run() {
           parseReportCommand.run();
         }

@@ -16,9 +16,8 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * User: vbedrosova
@@ -29,7 +28,7 @@ import java.io.File;
 /**
  * Holds information about current state of files
  */
-public interface FilesState {
+public interface FilesState {  // TODO maybe FileStates ?
   public static enum FileState {
     UNKNOWN, ON_PROCESSING, PROCESSED
   }

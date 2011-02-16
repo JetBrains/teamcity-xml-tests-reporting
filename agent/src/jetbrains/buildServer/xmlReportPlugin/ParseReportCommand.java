@@ -16,17 +16,16 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.util.Map;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * User: vbedrosova
  * Date: 16.12.10
  * Time: 18:06
  */
-public class ParseReportCommand implements Runnable {
+public class ParseReportCommand implements Runnable { // TODO put parser engine and monitor engine to separate packages
   @NotNull
   private final File myFile;
 
