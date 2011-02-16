@@ -1,8 +1,5 @@
 package jetbrains.buildServer.xmlReportPlugin.mstest;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.xmlReportPlugin.TestUtil;
@@ -10,6 +7,10 @@ import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * @author Eugene Petrenko
@@ -129,7 +130,7 @@ public class MSTestBaseTest extends TestCase {
   }
 
   public static File getTestData(final String path) throws FileNotFoundException {
-    return TestUtil.getTestDataFile(path, "mstest");
+    return new File(TestUtil.getTestDataPath(path, "mstest").replace("\\", "/"));
   }
 
   private void doTest(String file, String gold) throws IOException {
