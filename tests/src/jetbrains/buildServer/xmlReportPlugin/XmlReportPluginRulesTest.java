@@ -16,13 +16,15 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import com.intellij.openapi.util.SystemInfo;
+import junit.framework.TestCase;
+import org.jetbrains.annotations.NotNull;
+import org.junit.Test;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import junit.framework.TestCase;
-import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
 
 /**
  * User: vbedrosova
@@ -149,6 +151,6 @@ public class XmlReportPluginRulesTest extends TestCase {
   }
 
   private File getFile(@NotNull final String path) {
-    return new File(path);
+    return new File(SystemInfo.isWindows ? path : "/" + path);
   }
 }
