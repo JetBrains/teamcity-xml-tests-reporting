@@ -29,7 +29,7 @@ public class PmdCpdReportParserTest extends BaseParserTestCase {
   @NotNull
   @Override
   protected Parser getParser() {
-    return new PmdCpdReportParser(getXMLReader(), getDuplicatesReporter(), getBaseDir());
+    return new PmdCpdReportParser(getDuplicatesReporter());
   }
 
   @NotNull

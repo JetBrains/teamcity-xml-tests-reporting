@@ -16,8 +16,10 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.FileUtil;
 import junit.framework.TestCase;
@@ -25,10 +27,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Before;
 import org.xml.sax.XMLReader;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 
 public abstract class BaseParserTestCase extends TestCase {

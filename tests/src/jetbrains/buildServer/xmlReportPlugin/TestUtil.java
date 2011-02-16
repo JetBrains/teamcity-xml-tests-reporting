@@ -18,12 +18,10 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import java.io.*;
 import java.util.*;
-import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
 import jetbrains.buildServer.agent.inspections.InspectionTypeInfo;
-import jetbrains.buildServer.duplicator.DuplicateInfo;
 import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -95,23 +93,16 @@ public final class TestUtil {
       public void startDuplicates() {
       }
 
-      public void addDuplicate(@NotNull DuplicateInfo duplicate) {
-        results.append("[Cost: ").append(duplicate.getCost());
-        results.append(" Density: ").append(duplicate.getDensity());
-        results.append(" Hash: ").append(duplicate.getHash()).append("\n");
-        for (final DuplicateInfo.Fragment fragment : duplicate.getFragments()) {
-          results.append("[File: ").append(fragment.getFile());
-          results.append("Hash: ").append(fragment.getHash());
-          results.append("Offset: ").append(fragment.getOffsetInfo());
+      public void reportDuplicate(@NotNull DuplicationInfo duplicate) {
+        results.append("[Cost: ").append(duplicate.getTokens());
+        results.append(" Hash: ").append(duplicate.getHash());
+        results.append(" Lines: ").append(duplicate.getLines()).append("\n");
+        for (final DuplicatesReporter.FragmentInfo fragment : duplicate.getFragments()) {
+          results.append("[File: ").append(fragment.getPath());
+          results.append(" Line: ").append(fragment.getLine());
           results.append("]\n");
         }
         results.append("]\n\n");
-      }
-
-      public void addDuplicates(@NotNull Collection<DuplicateInfo> duplicates) {
-        for (final DuplicateInfo duplicate : duplicates) {
-          addDuplicate(duplicate);
-        }
       }
 
       public void finishDuplicates() {

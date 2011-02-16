@@ -16,45 +16,38 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.util.Map;
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
-import org.xml.sax.XMLReader;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * User: vbedrosova
- * Date: 22.01.11
- * Time: 15:18
+ * Date: 08.02.11
+ * Time: 15:42
  */
-public interface ParseParameters {
-  boolean isVerbose();
+public class PathUtils {
+  private static final char SEPARATOR = '/';
 
   @NotNull
-  BuildProgressLogger getThreadLogger();
+  public static String resolvePath(@NotNull String base, @Nullable String path) {
+    if (path == null) return "";
 
-  @NotNull
-  BuildProgressLogger getInternalizingThreadLogger();
+    base = unifySlashes(base);
+    path = unifySlashes(path);
 
-  @NotNull
-  InspectionReporter getInspectionReporter();
+    String resolved = FileUtil.getRelativePath(base, path, SEPARATOR);
 
-  @NotNull
-  DuplicatesReporter getDuplicatesReporter();
+    if (resolved == null)
+      //noinspection ConstantConditions
+      return path;
 
-  @NotNull
-  Map<String, String> getParameters();
+    if (resolved.startsWith("./")) {
+      resolved = resolved.substring(2);
+    }
 
-  @NotNull
-  XMLReader getXmlReader();
-
-  @NotNull
-  String getType();
-
-  @NotNull
-  File getCheckoutDir();
-
-  @NotNull
-  File getTempDir();
+    return resolved;
+  }
+  private static String unifySlashes(String s) {
+    return s == null ? "" : s.replace('\\', SEPARATOR);
+  }
 }
