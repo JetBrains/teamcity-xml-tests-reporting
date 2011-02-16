@@ -54,7 +54,7 @@ public class MonitorRulesCommand {
   private final MonitorRulesParameters myParameters;
 
   @NotNull
-  private final FilesState myFilesState;
+  private final FileStates myFileStates;
 
   @NotNull
   private final MonitorRulesListener myListener;
@@ -65,13 +65,13 @@ public class MonitorRulesCommand {
   private final Map<File, MaskData> myMasks = new HashMap<File, MaskData>();
 
   @NotNull
-  private final Map<File, FileState> myFileStates = new HashMap<File, FileState>();
+  private final Map<File, FileState> myKnownStates = new HashMap<File, FileState>();
 
   public MonitorRulesCommand(@NotNull MonitorRulesParameters parameters,
-                             @NotNull FilesState filesState,
+                             @NotNull FileStates fileStates,
                              @NotNull MonitorRulesListener listener) {
     myParameters = parameters;
-    myFilesState = filesState;
+    myFileStates = fileStates;
     myListener = listener;
 
     myFirstRun = true;
@@ -88,22 +88,22 @@ public class MonitorRulesCommand {
       new MonitorRulesFileProcessor() {
         public void processFile(@NotNull File file) {
           if (acceptFile(file)) { //TODO: also grows
-            switch (myFilesState.getFileState(file)) {
+            switch (myFileStates.getFileState(file)) {
               case ON_PROCESSING:
                 return;
               case PROCESSED:
-                if (myFileStates.containsKey(file)) {
-                  myFileStates.remove(file);
+                if (myKnownStates.containsKey(file)) {
+                  myKnownStates.remove(file);
                 }
                 return;
               case UNKNOWN:
                 final long lastModified = file.lastModified();
                 final long length = file.length();
 
-                final FileState fileState = myFileStates.get(file);
+                final FileState fileState = myKnownStates.get(file);
 
                 if (fileState == null) {
-                  myFileStates.put(file, new FileState(lastModified, length));
+                  myKnownStates.put(file, new FileState(lastModified, length));
 
                   modificationDetected(file);
                 } else {
@@ -146,7 +146,7 @@ public class MonitorRulesCommand {
   }
 
   private void modificationDetected(File file) {
-    myFilesState.addFile(file);
+    myFileStates.addFile(file);
     myListener.modificationDetected(file);
   }
 

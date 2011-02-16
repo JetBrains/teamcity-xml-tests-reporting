@@ -85,7 +85,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
     };
   }
 
-  private void assertFileState(@NotNull FilesState.FileState state) {
+  private void assertFileState(@NotNull FileStates.FileState state) {
     assertTrue("Wrong file state", myRulesState.getFileState(myFile) == state);
   }
 
@@ -109,7 +109,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
       "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
     assertNotInPrevState();
-    assertFileState(FilesState.FileState.PROCESSED);
+    assertFileState(FileStates.FileState.PROCESSED);
   }
 
   @Test
@@ -124,7 +124,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
     assertNotContains(myResult, "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
     assertInPrevState();
-    assertFileState(FilesState.FileState.UNKNOWN);
+    assertFileState(FileStates.FileState.UNKNOWN);
   }
 
   @Test
@@ -140,7 +140,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
       "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
     assertNotInPrevState();
-    assertFileState(FilesState.FileState.PROCESSED);
+    assertFileState(FileStates.FileState.PROCESSED);
   }
 
   @Test
@@ -156,7 +156,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
       "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
     assertNotInPrevState();
-    assertFileState(FilesState.FileState.PROCESSED);
+    assertFileState(FileStates.FileState.PROCESSED);
   }
 
   @Test
@@ -172,7 +172,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
     assertNotContains(myResult, "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
     assertInPrevState();
-    assertFileState(FilesState.FileState.UNKNOWN);
+    assertFileState(FileStates.FileState.UNKNOWN);
   }
 
   @Test
@@ -189,7 +189,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
       "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
     assertNotInPrevState();
-    assertFileState(FilesState.FileState.PROCESSED);
+    assertFileState(FileStates.FileState.PROCESSED);
   }
 
   @NotNull

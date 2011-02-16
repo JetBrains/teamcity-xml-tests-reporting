@@ -16,16 +16,17 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.File;
 import java.util.Map;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * User: vbedrosova
  * Date: 16.12.10
  * Time: 18:06
  */
-public class ParseReportCommand implements Runnable { // TODO put parser engine and monitor engine to separate packages
+public class ParseReportCommand implements Runnable {
   @NotNull
   private final File myFile;
 
@@ -33,7 +34,7 @@ public class ParseReportCommand implements Runnable { // TODO put parser engine 
   private final ParseParameters myParameters;
 
   @NotNull
-  private final FilesState myFilesState;
+  private final FileStates myFileStates;
 
   @NotNull
   private final Map<File, ParsingResult> myPrevResults;
@@ -43,12 +44,12 @@ public class ParseReportCommand implements Runnable { // TODO put parser engine 
 
   public ParseReportCommand(@NotNull File file,
                             @NotNull ParseParameters parameters,
-                            @NotNull FilesState filesState,
+                            @NotNull FileStates fileStates,
                             @NotNull Map<File, ParsingResult> prevResults,
                             @NotNull ParserFactory parserFactory) {
     myFile = file;
     myParameters = parameters;
-    myFilesState = filesState;
+    myFileStates = fileStates;
     myPrevResults = prevResults;
     myParserFactory = parserFactory;
   }
@@ -70,11 +71,11 @@ public class ParseReportCommand implements Runnable { // TODO put parser engine 
     if (finished) { // file processed
       parsingResult.logAsFileResult(myFile, myParameters);
       myPrevResults.remove(myFile);
-      myFilesState.setFileProcessed(myFile, parsingResult);
+      myFileStates.setFileProcessed(myFile, parsingResult);
     } else {
       //todo: log file not processed
       myPrevResults.put(myFile, parsingResult);
-      myFilesState.removeFile(myFile);
+      myFileStates.removeFile(myFile);
     }
   }
 
