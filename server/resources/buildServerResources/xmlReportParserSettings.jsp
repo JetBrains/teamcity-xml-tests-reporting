@@ -167,7 +167,7 @@
             <props:multilineProperty name="xmlReportParsing.reportDirs" expanded="true" rows="5" cols="40"
                                      linkTitle="Type report directories"/>
         <span class="smallNote">
-          New line or comma separated set of rules in the form <strong>of +|-:checkout_dir_relative_path</strong>.<br/>
+          New line or comma separated set of rules in the form <strong>of +|-:path</strong>.<br/>
           Support ant-style wildcards like <strong>dir/**/*.xml</strong>.
         </span>
         <span class="error" id="error_xmlReportParsing.reportDirs"></span>
