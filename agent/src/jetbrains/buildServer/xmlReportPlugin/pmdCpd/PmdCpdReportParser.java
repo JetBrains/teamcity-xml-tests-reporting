@@ -28,7 +28,8 @@ import org.jetbrains.annotations.Nullable;
  * Time: 16:50:03
  */
 public class PmdCpdReportParser implements Parser {
-  private DuplicatesReporter myDuplicatesReporter;
+  @NotNull
+  private final DuplicatesReporter myDuplicatesReporter;
 
   public PmdCpdReportParser(@NotNull DuplicatesReporter duplicatesReporter) {
     myDuplicatesReporter = duplicatesReporter;
