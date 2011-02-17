@@ -45,11 +45,11 @@ public class PmdCpdXmlReportParser extends XmlXppAbstractParser {
 
           return reader.visitChildren(
             elementsPath(new Handler() {
-              public XmlReturn processElement(@NotNull XmlElementInfo xmlElementInfo) {
+              public XmlReturn processElement(@NotNull XmlElementInfo reader) {
                 final DuplicatesReporter.DuplicationInfo duplicationInfo
-                  = new DuplicatesReporter.DuplicationInfo(getInt(xmlElementInfo.getAttribute("lines")), getInt(xmlElementInfo.getAttribute("tokens")));
+                  = new DuplicatesReporter.DuplicationInfo(getInt(reader.getAttribute("lines")), getInt(reader.getAttribute("tokens")));
 
-                return xmlElementInfo.visitChildren(
+                return reader.visitChildren(
                   elementsPath(new TextHandler() {
                     public void setText(@NotNull String s) {
                       duplicationInfo.setHash(s.trim().hashCode());
@@ -57,9 +57,9 @@ public class PmdCpdXmlReportParser extends XmlXppAbstractParser {
                   }, "codefragment"),
 
                   elementsPath(new Handler() {
-                    public XmlReturn processElement(@NotNull XmlElementInfo xmlElementInfo) {
-                      duplicationInfo.addFragment(new DuplicatesReporter.FragmentInfo(xmlElementInfo.getAttribute("path"), getInt(xmlElementInfo.getAttribute("line"))));
-                      return xmlElementInfo.noDeep();
+                    public XmlReturn processElement(@NotNull XmlElementInfo reader) {
+                      duplicationInfo.addFragment(new DuplicatesReporter.FragmentInfo(reader.getAttribute("path"), getInt(reader.getAttribute("line"))));
+                      return reader.noDeep();
                     }
                   }, "file")
                 ).than(new XmlAction() {
