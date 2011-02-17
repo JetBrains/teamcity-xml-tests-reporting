@@ -69,6 +69,7 @@ public interface DuplicatesReporter {
     private final int myTokens;
     private int myHash;
 
+    @NotNull
     private final List<FragmentInfo> myFragments = new ArrayList<FragmentInfo>();
 
     public DuplicationInfo(int lines, int tokens) {
@@ -84,10 +85,11 @@ public interface DuplicatesReporter {
       return myTokens;
     }
 
-    public void addFragment(final FragmentInfo fragment) {
+    public void addFragment(@NotNull FragmentInfo fragment) {
       myFragments.add(fragment);
     }
 
+    @NotNull
     public List<FragmentInfo> getFragments() {
       return myFragments;
     }
