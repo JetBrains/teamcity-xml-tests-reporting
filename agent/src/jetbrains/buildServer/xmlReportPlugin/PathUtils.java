@@ -30,7 +30,7 @@ public class PathUtils {
 
   @NotNull
   public static String resolvePath(@NotNull String base, @Nullable String path) {
-    if (path == null) return "";
+    if (path == null || path.trim().length() == 0) return "<unknown>";
 
     base = unifySlashes(base);
     path = unifySlashes(path);
