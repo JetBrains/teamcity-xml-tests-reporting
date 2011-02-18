@@ -74,6 +74,11 @@ public class ParserUtils {
     return s.toString().replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").replaceAll("<[a-z]>|</[a-z]>", "").trim();
   }
 
+  @NotNull
+  public static String formatText(@NotNull String s) {
+    return s.replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").replaceAll("<[a-z]>|</[a-z]>", "").trim();
+  }
+
   public static boolean isReportComplete(@NotNull final File report, @NotNull String rootTag) {
     // here we preparse the report to check it's complete
     final CompleteReportHandler handler = new CompleteReportHandler(rootTag);
