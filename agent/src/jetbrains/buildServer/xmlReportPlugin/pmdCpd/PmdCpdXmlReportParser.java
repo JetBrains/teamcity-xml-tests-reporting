@@ -89,9 +89,9 @@ public class PmdCpdXmlReportParser extends XmlXppAbstractParser {
 
   private static int getInt(@Nullable String val) {
     try {
-      return val == null ? -1 : Integer.parseInt(val);
+      return val == null ? 0 : Integer.parseInt(val);
     } catch (NumberFormatException e) {
-      return -1;
+      return 0;
     }
   }
 }
