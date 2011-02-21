@@ -53,12 +53,14 @@ public abstract class BaseCommandTestCase extends TestCase {
   protected File myBaseFolder;
   protected long myTestStartTime;
 
+  @Override
   @Before
   public void setUp() throws Exception {
     myTestStartTime = new Date().getTime();
     myBaseFolder = FileUtil.createTempDirectory("", "");
   }
 
+  @Override
   @After
   public void tearDown() throws Exception {
     FileUtil.delete(myBaseFolder);
