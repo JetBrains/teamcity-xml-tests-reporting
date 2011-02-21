@@ -14,33 +14,37 @@
  * limitations under the License.
  */
 
-package jetbrains.buildServer.xmlReportPlugin;
+package jetbrains.buildServer.xmlReportPlugin.pmd;
 
-import jetbrains.buildServer.xmlReportPlugin.pmdCpd.PmdCpdReportParser;
+import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
+import jetbrains.buildServer.xmlReportPlugin.Parser;
+import jetbrains.buildServer.xmlReportPlugin.pmd.PmdReportParser;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
-/**
- * User: vbedrosova
- * Date: 07.09.2010
- * Time: 15:08:19
- */
-public class PmdCpdReportParserTest extends BaseParserTestCase {
+
+public class PmdReportParserTest extends BaseParserTestCase {
+  private static final String TYPE = "pmd";
   @NotNull
   @Override
   protected Parser getParser() {
-    return new PmdCpdReportParser(getDuplicatesReporter());
+    return new PmdReportParser(getInspectionReporter());
   }
 
   @NotNull
   @Override
   protected String getReportDir() {
-    return "pmdCpd";
+    return TYPE;
   }
 
   @Test
   public void testSimple() throws Exception {
-    runTest("result.xml");
+    runTest("simple.xml");
+  }
+
+  @Test
+  public void testInner() throws Exception {
+    runTest("inner.xml");
   }
 
   private void runTest(final String reportName) throws Exception {

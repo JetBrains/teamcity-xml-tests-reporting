@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package jetbrains.buildServer.xmlReportPlugin;
+package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
+import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
+import jetbrains.buildServer.xmlReportPlugin.TestsParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitReportParser;
 import junit.framework.Assert;
 import org.jetbrains.annotations.NotNull;

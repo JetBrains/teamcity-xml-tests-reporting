@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package jetbrains.buildServer.xmlReportPlugin;
+package jetbrains.buildServer.xmlReportPlugin.checkstyle;
 
+import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
+import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleReportParser;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;

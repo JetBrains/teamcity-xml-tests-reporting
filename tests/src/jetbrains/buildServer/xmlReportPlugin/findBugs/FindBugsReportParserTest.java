@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-package jetbrains.buildServer.xmlReportPlugin;
+package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
 import jetbrains.buildServer.util.FileUtil;
+import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
+import jetbrains.buildServer.xmlReportPlugin.Parser;
+import jetbrains.buildServer.xmlReportPlugin.TestUtil;
 import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
@@ -35,7 +38,8 @@ public class FindBugsReportParserTest extends BaseParserTestCase {
   @Override
   protected Parser getParser() {
     try {
-      return new FindBugsReportParser(getInspectionReporter(), FINDBUGS_HOME != null && new File(FINDBUGS_HOME).exists() ? FINDBUGS_HOME : TestUtil.getTestDataPath(TYPE, null));
+      return new FindBugsReportParser(getInspectionReporter(), FINDBUGS_HOME != null && new File(FINDBUGS_HOME).exists() ? FINDBUGS_HOME : TestUtil
+        .getTestDataPath(TYPE, null));
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }
