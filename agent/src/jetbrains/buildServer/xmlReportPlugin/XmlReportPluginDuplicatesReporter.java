@@ -30,7 +30,7 @@ public class XmlReportPluginDuplicatesReporter implements DuplicatesReporter {
 
     for (DuplicatesReporter.FragmentInfo fragment : duplicate.getFragments()) {
       fragmentsList.add(new DuplicateInfo.Fragment(duplicate.getHash(),
-        PathUtils.resolvePath(myBaseFolder.getAbsolutePath(), fragment.getPath()), fragment.getLine(),
+        PathUtils.getRelativePath(myBaseFolder.getAbsolutePath(), fragment.getPath()), fragment.getLine(),
         new DuplicateInfo.LineOffset(fragment.getLine(), fragment.getLine() + duplicate.getLines())));
     }
 

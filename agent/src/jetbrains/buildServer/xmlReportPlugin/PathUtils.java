@@ -29,7 +29,7 @@ public class PathUtils {
   private static final char SEPARATOR = '/';
 
   @NotNull
-  public static String resolvePath(@NotNull String base, @Nullable String path) {
+  public static String getRelativePath(@NotNull String base, @Nullable String path) {
     if (path == null || path.trim().length() == 0) return "<unknown>";
 
     base = unifySlashes(base);
