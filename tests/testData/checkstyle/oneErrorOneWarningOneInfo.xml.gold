@@ -1,5 +1,6 @@
 InspectionTypeInfo{myId='Source1', myName='Source1', myDescription='From Source1', myCategory='error'}
-InspectionInstance{myInspectionId='Source1', myMessage='Error message', myFilePath='SomeClass.java', myLine=14, myAttributes={<SEVERITY>: ERROR }}
+InspectionInstance{myInspectionId='Source1', myMessage='Error message', myFilePath='SomeClass.java', myLine=14, myPriority=1}
 InspectionTypeInfo{myId='Source2', myName='Source2', myDescription='From Source2', myCategory='warning'}
-InspectionInstance{myInspectionId='Source2', myMessage='Warning message', myFilePath='SomeClass.java', myLine=22, myAttributes={<SEVERITY>: WARNING }}
-InspectionInstance{myInspectionId='Source2', myMessage='Info message', myFilePath='SomeClass.java', myLine=51, myAttributes={<SEVERITY>: INFO }}
+InspectionInstance{myInspectionId='Source2', myMessage='Warning message', myFilePath='SomeClass.java', myLine=22, myPriority=2}
+InspectionTypeInfo{myId='Source2', myName='Source2', myDescription='From Source2', myCategory='info'}
+InspectionInstance{myInspectionId='Source2', myMessage='Info message', myFilePath='SomeClass.java', myLine=51, myPriority=3}
