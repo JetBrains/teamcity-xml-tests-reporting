@@ -19,8 +19,8 @@ package jetbrains.buildServer.xmlReportPlugin.pmd;
 import java.util.Arrays;
 import java.util.List;
 import jetbrains.buildServer.util.XmlXppAbstractParser;
-import jetbrains.buildServer.xmlReportPlugin.InspectionResult;
-import jetbrains.buildServer.xmlReportPlugin.InspectionTypeResult;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionTypeResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

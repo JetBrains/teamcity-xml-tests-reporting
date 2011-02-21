@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package jetbrains.buildServer.xmlReportPlugin;
+package jetbrains.buildServer.xmlReportPlugin.inspections;
 
+import jetbrains.buildServer.xmlReportPlugin.MessageLogger;
 import org.jetbrains.annotations.NotNull;
 
 /**

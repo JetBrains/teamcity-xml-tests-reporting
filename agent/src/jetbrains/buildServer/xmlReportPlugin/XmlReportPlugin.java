@@ -22,12 +22,14 @@ import java.util.*;
 import java.util.concurrent.*;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
-import jetbrains.buildServer.agent.inspections.*;
 import jetbrains.buildServer.messages.serviceMessages.MapSerializerUtil;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.NamedThreadFactory;
 import jetbrains.buildServer.util.ThreadUtil;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.XmlReportPluginDuplicatesReporter;
+import jetbrains.buildServer.xmlReportPlugin.inspections.XmlReportPluginInspectionReporter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.xml.sax.SAXException;
@@ -461,7 +463,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         }
 
         @NotNull
-        public InspectionReporter getInspectionReporter() {
+        public jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter getInspectionReporter() {
           return new XmlReportPluginInspectionReporter(myInspectionReporter, getBuild().getBuildLogger(), getCheckoutDir());
         }
 

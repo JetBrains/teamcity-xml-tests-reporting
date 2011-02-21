@@ -18,6 +18,10 @@ package jetbrains.buildServer.xmlReportPlugin.pmd;
 
 import java.io.IOException;
 import jetbrains.buildServer.xmlReportPlugin.*;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionTypeResult;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionsParsingResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

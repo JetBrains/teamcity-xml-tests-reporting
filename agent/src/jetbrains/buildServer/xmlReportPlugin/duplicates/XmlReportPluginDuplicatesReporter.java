@@ -1,8 +1,12 @@
-package jetbrains.buildServer.xmlReportPlugin;
+package jetbrains.buildServer.xmlReportPlugin.duplicates;
 
 import java.io.File;
 import java.util.ArrayList;
 import jetbrains.buildServer.duplicator.DuplicateInfo;
+import jetbrains.buildServer.xmlReportPlugin.PathUtils;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatingFragment;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationResult;
 import org.jetbrains.annotations.NotNull;
 
 /**

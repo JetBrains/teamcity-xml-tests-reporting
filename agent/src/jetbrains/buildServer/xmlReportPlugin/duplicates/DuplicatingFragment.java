@@ -1,4 +1,4 @@
-package jetbrains.buildServer.xmlReportPlugin;
+package jetbrains.buildServer.xmlReportPlugin.duplicates;
 
 import org.jetbrains.annotations.Nullable;
 

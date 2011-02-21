@@ -3,6 +3,7 @@ package jetbrains.buildServer.xmlReportPlugin.mstest;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.xmlReportPlugin.TestUtil;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

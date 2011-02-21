@@ -19,8 +19,8 @@ package jetbrains.buildServer.xmlReportPlugin.pmdCpd;
 import java.util.Arrays;
 import java.util.List;
 import jetbrains.buildServer.util.XmlXppAbstractParser;
-import jetbrains.buildServer.xmlReportPlugin.DuplicationResult;
-import jetbrains.buildServer.xmlReportPlugin.DuplicatingFragment;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationResult;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatingFragment;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

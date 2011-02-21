@@ -1,4 +1,4 @@
-package jetbrains.buildServer.xmlReportPlugin.mstest;
+package jetbrains.buildServer.xmlReportPlugin.tests;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

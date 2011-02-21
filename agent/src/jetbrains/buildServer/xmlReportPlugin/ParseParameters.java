@@ -19,6 +19,8 @@ package jetbrains.buildServer.xmlReportPlugin;
 import java.io.File;
 import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.XMLReader;
 

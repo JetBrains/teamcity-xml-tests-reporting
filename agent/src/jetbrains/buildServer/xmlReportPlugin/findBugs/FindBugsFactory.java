@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.findBugs;
 
 import jetbrains.buildServer.xmlReportPlugin.*;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionsParsingResult;
 import org.jetbrains.annotations.NotNull;
 
 /**

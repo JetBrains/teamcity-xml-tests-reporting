@@ -1,6 +1,8 @@
 package jetbrains.buildServer.xmlReportPlugin.mstest;
 
 import jetbrains.buildServer.xmlReportPlugin.*;
+import jetbrains.buildServer.xmlReportPlugin.tests.TeamCityTestsResultsWriter;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestsParsingResult;
 import org.jetbrains.annotations.NotNull;
 
 /**

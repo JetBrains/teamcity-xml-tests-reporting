@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
 import jetbrains.buildServer.xmlReportPlugin.*;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestsParsingResult;
 import org.jetbrains.annotations.NotNull;
 
 /**

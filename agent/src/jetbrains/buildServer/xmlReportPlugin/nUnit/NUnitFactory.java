@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.nUnit;
 
 import jetbrains.buildServer.xmlReportPlugin.*;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestsParsingResult;
 import org.jetbrains.annotations.NotNull;
 
 /**

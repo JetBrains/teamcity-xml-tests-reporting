@@ -19,6 +19,8 @@ package jetbrains.buildServer.xmlReportPlugin.pmdCpd;
 import java.io.File;
 import java.io.IOException;
 import jetbrains.buildServer.xmlReportPlugin.*;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

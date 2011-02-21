@@ -18,6 +18,12 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import java.io.*;
 import java.util.*;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatingFragment;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationResult;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionTypeResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

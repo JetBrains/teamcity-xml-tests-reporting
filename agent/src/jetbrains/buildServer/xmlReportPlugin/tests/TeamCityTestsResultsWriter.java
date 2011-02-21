@@ -1,4 +1,4 @@
-package jetbrains.buildServer.xmlReportPlugin.mstest;
+package jetbrains.buildServer.xmlReportPlugin.tests;
 
 import java.util.Stack;
 import jetbrains.buildServer.agent.BuildProgressLogger;
