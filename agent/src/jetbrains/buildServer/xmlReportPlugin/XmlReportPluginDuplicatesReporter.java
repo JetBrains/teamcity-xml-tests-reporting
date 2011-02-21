@@ -25,10 +25,10 @@ public class XmlReportPluginDuplicatesReporter implements DuplicatesReporter {
     myDuplicatesReporter.startDuplicates();
   }
 
-  public void reportDuplicate(@NotNull DuplicationInfo duplicate) {
+  public void reportDuplicate(@NotNull DuplicationResult duplicate) {
     final ArrayList<DuplicateInfo.Fragment> fragmentsList = new ArrayList<DuplicateInfo.Fragment>();
 
-    for (DuplicatesReporter.FragmentInfo fragment : duplicate.getFragments()) {
+    for (DuplicatingFragment fragment : duplicate.getFragments()) {
       fragmentsList.add(new DuplicateInfo.Fragment(duplicate.getHash(),
         PathUtils.getRelativePath(myBaseFolder.getAbsolutePath(), fragment.getPath()), fragment.getLine(),
         new DuplicateInfo.LineOffset(fragment.getLine(), fragment.getLine() + duplicate.getLines())));

@@ -19,7 +19,8 @@ package jetbrains.buildServer.xmlReportPlugin.pmdCpd;
 import java.util.Arrays;
 import java.util.List;
 import jetbrains.buildServer.util.XmlXppAbstractParser;
-import jetbrains.buildServer.xmlReportPlugin.DuplicatesReporter;
+import jetbrains.buildServer.xmlReportPlugin.DuplicationResult;
+import jetbrains.buildServer.xmlReportPlugin.DuplicatingFragment;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,25 +47,25 @@ public class PmdCpdXmlReportParser extends XmlXppAbstractParser {
           return reader.visitChildren(
             elementsPath(new Handler() {
               public XmlReturn processElement(@NotNull XmlElementInfo reader) {
-                final DuplicatesReporter.DuplicationInfo duplicationInfo
-                  = new DuplicatesReporter.DuplicationInfo(getInt(reader.getAttribute("lines")), getInt(reader.getAttribute("tokens")));
+                final DuplicationResult duplicationResult
+                  = new DuplicationResult(getInt(reader.getAttribute("lines")), getInt(reader.getAttribute("tokens")));
 
                 return reader.visitChildren(
                   elementsPath(new TextHandler() {
                     public void setText(@NotNull String s) {
-                      duplicationInfo.setHash(s.trim().hashCode());
+                      duplicationResult.setHash(s.trim().hashCode());
                     }
                   }, "codefragment"),
 
                   elementsPath(new Handler() {
                     public XmlReturn processElement(@NotNull XmlElementInfo reader) {
-                      duplicationInfo.addFragment(new DuplicatesReporter.FragmentInfo(reader.getAttribute("path"), getInt(reader.getAttribute("line"))));
+                      duplicationResult.addFragment(new DuplicatingFragment(reader.getAttribute("path"), getInt(reader.getAttribute("line"))));
                       return reader.noDeep();
                     }
                   }, "file")
                 ).than(new XmlAction() {
                   public void apply() {
-                    myCallback.reportDuplicate(duplicationInfo);
+                    myCallback.reportDuplicate(duplicationResult);
                   }
                 });
               }
@@ -84,7 +85,7 @@ public class PmdCpdXmlReportParser extends XmlXppAbstractParser {
 
     void finishDuplicates();
 
-    void reportDuplicate(@NotNull DuplicatesReporter.DuplicationInfo duplicate);
+    void reportDuplicate(@NotNull DuplicationResult duplicate);
   }
 
   private static int getInt(@Nullable String val) {

@@ -50,7 +50,7 @@ public class PmdCpdReportParser implements Parser {
           myDuplicatesReporter.finishDuplicates();
         }
 
-        public void reportDuplicate(@NotNull DuplicatesReporter.DuplicationInfo duplicate) {
+        public void reportDuplicate(@NotNull DuplicationResult duplicate) {
           myDuplicatesReporter.reportDuplicate(duplicate);
         }
       }).parse(file);

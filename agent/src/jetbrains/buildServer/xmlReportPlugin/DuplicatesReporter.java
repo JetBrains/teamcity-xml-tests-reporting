@@ -16,10 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 /**
  * User: vbedrosova
@@ -37,70 +34,11 @@ public interface DuplicatesReporter {
    *
    * @param duplicate Duplicate info
    */
-  void reportDuplicate(@NotNull DuplicationInfo duplicate);
+  void reportDuplicate(@NotNull DuplicationResult duplicate);
 
   /**
    * Indicates the end of a duplicates block
    */
   void finishDuplicates();
-
-  static final class FragmentInfo {
-    @Nullable
-    private final String myPath;
-    private final int myLine;
-
-    public FragmentInfo(@Nullable String path, int line) {
-      myPath = path;
-      myLine = line;
-    }
-
-    @Nullable
-    public String getPath() {
-      return myPath;
-    }
-
-    public int getLine() {
-      return myLine;
-    }
-  }
-
-  static final class DuplicationInfo {
-    private final int myLines;
-    private final int myTokens;
-    private int myHash;
-
-    @NotNull
-    private final List<FragmentInfo> myFragments = new ArrayList<FragmentInfo>();
-
-    public DuplicationInfo(int lines, int tokens) {
-      myLines = lines;
-      myTokens = tokens;
-    }
-
-    public int getLines() {
-      return myLines;
-    }
-
-    public int getTokens() {
-      return myTokens;
-    }
-
-    public void addFragment(@NotNull FragmentInfo fragment) {
-      myFragments.add(fragment);
-    }
-
-    @NotNull
-    public List<FragmentInfo> getFragments() {
-      return myFragments;
-    }
-
-    public int getHash() {
-      return myHash;
-    }
-
-    public void setHash(int hash) {
-      myHash = hash;
-    }
-  }
 }
 

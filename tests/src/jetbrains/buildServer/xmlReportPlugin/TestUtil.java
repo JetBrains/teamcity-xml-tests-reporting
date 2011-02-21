@@ -89,11 +89,11 @@ public final class TestUtil {
       public void startDuplicates() {
       }
 
-      public void reportDuplicate(@NotNull DuplicationInfo duplicate) {
+      public void reportDuplicate(@NotNull DuplicationResult duplicate) {
         results.append("[Cost: ").append(duplicate.getTokens());
         results.append(" Hash: ").append(duplicate.getHash());
         results.append(" Lines: ").append(duplicate.getLines()).append("\n");
-        for (final DuplicatesReporter.FragmentInfo fragment : duplicate.getFragments()) {
+        for (final DuplicatingFragment fragment : duplicate.getFragments()) {
           results.append("[File: ").append(fragment.getPath());
           results.append(" Line: ").append(fragment.getLine());
           results.append("]\n");
