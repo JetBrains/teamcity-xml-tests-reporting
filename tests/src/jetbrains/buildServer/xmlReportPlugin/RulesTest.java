@@ -31,7 +31,7 @@ import java.util.HashSet;
  * Date: 10.12.10
  * Time: 19:32
  */
-public class XmlReportPluginRulesTest extends TestCase {
+public class RulesTest extends TestCase {
   @Test
   public void test_path_include() {
     final Rules rules = createRules("+:some/path");
