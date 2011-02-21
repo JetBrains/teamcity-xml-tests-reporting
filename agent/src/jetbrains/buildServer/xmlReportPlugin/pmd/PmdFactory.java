@@ -27,8 +27,7 @@ import org.jetbrains.annotations.NotNull;
 public class PmdFactory implements ParserFactory {
   @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
-    return new PmdReportParser(parameters.getXmlReader(), parameters.getInspectionReporter(),
-      parameters.getCheckoutDir(), parameters.getThreadLogger());
+    return new PmdReportParser(parameters.getInspectionReporter());
   }
 
   @NotNull

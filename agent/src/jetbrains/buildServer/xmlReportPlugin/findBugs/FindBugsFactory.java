@@ -27,9 +27,7 @@ import org.jetbrains.annotations.NotNull;
 public class FindBugsFactory implements ParserFactory {
   @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
-    return new FindBugsReportParser(parameters.getXmlReader(), parameters.getInspectionReporter(),
-      parameters.getCheckoutDir(), XmlReportPluginUtil.getFindBugsHomePath(parameters.getParameters()),
-      parameters.getThreadLogger());
+    return new FindBugsReportParser(parameters.getInspectionReporter(), XmlReportPluginUtil.getFindBugsHomePath(parameters.getParameters()));
   }
 
   @NotNull

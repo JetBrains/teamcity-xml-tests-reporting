@@ -26,7 +26,7 @@ public class PmdReportParserTest extends BaseParserTestCase {
   @NotNull
   @Override
   protected Parser getParser() {
-    return new PmdReportParser(getXMLReader(), getInspectionReporter(), getBaseDir(), getLogger());
+    return new PmdReportParser(getInspectionReporter());
   }
 
   @NotNull

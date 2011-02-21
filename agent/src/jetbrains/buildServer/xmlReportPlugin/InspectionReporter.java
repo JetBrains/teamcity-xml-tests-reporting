@@ -16,44 +16,25 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.util.Map;
-import jetbrains.buildServer.agent.BuildProgressLogger;
 import org.jetbrains.annotations.NotNull;
-import org.xml.sax.XMLReader;
 
 /**
  * User: vbedrosova
- * Date: 22.01.11
- * Time: 15:18
+ * Date: 17.02.11
+ * Time: 13:24
  */
-public interface ParseParameters {
-  boolean isVerbose();
+public interface InspectionReporter extends MessageLogger {
+  /**
+   * Report inspection instance
+   *
+   * @param inspection Inspection description
+   */
+  void reportInspection(@NotNull InspectionResult inspection);
 
-  @NotNull
-  BuildProgressLogger getThreadLogger();
-
-  @NotNull
-  BuildProgressLogger getInternalizingThreadLogger();
-
-  @NotNull
-  InspectionReporter getInspectionReporter();
-
-  @NotNull
-  DuplicatesReporter getDuplicatesReporter();
-
-  @NotNull
-  Map<String, String> getParameters();
-
-  @NotNull
-  XMLReader getXmlReader();
-
-  @NotNull
-  String getType();
-
-  @NotNull
-  File getCheckoutDir();
-
-  @NotNull
-  File getTempDir();
+  /**
+   * Report inspection description
+   *
+   * @param inspectionType Inspection type description
+   */
+  void reportInspectionType(@NotNull InspectionTypeResult inspectionType);
 }

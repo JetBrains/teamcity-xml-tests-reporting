@@ -35,8 +35,7 @@ public class FindBugsReportParserTest extends BaseParserTestCase {
   @Override
   protected Parser getParser() {
     try {
-      return new FindBugsReportParser(getXMLReader(), getInspectionReporter(), getTestDataFile(null, TYPE),
-        FINDBUGS_HOME != null && new File(FINDBUGS_HOME).exists() ? FINDBUGS_HOME : TestUtil.getTestDataPath(TYPE, null), getLogger());
+      return new FindBugsReportParser(getInspectionReporter(), FINDBUGS_HOME != null && new File(FINDBUGS_HOME).exists() ? FINDBUGS_HOME : TestUtil.getTestDataPath(TYPE, null));
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }

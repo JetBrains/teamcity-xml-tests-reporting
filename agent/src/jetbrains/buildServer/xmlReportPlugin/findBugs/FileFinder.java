@@ -23,22 +23,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 
 public class FileFinder {
-  private final List<Entry> myJars;
+  @NotNull
+  private final List<Entry> myJars = new LinkedList<Entry>();
 
-  public FileFinder() {
-    myJars = new LinkedList<Entry>();
-  }
-
-  public void addJars(List<String> jars) {
-    for (String jar : jars) {
-      addJar(jar);
-    }
-  }
-
-  public void addJar(String jar) {
+  public void addJar(@NotNull String jar) {
     jar = getDependentPath(jar, File.separator);
     if (jar.endsWith(".zip") || jar.endsWith(".jar")) {
       try {
@@ -53,21 +46,19 @@ public class FileFinder {
     }
   }
 
-  public String getVeryFullFilePath(String filePath) {
-    if (filePath == null) {
-      return "";
-    }
+  @Nullable
+  public String getVeryFullFilePath(@Nullable String filePath) {
+    if (filePath == null) return null;
+
     filePath = getDependentPath(filePath, File.separator);
-    if (filePath.contains("$") && filePath.endsWith(".java")) {
-      filePath = filePath.substring(0, filePath.indexOf("$")) + ".class";
-    }
+
     for (Entry jar : myJars) {
       final String veryFullFilePath = jar.getFilePath(filePath);
       if (veryFullFilePath != null) {
         return veryFullFilePath;
       }
     }
-    return "";
+    return null;
   }
 
   public void close() {
@@ -76,15 +67,16 @@ public class FileFinder {
     }
   }
 
-  private static String getDependentPath(String path, String separator) {
+  @NotNull
+  private static String getDependentPath(@NotNull String path, @NotNull String separator) {
     return path.replace("\\", separator).replace("/", separator);
   }
 
   private static abstract class Entry {
-    public abstract String getFilePath(String fileName);
+    @Nullable
+    public abstract String getFilePath(@NotNull String fileName);
 
-    public void close() {
-    }
+    public void close() {}
   }
 
   private static final class DirectoryEntry extends Entry {
@@ -94,11 +86,12 @@ public class FileFinder {
       myRoot = root;
     }
 
-    public String getFilePath(String fileName) {
+    @Override
+    public String getFilePath(@NotNull String fileName) {
       return getFilePathRecursive(new File(myRoot).listFiles(), fileName);
     }
 
-    private String getFilePathRecursive(File[] files, String relativePath) {
+    private String getFilePathRecursive(File[] files, @NotNull String relativePath) {
       if (files == null) {
         return null;
       }
@@ -128,7 +121,8 @@ public class FileFinder {
       myArchive = archive;
     }
 
-    public String getFilePath(String fileName) {
+    @Override
+    public String getFilePath(@NotNull String fileName) {
       final String filePathInZip = getDependentPath(fileName, "/");
       for (Enumeration<? extends ZipEntry> e = myArchive.entries(); e.hasMoreElements();) {
         final String entry = e.nextElement().getName();
@@ -139,6 +133,7 @@ public class FileFinder {
       return null;
     }
 
+    @Override
     public void close() {
       try {
         myArchive.close();
@@ -155,7 +150,8 @@ public class FileFinder {
       myFile = file;
     }
 
-    public String getFilePath(String fileName) {
+    @Override
+    public String getFilePath(@NotNull String fileName) {
       return myFile.endsWith(fileName) ? myFile : null;
     }
   }

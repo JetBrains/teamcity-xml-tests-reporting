@@ -16,75 +16,58 @@
 
 package jetbrains.buildServer.xmlReportPlugin.pmd;
 
-import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.agent.inspections.InspectionInstance;
-import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import jetbrains.buildServer.xmlReportPlugin.InspectionsReportParser;
-import jetbrains.buildServer.xmlReportPlugin.ParserUtils;
-import jetbrains.buildServer.xmlReportPlugin.ParsingException;
-import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
+import java.io.IOException;
+import jetbrains.buildServer.xmlReportPlugin.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 
 import java.io.File;
 
 
-public class PmdReportParser extends InspectionsReportParser {
-  public static final String TYPE = "pmd";
-  private static final String DEFAULT_MESSAGE = "No message";
+public class PmdReportParser implements Parser {
+  @NotNull
+  private final InspectionReporter myInspectionReporter;
 
-  private String myCurrentFile;
+  private int myErrors;
+  private int myWarnings;
+  private int myInfos;
 
-  public PmdReportParser(@NotNull XMLReader xmlReader,
-                         @NotNull InspectionReporter inspectionReporter,
-                         @NotNull File checkoutDirectory,
-                         @NotNull BuildProgressLogger logger) {
-    super(xmlReader, inspectionReporter, checkoutDirectory, logger, true);
+  public PmdReportParser(@NotNull InspectionReporter inspectionReporter) {
+    myInspectionReporter = inspectionReporter;
   }
 
-  public boolean parse(@NotNull File file, @Nullable ParsingResult prevResult) throws ParsingException {
+  public boolean parse(@NotNull final File file, @Nullable final ParsingResult prevResult) throws ParsingException {
     if (!ParserUtils.isReportComplete(file, "pmd")) {
       return false;
     }
-    parse(file);
+
+    try {
+      new PmdXmlReportParser(new PmdXmlReportParser.Callback() {
+        public void reportInspection(@NotNull final InspectionResult inspection) {
+          switch (inspection.getPriority()) {
+            case 1:
+              ++myErrors;
+              break;
+            case 2:
+              ++myWarnings;
+              break;
+            default:
+              ++myInfos;
+          }
+          myInspectionReporter.reportInspection(inspection);
+        }
+
+        public void reportInspectionType(@NotNull final InspectionTypeResult inspectionType) {
+          myInspectionReporter.reportInspectionType(inspectionType);
+        }
+      }).parse(file);
+    } catch (IOException e) {
+      throw new ParsingException(e);
+    }
     return true;
   }
 
-  //  Handler methods
-
-  @Override
-  public void startElement(String uri, String localName,
-                           String qName, Attributes attributes) throws SAXException {
-    if ("file".equals(localName)) {
-      myCurrentFile = getRelativePath(attributes.getValue("name"), myCheckoutDirectory);
-    } else if ("violation".equals(localName)) {
-      myCurrentBug = new InspectionInstance();
-      myCurrentBug.setLine(getNumber(attributes.getValue("beginline")));
-      myCurrentBug.setInspectionId(attributes.getValue("rule"));
-      myCurrentBug.setMessage(DEFAULT_MESSAGE);
-      myCurrentBug.setFilePath(myCurrentFile);
-      reportInspectionType(attributes);
-      processPriority(getNumber(attributes.getValue("priority")));
-    }
-  }
-
-  @Override
-  public void endElement(String uri, String localName, String qName) throws SAXException {
-    if ("violation".equals(localName)) {
-      myCurrentBug.setMessage(ParserUtils.formatText(getCData()));
-      myInspectionReporter.reportInspection(myCurrentBug);
-    }
-    clearCData();
-  }
-
-  // Auxiliary methods
-
-  private void reportInspectionType(Attributes attributes) {
-    final String id = attributes.getValue("rule");
-    final String category = attributes.getValue("ruleset");
-    reportInspectionType(id, id, category, category, myInspectionReporter);
+  public ParsingResult getParsingResult() {
+    return new InspectionsParsingResult(myErrors, myWarnings, myInfos);
   }
 }

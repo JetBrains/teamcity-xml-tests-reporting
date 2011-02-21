@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.util.FileUtil;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;

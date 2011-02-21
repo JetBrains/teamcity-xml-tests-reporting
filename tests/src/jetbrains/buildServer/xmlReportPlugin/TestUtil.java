@@ -18,15 +18,8 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import java.io.*;
 import java.util.*;
-import jetbrains.buildServer.agent.inspections.InspectionInstance;
-import jetbrains.buildServer.agent.inspections.InspectionReporter;
-import jetbrains.buildServer.agent.inspections.InspectionReporterListener;
-import jetbrains.buildServer.agent.inspections.InspectionTypeInfo;
-import jetbrains.buildServer.util.FileUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
 
 
 public final class TestUtil {
@@ -69,21 +62,24 @@ public final class TestUtil {
 
   public static InspectionReporter createInspectionReporter(final StringBuilder results) {
     return new InspectionReporter() {
-      public void reportInspection(@NotNull final InspectionInstance inspection) {
+      public void reportInspection(@NotNull final InspectionResult inspection) {
         results.append(inspection.toString()).append("\n");
       }
 
-      public void reportInspectionType(@NotNull final InspectionTypeInfo inspectionType) {
+      public void reportInspectionType(@NotNull final InspectionTypeResult inspectionType) {
         results.append(inspectionType.toString()).append("\n");
       }
 
-      public void markBuildAsInspectionsBuild() {
+      public void info(@NotNull final String message) {
+        results.append("MESSAGE: ").append(message).append("\n");
       }
 
-      public void flush() {
+      public void warning(@NotNull final String message) {
+        results.append("WARNING: ").append(message).append("\n");
       }
 
-      public void addListener(@NotNull final InspectionReporterListener listener) {
+      public void error(@NotNull final String message) {
+        results.append("ERROR: ").append(message).append("\n");
       }
     };
   }
@@ -108,166 +104,5 @@ public final class TestUtil {
       public void finishDuplicates() {
       }
     };
-  }
-
-  public static InspectionReporter createInspectionReporter(Mockery context) {
-    final InspectionReporter reporter = context.mock(InspectionReporter.class);
-    context.checking(new Expectations() {
-      {
-        ignoring(reporter);
-      }
-    });
-    return reporter;
-  }
-
-  public static DuplicatesReporter createDuplicatesReporter(Mockery context) {
-    final DuplicatesReporter reporter = context.mock(DuplicatesReporter.class);
-    context.checking(new Expectations() {
-      {
-        ignoring(reporter);
-      }
-    });
-    return reporter;
-  }
-
-/*
-  private static PathParameters createPathParameters(@NotNull final BuildProgressLogger logger) {
-    return new PathParameters() {
-      @NotNull
-      public LogAction getWhenNoDataPublished() {
-        return LogAction.ERROR;
-      }
-
-      public boolean isParseOutOfDate() {
-        return false;
-      }
-
-      public boolean isVerbose() {
-        return true;
-      }
-
-      @NotNull
-      public BuildProgressLogger getPathLogger() {
-        return logger;
-      }
-    };
-  }
-
-  public static ReportContext createReportContext(@NotNull final File file, @NotNull String type, @NotNull final BuildProgressLogger logger) {
-    return new ReportContext(file, type, TestUtil.createPathParameters(logger));
-  }
-
-  @NotNull
-  private static final String OPERATION_NOT_SUPPORTED = "Operation not supported";
-
-  public static XmlReportPluginParameters createParameters(@NotNull final BuildProgressLogger logger,
-                                                    @Nullable final Collection<String> types,
-                                                    @Nullable final Collection<File> input,
-                                                    @Nullable final File checkoutDir,
-                                                    @Nullable final Map<String, String> parameters) {
-
-    return new XmlReportPluginParameters() {
-      @Nullable
-      final XmlReportPluginRules myRules = input != null && checkoutDir != null ? new XmlReportPluginRules(getPathsStrings(input, checkoutDir), checkoutDir.getAbsolutePath()) : null;
-
-      public boolean isVerbose() {
-        return true;
-      }
-
-      @NotNull
-      public FlowLogger getThreadLogger() {
-        return (FlowLogger) logger;
-      }
-
-      public long getBuildStartTime() {
-        return 0;
-      }
-
-      @NotNull
-      public Collection<String> getTypes() {
-        if (types != null) return types;
-        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
-      }
-
-      @NotNull
-      public Collection<File> getPaths(@NotNull String type) {
-        if (myRules != null) return myRules.getRootIncludePaths();
-        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
-      }
-
-      @NotNull
-      public XmlReportPluginRules getRules(@NotNull String type) {
-        if (myRules != null) return myRules;
-        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
-      }
-
-      @NotNull
-      public PathParameters getPathParameters(@NotNull File path) {
-        return createPathParameters(logger);
-      }
-
-      @NotNull
-      public Map<String, String> getRunnerParameters() {
-        if (parameters != null) return parameters;
-        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
-      }
-
-      @NotNull
-      public String getCheckoutDir() {
-        if (checkoutDir != null) return checkoutDir.getAbsolutePath();
-        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
-      }
-
-      public String getFindBugsHome() {
-        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
-      }
-
-      @NotNull
-      public String getTmpDir() {
-        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
-      }
-
-      @NotNull
-      public String getNUnitSchema() {
-        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
-      }
-
-      public boolean checkReportComplete() {
-        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
-      }
-
-      public boolean checkReportGrows() {
-        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
-      }
-
-      public InspectionReporter getInspectionReporter() {
-        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
-      }
-
-      public DuplicatesReporter getDuplicatesReporter() {
-        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
-      }
-
-      public void setListener(@NotNull ParametersListener listener) {
-      }
-
-      public void updateParameters(@NotNull Set<File> paths, @NotNull Map<String, String> parameters) {
-        throw new UnsupportedOperationException(OPERATION_NOT_SUPPORTED);
-      }
-    };
-  }
-*/
-
-  @NotNull
-  private static Set<String> getPathsStrings(@NotNull final Collection<File> paths, @NotNull final File checkoutDir) {
-    final Set<String> pathsStr = new HashSet<String>(paths.size());
-    for (final File path : paths) {
-      if (path.getPath().startsWith("-:") || path.getPath().startsWith("+:")) {
-        pathsStr.add(path.getPath());
-        continue;
-      }
-      pathsStr.add(FileUtil.getRelativePath(checkoutDir, path));
-    }
-    return pathsStr;
   }
 }

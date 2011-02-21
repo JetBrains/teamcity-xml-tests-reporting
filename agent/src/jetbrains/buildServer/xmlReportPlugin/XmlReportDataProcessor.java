@@ -66,7 +66,7 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
     pass(params, XmlReportPluginConstants.WHEN_NO_DATA_PUBLISHED, arguments, WHEN_NO_DATA_PUBLISHED_ARGUMENT, "error");
     pass(params, XmlReportPluginConstants.LOG_AS_INTERNAL, arguments, LOG_AS_INTERNAL_ARGUMENT, null);
 
-    if (FindBugsReportParser.TYPE.equals(getType())) {
+    if ("findBugs".equals(getType())) {
       pass(params, XmlReportPluginConstants.FINDBUGS_HOME, arguments, FINDBUGS_HOME_ARGUMENT, null);
     }
 

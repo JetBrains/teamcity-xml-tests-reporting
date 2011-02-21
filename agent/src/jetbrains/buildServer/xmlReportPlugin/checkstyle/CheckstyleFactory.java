@@ -27,8 +27,7 @@ import org.jetbrains.annotations.NotNull;
 public class CheckstyleFactory implements ParserFactory {
   @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
-    return new CheckstyleReportParser(parameters.getXmlReader(), parameters.getInspectionReporter(),
-      parameters.getCheckoutDir(), parameters.getThreadLogger());
+    return new CheckstyleReportParser(parameters.getInspectionReporter());
   }
 
   @NotNull

@@ -22,7 +22,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
-import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.agent.inspections.*;
 import jetbrains.buildServer.messages.serviceMessages.MapSerializerUtil;
 import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
@@ -39,7 +39,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   private static final NamedThreadFactory THREAD_FACTORY = new NamedThreadFactory("xml-report-plugin");
 
   @NotNull
-  private final InspectionReporter myInspectionReporter;
+  private final jetbrains.buildServer.agent.inspections.InspectionReporter myInspectionReporter;
   @NotNull
   private final jetbrains.buildServer.agent.duplicates.DuplicatesReporter myDuplicatesReporter;
 
@@ -62,7 +62,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   public XmlReportPlugin(@NotNull Map<String, ParserFactory> parserFactoryMap,
                          @NotNull EventDispatcher<AgentLifeCycleListener> agentDispatcher,
-                         @NotNull InspectionReporter inspectionReporter,
+                         @NotNull jetbrains.buildServer.agent.inspections.InspectionReporter inspectionReporter,
                          @NotNull jetbrains.buildServer.agent.duplicates.DuplicatesReporter duplicatesReporter) {
     myParserFactoryMap = parserFactoryMap;
 
@@ -462,12 +462,12 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
         @NotNull
         public InspectionReporter getInspectionReporter() {
-          return myInspectionReporter;
+          return new XmlReportPluginInspectionReporter(myInspectionReporter, getBuild().getBuildLogger(), getCheckoutDir());
         }
 
         @NotNull
         public DuplicatesReporter getDuplicatesReporter() {
-          return new XmlReportPluginDuplicatesReporter(myDuplicatesReporter, getBuild().getCheckoutDirectory());
+          return new XmlReportPluginDuplicatesReporter(myDuplicatesReporter, getCheckoutDir());
         }
 
         @NotNull

@@ -31,7 +31,7 @@ public class CheckstyleReportParserTest extends BaseParserTestCase {
   @NotNull
   @Override
   protected Parser getParser() {
-    return new CheckstyleReportParser(getXMLReader(), getInspectionReporter(), getBaseDir(), getLogger());
+    return new CheckstyleReportParser(getInspectionReporter());
   }
 
   @NotNull
