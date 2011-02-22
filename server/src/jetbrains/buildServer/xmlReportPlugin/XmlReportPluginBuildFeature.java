@@ -46,7 +46,7 @@ public class XmlReportPluginBuildFeature extends BuildFeature implements BuildSt
   @NotNull
   @Override
   public String getDisplayName() {
-    return "Xml Report Processing";
+    return "XML report processing";
   }
 
   @Override
