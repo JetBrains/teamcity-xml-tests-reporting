@@ -18,7 +18,6 @@
   ~ limitations under the License.
   --%>
 
-<jsp:useBean id="buildForm" type="jetbrains.buildServer.controllers.admin.projects.BuildTypeForm" scope="request"/>
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
 <jsp:useBean id="reportTypeForm" scope="request" class="jetbrains.buildServer.xmlReportPlugin.ReportTypeForm"/>
 
@@ -37,35 +36,16 @@
        value="${reportType == 'findBugs' ? true : false}"/>
 
 
-<c:set var="runnerType"
-       value="${buildForm.buildRunnerBean.runnerType}"/>
-
-<c:choose>
-    <c:when test="${runnerType == 'Ant'}">
-        <c:if test="${reportType == 'junit'}">
-            <c:set var="displayWarning"
-                   value="true"/>
-        </c:if>
-    </c:when>
-    <c:when test="${runnerType == 'NAnt' || runnerType == 'sln2003' || runnerType == 'VS.Solution'}">
-        <c:if test="${reportType == 'nunit'}">
-            <c:set var="displayWarning"
-                   value="true"/>
-        </c:if>
-    </c:when>
-    <c:when test="${runnerType == 'Maven2'}">
-        <c:if test="${reportType == 'surefire'}">
-            <c:set var="displayWarning"
-                   value="true"/>
-        </c:if>
-    </c:when>
-</c:choose>
+<c:if test="${reportType == 'junit' || reportType == 'nunit' || reportType == 'surefire'|| reportType == 'mstest'}">
+  <c:set var="displayWarning"
+         value="true"/>
+</c:if>
 
 <l:settingsGroup title="XML Report Processing">
     <tr class="noBorder" id="xmlReportParsing.warning.container" style="${empty displayWarning ? 'display:none;' : ''}">
         <td colspan="2">
             <div class="attentionComment">
-                Please make sure that tests are not detected automatically before using this option.
+                Please make sure that tests are not detected automatically before using this feature.
             </div>
         </td>
     </tr>
@@ -73,64 +53,42 @@
         <th><label for="xmlReportParsing.reportType">Report type:</label></th>
         <td>
             <c:set var="onchange">
-                function displayWarning(runnerType) {
-                    var select = $('xmlReportParsing.reportType');
-                    var reportType = select.options[select.selectedIndex].value;
-                    switch (runnerType) {
-                        case ('Ant'):
-                                if (reportType == 'junit') {
-                                    return true;
-                                }
-                        break;
-                        case ('NAnt'):
-                        case ('sln2003'):
-                        case ('VS.Solution'):
-                                if (reportType == 'nunit') {
-                                    return true;
-                                }
-                        break;
-                        case ('Maven2'):
-                            if (reportType == 'surefire') {
-                                return true;
-                            }
-                        break;
-                    }
-                    return false;
-                }
+              var selectedValue = this.options[this.selectedIndex].value;
+              if (selectedValue == '') {
+              BS.Util.hide($('xmlReportParsing.reportDirs.container'));
+              BS.Util.hide($('xmlReportParsing.verboseOutput.container'));
+              } else {
+              BS.Util.show($('xmlReportParsing.reportDirs.container'));
+              BS.Util.show($('xmlReportParsing.verboseOutput.container'));
+              BS.MultilineProperties.show('xmlReportParsing.reportDirs', true);
+              $('xmlReportParsing.reportDirs').focus();
+              }
+              var isInspection = (selectedValue == 'findBugs' ||
+              selectedValue == 'pmd' ||
+              selectedValue == 'checkstyle');
+              if (isInspection) {
+              BS.Util.show($('xmlReportParsing.max.errors.container'));
+              BS.Util.show($('xmlReportParsing.max.warnings.container'));
+              } else {
+              BS.Util.hide($('xmlReportParsing.max.errors.container'));
+              BS.Util.hide($('xmlReportParsing.max.warnings.container'));
+              }
+              if (selectedValue == 'findBugs') {
+              BS.Util.show($('xmlReportParsing.findBugs.home.container'));
+              } else {
+              BS.Util.hide($('xmlReportParsing.findBugs.home.container'));
+              }
 
-                var selectedValue = this.options[this.selectedIndex].value;
-                if (selectedValue == '') {
-                BS.Util.hide($('xmlReportParsing.reportDirs.container'));
-                BS.Util.hide($('xmlReportParsing.verboseOutput.container'));
-                } else {
-                BS.Util.show($('xmlReportParsing.reportDirs.container'));
-                BS.Util.show($('xmlReportParsing.verboseOutput.container'));
-                BS.MultilineProperties.show('xmlReportParsing.reportDirs', true);
-                $('xmlReportParsing.reportDirs').focus();
-                }
-                var isInspection = (selectedValue == 'findBugs' ||
-                selectedValue == 'pmd' ||
-                selectedValue == 'checkstyle');
-                if (isInspection) {
-                BS.Util.show($('xmlReportParsing.max.errors.container'));
-                BS.Util.show($('xmlReportParsing.max.warnings.container'));
-                } else {
-                BS.Util.hide($('xmlReportParsing.max.errors.container'));
-                BS.Util.hide($('xmlReportParsing.max.warnings.container'));
-                }
-                if (selectedValue == 'findBugs') {
-                BS.Util.show($('xmlReportParsing.findBugs.home.container'));
-                } else {
-                BS.Util.hide($('xmlReportParsing.findBugs.home.container'));
-                }
+              if (selectedValue == 'junit'
+              || selectedValue == 'nunit'
+              || selectedValue == 'surefire'
+              || selectedValut == 'mstest') {
+              BS.Util.show($('xmlReportParsing.warning.container'));
+              } else {
+              BS.Util.hide($('xmlReportParsing.warning.container'));
+              }
 
-                if (displayWarning($('runnerType').options[$('runnerType').selectedIndex].value)) {
-                BS.Util.show($('xmlReportParsing.warning.container'));
-                } else {
-                BS.Util.hide($('xmlReportParsing.warning.container'));
-                }
-
-                BS.MultilineProperties.updateVisible();
+              BS.MultilineProperties.updateVisible();
             </c:set>
             <props:selectProperty name="xmlReportParsing.reportType"
                                   onchange="${onchange}">
