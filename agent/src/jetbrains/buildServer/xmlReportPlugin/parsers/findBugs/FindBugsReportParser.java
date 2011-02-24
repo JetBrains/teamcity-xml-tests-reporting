@@ -191,6 +191,7 @@ public class FindBugsReportParser implements Parser {
       if (clazz.contains("$")) {
         clazz = clazz.substring(0, clazz.indexOf("$"));
       }
+      //noinspection ConstantConditions
       file = myFileFinder.getVeryFullFilePath(clazz.replace(".", File.separator) + ".class");
     }
 
