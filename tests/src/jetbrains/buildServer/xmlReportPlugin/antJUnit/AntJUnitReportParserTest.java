@@ -26,89 +26,86 @@ import org.junit.Test;
 public class AntJUnitReportParserTest extends BaseParserTestCase {
   private static final String REPORT_DIR = "junit";
 
-  private static final String SINGLE_CASE_FAILURE = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-    "TEST STARTED: TestCase.test ##TIMESTAMP##\n" +
-    "TEST FAILED: TestCase.test\n" +
-    "junit.framework.AssertionFailedError: Assertion message form test\n" +
-    "junit.framework.AssertionFailedError: Assertion message form test\n" +
-    "      at TestCase.test(Unknown Source)\n" +
-    "TEST FINISHED: TestCase.test ##TIMESTAMP##\n" +
-    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
+  private static final String SINGLE_CASE_FAILURE = "TestSuite:TestCase\n" +
+                                                    "  Test:TestCase.test\n" +
+                                                    "    Fail:junit.framework.AssertionFailedError: Assertion message from test Message: junit.framework.AssertionFailedError: Assertion message from test\n" +
+                                                    "      at TestCase.test(Unknown Source)\n" +
+                                                    "  EndTest:47\n" +
+                                                    "------------------------\n" +
+                                                    "EndSuite\n";
 
-  private static final String SINGLE_CASE_FAILURE_EXTRA_SUITE = SINGLE_CASE_FAILURE +
-    "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
+  private static final String SINGLE_CASE_FAILURE_EXTRA_SUITE = "TestSuite:TestCase\n" +
+                                                                "EndSuite\n" + SINGLE_CASE_FAILURE;
 
-  private static final String TWO_CASES = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-    "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-    "TEST FAILED: TestCase.test1\n" +
-    "junit.framework.AssertionFailedError: Assertion message form test\n" +
-    "junit.framework.AssertionFailedError: Assertion message form test\n" +
-    "      at TestCase.test(Unknown Source)\n" +
-    "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-    "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
-    "TEST FAILED: TestCase.test2\n" +
-    "java.lang.NullPointerException: Error message from test\n" +
-    "java.lang.NullPointerException:\n" +
-    "      Error message from test\n" +
-    "      at TestCase.test(Unknown Source)\n" +
-    "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
-    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
+  private static final String TWO_CASES_FAILURE = "TestSuite:TestCase\n" +
+                                          "  Test:TestCase.test1\n" +
+                                          "    Fail:junit.framework.AssertionFailedError: Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
+                                          "      at TestCase.test(Unknown Source)\n" +
+                                          "  EndTest:31\n" +
+                                          "------------------------\n" +
+                                          "  Test:TestCase.test2\n" +
+                                          "    Fail:java.lang.NullPointerException: Error message from test Message: java.lang.NullPointerException:\n" +
+                                          "      Error message from test\n" +
+                                          "      at TestCase.test(Unknown Source)\n" +
+                                          "  EndTest:31\n" +
+                                          "------------------------\n" +
+                                          "EndSuite\n";
 
-  private static final String ONE_LINE_SYSOUT = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-    "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-    "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-    "MESSAGE: [System out]\n" +
-    "from test1\n" +
-    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
+  private static final String FIVE_LINE_SYSOUT = "TestSuite:TestCase\n" +
+                                                 "  Test:TestCase.test1\n" +
+                                                 "  EndTest:0\n" +
+                                                 "------------------------\n" +
+                                                 "-->Info: System out from suite TestCase: from test1 line1\n" +
+                                                 "from test1 line2\n" +
+                                                 "from test1 line3\n" +
+                                                 "from test1 line4\n" +
+                                                 "from test1 line5\n" +
+                                                 "EndSuite\n";
+  private static final String FIVE_LINE_SYSERR = "TestSuite:TestCase\n" +
+                                                 "  Test:TestCase.test1\n" +
+                                                 "  EndTest:0\n" +
+                                                 "------------------------\n" +
+                                                 "-->Warning: System error from suite TestCase: from test1 line1\n" +
+                                                 "from test1 line2\n" +
+                                                 "from test1 line3\n" +
+                                                 "from test1 line4\n" +
+                                                 "from test1 line5\n" +
+                                                 "EndSuite\n";
+  private static final String TWO_CASES_FAILURE_EXTRA_SUITE = "TestSuite:TestCase\n" +
+                                                 "EndSuite\n" + TWO_CASES_FAILURE;
+  private static final String TWO_CASES_FAILURE_IN_SEPARATE_SUITE = "TestSuite:TestCase\n" +
+  "  Test:TestCase.test1\n" +
+  "    Fail:junit.framework.AssertionFailedError: Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
+  "      at TestCase.test(Unknown Source)\n" +
+  "  EndTest:31\n" +
+  "------------------------\n" +
+  "EndSuite\n" +
+  "TestSuite:TestCase\n" +
+  "  Test:TestCase.test2\n" +
+  "    Fail:java.lang.NullPointerException: Error message from test Message: java.lang.NullPointerException:\n" +
+  "      Error message from test\n" +
+  "      at TestCase.test(Unknown Source)\n" +
+  "  EndTest:31\n" +
+  "------------------------\n" +
+  "EndSuite\n";
 
-  private static final String ONE_LINE_SYSERR = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-    "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-    "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-    "WARNING: [System error]\n" +
-    "from test1\n" +
-    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
-  private static final String FIVE_LINE_SYSOUT = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-    "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-    "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-    "MESSAGE: [System out]\n" +
-    "from test1 line1\n" +
-    "from test1 line2\n" +
-    "from test1 line3\n" +
-    "from test1 line4\n" +
-    "from test1 line5\n" +
-    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
-  private static final String FIVE_LINE_SYSERR = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-    "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-    "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-    "WARNING: [System error]\n" +
-    "from test1 line1\n" +
-    "from test1 line2\n" +
-    "from test1 line3\n" +
-    "from test1 line4\n" +
-    "from test1 line5\n" +
-    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
-  private static final String TWO_CASES_FAILED = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-    "SUITE FINISHED: TestCase ##TIMESTAMP##\n" +
-    "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-    "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-    "TEST FAILED: TestCase.test1\n" +
-    "junit.framework.AssertionFailedError: Assertion message form test\n" +
-    "junit.framework.AssertionFailedError: Assertion message form test\n" +
-    "      at TestCase.test(Unknown Source)\n" +
-    "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-    "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
-    "TEST FAILED: TestCase.test2\n" +
-    "java.lang.NullPointerException: Error message from test\n" +
-    "java.lang.NullPointerException:\n" +
-    "      Error message from test\n" +
-    "      at TestCase.test(Unknown Source)\n" +
-    "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
-    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
+  private static final String ONE_LINE_SYSOUT = "TestSuite:TestCase\n" +
+  "  Test:TestCase.test1\n" +
+  "  EndTest:0\n" +
+  "------------------------\n" +
+  "-->Info: System out from suite TestCase: from test1\n" +
+  "EndSuite\n";
+  private static final String ONE_LINE_SYSERR = "TestSuite:TestCase\n" +
+  "  Test:TestCase.test1\n" +
+  "  EndTest:0\n" +
+  "------------------------\n" +
+  "-->Warning: System error from suite TestCase: from test1\n" +
+  "EndSuite\n";
 
+  @Override
   @NotNull
   protected AntJUnitReportParser getParser() {
-    return new AntJUnitReportParser(getXMLReader(), getLogger());
+    return new AntJUnitReportParser(getTestResultsWriter());
   }
 
   @NotNull
@@ -132,18 +129,19 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
   public void testNoCases() throws Exception {
     parse("noCase.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "EndSuite\n");
   }
 
   @Test
   public void testSingleCaseSuccess() throws Exception {
     parse("singleCaseSuccess.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test ##TIMESTAMP##\n" +
-        "TEST FINISHED: TestCase.test ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "  Test:TestCase.test\n" +
+      "  EndTest:31\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
   @Test
@@ -157,297 +155,209 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
   public void test1CaseError() throws Exception {
     parse("singleCaseError.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test ##TIMESTAMP##\n" +
-        "TEST FAILED: TestCase.test\n" +
-        "java.lang.NullPointerException: Error message from test\n" +
-        "java.lang.NullPointerException:\n" +
-        "      Error message from test\n" +
-        "      at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: TestCase.test ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "  Test:TestCase.test\n" +
+      "    Fail:java.lang.NullPointerException: Error message from test Message: java.lang.NullPointerException:\n" +
+      "      Error message from test\n" +
+      "      at TestCase.test(Unknown Source)\n" +
+      "  EndTest:31\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
   @Test
   public void test1CaseIn2PartsBreakTestSuiteBetweenAttrs() throws Exception {
-    parse("singleCaseBreakTestSuiteBetweenAttrs.xml", parse("singleCaseFailure.xml"));
+    parse("singleCaseFailure.xml", parse("singleCaseBreakTestSuiteBetweenAttrs.xml"));
     assertResultEquals(
       SINGLE_CASE_FAILURE);
   }
 
   @Test
   public void test1CaseIn2PartsBreakTestSuiteAfterAttrs() throws Exception {
-    parse("singleCaseBreakTestSuiteAfterAttrs.xml", parse("singleCaseFailure.xml"));
+    parse("singleCaseFailure.xml", parse("singleCaseBreakTestSuiteAfterAttrs.xml"));
     assertResultEquals(
       SINGLE_CASE_FAILURE);
   }
 
   @Test
   public void test1CaseIn2PartsBreakAfterTestSuite() throws Exception {
-    parse("singleCaseBreakAfterTestSuite.xml", parse("singleCaseFailure.xml"));
+    parse("singleCaseFailure.xml", parse("singleCaseBreakAfterTestSuite.xml"));
     assertResultEquals(
       SINGLE_CASE_FAILURE_EXTRA_SUITE);
   }
 
   @Test
   public void test1CaseIn2PartsBreakAfterAttrs() throws Exception {
-    parse("singleCaseBreakAfterAttrs.xml", parse("singleCaseFailure.xml"));
+    parse("singleCaseFailure.xml", parse("singleCaseBreakAfterAttrs.xml"));
     assertResultEquals(
       SINGLE_CASE_FAILURE_EXTRA_SUITE);
   }
 
   @Test
   public void test1CaseIn2PartsBreakClosing() throws Exception {
-    parse("singleCaseBreakClosing.xml", parse("singleCaseFailure.xml"));
+    parse("singleCaseFailure.xml", parse("singleCaseBreakClosing.xml"));
     assertResultEquals(
       SINGLE_CASE_FAILURE_EXTRA_SUITE);
   }
 
   @Test
   public void test1CaseIn2PartsFrom1TrySuiteFrom2() throws Exception {
-    parse("singleCaseBreakAfter.xml", parse("singleCaseFailure.xml"));
+    parse("singleCaseFailure.xml", parse("singleCaseBreakAfter.xml"));
     assertResultEquals(
-      SINGLE_CASE_FAILURE_EXTRA_SUITE);
+      "TestSuite:TestCase\n" +
+      "  Test:TestCase.test\n" +
+      "    Fail:junit.framework.AssertionFailedError: Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
+      "      at TestCase.test(Unknown Source)\n" +
+      "  EndTest:47\n" +
+      "------------------------\n" +
+      "EndSuite\n" +
+      "TestSuite:TestCase\n" +
+      "EndSuite\n");
   }
 
   @Test
   public void test2CasesSuccess() throws Exception {
     parse("twoCasesSuccess.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
-        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "  Test:TestCase.test1\n" +
+      "  EndTest:31\n" +
+      "------------------------\n" +
+      "  Test:TestCase.test2\n" +
+      "  EndTest:31\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
   @Test
   public void test2CasesFirstSuccess() throws Exception {
     parse("twoCasesFirstSuccess.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
-        "TEST FAILED: TestCase.test2\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "      at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "  Test:TestCase.test1\n" +
+      "  EndTest:31\n" +
+      "------------------------\n" +
+      "  Test:TestCase.test2\n" +
+      "    Fail:junit.framework.AssertionFailedError: Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
+      "      at TestCase.test(Unknown Source)\n" +
+      "  EndTest:31\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
   @Test
   public void test2CasesSecondSuccess() throws Exception {
     parse("twoCasesSecondSuccess.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST FAILED: TestCase.test1\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "      at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
-        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "  Test:TestCase.test1\n" +
+      "    Fail:junit.framework.AssertionFailedError: Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
+      "      at TestCase.test(Unknown Source)\n" +
+      "  EndTest:31\n" +
+      "------------------------\n" +
+      "  Test:TestCase.test2\n" +
+      "  EndTest:31\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
   @Test
   public void test2CasesFailed() throws Exception {
     parse("twoCasesFailed.xml");
     assertResultEquals(
-      TWO_CASES);
+      TWO_CASES_FAILURE);
   }
 
   @Test
   public void test2CasesIn2PartsFirstBreakBetweenAttrs() throws Exception {
     parse("twoCasesFailed.xml", parse("twoCasesFirstBreakBetweenAttrs.xml"));
     assertResultEquals(
-      TWO_CASES_FAILED);
+      TWO_CASES_FAILURE_EXTRA_SUITE);
   }
 
   @Test
   public void test2CasesIn2PartsFirstBreakFailureST() throws Exception {
     parse("twoCasesFailed.xml", parse("twoCasesFirstBreakFailureST.xml"));
     assertResultEquals(
-      TWO_CASES_FAILED);
+      TWO_CASES_FAILURE_EXTRA_SUITE);
   }
 
   @Test
   public void test2CasesIn2PartsFirstBreakAfterFailure() throws Exception {
     parse("twoCasesFailed.xml", parse("twoCasesFirstBreakAfterFailure.xml"));
     assertResultEquals(
-      TWO_CASES_FAILED);
+      TWO_CASES_FAILURE_EXTRA_SUITE);
   }
 
   @Test
   public void test2CasesIn2PartsBreakAfterFirst() throws Exception {
     parse("twoCasesFailed.xml", parse("twoCasesBreakAfterFirst.xml"));
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST FAILED: TestCase.test1\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "      at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n" +
-        "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
-        "TEST FAILED: TestCase.test2\n" +
-        "java.lang.NullPointerException: Error message from test\n" +
-        "java.lang.NullPointerException:\n" +
-        "      Error message from test\n" +
-        "      at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      TWO_CASES_FAILURE_IN_SEPARATE_SUITE);
   }
 
   @Test
   public void test2CasesIn2PartsSecondBreakBetweenAttrs() throws Exception {
     parse("twoCasesFailed.xml", parse("twoCasesSecondBreakBetweenAttrs.xml"));
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST FAILED: TestCase.test1\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "      at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n" +
-        "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
-        "TEST FAILED: TestCase.test2\n" +
-        "java.lang.NullPointerException: Error message from test\n" +
-        "java.lang.NullPointerException:\n" +
-        "      Error message from test\n" +
-        "      at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      TWO_CASES_FAILURE_IN_SEPARATE_SUITE);
   }
 
   @Test
   public void test2CasesIn2PartsSecondBreakFailureMessage() throws Exception {
     parse("twoCasesFailed.xml", parse("twoCasesSecondBreakErrorMessage.xml"));
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST FAILED: TestCase.test1\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "      at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n" +
-        "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
-        "TEST FAILED: TestCase.test2\n" +
-        "java.lang.NullPointerException: Error message from test\n" +
-        "java.lang.NullPointerException:\n" +
-        "      Error message from test\n" +
-        "      at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      TWO_CASES_FAILURE_IN_SEPARATE_SUITE);
   }
 
   @Test
   public void test2CasesIn2PartsSecondBreakFailureST() throws Exception {
     parse("twoCasesFailed.xml", parse("twoCasesSecondBreakErrorST.xml"));
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST FAILED: TestCase.test1\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "      at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n" +
-        "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
-        "TEST FAILED: TestCase.test2\n" +
-        "java.lang.NullPointerException: Error message from test\n" +
-        "java.lang.NullPointerException:\n" +
-        "      Error message from test\n" +
-        "      at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      TWO_CASES_FAILURE_IN_SEPARATE_SUITE);
   }
 
   @Test
   public void test2CasesIn2PartsSecondBreakErrorClosing() throws Exception {
     parse("twoCasesFailed.xml", parse("twoCasesSecondBreakErrorClosing.xml"));
-    assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST FAILED: TestCase.test1\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "      at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n" +
-        "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
-        "TEST FAILED: TestCase.test2\n" +
-        "java.lang.NullPointerException: Error message from test\n" +
-        "java.lang.NullPointerException:\n" +
-        "      Error message from test\n" +
-        "      at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+    assertResultEquals(TWO_CASES_FAILURE_IN_SEPARATE_SUITE);
   }
 
   @Test
   public void test2CasesIn2PartsSecondBreakClosing() throws Exception {
     parse("twoCasesFailed.xml", parse("twoCasesSecondBreakClosing.xml"));
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST FAILED: TestCase.test1\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "      at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n" +
-        "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
-        "TEST FAILED: TestCase.test2\n" +
-        "java.lang.NullPointerException: Error message from test\n" +
-        "java.lang.NullPointerException:\n" +
-        "      Error message from test\n" +
-        "      at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      TWO_CASES_FAILURE_IN_SEPARATE_SUITE);
   }
 
   @Test
   public void test2CasesIn2PartsBothFrom1TrySuiteFrom2() throws Exception {
     parse("twoCasesFailed.xml", parse("twoCasesBreakAfterSecond.xml"));
     assertResultEquals(
-      TWO_CASES +
-        "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      TWO_CASES_FAILURE +
+        "TestSuite:TestCase\n" +
+        "EndSuite\n");
   }
 
   @Test
   public void test2CasesIn2PartsBreakHeading() throws Exception {
     parse("twoCasesFailed.xml", parse("twoCasesBreakHeading.xml"));
     assertResultEquals(
-      TWO_CASES);
+      TWO_CASES_FAILURE);
   }
 
   @Test
   public void test2CasesIn2PartsBreakTestSuite() throws Exception {
     parse("twoCasesFailed.xml", parse("twoCasesBreakTestSuite.xml"));
     assertResultEquals(
-      TWO_CASES);
+      TWO_CASES_FAILURE);
   }
 
   @Test
   public void test2CasesIn2PartsBreakTestSuiteInAttr() throws Exception {
     parse("twoCasesFailed.xml", parse("twoCasesBreakTestSuiteInAttr.xml"));
     assertResultEquals(
-      TWO_CASES);
+      TWO_CASES_FAILURE);
   }
 
   @Test
@@ -517,62 +427,61 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
   public void testFiveLineSystemOutAndErr() throws Exception {
     parse("fiveLineSystemOutAndErr.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-        "MESSAGE: [System out]\n" +
-        "out from test1 line1\n" +
-        "out from test1 line2\n" +
-        "out from test1 line3\n" +
-        "out from test1 line4\n" +
-        "out from test1 line5\n" +
-        "WARNING: [System error]\n" +
-        "err from test1 line1\n" +
-        "err from test1 line2\n" +
-        "err from test1 line3\n" +
-        "err from test1 line4\n" +
-        "err from test1 line5\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "  Test:TestCase.test1\n" +
+      "  EndTest:0\n" +
+      "------------------------\n" +
+      "-->Info: System out from suite TestCase: out from test1 line1\n" +
+      "out from test1 line2\n" +
+      "out from test1 line3\n" +
+      "out from test1 line4\n" +
+      "out from test1 line5\n" +
+      "-->Warning: System error from suite TestCase: err from test1 line1\n" +
+      "err from test1 line2\n" +
+      "err from test1 line3\n" +
+      "err from test1 line4\n" +
+      "err from test1 line5\n" +
+      "EndSuite\n");
   }
 
   @Test
   public void testLogCaseSystemOut() throws Exception {
     parse("caseWithSystemOut.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST STDOUT: TestCase.test1\n" +
-        "from test1\n" +
-        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "  Test:TestCase.test1\n" +
+      "-->Info: System out from test TestCase.test1: from test1\n" +
+      "  EndTest:0\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
   @Test
   public void testLogCaseSystemErr() throws Exception {
     parse("caseWithSystemErr.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST STDERR: TestCase.test1\n" +
-        "from test1\n" +
-        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "  Test:TestCase.test1\n" +
+      "-->Warning: System error from test TestCase.test1: from test1\n" +
+      "  EndTest:0\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
   @Test
   public void testLog2CasesSystemOut() throws Exception {
     parse("twoCasesWithSystemOut.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST STDOUT: TestCase.test1\n" +
-        "from test1\n" +
-        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
-        "TEST STDOUT: TestCase.test2\n" +
-        "from test2\n" +
-        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "  Test:TestCase.test1\n" +
+      "-->Info: System out from test TestCase.test1: from test1\n" +
+      "  EndTest:0\n" +
+      "------------------------\n" +
+      "  Test:TestCase.test2\n" +
+      "-->Info: System out from test TestCase.test2: from test2\n" +
+      "  EndTest:0\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
   // TW-7649: junit tests results being ignored
@@ -588,13 +497,15 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
   public void test2CasesFirstSuccessSecondSkipped() throws Exception {
     parse("twoCasesFirstSuccessSecondSkipped.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST FINISHED: TestCase.test1 ##TIMESTAMP##\n" +
-        "TEST STARTED: TestCase.test2 ##TIMESTAMP##\n" +
-        "TEST IGNORED: TestCase.test2\n" +
-        "TEST FINISHED: TestCase.test2 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "  Test:TestCase.test1\n" +
+      "  EndTest:31\n" +
+      "------------------------\n" +
+      "  Test:TestCase.test2\n" +
+      "    Ignored:\n" +
+      "  EndTest:31\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
   //TW-9343 strange class name
@@ -602,10 +513,11 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
   public void testSuiteNameEqualsTestName() throws Exception {
     parse("TEST-ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest.xml");
     assertResultEquals(
-      "SUITE STARTED: ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest ##TIMESTAMP##\n" +
-        "TEST STARTED: ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest ##TIMESTAMP##\n" +
-        "TEST IGNORED: ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest\n" +
-        "TEST FINISHED: ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest ##TIMESTAMP##\n" +
-        "SUITE FINISHED: ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest ##TIMESTAMP##\n");
+      "TestSuite:ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest\n" +
+      "  Test:ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest\n" +
+      "    Ignored:\n" +
+      "  EndTest:10\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 }

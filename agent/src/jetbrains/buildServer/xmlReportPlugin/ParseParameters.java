@@ -21,6 +21,7 @@ import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.XMLReader;
 
@@ -45,17 +46,11 @@ public interface ParseParameters {
   DuplicatesReporter getDuplicatesReporter();
 
   @NotNull
+  TestResultsWriter getTestResultsWriter();
+
+  @NotNull
   Map<String, String> getParameters();
 
   @NotNull
-  XMLReader getXmlReader();
-
-  @NotNull
   String getType();
-
-  @NotNull
-  File getCheckoutDir();
-
-  @NotNull
-  File getTempDir();
 }

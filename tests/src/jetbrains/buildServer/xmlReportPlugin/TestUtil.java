@@ -24,6 +24,7 @@ import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionTypeResult;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -108,6 +109,54 @@ public final class TestUtil {
       }
 
       public void finishDuplicates() {
+      }
+    };
+  }
+
+  public static TestResultsWriter createTestResultsWriter(final StringBuilder sb) {
+    return new TestResultsWriter() {
+      public void openTestSuite(@NotNull final String name) {
+        sb.append("TestSuite:").append(name).append("\n");
+      }
+
+      public void openTest(@NotNull final String name) {
+        sb.append("  Test:").append(name).append("\n");
+      }
+
+      public void testStdOutput(@NotNull final String text) {
+        sb.append("    StdOutput:").append(text).append("\n");
+      }
+
+      public void testErrOutput(@NotNull final String text) {
+        sb.append("    ErrOutput:").append(text).append("\n");
+      }
+
+      public void testFail(final String error, @Nullable final String stacktrace) {
+        sb.append("    Fail:").append(error).append(" Message: ").append(stacktrace).append("\n");
+      }
+
+      public void testIgnored(@NotNull final String message) {
+        sb.append("    Ignored:").append(message).append("\n");
+      }
+
+      public void closeTest(final long duration) {
+        sb.append("  EndTest:").append(duration).append("\n------------------------\n");
+      }
+
+      public void closeTestSuite() {
+        sb.append("EndSuite").append("\n");
+      }
+
+      public void warning(@NotNull final String s) {
+        sb.append("-->Warning: ").append(s).append("\n");
+      }
+
+      public void error(@NotNull final String s) {
+        sb.append("-->Error: ").append(s).append("\n");
+      }
+
+      public void info(@NotNull final String message) {
+        sb.append("-->Info: ").append(message).append("\n");
       }
     };
   }

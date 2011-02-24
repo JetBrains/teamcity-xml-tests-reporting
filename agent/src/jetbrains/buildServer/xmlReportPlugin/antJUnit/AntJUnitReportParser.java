@@ -16,8 +16,10 @@
 
 package jetbrains.buildServer.xmlReportPlugin.antJUnit;
 
+import java.io.IOException;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.*;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestsParsingResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,267 +31,143 @@ import java.io.File;
 import java.util.Date;
 import java.util.Stack;
 
-public class AntJUnitReportParser extends XmlReportParser {
-  private static final String COMMA = ",";
-  private static final String DOT = ".";
-  private static final String MARK = "'";
-  private static final String NBSP = "\u00A0";
-
-  private static final String TEST_SUITE = "testsuite";
-  private static final String TEST_CASE = "testcase";
-  private static final String FAILURE = "failure";
-  private static final String ERROR = "error";
-  private static final String TIME = "time";
-  private static final String SYSTEM_OUT = "system-out";
-  private static final String SYSTEM_ERR = "system-err";
-  private static final String SKIPPED = "skipped";
-
-  private static final String NAME_ATTR = "name";
-  private static final String CLASSNAME_ATTR = "classname";
-  private static final String PACKAGE_ATTR = "package";
-  private static final String TESTS_ATTR = "tests";
-  private static final String MESSAGE_ATTR = "message";
-  private static final String TYPE_ATTR = "type";
-  private static final String TIME_ATTR = "time";
-  private static final String TIMESTAMP_ATTR = "timestamp";
-  private static final String EXECUTED_ATTR = "executed";
-
-  private static final String DEFAULT_NAMESPACE = "";
-
-  private SuiteData myCurrentSuite;
-
-  private final Stack<TestData> myTests = new Stack<TestData>();
-
-  private String mySystemOut;
-  private String mySystemErr;
-
-  private int myLoggedSuites;
-  private int myLoggedTests;
-  private int myTestsToSkip;
+public class AntJUnitReportParser implements Parser {
+  public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AntJUnitReportParser.class);
 
   @NotNull
-  private final BuildProgressLogger myLogger;
+  private final TestResultsWriter myTestResultsWriter;
 
-  public AntJUnitReportParser(@NotNull XMLReader reader,
-                              @NotNull BuildProgressLogger logger) {
-    super(reader, true);
-    myLogger = logger;
+  private int myTestsToSkip;
+  private int myLoggedTests;
+
+  private int myLoggedSuites;
+
+  private String mySuite;
+
+  public AntJUnitReportParser(@NotNull TestResultsWriter testResultsWriter) {
+    myTestResultsWriter = testResultsWriter;
   }
 
-  /*  As of now the DTD is:
-
-<!ELEMENT testsuites (testsuite*)>
-
-<!ELEMENT testsuite (properties, testcase*,
-                  failure?, error?,
-                   system-out?, system-err?)>
-<!ATTLIST testsuite name      CDATA #REQUIRED>
-<!ATTLIST testsuite tests     CDATA #REQUIRED>
-<!ATTLIST testsuite failures  CDATA #REQUIRED>
-<!ATTLIST testsuite errors    CDATA #REQUIRED>
-<!ATTLIST testsuite time      CDATA #REQUIRED>
-<!ATTLIST testsuite package   CDATA #IMPLIED>
-<!ATTLIST testsuite id        CDATA #IMPLIED>
-
-
-<!ELEMENT properties (property*)>
-
-<!ELEMENT property EMPTY>
- <!ATTLIST property name  CDATA #REQUIRED>
- <!ATTLIST property value CDATA #REQUIRED>
-
-<!ELEMENT testcase (failure?, error?, system-out?, system-err?)>
- <!ATTLIST testcase name       CDATA #REQUIRED>
- <!ATTLIST testcase classname  CDATA #IMPLIED>
- <!ATTLIST testcase time       CDATA #REQUIRED>
-
-<!ELEMENT failure (#PCDATA)>
-<!ATTLIST failure message CDATA #IMPLIED>
-<!ATTLIST failure type    CDATA #REQUIRED>
-
-<!ELEMENT error (#PCDATA)>
- <!ATTLIST error message CDATA #IMPLIED>
- <!ATTLIST error type    CDATA #REQUIRED>
-
-<!ELEMENT system-err (#PCDATA)>
-
-<!ELEMENT system-out (#PCDATA)> */
-
-  public boolean parse(@NotNull File file, @Nullable ParsingResult prevResult) {
+  public boolean parse(@NotNull final File file, @Nullable final ParsingResult prevResult) throws ParsingException {
     if (prevResult != null) {
       myTestsToSkip = ((TestsParsingResult) prevResult).getTests();
     }
     try {
-      parse(file);
+      new AntJUnitXmlReportParser(new AntJUnitXmlReportParser.Callback() {
+
+      public void suiteFound(@Nullable final String suiteName) {
+        if (mySuite != null) {
+          LOG.error("Suite " + mySuite + " was not closed");
+        }
+
+        if (suiteName == null) {
+          myTestResultsWriter.warning("File " + file + " contains unnamed suite");
+          return;
+        }
+
+        myTestResultsWriter.openTestSuite(suiteName);
+        ++myLoggedSuites;
+        mySuite = suiteName;
+      }
+
+      public void suiteFailureFound(@Nullable final String suiteName,
+                                    @Nullable final String type,
+                                    @Nullable final String message,
+                                    @Nullable final String trace) {
+        if (mySuite == null || !mySuite.equals(suiteName)) {
+          LOG.error("Failed to log suite failure for not-opened suite " + suiteName);
+          return;
+        }
+        myTestResultsWriter.error("Failure from suite " + suiteName + ": " + getFailureMessage(type, message) + "\n" + trace);
+      }
+
+      public void suiteErrorFound(@Nullable final String suiteName,
+                                  @Nullable final String type,
+                                  @Nullable final String message,
+                                  @Nullable final String trace) {
+        if (mySuite == null || !mySuite.equals(suiteName)) {
+          LOG.error("Failed to log suite error for not-opened suite " + suiteName);
+          return;
+        }
+        myTestResultsWriter.error("Error from suite " + suiteName + ": " + getFailureMessage(type, message) + "\n" + trace);
+      }
+
+      public void suiteSystemOutFound(@Nullable final String suiteName, @Nullable final String message) {
+        if (mySuite == null || !mySuite.equals(suiteName)) {
+          LOG.error("Failed to log suite system out for not-opened suite " + suiteName);
+          return;
+        }
+        if (message != null && message.length() > 0) {
+          myTestResultsWriter.info("System out from suite " + suiteName + ": " + message);
+        }
+      }
+
+      public void suiteSystemErrFound(@Nullable final String suiteName, @Nullable final String message) {
+        if (mySuite == null || !mySuite.equals(suiteName)) {
+          LOG.error("Failed to log suite system out for not-opened suite " + suiteName);
+          return;
+        }
+        if (message != null && message.length() > 0) {
+          myTestResultsWriter.warning("System error from suite " + suiteName + ": " + message);
+        }
+      }
+
+      public void suiteFinished(@Nullable final String suiteName) {
+        if (mySuite == null || !mySuite.equals(suiteName)) {
+          LOG.error("Failed to log suite finish for not-opened suite " + suiteName);
+          return;
+        }
+        myTestResultsWriter.closeTestSuite();
+        mySuite = null;
+      }
+
+      @SuppressWarnings({"ConstantConditions"})
+      public void testFound(@NotNull TestData testData) {
+        try {
+          if (testSkipped()) return;
+
+          final String testName = testData.getName();
+
+          if (testName == null) {
+            myTestResultsWriter.warning("File " + file + " contains unnamed test");
+            return;
+          }
+
+          myTestResultsWriter.openTest(testName);
+          if (!testData.isExecuted()) myTestResultsWriter.testIgnored("");
+          if (testData.getFailureType() != null || testData.getFailureMessage() != null) {
+            myTestResultsWriter
+              .testFail(getFailureMessage(testData.getFailureType(), testData.getFailureMessage()), testData.getFailureStackTrace());
+          }
+          //noinspection ConstantConditions
+          if (testData.getStdErr() != null && testData.getStdErr().length() > 0) {
+            myTestResultsWriter.warning("System error from test " + testName + ": " + testData.getStdErr());
+          }
+          if (testData.getStdOut() != null && testData.getStdOut().length() > 0) {
+            myTestResultsWriter.info("System out from test " + testName + ": " + testData.getStdOut());
+          }
+          myTestResultsWriter.closeTest(testData.getDuration());
+        } finally {
+          ++myLoggedTests;
+        }
+      }
+    }).parse(file);
       return true;
-    } catch (ParsingException e) {
-      finishOnException(file, e);
+    } catch (IOException e) {
+      if (mySuite != null) myTestResultsWriter.closeTestSuite();
+      LOG.debug("Couldn't completely parse " + file
+                + " report, exception occurred: " + e + ", " + myLoggedTests + " tests logged");
     }
 
     return false;
   }
 
-  private void finishOnException(@NotNull File file, @NotNull Exception e) {
-    endSuite();
-
-    LoggingUtils.LOG.debug("Couldn't completely parse " + file
-      + " report, exception occurred: " + e + ", " + myLoggedTests + " events logged");
-  }
-
   public ParsingResult getParsingResult() {
-    return new TestsParsingResult(myLoggedSuites,
-      (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip);
+    return new TestsParsingResult(myLoggedSuites, (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip);
   }
 
-  //  Handler methods
-
-  @Override
-  public void startElement(String uri, final String localName,
-                           String qName, final Attributes attributes)
-    throws SAXException {
-    if (TEST_SUITE.equals(localName)) {
-      startSuite(attributes);
-    } else if (!testSkipped()) {
-      if (TEST_CASE.equals(localName)) {
-        startTest(attributes);
-      } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
-        startFailure(attributes);
-      } else if (SKIPPED.equals(localName)) {
-        if (insideTest()) {
-          myTests.peek().setExecuted(false);
-        }
-      }
-    }
-  }
-
-  @Override
-  public void endElement(String uri, final String localName, String qName) throws SAXException {
-    try {
-      if (testSkipped()) {
-        if (TEST_CASE.equals(localName)) {
-          myLoggedTests = myLoggedTests + 1;
-        }
-        return;
-      }
-      if (TEST_SUITE.equals(localName)) {
-        endSuite();
-      } else if (TEST_CASE.equals(localName)) {
-        endTest();
-      } else if (FAILURE.equals(localName) || ERROR.equals(localName)) {
-        endFailure();
-      } else if (SYSTEM_OUT.equals(localName)) {
-        final String trimmedCData = getCData().toString().trim();
-        if (trimmedCData.length() > 0) {
-          mySystemOut = trimmedCData;
-        }
-      } else if (SYSTEM_ERR.equals(localName)) {
-        final String trimmedCData = getCData().toString().trim();
-        if (trimmedCData.length() > 0) {
-          mySystemErr = trimmedCData;
-        }
-      } else if (TIME.equals(localName)) {
-        if (insideTest()) {
-          myTests.peek().setDuration(getExecutionTime(ParserUtils.formatText(getCData())));
-        }
-      }
-    } finally {
-      clearCData();
-    }
-  }
-
-  // Auxiliary methods
-
-  private void startSuite(Attributes attributes) {
-    if (myCurrentSuite != null) return;
-
-    String name = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
-    final String pack = attributes.getValue(DEFAULT_NAMESPACE, PACKAGE_ATTR);
-    final Date startTime = new Date();
-    final String timestamp = getTimestamp(attributes.getValue(DEFAULT_NAMESPACE, TIMESTAMP_ATTR));
-    final long duration = getExecutionTime(attributes.getValue(DEFAULT_NAMESPACE, TIME_ATTR));
-
-    if ((pack != null) && (!name.startsWith(pack))) {
-      name = pack + "." + name;
-    }
-
-    myCurrentSuite = new SuiteData(name, startTime.getTime(), duration, timestamp);
-    myLogger.logSuiteStarted(name, startTime);
-  }
-
-  private void endSuite() {
-    if (myCurrentSuite == null) return;
-
-    if (myCurrentSuite.isFailure()) {
-      myLogger.error(getFailureMessage(myCurrentSuite.getFailureType(), myCurrentSuite.getFailureMessage()));
-    }
-
-    if (mySystemOut != null) {
-      myLogger.message("[System out]\n" + mySystemOut);
-      mySystemOut = null;
-    }
-
-    if (mySystemErr != null) {
-      myLogger.warning("[System error]\n" + mySystemErr);
-      mySystemErr = null;
-    }
-
-    myLogger.logSuiteFinished(myCurrentSuite.getName(), new Date(myCurrentSuite.getStartTime() + myCurrentSuite.getDuraion()));
-    myLoggedSuites = myLoggedSuites + 1;
-
-    if (insideTest()) {
-//      myFlowLogger.debugToAgentLog("Some tests were not logged in suite " + myCurrentSuite);
-      myTests.clear();
-    }
-    myCurrentSuite = null;
-  }
-
-  private void startTest(Attributes attributes) {
-    final String reportClassName = attributes.getValue(DEFAULT_NAMESPACE, CLASSNAME_ATTR);
-
-    final String testName = attributes.getValue(DEFAULT_NAMESPACE, NAME_ATTR);
-
-    final String reportedTestName;
-
-    if (reportClassName != null && !reportClassName.equals(testName)) {
-      reportedTestName = reportClassName + "." + testName;
-    } else {
-      reportedTestName = testName;
-    }
-
-    final Date startTime = new Date();
-    final long duration = getExecutionTime(attributes.getValue(DEFAULT_NAMESPACE, TIME_ATTR));
-    final boolean executed = getBoolean(attributes.getValue(DEFAULT_NAMESPACE, EXECUTED_ATTR));
-
-    final TestData test = new TestData(reportedTestName, executed, startTime.getTime(), duration);
-    myTests.push(test);
-  }
-
-  private void endTest() {
-    final TestData test = myTests.pop();
-    final String testName = test.getName();
-
-    myLogger.logTestStarted(testName, new Date(test.getStartTime()));
-    if (!test.isExecuted()) {
-      myLogger.logTestIgnored(testName, "");
-    } else {
-      if (test.isFailure()) {
-        String failureMessage = getFailureMessage(test.getFailureType(), test.getFailureMessage());
-        myLogger.logTestFailed(testName, failureMessage, test.getFailureStackTrace());
-      }
-      if (mySystemOut != null) {
-        myLogger.logTestStdOut(testName, mySystemOut);
-        mySystemOut = null;
-      }
-      if (mySystemErr != null) {
-        myLogger.logTestStdErr(testName, mySystemErr);
-        mySystemErr = null;
-      }
-    }
-    myLogger.logTestFinished(testName, new Date(test.getStartTime() + test.getDuration()));
-    myLoggedTests = myLoggedTests + 1;
-  }
-
-  private String getFailureMessage(String type, String message) {
+  @NotNull
+  private String getFailureMessage(@Nullable String type, @Nullable String message) {
     String failureMessage = "";
     if (type != null) {
       failureMessage = failureMessage.concat(type);
@@ -303,71 +181,46 @@ public class AntJUnitReportParser extends XmlReportParser {
     return failureMessage;
   }
 
-  private void startFailure(Attributes attributes) {
-    String failureMessage = attributes.getValue(DEFAULT_NAMESPACE, MESSAGE_ATTR);
-    if (failureMessage != null)
-      failureMessage = failureMessage.trim();
-
-    final String failureType = attributes.getValue(DEFAULT_NAMESPACE, TYPE_ATTR);
-
-    if (insideTest()) {
-      final TestData test = myTests.peek();
-      test.setFailureMessage(failureMessage);
-      test.setFailureType(failureType);
-    } else if (myCurrentSuite != null) {
-      myCurrentSuite.setFailureMessage(failureMessage);
-      myCurrentSuite.setFailureType(failureType);
-    }
-  }
-
-  private void endFailure() {
-    if (insideTest()) {
-      myTests.peek().setFailureStackTrace(getCData().toString().trim());
-    }
-  }
-
   private boolean testSkipped() {
-    return (myLoggedTests < myTestsToSkip);
+    return myLoggedTests < myTestsToSkip;
   }
 
-  private boolean insideTest() {
-    return !myTests.isEmpty();
-  }
+  /*  As of now the DTD is:
 
-  private static long getExecutionTime(@Nullable String timeStr) {
-    if (timeStr == null || "".equals(timeStr)) {
-      return 0L;
-    }
-    try {
-      return (long) (Double.parseDouble(getUniformTimeStr(timeStr)) * 1000.0);
-    } catch (NumberFormatException e) {
-      LoggingUtils.LOG.warn("Unable to parse execution time string " + timeStr, e);
-      return 0L;
-    }
-  }
+<!ELEMENT testsuites (testsuite*)>
 
-  private static String getUniformTimeStr(@NotNull String str) {
-    final int commaIndex = str.lastIndexOf(COMMA);
-    final int dotIndex = str.lastIndexOf(DOT);
-    String result;
-    if (commaIndex > dotIndex) {
-      result = str.replace(DOT, "").replace(COMMA, DOT);
-    } else if (commaIndex < dotIndex) {
-      result = str.replace(COMMA, "");
-    } else {
-      result = str;
-    }
-    return result.replace(MARK, "").replace(NBSP, "");
-  }
+<!ELEMENT testsuite (properties, testcase*,
+                 failure?, error?,
+                  system-out?, system-err?)>
+<!ATTLIST testsuite name      CDATA #REQUIRED>
+<!ATTLIST testsuite tests     CDATA #REQUIRED>
+<!ATTLIST testsuite failures  CDATA #REQUIRED>
+<!ATTLIST testsuite errors    CDATA #REQUIRED>
+<!ATTLIST testsuite time      CDATA #REQUIRED>
+<!ATTLIST testsuite package   CDATA #IMPLIED>
+<!ATTLIST testsuite id        CDATA #IMPLIED>
 
-  private static String getTimestamp(@Nullable String timestampStr) {
-    if (timestampStr == null) {
-      return "";
-    }
-    return timestampStr;
-  }
 
-  private static boolean getBoolean(@Nullable String str) {
-    return (str == null) || Boolean.parseBoolean(str);
-  }
+<!ELEMENT properties (property*)>
+
+<!ELEMENT property EMPTY>
+<!ATTLIST property name  CDATA #REQUIRED>
+<!ATTLIST property value CDATA #REQUIRED>
+
+<!ELEMENT testcase (failure?, error?, system-out?, system-err?)>
+<!ATTLIST testcase name       CDATA #REQUIRED>
+<!ATTLIST testcase classname  CDATA #IMPLIED>
+<!ATTLIST testcase time       CDATA #REQUIRED>
+
+<!ELEMENT failure (#PCDATA)>
+<!ATTLIST failure message CDATA #IMPLIED>
+<!ATTLIST failure type    CDATA #REQUIRED>
+
+<!ELEMENT error (#PCDATA)>
+<!ATTLIST error message CDATA #IMPLIED>
+<!ATTLIST error type    CDATA #REQUIRED>
+
+<!ELEMENT system-err (#PCDATA)>
+
+<!ELEMENT system-out (#PCDATA)> */
 }

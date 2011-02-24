@@ -29,7 +29,10 @@ import jetbrains.buildServer.util.NamedThreadFactory;
 import jetbrains.buildServer.util.ThreadUtil;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.XmlReportPluginDuplicatesReporter;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.XmlReportPluginInspectionReporter;
+import jetbrains.buildServer.xmlReportPlugin.tests.TeamCityTestsResultsWriter;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.xml.sax.SAXException;
@@ -47,9 +50,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   @Nullable
   private AgentRunningBuild myBuild;
-
-  @Nullable
-  private volatile XMLReader myXMLReader;
 
   @NotNull
   private final ExecutorService myParseExecutor;
@@ -150,8 +150,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   }
 
   private RulesContext createRulesContext(@NotNull final RulesData rulesData) {
-    createXMLReader();
-
     final RulesState fileStateHolder = new RulesState();
     final Map<File, ParsingResult> failedToParse = new HashMap<File, ParsingResult>();
     final ParserFactory parserFactory = getParserFactory(rulesData.getType());
@@ -221,16 +219,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
     synchronized (myParseExecutor) {
       rulesContext.addParseTask(myParseExecutor.submit(parseReportCommand));
-    }
-  }
-
-  private void createXMLReader() {
-    if (myXMLReader != null) return;
-
-    try {
-      myXMLReader = ParserUtils.createXmlReader(false);
-    } catch (SAXException e) {
-      throw new RuntimeException("Unable to parse xml, failed to load parser");
     }
   }
 
@@ -463,7 +451,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         }
 
         @NotNull
-        public jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter getInspectionReporter() {
+        public InspectionReporter getInspectionReporter() {
           return new XmlReportPluginInspectionReporter(myInspectionReporter, getBuild().getBuildLogger(), getCheckoutDir());
         }
 
@@ -473,15 +461,13 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         }
 
         @NotNull
-        public Map<String, String> getParameters() {
-          return Collections.unmodifiableMap(myParameters);
+        public TestResultsWriter getTestResultsWriter() {
+          return new TeamCityTestsResultsWriter(getInternalizingThreadLogger());
         }
 
         @NotNull
-        public XMLReader getXmlReader() {
-          final XMLReader xmlReader = myXMLReader;
-          assert xmlReader != null;
-          return xmlReader;
+        public Map<String, String> getParameters() {
+          return Collections.unmodifiableMap(myParameters);
         }
 
         @NotNull
@@ -492,11 +478,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         @NotNull
         public File getCheckoutDir() {
           return getBuild().getCheckoutDirectory();
-        }
-
-        @NotNull
-        public File getTempDir() {
-          return getBuild().getBuildTempDirectory();
         }
       };
     }

@@ -29,31 +29,18 @@ import java.io.File;
 
 public class NUnitReportParserTest extends BaseParserTestCase {
   private static final String REPORT_DIR = "nunit";
-
-  private static final String SINGLE_CASE_IGNORED = "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-    "TEST STARTED: test ##TIMESTAMP##\n" +
-    "TEST IGNORED: test\n" +
-    "TEST FINISHED: test ##TIMESTAMP##\n" +
-    "SUITE FINISHED: TestCase ##TIMESTAMP##\n";
-
-  private File myBaseFolder;
-
-  @Override
-  public void setUp() throws Exception {
-    super.setUp();
-    myBaseFolder = FileUtil.createTempDirectory("", "");
-  }
-
-  @Override
-  protected void tearDown() throws Exception {
-    super.tearDown();
-    FileUtil.delete(myBaseFolder);
-  }
+  private static final String SINGLE_CASE_FAILURE = "TestSuite:TestCase\n" +
+  "  Test:test\n" +
+  "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
+  "            at TestCase.test(Unknown Source)\n" +
+  "  EndTest:16\n" +
+  "------------------------\n" +
+  "EndSuite\n";
 
   @NotNull
   @Override
   protected Parser getParser() {
-    return new NUnitReportParser(getXMLReader(), getLogger(), "nunit-to-junit.xsl", myBaseFolder);
+    return new NUnitReportParser(getTestResultsWriter());
   }
 
   @NotNull
@@ -77,102 +64,101 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void testSingleCaseSuccess() throws Exception {
     parse("singleCaseSuccess.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: test ##TIMESTAMP##\n" +
-        "TEST FINISHED: test ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "  Test:test\n" +
+      "  EndTest:16\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
  @Test
   public void test1CaseFailure() throws Exception {
    parse("singleCaseFailure.xml");
    assertResultEquals(
-     "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-       "TEST STARTED: test ##TIMESTAMP##\n" +
-       "TEST FAILED: test\n" +
-       "Assertion message form test\n" +
-       "junit.framework.AssertionFailedError: Assertion message form test\n" +
-       "            at TestCase.test(Unknown Source)\n" +
-       "TEST FINISHED: test ##TIMESTAMP##\n" +
-       "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+     SINGLE_CASE_FAILURE);
   }
 
   @Test
   public void test2CasesSuccess() throws Exception {
     parse("twoCasesSuccess.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: test1 ##TIMESTAMP##\n" +
-        "TEST FINISHED: test1 ##TIMESTAMP##\n" +
-        "TEST STARTED: test2 ##TIMESTAMP##\n" +
-        "TEST FINISHED: test2 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "  Test:test1\n" +
+      "  EndTest:16\n" +
+      "------------------------\n" +
+      "  Test:test2\n" +
+      "  EndTest:16\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
   @Test
   public void test2CasesFirstSuccess() throws Exception {
     parse("twoCasesFirstSuccess.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: test1 ##TIMESTAMP##\n" +
-        "TEST FINISHED: test1 ##TIMESTAMP##\n" +
-        "TEST STARTED: test2 ##TIMESTAMP##\n" +
-        "TEST FAILED: test2\n" +
-        "Assertion message form test\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "            at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: test2 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "  Test:test1\n" +
+      "  EndTest:16\n" +
+      "------------------------\n" +
+      "  Test:test2\n" +
+      "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
+      "            at TestCase.test(Unknown Source)\n" +
+      "  EndTest:16\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
   @Test
   public void test2CasesSecondSuccess() throws Exception {
     parse("twoCasesSecondSuccess.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: test1 ##TIMESTAMP##\n" +
-        "TEST FAILED: test1\n" +
-        "Assertion message form test\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "            at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: test1 ##TIMESTAMP##\n" +
-        "TEST STARTED: test2 ##TIMESTAMP##\n" +
-        "TEST FINISHED: test2 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "  Test:test1\n" +
+      "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
+      "            at TestCase.test(Unknown Source)\n" +
+      "  EndTest:16\n" +
+      "------------------------\n" +
+      "  Test:test2\n" +
+      "  EndTest:16\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
   @Test
   public void test2CasesFailed() throws Exception {
     parse("twoCasesFailed.xml");
     assertResultEquals(
-      "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-        "TEST STARTED: test1 ##TIMESTAMP##\n" +
-        "TEST FAILED: test1\n" +
-        "Assertion message form test\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "            at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: test1 ##TIMESTAMP##\n" +
-        "TEST STARTED: test2 ##TIMESTAMP##\n" +
-        "TEST FAILED: test2\n" +
-        "Assertion message form test\n" +
-        "junit.framework.AssertionFailedError: Assertion message form test\n" +
-        "            at TestCase.test(Unknown Source)\n" +
-        "TEST FINISHED: test2 ##TIMESTAMP##\n" +
-        "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+      "TestSuite:TestCase\n" +
+      "  Test:test1\n" +
+      "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
+      "            at TestCase.test(Unknown Source)\n" +
+      "  EndTest:16\n" +
+      "------------------------\n" +
+      "  Test:test2\n" +
+      "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
+      "            at TestCase.test(Unknown Source)\n" +
+      "  EndTest:16\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
   @Test
   public void test1CaseIgnored() throws Exception {
     parse("singleCaseIgnored.xml");
     assertResultEquals(
-      SINGLE_CASE_IGNORED);
+      "TestSuite:TestCase\n" +
+      "  Test:test\n" +
+      "    Ignored:\n" +
+      "  EndTest:0\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
   @Test
-  public void test1CaseIgnoredFailed() throws Exception {
-    parse("singleCaseIgnoredFailure.xml");
+  public void test1CaseIn2PartsBreakTestSuiteBetweenAttrs() throws Exception {
+    parse("singleCaseFailure.xml", parse("singleCaseBreakTestSuiteBetweenAttrs.xml"));
     assertResultEquals(
-      SINGLE_CASE_IGNORED);
+      SINGLE_CASE_FAILURE);
   }
 
   //TW-7573: XML Report plugin not reporting correct results for NUnit results
@@ -187,16 +173,15 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test1CaseFailureWithMultiline() throws Exception {
    parse("singleCaseFailureWithMultiline.xml");
    assertResultEquals(
-     "SUITE STARTED: TestCase ##TIMESTAMP##\n" +
-       "TEST STARTED: test ##TIMESTAMP##\n" +
-       "TEST FAILED: test\n" +
-       "Assertion message form test\n" +
-       "junit.framework.AssertionFailedError: Assertion message form test\n" +
-       "            at TestCase.test(Unknown Source)\n" +
-       "            at TestCase1.test(Unknown Source)\n" +
-       "            at TestCase2.test(Unknown Source)\n" +
-       "TEST FINISHED: test ##TIMESTAMP##\n" +
-       "SUITE FINISHED: TestCase ##TIMESTAMP##\n");
+     "TestSuite:TestCase\n" +
+     "  Test:test\n" +
+     "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
+     "            at TestCase.test(Unknown Source)\n" +
+     "            at TestCase1.test(Unknown Source)\n" +
+     "            at TestCase2.test(Unknown Source)\n" +
+     "  EndTest:16\n" +
+     "------------------------\n" +
+     "EndSuite\n");
   }
 
   @Test
@@ -217,9 +202,9 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   //TW-8140 (TW-8120)
   @Test
   public void testReportWithPrematureEndOfFilePart() throws Exception {
-    parse("TestResults_TW8120.xml", parse("TestResults_TW8120_part.xml"));
+    parse("TestResults_TW8120.xml", parse("TestResults_TW8120_part.xml", parse("TestResults_TW8120_part.xml")));
     assertResultEquals(
-      getExpectedResult("reportWithPrematureEndOfFileFull.gold"));
+      getExpectedResult("reportWithPrematureEndOfFileFrom3Tries.gold"));
   }
 
   //TW-8815

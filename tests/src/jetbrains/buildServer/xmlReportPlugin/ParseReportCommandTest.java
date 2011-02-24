@@ -22,6 +22,7 @@ import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Before;
@@ -215,17 +216,17 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
         }
 
         @NotNull
+        public TestResultsWriter getTestResultsWriter() {
+          throw new IllegalStateException(UNEXPECTED_CALL_MESSAGE);
+        }
+
+        @NotNull
         public DuplicatesReporter getDuplicatesReporter() {
           throw new IllegalStateException(UNEXPECTED_CALL_MESSAGE);
         }
 
         @NotNull
         public Map<String, String> getParameters() {
-          throw new IllegalStateException(UNEXPECTED_CALL_MESSAGE);
-        }
-
-        @NotNull
-        public XMLReader getXmlReader() {
           throw new IllegalStateException(UNEXPECTED_CALL_MESSAGE);
         }
 
@@ -238,16 +239,11 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
         public File getCheckoutDir() {
           throw new IllegalStateException(UNEXPECTED_CALL_MESSAGE);
         }
-
-        @NotNull
-        public File getTempDir() {
-          throw new IllegalStateException(UNEXPECTED_CALL_MESSAGE);
-        }
       };
   }
 
   @NotNull
-  private static String UNEXPECTED_CALL_MESSAGE = "Unexpected method call";
+  private static final String UNEXPECTED_CALL_MESSAGE = "Unexpected method call";
 
   @NotNull
   private static ParserFactory createParserFactory(@NotNull final Parser parser) {

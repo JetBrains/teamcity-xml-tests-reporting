@@ -23,6 +23,7 @@ import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -33,11 +34,9 @@ import org.xml.sax.XMLReader;
 public abstract class BaseParserTestCase extends TestCase {
   private StringBuilder myResult;
 
-  private BuildProgressLogger myLogger;
   private InspectionReporter myInspectionReporter;
   private DuplicatesReporter myDuplicatesReporter;
-
-  private XMLReader myXMLReader;
+  private TestResultsWriter myTestResultsWriter;
 
   private File myBaseDir;
 
@@ -47,11 +46,9 @@ public abstract class BaseParserTestCase extends TestCase {
   public void setUp() throws Exception {
     myResult = new StringBuilder();
 
-    myLogger = new BuildLoggerForTesting(myResult);
     myInspectionReporter = TestUtil.createInspectionReporter(myResult);
     myDuplicatesReporter = TestUtil.createDuplicatesReporter(myResult);
-
-    myXMLReader = ParserUtils.createXmlReader(false);
+    myTestResultsWriter = TestUtil.createTestResultsWriter(myResult);
 
     myBaseDir = TestUtil.getTestDataFile(null, getReportDir());
   }
@@ -91,10 +88,6 @@ public abstract class BaseParserTestCase extends TestCase {
     return myResult.toString().replace(myBaseDir.getAbsolutePath(), "##BASE_DIR##").replace("\\", "/");
   }
 
-  protected BuildProgressLogger getLogger() {
-    return myLogger;
-  }
-
   protected InspectionReporter getInspectionReporter() {
     return myInspectionReporter;
   }
@@ -103,8 +96,8 @@ public abstract class BaseParserTestCase extends TestCase {
     return myDuplicatesReporter;
   }
 
-  protected XMLReader getXMLReader() {
-    return myXMLReader;
+  public TestResultsWriter getTestResultsWriter() {
+    return myTestResultsWriter;
   }
 
   protected File getBaseDir() {
