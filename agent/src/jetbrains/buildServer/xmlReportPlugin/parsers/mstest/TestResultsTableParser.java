@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
  * @author Eugene Petrenko
  *         Created: 24.10.2008 15:02:03
  */
-public class TestResultsTableParser extends XmlXppAbstractParser {
+class TestResultsTableParser extends XmlXppAbstractParser {
   private final Callback myCallback;
   private final DurationParser myDurationParser = new DurationParser();
 

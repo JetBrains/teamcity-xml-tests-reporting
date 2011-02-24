@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Eugene Petrenko
  *         Created: 24.10.2008 14:21:37
  */
-public class TestNamesTableParser extends XmlXppAbstractParser {
+class TestNamesTableParser extends XmlXppAbstractParser {
   private final Callback myParserCallback;
 
   public TestNamesTableParser(@NotNull final Callback parserCallback) {

@@ -7,7 +7,7 @@ import java.util.List;
  * @author Eugene Petrenko
 *         Created: 05.02.2009 20:15:05
 */
-public class TestResult {
+class TestResult {
   private String myTestId;
   private String myDataRowInfo;
   private String myDuration;

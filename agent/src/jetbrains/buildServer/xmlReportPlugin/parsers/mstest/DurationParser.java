@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
  * @author Eugene Petrenko
  *         Created: 27.10.2008 12:10:37
  */
-public class DurationParser {
+class DurationParser {
   private static final Logger LOG = Logger.getInstance(DurationParser.class.getName());
 
   public long parseTestDuration(@NotNull final String duration) {

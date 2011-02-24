@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
  * @author Eugene Petrenko
  *         Created: 20.01.2009 14:49:47
  */
-public class NameUtil {
+class NameUtil {
   @Nullable
   public static String getTestName(String clazzFQ, String name) {
     if (clazzFQ != null && name != null) {

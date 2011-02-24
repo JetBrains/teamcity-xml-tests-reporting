@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
  * @author Eugene Petrenko
  *         Created: 18.08.2009 15:33:49
  */
-public class TestName {
+class TestName {
   private final String myTestId;
   private final String myDataRowInfo;
 

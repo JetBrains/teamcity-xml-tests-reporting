@@ -17,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
  * @author Eugene Petrenko
  *         Created: 23.10.2008 22:47:48
  */
-public class MSTestTRXParser implements Parser {
+class MSTestTRXParser implements Parser {
   private static final Logger LOG = Logger.getInstance(MSTestTRXParser.class.getName());
 
   private final TestNamesTableParser myNamesParser;

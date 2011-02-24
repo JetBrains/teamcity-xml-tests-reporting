@@ -9,7 +9,7 @@ import static jetbrains.buildServer.xmlReportPlugin.parsers.mstest.TestOutcome.S
  * @author Eugene Petrenko
  *         Created: 24.10.2008 18:20:53
  */
-public enum TestOutcome {
+enum TestOutcome {
   ABORTED(3, "Aborted", Failed),
   COMPLETED(11, "Completed", Passed),
   DISCONNECTED(8, "Disconnected", Passed),
