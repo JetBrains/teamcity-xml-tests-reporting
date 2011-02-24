@@ -32,12 +32,12 @@ import java.io.File;
  * Date: 22.01.11
  * Time: 17:49
  */
-public class InspectionsParsingResult implements ParsingResult {
+public class InspectionParsingResult implements ParsingResult {
   private int myErrors;
   private int myWarnings;
   private int myInfos;
 
-  public InspectionsParsingResult(int errors, int warnings, int infos) {
+  public InspectionParsingResult(int errors, int warnings, int infos) {
     myErrors = errors;
     myWarnings = warnings;
     myInfos = infos;
@@ -56,15 +56,15 @@ public class InspectionsParsingResult implements ParsingResult {
   }
 
   public void accumulate(@NotNull ParsingResult parsingResult) {
-    final InspectionsParsingResult inspectionsParsingResult = (InspectionsParsingResult) parsingResult;
-    myErrors += inspectionsParsingResult.getErrors();
-    myWarnings += inspectionsParsingResult.getWarnings();
-    myInfos += inspectionsParsingResult.getInfos();
+    final InspectionParsingResult inspectionParsingResult = (InspectionParsingResult) parsingResult;
+    myErrors += inspectionParsingResult.getErrors();
+    myWarnings += inspectionParsingResult.getWarnings();
+    myInfos += inspectionParsingResult.getInfos();
   }
 
   @NotNull
-  public static InspectionsParsingResult createEmptyResult() {
-    return new InspectionsParsingResult(0, 0, 0);
+  public static InspectionParsingResult createEmptyResult() {
+    return new InspectionParsingResult(0, 0, 0);
   }
 
   public void logAsFileResult(@NotNull File file,

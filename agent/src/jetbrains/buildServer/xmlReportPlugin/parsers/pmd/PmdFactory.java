@@ -17,7 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.parsers.pmd;
 
 import jetbrains.buildServer.xmlReportPlugin.*;
-import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionsParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionParsingResult;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -33,6 +33,6 @@ public class PmdFactory implements ParserFactory {
 
   @NotNull
   public ParsingResult createEmptyResult() {
-    return InspectionsParsingResult.createEmptyResult();
+    return InspectionParsingResult.createEmptyResult();
   }
 }

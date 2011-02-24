@@ -26,7 +26,7 @@ import jetbrains.buildServer.xmlReportPlugin.*;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionTypeResult;
-import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionsParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionParsingResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -176,7 +176,7 @@ public class FindBugsReportParser implements Parser {
   }
 
   public ParsingResult getParsingResult() {
-    return new InspectionsParsingResult(myErrors, myWarnings, myInfos);
+    return new InspectionParsingResult(myErrors, myWarnings, myInfos);
   }
 
   @Nullable
