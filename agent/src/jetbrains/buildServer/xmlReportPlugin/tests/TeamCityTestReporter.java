@@ -11,9 +11,12 @@ import org.jetbrains.annotations.Nullable;
  *         Created: 24.10.2008 20:42:56
  */
 public class TeamCityTestReporter implements TestReporter {
+  @NotNull
   private final BuildProgressLogger myLogger;
-  private Stack<String> myTestSuites = new Stack<String>();
-  private Stack<String> myTests = new Stack<String>();
+  @NotNull
+  private final Stack<String> myTestSuites = new Stack<String>();
+  @NotNull
+  private final Stack<String> myTests = new Stack<String>();
 
   public TeamCityTestReporter(@NotNull final BuildProgressLogger logger) {
     myLogger = logger;
