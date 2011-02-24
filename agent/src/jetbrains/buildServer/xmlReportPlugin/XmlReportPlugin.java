@@ -33,6 +33,7 @@ import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.TeamCityInspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.tests.TeamCityTestReporter;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
+import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

@@ -16,7 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.pmdCpd;
 
-import jetbrains.buildServer.xmlReportPlugin.LoggingUtils;
+import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
 import org.jetbrains.annotations.NotNull;

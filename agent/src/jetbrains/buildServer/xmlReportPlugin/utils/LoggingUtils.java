@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package jetbrains.buildServer.xmlReportPlugin;
+package jetbrains.buildServer.xmlReportPlugin.utils;
 
 import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
+import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
