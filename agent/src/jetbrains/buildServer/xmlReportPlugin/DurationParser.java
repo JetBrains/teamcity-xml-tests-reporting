@@ -26,6 +26,8 @@ import org.jetbrains.annotations.Nullable;
  * Time: 18:02
  */
 public class DurationParser {
+  public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(DurationParser.class);
+
   private static final String COMMA = ",";
   private static final String DOT = ".";
   private static final String MARK = "'";
@@ -38,7 +40,7 @@ public class DurationParser {
     try {
       return (long) (Double.parseDouble(getUniformTimeStr(duration)) * 1000.0);
     } catch (NumberFormatException e) {
-      LoggingUtils.LOG.warn("Unable to parse execution time string " + duration, e);
+      LOG.warn("Unable to parse execution time string " + duration, e);
       return 0L;
     }
   }
