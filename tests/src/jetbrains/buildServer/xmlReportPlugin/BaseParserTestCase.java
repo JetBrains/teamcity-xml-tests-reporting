@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import jetbrains.buildServer.util.FileUtil;
-import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import junit.framework.TestCase;
@@ -33,7 +33,7 @@ public abstract class BaseParserTestCase extends TestCase {
   private StringBuilder myResult;
 
   private InspectionReporter myInspectionReporter;
-  private DuplicatesReporter myDuplicatesReporter;
+  private DuplicationReporter myDuplicationReporter;
   private TestReporter myTestReporter;
 
   private File myBaseDir;
@@ -45,7 +45,7 @@ public abstract class BaseParserTestCase extends TestCase {
     myResult = new StringBuilder();
 
     myInspectionReporter = TestUtil.createInspectionReporter(myResult);
-    myDuplicatesReporter = TestUtil.createDuplicatesReporter(myResult);
+    myDuplicationReporter = TestUtil.createDuplicationReporter(myResult);
     myTestReporter = TestUtil.createTestResultsWriter(myResult);
 
     myBaseDir = TestUtil.getTestDataFile(null, getReportDir());
@@ -90,8 +90,8 @@ public abstract class BaseParserTestCase extends TestCase {
     return myInspectionReporter;
   }
 
-  protected DuplicatesReporter getDuplicatesReporter() {
-    return myDuplicatesReporter;
+  protected DuplicationReporter getDuplicationReporter() {
+    return myDuplicationReporter;
   }
 
   public TestReporter getTestReporter() {

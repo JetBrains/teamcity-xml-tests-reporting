@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import jetbrains.buildServer.duplicator.DuplicateInfo;
 import jetbrains.buildServer.xmlReportPlugin.PathUtils;
-import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
-import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatingFragment;
-import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationResult;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -14,13 +11,14 @@ import org.jetbrains.annotations.NotNull;
  * Date: 08.02.11
  * Time: 16:12
  */
-public class XmlReportPluginDuplicatesReporter implements DuplicatesReporter {
+public class XmlReportPluginDuplicationReporter implements DuplicationReporter {
   @NotNull
   private final jetbrains.buildServer.agent.duplicates.DuplicatesReporter myDuplicatesReporter;
   @NotNull
   private final File myBaseFolder;
 
-  public XmlReportPluginDuplicatesReporter(@NotNull jetbrains.buildServer.agent.duplicates.DuplicatesReporter duplicatesReporter, @NotNull File baseFolder) {
+  public XmlReportPluginDuplicationReporter(@NotNull jetbrains.buildServer.agent.duplicates.DuplicatesReporter duplicatesReporter,
+                                            @NotNull File baseFolder) {
     myDuplicatesReporter = duplicatesReporter;
     myBaseFolder = baseFolder;
   }

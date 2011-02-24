@@ -19,7 +19,7 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.pmdCpd;
 import java.io.File;
 import java.io.IOException;
 import jetbrains.buildServer.xmlReportPlugin.*;
-import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -31,10 +31,10 @@ import org.jetbrains.annotations.Nullable;
  */
 public class PmdCpdReportParser implements Parser {
   @NotNull
-  private final DuplicatesReporter myDuplicatesReporter;
+  private final DuplicationReporter myDuplicationReporter;
 
-  public PmdCpdReportParser(@NotNull DuplicatesReporter duplicatesReporter) {
-    myDuplicatesReporter = duplicatesReporter;
+  public PmdCpdReportParser(@NotNull DuplicationReporter duplicationReporter) {
+    myDuplicationReporter = duplicationReporter;
   }
 
   public boolean parse(@NotNull File file, @Nullable ParsingResult prevResult) throws ParsingException {
@@ -45,15 +45,15 @@ public class PmdCpdReportParser implements Parser {
     try {
       new PmdCpdXmlReportParser(new PmdCpdXmlReportParser.Callback() {
         public void startDuplicates() {
-          myDuplicatesReporter.startDuplicates();
+          myDuplicationReporter.startDuplicates();
         }
 
         public void finishDuplicates() {
-          myDuplicatesReporter.finishDuplicates();
+          myDuplicationReporter.finishDuplicates();
         }
 
         public void reportDuplicate(@NotNull DuplicationResult duplicate) {
-          myDuplicatesReporter.reportDuplicate(duplicate);
+          myDuplicationReporter.reportDuplicate(duplicate);
         }
       }).parse(file);
     } catch (IOException e) {

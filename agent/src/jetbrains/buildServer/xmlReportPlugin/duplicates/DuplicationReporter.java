@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
  * Date: 08.02.11
  * Time: 15:24
  */
-public interface DuplicatesReporter {
+public interface DuplicationReporter {
   /**
    * Indicates the beginning of a duplicates block
    */

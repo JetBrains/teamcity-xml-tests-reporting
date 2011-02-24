@@ -18,7 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import java.io.*;
 import java.util.*;
-import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatingFragment;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
@@ -91,8 +91,8 @@ public final class TestUtil {
     };
   }
 
-  public static DuplicatesReporter createDuplicatesReporter(final StringBuilder results) {
-    return new DuplicatesReporter() {
+  public static DuplicationReporter createDuplicationReporter(final StringBuilder results) {
+    return new DuplicationReporter() {
       public void startDuplicates() {
       }
 

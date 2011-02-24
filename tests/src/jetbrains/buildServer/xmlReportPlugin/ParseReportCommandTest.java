@@ -20,7 +20,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import org.jetbrains.annotations.NotNull;
@@ -220,7 +220,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
         }
 
         @NotNull
-        public DuplicatesReporter getDuplicatesReporter() {
+        public DuplicationReporter getDuplicationReporter() {
           throw new IllegalStateException(UNEXPECTED_CALL_MESSAGE);
         }
 

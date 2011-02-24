@@ -18,7 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import org.jetbrains.annotations.NotNull;
@@ -41,7 +41,7 @@ public interface ParseParameters {
   InspectionReporter getInspectionReporter();
 
   @NotNull
-  DuplicatesReporter getDuplicatesReporter();
+  DuplicationReporter getDuplicationReporter();
 
   @NotNull
   TestReporter getTestReporter();
