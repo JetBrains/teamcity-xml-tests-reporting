@@ -18,7 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.nUnit;
 
 import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestsParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
 import junit.framework.Assert;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
@@ -48,7 +48,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
 
   @Test
   public void testEmptyReport() throws Exception {
-    final TestsParsingResult result = (TestsParsingResult) parse("empty.xml");
+    final TestParsingResult result = (TestParsingResult) parse("empty.xml");
 
     final int suitesLogged = result.getSuites();
     Assert.assertTrue("Empty reportData contains 0 suites, but " + suitesLogged + " suites logged", suitesLogged == 0);

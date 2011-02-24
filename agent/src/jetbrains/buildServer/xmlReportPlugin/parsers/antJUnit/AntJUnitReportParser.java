@@ -18,8 +18,8 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit;
 
 import java.io.IOException;
 import jetbrains.buildServer.xmlReportPlugin.*;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestsParsingResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,7 +45,7 @@ public class AntJUnitReportParser implements Parser {
 
   public boolean parse(@NotNull final File file, @Nullable final ParsingResult prevResult) throws ParsingException {
     if (prevResult != null) {
-      myTestsToSkip = ((TestsParsingResult) prevResult).getTests();
+      myTestsToSkip = ((TestParsingResult) prevResult).getTests();
     }
     try {
       new AntJUnitXmlReportParser(new AntJUnitXmlReportParser.Callback() {
@@ -158,7 +158,7 @@ public class AntJUnitReportParser implements Parser {
   }
 
   public ParsingResult getParsingResult() {
-    return new TestsParsingResult(myLoggedSuites, (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip);
+    return new TestParsingResult(myLoggedSuites, (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip);
   }
 
   @NotNull

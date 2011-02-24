@@ -28,11 +28,11 @@ import java.io.File;
  * Date: 22.01.11
  * Time: 18:33
  */
-public class TestsParsingResult implements ParsingResult {
+public class TestParsingResult implements ParsingResult {
   private int mySuites;
   private int myTests;
 
-  public TestsParsingResult(int suites, int tests) {
+  public TestParsingResult(int suites, int tests) {
     mySuites = suites;
     myTests = tests;
   }
@@ -46,14 +46,14 @@ public class TestsParsingResult implements ParsingResult {
   }
 
   public void accumulate(@NotNull ParsingResult parsingResult) {
-    final TestsParsingResult testsParsingResult = (TestsParsingResult) parsingResult;
-    mySuites += testsParsingResult.getSuites();
-    myTests += testsParsingResult.getTests();
+    final TestParsingResult testParsingResult = (TestParsingResult) parsingResult;
+    mySuites += testParsingResult.getSuites();
+    myTests += testParsingResult.getTests();
   }
 
   @NotNull
-  public static TestsParsingResult createEmptyResult() {
-    return new TestsParsingResult(0, 0);
+  public static TestParsingResult createEmptyResult() {
+    return new TestParsingResult(0, 0);
   }
 
   public void logAsFileResult(@NotNull File file, @NotNull ParseParameters parameters) {

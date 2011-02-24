@@ -20,8 +20,8 @@ import java.io.IOException;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.ParsingException;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestsParsingResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,7 +48,7 @@ public class NUnitReportParser implements Parser {
 
   public boolean parse(@NotNull final File file, @Nullable final ParsingResult prevResult) throws ParsingException {
     if (prevResult != null) {
-      myTestsToSkip = ((TestsParsingResult) prevResult).getTests();
+      myTestsToSkip = ((TestParsingResult) prevResult).getTests();
     }
     try {
       new NUnitXmlReportParser(new NUnitXmlReportParser.Callback() {
@@ -118,7 +118,7 @@ public class NUnitReportParser implements Parser {
   }
 
   public ParsingResult getParsingResult() {
-    return new TestsParsingResult(myLoggedSuites, myLoggedTests);
+    return new TestParsingResult(myLoggedSuites, myLoggedTests);
   }
 
   private boolean testSkipped() {

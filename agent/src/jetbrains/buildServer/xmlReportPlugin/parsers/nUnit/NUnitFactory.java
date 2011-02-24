@@ -17,7 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.parsers.nUnit;
 
 import jetbrains.buildServer.xmlReportPlugin.*;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestsParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -33,6 +33,6 @@ public class NUnitFactory implements ParserFactory {
 
   @NotNull
   public ParsingResult createEmptyResult() {
-    return TestsParsingResult.createEmptyResult();
+    return TestParsingResult.createEmptyResult();
   }
 }

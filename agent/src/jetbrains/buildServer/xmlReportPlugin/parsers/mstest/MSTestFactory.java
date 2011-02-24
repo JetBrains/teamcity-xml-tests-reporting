@@ -2,7 +2,7 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.mstest;
 
 import jetbrains.buildServer.xmlReportPlugin.*;
 import jetbrains.buildServer.xmlReportPlugin.tests.TeamCityTestsResultsWriter;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestsParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -18,6 +18,6 @@ public class MSTestFactory implements ParserFactory {
 
   @NotNull
   public ParsingResult createEmptyResult() {
-    return TestsParsingResult.createEmptyResult();
+    return TestParsingResult.createEmptyResult();
   }
 }
