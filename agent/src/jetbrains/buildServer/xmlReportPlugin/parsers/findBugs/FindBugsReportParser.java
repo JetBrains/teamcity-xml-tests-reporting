@@ -205,7 +205,7 @@ public class FindBugsReportParser implements Parser {
     try {
       myDetailsParser.parse(new BufferedReader(new StringReader(s)));
     } catch (IOException e) {
-      LoggingUtils.LOG.warn("Couldn't format html description to text", e);
+      LOG.warn("Couldn't format html description to text", e);
     }
     return myDetailsParser.getText().replace("&nbsp", "");
   }
