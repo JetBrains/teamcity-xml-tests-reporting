@@ -1,36 +1,39 @@
-SUITE STARTED: TestCase ##TIMESTAMP##
-TEST STARTED: TestCase.test1 ##TIMESTAMP##
-TEST FINISHED: TestCase.test1 ##TIMESTAMP##
-TEST STARTED: TestCase.test2 ##TIMESTAMP##
-TEST FINISHED: TestCase.test2 ##TIMESTAMP##
-TEST STARTED: TestCase.test3 ##TIMESTAMP##
-TEST FINISHED: TestCase.test3 ##TIMESTAMP##
-SUITE FINISHED: TestCase ##TIMESTAMP##
-SUITE STARTED: TestCase ##TIMESTAMP##
-TEST STARTED: TestCase.test4 ##TIMESTAMP##
-TEST FAILED: TestCase.test4
-junit.framework.AssertionFailedError: Assertion message form test
-junit.framework.AssertionFailedError: Assertion message form test
+TestSuite:TestCase
+  Test:TestCase.test1
+  EndTest:31
+------------------------
+  Test:TestCase.test2
+  EndTest:31
+------------------------
+  Test:TestCase.test3
+  EndTest:31
+------------------------
+EndSuite
+TestSuite:TestCase
+  Test:TestCase.test4
+    Fail:junit.framework.AssertionFailedError: Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test
       at TestCase.test4(Unknown Source)
-TEST FINISHED: TestCase.test4 ##TIMESTAMP##
-TEST STARTED: TestCase.test5 ##TIMESTAMP##
-TEST FAILED: TestCase.test5
-junit.framework.AssertionFailedError: Assertion message form test
-junit.framework.AssertionFailedError: Assertion message form test
+  EndTest:47
+------------------------
+  Test:TestCase.test5
+    Fail:junit.framework.AssertionFailedError: Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test
       at TestCase.test5(Unknown Source)
-TEST FINISHED: TestCase.test5 ##TIMESTAMP##
-TEST STARTED: TestCase.test6 ##TIMESTAMP##
-TEST FAILED: TestCase.test6
-junit.framework.AssertionFailedError: Assertion message form test
-junit.framework.AssertionFailedError: Assertion message form test
+  EndTest:47
+------------------------
+  Test:TestCase.test6
+    Fail:junit.framework.AssertionFailedError: Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test
       at TestCase.test6(Unknown Source)
-TEST FINISHED: TestCase.test6 ##TIMESTAMP##
-SUITE FINISHED: TestCase ##TIMESTAMP##
-SUITE STARTED: TestCase ##TIMESTAMP##
-TEST STARTED: TestCase.test7 ##TIMESTAMP##
-TEST FINISHED: TestCase.test7 ##TIMESTAMP##
-TEST STARTED: TestCase.test8 ##TIMESTAMP##
-TEST FINISHED: TestCase.test8 ##TIMESTAMP##
-TEST STARTED: TestCase.test9 ##TIMESTAMP##
-TEST FINISHED: TestCase.test9 ##TIMESTAMP##
-SUITE FINISHED: TestCase ##TIMESTAMP##
+  EndTest:47
+------------------------
+EndSuite
+TestSuite:TestCase
+  Test:TestCase.test7
+  EndTest:31
+------------------------
+  Test:TestCase.test8
+  EndTest:31
+------------------------
+  Test:TestCase.test9
+  EndTest:31
+------------------------
+EndSuite

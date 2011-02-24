@@ -1,21 +1,25 @@
-SUITE STARTED: statuses.dll ##TIMESTAMP##
-TEST STARTED: Class1.Error ##TIMESTAMP##
-TEST FAILED: Class1.Error
-System.Exception : Mega bug
-at Class1.Error()
-TEST FINISHED: Class1.Error ##TIMESTAMP##
-TEST STARTED: Class1.IgnoredAsAssert ##TIMESTAMP##
-TEST IGNORED: Class1.IgnoredAsAssert
-TEST FINISHED: Class1.IgnoredAsAssert ##TIMESTAMP##
-TEST STARTED: Class1.IgnoredWithAttribute ##TIMESTAMP##
-TEST IGNORED: Class1.IgnoredWithAttribute
-TEST FINISHED: Class1.IgnoredWithAttribute ##TIMESTAMP##
-TEST STARTED: Class1.InconclusiveAsAssert ##TIMESTAMP##
-TEST IGNORED: Class1.InconclusiveAsAssert
-TEST FINISHED: Class1.InconclusiveAsAssert ##TIMESTAMP##
-TEST STARTED: Class1.InconclusiveAsException ##TIMESTAMP##
-TEST IGNORED: Class1.InconclusiveAsException
-TEST FINISHED: Class1.InconclusiveAsException ##TIMESTAMP##
-TEST STARTED: Class1.PassAsAssert ##TIMESTAMP##
-TEST FINISHED: Class1.PassAsAssert ##TIMESTAMP##
-SUITE FINISHED: statuses.dll ##TIMESTAMP##
+TestSuite:Class1.statuses.dll
+  Test:Class1.Error
+    Fail:System.Exception : Mega bug Message: at Class1.Error()
+  EndTest:3
+------------------------
+  Test:Class1.IgnoredAsAssert
+    Ignored:
+  EndTest:0
+------------------------
+  Test:Class1.IgnoredWithAttribute
+    Ignored:
+  EndTest:0
+------------------------
+  Test:Class1.InconclusiveAsAssert
+    Ignored:
+  EndTest:0
+------------------------
+  Test:Class1.InconclusiveAsException
+    Ignored:
+  EndTest:1
+------------------------
+  Test:Class1.PassAsAssert
+  EndTest:0
+------------------------
+EndSuite

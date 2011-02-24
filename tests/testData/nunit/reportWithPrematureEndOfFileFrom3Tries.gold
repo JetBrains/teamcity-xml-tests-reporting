@@ -29,6 +29,10 @@ TestSuite:MCNTest
   Test:UTILMD_9800043600002_9800043600002_20090428_5.txt
   EndTest:516
 ------------------------
+EndSuite
+TestSuite:MCNTest
+EndSuite
+TestSuite:MCNTest
   Test:UTILMD_9800043600002_9870109800002_20090427_1.txt
   EndTest:484
 ------------------------

@@ -19,8 +19,8 @@
            timestamp="2008-10-30T17:11:25">
   <properties/>
   <testcase classname="TestCase" name="test" time="0.047">
-    <failure message="Assertion message form test" type="junit.framework.AssertionFailedError">
-      junit.framework.AssertionFailedError: Assertion message form test
+    <failure message="Assertion message from test" type="junit.framework.AssertionFailedError">
+      junit.framework.AssertionFailedError: Assertion message from test
       at TestCase.test(Unknown Source)
     </failure>
   </testcase>
