@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
  * Date: 17.02.11
  * Time: 20:28
  */
-public class CategoryXmlParser extends XmlXppAbstractParser {
+class CategoryXmlParser extends XmlXppAbstractParser {
   @NotNull
   private final Callback myCallback;
 

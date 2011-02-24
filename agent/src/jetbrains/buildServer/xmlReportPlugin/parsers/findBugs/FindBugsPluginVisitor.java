@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
  * Date: 17.02.11
  * Time: 19:04
  */
-public class FindBugsPluginVisitor {
+class FindBugsPluginVisitor {
   @NotNull
   public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(FindBugsPluginVisitor.class);
 
@@ -63,8 +63,6 @@ public class FindBugsPluginVisitor {
   }
 
   private void load(@NotNull File file) {
-    LOG.debug("Loading bug patterns from FindBugs plugin " + file);
-
     JarFile jar = null;
     try {
       jar = new JarFile(file);
@@ -88,7 +86,7 @@ public class FindBugsPluginVisitor {
 
       FileUtil.delete(tempFile);
     } catch (Exception e) {
-      LOG.warn("Couldn't load bug patterns from findbugs.xml and messages.xml from plugin " + file, e);
+      LOG.warn("Couldn't copy out messages.xml from plugin " + file, e);
     } finally {
       try {
         if (jar != null) {

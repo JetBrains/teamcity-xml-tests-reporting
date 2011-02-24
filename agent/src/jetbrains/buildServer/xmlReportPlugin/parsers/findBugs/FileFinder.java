@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
-public class FileFinder {
+class FileFinder {
   @NotNull
   private final List<Entry> myJars = new LinkedList<Entry>();
 
