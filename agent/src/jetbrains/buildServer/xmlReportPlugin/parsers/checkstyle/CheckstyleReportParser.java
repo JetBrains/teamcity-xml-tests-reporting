@@ -33,7 +33,7 @@ import java.io.File;
  * Date: 23.12.2009
  * Time: 16:11:49
  */
-public class CheckstyleReportParser implements Parser {
+class CheckstyleReportParser implements Parser {
   @NotNull
   private final InspectionReporter myInspectionReporter;
 
