@@ -115,7 +115,6 @@ public class FindBugsReportParser implements Parser {
       new FindBugsPluginVisitor(new FindBugsPluginVisitor.Callback() {
         public void pluginFound(@NotNull File messages) {
           try {
-            //myPatternCategoryXmlParser.parse(findBugs);
             myPatternXmlParser.parse(messages);
             myCategoryXmlParser.parse(messages);
           } catch (IOException e) {
