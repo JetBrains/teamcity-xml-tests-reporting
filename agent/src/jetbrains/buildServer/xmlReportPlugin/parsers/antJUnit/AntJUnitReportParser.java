@@ -50,103 +50,103 @@ public class AntJUnitReportParser implements Parser {
     try {
       new AntJUnitXmlReportParser(new AntJUnitXmlReportParser.Callback() {
 
-      public void suiteFound(@Nullable final String suiteName) {
-        if (mySuite != null) {
-          LOG.error("Suite " + mySuite + " was not closed");
-        }
+        public void suiteFound(@Nullable final String suiteName) {
+          if (mySuite != null) {
+            LOG.error("Suite " + mySuite + " was not closed");
+          }
 
-        if (suiteName == null) {
-          myTestReporter.warning("File " + file + " contains unnamed suite");
-          return;
-        }
-
-        myTestReporter.openTestSuite(suiteName);
-        ++myLoggedSuites;
-        mySuite = suiteName;
-      }
-
-      public void suiteFailureFound(@Nullable final String suiteName,
-                                    @Nullable final String type,
-                                    @Nullable final String message,
-                                    @Nullable final String trace) {
-        if (mySuite == null || !mySuite.equals(suiteName)) {
-          LOG.error("Failed to log suite failure for not-opened suite " + suiteName);
-          return;
-        }
-        myTestReporter.error("Failure from suite " + suiteName + ": " + getFailureMessage(type, message) + "\n" + trace);
-      }
-
-      public void suiteErrorFound(@Nullable final String suiteName,
-                                  @Nullable final String type,
-                                  @Nullable final String message,
-                                  @Nullable final String trace) {
-        if (mySuite == null || !mySuite.equals(suiteName)) {
-          LOG.error("Failed to log suite error for not-opened suite " + suiteName);
-          return;
-        }
-        myTestReporter.error("Error from suite " + suiteName + ": " + getFailureMessage(type, message) + "\n" + trace);
-      }
-
-      public void suiteSystemOutFound(@Nullable final String suiteName, @Nullable final String message) {
-        if (mySuite == null || !mySuite.equals(suiteName)) {
-          LOG.error("Failed to log suite system out for not-opened suite " + suiteName);
-          return;
-        }
-        if (message != null && message.length() > 0) {
-          myTestReporter.info("System out from suite " + suiteName + ": " + message);
-        }
-      }
-
-      public void suiteSystemErrFound(@Nullable final String suiteName, @Nullable final String message) {
-        if (mySuite == null || !mySuite.equals(suiteName)) {
-          LOG.error("Failed to log suite system out for not-opened suite " + suiteName);
-          return;
-        }
-        if (message != null && message.length() > 0) {
-          myTestReporter.warning("System error from suite " + suiteName + ": " + message);
-        }
-      }
-
-      public void suiteFinished(@Nullable final String suiteName) {
-        if (mySuite == null || !mySuite.equals(suiteName)) {
-          LOG.error("Failed to log suite finish for not-opened suite " + suiteName);
-          return;
-        }
-        myTestReporter.closeTestSuite();
-        mySuite = null;
-      }
-
-      @SuppressWarnings({"ConstantConditions"})
-      public void testFound(@NotNull TestData testData) {
-        try {
-          if (testSkipped()) return;
-
-          final String testName = testData.getName();
-
-          if (testName == null) {
-            myTestReporter.warning("File " + file + " contains unnamed test");
+          if (suiteName == null) {
+            myTestReporter.warning("File " + file + " contains unnamed suite");
             return;
           }
 
-          myTestReporter.openTest(testName);
-          if (!testData.isExecuted()) myTestReporter.testIgnored("");
-          if (testData.getFailureType() != null || testData.getFailureMessage() != null) {
-            myTestReporter
-              .testFail(getFailureMessage(testData.getFailureType(), testData.getFailureMessage()), testData.getFailureStackTrace());
-          }
-          //noinspection ConstantConditions
-          if (testData.getStdErr() != null && testData.getStdErr().length() > 0) {
-            myTestReporter.warning("System error from test " + testName + ": " + testData.getStdErr());
-          }
-          if (testData.getStdOut() != null && testData.getStdOut().length() > 0) {
-            myTestReporter.info("System out from test " + testName + ": " + testData.getStdOut());
-          }
-          myTestReporter.closeTest(testData.getDuration());
-        } finally {
-          ++myLoggedTests;
+          myTestReporter.openTestSuite(suiteName);
+          ++myLoggedSuites;
+          mySuite = suiteName;
         }
-      }
-    }).parse(file);
+
+        public void suiteFailureFound(@Nullable final String suiteName,
+                                      @Nullable final String type,
+                                      @Nullable final String message,
+                                      @Nullable final String trace) {
+          if (mySuite == null || !mySuite.equals(suiteName)) {
+            LOG.error("Failed to log suite failure for not-opened suite " + suiteName);
+            return;
+          }
+          myTestReporter.error("Failure from suite " + suiteName + ": " + getFailureMessage(type, message) + "\n" + trace);
+        }
+
+        public void suiteErrorFound(@Nullable final String suiteName,
+                                    @Nullable final String type,
+                                    @Nullable final String message,
+                                    @Nullable final String trace) {
+          if (mySuite == null || !mySuite.equals(suiteName)) {
+            LOG.error("Failed to log suite error for not-opened suite " + suiteName);
+            return;
+          }
+          myTestReporter.error("Error from suite " + suiteName + ": " + getFailureMessage(type, message) + "\n" + trace);
+        }
+
+        public void suiteSystemOutFound(@Nullable final String suiteName, @Nullable final String message) {
+          if (mySuite == null || !mySuite.equals(suiteName)) {
+            LOG.error("Failed to log suite system out for not-opened suite " + suiteName);
+            return;
+          }
+          if (message != null && message.length() > 0) {
+            myTestReporter.info("System out from suite " + suiteName + ": " + message);
+          }
+        }
+
+        public void suiteSystemErrFound(@Nullable final String suiteName, @Nullable final String message) {
+          if (mySuite == null || !mySuite.equals(suiteName)) {
+            LOG.error("Failed to log suite system err for not-opened suite " + suiteName);
+            return;
+          }
+          if (message != null && message.length() > 0) {
+            myTestReporter.warning("System error from suite " + suiteName + ": " + message);
+          }
+        }
+
+        public void suiteFinished(@Nullable final String suiteName) {
+          if (mySuite == null || !mySuite.equals(suiteName)) {
+            LOG.error("Failed to log suite finish for not-opened suite " + suiteName);
+            return;
+          }
+          myTestReporter.closeTestSuite();
+          mySuite = null;
+        }
+
+        @SuppressWarnings({"ConstantConditions"})
+        public void testFound(@NotNull TestData testData) {
+          try {
+            if (testSkipped()) return;
+
+            final String testName = testData.getName();
+
+            if (testName == null) {
+              myTestReporter.warning("File " + file + " contains unnamed test");
+              return;
+            }
+
+            myTestReporter.openTest(testName);
+            if (!testData.isExecuted()) myTestReporter.testIgnored("");
+            if (testData.getFailureType() != null || testData.getFailureMessage() != null) {
+              myTestReporter
+                .testFail(getFailureMessage(testData.getFailureType(), testData.getFailureMessage()), testData.getFailureStackTrace());
+            }
+            //noinspection ConstantConditions
+            if (testData.getStdErr() != null && testData.getStdErr().length() > 0) {
+              myTestReporter.warning("System error from test " + testName + ": " + testData.getStdErr());
+            }
+            if (testData.getStdOut() != null && testData.getStdOut().length() > 0) {
+              myTestReporter.info("System out from test " + testName + ": " + testData.getStdOut());
+            }
+            myTestReporter.closeTest(testData.getDuration());
+          } finally {
+            ++myLoggedTests;
+          }
+        }
+      }).parse(file);
       return true;
     } catch (IOException e) {
       if (mySuite != null) myTestReporter.closeTestSuite();
