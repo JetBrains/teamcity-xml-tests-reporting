@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 import jetbrains.buildServer.agent.DataProcessor;
 import jetbrains.buildServer.agent.DataProcessorContext;
-import jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsReportParser;
 import org.jetbrains.annotations.NotNull;
 
 //"##teamcity[importData type='sometype' file='somedir']"
