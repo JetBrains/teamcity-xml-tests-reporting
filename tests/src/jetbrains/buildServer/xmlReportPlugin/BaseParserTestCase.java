@@ -19,16 +19,14 @@ package jetbrains.buildServer.xmlReportPlugin;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Before;
-import org.xml.sax.XMLReader;
 
 
 public abstract class BaseParserTestCase extends TestCase {
@@ -36,7 +34,7 @@ public abstract class BaseParserTestCase extends TestCase {
 
   private InspectionReporter myInspectionReporter;
   private DuplicatesReporter myDuplicatesReporter;
-  private TestResultsWriter myTestResultsWriter;
+  private TestReporter myTestReporter;
 
   private File myBaseDir;
 
@@ -48,7 +46,7 @@ public abstract class BaseParserTestCase extends TestCase {
 
     myInspectionReporter = TestUtil.createInspectionReporter(myResult);
     myDuplicatesReporter = TestUtil.createDuplicatesReporter(myResult);
-    myTestResultsWriter = TestUtil.createTestResultsWriter(myResult);
+    myTestReporter = TestUtil.createTestResultsWriter(myResult);
 
     myBaseDir = TestUtil.getTestDataFile(null, getReportDir());
   }
@@ -96,8 +94,8 @@ public abstract class BaseParserTestCase extends TestCase {
     return myDuplicatesReporter;
   }
 
-  public TestResultsWriter getTestResultsWriter() {
-    return myTestResultsWriter;
+  public TestReporter getTestReporter() {
+    return myTestReporter;
   }
 
   protected File getBaseDir() {

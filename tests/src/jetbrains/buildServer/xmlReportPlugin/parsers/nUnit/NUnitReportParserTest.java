@@ -37,7 +37,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   @NotNull
   @Override
   protected Parser getParser() {
-    return new NUnitReportParser(getTestResultsWriter());
+    return new NUnitReportParser(getTestReporter());
   }
 
   @NotNull

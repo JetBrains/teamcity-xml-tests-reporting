@@ -19,7 +19,7 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit;
 import java.io.IOException;
 import jetbrains.buildServer.xmlReportPlugin.*;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,7 +29,7 @@ public class AntJUnitReportParser implements Parser {
   public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AntJUnitReportParser.class);
 
   @NotNull
-  private final TestResultsWriter myTestResultsWriter;
+  private final TestReporter myTestReporter;
 
   private int myTestsToSkip;
   private int myLoggedTests;
@@ -39,8 +39,8 @@ public class AntJUnitReportParser implements Parser {
   @Nullable
   private String mySuite;
 
-  public AntJUnitReportParser(@NotNull TestResultsWriter testResultsWriter) {
-    myTestResultsWriter = testResultsWriter;
+  public AntJUnitReportParser(@NotNull TestReporter testReporter) {
+    myTestReporter = testReporter;
   }
 
   public boolean parse(@NotNull final File file, @Nullable final ParsingResult prevResult) throws ParsingException {
@@ -56,11 +56,11 @@ public class AntJUnitReportParser implements Parser {
         }
 
         if (suiteName == null) {
-          myTestResultsWriter.warning("File " + file + " contains unnamed suite");
+          myTestReporter.warning("File " + file + " contains unnamed suite");
           return;
         }
 
-        myTestResultsWriter.openTestSuite(suiteName);
+        myTestReporter.openTestSuite(suiteName);
         ++myLoggedSuites;
         mySuite = suiteName;
       }
@@ -73,7 +73,7 @@ public class AntJUnitReportParser implements Parser {
           LOG.error("Failed to log suite failure for not-opened suite " + suiteName);
           return;
         }
-        myTestResultsWriter.error("Failure from suite " + suiteName + ": " + getFailureMessage(type, message) + "\n" + trace);
+        myTestReporter.error("Failure from suite " + suiteName + ": " + getFailureMessage(type, message) + "\n" + trace);
       }
 
       public void suiteErrorFound(@Nullable final String suiteName,
@@ -84,7 +84,7 @@ public class AntJUnitReportParser implements Parser {
           LOG.error("Failed to log suite error for not-opened suite " + suiteName);
           return;
         }
-        myTestResultsWriter.error("Error from suite " + suiteName + ": " + getFailureMessage(type, message) + "\n" + trace);
+        myTestReporter.error("Error from suite " + suiteName + ": " + getFailureMessage(type, message) + "\n" + trace);
       }
 
       public void suiteSystemOutFound(@Nullable final String suiteName, @Nullable final String message) {
@@ -93,7 +93,7 @@ public class AntJUnitReportParser implements Parser {
           return;
         }
         if (message != null && message.length() > 0) {
-          myTestResultsWriter.info("System out from suite " + suiteName + ": " + message);
+          myTestReporter.info("System out from suite " + suiteName + ": " + message);
         }
       }
 
@@ -103,7 +103,7 @@ public class AntJUnitReportParser implements Parser {
           return;
         }
         if (message != null && message.length() > 0) {
-          myTestResultsWriter.warning("System error from suite " + suiteName + ": " + message);
+          myTestReporter.warning("System error from suite " + suiteName + ": " + message);
         }
       }
 
@@ -112,7 +112,7 @@ public class AntJUnitReportParser implements Parser {
           LOG.error("Failed to log suite finish for not-opened suite " + suiteName);
           return;
         }
-        myTestResultsWriter.closeTestSuite();
+        myTestReporter.closeTestSuite();
         mySuite = null;
       }
 
@@ -124,24 +124,24 @@ public class AntJUnitReportParser implements Parser {
           final String testName = testData.getName();
 
           if (testName == null) {
-            myTestResultsWriter.warning("File " + file + " contains unnamed test");
+            myTestReporter.warning("File " + file + " contains unnamed test");
             return;
           }
 
-          myTestResultsWriter.openTest(testName);
-          if (!testData.isExecuted()) myTestResultsWriter.testIgnored("");
+          myTestReporter.openTest(testName);
+          if (!testData.isExecuted()) myTestReporter.testIgnored("");
           if (testData.getFailureType() != null || testData.getFailureMessage() != null) {
-            myTestResultsWriter
+            myTestReporter
               .testFail(getFailureMessage(testData.getFailureType(), testData.getFailureMessage()), testData.getFailureStackTrace());
           }
           //noinspection ConstantConditions
           if (testData.getStdErr() != null && testData.getStdErr().length() > 0) {
-            myTestResultsWriter.warning("System error from test " + testName + ": " + testData.getStdErr());
+            myTestReporter.warning("System error from test " + testName + ": " + testData.getStdErr());
           }
           if (testData.getStdOut() != null && testData.getStdOut().length() > 0) {
-            myTestResultsWriter.info("System out from test " + testName + ": " + testData.getStdOut());
+            myTestReporter.info("System out from test " + testName + ": " + testData.getStdOut());
           }
-          myTestResultsWriter.closeTest(testData.getDuration());
+          myTestReporter.closeTest(testData.getDuration());
         } finally {
           ++myLoggedTests;
         }
@@ -149,7 +149,7 @@ public class AntJUnitReportParser implements Parser {
     }).parse(file);
       return true;
     } catch (IOException e) {
-      if (mySuite != null) myTestResultsWriter.closeTestSuite();
+      if (mySuite != null) myTestReporter.closeTestSuite();
       LOG.debug("Couldn't completely parse " + file
                 + " report, exception occurred: " + e + ", " + myLoggedTests + " tests logged");
     }

@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
  * @author Eugene Petrenko
  *         Created: 24.10.2008 18:27:35
  */
-public interface TestResultsWriter {
+public interface TestReporter {
   void openTestSuite(@NotNull String name);
   void openTest(@NotNull String name);
 

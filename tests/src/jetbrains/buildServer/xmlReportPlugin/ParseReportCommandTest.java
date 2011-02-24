@@ -22,12 +22,11 @@ import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Before;
 import org.junit.Test;
-import org.xml.sax.XMLReader;
 
 /**
  * User: vbedrosova
@@ -216,7 +215,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
         }
 
         @NotNull
-        public TestResultsWriter getTestResultsWriter() {
+        public TestReporter getTestReporter() {
           throw new IllegalStateException(UNEXPECTED_CALL_MESSAGE);
         }
 

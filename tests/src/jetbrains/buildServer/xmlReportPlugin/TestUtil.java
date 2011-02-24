@@ -24,7 +24,7 @@ import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionTypeResult;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -113,8 +113,8 @@ public final class TestUtil {
     };
   }
 
-  public static TestResultsWriter createTestResultsWriter(final StringBuilder sb) {
-    return new TestResultsWriter() {
+  public static TestReporter createTestResultsWriter(final StringBuilder sb) {
+    return new TestReporter() {
       public void openTestSuite(@NotNull final String name) {
         sb.append("TestSuite:").append(name).append("\n");
       }

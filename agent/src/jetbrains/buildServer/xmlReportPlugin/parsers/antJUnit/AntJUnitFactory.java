@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
 public class AntJUnitFactory implements ParserFactory {
   @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
-    return new AntJUnitReportParser(parameters.getTestResultsWriter());
+    return new AntJUnitReportParser(parameters.getTestReporter());
   }
 
   @NotNull

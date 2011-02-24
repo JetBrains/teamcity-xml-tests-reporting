@@ -31,12 +31,10 @@ import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.XmlReportPluginDuplicatesReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.XmlReportPluginInspectionReporter;
-import jetbrains.buildServer.xmlReportPlugin.tests.TeamCityTestsResultsWriter;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
+import jetbrains.buildServer.xmlReportPlugin.tests.TeamCityTestReporter;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 
 
 public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProcessor {
@@ -461,8 +459,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         }
 
         @NotNull
-        public TestResultsWriter getTestResultsWriter() {
-          return new TeamCityTestsResultsWriter(getInternalizingThreadLogger());
+        public TestReporter getTestReporter() {
+          return new TeamCityTestReporter(getInternalizingThreadLogger());
         }
 
         @NotNull

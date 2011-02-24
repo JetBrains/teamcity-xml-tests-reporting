@@ -105,7 +105,7 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
   @Override
   @NotNull
   protected AntJUnitReportParser getParser() {
-    return new AntJUnitReportParser(getTestResultsWriter());
+    return new AntJUnitReportParser(getTestReporter());
   }
 
   @NotNull

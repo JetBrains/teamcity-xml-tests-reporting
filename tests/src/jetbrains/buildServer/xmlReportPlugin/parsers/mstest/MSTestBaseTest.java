@@ -3,7 +3,7 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.mstest;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.xmlReportPlugin.TestUtil;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -136,7 +136,7 @@ public class MSTestBaseTest extends TestCase {
 
   private void doTest(String file, String gold) throws IOException {
     final StringBuilder sb = new StringBuilder();
-    MSTestTRXParser ps = new MSTestTRXParser(new TestResultsWriter() {
+    MSTestTRXParser ps = new MSTestTRXParser(new TestReporter() {
       public void openTestSuite(@NotNull final String name) {
         sb.append("TestSuite:").append(name).append("\n");
       }

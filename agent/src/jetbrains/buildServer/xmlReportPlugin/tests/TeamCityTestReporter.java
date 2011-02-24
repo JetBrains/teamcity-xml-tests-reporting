@@ -10,12 +10,12 @@ import org.jetbrains.annotations.Nullable;
  * @author Eugene Petrenko
  *         Created: 24.10.2008 20:42:56
  */
-public class TeamCityTestsResultsWriter implements TestResultsWriter{
+public class TeamCityTestReporter implements TestReporter {
   private final BuildProgressLogger myLogger;
   private Stack<String> myTestSuites = new Stack<String>();
   private Stack<String> myTests = new Stack<String>();
 
-  public TeamCityTestsResultsWriter(@NotNull final BuildProgressLogger logger) {
+  public TeamCityTestReporter(@NotNull final BuildProgressLogger logger) {
     myLogger = logger;
   }
 

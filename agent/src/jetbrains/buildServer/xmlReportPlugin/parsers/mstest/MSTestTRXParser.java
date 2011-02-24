@@ -8,7 +8,7 @@ import java.util.Map;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.ParsingException;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestResultsWriter;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -24,11 +24,11 @@ public class MSTestTRXParser implements Parser {
   private final TestResultsTableParser myResultsParser;
 
   private final Map<String,String> myTestIdToName = new HashMap<String,String>();
-  private final TestResultsWriter myLogger;
+  private final TestReporter myLogger;
 
   private int myReportedTestsCount = 0;
 
-  public MSTestTRXParser(@NotNull final TestResultsWriter logger) {
+  public MSTestTRXParser(@NotNull final TestReporter logger) {
     myLogger = logger;
     myNamesParser = new TestNamesTableParser(new TestNamesTableParser.Callback() {
       public void testMethodFound(@NotNull final String id, @NotNull final String testName) {
