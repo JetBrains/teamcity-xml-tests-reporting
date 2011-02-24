@@ -23,10 +23,7 @@ import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionAttributesId;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionSeverityValues;
-import jetbrains.buildServer.xmlReportPlugin.PathUtils;
-import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
-import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
-import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionTypeResult;
+import jetbrains.buildServer.xmlReportPlugin.utils.PathUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

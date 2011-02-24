@@ -27,6 +27,7 @@ import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionTypeResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.utils.ParserUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

@@ -21,6 +21,7 @@ import java.io.IOException;
 import jetbrains.buildServer.xmlReportPlugin.*;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationResult;
+import jetbrains.buildServer.xmlReportPlugin.utils.ParserUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

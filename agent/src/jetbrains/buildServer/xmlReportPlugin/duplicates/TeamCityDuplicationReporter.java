@@ -3,7 +3,7 @@ package jetbrains.buildServer.xmlReportPlugin.duplicates;
 import java.io.File;
 import java.util.ArrayList;
 import jetbrains.buildServer.duplicator.DuplicateInfo;
-import jetbrains.buildServer.xmlReportPlugin.PathUtils;
+import jetbrains.buildServer.xmlReportPlugin.utils.PathUtils;
 import org.jetbrains.annotations.NotNull;
 
 /**

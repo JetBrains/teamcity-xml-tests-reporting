@@ -19,7 +19,7 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.findBugs;
 import java.util.Arrays;
 import java.util.List;
 import jetbrains.buildServer.util.XmlXppAbstractParser;
-import jetbrains.buildServer.xmlReportPlugin.ParserUtils;
+import jetbrains.buildServer.xmlReportPlugin.utils.ParserUtils;
 import org.jetbrains.annotations.NotNull;
 
 /**

@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package jetbrains.buildServer.xmlReportPlugin;
+package jetbrains.buildServer.xmlReportPlugin.utils;
 
+import jetbrains.buildServer.xmlReportPlugin.LoggingUtils;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
