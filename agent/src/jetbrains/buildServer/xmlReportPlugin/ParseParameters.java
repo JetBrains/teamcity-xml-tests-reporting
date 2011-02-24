@@ -35,9 +35,6 @@ public interface ParseParameters {
   BuildProgressLogger getThreadLogger();
 
   @NotNull
-  BuildProgressLogger getInternalizingThreadLogger();
-
-  @NotNull
   InspectionReporter getInspectionReporter();
 
   @NotNull

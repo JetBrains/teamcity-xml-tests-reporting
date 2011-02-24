@@ -438,7 +438,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         }
 
         @NotNull
-        public BuildProgressLogger getInternalizingThreadLogger() {
+        private BuildProgressLogger getInternalizingThreadLogger() {
           return isLogAsInternal() ?
             ((MessageTweakingSupport) getThreadLogger()).getTweakedLogger(MessageInternalizer.MESSAGE_INTERNALIZER)
             : getThreadLogger();
@@ -450,12 +450,12 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
         @NotNull
         public InspectionReporter getInspectionReporter() {
-          return new TeamCityInspectionReporter(myInspectionReporter, getBuild().getBuildLogger(), getCheckoutDir());
+          return new TeamCityInspectionReporter(myInspectionReporter, getBuild().getBuildLogger(), getBuild().getCheckoutDirectory());
         }
 
         @NotNull
         public DuplicationReporter getDuplicationReporter() {
-          return new TeamCityDuplicationReporter(myDuplicatesReporter, getCheckoutDir());
+          return new TeamCityDuplicationReporter(myDuplicatesReporter, getBuild().getCheckoutDirectory());
         }
 
         @NotNull
@@ -471,11 +471,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         @NotNull
         public String getType() {
           return XmlReportPluginUtil.getReportType(myParameters);
-        }
-
-        @NotNull
-        public File getCheckoutDir() {
-          return getBuild().getCheckoutDirectory();
         }
       };
     }

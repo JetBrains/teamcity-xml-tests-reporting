@@ -205,11 +205,6 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
         }
 
         @NotNull
-        public BuildProgressLogger getInternalizingThreadLogger() {
-          throw new IllegalStateException(UNEXPECTED_CALL_MESSAGE);
-        }
-
-        @NotNull
         public InspectionReporter getInspectionReporter() {
           throw new IllegalStateException(UNEXPECTED_CALL_MESSAGE);
         }
