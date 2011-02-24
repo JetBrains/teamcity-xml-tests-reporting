@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
  * Date: 17.02.11
  * Time: 13:26
  */
-public class XmlReportPluginInspectionReporter implements InspectionReporter {
+public class TeamCityInspectionReporter implements InspectionReporter {
   @NotNull
   private final jetbrains.buildServer.agent.inspections.InspectionReporter myInspectionReporter;
 
@@ -45,9 +45,9 @@ public class XmlReportPluginInspectionReporter implements InspectionReporter {
   @NotNull
   private final File myBaseFolder;
 
-  public XmlReportPluginInspectionReporter(@NotNull jetbrains.buildServer.agent.inspections.InspectionReporter inspectionReporter,
-                                           @NotNull BuildProgressLogger logger,
-                                           @NotNull File baseFolder) {
+  public TeamCityInspectionReporter(@NotNull jetbrains.buildServer.agent.inspections.InspectionReporter inspectionReporter,
+                                    @NotNull BuildProgressLogger logger,
+                                    @NotNull File baseFolder) {
     myInspectionReporter = inspectionReporter;
     myLogger = logger;
     myBaseFolder = baseFolder;

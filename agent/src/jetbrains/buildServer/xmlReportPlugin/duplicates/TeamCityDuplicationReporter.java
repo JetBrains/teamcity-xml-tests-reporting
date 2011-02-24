@@ -11,14 +11,14 @@ import org.jetbrains.annotations.NotNull;
  * Date: 08.02.11
  * Time: 16:12
  */
-public class XmlReportPluginDuplicationReporter implements DuplicationReporter {
+public class TeamCityDuplicationReporter implements DuplicationReporter {
   @NotNull
   private final jetbrains.buildServer.agent.duplicates.DuplicatesReporter myDuplicatesReporter;
   @NotNull
   private final File myBaseFolder;
 
-  public XmlReportPluginDuplicationReporter(@NotNull jetbrains.buildServer.agent.duplicates.DuplicatesReporter duplicatesReporter,
-                                            @NotNull File baseFolder) {
+  public TeamCityDuplicationReporter(@NotNull jetbrains.buildServer.agent.duplicates.DuplicatesReporter duplicatesReporter,
+                                     @NotNull File baseFolder) {
     myDuplicatesReporter = duplicatesReporter;
     myBaseFolder = baseFolder;
   }

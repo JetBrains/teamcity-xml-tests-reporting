@@ -28,9 +28,9 @@ import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.NamedThreadFactory;
 import jetbrains.buildServer.util.ThreadUtil;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
-import jetbrains.buildServer.xmlReportPlugin.duplicates.XmlReportPluginDuplicationReporter;
+import jetbrains.buildServer.xmlReportPlugin.duplicates.TeamCityDuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
-import jetbrains.buildServer.xmlReportPlugin.inspections.XmlReportPluginInspectionReporter;
+import jetbrains.buildServer.xmlReportPlugin.inspections.TeamCityInspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.tests.TeamCityTestReporter;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import org.jetbrains.annotations.NotNull;
@@ -450,12 +450,12 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
         @NotNull
         public InspectionReporter getInspectionReporter() {
-          return new XmlReportPluginInspectionReporter(myInspectionReporter, getBuild().getBuildLogger(), getCheckoutDir());
+          return new TeamCityInspectionReporter(myInspectionReporter, getBuild().getBuildLogger(), getCheckoutDir());
         }
 
         @NotNull
         public DuplicationReporter getDuplicationReporter() {
-          return new XmlReportPluginDuplicationReporter(myDuplicatesReporter, getCheckoutDir());
+          return new TeamCityDuplicationReporter(myDuplicatesReporter, getCheckoutDir());
         }
 
         @NotNull
