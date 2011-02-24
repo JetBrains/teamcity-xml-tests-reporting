@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
  * Date: 27.08.2010
  * Time: 16:50:03
  */
-public class PmdCpdReportParser implements Parser {
+class PmdCpdReportParser implements Parser {
   @NotNull
   private final DuplicationReporter myDuplicationReporter;
 

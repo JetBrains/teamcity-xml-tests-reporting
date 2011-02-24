@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 
 
-public class PmdReportParser implements Parser {
+class PmdReportParser implements Parser {
   @NotNull
   private final InspectionReporter myInspectionReporter;
 

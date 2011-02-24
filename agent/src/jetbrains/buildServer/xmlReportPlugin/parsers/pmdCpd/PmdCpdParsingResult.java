@@ -28,7 +28,7 @@ import java.io.File;
  * Date: 01.02.11
  * Time: 20:01
  */
-public class PmdCpdParsingResult implements ParsingResult {
+class PmdCpdParsingResult implements ParsingResult {
   public void accumulate(@NotNull ParsingResult parsingResult) {
   }
 
