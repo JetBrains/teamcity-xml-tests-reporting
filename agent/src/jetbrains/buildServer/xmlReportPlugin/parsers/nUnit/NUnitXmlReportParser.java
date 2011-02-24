@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 import jetbrains.buildServer.util.XmlXppAbstractParser;
-import jetbrains.buildServer.xmlReportPlugin.DurationParser;
+import jetbrains.buildServer.xmlReportPlugin.tests.DurationParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

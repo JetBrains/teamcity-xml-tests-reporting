@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package jetbrains.buildServer.xmlReportPlugin;
+package jetbrains.buildServer.xmlReportPlugin.tests;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
