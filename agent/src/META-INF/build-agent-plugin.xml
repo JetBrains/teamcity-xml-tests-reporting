@@ -19,19 +19,19 @@
 
 <beans default-autowire="constructor" default-lazy-init="false" default-dependency-check="none">
     <bean id="junitFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.antJUnit.AntJUnitFactory"/>
+          class="jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit.AntJUnitFactory"/>
     <bean id="nunitFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.nUnit.NUnitFactory"/>
+          class="jetbrains.buildServer.xmlReportPlugin.parsers.nUnit.NUnitFactory"/>
     <bean id="findBugsFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.findBugs.FindBugsFactory"/>
+          class="jetbrains.buildServer.xmlReportPlugin.parsers.findBugs.FindBugsFactory"/>
     <bean id="pmdFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.pmd.PmdFactory"/>
+          class="jetbrains.buildServer.xmlReportPlugin.parsers.pmd.PmdFactory"/>
     <bean id="checkstyleFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.checkstyle.CheckstyleFactory"/>
+          class="jetbrains.buildServer.xmlReportPlugin.parsers.checkstyle.CheckstyleFactory"/>
     <bean id="pmdCpdFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.pmdCpd.PmdCpdFactory"/>
+          class="jetbrains.buildServer.xmlReportPlugin.parsers.pmdCpd.PmdCpdFactory"/>
     <bean id="mstestFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.mstest.MSTestFactory"/>
+          class="jetbrains.buildServer.xmlReportPlugin.parsers.mstest.MSTestFactory"/>
 
     <bean class="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin" lazy-init="default" autowire="default" dependency-check="default">
         <constructor-arg index="0">
