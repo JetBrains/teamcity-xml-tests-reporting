@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
  * Date: 22.02.11
  * Time: 18:19
  */
-public class NUnitXmlReportParser extends XmlXppAbstractParser {
+class NUnitXmlReportParser extends XmlXppAbstractParser {
   @NotNull
   private final Callback myCallback;
 

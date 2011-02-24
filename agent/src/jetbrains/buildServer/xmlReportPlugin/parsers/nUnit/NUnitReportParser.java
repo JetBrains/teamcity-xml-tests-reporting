@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 
 
-public class NUnitReportParser implements Parser {
+class NUnitReportParser implements Parser {
   public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(NUnitReportParser.class);
 
   @NotNull
@@ -124,50 +124,4 @@ public class NUnitReportParser implements Parser {
   private boolean testSkipped() {
     return myLoggedTests < myTestsToSkip;
   }
-
-  //private static final String TMP_REPORT_DIRECTORY = "junit_reports";
-  //
-  //@NotNull
-  //private final String myNUnitSchemaPath;
-  //
-  //@NotNull
-  //private final File myTempDirectory;
-  //
-  //public NUnitReportParser(@NotNull TestResultsWriter testResultsWriter,
-  //                         @NotNull String NUnitSchemaPath,
-  //                         @NotNull File tempDirectory) {
-  //  super(testResultsWriter);
-  //  myNUnitSchemaPath = NUnitSchemaPath;
-  //  myTempDirectory = tempDirectory;
-  //}
-  //
-  //@Override
-  //public boolean parse(@NotNull File file, @Nullable ParsingResult prevResult) throws ParsingException {
-  //  if (!ParserUtils.isReportComplete(file, "test-results")) {
-  //    return false;
-  //  }
-  //  final NUnitToJUnitReportTransformer reportTransformer;
-  //  try {
-  //    reportTransformer = new NUnitToJUnitReportTransformer(myNUnitSchemaPath);
-  //  } catch (TransformerConfigurationException e) {
-  //    throw new ParsingException(e);
-  //  }
-  //
-  //  final File jUnitReport = getJUnitReport(file.getName());
-  //  try {
-  //    reportTransformer.transform(file, jUnitReport);
-  //  } catch (Exception e) {
-  //    FileUtil.delete(jUnitReport);
-  //    throw new ParsingException(e);
-  //  }
-  //  return super.parse(jUnitReport, null);
-  //}
-  //
-  //@NotNull
-  //private File getJUnitReport(@NotNull String fileName) {
-  //  final File tempReportDir = new File(myTempDirectory, TMP_REPORT_DIRECTORY);
-  //  //noinspection ResultOfMethodCallIgnored
-  //  tempReportDir.mkdirs();
-  //  return new File(tempReportDir, fileName);
-  //}
 }
