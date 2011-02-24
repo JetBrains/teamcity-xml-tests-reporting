@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
-public class AntJUnitReportParser implements Parser {
+class AntJUnitReportParser implements Parser {
   public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AntJUnitReportParser.class);
 
   @NotNull

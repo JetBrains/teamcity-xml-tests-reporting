@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
  * Date: 21.02.11
  * Time: 17:50
  */
-public class AntJUnitXmlReportParser extends XmlXppAbstractParser {
+class AntJUnitXmlReportParser extends XmlXppAbstractParser {
   @NotNull
   private final Callback myCallback;
 
