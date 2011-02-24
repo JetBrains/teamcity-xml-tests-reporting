@@ -36,6 +36,7 @@ public class AntJUnitReportParser implements Parser {
 
   private int myLoggedSuites;
 
+  @Nullable
   private String mySuite;
 
   public AntJUnitReportParser(@NotNull TestResultsWriter testResultsWriter) {
