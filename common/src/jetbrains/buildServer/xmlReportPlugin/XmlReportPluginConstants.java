@@ -36,13 +36,8 @@ public interface XmlReportPluginConstants {
   static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
   static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
 
-  static final String TREAT_DLL_AS_SUITE = "xmlReportParsing.nunit.treatDllAsRootSuite";
-
 //  static final String CHECK_REPORT_GROWS = "xmlReportParsing.check.report.grows";
 //  static final String CHECK_REPORT_COMPLETE = "xmlReportParsing.check.report.complete";
-
-  static final String NUNIT_TO_JUNIT_XSL = "nunit-to-junit.xsl";
-  static final String NUNIT_TO_JUNIT_OLD_XSL = "nunit-to-junit-old.xsl";
 
   static final String SPLIT_REGEX = " *[,\n\r] *";
 

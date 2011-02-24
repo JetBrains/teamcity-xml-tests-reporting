@@ -137,10 +137,6 @@ public class XmlReportPluginUtil {
     return params.get(FINDBUGS_HOME);
   }
 
-  public static String getNUnitSchemaPath(@NotNull final Map<String, String> params) {
-    return "false".equalsIgnoreCase(params.get(TREAT_DLL_AS_SUITE)) ? NUNIT_TO_JUNIT_OLD_XSL : NUNIT_TO_JUNIT_XSL;
-  }
-
 //  public static boolean isCheckReportComplete(@NotNull final Map<String, String> params) {
 //    return !"false".equalsIgnoreCase(params.get(CHECK_REPORT_COMPLETE));
 //  }
