@@ -184,7 +184,7 @@ public class MSTestBaseTest extends TestCase {
 
     ps.parse(getTestData(file), null);
 
-    String actual = sb.toString().replace(getTestData("").getPath(), "#PATH#");
+    String actual = sb.toString().replace(getTestData("").getPath(), "#PATH#").replace("#PATH#/", "#PATH#\\");
     compareFiles(gold, actual);
   }
 
