@@ -52,7 +52,7 @@
         <antcall target="copy.log4j.configuration"/>
 
         <junit printsummary="on" fork="true" haltonfailure="false" haltonerror="false" failureproperty="failure_found"
-               showoutput="true">
+               showoutput="true" maxmemory='256m'>
             <jvmarg value="-Dfindbugs=${findbugs}"/>
             <classpath>
                 <path refid="tests.runtime.module.classpath"/>
