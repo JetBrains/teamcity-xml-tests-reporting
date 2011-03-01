@@ -33,6 +33,13 @@ public enum LogAction {
     @Override
     public void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger, @NotNull org.apache.log4j.Logger log) {}
   },
+  INFO("info") {
+    @Override
+    public void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger, @NotNull org.apache.log4j.Logger log) {
+      log.info(message);
+      logger.message(message);
+    }
+  },
   WARNING("warning") {
     @Override
     public void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger, @NotNull org.apache.log4j.Logger log) {
@@ -65,10 +72,10 @@ public enum LogAction {
   public abstract void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger, @NotNull org.apache.log4j.Logger log);
 
   public static LogAction getAction(@Nullable String name) {
-    if (name == null) return ERROR;
+    if (name == null) return INFO;
     for (final LogAction action : ourActions) {
       if (action.getName().equals(name)) return action;
     }
-    return ERROR;
+    return INFO;
   }
 }

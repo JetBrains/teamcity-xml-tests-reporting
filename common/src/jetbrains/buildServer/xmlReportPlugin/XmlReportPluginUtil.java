@@ -21,6 +21,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginConstants.*;
 
@@ -145,9 +146,9 @@ public class XmlReportPluginUtil {
 //    return !"false".equalsIgnoreCase(params.get(CHECK_REPORT_GROWS));
 //  }
 
-  @NotNull
+  @Nullable
   public static String whenNoDataPublished(@NotNull final Map<String, String> params) {
-    return params.containsKey(WHEN_NO_DATA_PUBLISHED) ? params.get(WHEN_NO_DATA_PUBLISHED) : "error";
+    return params.get(WHEN_NO_DATA_PUBLISHED);
   }
 
   public static boolean isLogIsInternal(@NotNull final Map<String, String> params) {
