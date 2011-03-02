@@ -53,7 +53,7 @@
         <th><label for="xmlReportParsing.reportType">Report type:</label></th>
         <td>
             <c:set var="onchange">
-              var selectedValue = this.options[this.selectedIndex].value;
+              var selectedValue = this.value;
               if (selectedValue == '') {
               BS.Util.hide($('xmlReportParsing.reportDirs.container'));
               BS.Util.hide($('xmlReportParsing.verboseOutput.container'));
