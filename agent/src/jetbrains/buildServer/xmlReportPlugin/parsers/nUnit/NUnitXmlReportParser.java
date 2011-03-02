@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Stack;
 import jetbrains.buildServer.util.XmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.DurationParser;
+import jetbrains.buildServer.xmlReportPlugin.tests.MillisecondDurationParser;
+import jetbrains.buildServer.xmlReportPlugin.tests.SecondDurationParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,9 +34,12 @@ import org.jetbrains.annotations.Nullable;
 class NUnitXmlReportParser extends XmlXppAbstractParser {
   @NotNull
   private final Callback myCallback;
+  @NotNull
+  private final SecondDurationParser myDurationParser;
 
   public NUnitXmlReportParser(@NotNull Callback callback) {
     myCallback = callback;
+    myDurationParser = new SecondDurationParser();
   }
 
   @Override
@@ -93,7 +98,7 @@ class NUnitXmlReportParser extends XmlXppAbstractParser {
 
                 testData.setName(reader.getAttribute("name"));
                 testData.setExecuted(Boolean.parseBoolean(reader.getAttribute("executed")) && !"Inconclusive".equals(reader.getAttribute("result")));
-                testData.setDuration(DurationParser.parseTestDuration(reader.getAttribute("time")));
+                testData.setDuration(myDurationParser.parseTestDuration(reader.getAttribute("time")));
 
                 return reader.visitChildren(
                   elementsPath(new Handler() {

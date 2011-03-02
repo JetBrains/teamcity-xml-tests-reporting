@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="3" failures="1" errors="0" time="35" name="AllTests">
+  <testsuite name="MathTest" tests="2" failures="1" errors="0" time="15">
+    <testcase name="Addition" status="run" time="7" classname="">
+      <failure message="Value of: add(1, 1)&#x0A; Actual: 3&#x0A;Expected: 2" type=""/>
+      <failure message="Value of: add(1, -1)&#x0A; Actual: 1&#x0A;Expected: 0" type=""/>
+    </testcase>
+    <testcase name="Subtraction" status="run" time="5" classname="">
+    </testcase>
+  </testsuite>
+  <testsuite name="LogicTest" tests="1" failures="0" errors="0" time="5">
+    <testcase name="NonContradiction" status="ignored" time="0" classname="">
+    </testcase>
+  </testsuite>
+</testsuites>

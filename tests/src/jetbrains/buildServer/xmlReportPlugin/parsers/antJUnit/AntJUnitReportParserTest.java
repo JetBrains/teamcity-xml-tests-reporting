@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit;
 
 import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
+import jetbrains.buildServer.xmlReportPlugin.tests.SecondDurationParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
 import junit.framework.Assert;
 import org.jetbrains.annotations.NotNull;
@@ -105,7 +106,7 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
   @Override
   @NotNull
   protected AntJUnitReportParser getParser() {
-    return new AntJUnitReportParser(getTestReporter());
+    return new AntJUnitReportParser(getTestReporter(), new SecondDurationParser());
   }
 
   @NotNull
@@ -517,6 +518,30 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
       "  Test:ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest\n" +
       "    Ignored:\n" +
       "  EndTest:10\n" +
+      "------------------------\n" +
+      "EndSuite\n");
+  }
+
+  //status attribute
+  @Test
+  public void test2CasesFirstSuccessSecondSkipped_gtest() throws Exception {
+    parse("twoCasesFirstSuccessSecondSkipped_gtest.xml");
+    assertResultEquals(
+      "TestSuite:MathTest\n" +
+      "  Test:Addition\n" +
+      "    Fail:Value of: add(1, 1)\n" +
+      " Actual: 3\n" +
+      "Expected: 2 Message: \n" +
+      "  EndTest:7000\n" +
+      "------------------------\n" +
+      "  Test:Subtraction\n" +
+      "  EndTest:5000\n" +
+      "------------------------\n" +
+      "EndSuite\n" +
+      "TestSuite:LogicTest\n" +
+      "  Test:NonContradiction\n" +
+      "    Ignored:\n" +
+      "  EndTest:0\n" +
       "------------------------\n" +
       "EndSuite\n");
   }

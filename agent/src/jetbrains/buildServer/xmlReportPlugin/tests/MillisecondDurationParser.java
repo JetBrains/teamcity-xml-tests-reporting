@@ -21,8 +21,20 @@ import org.jetbrains.annotations.Nullable;
 /**
  * User: vbedrosova
  * Date: 01.03.11
- * Time: 19:11
+ * Time: 19:03
  */
-public interface DurationParser {
-  long parseTestDuration(@Nullable String duration);
+public class MillisecondDurationParser implements DurationParser {
+  public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SecondDurationParser.class);
+
+  public long parseTestDuration(@Nullable String duration) {
+    if (duration == null || "".equals(duration)) {
+      return 0L;
+    }
+    try {
+      return (long) (Integer.parseInt(duration));
+    } catch (NumberFormatException e) {
+      LOG.warn("Unable to parse execution time string " + duration, e);
+      return 0L;
+    }
+  }
 }

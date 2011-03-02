@@ -31,9 +31,12 @@ import org.jetbrains.annotations.Nullable;
 class AntJUnitXmlReportParser extends XmlXppAbstractParser {
   @NotNull
   private final Callback myCallback;
+  @NotNull
+  private final DurationParser myDurationParser;
 
-  public AntJUnitXmlReportParser(@NotNull Callback callback) {
+  public AntJUnitXmlReportParser(@NotNull Callback callback, @NotNull DurationParser durationParser) {
     myCallback = callback;
+    myDurationParser = durationParser;
   }
 
   @Override
@@ -89,34 +92,18 @@ class AntJUnitXmlReportParser extends XmlXppAbstractParser {
               final TestData testData = new TestData();
 
               testData.setName((className == null || name != null && name.startsWith(className) ? "" : className + ".") + name);
-              testData.setDuration(DurationParser.parseTestDuration(reader.getAttribute("time")));
-              testData.setExecuted(reader.getAttribute("executed") == null || Boolean.parseBoolean(reader.getAttribute("executed")));
+              testData.setDuration(myDurationParser.parseTestDuration(reader.getAttribute("time")));
+              testData.setExecuted(isExecuted(reader));
 
               return reader.visitChildren(
                 elementsPath(new Handler() {
                   public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-
-                    testData.setFailureType(reader.getAttribute("type"));
-                    testData.setFailureMessage(reader.getAttribute("message"));
-
-                    return reader.visitText(new TextHandler() {
-                      public void setText(@NotNull final String text) {
-                        testData.setFailureStackTrace(text.trim());
-                      }
-                    });
+                    return processTestFailure(reader, testData);
                   }
                 }, "failure"),
                 elementsPath(new Handler() {
                   public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-
-                    testData.setFailureType(reader.getAttribute("type"));
-                    testData.setFailureMessage(reader.getAttribute("message"));
-
-                    return reader.visitText(new TextHandler() {
-                      public void setText(@NotNull final String text) {
-                        testData.setFailureStackTrace(text.trim());
-                      }
-                    });
+                    return processTestFailure(reader, testData);
                   }
                 }, "error"),
                 elementsPath(new TextHandler() {
@@ -137,7 +124,7 @@ class AntJUnitXmlReportParser extends XmlXppAbstractParser {
                 }, "skipped"),
                 elementsPath(new TextHandler() {
                   public void setText(@NotNull final String text) {
-                    testData.setDuration(DurationParser.parseTestDuration(text.trim()));
+                    testData.setDuration(myDurationParser.parseTestDuration(text.trim()));
                   }
                 }, "time")
               ).than(new XmlAction() {
@@ -158,6 +145,31 @@ class AntJUnitXmlReportParser extends XmlXppAbstractParser {
       elementsPath(handler, "testsuite"),
       elementsPath(handler, "testsuites", "testsuite")
     );
+  }
+
+  @NotNull
+  private XmlReturn processTestFailure(@NotNull XmlElementInfo reader, @NotNull final TestData testData) {
+    if (testData.getFailureType() != null || testData.getFailureMessage() != null) {
+      return reader.noDeep();
+    }
+
+    testData.setFailureType(reader.getAttribute("type"));
+    testData.setFailureMessage(reader.getAttribute("message"));
+
+    return reader.visitText(new TextHandler() {
+      public void setText(@NotNull final String text) {
+        testData.setFailureStackTrace(text.trim());
+      }
+    });
+  }
+
+  private static boolean isExecuted(@NotNull XmlElementInfo reader) {
+    if (reader.getAttribute("executed") != null) {
+      return Boolean.parseBoolean(reader.getAttribute("executed"));
+    } else if (reader.getAttribute("status") != null) {
+      return "run".equals(reader.getAttribute("status"));
+    }
+    return true;
   }
 
   public static interface Callback {

@@ -18,6 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit;
 
 import java.io.IOException;
 import jetbrains.buildServer.xmlReportPlugin.*;
+import jetbrains.buildServer.xmlReportPlugin.tests.DurationParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import org.jetbrains.annotations.NotNull;
@@ -30,6 +31,8 @@ class AntJUnitReportParser implements Parser {
 
   @NotNull
   private final TestReporter myTestReporter;
+  @NotNull
+  private final DurationParser myDurationParser;
 
   private int myTestsToSkip;
   private int myLoggedTests;
@@ -39,8 +42,9 @@ class AntJUnitReportParser implements Parser {
   @Nullable
   private String mySuite;
 
-  public AntJUnitReportParser(@NotNull TestReporter testReporter) {
+  public AntJUnitReportParser(@NotNull TestReporter testReporter, @NotNull DurationParser durationParser) {
     myTestReporter = testReporter;
+    myDurationParser = durationParser;
   }
 
   public boolean parse(@NotNull final File file, @Nullable final ParsingResult prevResult) throws ParsingException {
@@ -146,7 +150,7 @@ class AntJUnitReportParser implements Parser {
             ++myLoggedTests;
           }
         }
-      }).parse(file);
+      }, myDurationParser).parse(file);
       return true;
     } catch (IOException e) {
       if (mySuite != null) myTestReporter.closeTestSuite();

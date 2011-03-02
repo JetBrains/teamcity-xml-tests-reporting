@@ -40,6 +40,7 @@ public class XmlReportPluginUtil {
     SUPPORTED_REPORT_TYPES.put("checkstyle", "Checkstyle");
     SUPPORTED_REPORT_TYPES.put("pmdCpd", "PMD CPD");
     SUPPORTED_REPORT_TYPES.put("mstest", "MSTest");
+    SUPPORTED_REPORT_TYPES.put("gtest", "Google Test");
 
     INSPECTIONS_TYPES.add("findBugs");
     INSPECTIONS_TYPES.add("pmd");
