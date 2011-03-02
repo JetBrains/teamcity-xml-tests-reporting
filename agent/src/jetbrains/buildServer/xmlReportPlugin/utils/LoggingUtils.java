@@ -70,6 +70,14 @@ public class LoggingUtils {
     }
   }
 
+  public static void logException(@NotNull String message,
+                                  @NotNull Throwable throwable,
+                                  @NotNull BuildProgressLogger logger) {
+    logger.error(message);
+    logger.exception(throwable);
+    LOG.warn(message, throwable);
+  }
+
   public static String getTypeDisplayName(@NotNull String type) {
     return XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.get(type);
   }

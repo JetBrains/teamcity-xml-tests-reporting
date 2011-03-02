@@ -64,6 +64,9 @@ public class ParseReportCommand implements Runnable {
     } catch (ParsingException e) {
       finished = true;
       logFailedToParse(e);
+    } catch (Throwable t) {
+      finished = true;
+      LoggingUtils.logException("Unexpected exception occurred while parsing " + myFile, t, myParameters.getThreadLogger());
     }
 
     final ParsingResult parsingResult = parser.getParsingResult();
