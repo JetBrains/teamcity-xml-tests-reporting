@@ -82,7 +82,7 @@
               if (selectedValue == 'junit'
               || selectedValue == 'nunit'
               || selectedValue == 'surefire'
-              || selectedValut == 'mstest') {
+              || selectedValue == 'mstest') {
               BS.Util.show($('xmlReportParsing.warning.container'));
               } else {
               BS.Util.hide($('xmlReportParsing.warning.container'));
