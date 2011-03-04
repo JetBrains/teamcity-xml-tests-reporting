@@ -30,7 +30,7 @@ public interface ParsingResult {
    * Accumulate the given result into current
    * @param parsingResult te result to accumulate
    */
-  public void accumulate(@NotNull ParsingResult parsingResult);
+  void accumulate(@NotNull ParsingResult parsingResult);
 
   /**
    * Processes result of parsing the file
