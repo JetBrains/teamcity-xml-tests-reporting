@@ -17,12 +17,9 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 
+import java.util.*;
 import jetbrains.buildServer.controllers.RememberState;
 import jetbrains.buildServer.controllers.StateField;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 
 public class ReportTypeForm extends RememberState {
@@ -35,13 +32,15 @@ public class ReportTypeForm extends RememberState {
     for (Map.Entry<String, String> reportInfo : XmlReportPluginUtil.SUPPORTED_REPORT_TYPES.entrySet()) {
       myAvailableReportTypes.add(new ReportTypeInfo(reportInfo.getKey(), reportInfo.getValue()));
     }
+
+    Collections.sort(myAvailableReportTypes);
   }
 
   public List<ReportTypeInfo> getAvailableReportTypes() {
     return myAvailableReportTypes;
   }
 
-  public static class ReportTypeInfo {
+  public static class ReportTypeInfo implements Comparable<ReportTypeInfo> {
     @StateField
     private final String myType;
     @StateField
@@ -59,6 +58,10 @@ public class ReportTypeForm extends RememberState {
 
     public String getDisplayName() {
       return myDisplayName;
+    }
+
+    public int compareTo(final ReportTypeInfo o) {
+     return myDisplayName.compareTo(o.getDisplayName());
     }
   }
 }
