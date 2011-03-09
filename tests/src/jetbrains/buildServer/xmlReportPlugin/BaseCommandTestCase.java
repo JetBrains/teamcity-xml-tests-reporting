@@ -48,6 +48,10 @@ public abstract class BaseCommandTestCase extends TestCase {
     public String toString() {
       return "EMPTY_RESULT";
     }
+
+    public Throwable getProblem() {
+      return null;
+    }
   };
 
   protected File myBaseFolder;

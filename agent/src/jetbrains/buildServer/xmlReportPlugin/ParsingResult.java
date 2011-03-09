@@ -19,6 +19,7 @@ package jetbrains.buildServer.xmlReportPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * User: vbedrosova
@@ -45,4 +46,12 @@ public interface ParsingResult {
    * @param parameters additional parameters
    */
   void logAsTotalResult(@NotNull ParseParameters parameters);
+
+
+  /**
+   * Returns problem that occurred during parsing if any
+   * @return Problem or null if no problem took place during parsing
+   */
+  @Nullable
+  Throwable getProblem();
 }

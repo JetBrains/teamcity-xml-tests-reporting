@@ -79,6 +79,10 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
           public void logAsTotalResult(@NotNull ParseParameters parameters) {
             throw new IllegalStateException(UNEXPECTED_CALL_MESSAGE);
           }
+
+          public Throwable getProblem() {
+            return null;
+          }
         };
       }
     };

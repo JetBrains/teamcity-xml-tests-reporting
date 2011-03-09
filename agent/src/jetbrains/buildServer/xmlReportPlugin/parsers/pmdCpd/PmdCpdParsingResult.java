@@ -44,4 +44,8 @@ class PmdCpdParsingResult implements ParsingResult {
 
   public void logAsTotalResult(@NotNull ParseParameters parameters) {
   }
+
+  public Throwable getProblem() {
+    return null;
+  }
 }

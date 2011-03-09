@@ -115,4 +115,8 @@ public class InspectionParsingResult implements ParsingResult {
   private static String getEnding(int number) {
     return (number == 1 ? "" : "s");
   }
+
+  public Throwable getProblem() {
+    return null;
+  }
 }

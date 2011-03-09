@@ -296,19 +296,27 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
             LoggingUtils.error("Failed to parse " + failedToParse.size() + " report" + getEnding(failedToParse.size()), logger);
 
             int i = 0;
-            for (File file : failedToParse.keySet()) {
+            for (Map.Entry<File, ParsingResult> e : failedToParse.entrySet()) {
               if (rulesContext.getRulesData().isVerbose()) {
-                LoggingUtils.logError("Failed to parse " + file, null, logger);
+                //noinspection ThrowableResultOfMethodCallIgnored
+                LoggingUtils.logError("Failed to parse " + e.getKey(), getProblem(e.getValue()), logger);
               } else if (i++ < 10) {
-                LoggingUtils.LOG.warn("Failed to parse " + file);
+                LoggingUtils.LOG.warn("Failed to parse " + e);
               }
-              result.accumulate(failedToParse.get(file));
+              result.accumulate(e.getValue());
             }
           }
 
           result.logAsTotalResult(rulesContext.getRulesData().getParseReportParameters());
         }
       }, logger);
+  }
+
+  @Nullable Throwable getProblem(@NotNull ParsingResult parsingResult) {
+    @SuppressWarnings({"ThrowableResultOfMethodCallIgnored"})
+    final Throwable problem = parsingResult.getProblem();
+    assert problem != null && problem instanceof ParseException;
+    return problem.getCause();
   }
 
   @NotNull

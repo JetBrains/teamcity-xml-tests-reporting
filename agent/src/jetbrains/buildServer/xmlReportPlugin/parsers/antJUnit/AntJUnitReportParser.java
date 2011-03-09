@@ -25,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import sun.dc.path.PathException;
 
 class AntJUnitReportParser implements Parser {
   public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AntJUnitReportParser.class);
@@ -38,6 +39,9 @@ class AntJUnitReportParser implements Parser {
   private int myLoggedTests;
 
   private int myLoggedSuites;
+
+  @Nullable
+  private ParsingException myParsingException;
 
   @Nullable
   private String mySuite;
@@ -153,6 +157,7 @@ class AntJUnitReportParser implements Parser {
       }, myDurationParser).parse(file);
       return true;
     } catch (IOException e) {
+      myParsingException = new ParsingException(e);
       if (mySuite != null) myTestReporter.closeTestSuite();
       LOG.debug("Couldn't completely parse " + file
                 + " report, exception occurred: " + e + ", " + myLoggedTests + " tests logged");
@@ -162,7 +167,7 @@ class AntJUnitReportParser implements Parser {
   }
 
   public ParsingResult getParsingResult() {
-    return new TestParsingResult(myLoggedSuites, (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip);
+    return new TestParsingResult(myLoggedSuites, (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip, myParsingException);
   }
 
   @NotNull

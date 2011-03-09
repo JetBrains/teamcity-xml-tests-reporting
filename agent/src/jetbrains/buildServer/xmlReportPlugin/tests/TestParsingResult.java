@@ -16,23 +16,30 @@
 
 package jetbrains.buildServer.xmlReportPlugin.tests;
 
+import jetbrains.buildServer.xmlReportPlugin.ProblemParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * User: vbedrosova
  * Date: 22.01.11
  * Time: 18:33
  */
-public class TestParsingResult implements ParsingResult {
+public class TestParsingResult extends ProblemParsingResult {
   private int mySuites;
   private int myTests;
 
   public TestParsingResult(int suites, int tests) {
+    this(suites, tests, null);
+  }
+
+  public TestParsingResult(int suites, int tests, @Nullable Throwable problem) {
+    super(problem);
     mySuites = suites;
     myTests = tests;
   }

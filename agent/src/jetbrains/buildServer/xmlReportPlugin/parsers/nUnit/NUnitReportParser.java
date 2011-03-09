@@ -40,6 +40,9 @@ class NUnitReportParser implements Parser {
   private int myLoggedSuites;
 
   @Nullable
+  private ParsingException myParsingException;
+
+  @Nullable
   private String mySuite;
 
   public NUnitReportParser(@NotNull TestReporter testReporter) {
@@ -109,6 +112,7 @@ class NUnitReportParser implements Parser {
     }).parse(file);
       return true;
     } catch (IOException e) {
+      myParsingException = new ParsingException(e);
       if (mySuite != null) myTestReporter.closeTestSuite();
       LOG.debug("Couldn't completely parse " + file
                 + " report, exception occurred: " + e + ", " + myLoggedTests + " tests logged");
@@ -118,7 +122,7 @@ class NUnitReportParser implements Parser {
   }
 
   public ParsingResult getParsingResult() {
-    return new TestParsingResult(myLoggedSuites, myLoggedTests);
+    return new TestParsingResult(myLoggedSuites, (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip, myParsingException);
   }
 
   private boolean testSkipped() {
