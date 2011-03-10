@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -25,14 +26,22 @@ import org.jetbrains.annotations.Nullable;
  */
 public abstract class ProblemParsingResult implements ParsingResult {
   @Nullable
-  private final Throwable myThrowable;
+  private Throwable myProblem;
 
-  public ProblemParsingResult(@Nullable Throwable throwable) {
-    myThrowable = throwable;
+  public ProblemParsingResult() {
+    this(null);
+  }
+
+  public ProblemParsingResult(@Nullable Throwable problem) {
+    myProblem = problem;
   }
 
   @Nullable
   public Throwable getProblem() {
-    return myThrowable;
+    return myProblem;
+  }
+
+  public void setProblem(@NotNull final Throwable problem) {
+    myProblem = problem;
   }
 }

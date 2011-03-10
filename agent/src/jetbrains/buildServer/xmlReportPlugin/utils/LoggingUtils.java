@@ -55,7 +55,8 @@ public class LoggingUtils {
 
   public static void logError(@Nullable String error,
                               @Nullable Throwable throwable,
-                              @NotNull BuildProgressLogger logger) {
+                              @NotNull BuildProgressLogger logger,
+                              boolean debugStackTrace) {
     final String message =
         (error != null ? error : "")
       + (error != null && throwable != null ? ": " : "")
@@ -66,7 +67,11 @@ public class LoggingUtils {
       LOG.warn(message);
     }
     if (throwable != null) {
-      LOG.warn(throwable.getMessage(), throwable);
+      if (debugStackTrace) {
+        LOG.debug(throwable.getMessage(), throwable);
+      } else {
+        LOG.warn(throwable.getMessage(), throwable);
+      }
     }
   }
 

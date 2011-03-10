@@ -59,11 +59,12 @@ public class ParseReportCommand implements Runnable {
     final Parser parser = myParserFactory.createParser(myParameters);
 
     boolean finished;
+    Throwable problem = null;
     try {
       finished = parser.parse(myFile, myPrevResults.get(myFile));
     } catch (ParsingException e) {
       finished = true;
-      logFailedToParse(e);
+      problem = e;
     } catch (Throwable t) {
       finished = true;
       LoggingUtils.logException("Unexpected exception occurred while parsing " + myFile, t, myParameters.getThreadLogger());
@@ -71,6 +72,8 @@ public class ParseReportCommand implements Runnable {
 
     final ParsingResult parsingResult = parser.getParsingResult();
     assert parsingResult != null;
+
+    if (problem != null) parsingResult.setProblem(problem);
 
     if (finished) { // file processed
       parsingResult.logAsFileResult(myFile, myParameters);
@@ -81,10 +84,5 @@ public class ParseReportCommand implements Runnable {
       myPrevResults.put(myFile, parsingResult);
       myFileStates.removeFile(myFile);
     }
-  }
-
-  private void logFailedToParse(@NotNull ParsingException e) {
-    LoggingUtils.logError("Failed to parse " + myFile + " with " + LoggingUtils.getTypeDisplayName(myParameters.getType())
-      + " parser", e.getCause(), myParameters.getThreadLogger());
   }
 }

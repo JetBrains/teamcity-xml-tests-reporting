@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.pmdCpd;
 
+import jetbrains.buildServer.xmlReportPlugin.ProblemParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
@@ -28,7 +29,7 @@ import java.io.File;
  * Date: 01.02.11
  * Time: 20:01
  */
-class PmdCpdParsingResult implements ParsingResult {
+class PmdCpdParsingResult extends ProblemParsingResult {
   public void accumulate(@NotNull ParsingResult parsingResult) {
   }
 
@@ -43,9 +44,5 @@ class PmdCpdParsingResult implements ParsingResult {
   }
 
   public void logAsTotalResult(@NotNull ParseParameters parameters) {
-  }
-
-  public Throwable getProblem() {
-    return null;
   }
 }

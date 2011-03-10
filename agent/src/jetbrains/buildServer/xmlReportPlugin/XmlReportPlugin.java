@@ -196,7 +196,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         logStatistics(rulesContext);
       }
     } catch (Exception e) {
-      LoggingUtils.logError("Exception occurred while finishing rules monitoring", e, getBuild().getBuildLogger());
+      LoggingUtils.logError("Exception occurred while finishing rules monitoring", e, getBuild().getBuildLogger(), false);
     }
   }
 
@@ -284,26 +284,38 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
           } else {
             LoggingUtils.message(totalFileCount + " report" + getEnding(totalFileCount) + " found", logger);
 
-            for (File file : processedFiles.keySet()) {
-              if (rulesContext.getRulesData().isVerbose()) {
-                logger.message(file + " found");
+            for (Map.Entry<File, ParsingResult> e : processedFiles.entrySet()) {
+              //noinspection ThrowableResultOfMethodCallIgnored
+              if (e.getValue().getProblem() == null) {
+                if (rulesContext.getRulesData().isVerbose()) {
+                  logger.message(e.getKey() + " successfully parsed");
+                }
+                result.accumulate(processedFiles.get(e.getKey()));
+              } else {
+                failedToParse.put(e.getKey(), e.getValue());
               }
-              result.accumulate(processedFiles.get(file));
             }
-          }
 
           if (!failedToParse.isEmpty()) {
             LoggingUtils.error("Failed to parse " + failedToParse.size() + " report" + getEnding(failedToParse.size()), logger);
 
-            int i = 0;
-            for (Map.Entry<File, ParsingResult> e : failedToParse.entrySet()) {
-              if (rulesContext.getRulesData().isVerbose()) {
-                //noinspection ThrowableResultOfMethodCallIgnored
-                LoggingUtils.logError("Failed to parse " + e.getKey(), getProblem(e.getValue()), logger);
-              } else if (i++ < 10) {
-                LoggingUtils.LOG.warn("Failed to parse " + e);
+              int i = 0;
+              for (Map.Entry<File, ParsingResult> e : failedToParse.entrySet()) {
+                final Throwable p = getProblem(e.getValue());
+                String m = "Failed to parse " + e.getKey();
+
+                if (p == null) m = m + ": Report is incomplete or has unexpected structure";
+
+                if (rulesContext.getRulesData().isVerbose() || failedToParse.size() == 1) {
+                  LoggingUtils.logError(m, p, logger, true);
+                } else if (i < 10) {
+                  LoggingUtils.LOG.warn(m);
+                } else {
+                  LoggingUtils.LOG.debug(m, p);
+                }
+                result.accumulate(e.getValue());
+                ++i;
               }
-              result.accumulate(e.getValue());
             }
           }
 
@@ -315,7 +327,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   @Nullable Throwable getProblem(@NotNull ParsingResult parsingResult) {
     @SuppressWarnings({"ThrowableResultOfMethodCallIgnored"})
     final Throwable problem = parsingResult.getProblem();
-    assert problem != null && problem instanceof ParseException;
+    if (problem == null) return null;
+    assert problem instanceof ParseException;
     return problem.getCause();
   }
 

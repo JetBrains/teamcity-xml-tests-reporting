@@ -19,6 +19,7 @@ package jetbrains.buildServer.xmlReportPlugin.inspections;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.messages.Status;
 import jetbrains.buildServer.messages.serviceMessages.BuildStatus;
+import jetbrains.buildServer.xmlReportPlugin.ProblemParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
@@ -32,7 +33,7 @@ import java.io.File;
  * Date: 22.01.11
  * Time: 17:49
  */
-public class InspectionParsingResult implements ParsingResult {
+public class InspectionParsingResult extends ProblemParsingResult {
   private int myErrors;
   private int myWarnings;
   private int myInfos;

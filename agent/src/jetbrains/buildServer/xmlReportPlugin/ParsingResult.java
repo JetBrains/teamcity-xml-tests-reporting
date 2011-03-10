@@ -54,4 +54,11 @@ public interface ParsingResult {
    */
   @Nullable
   Throwable getProblem();
+
+
+  /**
+   * Sets problem that occurred during parsing if any
+   * @param problem the problem
+   */
+  void setProblem(@NotNull Throwable problem);
 }

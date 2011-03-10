@@ -34,7 +34,7 @@ import java.util.List;
  */
 public abstract class BaseCommandTestCase extends TestCase {
   @NotNull
-  protected static final ParsingResult EMPTY_RESULT = new ParsingResult() {
+  protected static final ParsingResult EMPTY_RESULT = new ProblemParsingResult() {
     public void accumulate(@NotNull ParsingResult parsingResult) {
     }
 
@@ -47,10 +47,6 @@ public abstract class BaseCommandTestCase extends TestCase {
     @Override
     public String toString() {
       return "EMPTY_RESULT";
-    }
-
-    public Throwable getProblem() {
-      return null;
     }
   };
 

@@ -68,7 +68,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
       }
 
       public ParsingResult getParsingResult() {
-        return new ParsingResult() {
+        return new ProblemParsingResult() {
           public void accumulate(@NotNull ParsingResult parsingResult) {
           }
 
@@ -78,10 +78,6 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
 
           public void logAsTotalResult(@NotNull ParseParameters parameters) {
             throw new IllegalStateException(UNEXPECTED_CALL_MESSAGE);
-          }
-
-          public Throwable getProblem() {
-            return null;
           }
         };
       }
@@ -139,7 +135,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
     parseReportCommand.run();
 
     assertContains(myResult, "PARSING: ##BASE_DIR##/file.xml PREVIOUS RESULT: null",
-      "ERROR: Failed to parse ##BASE_DIR##/file.xml with null parser",
+      //"ERROR: Failed to parse ##BASE_DIR##/file.xml with null parser",
       "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
     assertNotInPrevState();
@@ -188,7 +184,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
     parseReportCommand.run();
 
     assertContains(myResult, "PARSING: ##BASE_DIR##/file.xml PREVIOUS RESULT: EMPTY_RESULT",
-      "ERROR: Failed to parse ##BASE_DIR##/file.xml with null parser",
+      //"ERROR: Failed to parse ##BASE_DIR##/file.xml with null parser",
       "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
     assertNotInPrevState();
