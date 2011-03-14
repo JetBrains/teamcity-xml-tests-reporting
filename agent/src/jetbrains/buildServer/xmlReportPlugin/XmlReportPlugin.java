@@ -258,7 +258,20 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     LoggingUtils.logInTarget(LoggingUtils.getTypeDisplayName(rulesContext.getRulesData().getType()) + " report watcher",
       new Runnable() {
         public void run() {
-          String message = "Stop watching paths:";
+          final ParsingResult result = myParserFactoryMap.get(rulesContext.getRulesData().getType()).createEmptyResult();
+
+          final Map<File, ParsingResult> processedFiles = rulesContext.getRulesState().getFiles();
+          final Map<File, ParsingResult> failedToParse = rulesContext.getFailedToParse();
+
+          final int totalFileCount = processedFiles.size() + failedToParse.size();
+
+          if (totalFileCount == 0) {
+            rulesContext.getRulesData().getWhenNoDataPublished().doLogAction("No reports found for paths:", logger, LoggingUtils.LOG);
+          } else {
+            LoggingUtils.message(totalFileCount + " report" + getEnding(totalFileCount) + " found for paths:", logger);
+          }
+
+          String message = "";
 
           final List<String> rules = rulesContext.getRulesData().getRules().getBody();
 
@@ -272,56 +285,74 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
             }
           }
 
-          final ParsingResult result = myParserFactoryMap.get(rulesContext.getRulesData().getType()).createEmptyResult();
-
-          final Map<File, ParsingResult> processedFiles = rulesContext.getRulesState().getFiles();
-          final Map<File, ParsingResult> failedToParse = rulesContext.getFailedToParse();
-
-          final int totalFileCount = processedFiles.size() + failedToParse.size();
-
-          if (totalFileCount == 0) {
-            rulesContext.getRulesData().getWhenNoDataPublished().doLogAction("No reports found", logger, LoggingUtils.LOG);
-          } else {
-            LoggingUtils.message(totalFileCount + " report" + getEnding(totalFileCount) + " found", logger);
-
-            for (Map.Entry<File, ParsingResult> e : processedFiles.entrySet()) {
-              //noinspection ThrowableResultOfMethodCallIgnored
-              if (e.getValue().getProblem() == null) {
-                if (rulesContext.getRulesData().isVerbose()) {
-                  logger.message(e.getKey() + " successfully parsed");
-                }
-                result.accumulate(processedFiles.get(e.getKey()));
-              } else {
-                failedToParse.put(e.getKey(), e.getValue());
-              }
+          final ArrayList<File> toRemove = new ArrayList<File>();
+          for (Map.Entry<File, ParsingResult> e : processedFiles.entrySet()) {
+            //noinspection ThrowableResultOfMethodCallIgnored
+            if (e.getValue().getProblem() != null) {
+              failedToParse.put(e.getKey(), e.getValue());
+              toRemove.add(e.getKey());
             }
+          }
+
+          for (File f : toRemove) processedFiles.remove(f);
 
           if (!failedToParse.isEmpty()) {
-            LoggingUtils.error("Failed to parse " + failedToParse.size() + " report" + getEnding(failedToParse.size()), logger);
+            LoggingUtils.logInTarget("Parsing errors",
+                                     new Runnable() {
+                                       public void run() {
+                                         LoggingUtils
+                                           .error("Failed to parse " + failedToParse.size() + " report" + getEnding(failedToParse.size()), logger);
 
-              int i = 0;
-              for (Map.Entry<File, ParsingResult> e : failedToParse.entrySet()) {
-                final Throwable p = getProblem(e.getValue());
-                String m = "Failed to parse " + e.getKey();
+                                         int i = 0;
+                                         for (Map.Entry<File, ParsingResult> e : failedToParse.entrySet()) {
+                                           final Throwable p = getProblem(e.getValue());
+                                           String m = getPathInCheckoutDir(e.getKey());
 
-                if (p == null) m = m + ": Report is incomplete or has unexpected structure";
+                                           if (p == null) m = m + ": Report is incomplete or has unexpected structure";
 
-                if (rulesContext.getRulesData().isVerbose() || failedToParse.size() == 1) {
-                  LoggingUtils.logError(m, p, logger, true);
-                } else if (i < 10) {
-                  LoggingUtils.LOG.warn(m);
-                } else {
-                  LoggingUtils.LOG.debug(m, p);
-                }
-                result.accumulate(e.getValue());
-                ++i;
-              }
-            }
+                                           if (rulesContext.getRulesData().isVerbose() || failedToParse.size() == 1) {
+                                             LoggingUtils.logError(m, p, logger, true);
+                                           } else if (i < 10) {
+                                             LoggingUtils.LOG.warn(m);
+                                           } else {
+                                             LoggingUtils.LOG.debug(m, p);
+                                           }
+                                           result.accumulate(e.getValue());
+                                           ++i;
+                                         }
+                                       }
+                                     }, logger);
+          }
+
+          if (!processedFiles.isEmpty()) {
+            LoggingUtils.logInTarget("Successfully parsed",
+                                     new Runnable() {
+                                       public void run() {
+                                         LoggingUtils
+                                           .message(processedFiles.size() + " report" + getEnding(processedFiles.size()), logger);
+
+                                         for (Map.Entry<File, ParsingResult> e : processedFiles.entrySet()) {
+                                           final String m = getPathInCheckoutDir(e.getKey());
+
+                                           if (rulesContext.getRulesData().isVerbose() || processedFiles.size() == 1) {
+                                             LoggingUtils.message(m, logger);
+                                           } else {
+                                             LoggingUtils.LOG.debug(m);
+                                           }
+                                           result.accumulate(e.getValue());
+                                         }
+                                       }
+                                     }, logger);
           }
 
           result.logAsTotalResult(rulesContext.getRulesData().getParseReportParameters());
         }
       }, logger);
+  }
+
+  private String getPathInCheckoutDir(@NotNull File file) {
+    final String relativePath = FileUtil.getRelativePath(getBuild().getCheckoutDirectory(), file);
+    return relativePath == null ? file.getPath() : relativePath;
   }
 
   @Nullable Throwable getProblem(@NotNull ParsingResult parsingResult) {
