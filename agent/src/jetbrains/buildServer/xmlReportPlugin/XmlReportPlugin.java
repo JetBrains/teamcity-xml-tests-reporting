@@ -255,31 +255,27 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   private void logStatistics(@NotNull final RulesContext rulesContext) {
     final BuildProgressLogger logger = getBuild().getBuildLogger();
 
+    final Map<File, ParsingResult> processedFiles = rulesContext.getRulesState().getFiles();
+    final Map<File, ParsingResult> failedToParse = rulesContext.getFailedToParse();
+
+    final int totalFileCount = processedFiles.size() + failedToParse.size();
+
+    if (totalFileCount == 0 && rulesContext.getRulesData().getWhenNoDataPublished() == LogAction.DO_NOTHING) return;
+
     LoggingUtils.logInTarget(LoggingUtils.getTypeDisplayName(rulesContext.getRulesData().getType()) + " report watcher",
       new Runnable() {
         public void run() {
-          final ParsingResult result = myParserFactoryMap.get(rulesContext.getRulesData().getType()).createEmptyResult();
-
-          final Map<File, ParsingResult> processedFiles = rulesContext.getRulesState().getFiles();
-          final Map<File, ParsingResult> failedToParse = rulesContext.getFailedToParse();
-
-          final int totalFileCount = processedFiles.size() + failedToParse.size();
-
           if (totalFileCount == 0) {
             rulesContext.getRulesData().getWhenNoDataPublished().doLogAction("No reports found for paths:", logger, LoggingUtils.LOG);
           } else {
             LoggingUtils.message(totalFileCount + " report" + getEnding(totalFileCount) + " found for paths:", logger);
           }
 
-          String message = "";
-
           final List<String> rules = rulesContext.getRulesData().getRules().getBody();
 
           if (rules.size() == 0) {
-            message += " <no paths>";
-            LoggingUtils.warn(message, logger);
+            LoggingUtils.warn("<no paths>", logger);
           } else {
-            LoggingUtils.message(message, logger);
             for (String r : rules) {
               LoggingUtils.message(r, logger);
             }
@@ -295,6 +291,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
           }
 
           for (File f : toRemove) processedFiles.remove(f);
+
+          final ParsingResult result = myParserFactoryMap.get(rulesContext.getRulesData().getType()).createEmptyResult();
 
           if (!failedToParse.isEmpty()) {
             LoggingUtils.logInTarget("Parsing errors",
