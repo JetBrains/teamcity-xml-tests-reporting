@@ -51,6 +51,9 @@ class BuildLoggerForTesting implements FlowLogger, MessageTweakingSupport {
 
   }
 
+  public void activityStarted(final String activityName, final String activityDescription, final String activityType) {
+  }
+
   public void activityFinished(final String activityName, final String activityType) {
 
   }
