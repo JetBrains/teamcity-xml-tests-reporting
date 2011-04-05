@@ -57,6 +57,9 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   private final Map<String, ParserFactory> myParserFactoryMap;
 
   @Nullable
+  private ProcessingContext myBuildProcessingContext;
+
+  @Nullable
   private ProcessingContext myStepProcessingContext;
 
   public XmlReportPlugin(@NotNull Map<String, ParserFactory> parserFactoryMap,
@@ -76,11 +79,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   @Override
   public void buildStarted(@NotNull AgentRunningBuild runningBuild) {
     myBuild = runningBuild;
-  }
-
-  @Override
-  public void beforeRunnerStart(@NotNull BuildRunnerContext runner) {
-    myStepProcessingContext = new ProcessingContext(new CopyOnWriteArrayList<RulesContext>());
+    myBuildProcessingContext = new ProcessingContext(new ArrayList<RulesContext>());
 
     final Map<String, String> params = getBuild().getSharedConfigParameters();
 
@@ -93,16 +92,21 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
           featureParams.putAll(params);
 
           final RulesData rulesData
-            = new RulesData(getRules(featureParams), featureParams, getStepProcessingContext().startTime);
+            = new RulesData(getRules(featureParams), featureParams, getBuildProcessingContext().startTime);
 
-          getStepProcessingContext().rulesContexts.add(createRulesContext(rulesData));
+          getBuildProcessingContext().rulesContexts.add(createRulesContext(rulesData));
         } catch (ParseException e) {
           getBuild().getBuildLogger().exception(e);
         }
       }
     }
 
-    startProcessing(getStepProcessingContext());
+    startProcessing(getBuildProcessingContext());
+  }
+
+  @Override
+  public void beforeRunnerStart(@NotNull BuildRunnerContext runner) {
+    myStepProcessingContext = new ProcessingContext(new CopyOnWriteArrayList<RulesContext>());
   }
 
   public synchronized void processRules(@NotNull File rulesFile,
@@ -118,17 +122,23 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   @Override
   public synchronized void runnerFinished(@NotNull BuildRunnerContext runner, @NotNull BuildFinishedStatus status) {
-    getStepProcessingContext().finished = true;
+    finishProcessing(getStepProcessingContext(), true);
 
-    if (getStepProcessingContext().rulesContexts.isEmpty()) return;
+    finishProcessing(getBuildProcessingContext(), false);
+    startProcessing(getBuildProcessingContext());
 
-    finishProcessing(getStepProcessingContext());
     myStepProcessingContext = null;
+  }
+
+  @Override
+  public void beforeBuildFinish(@NotNull final AgentRunningBuild build, @NotNull final BuildFinishedStatus buildStatus) {
+    finishProcessing(getBuildProcessingContext(), true);
   }
 
   @Override
   public void buildFinished(@NotNull AgentRunningBuild build, @NotNull BuildFinishedStatus buildStatus) {
     myBuild = null;
+    myBuildProcessingContext = null;
   }
 
   @Override
@@ -157,7 +167,9 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   private void startProcessing(@NotNull final ProcessingContext processingContext) {
     if (processingContext.monitorThread != null) return;
+    if (processingContext.rulesContexts.size() == 0) return;
 
+    processingContext.finished = false;
     processingContext.monitorThread = new Thread(new Runnable() {
       public void run() {
         while (!processingContext.finished) {
@@ -176,9 +188,14 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     processingContext.monitorThread.start();
   }
 
-  private void finishProcessing(@NotNull final ProcessingContext processingContext) {
+  private void finishProcessing(@NotNull final ProcessingContext processingContext, boolean logStatistics) {
+    if (processingContext.monitorThread == null) return;
+
+    processingContext.finished = true;
     try {
       if (processingContext.monitorThread != null) processingContext.monitorThread.join();
+
+      processingContext.monitorThread = null;
 
       for (RulesContext rulesContext : processingContext.rulesContexts) {
         for (Future future : rulesContext.getParseTasks()) {
@@ -193,7 +210,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
           future.get();
         }
 
-        logStatistics(rulesContext);
+        if (logStatistics) logStatistics(rulesContext);
       }
     } catch (Exception e) {
       LoggingUtils.logError("Exception occurred while finishing rules monitoring", e, getBuild().getBuildLogger(), false);
@@ -380,6 +397,15 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     if (!myParserFactoryMap.containsKey(type))
       throw new IllegalArgumentException("No factory for " + type);
     return myParserFactoryMap.get(type);
+  }
+
+  @SuppressWarnings({"NullableProblems"})
+  @NotNull
+  private ProcessingContext getBuildProcessingContext() {
+    if (myBuildProcessingContext == null) {
+      throw new IllegalStateException("Build processing context is null");
+    }
+    return myBuildProcessingContext;
   }
 
   @SuppressWarnings({"NullableProblems"})
