@@ -13,6 +13,12 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 public class TestResultsTableParserTest extends TestCase {
+
+  @Test
+  public void test_tw_15210() throws IOException {
+    doTest("tw-15210");
+  }
+
   @Test
   public void test_tw_13034() throws IOException {
     doTest("tw-13034");
@@ -67,6 +73,7 @@ public class TestResultsTableParserTest extends TestCase {
               .append("[ ")
               .append(StringUtil.join(args, new Function<Object, String>() {
                 public String fun(final Object o) {
+                  if (o == null) return "<null>";
                   return StringUtil.truncateStringValueWithDotsAtEnd(o.toString().replaceAll("\\r?\\n", " "), 30);
                 }
               }, ","))
