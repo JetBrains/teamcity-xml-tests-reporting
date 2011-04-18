@@ -64,7 +64,7 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
                                                         @NotNull final StringBuilder result,
                                                         final boolean parseOutOfDate, final long startTime) {
     final List<String> rulesList = Arrays.asList(myBaseFolder + "/*.xml", myBaseFolder + "/**/*.xml");
-    final Rules rules = new Rules(rulesList);
+    final Rules rules = new Rules(myBaseFolder, rulesList);
     final MonitorRulesCommand.MonitorRulesParameters parameters = new MonitorRulesCommand.MonitorRulesParameters() {
       @NotNull
       public Rules getRules() {

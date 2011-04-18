@@ -54,6 +54,10 @@ public class Rules extends FileRuleSet<FileRule, FileRule> {
     return rule;
   }
 
+  public Rules(@NotNull Collection<String> body) {
+    super(new ArrayList<String>(body));
+  }
+
   public Rules(@NotNull File baseDir, @NotNull Collection<String> body) {
     super(resolveRules(baseDir, body));
   }
