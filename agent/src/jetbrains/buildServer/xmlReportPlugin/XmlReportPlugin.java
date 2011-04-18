@@ -258,15 +258,15 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     }
     final List<String> rules = new ArrayList<String>();
     for (String rule : rulesStr.split(XmlReportPluginConstants.SPLIT_REGEX)) {
-      rules.add(FileUtil.resolvePath(getBuild().getCheckoutDirectory(), rule).getPath());
+      rules.add(rule);
     }
-    return new Rules(rules);
+    return new Rules(getBuild().getCheckoutDirectory(), rules);
   }
 
   private Rules getRules(@NotNull File rulesFile) {
     final List<String> rules = new ArrayList<String>();
-    rules.add(FileUtil.resolvePath(getBuild().getCheckoutDirectory(), rulesFile.getPath()).getPath());
-    return new Rules(rules);
+    rules.add(rulesFile.getPath());
+    return new Rules(getBuild().getCheckoutDirectory(), rules);
   }
 
   private void logStatistics(@NotNull final RulesContext rulesContext) {

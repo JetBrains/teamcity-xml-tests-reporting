@@ -17,11 +17,15 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import com.intellij.openapi.util.SystemInfo;
+import com.sun.org.apache.xpath.internal.operations.*;
 import java.io.File;
+import java.lang.String;
 import java.util.*;
+import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.vcs.FileRule;
 import jetbrains.buildServer.vcs.FileRuleSet;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * User: vbedrosova
@@ -31,8 +35,27 @@ import org.jetbrains.annotations.NotNull;
 public class Rules extends FileRuleSet<FileRule, FileRule> {
   private Set<File> myRootIncludePaths;
 
-  public Rules(@NotNull Collection<String> body) {
-    super(new ArrayList<String>(body));
+  private static List<String> resolveRules(@NotNull File baseDir, @NotNull Collection<String> body) {
+    final List<String> resolved = new ArrayList<String>();
+    for (String rule : body) {
+      resolved.add(getRulePrefix(rule) + FileUtil.resolvePath(baseDir, getRulePath(rule)).getPath());
+    }
+    return resolved;
+  }
+
+  private static String getRulePrefix(@NotNull String rule) {
+    if (rule.startsWith("+:")) return "+:";
+    if (rule.startsWith("-:")) return "-:";
+    return "";
+  }
+
+  private static String getRulePath(@NotNull String rule) {
+    if (rule.startsWith("+:") || rule.startsWith("-:")) return rule.substring(2);
+    return rule;
+  }
+
+  public Rules(@NotNull File baseDir, @NotNull Collection<String> body) {
+    super(resolveRules(baseDir, body));
   }
 
   @Override
