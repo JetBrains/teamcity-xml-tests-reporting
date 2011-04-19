@@ -73,7 +73,7 @@ public class Rules extends FileRuleSet<FileRule, FileRule> {
   }
 
   private FileRule createRule(@NotNull String line, boolean isInclude) {
-    return new FileRule(line, null, this, isInclude);
+    return new FileRule<Rules>(line, null, this, isInclude);
   }
 
   @Override
