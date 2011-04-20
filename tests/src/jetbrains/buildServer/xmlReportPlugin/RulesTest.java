@@ -147,7 +147,7 @@ public class RulesTest extends TestCase {
   }
 
   private Collection<String> getRulesSet(@NotNull String... rules) {
-    return new HashSet<String>(Arrays.asList(rules));
+    return Arrays.asList(rules);
   }
 
   private File getFile(@NotNull final String path) {
