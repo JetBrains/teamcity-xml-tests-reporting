@@ -256,11 +256,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     if (rulesStr == null || rulesStr.length() == 0) {
       throw new RuntimeException("Rules are empty");
     }
-    final List<String> rules = new ArrayList<String>();
-    for (String rule : rulesStr.split(XmlReportPluginConstants.SPLIT_REGEX)) {
-      rules.add(rule);
-    }
-    return new Rules(getBuild().getCheckoutDirectory(), rules);
+    return new Rules(getBuild().getCheckoutDirectory(), Arrays.asList(rulesStr.split(XmlReportPluginConstants.SPLIT_REGEX)));
   }
 
   private Rules getRules(@NotNull File rulesFile) {
