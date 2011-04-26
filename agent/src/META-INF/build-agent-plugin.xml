@@ -65,4 +65,6 @@
           class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$PmdCpdDataProcessor"/>
     <bean id="MSTestDataProcessor"
           class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$MSTestDataProcessor"/>
+    <bean id="GTestDataProcessor"
+          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$GTestDataProcessor"/>
 </beans>

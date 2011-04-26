@@ -171,4 +171,15 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
       return "mstest";
     }
   }
+
+  public static final class GTestDataProcessor extends XmlReportDataProcessor {
+    public GTestDataProcessor(RulesProcessor plugin) {
+      super(plugin);
+    }
+
+    @NotNull
+    public String getType() {
+      return "gtest";
+    }
+  }
 }
