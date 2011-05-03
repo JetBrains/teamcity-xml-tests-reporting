@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 import java.util.concurrent.*;
@@ -362,8 +363,15 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   }
 
   private String getPathInCheckoutDir(@NotNull File file) {
-    final String relativePath = FileUtil.getRelativePath(getBuild().getCheckoutDirectory(), file);
-    return relativePath == null ? file.getPath() : relativePath;
+    try {
+      if (FileUtil.isAncestor(getBuild().getCheckoutDirectory(), file, false)) {
+        final String relativePath = FileUtil.getRelativePath(getBuild().getCheckoutDirectory(), file);
+        return relativePath == null ? file.getPath() : relativePath;
+      }
+    } catch (IOException e) {
+      LoggingUtils.LOG.debug("Failed to get relative path for " + file + " in " + getBuild().getCheckoutDirectory(), e);
+    }
+    return file.getPath();
   }
 
   @Nullable Throwable getProblem(@NotNull ParsingResult parsingResult) {
