@@ -370,7 +370,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     @SuppressWarnings({"ThrowableResultOfMethodCallIgnored"})
     final Throwable problem = parsingResult.getProblem();
     if (problem == null) return null;
-    assert problem instanceof ParseException;
+    assert problem instanceof ParsingException;
     return problem.getCause();
   }
 
