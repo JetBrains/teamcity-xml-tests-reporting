@@ -41,10 +41,12 @@ public class XmlReportPluginUtil {
     SUPPORTED_REPORT_TYPES.put("pmdCpd", "PMD CPD");
     SUPPORTED_REPORT_TYPES.put("mstest", "MSTest");
     SUPPORTED_REPORT_TYPES.put("gtest", "Google Test");
+    SUPPORTED_REPORT_TYPES.put("jslint", "JSLint");
 
     INSPECTIONS_TYPES.add("findBugs");
     INSPECTIONS_TYPES.add("pmd");
     INSPECTIONS_TYPES.add("checkstyle");
+    INSPECTIONS_TYPES.add("jslint");
 
     DUPLICATES_TYPES.add("pmdCpd");
   }

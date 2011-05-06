@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jslint>
+<file name='resources/buildServerResources/agentpush.js'>
+<issue line='83' char='18' reason='Do not wrap function literals in parens unless they are to be immediately invoked.' evidence='                ((function() {'/>
+<issue line='160' char='18' reason='Move &apos;var&apos; declarations to the top of the function.' evidence='            for (var i = 0; i &lt; children.length; ++i) {'/>
+<issue line='160' char='18' reason='Stopping.  (71% scanned).' evidence=''/>
+</file>
+<file name='server/buildServerResources/handle.js'>
+</file>
+<file name='resources/buildServerResources/js/clearcaseSettings.js'>
+<issue line='36' char='25' reason='Expected &apos;===&apos; and instead saw &apos;==&apos;.' evidence='                if (xml == null) {'/>
+<issue line='43' char='41' reason='Expected &apos;===&apos; and instead saw &apos;==&apos;.' evidence='                if (firstChild.nodeName == &apos;error&apos;) {'/>
+</file>
+</jslint>

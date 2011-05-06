@@ -1,0 +1,10 @@
+InspectionTypeInfo{myId='JSLint', myName='JSLint', myDescription='JSLint', myCategory='JSLint'}
+InspectionInstance{myInspectionId='JSLint', myMessage='REASON: Do not wrap function literals in parens unless they are to be immediately invoked, EVIDENCE:                 ((function() {', myFilePath='resources/buildServerResources/agentpush.js', myLine=83, myPriority=2}
+InspectionTypeInfo{myId='JSLint', myName='JSLint', myDescription='JSLint', myCategory='JSLint'}
+InspectionInstance{myInspectionId='JSLint', myMessage='REASON: Move 'var' declarations to the top of the function, EVIDENCE:             for (var i = 0; i < children.length; ++i) {', myFilePath='resources/buildServerResources/agentpush.js', myLine=160, myPriority=2}
+InspectionTypeInfo{myId='JSLint', myName='JSLint', myDescription='JSLint', myCategory='JSLint'}
+InspectionInstance{myInspectionId='JSLint', myMessage='Stopping.  (71% scanned).', myFilePath='resources/buildServerResources/agentpush.js', myLine=160, myPriority=2}
+InspectionTypeInfo{myId='JSLint', myName='JSLint', myDescription='JSLint', myCategory='JSLint'}
+InspectionInstance{myInspectionId='JSLint', myMessage='REASON: Expected '===' and instead saw '==', EVIDENCE:                 if (xml == null) {', myFilePath='resources/buildServerResources/js/clearcaseSettings.js', myLine=36, myPriority=2}
+InspectionTypeInfo{myId='JSLint', myName='JSLint', myDescription='JSLint', myCategory='JSLint'}
+InspectionInstance{myInspectionId='JSLint', myMessage='REASON: Expected '===' and instead saw '==', EVIDENCE:                 if (firstChild.nodeName == 'error') {', myFilePath='resources/buildServerResources/js/clearcaseSettings.js', myLine=43, myPriority=2}
