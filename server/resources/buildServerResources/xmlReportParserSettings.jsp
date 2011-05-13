@@ -30,7 +30,8 @@
 <c:set var="displayInspectionsSettings"
        value="${reportType == 'findBugs' ||
                 reportType == 'pmd' ||
-                reportType == 'checkstyle' ? true : false}"/>
+                reportType == 'checkstyle' ||
+                reportType == 'jslint' ? true : false}"/>
 
 <c:set var="displayFindBugsSettings"
        value="${reportType == 'findBugs' ? true : false}"/>
@@ -64,7 +65,8 @@
           }
           var isInspection = (selectedValue == 'findBugs' ||
           selectedValue == 'pmd' ||
-          selectedValue == 'checkstyle');
+          selectedValue == 'checkstyle' ||
+          selectedValue == 'jslint');
           if (isInspection) {
           BS.Util.show($('xmlReportParsing.max.errors.container'));
           BS.Util.show($('xmlReportParsing.max.warnings.container'));
