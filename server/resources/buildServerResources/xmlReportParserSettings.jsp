@@ -124,7 +124,7 @@
     <th><label for="xmlReportParsing.reportDirs">Monitoring rules:</label></th>
     <td>
         <props:multilineProperty name="xmlReportParsing.reportDirs" expanded="true" rows="5" cols="40"
-                                 linkTitle="Type report directories"/>
+                                 linkTitle="Type report monitoring rules"/>
     <span class="smallNote">
       New line or comma separated set of rules in the form <strong>of +|-:path</strong>.<br/>
       Support ant-style wildcards like <strong>dir/**/*.xml</strong>.
