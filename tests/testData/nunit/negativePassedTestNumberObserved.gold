@@ -1,4 +1,4 @@
-TestSuite:TradesCrudTests.OnKeyOCLTestSuite
+TestSuite:OnKeyOCLTestSuite
   Test:Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_A_For_Basic_Testing
   EndTest:59248
 ------------------------
@@ -34,8 +34,6 @@ TestSuite:TradesCrudTests.OnKeyOCLTestSuite
     Ignored:
   EndTest:0
 ------------------------
-EndSuite
-TestSuite:StaffMembersDemoTests.OnKeyOCLTestSuite
   Test:Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Load_Existing_Staff_Member_To_Check_Edit_Grid_Functionality_And_Cancel_Changes
     Ignored:
   EndTest:0

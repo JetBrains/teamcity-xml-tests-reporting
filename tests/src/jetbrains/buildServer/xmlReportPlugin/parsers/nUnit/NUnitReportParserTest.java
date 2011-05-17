@@ -26,13 +26,6 @@ import org.junit.Test;
 
 public class NUnitReportParserTest extends BaseParserTestCase {
   private static final String REPORT_DIR = "nunit";
-  private static final String SINGLE_CASE_FAILURE = "TestSuite:TestCase\n" +
-  "  Test:test\n" +
-  "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
-  "            at TestCase.test(Unknown Source)\n" +
-  "  EndTest:16\n" +
-  "------------------------\n" +
-  "EndSuite\n";
 
   @NotNull
   @Override
@@ -61,7 +54,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void testSingleCaseSuccess() throws Exception {
     parse("singleCaseSuccess.xml");
     assertResultEquals(
-      "TestSuite:TestCase\n" +
+      "TestSuite:NUnitTests.nunit\n" +
       "  Test:test\n" +
       "  EndTest:16\n" +
       "------------------------\n" +
@@ -72,14 +65,20 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test1CaseFailure() throws Exception {
    parse("singleCaseFailure.xml");
    assertResultEquals(
-     SINGLE_CASE_FAILURE);
+     "TestSuite:NUnitTests.nunit\n" +
+     "  Test:test\n" +
+     "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
+     "            at TestCase.test(Unknown Source)\n" +
+     "  EndTest:16\n" +
+     "------------------------\n" +
+     "EndSuite\n");
   }
 
   @Test
   public void test2CasesSuccess() throws Exception {
     parse("twoCasesSuccess.xml");
     assertResultEquals(
-      "TestSuite:TestCase\n" +
+      "TestSuite:NUnitTests.nunit\n" +
       "  Test:test1\n" +
       "  EndTest:16\n" +
       "------------------------\n" +
@@ -93,7 +92,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test2CasesFirstSuccess() throws Exception {
     parse("twoCasesFirstSuccess.xml");
     assertResultEquals(
-      "TestSuite:TestCase\n" +
+      "TestSuite:NUnitTests.nunit\n" +
       "  Test:test1\n" +
       "  EndTest:16\n" +
       "------------------------\n" +
@@ -109,7 +108,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test2CasesSecondSuccess() throws Exception {
     parse("twoCasesSecondSuccess.xml");
     assertResultEquals(
-      "TestSuite:TestCase\n" +
+      "TestSuite:NUnitTests.nunit\n" +
       "  Test:test1\n" +
       "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
       "            at TestCase.test(Unknown Source)\n" +
@@ -125,7 +124,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test2CasesFailed() throws Exception {
     parse("twoCasesFailed.xml");
     assertResultEquals(
-      "TestSuite:TestCase\n" +
+      "TestSuite:NUnitTests.nunit\n" +
       "  Test:test1\n" +
       "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
       "            at TestCase.test(Unknown Source)\n" +
@@ -143,7 +142,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test1CaseIgnored() throws Exception {
     parse("singleCaseIgnored.xml");
     assertResultEquals(
-      "TestSuite:TestCase\n" +
+      "TestSuite:NUnitTests.nunit\n" +
       "  Test:test\n" +
       "    Ignored:\n" +
       "  EndTest:0\n" +
@@ -155,7 +154,15 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test1CaseIn2PartsBreakTestSuiteBetweenAttrs() throws Exception {
     parse("singleCaseFailure.xml", parse("singleCaseBreakTestSuiteBetweenAttrs.xml"));
     assertResultEquals(
-      SINGLE_CASE_FAILURE);
+      "TestSuite:NUnitTests.nunit\n" +
+      "EndSuite\n" +
+      "TestSuite:NUnitTests.nunit\n" +
+      "  Test:test\n" +
+      "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
+      "            at TestCase.test(Unknown Source)\n" +
+      "  EndTest:16\n" +
+      "------------------------\n" +
+      "EndSuite\n");
   }
 
   //TW-7573: XML Report plugin not reporting correct results for NUnit results
@@ -170,7 +177,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test1CaseFailureWithMultiline() throws Exception {
    parse("singleCaseFailureWithMultiline.xml");
    assertResultEquals(
-     "TestSuite:TestCase\n" +
+     "TestSuite:NUnitTests.nunit\n" +
      "  Test:test\n" +
      "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
      "            at TestCase.test(Unknown Source)\n" +

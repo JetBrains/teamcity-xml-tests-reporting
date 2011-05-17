@@ -46,138 +46,74 @@ class NUnitXmlReportParser extends XmlXppAbstractParser {
   protected List<XmlHandler> getRootHandlers() {
     return Arrays.asList(elementsPath(new Handler() {
       public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-        final Stack<SuitePartInfo> names = new Stack<SuitePartInfo>();
+        final String name = getSuiteName(reader.getAttribute("name"));
+        myCallback.suiteFound(name);
 
-        return reader.visitChildren(elementsPath(new Handler() {
-          public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-            return processTestSuite(reader, names);
+        return reader.visitChildren(
+          deeperHandler()
+        ).than(new XmlAction() {
+          public void apply() {
+            myCallback.suiteFinished(name);
           }
-        }, "test-suite"));
+        });
       }
     }, "test-results"));
   }
 
-  @NotNull
-  private XmlReturn processTestSuite(@NotNull XmlElementInfo reader, @NotNull final Stack<SuitePartInfo> names) {
-    names.push(new SuitePartInfo(reader.getAttribute("name")));
-    return reader.visitChildren(
-      elementsPath(new Handler() {
-        public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-          final String[] message = new String[1];
-          final String[] trace = new String[1];
-
-          return reader.visitChildren(
-            elementsPath(new TextHandler() {
-              public void setText(@NotNull final String text) {
-                message[0] = text.trim();
-              }
-            }, "message "),
-            elementsPath(new TextHandler() {
-              public void setText(@NotNull final String text) {
-                trace[0] = text.trim();
-              }
-            }, "stack-trace")
-          ).than(new XmlAction() {
-            public void apply() {
-              myCallback.suiteFailureFound(getSuiteName(names), message[0], trace[0]);
-            }
-          });
-        }
-      }, "failure"),
-      elementsPath(new Handler() {
-        public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-          return reader.visitChildren(
-            elementsPath(new Handler() {
-              public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-                return processTestSuite(reader, names);
-              }
-            }, "test-suite"),
-            elementsPath(new Handler() {
-              public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-                final TestData testData = new TestData();
-
-                testData.setName(reader.getAttribute("name"));
-                testData.setExecuted(Boolean.parseBoolean(reader.getAttribute("executed")) && !"Inconclusive".equals(reader.getAttribute("result")));
-                testData.setDuration(myDurationParser.parseTestDuration(reader.getAttribute("time")));
-
-                return reader.visitChildren(
-                  elementsPath(new Handler() {
-                    public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-                      return reader.visitChildren(
-                        elementsPath(new TextHandler() {
-                          public void setText(@NotNull final String text) {
-                            testData.setFailureMessage(text.trim());
-                          }
-                        }, "message"),
-                        elementsPath(new TextHandler() {
-                          public void setText(@NotNull final String text) {
-                            testData.setFailureStackTrace(text.trim());
-                          }
-                        }, "stack-trace")
-                      );
-                    }
-                  }, "failure")
-                ).than(new XmlAction() {
-                  public void apply() {
-                    if (!names.peek().isFound()) {
-                      myCallback.suiteFound(getSuiteName(names));
-                      names.peek().setFound(true);
-                    }
-                    myCallback.testFound(testData);
-                  }
-                });
-              }
-            }, "test-case")
-          );
-        }
-      }, "results")
-    ).than(new XmlAction() {
-      public void apply() {
-        if (names.peek().isFound()) myCallback.suiteFinished(getSuiteName(names));
-        names.pop();
-      }
-    });
-  }
-
   @Nullable
-  private String getSuiteName(@NotNull Stack<SuitePartInfo> parts) {
-    if (parts.size() == 0) return null;
-
-    final StringBuilder name = new StringBuilder();
-    for (int i = parts.size() - 1; i >=0; --i) {
-      if (name.length() > 0) name.append(".");
-      name.append(parts.get(i).getName());
-    }
-    return name.toString();
+  private String getSuiteName(@Nullable String name) {
+    if (name == null) return null;
+    if (name.contains("\\")) return name.substring(name.lastIndexOf("\\") + 1);
+    if (name.contains("/")) return name.substring(name.lastIndexOf("/") + 1);
+    return name;
   }
 
-  private static final class SuitePartInfo {
-    @Nullable
-    private final String myName;
-    private boolean myFound;
+  @NotNull
+  private XmlHandler deeperHandler() {
+    return elementsPatternPath(new Handler() {
+      public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+        return reader.visitChildren(
+          deeperHandler(),
+          elementsPath(new Handler() {
+            public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+              final TestData testData = new TestData();
 
-    private SuitePartInfo(@Nullable String name) {
-      myName = name;
-    }
+              testData.setName(reader.getAttribute("name"));
+              testData.setExecuted(
+                Boolean.parseBoolean(reader.getAttribute("executed")) && !"Inconclusive".equals(reader.getAttribute("result")));
+              testData.setDuration(myDurationParser.parseTestDuration(reader.getAttribute("time")));
 
-    @Nullable
-    public String getName() {
-      return myName;
-    }
-
-    public boolean isFound() {
-      return myFound;
-    }
-
-    public void setFound(boolean found) {
-      myFound = found;
-    }
+              return reader.visitChildren(
+                elementsPath(new Handler() {
+                  public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+                    return reader.visitChildren(
+                      elementsPath(new TextHandler() {
+                        public void setText(@NotNull final String text) {
+                          testData.setFailureMessage(text.trim());
+                        }
+                      }, "message"),
+                      elementsPath(new TextHandler() {
+                        public void setText(@NotNull final String text) {
+                          testData.setFailureStackTrace(text.trim());
+                        }
+                      }, "stack-trace")
+                    );
+                  }
+                }, "failure")
+              ).than(new XmlAction() {
+                public void apply() {
+                  myCallback.testFound(testData);
+                }
+              });
+            }
+          }, "test-case")
+        );
+      }
+    }, "(test-suite)|(results)");
   }
 
   public static interface Callback {
     void suiteFound(@Nullable String suiteName);
-
-    void suiteFailureFound(@Nullable String suiteName, @Nullable String message, @Nullable String trace);
 
     void suiteFinished(@Nullable String suiteName);
 

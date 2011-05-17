@@ -1,4 +1,4 @@
-TestSuite:Class1.statuses.dll
+TestSuite:statuses.dll
   Test:Class1.Error
     Fail:System.Exception : Mega bug Message: at Class1.Error()
   EndTest:3

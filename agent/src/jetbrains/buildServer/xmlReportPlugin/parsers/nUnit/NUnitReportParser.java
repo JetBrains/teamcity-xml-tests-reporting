@@ -70,14 +70,6 @@ class NUnitReportParser implements Parser {
           mySuite = suiteName;
         }
 
-        public void suiteFailureFound(@Nullable final String suiteName, @Nullable final String message, @Nullable final String trace) {
-          if (mySuite == null || !mySuite.equals(suiteName)) {
-            LOG.error("Failed to log suite failure for not-opened suite " + suiteName);
-            return;
-          }
-          myTestReporter.error("Failure from suite " + suiteName + ": " + (message == null ? "" : message)  + "\n" + trace);
-        }
-
         public void suiteFinished(@Nullable final String suiteName) {
           if (mySuite == null || !mySuite.equals(suiteName)) {
             LOG.error("Failed to log suite finish for not-opened suite " + suiteName);
