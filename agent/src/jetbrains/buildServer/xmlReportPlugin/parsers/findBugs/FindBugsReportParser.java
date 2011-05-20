@@ -22,6 +22,7 @@ import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.text.html.parser.DTD;
+import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.*;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
@@ -41,6 +42,9 @@ class FindBugsReportParser implements Parser {
 
   @NotNull
   private final InspectionReporter myInspectionReporter;
+
+  @NotNull
+  private final File myBaseFolder;
 
   @Nullable
   private final File myFindBugsHome;
@@ -65,8 +69,10 @@ class FindBugsReportParser implements Parser {
   private DetailsParser myDetailsParser;
 
   public FindBugsReportParser(@NotNull final InspectionReporter inspectionReporter,
-                              @Nullable final String findBugsHome) {
+                              @Nullable final String findBugsHome,
+                              @NotNull final File baseFolder) {
     myInspectionReporter = inspectionReporter;
+    myBaseFolder = baseFolder;
     myFindBugsHome = findBugsHome == null ? null : new File(findBugsHome);
 
     myPatternXmlParser = new PatternXmlParser(new PatternXmlParser.Callback() {
@@ -138,7 +144,7 @@ class FindBugsReportParser implements Parser {
         }
 
         public void jarFound(@NotNull final String jar) {
-          myFileFinder.addJar(jar);
+          myFileFinder.addJar(FileUtil.resolvePath(myBaseFolder, jar).getAbsolutePath());
         }
 
         public void bugInstanceFound(@Nullable final String file,
@@ -195,7 +201,9 @@ class FindBugsReportParser implements Parser {
       file = myFileFinder.getVeryFullFilePath(clazz.replace(".", File.separator) + ".class");
     }
 
-    return file;
+    if (file != null) return file;
+    if (sourcepath != null) return sourcepath;
+    return clazz;
   }
 
   @SuppressWarnings({"ConstantConditions"})

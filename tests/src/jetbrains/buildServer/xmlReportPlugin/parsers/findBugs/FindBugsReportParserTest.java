@@ -36,7 +36,7 @@ public class FindBugsReportParserTest extends BaseParserTestCase {
   protected Parser getParser() {
     try {
       return new FindBugsReportParser(getInspectionReporter(), FINDBUGS_HOME != null && new File(FINDBUGS_HOME).exists() ? FINDBUGS_HOME : TestUtil
-        .getTestDataPath(TYPE, null));
+        .getTestDataPath(TYPE, null), getBaseDir());
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }

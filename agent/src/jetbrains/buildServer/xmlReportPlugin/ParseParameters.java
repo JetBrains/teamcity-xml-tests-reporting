@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
 import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
@@ -48,4 +49,7 @@ public interface ParseParameters {
 
   @NotNull
   String getType();
+
+  @NotNull
+  File getCheckoutDir();
 }

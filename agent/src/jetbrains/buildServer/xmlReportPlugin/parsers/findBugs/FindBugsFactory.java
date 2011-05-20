@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.findBugs;
 
+import java.io.File;
 import jetbrains.buildServer.xmlReportPlugin.*;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionParsingResult;
 import org.jetbrains.annotations.NotNull;
@@ -28,7 +29,8 @@ import org.jetbrains.annotations.NotNull;
 public class FindBugsFactory implements ParserFactory {
   @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
-    return new FindBugsReportParser(parameters.getInspectionReporter(), XmlReportPluginUtil.getFindBugsHomePath(parameters.getParameters()));
+    return new FindBugsReportParser(parameters.getInspectionReporter(), XmlReportPluginUtil.getFindBugsHomePath(parameters.getParameters()),
+                                    parameters.getCheckoutDir());
   }
 
   @NotNull

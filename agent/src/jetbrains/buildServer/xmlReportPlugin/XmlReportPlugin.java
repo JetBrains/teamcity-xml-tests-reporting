@@ -532,6 +532,11 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         public String getType() {
           return XmlReportPluginUtil.getReportType(myParameters);
         }
+
+        @NotNull
+        public File getCheckoutDir() {
+          return getBuild().getCheckoutDirectory();
+        }
       };
     }
   }
