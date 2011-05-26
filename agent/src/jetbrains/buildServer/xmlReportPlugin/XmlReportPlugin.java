@@ -24,10 +24,7 @@ import java.util.concurrent.*;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
 import jetbrains.buildServer.messages.serviceMessages.MapSerializerUtil;
-import jetbrains.buildServer.util.EventDispatcher;
-import jetbrains.buildServer.util.FileUtil;
-import jetbrains.buildServer.util.NamedThreadFactory;
-import jetbrains.buildServer.util.ThreadUtil;
+import jetbrains.buildServer.util.*;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.TeamCityDuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
@@ -244,7 +241,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
     if (!executor.isTerminated()) {
       LoggingUtils.LOG.warn("Stopped waiting for one xml-report-plugin executors to complete, it is still running");
-      ThreadUtil.threadDump(THREAD_FACTORY);
+      DiagnosticUtil.threadDumpToLog(THREAD_FACTORY);
     }
   }
 
