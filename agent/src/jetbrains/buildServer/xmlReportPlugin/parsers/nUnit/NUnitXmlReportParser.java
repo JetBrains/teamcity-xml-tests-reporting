@@ -18,10 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.nUnit;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Stack;
 import jetbrains.buildServer.util.XmlXppAbstractParser;
-import jetbrains.buildServer.xmlReportPlugin.tests.DurationParser;
-import jetbrains.buildServer.xmlReportPlugin.tests.MillisecondDurationParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.SecondDurationParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -46,18 +43,69 @@ class NUnitXmlReportParser extends XmlXppAbstractParser {
   protected List<XmlHandler> getRootHandlers() {
     return Arrays.asList(elementsPath(new Handler() {
       public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+        return reader.visitChildren(suiteHandler(true));
+      }
+    }, "test-results"));
+  }
+
+  @NotNull
+  private XmlHandler suiteHandler(final boolean addLogging) {
+    return elementsPath(new Handler() {
+      public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
         final String name = getSuiteName(reader.getAttribute("name"));
-        myCallback.suiteFound(name);
+
+        if (addLogging) myCallback.suiteFound(name);
 
         return reader.visitChildren(
-          deeperHandler()
+          elementsPath(new Handler() {
+            public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+              return reader.visitChildren(suiteHandler(false), testHandler());
+            }
+          }, "results")
         ).than(new XmlAction() {
           public void apply() {
-            myCallback.suiteFinished(name);
+            if (addLogging) myCallback.suiteFinished(name);
           }
         });
       }
-    }, "test-results"));
+    }, "test-suite");
+  }
+
+  @NotNull
+  private XmlHandler testHandler() {
+    return elementsPath(new Handler() {
+      public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+        final TestData testData = new TestData();
+
+        testData.setName(reader.getAttribute("name"));
+        testData.setExecuted(
+          Boolean.parseBoolean(reader.getAttribute("executed")) && !"Inconclusive".equals(reader.getAttribute("result")));
+        testData.setDuration(myDurationParser.parseTestDuration(reader.getAttribute("time")));
+
+        return reader.visitChildren(
+          elementsPath(new Handler() {
+            public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+              return reader.visitChildren(
+                elementsPath(new TextHandler() {
+                  public void setText(@NotNull final String text) {
+                    testData.setFailureMessage(text.trim());
+                  }
+                }, "message"),
+                elementsPath(new TextHandler() {
+                  public void setText(@NotNull final String text) {
+                    testData.setFailureStackTrace(text.trim());
+                  }
+                }, "stack-trace")
+              );
+            }
+          }, "failure")
+        ).than(new XmlAction() {
+          public void apply() {
+            myCallback.testFound(testData);
+          }
+        });
+      }
+    }, "test-case");
   }
 
   @Nullable
@@ -66,50 +114,6 @@ class NUnitXmlReportParser extends XmlXppAbstractParser {
     if (name.contains("\\")) return name.substring(name.lastIndexOf("\\") + 1);
     if (name.contains("/")) return name.substring(name.lastIndexOf("/") + 1);
     return name;
-  }
-
-  @NotNull
-  private XmlHandler deeperHandler() {
-    return elementsPatternPath(new Handler() {
-      public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-        return reader.visitChildren(
-          deeperHandler(),
-          elementsPath(new Handler() {
-            public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-              final TestData testData = new TestData();
-
-              testData.setName(reader.getAttribute("name"));
-              testData.setExecuted(
-                Boolean.parseBoolean(reader.getAttribute("executed")) && !"Inconclusive".equals(reader.getAttribute("result")));
-              testData.setDuration(myDurationParser.parseTestDuration(reader.getAttribute("time")));
-
-              return reader.visitChildren(
-                elementsPath(new Handler() {
-                  public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-                    return reader.visitChildren(
-                      elementsPath(new TextHandler() {
-                        public void setText(@NotNull final String text) {
-                          testData.setFailureMessage(text.trim());
-                        }
-                      }, "message"),
-                      elementsPath(new TextHandler() {
-                        public void setText(@NotNull final String text) {
-                          testData.setFailureStackTrace(text.trim());
-                        }
-                      }, "stack-trace")
-                    );
-                  }
-                }, "failure")
-              ).than(new XmlAction() {
-                public void apply() {
-                  myCallback.testFound(testData);
-                }
-              });
-            }
-          }, "test-case")
-        );
-      }
-    }, "(test-suite)|(results)");
   }
 
   public static interface Callback {

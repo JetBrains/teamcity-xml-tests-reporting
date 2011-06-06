@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-results name="AbnormalTermination">
+  <test-suite name="xxx.dll" executed="True" success="False" time="0" asserts="0">
+    <results>
+      <test-case name="AbnormalTermination" executed="True" success="False" time="274524" asserts="1">
+        <failure>
+          <message>Abnormal termination, exit code -2146233082 (0x80131506)
+</message>
+          <stack-trace>Stacktrace not available</stack-trace>
+        </failure>
+      </test-case>
+    </results>
+  </test-suite>
+</test-results>

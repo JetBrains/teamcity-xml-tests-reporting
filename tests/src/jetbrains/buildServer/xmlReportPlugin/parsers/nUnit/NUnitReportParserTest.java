@@ -54,7 +54,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void testSingleCaseSuccess() throws Exception {
     parse("singleCaseSuccess.xml");
     assertResultEquals(
-      "TestSuite:NUnitTests.nunit\n" +
+      "TestSuite:TestCase\n" +
       "  Test:test\n" +
       "  EndTest:16\n" +
       "------------------------\n" +
@@ -65,7 +65,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test1CaseFailure() throws Exception {
    parse("singleCaseFailure.xml");
    assertResultEquals(
-     "TestSuite:NUnitTests.nunit\n" +
+     "TestSuite:TestCase\n" +
      "  Test:test\n" +
      "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
      "            at TestCase.test(Unknown Source)\n" +
@@ -78,7 +78,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test2CasesSuccess() throws Exception {
     parse("twoCasesSuccess.xml");
     assertResultEquals(
-      "TestSuite:NUnitTests.nunit\n" +
+      "TestSuite:TestCase\n" +
       "  Test:test1\n" +
       "  EndTest:16\n" +
       "------------------------\n" +
@@ -92,7 +92,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test2CasesFirstSuccess() throws Exception {
     parse("twoCasesFirstSuccess.xml");
     assertResultEquals(
-      "TestSuite:NUnitTests.nunit\n" +
+      "TestSuite:TestCase\n" +
       "  Test:test1\n" +
       "  EndTest:16\n" +
       "------------------------\n" +
@@ -108,7 +108,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test2CasesSecondSuccess() throws Exception {
     parse("twoCasesSecondSuccess.xml");
     assertResultEquals(
-      "TestSuite:NUnitTests.nunit\n" +
+      "TestSuite:TestCase\n" +
       "  Test:test1\n" +
       "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
       "            at TestCase.test(Unknown Source)\n" +
@@ -124,7 +124,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test2CasesFailed() throws Exception {
     parse("twoCasesFailed.xml");
     assertResultEquals(
-      "TestSuite:NUnitTests.nunit\n" +
+      "TestSuite:TestCase\n" +
       "  Test:test1\n" +
       "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
       "            at TestCase.test(Unknown Source)\n" +
@@ -142,7 +142,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test1CaseIgnored() throws Exception {
     parse("singleCaseIgnored.xml");
     assertResultEquals(
-      "TestSuite:NUnitTests.nunit\n" +
+      "TestSuite:TestCase\n" +
       "  Test:test\n" +
       "    Ignored:\n" +
       "  EndTest:0\n" +
@@ -154,9 +154,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test1CaseIn2PartsBreakTestSuiteBetweenAttrs() throws Exception {
     parse("singleCaseFailure.xml", parse("singleCaseBreakTestSuiteBetweenAttrs.xml"));
     assertResultEquals(
-      "TestSuite:NUnitTests.nunit\n" +
-      "EndSuite\n" +
-      "TestSuite:NUnitTests.nunit\n" +
+      "TestSuite:TestCase\n" +
       "  Test:test\n" +
       "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
       "            at TestCase.test(Unknown Source)\n" +
@@ -177,7 +175,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   public void test1CaseFailureWithMultiline() throws Exception {
    parse("singleCaseFailureWithMultiline.xml");
    assertResultEquals(
-     "TestSuite:NUnitTests.nunit\n" +
+     "TestSuite:TestCase\n" +
      "  Test:test\n" +
      "    Fail:Assertion message form test Message: junit.framework.AssertionFailedError: Assertion message form test\n" +
      "            at TestCase.test(Unknown Source)\n" +
@@ -239,11 +237,23 @@ public class NUnitReportParserTest extends BaseParserTestCase {
 //    myContext.assertIsSatisfied();
 //  }
 
-  //  TW-11744
+  // TW-11744
   @Test
   public void test_nunit_2_5_x_statuses() throws Exception {
     parse("nunit-2.5/statuses.xml");
     assertResultEquals(
       getExpectedResult("nunit_2_5_x_statuses.gold"));
+  }
+
+  // TW-17110
+  @Test
+  public void test_abnormal_termination() throws Exception {
+    parse("abnormalTermination.xml");
+    assertResultEquals("TestSuite:xxx.dll\n" +
+                       "  Test:AbnormalTermination\n" +
+                       "    Fail:Abnormal termination, exit code -2146233082 (0x80131506) Message: Stacktrace not available\n" +
+                       "  EndTest:274524000\n" +
+                       "------------------------\n" +
+                       "EndSuite\n");
   }
 }
