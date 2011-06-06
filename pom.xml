@@ -53,7 +53,7 @@
         <module>tests</module>
     </modules>
     <properties>
-      <tc.version>6.5-SNAPSHOT</tc.version>
+      <tc.version>7.0-SNAPSHOT</tc.version>
     </properties>
     <repositories>
       <repository>
