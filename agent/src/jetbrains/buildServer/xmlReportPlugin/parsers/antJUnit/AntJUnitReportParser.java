@@ -25,7 +25,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import sun.dc.path.PathException;
 
 class AntJUnitReportParser implements Parser {
   public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(AntJUnitReportParser.class);
