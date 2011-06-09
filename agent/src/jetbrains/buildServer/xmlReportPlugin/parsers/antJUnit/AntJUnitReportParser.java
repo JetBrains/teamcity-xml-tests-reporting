@@ -137,7 +137,7 @@ class AntJUnitReportParser implements Parser {
 
             myTestReporter.openTest(testName);
             if (!testData.isExecuted()) myTestReporter.testIgnored("");
-            if (testData.getFailureType() != null || testData.getFailureMessage() != null) {
+            if (testData.getFailureType() != null || testData.getFailureMessage() != null || testData.getFailureStackTrace() != null) {
               myTestReporter
                 .testFail(getFailureMessage(testData.getFailureType(), testData.getFailureMessage()), testData.getFailureStackTrace());
             }
