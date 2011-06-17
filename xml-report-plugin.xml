@@ -18,7 +18,6 @@
     <exclude name="**/CVS/**"/>
     <exclude name="**/SCCS/**"/>
     <exclude name="**/RCS/**"/>
-    <exclude name="**/rcs/**"/>
     <exclude name="**/.DS_Store/**"/>
     <exclude name="**/.svn/**"/>
     <exclude name="**/.pyc/**"/>
@@ -31,6 +30,10 @@
     <exclude name="**/.hg/**"/>
     <exclude name="**/*.lib/**"/>
     <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
   </patternset>
   <patternset id="library.patterns">
     <include name="*.zip"/>
@@ -57,10 +60,6 @@
   
   
   <!-- Project Libraries -->
-  
-  <path id="library.common-impl.classpath">
-    <pathelement location="${path.variable.teamcitydistribution}/buildAgent/lib/common-impl.jar"/>
-  </path>
   
   <path id="library.jdom.classpath">
     <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/jdom.jar"/>
@@ -93,6 +92,10 @@
     <pathelement location="${path.variable.teamcitydistribution}/buildAgent/lib/server-logging.jar"/>
   </path>
   
+  <path id="library.teamcity_common-impl.jar.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/common-impl.jar"/>
+  </path>
+  
   <path id="library.teamcity_openapi.classpath">
     <pathelement location="${path.variable.teamcitydistribution}/devPackage/agent-api.jar"/>
     <pathelement location="${path.variable.teamcitydistribution}/devPackage/common-api.jar"/>
@@ -100,7 +103,7 @@
   </path>
   
   <path id="library.teamcity_spring.classpath">
-    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/spring.jar"/>
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/org.springframework.core-3.0.5.RELEASE.jar"/>
   </path>
   
   <path id="library.teamcity_utils.classpath">
@@ -267,7 +270,7 @@
     <path refid="library.log4j.classpath"/>
     <path refid="library.teamcity_spring.classpath"/>
     <pathelement location="${common.output.dir}"/>
-    <path refid="library.common-impl.classpath"/>
+    <path refid="library.teamcity_common-impl.jar.classpath"/>
   </path>
   
   <path id="agent.runtime.production.module.classpath">
@@ -279,7 +282,7 @@
     <path refid="library.log4j.classpath"/>
     <path refid="library.teamcity_spring.classpath"/>
     <path refid="common.runtime.production.module.classpath"/>
-    <path refid="library.common-impl.classpath"/>
+    <path refid="library.teamcity_common-impl.jar.classpath"/>
   </path>
   
   <path id="agent.module.classpath">
@@ -291,7 +294,7 @@
     <path refid="library.log4j.classpath"/>
     <path refid="library.teamcity_spring.classpath"/>
     <pathelement location="${common.output.dir}"/>
-    <path refid="library.common-impl.classpath"/>
+    <path refid="library.teamcity_common-impl.jar.classpath"/>
   </path>
   
   <path id="agent.runtime.module.classpath">
@@ -304,7 +307,7 @@
     <path refid="library.log4j.classpath"/>
     <path refid="library.teamcity_spring.classpath"/>
     <path refid="common.runtime.module.classpath"/>
-    <path refid="library.common-impl.classpath"/>
+    <path refid="library.teamcity_common-impl.jar.classpath"/>
   </path>
   
   
@@ -471,7 +474,7 @@
     <path refid="library.jdom.classpath"/>
     <pathelement location="${agent.output.dir}"/>
     <pathelement location="${common.output.dir}"/>
-    <path refid="library.common-impl.classpath"/>
+    <path refid="library.teamcity_common-impl.jar.classpath"/>
   </path>
   
   <path id="tests.runtime.production.module.classpath">
@@ -485,7 +488,7 @@
     <path refid="library.jdom.classpath"/>
     <path refid="agent.runtime.production.module.classpath"/>
     <path refid="common.runtime.production.module.classpath"/>
-    <path refid="library.common-impl.classpath"/>
+    <path refid="library.teamcity_common-impl.jar.classpath"/>
   </path>
   
   <path id="tests.module.classpath">
@@ -500,7 +503,7 @@
     <pathelement location="${agent.testoutput.dir}"/>
     <pathelement location="${agent.output.dir}"/>
     <pathelement location="${common.output.dir}"/>
-    <path refid="library.common-impl.classpath"/>
+    <path refid="library.teamcity_common-impl.jar.classpath"/>
   </path>
   
   <path id="tests.runtime.module.classpath">
@@ -515,7 +518,7 @@
     <path refid="library.jdom.classpath"/>
     <path refid="agent.runtime.module.classpath"/>
     <path refid="common.runtime.module.classpath"/>
-    <path refid="library.common-impl.classpath"/>
+    <path refid="library.teamcity_common-impl.jar.classpath"/>
   </path>
   
   

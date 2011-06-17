@@ -22,7 +22,7 @@
     <orderEntry type="library" name="Log4J" level="project" />
     <orderEntry type="library" name="TeamCity spring" level="project" />
     <orderEntry type="module" module-name="common" />
-    <orderEntry type="library" name="common-impl" level="project" />
+    <orderEntry type="library" name="TeamCity common-impl.jar" level="project" />
   </component>
 </module>
 

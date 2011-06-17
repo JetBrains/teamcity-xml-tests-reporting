@@ -34,7 +34,7 @@
     <orderEntry type="library" name="Maven: org.jmock:jmock-legacy:2.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.objenesis:objenesis:1.0" level="project" />
     <orderEntry type="library" name="Maven: cglib:cglib-nodep:2.1_3" level="project" />
-    <orderEntry type="library" name="common-impl" level="project" />
+    <orderEntry type="library" name="TeamCity common-impl.jar" level="project" />
   </component>
 </module>
 
