@@ -19,8 +19,8 @@
     <orderEntry type="module" module-name="utils" />
     <orderEntry type="module" module-name="server-logging" />
     <orderEntry type="module" module-name="runtime-util" />
-    <orderEntry type="library" name="Spring" level="project" />
     <orderEntry type="module" module-name="common-impl" />
+    <orderEntry type="library" name="Spring-Framework-3.0-core" level="project" />
   </component>
 </module>
 
