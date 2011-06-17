@@ -38,9 +38,6 @@ class FindBugsReportParser implements Parser {
   public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(FindBugsReportParser.class);
 
   @NotNull
-  private static final String BUNDLED_VERSION = "1.3.9";
-
-  @NotNull
   private final InspectionReporter myInspectionReporter;
 
   @NotNull
@@ -135,14 +132,6 @@ class FindBugsReportParser implements Parser {
       myCategoryXmlParser.parse(file);
 
       new FindBugsReportXmlParser(new FindBugsReportXmlParser.Callback() {
-        public void findBugsVersionFound(@NotNull final String version) {
-          if (myFindBugsHome == null && !BUNDLED_VERSION.equals(version)) {
-            myInspectionReporter.warning(
-              file + " was generated with FindBugs " + version + ". Bundled FindBugs version is " + BUNDLED_VERSION +
-              ". In \"XML Report Processing\" settings in the web specify \"FindBugs home path\" for loading bug patterns straight from FindBugs");
-          }
-        }
-
         public void jarFound(@NotNull final String jar) {
           myFileFinder.addJar(FileUtil.resolvePath(myBaseFolder, jar).getAbsolutePath());
         }

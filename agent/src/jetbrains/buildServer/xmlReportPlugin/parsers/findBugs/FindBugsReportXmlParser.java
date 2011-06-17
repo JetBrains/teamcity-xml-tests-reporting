@@ -40,9 +40,6 @@ class FindBugsReportXmlParser extends XmlXppAbstractParser {
   protected List<XmlXppAbstractParser.XmlHandler> getRootHandlers() {
     return Arrays.asList(elementsPath(new XmlXppAbstractParser.Handler() {
       public XmlXppAbstractParser.XmlReturn processElement(@NotNull final XmlXppAbstractParser.XmlElementInfo reader) {
-        final String version = reader.getAttribute("version");
-        if (version != null) myCallback.findBugsVersionFound(version);
-
         return reader.visitChildren(
           elementsPath(new XmlXppAbstractParser.Handler() {
             public XmlXppAbstractParser.XmlReturn processElement(@NotNull final XmlXppAbstractParser.XmlElementInfo reader) {
@@ -108,7 +105,6 @@ class FindBugsReportXmlParser extends XmlXppAbstractParser {
   }
 
   public static interface Callback {
-    void findBugsVersionFound(@NotNull String version);
     void jarFound(@NotNull String jar);
     void bugInstanceFound(@Nullable String file, @Nullable String clazz, int line,
                           @Nullable String type, @Nullable String category, @Nullable String message, int priority);
