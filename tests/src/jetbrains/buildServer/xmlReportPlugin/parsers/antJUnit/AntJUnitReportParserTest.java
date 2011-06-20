@@ -451,7 +451,7 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
     assertResultEquals(
       "TestSuite:TestCase\n" +
       "  Test:TestCase.test1\n" +
-      "-->Info: System out from test TestCase.test1: from test1\n" +
+      "    StdOutput:from test1\n" +
       "  EndTest:0\n" +
       "------------------------\n" +
       "EndSuite\n");
@@ -463,7 +463,7 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
     assertResultEquals(
       "TestSuite:TestCase\n" +
       "  Test:TestCase.test1\n" +
-      "-->Warning: System error from test TestCase.test1: from test1\n" +
+      "    ErrOutput:from test1\n" +
       "  EndTest:0\n" +
       "------------------------\n" +
       "EndSuite\n");
@@ -475,11 +475,11 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
     assertResultEquals(
       "TestSuite:TestCase\n" +
       "  Test:TestCase.test1\n" +
-      "-->Info: System out from test TestCase.test1: from test1\n" +
+      "    StdOutput:from test1\n" +
       "  EndTest:0\n" +
       "------------------------\n" +
       "  Test:TestCase.test2\n" +
-      "-->Info: System out from test TestCase.test2: from test2\n" +
+      "    StdOutput:from test2\n" +
       "  EndTest:0\n" +
       "------------------------\n" +
       "EndSuite\n");

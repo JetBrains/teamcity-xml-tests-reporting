@@ -137,16 +137,15 @@ class AntJUnitReportParser implements Parser {
 
             myTestReporter.openTest(testName);
             if (!testData.isExecuted()) myTestReporter.testIgnored("");
+            if (testData.getStdOut() != null && testData.getStdOut().length() > 0) {
+              myTestReporter.testStdOutput(testData.getStdOut());
+            }
+            if (testData.getStdErr() != null && testData.getStdErr().length() > 0) {
+              myTestReporter.testErrOutput(testData.getStdErr());
+            }
             if (testData.getFailureType() != null || testData.getFailureMessage() != null || testData.getFailureStackTrace() != null) {
               myTestReporter
                 .testFail(getFailureMessage(testData.getFailureType(), testData.getFailureMessage()), testData.getFailureStackTrace());
-            }
-            //noinspection ConstantConditions
-            if (testData.getStdErr() != null && testData.getStdErr().length() > 0) {
-              myTestReporter.warning("System error from test " + testName + ": " + testData.getStdErr());
-            }
-            if (testData.getStdOut() != null && testData.getStdOut().length() > 0) {
-              myTestReporter.info("System out from test " + testName + ": " + testData.getStdOut());
             }
             myTestReporter.closeTest(testData.getDuration());
           } finally {
