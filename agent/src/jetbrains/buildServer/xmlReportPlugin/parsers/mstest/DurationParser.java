@@ -18,7 +18,7 @@ class DurationParser {
     try {
       String[] durations = duration.split(":");
       if (durations.length != 3) {
-        LOG.error("Failed to parse duration string: " + duration + ". Format unexpected.");
+        LOG.warn("Failed to parse duration string: " + duration + ". Format unexpected.");
         return -1;
       }
       final double seconds = Double.parseDouble(durations[2]);
@@ -27,7 +27,7 @@ class DurationParser {
 
       return (long)(Math.ceil(1000 * seconds) + 1000 * (60 * (minutes + 60 * hours)));
     } catch (NumberFormatException e) {
-      LOG.error("Failed to parse duration string: " + duration + ". " + e.getMessage(), e);
+      LOG.warn("Failed to parse duration string: " + duration + ". " + e.getMessage(), e);
     }
     return -1;
   }

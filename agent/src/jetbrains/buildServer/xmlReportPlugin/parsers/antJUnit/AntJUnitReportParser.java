@@ -59,7 +59,7 @@ class AntJUnitReportParser implements Parser {
 
         public void suiteFound(@Nullable final String suiteName) {
           if (mySuite != null) {
-            LOG.error("Suite " + mySuite + " was not closed");
+            LOG.warn("Suite " + mySuite + " was not closed");
           }
 
           if (suiteName == null) {
@@ -77,7 +77,7 @@ class AntJUnitReportParser implements Parser {
                                       @Nullable final String message,
                                       @Nullable final String trace) {
           if (mySuite == null || !mySuite.equals(suiteName)) {
-            LOG.error("Failed to log suite failure for not-opened suite " + suiteName);
+            LOG.warn("Failed to log suite failure for not-opened suite " + suiteName);
             return;
           }
           myTestReporter.error("Failure from suite " + suiteName + ": " + getFailureMessage(type, message) + "\n" + trace);
@@ -88,7 +88,7 @@ class AntJUnitReportParser implements Parser {
                                     @Nullable final String message,
                                     @Nullable final String trace) {
           if (mySuite == null || !mySuite.equals(suiteName)) {
-            LOG.error("Failed to log suite error for not-opened suite " + suiteName);
+            LOG.warn("Failed to log suite error for not-opened suite " + suiteName);
             return;
           }
           myTestReporter.error("Error from suite " + suiteName + ": " + getFailureMessage(type, message) + "\n" + trace);
@@ -96,7 +96,7 @@ class AntJUnitReportParser implements Parser {
 
         public void suiteSystemOutFound(@Nullable final String suiteName, @Nullable final String message) {
           if (mySuite == null || !mySuite.equals(suiteName)) {
-            LOG.error("Failed to log suite system out for not-opened suite " + suiteName);
+            LOG.warn("Failed to log suite system out for not-opened suite " + suiteName);
             return;
           }
           if (message != null && message.length() > 0) {
@@ -106,7 +106,7 @@ class AntJUnitReportParser implements Parser {
 
         public void suiteSystemErrFound(@Nullable final String suiteName, @Nullable final String message) {
           if (mySuite == null || !mySuite.equals(suiteName)) {
-            LOG.error("Failed to log suite system err for not-opened suite " + suiteName);
+            LOG.warn("Failed to log suite system err for not-opened suite " + suiteName);
             return;
           }
           if (message != null && message.length() > 0) {
@@ -116,7 +116,7 @@ class AntJUnitReportParser implements Parser {
 
         public void suiteFinished(@Nullable final String suiteName) {
           if (mySuite == null || !mySuite.equals(suiteName)) {
-            LOG.error("Failed to log suite finish for not-opened suite " + suiteName);
+            LOG.warn("Failed to log suite finish for not-opened suite " + suiteName);
             return;
           }
           myTestReporter.closeTestSuite();

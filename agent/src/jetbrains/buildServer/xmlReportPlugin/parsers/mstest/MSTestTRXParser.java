@@ -49,7 +49,7 @@ class MSTestTRXParser implements Parser {
 
       public void testFound(@NotNull final TestName testId) {
         if (myTestName != null) {
-          LOG.error("Test " + myTestName + " was not closed");
+          LOG.warn("Test " + myTestName + " was not closed");
         }
         myTestName = testId;
         logger.openTest(testName());
@@ -58,7 +58,7 @@ class MSTestTRXParser implements Parser {
 
       public void testOutput(@NotNull final TestName testId, @NotNull final String text) {
         if (myTestName == null || !myTestName.equals(testId)) {
-          LOG.error("Failed to log testOutput for not-opened test");
+          LOG.warn("Failed to log testOutput for not-opened test");
           return;
         }
 
@@ -67,7 +67,7 @@ class MSTestTRXParser implements Parser {
 
       public void testError(@NotNull final TestName testId, @NotNull final String text) {
         if (myTestName == null || !myTestName.equals(testId)) {
-          LOG.error("Failed to log testError for not-opened test");
+          LOG.warn("Failed to log testError for not-opened test");
           return;
         }
         logger.testErrOutput(text);
@@ -75,7 +75,7 @@ class MSTestTRXParser implements Parser {
 
       public void testException(@NotNull final TestName testId, @Nullable final String message, @Nullable final String error) {
         if (myTestName == null || !myTestName.equals(testId)) {
-          LOG.error("Failed to log testException for not-opened test");
+          LOG.warn("Failed to log testException for not-opened test");
           return;
         }
         logger.testFail(message, error);
@@ -83,7 +83,7 @@ class MSTestTRXParser implements Parser {
 
       public void testIgnored(@NotNull final TestName testId, @Nullable final String message, @Nullable final String error) {
         if (myTestName == null || !myTestName.equals(testId)) {
-          LOG.error("Failed to log testException for not-opened test");
+          LOG.warn("Failed to log testException for not-opened test");
           return;
         }
         final String toLog = (message == null ? "" : message) + (error == null ? "" : " " + error);
@@ -104,7 +104,7 @@ class MSTestTRXParser implements Parser {
 
       public void testFinished(@NotNull final TestName testId, @NotNull final TestOutcome outcome, final long duration) {
         if (myTestName == null) {
-          LOG.error("Test " + myTestName + " was not opened");
+          LOG.warn("Test " + myTestName + " was not opened");
         }
         logger.closeTest(duration);
         myTestName = null;

@@ -57,7 +57,7 @@ class NUnitReportParser implements Parser {
       new NUnitXmlReportParser(new NUnitXmlReportParser.Callback() {
         public void suiteFound(@Nullable final String suiteName) {
           if (mySuite != null) {
-            LOG.error("Suite " + mySuite + " was not closed");
+            LOG.warn("Suite " + mySuite + " was not closed");
           }
 
           if (suiteName == null) {
@@ -72,7 +72,7 @@ class NUnitReportParser implements Parser {
 
         public void suiteFinished(@Nullable final String suiteName) {
           if (mySuite == null || !mySuite.equals(suiteName)) {
-            LOG.error("Failed to log suite finish for not-opened suite " + suiteName);
+            LOG.warn("Failed to log suite finish for not-opened suite " + suiteName);
             return;
           }
           myTestReporter.closeTestSuite();
