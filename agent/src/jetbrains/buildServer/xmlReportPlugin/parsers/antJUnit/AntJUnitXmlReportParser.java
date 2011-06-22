@@ -41,110 +41,115 @@ class AntJUnitXmlReportParser extends XmlXppAbstractParser {
 
   @Override
   protected List<XmlHandler> getRootHandlers() {
-    final Handler handler = new Handler() {
-      public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-        final String name = reader.getAttribute("name");
-        final String pack = reader.getAttribute("package");
-
-        final String suiteName = (pack == null || name != null && name.startsWith(pack) ? "" : pack + ".") + name;
-        myCallback.suiteFound(suiteName);
-
-        return reader.visitChildren(
-          elementsPath(new Handler() {
-            public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-              final String type = reader.getAttribute("type");
-              final String message = reader.getAttribute("message");
-
-              return reader.visitText(new TextHandler() {
-                public void setText(@NotNull final String text) {
-                  myCallback.suiteFailureFound(suiteName, type, message, text.trim());
-                }
-              });
-            }
-          }, "failure"),
-          elementsPath(new Handler() {
-            public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-              final String type = reader.getAttribute("type");
-              final String message = reader.getAttribute("message");
-
-              return reader.visitText(new TextHandler() {
-                public void setText(@NotNull final String text) {
-                  myCallback.suiteErrorFound(suiteName, type, message, text.trim());
-                }
-              });
-            }
-          }, "error"),
-          elementsPath(new TextHandler() {
-            public void setText(@NotNull final String text) {
-              myCallback.suiteSystemOutFound(suiteName, text.trim());
-            }
-          }, "system-out"),
-          elementsPath(new TextHandler() {
-            public void setText(@NotNull final String text) {
-              myCallback.suiteSystemErrFound(suiteName, text.trim());
-            }
-          }, "system-err"),
-          elementsPath(new Handler() {
-            public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-              final String name = reader.getAttribute("name");
-              final String className = reader.getAttribute("classname");
-
-              final TestData testData = new TestData();
-
-              testData.setName((className == null || name != null && name.startsWith(className) ? "" : className + ".") + name);
-              testData.setDuration(myDurationParser.parseTestDuration(reader.getAttribute("time")));
-              testData.setExecuted(isExecuted(reader));
-
-              return reader.visitChildren(
-                elementsPath(new Handler() {
-                  public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-                    return processTestFailure(reader, testData);
-                  }
-                }, "failure"),
-                elementsPath(new Handler() {
-                  public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-                    return processTestFailure(reader, testData);
-                  }
-                }, "error"),
-                elementsPath(new TextHandler() {
-                  public void setText(@NotNull final String text) {
-                    testData.setStdOut(text.trim());
-                  }
-                }, "system-out"),
-                elementsPath(new TextHandler() {
-                  public void setText(@NotNull final String text) {
-                    testData.setStdErr(text.trim());
-                  }
-                }, "system-err"),
-                elementsPath(new Handler() {
-                  public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-                    testData.setExecuted(false);
-                    return reader.noDeep();
-                  }
-                }, "skipped"),
-                elementsPath(new TextHandler() {
-                  public void setText(@NotNull final String text) {
-                    testData.setDuration(myDurationParser.parseTestDuration(text.trim()));
-                  }
-                }, "time")
-              ).than(new XmlAction() {
-                public void apply() {
-                  myCallback.testFound(testData);
-                }
-              });
-            }
-          }, "testcase")
-        ).than(new XmlAction() {
-          public void apply() {
-            myCallback.suiteFinished(suiteName);
-          }
-        });
-      }
-    };
+    final Handler handler = getSuiteHandler();
     return Arrays.asList(
       elementsPath(handler, "testsuite"),
       elementsPath(handler, "testsuites", "testsuite")
     );
+  }
+
+  private Handler getSuiteHandler() {
+    return new Handler() {
+        public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+          final String name = reader.getAttribute("name");
+          final String pack = reader.getAttribute("package");
+
+          final String suiteName = (pack == null || name != null && name.startsWith(pack) ? "" : pack + ".") + name;
+          myCallback.suiteFound(suiteName);
+
+          return reader.visitChildren(
+            elementsPath(new Handler() {
+              public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+                final String type = reader.getAttribute("type");
+                final String message = reader.getAttribute("message");
+
+                return reader.visitText(new TextHandler() {
+                  public void setText(@NotNull final String text) {
+                    myCallback.suiteFailureFound(suiteName, type, message, text.trim());
+                  }
+                });
+              }
+            }, "failure"),
+            elementsPath(new Handler() {
+              public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+                final String type = reader.getAttribute("type");
+                final String message = reader.getAttribute("message");
+
+                return reader.visitText(new TextHandler() {
+                  public void setText(@NotNull final String text) {
+                    myCallback.suiteErrorFound(suiteName, type, message, text.trim());
+                  }
+                });
+              }
+            }, "error"),
+            elementsPath(new TextHandler() {
+              public void setText(@NotNull final String text) {
+                myCallback.suiteSystemOutFound(suiteName, text.trim());
+              }
+            }, "system-out"),
+            elementsPath(new TextHandler() {
+              public void setText(@NotNull final String text) {
+                myCallback.suiteSystemErrFound(suiteName, text.trim());
+              }
+            }, "system-err"),
+            elementsPath(new Handler() {
+              public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+                final String name = reader.getAttribute("name");
+                final String className = reader.getAttribute("classname");
+
+                final TestData testData = new TestData();
+
+                testData.setName((className == null || name != null && name.startsWith(className) ? "" : className + ".") + name);
+                testData.setDuration(myDurationParser.parseTestDuration(reader.getAttribute("time")));
+                testData.setExecuted(isExecuted(reader));
+
+                return reader.visitChildren(
+                  elementsPath(new Handler() {
+                    public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+                      return processTestFailure(reader, testData);
+                    }
+                  }, "failure"),
+                  elementsPath(new Handler() {
+                    public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+                      return processTestFailure(reader, testData);
+                    }
+                  }, "error"),
+                  elementsPath(new TextHandler() {
+                    public void setText(@NotNull final String text) {
+                      testData.setStdOut(text.trim());
+                    }
+                  }, "system-out"),
+                  elementsPath(new TextHandler() {
+                    public void setText(@NotNull final String text) {
+                      testData.setStdErr(text.trim());
+                    }
+                  }, "system-err"),
+                  elementsPath(new Handler() {
+                    public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+                      testData.setExecuted(false);
+                      return reader.noDeep();
+                    }
+                  }, "skipped"),
+                  elementsPath(new TextHandler() {
+                    public void setText(@NotNull final String text) {
+                      testData.setDuration(myDurationParser.parseTestDuration(text.trim()));
+                    }
+                  }, "time")
+                ).than(new XmlAction() {
+                  public void apply() {
+                    myCallback.testFound(testData);
+                  }
+                });
+              }
+            }, "testcase"),
+            elementsPath(getSuiteHandler(), "testsuite")
+          ).than(new XmlAction() {
+            public void apply() {
+              myCallback.suiteFinished(suiteName);
+            }
+          });
+        }
+      };
   }
 
   @NotNull
