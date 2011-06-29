@@ -111,6 +111,19 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
                                         @NotNull Map<String, String> params) {
     if (getStepProcessingContext().finished) return;
 
+     //here we check if this path is already monitored for reports of this type
+    for (RulesContext context : getStepProcessingContext().rulesContexts) {
+      if (context.getRulesData().getType().equals(XmlReportPluginUtil.getReportType(params))) {
+        final Collection<File> paths = context.getRulesData().getRules().getPaths();
+        if (paths.size() == 1) {
+          if (paths.contains(rulesFile)) {
+            LoggingUtils.LOG.info("Skip monitoring " + rulesFile + " (already monitoring)");
+            return;
+          }
+        }
+      }
+    }
+
     final RulesData rulesData = new RulesData(getRules(rulesFile), params, getStepProcessingContext().startTime);
 
     getStepProcessingContext().rulesContexts.add(createRulesContext(rulesData));
