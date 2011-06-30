@@ -16,17 +16,15 @@
 
 package jetbrains.buildServer.xmlReportPlugin.inspections;
 
+import java.io.File;
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.messages.Status;
 import jetbrains.buildServer.messages.serviceMessages.BuildStatus;
-import jetbrains.buildServer.xmlReportPlugin.ProblemParsingResult;
-import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.ProblemParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil;
+import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
 
 /**
  * User: vbedrosova
@@ -103,7 +101,7 @@ public class InspectionParsingResult extends ProblemParsingResult {
     }
 
     if (limitReached) {
-      logger.message(new BuildStatus(generateBuildStatus(myErrors, myWarnings, myInfos), Status.FAILURE).asString());
+      logger.message(new BuildStatus(generateBuildStatus(myErrors, myWarnings, myInfos), "FAILURE").asString());
     }
   }
 
