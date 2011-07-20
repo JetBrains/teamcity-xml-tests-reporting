@@ -373,13 +373,9 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   }
 
   private String getPathInCheckoutDir(@NotNull File file) {
-    try {
-      if (FileUtil.isAncestor(getBuild().getCheckoutDirectory(), file, false)) {
-        final String relativePath = FileUtil.getRelativePath(getBuild().getCheckoutDirectory(), file);
-        return relativePath == null ? file.getPath() : relativePath;
-      }
-    } catch (IOException e) {
-      LoggingUtils.LOG.debug("Failed to get relative path for " + file + " in " + getBuild().getCheckoutDirectory(), e);
+    if (FileUtil.isAncestor(getBuild().getCheckoutDirectory(), file, false)) {
+      final String relativePath = FileUtil.getRelativePath(getBuild().getCheckoutDirectory(), file);
+      return relativePath == null ? file.getPath() : relativePath;
     }
     return file.getPath();
   }
