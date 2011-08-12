@@ -61,34 +61,40 @@ class FindBugsReportXmlParser extends XmlXppAbstractParser {
               final String category = reader.getAttribute("category");
               final int priority = getInt(reader.getAttribute("priority"));
 
+              final String[] file = new String[1];
               final String[] clazz = new String[1];
               final String[] message = new String[1];
               final int[] line = new int[1];
 
+              final XmlHandler sourceLineHandler = elementsPath(new Handler() {
+                public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+                  file[0] = reader.getAttribute("sourcepath");
+                  final int lineAttr = getInt(reader.getAttribute("start"));
+                  if (lineAttr > 0) line[0] = lineAttr;
+                  return reader.noDeep();
+                }
+              }, "SourceLine");
+
               return reader.visitChildren(
-                elementsPath(new Handler() {
+                elementsPatternPath(new Handler() {
                   public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
                     clazz[0] = reader.getAttribute("classname");
-                    return reader.visitChildren(elementsPath(new Handler() {
-                      public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-                        line[0] = getInt(reader.getAttribute("start"));
-                        return reader.noDeep();
-                      }
-                    }, "SourceLine")).than(new XmlAction() {
-                      public void apply() {
-                        myCallback.bugInstanceFound(reader.getAttribute("sourcepath"), clazz[0], line[0], type,
-                                                    category, message[0], priority);
-                      }
-                    });
+                    return reader.visitChildren(sourceLineHandler);
                   }
-                }, "Class"),
+                }, "(Class)|(Type)|(Method)|(Field)"),
+
+                sourceLineHandler,
 
                 elementsPath(new TextHandler() {
                   public void setText(@NotNull final String text) {
                     if (message[0] == null) message[0] = ParserUtils.formatText(text);
                   }
                 }, "ShortMessage", "LongMessage")
-              );
+              ).than(new XmlAction() {
+                public void apply() {
+                  myCallback.bugInstanceFound(file[0], clazz[0], line[0], type, category, message[0], priority);
+                }
+              });
             }
           }, "BugInstance")
         );
