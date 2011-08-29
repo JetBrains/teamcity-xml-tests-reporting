@@ -153,10 +153,10 @@ class FindBugsReportParser implements Parser {
             default:
               ++myInfos;
           }
-          final String cName = myCategories.containsKey(category) ? myCategories.get(category).getName() : null;
+          final String cName = myCategories.containsKey(category) ? myCategories.get(category).getName() : category;
           final String descr = myCategories.containsKey(category) ? myCategories.get(category).getDescription() : null;
           final String mess = message == null || message.length() == 0 ? (myPatterns.containsKey(type) ? myPatterns.get(type).getDescription() : null) : message;
-          final String pName = myPatterns.containsKey(type) ? myPatterns.get(type).getName() : null;
+          final String pName = myPatterns.containsKey(type) ? myPatterns.get(type).getName() : type;
 
           myInspectionReporter.reportInspectionType(new InspectionTypeResult(type, pName, descr, cName));
           myInspectionReporter.reportInspection(new InspectionResult(findFile(file, clazz), type, mess, line, priority));
