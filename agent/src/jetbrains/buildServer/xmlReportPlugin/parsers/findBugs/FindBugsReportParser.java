@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.text.html.parser.DTD;
 import jetbrains.buildServer.util.FileUtil;
+import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.xmlReportPlugin.*;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
@@ -142,6 +143,7 @@ class FindBugsReportParser implements Parser {
                                      @Nullable final String type,
                                      @Nullable final String category,
                                      @Nullable final String message,
+                                     @Nullable final String details,
                                      final int priority) {
           switch (priority) {
             case 1:
@@ -155,7 +157,7 @@ class FindBugsReportParser implements Parser {
           }
           final String cName = myCategories.containsKey(category) ? myCategories.get(category).getName() : category;
           final String descr = myCategories.containsKey(category) ? myCategories.get(category).getDescription() : null;
-          final String mess = message == null || message.length() == 0 ? (myPatterns.containsKey(type) ? myPatterns.get(type).getDescription() : null) : message;
+          final String mess = getFullMessage(message, myPatterns.containsKey(type) ? myPatterns.get(type).getDescription() : null, details);
           final String pName = myPatterns.containsKey(type) ? myPatterns.get(type).getName() : type;
 
           myInspectionReporter.reportInspectionType(new InspectionTypeResult(type, pName, descr, cName));
@@ -168,6 +170,14 @@ class FindBugsReportParser implements Parser {
       myFileFinder.close();
     }
     return true;
+  }
+
+  @Nullable
+  private static String getFullMessage(@Nullable String message, @Nullable String defaultMessage, @Nullable String details) {
+    if (StringUtil.isEmpty(message)) message = defaultMessage;
+    if (StringUtil.isEmpty(message)) return details;
+    if (StringUtil.isEmpty(details)) return message;
+    return message + details;
   }
 
   public ParsingResult getParsingResult() {

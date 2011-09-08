@@ -65,6 +65,7 @@ class FindBugsReportXmlParser extends XmlXppAbstractParser {
               final String[] clazz = new String[1];
               final String[] message = new String[1];
               final int[] line = new int[1];
+              final StringBuilder details = new StringBuilder();
 
               final XmlHandler sourceLineHandler = elementsPath(new Handler() {
                 public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
@@ -78,10 +79,33 @@ class FindBugsReportXmlParser extends XmlXppAbstractParser {
               return reader.visitChildren(
                 elementsPatternPath(new Handler() {
                   public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-                    clazz[0] = reader.getAttribute("classname");
-                    return reader.visitChildren(sourceLineHandler);
+                    if (clazz[0] == null) { // accept only first Class tag
+                      clazz[0] = reader.getAttribute("classname");
+                      return reader.visitChildren(sourceLineHandler);
+                    }
+                    return reader.noDeep();
                   }
-                }, "(Class)|(Type)|(Method)|(Field)"),
+                }, "Class"),
+
+                elementsPatternPath(new Handler() {
+                  public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+                    //noinspection ConstantConditions
+                    if (reader.getAttribute("classname").equals(clazz[0])) {
+                      details.append(" ").append(reader.getLocalName()).append("[name=\"").append(reader.getAttribute("name"))
+                        .append("\" signature=\"").append(reader.getAttribute("signature")).append(
+                        "\"]");
+                      return reader.visitChildren(sourceLineHandler);
+                    }
+                    return reader.noDeep();
+                  }
+                }, "(Method)|(Field)"),
+
+                elementsPatternPath(new Handler() {
+                  public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+                    details.append(" ").append("LocalVariable[name=\"").append(reader.getAttribute("name")).append("\"]");
+                    return reader.noDeep();
+                  }
+                }, "LocalVariable"),
 
                 sourceLineHandler,
 
@@ -92,7 +116,7 @@ class FindBugsReportXmlParser extends XmlXppAbstractParser {
                 }, "ShortMessage", "LongMessage")
               ).than(new XmlAction() {
                 public void apply() {
-                  myCallback.bugInstanceFound(file[0], clazz[0], line[0], type, category, message[0], priority);
+                  myCallback.bugInstanceFound(file[0], clazz[0], line[0], type, category, message[0], details.toString(), priority);
                 }
               });
             }
@@ -113,6 +137,6 @@ class FindBugsReportXmlParser extends XmlXppAbstractParser {
   public static interface Callback {
     void jarFound(@NotNull String jar);
     void bugInstanceFound(@Nullable String file, @Nullable String clazz, int line,
-                          @Nullable String type, @Nullable String category, @Nullable String message, int priority);
+                          @Nullable String type, @Nullable String category, @Nullable String message, @Nullable String details, int priority);
   }
 }
