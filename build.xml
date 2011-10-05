@@ -15,7 +15,7 @@
 
     <target name="dist" depends="all">
         <antcall target="update.version.in.plugin.descriptor"/>
-
+        <delete dir="dist" quiet="true"/>
         <package.teamcity.plugin name="${plugin.name}"
                                  server.output="${server.output.dir}"
                                  agent.output="${agent.output.dir}"
