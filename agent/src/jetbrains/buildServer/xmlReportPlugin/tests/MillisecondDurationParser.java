@@ -31,7 +31,7 @@ public class MillisecondDurationParser implements DurationParser {
       return 0L;
     }
     try {
-      return (long) (Integer.parseInt(duration));
+      return Long.parseLong(duration);
     } catch (NumberFormatException e) {
       LOG.warn("Unable to parse execution time string " + duration, e);
       return 0L;

@@ -37,7 +37,7 @@ public class SecondDurationParser implements DurationParser {
       return 0L;
     }
     try {
-      return (long) (Double.parseDouble(getUniformTimeStr(duration)) * 1000.0);
+      return Math.round(Double.parseDouble(getUniformTimeStr(duration)) * 1000.0);
     } catch (NumberFormatException e) {
       LOG.warn("Unable to parse execution time string " + duration, e);
       return 0L;
