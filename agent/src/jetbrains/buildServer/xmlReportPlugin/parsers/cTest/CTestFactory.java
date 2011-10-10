@@ -27,13 +27,13 @@ import org.jetbrains.annotations.NotNull;
  * @author Vladislav.Rassokhin
  */
 public class CTestFactory implements ParserFactory {
-    @NotNull
-    public Parser createParser(@NotNull ParseParameters parameters) {
-        return new CTestReportParser(parameters.getTestReporter(), parameters.getCheckoutDir());
-    }
+  @NotNull
+  public Parser createParser(@NotNull ParseParameters parameters) {
+    return new CTestReportParser(parameters.getTestReporter());
+  }
 
-    @NotNull
-    public ParsingResult createEmptyResult() {
-        return TestParsingResult.createEmptyResult();
-    }
+  @NotNull
+  public ParsingResult createEmptyResult() {
+    return TestParsingResult.createEmptyResult();
+  }
 }

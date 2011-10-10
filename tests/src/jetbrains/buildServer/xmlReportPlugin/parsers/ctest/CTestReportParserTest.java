@@ -30,7 +30,7 @@ public class CTestReportParserTest extends BaseParserTestCase {
   @NotNull
   @Override
   protected Parser getParser() {
-    return new CTestReportParser(getTestReporter(), getBaseDir());
+    return new CTestReportParser(getTestReporter());
   }
 
   @NotNull
