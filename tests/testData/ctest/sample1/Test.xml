@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName=""
+	BuildStamp="20110913-1729-Experimental"
+	Name=""
+	Generator="ctest-2.8.4"
+	CompilerName=""
+	OSName="CYGWIN_NT-6.1-WOW64"
+	Hostname="unit-264"
+	OSRelease="1.7.9(0.237/5/3)"
+	OSVersion="2011-03-29 10:10"
+	OSPlatform="i686"
+	Is64Bits="0"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="23"
+	ProcessorCacheSize="6144"
+	NumberOfLogicalCPU="0"
+	NumberOfPhysicalCPU="1"
+	TotalVirtualMemory="0"
+	TotalPhysicalMemory="0"
+	LogicalProcessorsPerPhysical="0"
+	ProcessorClockFrequency="2833"
+>
+<Testing>
+	<StartDateTime>Sep 13 21:35 RDT</StartDateTime>
+	<StartTestTime>1315935338</StartTestTime>
+	<TestList>
+		<Test>./bin/calculator/test_calculator</Test>
+		<Test>./bin/generator/test_generator</Test>
+	</TestList>
+	<Test Status="passed">
+		<Name>test_calculator</Name>
+		<Path>./bin/calculator</Path>
+		<FullName>./bin/calculator/test_calculator</FullName>
+		<FullCommandLine>/cygdrive/c/TeamCity/buildAgent/work/62ff01eb6e7fa0c6/build/bin/calculator/test_calculator.exe</FullCommandLine>
+		<Results>
+			<NamedMeasurement type="numeric/double" name="Execution Time"><Value>0.338</Value></NamedMeasurement>
+			<NamedMeasurement type="text/string" name="Completion Status"><Value>Completed</Value></NamedMeasurement>
+			<NamedMeasurement type="text/string" name="Command Line"><Value>/cygdrive/c/TeamCity/buildAgent/work/62ff01eb6e7fa0c6/build/bin/calculator/test_calculator.exe</Value></NamedMeasurement>
+			<Measurement>
+				<Value>Running 2 test cases...
+
+*** No errors detected
+</Value>
+			</Measurement>
+		</Results>
+	</Test>
+	<Test Status="passed">
+		<Name>test_generator</Name>
+		<Path>./bin/generator</Path>
+		<FullName>./bin/generator/test_generator</FullName>
+		<FullCommandLine>/cygdrive/c/TeamCity/buildAgent/work/62ff01eb6e7fa0c6/build/bin/generator/test_generator.exe</FullCommandLine>
+		<Results>
+			<NamedMeasurement type="numeric/double" name="Execution Time"><Value>0.306</Value></NamedMeasurement>
+			<NamedMeasurement type="text/string" name="Completion Status"><Value>Completed</Value></NamedMeasurement>
+			<NamedMeasurement type="text/string" name="Command Line"><Value>/cygdrive/c/TeamCity/buildAgent/work/62ff01eb6e7fa0c6/build/bin/generator/test_generator.exe</Value></NamedMeasurement>
+			<Measurement>
+				<Value>Running 1 test case...
+
+*** No errors detected
+</Value>
+			</Measurement>
+		</Results>
+	</Test>
+	<EndDateTime>Sep 13 21:35 RDT</EndDateTime>
+	<EndTestTime>1315935341</EndTestTime>
+<ElapsedMinutes>0</ElapsedMinutes></Testing>
+</Site>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2000-2011 JetBrains s.r.o.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<Site BuildName="CTestTest-Linux-c++-BadExe"
+      BuildStamp="20110914-1554-Experimental"
+      Name="vlad-p53-netbook"
+      Generator="ctest-2.8.4"
+      CompilerName=""
+      OSName="Linux"
+      Hostname="vlad-p53-netbook"
+      OSRelease="2.6.39-gentoo-r3"
+      OSVersion="#1 SMP Mon Sep 12 11:11:44 MSD 2011"
+      OSPlatform="x86_64"
+      Is64Bits="1"
+      VendorString="GenuineIntel"
+      VendorID="Intel Corporation"
+      FamilyID="6"
+      ModelID="28"
+      ProcessorCacheSize="512"
+      NumberOfLogicalCPU="4"
+      NumberOfPhysicalCPU="2"
+      TotalVirtualMemory="0"
+      TotalPhysicalMemory="1998"
+      LogicalProcessorsPerPhysical="2"
+      ProcessorClockFrequency="1000"
+        >
+    <Testing>
+        <StartDateTime>Sep 14 19:54 MSD</StartDateTime>
+        <StartTestTime>1316015650</StartTestTime>
+        <TestList>
+            <Test>./TestBadExe</Test>
+        </TestList>
+        <Test Status="failed">
+            <Name>TestBadExe</Name>
+            <Path>.</Path>
+            <FullName>./TestBadExe</FullName>
+            <FullCommandLine>
+                /var/tmp/portage/dev-util/cmake-2.8.4-r1/work/cmake-2.8.4/Tests/CTestTestBadExe/notAnExe.txt
+            </FullCommandLine>
+            <Results>
+                <NamedMeasurement type="text/string" name="Exit Code">
+                    <Value>BAD_COMMAND</Value>
+                </NamedMeasurement>
+                <NamedMeasurement type="text/string" name="Exit Value">
+                    <Value>-1</Value>
+                </NamedMeasurement>
+                <NamedMeasurement type="numeric/double" name="Execution Time">
+                    <Value>0</Value>
+                </NamedMeasurement>
+                <NamedMeasurement type="text/string" name="Completion Status">
+                    <Value>Failed to start</Value>
+                </NamedMeasurement>
+                <NamedMeasurement type="text/string" name="Command Line">
+                    <Value>
+                        /var/tmp/portage/dev-util/cmake-2.8.4-r1/work/cmake-2.8.4/Tests/CTestTestBadExe/notAnExe.txt
+                    </Value>
+                </NamedMeasurement>
+                <Measurement>
+                    <Value></Value>
+                </Measurement>
+            </Results>
+        </Test>
+        <EndDateTime>Sep 14 19:54 MSD</EndDateTime>
+        <EndTestTime>1316015650</EndTestTime>
+        <ElapsedMinutes>0</ElapsedMinutes>
+    </Testing>
+</Site>

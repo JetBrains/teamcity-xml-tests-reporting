@@ -34,8 +34,11 @@
           class="jetbrains.buildServer.xmlReportPlugin.parsers.mstest.MSTestFactory"/>
     <bean id="jslintFactory"
           class="jetbrains.buildServer.xmlReportPlugin.parsers.jslint.JSLintFactory"/>
+    <bean id="ctestFactory"
+          class="jetbrains.buildServer.xmlReportPlugin.parsers.ctest.CTestFactory"/>
 
-    <bean class="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin" lazy-init="default" autowire="default" dependency-check="default">
+    <bean class="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin" lazy-init="default" autowire="default"
+          dependency-check="default">
         <constructor-arg index="0">
             <map>
                 <entry key="junit" value-ref="junitFactory"/>
@@ -48,6 +51,7 @@
                 <entry key="mstest" value-ref="mstestFactory"/>
                 <entry key="gtest" value-ref="junitFactory"/>
                 <entry key="jslint" value-ref="jslintFactory"/>
+                <entry key="ctest" value-ref="ctestFactory"/>
             </map>
         </constructor-arg>
     </bean>
@@ -72,4 +76,6 @@
           class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$GTestDataProcessor"/>
     <bean id="JSLintDataProcessor"
           class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$JSLintDataProcessor"/>
+    <bean id="CTestDataProcessor"
+          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$CTestDataProcessor"/>
 </beans>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2000-2011 JetBrains s.r.o.
+  ~  
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<Site BuildName=""
+      BuildStamp="20110913-1729-Experimental"
+      Name=""
+      Generator="ctest-2.8.4"
+      CompilerName=""
+      OSName="CYGWIN_NT-6.1-WOW64"
+      Hostname="unit-264"
+      OSRelease="1.7.9(0.237/5/3)"
+      OSVersion="2011-03-29 10:10"
+      OSPlatform="i686"
+      Is64Bits="0"
+      VendorString="GenuineIntel"
+      VendorID="Intel Corporation"
+      FamilyID="6"
+      ModelID="23"
+      ProcessorCacheSize="6144"
+      NumberOfLogicalCPU="0"
+      NumberOfPhysicalCPU="1"
+      TotalVirtualMemory="0"
+      TotalPhysicalMemory="0"
+      LogicalProcessorsPerPhysical="0"
+      ProcessorClockFrequency="2833"
+        >
+    <Testing>
+        <StartDateTime>Sep 13 21:35 RDT</StartDateTime>
+        <StartTestTime>1315935338</StartTestTime>
+        <TestList>
+            <Test>test1</Test>
+            <Test>test2</Test>
+            <Test>test3</Test>
+            <Test>test4</Test>
+        </TestList>
+        <Test Status="passed">
+            <Name>test1</Name>
+            <Path>test1Path</Path>
+            <FullName>./outputParsing/test1</FullName>
+            <Results>
+                <NamedMeasurement type="numeric/double" name="Execution Time">
+                    <Value>0.338</Value>
+                </NamedMeasurement>
+                <NamedMeasurement type="text/string" name="Completion Status">
+                    <Value>Completed</Value>
+                </NamedMeasurement>
+                <Measurement>
+                    <Value></Value>
+                </Measurement>
+            </Results>
+        </Test>
+        <Test Status="passed">
+            <Name>test2</Name>
+            <Path>test2Path</Path>
+            <FullName>./outputParsing/test2</FullName>
+            <Results>
+                <NamedMeasurement type="numeric/double" name="Execution Time">
+                    <Value>0.306</Value>
+                </NamedMeasurement>
+                <NamedMeasurement type="text/string" name="Completion Status">
+                    <Value>Completed</Value>
+                </NamedMeasurement>
+                <Measurement>
+                    <Value>Some stdout output</Value>
+                </Measurement>
+            </Results>
+        </Test>
+        <Test Status="failed">
+            <Name>test3</Name>
+            <Path>test3Path</Path>
+            <FullName>./outputParsing/test3</FullName>
+            <Results>
+                <NamedMeasurement type="numeric/double" name="Execution Time">
+                    <Value>0.111</Value>
+                </NamedMeasurement>
+                <NamedMeasurement type="text/string" name="Completion Status">
+                    <Value>Completed</Value>
+                </NamedMeasurement>
+                <Measurement>
+                    <Value></Value>
+                </Measurement>
+            </Results>
+        </Test>
+        <Test Status="failed">
+            <Name>test4</Name>
+            <Path>test4Path</Path>
+            <FullName>./outputParsing/test4</FullName>
+            <Results>
+                <NamedMeasurement type="numeric/double" name="Execution Time">
+                    <Value>0.222</Value>
+                </NamedMeasurement>
+                <NamedMeasurement type="text/string" name="Completion Status">
+                    <Value>Completed</Value>
+                </NamedMeasurement>
+                <Measurement>
+                    <Value>Some stderr output</Value>
+                </Measurement>
+            </Results>
+        </Test>
+        <EndDateTime>Sep 13 21:35 RDT</EndDateTime>
+        <EndTestTime>1315935341</EndTestTime>
+        <ElapsedMinutes>0</ElapsedMinutes>
+    </Testing>
+</Site>

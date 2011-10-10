@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="CTestTest-Linux-c++-Crash"
+      BuildStamp="20110914-1554-Experimental"
+      Name="vlad-p53-netbook"
+      Generator="ctest-2.8.4"
+      CompilerName=""
+      OSName="Linux"
+      Hostname="vlad-p53-netbook"
+      OSRelease="2.6.39-gentoo-r3"
+      OSVersion="#1 SMP Mon Sep 12 11:11:44 MSD 2011"
+      OSPlatform="x86_64"
+      Is64Bits="1"
+      VendorString="GenuineIntel"
+      VendorID="Intel Corporation"
+      FamilyID="6"
+      ModelID="28"
+      ProcessorCacheSize="512"
+      NumberOfLogicalCPU="4"
+      NumberOfPhysicalCPU="2"
+      TotalVirtualMemory="0"
+      TotalPhysicalMemory="1998"
+      LogicalProcessorsPerPhysical="2"
+      ProcessorClockFrequency="1000"
+        >
+    <Testing>
+        <StartDateTime>Sep 14 19:54 MSD</StartDateTime>
+        <StartTestTime>1316015647</StartTestTime>
+        <TestList>
+            <Test>./TestCrash</Test>
+        </TestList>
+        <Test Status="failed">
+            <Name>TestCrash</Name>
+            <Path>.</Path>
+            <FullName>./TestCrash</FullName>
+            <FullCommandLine>/var/tmp/portage/dev-util/cmake-2.8.4-r1/work/cmake-2.8.4/Tests/CTestTestCrash/Crash
+            </FullCommandLine>
+            <Results>
+                <NamedMeasurement type="text/string" name="Exit Code">
+                    <Value>SEGFAULT</Value>
+                </NamedMeasurement>
+                <NamedMeasurement type="text/string" name="Exit Value">
+                    <Value>1</Value>
+                </NamedMeasurement>
+                <NamedMeasurement type="numeric/double" name="Execution Time">
+                    <Value>0.00495887</Value>
+                </NamedMeasurement>
+                <NamedMeasurement type="text/string" name="Completion Status">
+                    <Value>Completed</Value>
+                </NamedMeasurement>
+                <NamedMeasurement type="text/string" name="Command Line">
+                    <Value>/var/tmp/portage/dev-util/cmake-2.8.4-r1/work/cmake-2.8.4/Tests/CTestTestCrash/Crash</Value>
+                </NamedMeasurement>
+                <Measurement>
+                    <Value></Value>
+                </Measurement>
+            </Results>
+        </Test>
+        <EndDateTime>Sep 14 19:54 MSD</EndDateTime>
+        <EndTestTime>1316015647</EndTestTime>
+        <ElapsedMinutes>0</ElapsedMinutes>
+    </Testing>
+</Site>

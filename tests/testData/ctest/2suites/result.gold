@@ -1,0 +1,24 @@
+TestSuite:2suites/A
+  Test:testA1
+    StdOutput:Running test A1...
+
+  EndTest:338
+------------------------
+  Test:testA2
+    StdOutput:Running test A2...
+
+  EndTest:306
+------------------------
+EndSuite
+TestSuite:2suites/B
+  Test:testB1
+    StdOutput:Running test B1...
+
+  EndTest:338
+------------------------
+  Test:testB2
+    StdOutput:Running test B2...
+
+  EndTest:306
+------------------------
+EndSuite

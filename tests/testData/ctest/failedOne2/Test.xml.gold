@@ -1,0 +1,6 @@
+TestSuite:failedOne2
+  Test:TestCrash
+    Fail:"SEGFAULT" (exit code: 1) Message: null
+  EndTest:5
+------------------------
+EndSuite

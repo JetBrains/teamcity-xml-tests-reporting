@@ -1,0 +1,18 @@
+TestSuite:outputParsing
+  Test:test1
+  EndTest:338
+------------------------
+  Test:test2
+    StdOutput:Some stdout output
+  EndTest:306
+------------------------
+  Test:test3
+    Fail:(exit code: 0) Message: null
+  EndTest:111
+------------------------
+  Test:test4
+    ErrOutput:Some stderr output
+    Fail:(exit code: 0) Message: null
+  EndTest:222
+------------------------
+EndSuite

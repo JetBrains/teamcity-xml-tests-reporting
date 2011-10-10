@@ -192,4 +192,16 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
     public String getType() {
       return "jslint";
     }
-  }}
+  }
+
+  public static final class CTestDataProcessor extends XmlReportDataProcessor {
+    public CTestDataProcessor(RulesProcessor plugin) {
+      super(plugin);
+    }
+
+    @NotNull
+    public String getType() {
+      return "ctest";
+    }
+  }
+}

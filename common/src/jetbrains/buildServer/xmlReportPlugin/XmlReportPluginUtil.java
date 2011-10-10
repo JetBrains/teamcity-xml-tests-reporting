@@ -42,6 +42,7 @@ public class XmlReportPluginUtil {
     SUPPORTED_REPORT_TYPES.put("mstest", "MSTest");
     SUPPORTED_REPORT_TYPES.put("gtest", "Google Test");
     SUPPORTED_REPORT_TYPES.put("jslint", "JSLint");
+    SUPPORTED_REPORT_TYPES.put("ctest", "CTest");
 
     INSPECTIONS_TYPES.add("findBugs");
     INSPECTIONS_TYPES.add("pmd");
