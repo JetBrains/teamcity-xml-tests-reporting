@@ -1,6 +1,4 @@
-TestSuite:failedOne1
   Test:TestBadExe
     Fail:Failed to start ("BAD_COMMAND") Message: null
   EndTest:0
 ------------------------
-EndSuite

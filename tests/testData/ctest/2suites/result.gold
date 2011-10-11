@@ -1,4 +1,3 @@
-TestSuite:2suites/A
   Test:testA1
     StdOutput:Running test A1...
 
@@ -9,8 +8,6 @@ TestSuite:2suites/A
 
   EndTest:306
 ------------------------
-EndSuite
-TestSuite:2suites/B
   Test:testB1
     StdOutput:Running test B1...
 
@@ -21,4 +18,3 @@ TestSuite:2suites/B
 
   EndTest:306
 ------------------------
-EndSuite

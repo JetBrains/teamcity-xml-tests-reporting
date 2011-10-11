@@ -1,4 +1,3 @@
-TestSuite:sample1
   Test:test_calculator
     StdOutput:Running 2 test cases...
 
@@ -13,4 +12,3 @@ TestSuite:sample1
 
   EndTest:306
 ------------------------
-EndSuite
