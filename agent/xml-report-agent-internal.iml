@@ -16,7 +16,6 @@
     <orderEntry type="module" module-name="xml-report-common-internal" />
     <orderEntry type="module" module-name="agent-openapi" />
     <orderEntry type="module" module-name="common" />
-    <orderEntry type="module" module-name="utils" />
     <orderEntry type="module" module-name="server-logging" />
     <orderEntry type="module" module-name="runtime-util" />
     <orderEntry type="module" module-name="common-impl" />
