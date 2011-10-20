@@ -65,6 +65,7 @@ class FileFinder {
     for (Entry jar : myJars) {
       jar.close();
     }
+    myJars.clear();
   }
 
   @NotNull
