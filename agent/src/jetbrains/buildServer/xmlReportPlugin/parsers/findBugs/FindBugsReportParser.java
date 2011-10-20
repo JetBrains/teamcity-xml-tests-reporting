@@ -69,6 +69,13 @@ class FindBugsReportParser implements Parser {
   public FindBugsReportParser(@NotNull final InspectionReporter inspectionReporter,
                               @Nullable final String findBugsHome,
                               @NotNull final File baseFolder) {
+    this(inspectionReporter, findBugsHome, baseFolder, true);
+  }
+
+  public FindBugsReportParser(@NotNull final InspectionReporter inspectionReporter,
+                              @Nullable final String findBugsHome,
+                              @NotNull final File baseFolder,
+                              boolean lookForFiles) {
     myInspectionReporter = inspectionReporter;
     myBaseFolder = baseFolder;
     myFindBugsHome = findBugsHome == null ? null : new File(findBugsHome);
@@ -102,7 +109,15 @@ class FindBugsReportParser implements Parser {
       }
     });
 
-    myFileFinder = new FileFinder();
+    myFileFinder = lookForFiles ? new FileFinder() : new FileFinder() {
+      @Override
+      public void addJar(@NotNull final String jar) {}
+      @Override
+      public String getVeryFullFilePath(@Nullable final String filePath) {return null;}
+      @Override
+      public void close() {}
+    };
+
     try {
       myDetailsParser = new DetailsParser(DTD.getDTD(""));
     } catch (IOException e) {

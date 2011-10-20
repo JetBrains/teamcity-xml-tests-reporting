@@ -31,6 +31,7 @@ public interface XmlReportPluginConstants {
   static final String MAX_WARNINGS = "xmlReportParsing.max.warnings";
 
   static final String FINDBUGS_HOME = "xmlReportParsing.findBugs.home";
+  static final String FINDBUGS_LOOKUP_FILES = "xmlReportParsing.findBugs.lookup.files";
 
   static final String PARSE_OUT_OF_DATE = "xmlReportParsing.parse.outofdate";
   static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";

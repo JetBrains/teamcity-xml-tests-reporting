@@ -142,6 +142,11 @@ public class XmlReportPluginUtil {
     return params.get(FINDBUGS_HOME);
   }
 
+  public static boolean isFindBugsLookupFiles(@NotNull final Map<String, String> params) {
+    final String param = params.get(FINDBUGS_LOOKUP_FILES);
+    return param == null || Boolean.parseBoolean(param);
+  }
+
 //  public static boolean isCheckReportComplete(@NotNull final Map<String, String> params) {
 //    return !"false".equalsIgnoreCase(params.get(CHECK_REPORT_COMPLETE));
 //  }
