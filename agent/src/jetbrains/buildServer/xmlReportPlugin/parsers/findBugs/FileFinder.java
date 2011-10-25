@@ -18,11 +18,11 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.findBugs;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Enumeration;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.zip.ZipEntry;
+import java.util.*;
 import java.util.zip.ZipFile;
+import jetbrains.buildServer.util.fileLookup.MemorizingFileLookup;
+import jetbrains.buildServer.util.fileLookup.MemorizingLookup;
+import jetbrains.buildServer.util.fileLookup.MemorizingZipFileLookup;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,6 +30,8 @@ import org.jetbrains.annotations.Nullable;
 class FileFinder {
   @NotNull
   private final List<Entry> myJars = new LinkedList<Entry>();
+  @Nullable
+  private MemorizingLookup<String, String, Entry> myLookup;
 
   public void addJar(@NotNull String jar) {
     jar = getDependentPath(jar, File.separator);
@@ -52,13 +54,15 @@ class FileFinder {
 
     filePath = getDependentPath(filePath, File.separator);
 
-    for (Entry jar : myJars) {
-      final String veryFullFilePath = jar.getFilePath(filePath);
-      if (veryFullFilePath != null) {
-        return veryFullFilePath;
-      }
+    if (myLookup == null) {
+      myLookup = new MemorizingLookup<String, String, Entry>(myJars) {
+        @Override
+        protected String lookupInside(@NotNull final Entry entry, @NotNull final String path) {
+          return entry.getFilePath(path);
+        }
+      };
     }
-    return null;
+    return myLookup.lookup(filePath);
   }
 
   public void close() {
@@ -81,57 +85,34 @@ class FileFinder {
   }
 
   private static final class DirectoryEntry extends Entry {
-    private final String myRoot;
+    @NotNull
+    private final MemorizingFileLookup myLookup;
 
-    public DirectoryEntry(String root) {
-      myRoot = root;
+    public DirectoryEntry(@NotNull String root) {
+      myLookup = new MemorizingFileLookup(new File(root));
     }
 
     @Override
     public String getFilePath(@NotNull String fileName) {
-      return getFilePathRecursive(new File(myRoot).listFiles(), fileName);
-    }
-
-    private String getFilePathRecursive(File[] files, @NotNull String relativePath) {
-      if (files == null) {
-        return null;
-      }
-      int i = 0;
-      while (i < files.length) {
-        if (files[i].isFile()) {
-          final String path = files[i].getAbsolutePath();
-          if (path.endsWith(relativePath)) {
-            return path;
-          }
-        } else if (files[i].isDirectory()) {
-          final String path = getFilePathRecursive(files[i].listFiles(), relativePath);
-          if (path != null) {
-            return path;
-          }
-        }
-        ++i;
-      }
-      return null;
+      final File found = myLookup.lookup(myLookup.createFileInfo(fileName));
+      return found == null ? null : found.getPath();
     }
   }
 
   private static final class ArchiveEntry extends Entry {
+    @NotNull
     private final ZipFile myArchive;
+    @NotNull
+    private final MemorizingZipFileLookup myLookup;
 
-    public ArchiveEntry(ZipFile archive) {
+    public ArchiveEntry(@NotNull ZipFile archive) {
       myArchive = archive;
+      myLookup = new MemorizingZipFileLookup(archive);
     }
 
     @Override
     public String getFilePath(@NotNull String fileName) {
-      final String filePathInZip = getDependentPath(fileName, "/");
-      for (Enumeration<? extends ZipEntry> e = myArchive.entries(); e.hasMoreElements();) {
-        final String entry = e.nextElement().getName();
-        if (entry.endsWith(filePathInZip)) {
-          return myArchive.getName() + File.separator + getDependentPath(entry, File.separator);
-        }
-      }
-      return null;
+      return myLookup.lookup(MemorizingZipFileLookup.createFileInfo(fileName));
     }
 
     @Override
