@@ -20,22 +20,10 @@ import jetbrains.buildServer.agent.impl.BuildMessageTweaker;
 import jetbrains.buildServer.messages.BuildMessage1;
 import jetbrains.buildServer.messages.DefaultMessagesInfo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-
 class MessageInternalizer implements BuildMessageTweaker {
   public static final MessageInternalizer MESSAGE_INTERNALIZER = new MessageInternalizer();
 
   public void tweak(final BuildMessage1 message) {
-    final Collection<String> tags = message.getTags();
-    if (tags == null || tags.isEmpty())
-      message.updateTags(Arrays.asList(DefaultMessagesInfo.TAG_INTERNAL));
-    else if (!tags.contains(DefaultMessagesInfo.TAG_INTERNAL)) {
-      final ArrayList<String> newTags = new ArrayList<String>(tags.size() + 1);
-      newTags.addAll(tags);
-      newTags.add(DefaultMessagesInfo.TAG_INTERNAL);
-      message.updateTags(newTags);
-    }
+    message.updateTags(DefaultMessagesInfo.TAG_INTERNAL);
   }
 }
