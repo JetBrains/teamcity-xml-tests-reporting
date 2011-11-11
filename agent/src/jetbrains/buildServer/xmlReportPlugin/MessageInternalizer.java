@@ -24,6 +24,6 @@ class MessageInternalizer implements BuildMessageTweaker {
   public static final MessageInternalizer MESSAGE_INTERNALIZER = new MessageInternalizer();
 
   public void tweak(final BuildMessage1 message) {
-    message.updateTags(DefaultMessagesInfo.TAG_INTERNAL);
+    DefaultMessagesInfo.internalize(message);
   }
 }
