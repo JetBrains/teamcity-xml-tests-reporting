@@ -55,11 +55,11 @@
         <c:set var="onchange">
           var selectedValue = this.options[this.selectedIndex].value;
           if (selectedValue == '') {
-          BS.Util.hide($('xmlReportParsing.reportDirs.container'));
-          BS.Util.hide($('xmlReportParsing.verboseOutput.container'));
+          BS.Util.hide('xmlReportParsing.reportDirs.container');
+          BS.Util.hide('xmlReportParsing.verboseOutput.container');
           } else {
-          BS.Util.show($('xmlReportParsing.reportDirs.container'));
-          BS.Util.show($('xmlReportParsing.verboseOutput.container'));
+          BS.Util.show('xmlReportParsing.reportDirs.container');
+          BS.Util.show('xmlReportParsing.verboseOutput.container');
           BS.MultilineProperties.show('xmlReportParsing.reportDirs', true);
           $('xmlReportParsing.reportDirs').focus();
           }
@@ -68,25 +68,25 @@
           selectedValue == 'checkstyle' ||
           selectedValue == 'jslint');
           if (isInspection) {
-          BS.Util.show($('xmlReportParsing.max.errors.container'));
-          BS.Util.show($('xmlReportParsing.max.warnings.container'));
+          BS.Util.show('xmlReportParsing.max.errors.container');
+          BS.Util.show('xmlReportParsing.max.warnings.container');
           } else {
-          BS.Util.hide($('xmlReportParsing.max.errors.container'));
-          BS.Util.hide($('xmlReportParsing.max.warnings.container'));
+          BS.Util.hide('xmlReportParsing.max.errors.container');
+          BS.Util.hide('xmlReportParsing.max.warnings.container');
           }
           if (selectedValue == 'findBugs') {
-          BS.Util.show($('xmlReportParsing.findBugs.home.container'));
+          BS.Util.show('xmlReportParsing.findBugs.home.container');
           } else {
-          BS.Util.hide($('xmlReportParsing.findBugs.home.container'));
+          BS.Util.hide('xmlReportParsing.findBugs.home.container');
           }
 
           if (selectedValue == 'junit'
           || selectedValue == 'nunit'
           || selectedValue == 'surefire'
           || selectedValue == 'mstest') {
-          BS.Util.show($('xmlReportParsing.warning.container'));
+          BS.Util.show('xmlReportParsing.warning.container');
           } else {
-          BS.Util.hide($('xmlReportParsing.warning.container'));
+          BS.Util.hide('xmlReportParsing.warning.container');
           }
 
           BS.MultilineProperties.updateVisible();
