@@ -17,7 +17,6 @@
 package jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit;
 
 import jetbrains.buildServer.xmlReportPlugin.*;
-import jetbrains.buildServer.xmlReportPlugin.tests.MillisecondDurationParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.SecondDurationParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
 import org.jetbrains.annotations.NotNull;
@@ -30,8 +29,7 @@ import org.jetbrains.annotations.NotNull;
 public class AntJUnitFactory implements ParserFactory {
   @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
-    return new AntJUnitReportParser(parameters.getTestReporter(),
-                                    "gtest".equals(parameters.getType()) ? new MillisecondDurationParser() : new SecondDurationParser());
+    return new AntJUnitReportParser(parameters.getTestReporter(), new SecondDurationParser());
   }
 
   @NotNull
