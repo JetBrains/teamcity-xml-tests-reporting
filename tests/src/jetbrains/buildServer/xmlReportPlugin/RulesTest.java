@@ -143,7 +143,7 @@ public class RulesTest extends TestCase {
   }
 
   private Rules createRules(@NotNull String... rules) {
-    return new Rules(getRulesSet(rules));
+    return new StringRules(getRulesSet(rules));
   }
 
   private Collection<String> getRulesSet(@NotNull String... rules) {
