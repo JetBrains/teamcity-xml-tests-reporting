@@ -75,12 +75,17 @@ class FindBugsPluginVisitor {
       }
 
       final File tempFile = FileUtil.createTempFile("", "");
-      final InputStream jarFileStream = jar.getInputStream(messages);
-      final FileOutputStream tempFileStream = new FileOutputStream(tempFile);
+      InputStream jarFileStream = null;
+      FileOutputStream tempFileStream = null;
+      try {
+        jarFileStream = jar.getInputStream(messages);
+        tempFileStream = new FileOutputStream(tempFile);
 
-      FileUtil.copy(jarFileStream, tempFileStream);
-      jarFileStream.close();
-      tempFileStream.close();
+        FileUtil.copy(jarFileStream, tempFileStream);
+      } finally {
+        FileUtil.close(jarFileStream);
+        FileUtil.close(tempFileStream);
+      }
 
       myCallback.pluginFound(tempFile);
 
