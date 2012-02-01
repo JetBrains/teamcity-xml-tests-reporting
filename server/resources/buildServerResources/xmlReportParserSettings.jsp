@@ -68,11 +68,9 @@
           selectedValue == 'checkstyle' ||
           selectedValue == 'jslint');
           if (isInspection) {
-          BS.Util.show('xmlReportParsing.max.errors.container');
-          BS.Util.show('xmlReportParsing.max.warnings.container');
+          BS.Util.show('xmlReportParsing.condition.note.container');
           } else {
-          BS.Util.hide('xmlReportParsing.max.errors.container');
-          BS.Util.hide('xmlReportParsing.max.warnings.container');
+          BS.Util.hide('xmlReportParsing.condition.note.container');
           }
           if (selectedValue == 'findBugs') {
           BS.Util.show('xmlReportParsing.findBugs.home.container');
@@ -140,8 +138,28 @@
     </td>
 </tr>
 
+<c:set var="noLimits"
+       value="${empty propertiesBean.properties['xmlReportParsing.max.errors'] and empty propertiesBean.properties['xmlReportParsing.max.warnings']}"/>
+
+<tr id="xmlReportParsing.condition.note.container">
+  <c:url var="link" value="/admin/editBuildFailureConditions.html?init=1&id=${param['id']}"/>
+  <td colspan="2">You can configure build to fail if it has too many inspection errors or warnings. To do it,
+    add a corresponding <a href="${link}">build failure condition</a>.<br/>
+    To configure errors and warnings limits only for current monitoring rules use
+    <c:choose>
+      <c:when test="${noLimits}">
+        <a href="#"
+        onclick="BS.Util.show('xmlReportParsing.max.errors.container');
+        BS.Util.show('xmlReportParsing.max.warnings.container');
+        return false;">following settings</a>
+      </c:when>
+      <c:otherwise>following settings</c:otherwise>
+    </c:choose>
+  </td>
+</tr>
+
 <tr id="xmlReportParsing.max.errors.container"
-    style="${displayInspectionsSettings ? '' : 'display: none;'}">
+    style="${noLimits ? 'display: none;' : ''}">
     <th><label for="xmlReportParsing.max.errors">Maximum error limit:</label></th>
     <td><props:textProperty name="xmlReportParsing.max.errors" style="width:6em;" maxlength="12"/>
         <span class="smallNote">Fail the build if the specified number of errors is exceeded.</span>
@@ -150,7 +168,7 @@
 
 
 <tr id="xmlReportParsing.max.warnings.container"
-    style="${displayInspectionsSettings ? '' : 'display: none;'}">
+    style="${noLimits ? 'display: none;' : ''}">
     <th><label for="xmlReportParsing.max.warnings">Warnings limit:</label></th>
     <td><props:textProperty name="xmlReportParsing.max.warnings" style="width:6em;" maxlength="12"/>
         <span class="smallNote">Fail the build if the specified number of warnings is exceeded. Leave blank if there is no limit.</span>
