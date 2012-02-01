@@ -57,9 +57,9 @@ public class XmlReportPluginBuildFeature extends BuildFeature implements BuildSt
   public void updateParameters(@NotNull BuildStartContext context) {
     SBuildType buildType = context.getBuild().getBuildType();
     if (buildType == null) return;
-    Collection<SBuildFeatureDescriptor> buildFeatures = buildType.getResolvedSettings().getBuildFeatures();
+    Collection<SBuildFeatureDescriptor> buildFeatures = buildType.getBuildFeatures();
     for (SBuildFeatureDescriptor bf: buildFeatures) {
-      if (bf.getType().equals(getType())) {
+      if (buildType.isEnabled(bf.getId()) && bf.getType().equals(getType())) {
         if (XmlReportPluginUtil.isParsingEnabled(bf.getParameters())) {
           context.addSharedParameter(XmlReportPluginConstants.PARSING_ENABLED, "true");
         }
