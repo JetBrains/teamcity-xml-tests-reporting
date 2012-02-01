@@ -42,14 +42,14 @@
          value="true"/>
 </c:if>
 
-<tr class="noBorder" id="xmlReportParsing.warning.container" style="${empty displayWarning ? 'display:none;' : ''}">
+<tr id="xmlReportParsing.warning.container" style="${empty displayWarning ? 'display:none;' : ''}">
     <td colspan="2">
         <div class="attentionComment">
             Please make sure that tests are not detected automatically before using this feature.
         </div>
     </td>
 </tr>
-<tr class="noBorder" id="xmlReportParsing.reportType.container">
+<tr id="xmlReportParsing.reportType.container">
     <th><label for="xmlReportParsing.reportType">Report type:</label></th>
     <td>
         <c:set var="onchange">
@@ -111,7 +111,7 @@
     </td>
 </tr>
 
-<tr class="noBorder" id="xmlReportParsing.findBugs.home.container"
+<tr id="xmlReportParsing.findBugs.home.container"
     style="${displayFindBugsSettings ? '' : 'display: none;'}">
     <th><label for="xmlReportParsing.findBugs.home">FindBugs home path:</label></th>
     <td><props:textProperty name="xmlReportParsing.findBugs.home" className="longField"/>
@@ -119,7 +119,7 @@
     </td>
 </tr>
 
-<tr class="noBorder" id="xmlReportParsing.reportDirs.container"
+<tr id="xmlReportParsing.reportDirs.container"
     style="${displayReportsSettings ? '' : 'display: none;'}">
     <th><label for="xmlReportParsing.reportDirs">Monitoring rules:</label></th>
     <td>
@@ -132,7 +132,7 @@
     <span class="error" id="error_xmlReportParsing.reportDirs"></span>
     </td>
 </tr>
-<tr class="noBorder" id="xmlReportParsing.verboseOutput.container"
+<tr id="xmlReportParsing.verboseOutput.container"
     style="${displayReportsSettings ? '' : 'display: none;'}">
     <th><label for="xmlReportParsing.verboseOutput">Verbose output:</label></th>
     <td>
@@ -140,7 +140,7 @@
     </td>
 </tr>
 
-<tr class="noBorder" id="xmlReportParsing.max.errors.container"
+<tr id="xmlReportParsing.max.errors.container"
     style="${displayInspectionsSettings ? '' : 'display: none;'}">
     <th><label for="xmlReportParsing.max.errors">Maximum error limit:</label></th>
     <td><props:textProperty name="xmlReportParsing.max.errors" style="width:6em;" maxlength="12"/>
@@ -149,7 +149,7 @@
 </tr>
 
 
-<tr class="noBorder" id="xmlReportParsing.max.warnings.container"
+<tr id="xmlReportParsing.max.warnings.container"
     style="${displayInspectionsSettings ? '' : 'display: none;'}">
     <th><label for="xmlReportParsing.max.warnings">Warnings limit:</label></th>
     <td><props:textProperty name="xmlReportParsing.max.warnings" style="width:6em;" maxlength="12"/>
