@@ -101,13 +101,8 @@ public class InspectionParsingResult extends ProblemParsingResult {
     }
 
     if (limitReached) {
-      logger.message(new BuildStatus(generateBuildStatus(myErrors, myWarnings, myInfos), "FAILURE").asString());
+      logger.message("##teamcity[buildStatus status='FAILURE']");
     }
-  }
-
-  @NotNull
-  private static String generateBuildStatus(int errors, int warnings, int infos) {
-    return "Errors: " + errors + ", warnings: " + warnings + ", information: " + infos;
   }
 
   @NotNull
