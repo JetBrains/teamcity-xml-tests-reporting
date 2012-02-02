@@ -30,7 +30,7 @@ import org.jetbrains.annotations.NotNull;
  * Date: 15.12.10
  * Time: 21:14
  */
-public class XmlReportPluginBuildFeature extends BuildFeature implements BuildStartContextProcessor {
+public class XmlReportPluginBuildFeature extends BuildFeature {
   private final String myEditUrl;
 
   public XmlReportPluginBuildFeature(@NotNull final PluginDescriptor descriptor) {
@@ -52,21 +52,6 @@ public class XmlReportPluginBuildFeature extends BuildFeature implements BuildSt
   @Override
   public String getEditParametersUrl() {
     return myEditUrl;
-  }
-
-  public void updateParameters(@NotNull BuildStartContext context) {
-    SBuildType buildType = context.getBuild().getBuildType();
-    if (buildType == null) return;
-    Collection<SBuildFeatureDescriptor> buildFeatures = buildType.getBuildFeatures();
-    for (SBuildFeatureDescriptor bf: buildFeatures) {
-      if (buildType.isEnabled(bf.getId()) && bf.getType().equals(getType())) {
-        if (XmlReportPluginUtil.isParsingEnabled(bf.getParameters())) {
-          context.addSharedParameter(XmlReportPluginConstants.PARSING_ENABLED, "true");
-        }
-        context.addSharedParameter(XmlReportPluginConstants.FEATURE_PARAMS + bf.getId(),
-          MapSerializerUtil.propertiesToString(bf.getParameters(), MapSerializerUtil.STD_ESCAPER));
-      }
-    }
   }
 
   @Override

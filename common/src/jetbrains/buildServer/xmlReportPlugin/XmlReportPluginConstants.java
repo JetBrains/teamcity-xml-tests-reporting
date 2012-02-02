@@ -41,8 +41,4 @@ public interface XmlReportPluginConstants {
 //  static final String CHECK_REPORT_COMPLETE = "xmlReportParsing.check.report.complete";
 
   static final String SPLIT_REGEX = " *[,\n\r] *";
-
-  static final String FEATURE_PARAMS = "xmlReportParsing.feature.settings";
-
-  static final String PARSING_ENABLED = "xmlReportParsing.enabled";
 }
