@@ -110,6 +110,7 @@ public class InspectionParsingResult extends ProblemParsingResult {
     return (number == 1 ? "" : "s");
   }
 
+  @Override
   public Throwable getProblem() {
     return null;
   }
