@@ -113,7 +113,7 @@
     style="${displayFindBugsSettings ? '' : 'display: none;'}">
     <th><label for="xmlReportParsing.findBugs.home">FindBugs home path:</label></th>
     <td><props:textProperty name="xmlReportParsing.findBugs.home" className="longField"/>
-        <span class="smallNote">Path to FindBugs installation on agent. This path is used for loading bug patterns names and descriptions.</span>
+        <span class="smallNote">Path to FindBugs installation on agent. This path is used for loading bug pattern names and descriptions.</span>
     </td>
 </tr>
 
@@ -125,7 +125,7 @@
                                  linkTitle="Type report monitoring rules"/>
     <span class="smallNote">
       New line or comma separated set of rules in the form <strong>of +|-:path</strong>.<br/>
-      Support ant-style wildcards like <strong>dir/**/*.xml</strong>.
+      Ant-style wildcards like <strong>dir/**/*.xml</strong> are supported.
     </span>
     <span class="error" id="error_xmlReportParsing.reportDirs"></span>
     </td>
@@ -143,9 +143,9 @@
 
 <tr id="xmlReportParsing.condition.note.container">
   <c:url var="link" value="/admin/editBuildFailureConditions.html?init=1&id=${param['id']}"/>
-  <td colspan="2">You can configure build to fail if it has too many inspection errors or warnings. To do it,
+  <td colspan="2">You can configure a build to fail if it has too many inspection errors or warnings. To do so,
     add a corresponding <a href="${link}">build failure condition</a>.<br/>
-    To configure errors and warnings limits only for current monitoring rules use
+    To configure error and warning limits for current monitoring rules only, use the
     <c:choose>
       <c:when test="${noLimits}">
         <a href="#"
@@ -160,7 +160,7 @@
 
 <tr id="xmlReportParsing.max.errors.container"
     style="${noLimits ? 'display: none;' : ''}">
-    <th><label for="xmlReportParsing.max.errors">Maximum error limit:</label></th>
+    <th><label for="xmlReportParsing.max.errors">Maximum error count:</label></th>
     <td><props:textProperty name="xmlReportParsing.max.errors" style="width:6em;" maxlength="12"/>
         <span class="smallNote">Fail the build if the specified number of errors is exceeded.</span>
     </td>
@@ -169,7 +169,7 @@
 
 <tr id="xmlReportParsing.max.warnings.container"
     style="${noLimits ? 'display: none;' : ''}">
-    <th><label for="xmlReportParsing.max.warnings">Warnings limit:</label></th>
+    <th><label for="xmlReportParsing.max.warnings">Maximum warning count:</label></th>
     <td><props:textProperty name="xmlReportParsing.max.warnings" style="width:6em;" maxlength="12"/>
         <span class="smallNote">Fail the build if the specified number of warnings is exceeded. Leave blank if there is no limit.</span>
     </td>
