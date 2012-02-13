@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2011 JetBrains s.r.o.
+ * Copyright 2000-2012 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,11 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.checkstyle;
 
+import java.io.File;
 import java.io.IOException;
-import jetbrains.buildServer.xmlReportPlugin.*;
+import jetbrains.buildServer.xmlReportPlugin.Parser;
+import jetbrains.buildServer.xmlReportPlugin.ParsingException;
+import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
@@ -25,8 +28,6 @@ import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionTypeResult;
 import jetbrains.buildServer.xmlReportPlugin.utils.ParserUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.io.File;
 
 /**
  * User: vbedrosova

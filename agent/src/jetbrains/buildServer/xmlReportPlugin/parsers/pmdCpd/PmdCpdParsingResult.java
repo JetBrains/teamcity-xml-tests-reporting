@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2011 JetBrains s.r.o.
+ * Copyright 2000-2012 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,12 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.pmdCpd;
 
-import jetbrains.buildServer.xmlReportPlugin.ProblemParsingResult;
-import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
+import java.io.File;
 import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.ProblemParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import org.jetbrains.annotations.NotNull;
-
-import java.io.File;
 
 /**
  * User: vbedrosova

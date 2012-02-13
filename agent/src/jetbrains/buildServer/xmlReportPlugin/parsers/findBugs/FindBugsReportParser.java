@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2011 JetBrains s.r.o.
+ * Copyright 2000-2012 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.parsers.findBugs;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.HashMap;
@@ -24,16 +25,16 @@ import java.util.Map;
 import javax.swing.text.html.parser.DTD;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.StringUtil;
-import jetbrains.buildServer.xmlReportPlugin.*;
+import jetbrains.buildServer.xmlReportPlugin.Parser;
+import jetbrains.buildServer.xmlReportPlugin.ParsingException;
+import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionTypeResult;
-import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.utils.ParserUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.io.File;
 
 class FindBugsReportParser implements Parser {
   public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(FindBugsReportParser.class);

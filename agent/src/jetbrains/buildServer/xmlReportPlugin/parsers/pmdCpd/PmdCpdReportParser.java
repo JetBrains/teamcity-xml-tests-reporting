@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2011 JetBrains s.r.o.
+ * Copyright 2000-2012 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,9 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.pmdCpd;
 
 import java.io.File;
 import java.io.IOException;
-import jetbrains.buildServer.xmlReportPlugin.*;
+import jetbrains.buildServer.xmlReportPlugin.Parser;
+import jetbrains.buildServer.xmlReportPlugin.ParsingException;
+import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationResult;
 import jetbrains.buildServer.xmlReportPlugin.utils.ParserUtils;

@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2011 JetBrains s.r.o.
+ * Copyright 2000-2012 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,14 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.findBugs;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.TestUtil;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 
 
 public class FindBugsReportParserTest extends BaseParserTestCase {

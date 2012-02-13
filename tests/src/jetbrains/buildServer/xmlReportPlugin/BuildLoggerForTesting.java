@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2011 JetBrains s.r.o.
+ * Copyright 2000-2012 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,14 +16,13 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.util.Date;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.agent.impl.BuildMessageTweaker;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
 import jetbrains.buildServer.messages.BuildMessage1;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Date;
 
 class BuildLoggerForTesting implements FlowLogger, MessageTweakingSupport {
   private final StringBuilder myText;
