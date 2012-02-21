@@ -125,7 +125,7 @@
                                  linkTitle="Type report monitoring rules"/>
     <span class="smallNote">
       New line or comma separated set of rules in the form <strong>of +|-:path</strong>.<br/>
-      Ant-style wildcards like <strong>dir/**/*.xml</strong> are supported.
+      Ant-style wildcards like <strong>dir/**/*.xml</strong> supported.
     </span>
     <span class="error" id="error_xmlReportParsing.reportDirs"></span>
     </td>
@@ -143,8 +143,8 @@
 
 <tr id="xmlReportParsing.condition.note.container">
   <c:url var="link" value="/admin/editBuildFailureConditions.html?init=1&id=${param['id']}"/>
-  <td colspan="2">You can configure a build to fail if it has too many inspection errors or warnings. To do so,
-    add a corresponding <a href="${link}">build failure condition</a>.<br/>
+  <td colspan="2">You can configure a build to fail if it has too many inspection errors or warnings by
+    adding a corresponding <a href="${link}">Build Failure Condition</a>.<br/>
     To configure error and warning limits for current monitoring rules only, use the
     <c:choose>
       <c:when test="${noLimits}">
@@ -162,7 +162,7 @@
     style="${noLimits ? 'display: none;' : ''}">
     <th><label for="xmlReportParsing.max.errors">Maximum error count:</label></th>
     <td><props:textProperty name="xmlReportParsing.max.errors" style="width:6em;" maxlength="12"/>
-        <span class="smallNote">Fail the build if the specified number of errors is exceeded.</span>
+        <span class="smallNote">Fail the build if the specified number of errors is exceeded. . Leave blank if there is no limit.</span>
     </td>
 </tr>
 
