@@ -141,7 +141,7 @@
 <c:set var="noLimits"
        value="${empty propertiesBean.properties['xmlReportParsing.max.errors'] and empty propertiesBean.properties['xmlReportParsing.max.warnings']}"/>
 
-<tr id="xmlReportParsing.condition.note.container">
+<tr id="xmlReportParsing.condition.note.container" style="${displayInspectionsSettings ? '' : 'display:none;'}">
   <c:url var="link" value="/admin/editBuildFailureConditions.html?init=1&id=${param['id']}"/>
   <td colspan="2">You can configure a build to fail if it has too many inspection errors or warnings by
     adding a corresponding <a href="${link}">Build Failure Condition</a>.<br/>
