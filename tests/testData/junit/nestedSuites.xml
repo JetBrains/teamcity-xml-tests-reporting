@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="5" assertions="9" failures="0" errors="2" time="0.358193">
+    <testsuite name="Unit Tests" tests="3" assertions="9" failures="0" errors="0" time="0.146787">
+      <testsuite name="BootstrapTest" file="/var/www/.ru.tc/buildAgent/work/2acb4504d83eaafe/sources/tests/unit/application/BootstrapTest.php" tests="3" assertions="9" failures="0" errors="0" time="0.146787">
+        <testcase name="test__construct" class="BootstrapTest" file="/var/www/.ru.tc/buildAgent/work/2acb4504d83eaafe/sources/tests/unit/application/BootstrapTest.php" line="39" assertions="2" time="0.051151"/>
+        <testcase name="testGetMemcacheOptions" class="BootstrapTest" file="/var/www/.ru.tc/buildAgent/work/2acb4504d83eaafe/sources/tests/unit/application/BootstrapTest.php" line="49" assertions="4" time="0.046916"/>
+        <testcase name="testInitApplicationRegistry" class="BootstrapTest" file="/var/www/.ru.tc/buildAgent/work/2acb4504d83eaafe/sources/tests/unit/application/BootstrapTest.php" line="74" assertions="3" time="0.048720"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Functional Tests" tests="2" assertions="0" failures="0" errors="2" time="0.211406">
+      <testsuite name="SeleniumTest" file="/var/www/.ru.tc/buildAgent/work/2acb4504d83eaafe/sources/tests/functional/SeleniumTest.php" tests="2" assertions="0" failures="0" errors="2" time="0.211406">
+        <testcase name="testTitle" class="SeleniumTest" file="/var/www/.ru.tc/buildAgent/work/2acb4504d83eaafe/sources/tests/functional/SeleniumTest.php" line="20" assertions="0" time="0.209400">
+          <error type="PHPUnit_Framework_Exception">SeleniumTest::testTitle
+PHPUnit_Framework_Exception: Could not connect to the Selenium RC server.
+
+</error>
+        </testcase>
+        <testcase name="testTitle" class="SeleniumTest" file="/var/www/.ru.tc/buildAgent/work/2acb4504d83eaafe/sources/tests/functional/SeleniumTest.php" line="26" assertions="0" time="0.002006">
+          <error type="PHPUnit_Framework_Exception">SeleniumTest::testTitle
+PHPUnit_Framework_Exception: Could not connect to the Selenium RC server.
+
+</error>
+        </testcase>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

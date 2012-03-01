@@ -545,4 +545,39 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
       "------------------------\n" +
       "EndSuite\n");
   }
+
+  // TW-15430
+  @Test
+  public void testNestedSuites() throws Exception {
+    parse("nestedSuites.xml");
+    assertResultEquals("TestSuite:\n" +
+                       "TestSuite:Unit Tests\n" +
+                       "TestSuite:BootstrapTest\n" +
+                       "  Test:test__construct\n" +
+                       "  EndTest:51\n" +
+                       "------------------------\n" +
+                       "  Test:testGetMemcacheOptions\n" +
+                       "  EndTest:47\n" +
+                       "------------------------\n" +
+                       "  Test:testInitApplicationRegistry\n" +
+                       "  EndTest:49\n" +
+                       "------------------------\n" +
+                       "EndSuite\n" +
+                       "EndSuite\n" +
+                       "TestSuite:Functional Tests\n" +
+                       "TestSuite:SeleniumTest\n" +
+                       "  Test:testTitle\n" +
+                       "    Fail:PHPUnit_Framework_Exception Message: SeleniumTest::testTitle\n" +
+                       "PHPUnit_Framework_Exception: Could not connect to the Selenium RC server.\n" +
+                       "  EndTest:209\n" +
+                       "------------------------\n" +
+                       "  Test:testTitle\n" +
+                       "    Fail:PHPUnit_Framework_Exception Message: SeleniumTest::testTitle\n" +
+                       "PHPUnit_Framework_Exception: Could not connect to the Selenium RC server.\n" +
+                       "  EndTest:2\n" +
+                       "------------------------\n" +
+                       "EndSuite\n" +
+                       "EndSuite\n" +
+                       "EndSuite\n");
+  }
 }

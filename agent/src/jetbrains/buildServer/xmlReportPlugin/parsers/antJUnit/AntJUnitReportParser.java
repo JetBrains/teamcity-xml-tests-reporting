@@ -18,6 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Stack;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.ParsingException;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
@@ -43,8 +44,8 @@ class AntJUnitReportParser implements Parser {
   @Nullable
   private ParsingException myParsingException;
 
-  @Nullable
-  private String mySuite;
+  @NotNull
+  private final Stack<String> mySuites = new Stack<String>();
 
   public AntJUnitReportParser(@NotNull TestReporter testReporter, @NotNull DurationParser durationParser) {
     myTestReporter = testReporter;
@@ -59,10 +60,6 @@ class AntJUnitReportParser implements Parser {
       new AntJUnitXmlReportParser(new AntJUnitXmlReportParser.Callback() {
 
         public void suiteFound(@Nullable final String suiteName) {
-          if (mySuite != null) {
-            LOG.warn("Suite " + mySuite + " was not closed");
-          }
-
           if (suiteName == null) {
             myTestReporter.warning("File " + file + " contains unnamed suite");
             return;
@@ -70,14 +67,14 @@ class AntJUnitReportParser implements Parser {
 
           myTestReporter.openTestSuite(suiteName);
           ++myLoggedSuites;
-          mySuite = suiteName;
+          mySuites.push(suiteName);
         }
 
         public void suiteFailureFound(@Nullable final String suiteName,
                                       @Nullable final String type,
                                       @Nullable final String message,
                                       @Nullable final String trace) {
-          if (mySuite == null || !mySuite.equals(suiteName)) {
+          if (mySuites.isEmpty() || !mySuites.peek().equals(suiteName)) {
             LOG.warn("Failed to log suite failure for not-opened suite " + suiteName);
             return;
           }
@@ -88,7 +85,7 @@ class AntJUnitReportParser implements Parser {
                                     @Nullable final String type,
                                     @Nullable final String message,
                                     @Nullable final String trace) {
-          if (mySuite == null || !mySuite.equals(suiteName)) {
+          if (mySuites.isEmpty() || !mySuites.peek().equals(suiteName)) {
             LOG.warn("Failed to log suite error for not-opened suite " + suiteName);
             return;
           }
@@ -96,7 +93,7 @@ class AntJUnitReportParser implements Parser {
         }
 
         public void suiteSystemOutFound(@Nullable final String suiteName, @Nullable final String message) {
-          if (mySuite == null || !mySuite.equals(suiteName)) {
+          if (mySuites.isEmpty() || !mySuites.peek().equals(suiteName)) {
             LOG.warn("Failed to log suite system out for not-opened suite " + suiteName);
             return;
           }
@@ -106,7 +103,7 @@ class AntJUnitReportParser implements Parser {
         }
 
         public void suiteSystemErrFound(@Nullable final String suiteName, @Nullable final String message) {
-          if (mySuite == null || !mySuite.equals(suiteName)) {
+          if (mySuites.isEmpty() || !mySuites.peek().equals(suiteName)) {
             LOG.warn("Failed to log suite system err for not-opened suite " + suiteName);
             return;
           }
@@ -116,12 +113,12 @@ class AntJUnitReportParser implements Parser {
         }
 
         public void suiteFinished(@Nullable final String suiteName) {
-          if (mySuite == null || !mySuite.equals(suiteName)) {
+          if (mySuites.isEmpty() || !mySuites.peek().equals(suiteName)) {
             LOG.warn("Failed to log suite finish for not-opened suite " + suiteName);
             return;
           }
           myTestReporter.closeTestSuite();
-          mySuite = null;
+          mySuites.pop();
         }
 
         @SuppressWarnings({"ConstantConditions"})
@@ -157,7 +154,12 @@ class AntJUnitReportParser implements Parser {
       return true;
     } catch (IOException e) {
       myParsingException = new ParsingException(e);
-      if (mySuite != null) myTestReporter.closeTestSuite();
+
+      while (!mySuites.isEmpty()) {
+        myTestReporter.closeTestSuite();
+        mySuites.pop();
+      }
+
       LOG.debug("Couldn't completely parse " + file
                 + " report, exception occurred: " + e + ", " + myLoggedTests + " tests logged");
     }
