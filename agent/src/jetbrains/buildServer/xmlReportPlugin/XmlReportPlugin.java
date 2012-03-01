@@ -21,10 +21,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
-import jetbrains.buildServer.util.DiagnosticUtil;
-import jetbrains.buildServer.util.EventDispatcher;
-import jetbrains.buildServer.util.FileUtil;
-import jetbrains.buildServer.util.NamedThreadFactory;
+import jetbrains.buildServer.util.*;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.TeamCityDuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
@@ -83,6 +80,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     if (features.isEmpty()) return;
 
     final Map<String, String> params = features.iterator().next().getParameters();
+    params.putAll(runningBuild.getSharedConfigParameters());
     getBuildProcessingContext().rulesContexts.add(createRulesContext(new RulesData(getRules(params), params, getBuildProcessingContext().startTime)));
 
     startProcessing(getBuildProcessingContext());
