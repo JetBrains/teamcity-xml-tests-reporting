@@ -106,6 +106,7 @@
             </c:forEach>
         </props:selectProperty>
         <span class="smallNote">Choose report type.</span>
+      <span class="error" id="error_xmlReportParsing.reportType"></span>
     </td>
 </tr>
 
