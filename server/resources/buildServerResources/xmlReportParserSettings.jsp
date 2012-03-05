@@ -50,7 +50,7 @@
     </td>
 </tr>
 <tr id="xmlReportParsing.reportType.container">
-    <th><label for="xmlReportParsing.reportType">Report type:</label></th>
+    <th><label for="xmlReportParsing.reportType">Report type: <l:star/></label></th>
     <td>
         <c:set var="onchange">
           var selectedValue = this.options[this.selectedIndex].value;
@@ -120,7 +120,7 @@
 
 <tr id="xmlReportParsing.reportDirs.container"
     style="${displayReportsSettings ? '' : 'display: none;'}">
-    <th><label for="xmlReportParsing.reportDirs">Monitoring rules:</label></th>
+    <th><label for="xmlReportParsing.reportDirs">Monitoring rules: <l:star/></label></th>
     <td>
         <props:multilineProperty name="xmlReportParsing.reportDirs" className="longField" expanded="true" rows="5" cols="40"
                                  linkTitle="Type report monitoring rules"/>
