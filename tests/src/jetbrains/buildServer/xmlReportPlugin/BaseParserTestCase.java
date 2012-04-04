@@ -64,7 +64,13 @@ public abstract class BaseParserTestCase extends TestCase {
   @NotNull
   protected ParsingResult parse(@NotNull String reportName,
                                 @Nullable ParsingResult prevResult) throws Exception {
-    final Parser parser = getParser();
+    return parse(getParser(), reportName, prevResult);
+  }
+
+  @NotNull
+  protected ParsingResult parse(@NotNull Parser parser,
+                                @NotNull String reportName,
+                                @Nullable ParsingResult prevResult) throws Exception {
     parser.parse(getReport(reportName), prevResult);
     final ParsingResult result = parser.getParsingResult();
     assertNotNull("Result is null", result);
@@ -74,6 +80,12 @@ public abstract class BaseParserTestCase extends TestCase {
   @NotNull
   protected ParsingResult parse(@NotNull String reportName) throws Exception {
     return parse(reportName, null);
+  }
+
+  @NotNull
+  protected ParsingResult parse(@NotNull Parser parser,
+                                @NotNull String reportName) throws Exception {
+    return parse(parser, reportName, null);
   }
 
   protected void assertResultEquals(@NotNull String expected) {

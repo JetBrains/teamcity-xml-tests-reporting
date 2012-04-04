@@ -16,10 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit;
 
-import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
-import jetbrains.buildServer.xmlReportPlugin.Parser;
-import jetbrains.buildServer.xmlReportPlugin.ParserFactory;
-import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.*;
 import jetbrains.buildServer.xmlReportPlugin.tests.SecondDurationParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
 import org.jetbrains.annotations.NotNull;
@@ -32,7 +29,8 @@ import org.jetbrains.annotations.NotNull;
 public class AntJUnitFactory implements ParserFactory {
   @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
-    return new AntJUnitReportParser(parameters.getTestReporter(), new SecondDurationParser());
+    return new AntJUnitReportParser(parameters.getTestReporter(), new SecondDurationParser(),
+                                    XmlReportPluginUtil.isLogInternalSystemError(parameters.getParameters()));
   }
 
   @NotNull

@@ -47,9 +47,12 @@ class AntJUnitReportParser implements Parser {
   @NotNull
   private final Stack<String> mySuites = new Stack<String>();
 
-  public AntJUnitReportParser(@NotNull TestReporter testReporter, @NotNull DurationParser durationParser) {
+  private final boolean myLogInternalSystemError;
+
+  public AntJUnitReportParser(@NotNull TestReporter testReporter, @NotNull DurationParser durationParser, final boolean logInternalSystemError) {
     myTestReporter = testReporter;
     myDurationParser = durationParser;
+    myLogInternalSystemError = logInternalSystemError;
   }
 
   public boolean parse(@NotNull final File file, @Nullable final ParsingResult prevResult) throws ParsingException {
@@ -108,7 +111,12 @@ class AntJUnitReportParser implements Parser {
             return;
           }
           if (message != null && message.length() > 0) {
-            myTestReporter.warning("System error from suite " + suiteName + ": " + message);
+            final String msg = "System error from suite " + suiteName + ": " + message;
+            if (myLogInternalSystemError) {
+              myTestReporter.info(msg);
+            } else {
+              myTestReporter.warning(msg);
+            }
           }
         }
 
@@ -139,7 +147,11 @@ class AntJUnitReportParser implements Parser {
               myTestReporter.testStdOutput(testData.getStdOut());
             }
             if (testData.getStdErr() != null && testData.getStdErr().length() > 0) {
-              myTestReporter.testErrOutput(testData.getStdErr());
+              if (myLogInternalSystemError) {
+                myTestReporter.info(testData.getStdErr());
+              } else {
+                myTestReporter.testErrOutput(testData.getStdErr());
+              }
             }
             if (testData.getFailureType() != null || testData.getFailureMessage() != null || testData.getFailureStackTrace() != null) {
               myTestReporter

@@ -106,7 +106,7 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
   @Override
   @NotNull
   protected AntJUnitReportParser getParser() {
-    return new AntJUnitReportParser(getTestReporter(), new SecondDurationParser());
+    return new AntJUnitReportParser(getTestReporter(), new SecondDurationParser(), false);
   }
 
   @NotNull
@@ -579,5 +579,17 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
                        "EndSuite\n" +
                        "EndSuite\n" +
                        "EndSuite\n");
+  }
+
+  // http://devnet.jetbrains.net/message/5456287
+  @Test
+  public void testLogInternalSystemError() throws Exception {
+    parse(new AntJUnitReportParser(getTestReporter(), new SecondDurationParser(), true), "printSystemErr.xml");
+    assertResultEquals("TestSuite:TestCase\n" +
+      "  Test:TestCase.test1\n" +
+      "  EndTest:0\n" +
+      "------------------------\n" +
+      "-->Info: System error from suite TestCase: from test1\n" +
+      "EndSuite\n");
   }
 }

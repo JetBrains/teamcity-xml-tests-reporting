@@ -164,4 +164,8 @@ public class XmlReportPluginUtil {
     return params.containsKey(LOG_AS_INTERNAL) && params.get(LOG_AS_INTERNAL) != null
       ? Boolean.parseBoolean(params.get(LOG_AS_INTERNAL)) : !isOutputVerbose(params);
   }
+
+  public static boolean isLogInternalSystemError(@NotNull final Map<String, String> params) {
+    return Boolean.parseBoolean(params.get(LOG_INTERNAL_SYSTEM_ERROR));
+  }
 }
