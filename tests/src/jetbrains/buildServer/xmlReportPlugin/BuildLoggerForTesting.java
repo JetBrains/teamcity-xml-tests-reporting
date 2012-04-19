@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import java.util.Date;
+import jetbrains.buildServer.BuildProblemData;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.agent.impl.BuildMessageTweaker;
@@ -256,5 +257,11 @@ class BuildLoggerForTesting implements FlowLogger, MessageTweakingSupport {
 
   public BuildProgressLogger getTweakedLogger(final BuildMessageTweaker tweaker) {
     return this;
+  }
+
+  public void logBuildProblem(final BuildProblemData buildProblem) {
+    myText.append("BUILD PROBLEM: ");
+    myText.append(buildProblem.toString());
+    myText.append("\n");
   }
 }
