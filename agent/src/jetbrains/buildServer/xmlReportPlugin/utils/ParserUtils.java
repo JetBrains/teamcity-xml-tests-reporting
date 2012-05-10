@@ -69,13 +69,8 @@ public class ParserUtils {
   }
 
   @NotNull
-  public static String formatText(@NotNull StringBuilder s) {
-    return s.toString().replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").replaceAll("<[a-z]>|</[a-z]>", "").trim();
-  }
-
-  @NotNull
   public static String formatText(@NotNull String s) {
-    return s.replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").replaceAll("<[a-z]>|</[a-z]>", "").trim();
+    return s.replace("&nbsp;", " ").replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").replaceAll("<[a-z]>|</[a-z]>", "").trim();
   }
 
   public static boolean isReportComplete(@NotNull final File report, @NotNull String rootTag) {
