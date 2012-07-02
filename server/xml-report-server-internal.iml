@@ -29,6 +29,8 @@
     <orderEntry type="module" module-name="server-openapi" />
     <orderEntry type="module" module-name="web-openapi" />
     <orderEntry type="library" name="ServletApi" level="project" />
+    <orderEntry type="module" module-name="usage-statistics-api" />
+    <orderEntry type="module" module-name="usage-statistics-util" />
   </component>
 </module>
 

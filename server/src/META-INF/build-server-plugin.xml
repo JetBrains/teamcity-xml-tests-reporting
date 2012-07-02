@@ -19,4 +19,9 @@
 
 <beans default-autowire="constructor">
     <bean id="xmlReportPluginBuildFeature" class="jetbrains.buildServer.xmlReportPlugin.XmlReportPluginBuildFeature"/>
+
+    <bean id="xmlReportPluginReportTypeUsageStatisticsProvider" class="jetbrains.buildServer.xmlReportPlugin.XmlReportPluginReportTypeUsageStatisticsProvider">
+        <property name="idFormat" value="jb.xmlReportPlugin.reportType[%s]"/>
+        <property name="groupName" value="XML Report Processing Report Types"/>
+    </bean>
 </beans>
