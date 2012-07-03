@@ -22,8 +22,8 @@
                                  common.output="${common.output.dir}"
                                  out="dist">
             <server-additional-files>
-                <fileset dir="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/plugins/usage-statistics/server">
-                    <include name="usage-statistics-util.jar"/>
+                <fileset dir="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/plugins/usage-statistics">
+                    <include name="server/usage-statistics-util.jar"/>
                 </fileset>
             </server-additional-files>
         </package.teamcity.plugin>
