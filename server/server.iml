@@ -18,6 +18,7 @@
     <orderEntry type="library" name="TeamCity utils" level="project" />
     <orderEntry type="module" module-name="common" />
     <orderEntry type="library" name="Servlet API" level="project" />
+    <orderEntry type="library" name="TeamCity Usage Statistics Util" level="project" />
   </component>
 </module>
 

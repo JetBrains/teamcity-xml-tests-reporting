@@ -106,6 +106,10 @@
     <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/spring.jar"/>
   </path>
   
+  <path id="library.teamcity_usage_statistics_util.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/plugins/usage-statistics/server/usage-statistics-util.jar"/>
+  </path>
+  
   <path id="library.teamcity_utils.classpath">
     <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/annotations.jar"/>
     <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/util.jar"/>
@@ -113,7 +117,7 @@
   
   
   <!-- Application Server Libraries -->
-  
+
   <!-- Modules -->
   
   
@@ -374,6 +378,7 @@
     <path refid="library.teamcity_utils.classpath"/>
     <pathelement location="${common.output.dir}"/>
     <path refid="library.servlet_api.classpath"/>
+    <path refid="library.teamcity_usage_statistics_util.classpath"/>
   </path>
   
   <path id="server.runtime.production.module.classpath">
@@ -382,6 +387,7 @@
     <path refid="library.teamcity_utils.classpath"/>
     <path refid="common.runtime.production.module.classpath"/>
     <path refid="library.servlet_api.classpath"/>
+    <path refid="library.teamcity_usage_statistics_util.classpath"/>
   </path>
   
   <path id="server.module.classpath">
@@ -390,6 +396,7 @@
     <path refid="library.teamcity_utils.classpath"/>
     <pathelement location="${common.output.dir}"/>
     <path refid="library.servlet_api.classpath"/>
+    <path refid="library.teamcity_usage_statistics_util.classpath"/>
   </path>
   
   <path id="server.runtime.module.classpath">
@@ -398,6 +405,7 @@
     <path refid="library.teamcity_utils.classpath"/>
     <path refid="common.runtime.module.classpath"/>
     <path refid="library.servlet_api.classpath"/>
+    <path refid="library.teamcity_usage_statistics_util.classpath"/>
   </path>
   
   
@@ -535,7 +543,7 @@
       <include name="none"/>
     </dirset>
   </path>
-  
+
   <path id="tests.module.test.sourcepath">
     <dirset dir="${module.tests.basedir}/tests">
       <include name="src"/>
@@ -554,7 +562,7 @@
       <src refid="tests.module.sourcepath"/>
       <patternset refid="excluded.from.compilation.tests"/>
     </javac>
-    
+
     <copy todir="${tests.output.dir}">
       <fileset dir="${module.tests.basedir}/tests/none">
         <patternset refid="compiler.resources"/>
@@ -562,7 +570,7 @@
       </fileset>
     </copy>
   </target>
-  
+
   <target name="compile.module.tests.tests" depends="compile.module.tests.production" description="compile module tests; test classes" unless="skip.tests">
     <mkdir dir="${tests.testoutput.dir}"/>
     <javac destdir="${tests.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">

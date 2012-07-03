@@ -20,8 +20,13 @@
                                  server.output="${server.output.dir}"
                                  agent.output="${agent.output.dir}"
                                  common.output="${common.output.dir}"
-                                 out="dist"
-                />
+                                 out="dist">
+            <server-additional-files>
+                <fileset dir="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/plugins/usage-statistics/server">
+                    <include name="usage-statistics-util.jar"/>
+                </fileset>
+            </server-additional-files>
+        </package.teamcity.plugin>
 
     </target>
 

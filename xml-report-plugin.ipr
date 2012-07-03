@@ -493,6 +493,13 @@
       <JAVADOC />
       <SOURCES />
     </library>
+    <library name="TeamCity Usage Statistics Util">
+      <CLASSES>
+        <root url="jar://$TeamCityDistribution$/webapps/ROOT/WEB-INF/plugins/usage-statistics/server/usage-statistics-util.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
     <library name="TeamCity utils">
       <CLASSES>
         <root url="jar://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib/annotations.jar!/" />
