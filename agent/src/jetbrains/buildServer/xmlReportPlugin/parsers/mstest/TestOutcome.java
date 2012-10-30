@@ -17,7 +17,7 @@ enum TestOutcome {
   FAILED(1, "Failed", Failed),
   INCONCLUSIVE(4, "Inconclusive", Ignored),
   IN_PROGRESS(12, "InProgress", Ignored),
-  NOT_EXCLUDED(7, "NotExecuted", Ignored),
+  NOT_EXECUTED(7, "NotExecuted", Ignored),
   NOT_RUNNABLE(6, "NotRunnable", Ignored),
   PASSED(10, "Passed", Passed),
   PASSED_BUT_RUN_ABOURTED(5, "PassedButRunAborted", Passed),
