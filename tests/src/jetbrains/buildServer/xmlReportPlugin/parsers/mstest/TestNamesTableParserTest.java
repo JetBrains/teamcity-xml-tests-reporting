@@ -57,7 +57,7 @@ public class TestNamesTableParserTest extends TestCase {
     final String gold = StringUtil.convertLineSeparators(goldFile.exists() ? new String(FileUtil.loadFileText(goldFile)) : "");
 
     try {
-      assertEquals(actual, gold);
+      assertEquals(gold, actual);
     } catch (Throwable t) {
       System.out.println("actual = " + actual);
       FileUtil.writeFile(tmp, actual);
