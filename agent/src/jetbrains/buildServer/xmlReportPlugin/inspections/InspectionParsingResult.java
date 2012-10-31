@@ -17,11 +17,9 @@
 package jetbrains.buildServer.xmlReportPlugin.inspections;
 
 import java.io.File;
+import jetbrains.buildServer.BuildProblemData;
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
-import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
-import jetbrains.buildServer.xmlReportPlugin.ProblemParsingResult;
-import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil;
+import jetbrains.buildServer.xmlReportPlugin.*;
 import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -85,23 +83,24 @@ public class InspectionParsingResult extends ProblemParsingResult {
   public void logAsTotalResult(@NotNull ParseParameters parameters) {
     final BuildProgressLogger logger = parameters.getThreadLogger();
 
-    boolean limitReached = false;
-
     final int errorLimit = XmlReportPluginUtil.getMaxErrors(parameters.getParameters());
     if ((errorLimit != -1) && (myErrors > errorLimit)) {
-      logger.error("Errors limit " + errorLimit + " reached: found " + myErrors + " error" + getEnding(myErrors));
-      limitReached = true;
+      final String prefix = "Inspection errors limit " + errorLimit + " reached";
+      logger.error(prefix + ": found " + myErrors + " error" + getEnding(myErrors));
+      logger.logBuildProblem(createBuildProblem("err" + myErrors, prefix));
     }
 
     final int warningLimit = XmlReportPluginUtil.getMaxWarnings(parameters.getParameters());
     if ((warningLimit != -1) && (myWarnings > warningLimit)) {
-      logger.error("Warnings limit " + warningLimit + " reached: found " + myWarnings + " warning" + getEnding(myWarnings));
-      limitReached = true;
+      final String prefix = "Inspection warnings limit " + warningLimit + " reached";
+      logger.error(prefix + ": found " + myWarnings + " warning" + getEnding(myWarnings));
+      logger.logBuildProblem(createBuildProblem("warn" + myWarnings, prefix));
     }
+  }
 
-    if (limitReached) {
-      logger.message("##teamcity[buildStatus status='FAILURE']");
-    }
+  @NotNull
+  private static BuildProblemData createBuildProblem(@NotNull String id, @NotNull String descr) {
+    return BuildProblemData.createBuildProblem(id, XmlReportPluginConstants.BUILD_PROBLEM_TYPE, descr);
   }
 
   @NotNull
