@@ -96,11 +96,6 @@ class TestResultsTableParser extends XmlXppAbstractParser {
       return;
     }
 
-    if (result.getOutcome() == null) {
-      myCallback.warning(testId, "Failed to read testOutcome");
-      return;
-    }
-
     TestOutcome testOutcome = null;
     switch (result.getVersion()) {
       case VS_8:

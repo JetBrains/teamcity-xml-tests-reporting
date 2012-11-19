@@ -24,7 +24,7 @@ enum TestOutcome {
   PENDING(13, "Pending", Ignored),
   TIMEOUT(2, "Timeout", Failed),
   WARNING(9, "Warning", Passed),
-  UNKNOWN(null, "__UNKNOWN__", Passed);
+  UNKNOWN(null, "__UNKNOWN__", Failed);
 
   private final Integer myValue8;
   private final String myName;
