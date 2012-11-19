@@ -196,7 +196,7 @@ public class MSTestBaseTest extends TestCase {
     final String sGold = StringUtil.convertLineSeparators(new String(FileUtil.loadFileText(fGold)));
     final String sActual = StringUtil.convertLineSeparators(actual);
 
-    assertEquals("Actual: " + sActual, sActual, sGold);
+    assertEquals("Actual: " + sActual, sGold, sActual);
     FileUtil.delete(tempFile);
   }
 }
