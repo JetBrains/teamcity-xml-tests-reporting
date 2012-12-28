@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="7bb9a440-bb42-4051-b816-ca02764a480f" name="user@COMP 2012-12-19 10:43:54" runUser="CMSDOM\user" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Default Test Settings" id="53eb0f11-d1f6-495e-9cae-ac9d978c9903">
+    <Deployment userDeploymentRoot="C:\BuildAgent\Temp\buildTmp" useDefaultDeploymentRoot="false" runDeploymentRoot="user_COMP 2012-12-19 10_43_54" />
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2012-12-19T10:43:54.3889474+01:00" queuing="2012-12-19T10:43:57.4112496+01:00" start="2012-12-19T10:43:57.5822667+01:00" finish="2012-12-19T10:43:59.5454630+01:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="23" executed="23" passed="23" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="IsMoreThanEightyPercentTestTrue" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="c4bd5102-93cc-c975-98ff-77fc8e18d5ad">
+      <Execution id="54bb7b36-ddb4-4fca-95e2-9dcd9da123fb" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.MathUtilsTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="IsMoreThanEightyPercentTestTrue" />
+    </UnitTest>
+    <UnitTest name="GetFrequenceyListTest" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="3767f99a-1872-5771-4ce2-e4b7ac01e08a">
+      <Execution id="bf58fc4f-a093-4243-bee9-f202e68ecf1d" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.MathUtilsTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="GetFrequenceyListTest" />
+    </UnitTest>
+    <UnitTest name="RoundOffTestLowNum" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="705e3a35-3024-eb7a-e99f-5d2ff065901a">
+      <Description>Rounding test for 1.55554</Description>
+      <Execution id="cb041f52-76dd-4451-a4dd-231b9eda4211" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.MathUtilsTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="RoundOffTestLowNum" />
+    </UnitTest>
+    <UnitTest name="StdDevViolationHighWarning" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="0c843e1a-c905-8e45-4ad4-3d9c5261339c">
+      <Description>warn on high std dev</Description>
+      <Execution id="08ad09e3-dbab-4518-b908-a1eb8d7718d7" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.LimitLearnerTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="StdDevViolationHighWarning" />
+    </UnitTest>
+    <UnitTest name="AlertComputationDisabled" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="860388d3-a412-0775-0f5f-20ac1501405e">
+      <Description>do not compute alert if alert disabled</Description>
+      <Execution id="770c1b1d-5921-4d2e-a915-ccf9ecfc2741" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.LimitLearnerTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="AlertComputationDisabled" />
+    </UnitTest>
+    <UnitTest name="DangerComputationDisabled" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="ff9bf833-7e8c-566c-ecc9-35dad58d8028">
+      <Description>do not compute danger if danger disabled</Description>
+      <Execution id="11070f13-9835-46bb-b5e1-41a3f615acc5" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.LimitLearnerTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="DangerComputationDisabled" />
+    </UnitTest>
+    <UnitTest name="NoStdDevViolationWarningWhenVariationIsLowAndLimitIsLow" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="d3d04e08-6e54-a627-dd2b-8124d5956e58">
+      <Description>warn on low std dev if variation limit is low</Description>
+      <Execution id="a8f0a974-dd96-4721-b490-1fdf0342e2c9" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.LimitLearnerTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="NoStdDevViolationWarningWhenVariationIsLowAndLimitIsLow" />
+    </UnitTest>
+    <UnitTest name="computeCountAverageAndStdDevTestBad" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="8be2d4b7-9fd7-c4a8-a17d-5515fedc2a41">
+      <Execution id="1eea7129-62f6-4e1a-b6bb-2b3fa6a44790" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.MathUtilsTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="computeCountAverageAndStdDevTestBad" />
+    </UnitTest>
+    <UnitTest name="MeasurementSpecificMultipliersUsed" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="3b075ad3-9264-2d22-93e7-277c16caccc7">
+      <Description>Use multipliers from measurement, if they are set</Description>
+      <Execution id="df20ef36-5084-4ba6-8f10-200367ed123b" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.LimitLearnerTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="MeasurementSpecificMultipliersUsed" />
+    </UnitTest>
+    <UnitTest name="NormalNoStdDevViolationWarning" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="be12d7f2-5357-6c01-4394-31c73158532c">
+      <Description>do not warn on std dev with defaults</Description>
+      <Execution id="4aaf5fa7-617e-483b-beb2-c9d330469bdb" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.LimitLearnerTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="NormalNoStdDevViolationWarning" />
+    </UnitTest>
+    <UnitTest name="StdDevViolationWarningDisabled" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="9c79697a-e951-6a9b-27a2-5f105d74694d">
+      <Description>do not warn on high std dev if warning disabled</Description>
+      <Execution id="2c14a001-4594-4619-8bcd-fc86c182ea63" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.LimitLearnerTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="StdDevViolationWarningDisabled" />
+    </UnitTest>
+    <UnitTest name="CalculateMaxAllowedAlertLimitTest" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="17183e0c-108b-77e4-8ad5-651984667c8b">
+      <Execution id="2d3bf990-9e19-46ff-938b-f403e57f35fe" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.MathUtilsTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="CalculateMaxAllowedAlertLimitTest" />
+    </UnitTest>
+    <UnitTest name="IsMoreThanEightyPercentTestFalse" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="14f6aa1d-9d84-3382-6723-21959127cc92">
+      <Execution id="8c02d736-ed42-4de6-bdc3-c4db0d34502f" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.MathUtilsTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="IsMoreThanEightyPercentTestFalse" />
+    </UnitTest>
+    <UnitTest name="computeCountAverageAndStdDevTestGood" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="3fc1e880-2bad-753e-e70c-b2565d4b7dec">
+      <Execution id="5f20bbef-2da8-4c0f-880a-53e7bda3d929" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.MathUtilsTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="computeCountAverageAndStdDevTestGood" />
+    </UnitTest>
+    <UnitTest name="TooFewDataPoints" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="751042bd-0362-93b8-1076-bc31d24a5fc0">
+      <Description>warn about too few data points</Description>
+      <Execution id="64741139-c067-4856-85d4-ffb7e14d9b68" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.LimitLearnerTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="TooFewDataPoints" />
+    </UnitTest>
+    <UnitTest name="GetFrequenceyDictionaryTest" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="6592734c-ef35-a8a7-69e6-b6f3a002ebed">
+      <Execution id="29c2a22b-bb29-48de-83c8-7a76f3104226" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.MathUtilsTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="GetFrequenceyDictionaryTest" />
+    </UnitTest>
+    <UnitTest name="NoStdDevViolationWarningWhenVariationIsLowAndWarnDisabled" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="7cd784cb-0203-1507-f2a7-d4c92818a4a3">
+      <Description>do not warn on low std dev if warning is disabled</Description>
+      <Execution id="4141649b-6a47-4292-a505-abbaa5750666" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.LimitLearnerTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="NoStdDevViolationWarningWhenVariationIsLowAndWarnDisabled" />
+    </UnitTest>
+    <UnitTest name="TestNormal" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="de8bb1d0-0f92-690f-2863-4f481f8f4284">
+      <Description>Standard computation of limits</Description>
+      <Execution id="fb555465-a28f-4783-99eb-1634cfb60458" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.LimitLearnerTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="TestNormal" />
+    </UnitTest>
+    <UnitTest name="NoStdDevViolationWarningWhenLimitIsHigh" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="69e1dcc9-e99c-ad74-76c9-e879f080b2fc">
+      <Description>do no warn on high std dev if limit is high </Description>
+      <Execution id="2a05028b-ee5d-409e-bbc2-6ad3c44db0e0" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.LimitLearnerTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="NoStdDevViolationWarningWhenLimitIsHigh" />
+    </UnitTest>
+    <UnitTest name="DangerComputationDisabledButChangedAnyway" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="4fc63c37-fd84-92da-e804-80dab821a08c">
+      <Description>recompute compute danger if needed because alert too high even if danger disabled</Description>
+      <Execution id="8956cd9e-eaeb-485b-beae-b1d9dd285868" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.LimitLearnerTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="DangerComputationDisabledButChangedAnyway" />
+    </UnitTest>
+    <UnitTest name="RoundOffTestHighNum" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="a6e7ffcd-94ad-67de-d48d-9aa290987999">
+      <Description>Rounding test for 10000.55556</Description>
+      <Execution id="1b376ad7-1f4f-4860-b1d8-9ebafc77f29f" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.MathUtilsTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="RoundOffTestHighNum" />
+    </UnitTest>
+    <UnitTest name="AlertReducedToEightyPercentOfDanger" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="5fcf161d-4ff5-eae0-516f-50ec3e8ace1d">
+      <Description>reduce alert if &gt; 80 % of danger</Description>
+      <Execution id="6d66e14f-682a-496b-9439-647ff8083c82" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.LimitLearnerTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="AlertReducedToEightyPercentOfDanger" />
+    </UnitTest>
+    <UnitTest name="StdDevViolationWarningWhenVariationIsLow" storage="C:\BuildAgent\work\73ad4934ac0f6acf\applications\application\TestUtils\bin\debug\TestUtils.dll" id="5fae844d-b29c-bb87-9e52-e28b36b9805a">
+      <Description>warn on low std dev if variaton is low</Description>
+      <Execution id="1056c699-04bd-4fe3-8f82-76971eed2c56" />
+      <TestMethod codeBase="C:/BuildAgent/Work/73ad4934ac0f6acf/applications/application/TestUtils/bin/Debug/TestUtils.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="TestUtils.LimitLearnerTest, TestUtils, Version=1.0.20605.39, Culture=neutral, PublicKeyToken=null" name="StdDevViolationWarningWhenVariationIsLow" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="860388d3-a412-0775-0f5f-20ac1501405e" executionId="770c1b1d-5921-4d2e-a915-ccf9ecfc2741" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5fcf161d-4ff5-eae0-516f-50ec3e8ace1d" executionId="6d66e14f-682a-496b-9439-647ff8083c82" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ff9bf833-7e8c-566c-ecc9-35dad58d8028" executionId="11070f13-9835-46bb-b5e1-41a3f615acc5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4fc63c37-fd84-92da-e804-80dab821a08c" executionId="8956cd9e-eaeb-485b-beae-b1d9dd285868" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3b075ad3-9264-2d22-93e7-277c16caccc7" executionId="df20ef36-5084-4ba6-8f10-200367ed123b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="be12d7f2-5357-6c01-4394-31c73158532c" executionId="4aaf5fa7-617e-483b-beb2-c9d330469bdb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="69e1dcc9-e99c-ad74-76c9-e879f080b2fc" executionId="2a05028b-ee5d-409e-bbc2-6ad3c44db0e0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d3d04e08-6e54-a627-dd2b-8124d5956e58" executionId="a8f0a974-dd96-4721-b490-1fdf0342e2c9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7cd784cb-0203-1507-f2a7-d4c92818a4a3" executionId="4141649b-6a47-4292-a505-abbaa5750666" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0c843e1a-c905-8e45-4ad4-3d9c5261339c" executionId="08ad09e3-dbab-4518-b908-a1eb8d7718d7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="9c79697a-e951-6a9b-27a2-5f105d74694d" executionId="2c14a001-4594-4619-8bcd-fc86c182ea63" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5fae844d-b29c-bb87-9e52-e28b36b9805a" executionId="1056c699-04bd-4fe3-8f82-76971eed2c56" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="de8bb1d0-0f92-690f-2863-4f481f8f4284" executionId="fb555465-a28f-4783-99eb-1634cfb60458" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="751042bd-0362-93b8-1076-bc31d24a5fc0" executionId="64741139-c067-4856-85d4-ffb7e14d9b68" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="17183e0c-108b-77e4-8ad5-651984667c8b" executionId="2d3bf990-9e19-46ff-938b-f403e57f35fe" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8be2d4b7-9fd7-c4a8-a17d-5515fedc2a41" executionId="1eea7129-62f6-4e1a-b6bb-2b3fa6a44790" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3fc1e880-2bad-753e-e70c-b2565d4b7dec" executionId="5f20bbef-2da8-4c0f-880a-53e7bda3d929" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6592734c-ef35-a8a7-69e6-b6f3a002ebed" executionId="29c2a22b-bb29-48de-83c8-7a76f3104226" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3767f99a-1872-5771-4ce2-e4b7ac01e08a" executionId="bf58fc4f-a093-4243-bee9-f202e68ecf1d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="14f6aa1d-9d84-3382-6723-21959127cc92" executionId="8c02d736-ed42-4de6-bdc3-c4db0d34502f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c4bd5102-93cc-c975-98ff-77fc8e18d5ad" executionId="54bb7b36-ddb4-4fca-95e2-9dcd9da123fb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a6e7ffcd-94ad-67de-d48d-9aa290987999" executionId="1b376ad7-1f4f-4860-b1d8-9ebafc77f29f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="705e3a35-3024-eb7a-e99f-5d2ff065901a" executionId="cb041f52-76dd-4451-a4dd-231b9eda4211" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="770c1b1d-5921-4d2e-a915-ccf9ecfc2741" testId="860388d3-a412-0775-0f5f-20ac1501405e" testName="AlertComputationDisabled" computerName="COMP" duration="00:00:00.1019368" startTime="2012-12-19T10:43:57.7602845+01:00" endTime="2012-12-19T10:43:58.8013886+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="770c1b1d-5921-4d2e-a915-ccf9ecfc2741">
+    </UnitTestResult>
+    <UnitTestResult executionId="6d66e14f-682a-496b-9439-647ff8083c82" testId="5fcf161d-4ff5-eae0-516f-50ec3e8ace1d" testName="AlertReducedToEightyPercentOfDanger" computerName="COMP" duration="00:00:00.0011198" startTime="2012-12-19T10:43:58.8183903+01:00" endTime="2012-12-19T10:43:58.8223907+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6d66e14f-682a-496b-9439-647ff8083c82">
+    </UnitTestResult>
+    <UnitTestResult executionId="11070f13-9835-46bb-b5e1-41a3f615acc5" testId="ff9bf833-7e8c-566c-ecc9-35dad58d8028" testName="DangerComputationDisabled" computerName="COMP" duration="00:00:00.0007327" startTime="2012-12-19T10:43:58.8363921+01:00" endTime="2012-12-19T10:43:58.8443929+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="11070f13-9835-46bb-b5e1-41a3f615acc5">
+    </UnitTestResult>
+    <UnitTestResult executionId="8956cd9e-eaeb-485b-beae-b1d9dd285868" testId="4fc63c37-fd84-92da-e804-80dab821a08c" testName="DangerComputationDisabledButChangedAnyway" computerName="COMP" duration="00:00:00.0010082" startTime="2012-12-19T10:43:58.8523937+01:00" endTime="2012-12-19T10:43:58.8583943+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8956cd9e-eaeb-485b-beae-b1d9dd285868">
+    </UnitTestResult>
+    <UnitTestResult executionId="df20ef36-5084-4ba6-8f10-200367ed123b" testId="3b075ad3-9264-2d22-93e7-277c16caccc7" testName="MeasurementSpecificMultipliersUsed" computerName="COMP" duration="00:00:00.0005406" startTime="2012-12-19T10:43:59.0264111+01:00" endTime="2012-12-19T10:43:59.0294114+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="df20ef36-5084-4ba6-8f10-200367ed123b">
+    </UnitTestResult>
+    <UnitTestResult executionId="4aaf5fa7-617e-483b-beb2-c9d330469bdb" testId="be12d7f2-5357-6c01-4394-31c73158532c" testName="NormalNoStdDevViolationWarning" computerName="COMP" duration="00:00:00.0006141" startTime="2012-12-19T10:43:59.0384123+01:00" endTime="2012-12-19T10:43:59.0434128+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4aaf5fa7-617e-483b-beb2-c9d330469bdb">
+    </UnitTestResult>
+    <UnitTestResult executionId="2a05028b-ee5d-409e-bbc2-6ad3c44db0e0" testId="69e1dcc9-e99c-ad74-76c9-e879f080b2fc" testName="NoStdDevViolationWarningWhenLimitIsHigh" computerName="COMP" duration="00:00:00.0006472" startTime="2012-12-19T10:43:59.0524137+01:00" endTime="2012-12-19T10:43:59.0564141+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2a05028b-ee5d-409e-bbc2-6ad3c44db0e0">
+    </UnitTestResult>
+    <UnitTestResult executionId="a8f0a974-dd96-4721-b490-1fdf0342e2c9" testId="d3d04e08-6e54-a627-dd2b-8124d5956e58" testName="NoStdDevViolationWarningWhenVariationIsLowAndLimitIsLow" computerName="COMP" duration="00:00:00.0004737" startTime="2012-12-19T10:43:59.0644149+01:00" endTime="2012-12-19T10:43:59.0714156+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a8f0a974-dd96-4721-b490-1fdf0342e2c9">
+    </UnitTestResult>
+    <UnitTestResult executionId="4141649b-6a47-4292-a505-abbaa5750666" testId="7cd784cb-0203-1507-f2a7-d4c92818a4a3" testName="NoStdDevViolationWarningWhenVariationIsLowAndWarnDisabled" computerName="COMP" duration="00:00:00.0004553" startTime="2012-12-19T10:43:59.1304215+01:00" endTime="2012-12-19T10:43:59.1334218+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4141649b-6a47-4292-a505-abbaa5750666">
+    </UnitTestResult>
+    <UnitTestResult executionId="08ad09e3-dbab-4518-b908-a1eb8d7718d7" testId="0c843e1a-c905-8e45-4ad4-3d9c5261339c" testName="StdDevViolationHighWarning" computerName="COMP" duration="00:00:00.0019945" startTime="2012-12-19T10:43:59.1444229+01:00" endTime="2012-12-19T10:43:59.1494234+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="08ad09e3-dbab-4518-b908-a1eb8d7718d7">
+    </UnitTestResult>
+    <UnitTestResult executionId="2c14a001-4594-4619-8bcd-fc86c182ea63" testId="9c79697a-e951-6a9b-27a2-5f105d74694d" testName="StdDevViolationWarningDisabled" computerName="COMP" duration="00:00:00.0004526" startTime="2012-12-19T10:43:59.1614246+01:00" endTime="2012-12-19T10:43:59.1654250+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2c14a001-4594-4619-8bcd-fc86c182ea63">
+    </UnitTestResult>
+    <UnitTestResult executionId="1056c699-04bd-4fe3-8f82-76971eed2c56" testId="5fae844d-b29c-bb87-9e52-e28b36b9805a" testName="StdDevViolationWarningWhenVariationIsLow" computerName="COMP" duration="00:00:00.0004271" startTime="2012-12-19T10:43:59.1754260+01:00" endTime="2012-12-19T10:43:59.1784263+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1056c699-04bd-4fe3-8f82-76971eed2c56">
+    </UnitTestResult>
+    <UnitTestResult executionId="fb555465-a28f-4783-99eb-1634cfb60458" testId="de8bb1d0-0f92-690f-2863-4f481f8f4284" testName="TestNormal" computerName="COMP" duration="00:00:00.0004409" startTime="2012-12-19T10:43:59.1924277+01:00" endTime="2012-12-19T10:43:59.1954280+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="fb555465-a28f-4783-99eb-1634cfb60458">
+    </UnitTestResult>
+    <UnitTestResult executionId="64741139-c067-4856-85d4-ffb7e14d9b68" testId="751042bd-0362-93b8-1076-bc31d24a5fc0" testName="TooFewDataPoints" computerName="COMP" duration="00:00:00.0007913" startTime="2012-12-19T10:43:59.2484333+01:00" endTime="2012-12-19T10:43:59.2694354+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="64741139-c067-4856-85d4-ffb7e14d9b68">
+    </UnitTestResult>
+    <UnitTestResult executionId="2d3bf990-9e19-46ff-938b-f403e57f35fe" testId="17183e0c-108b-77e4-8ad5-651984667c8b" testName="CalculateMaxAllowedAlertLimitTest" computerName="COMP" duration="00:00:00.0003905" startTime="2012-12-19T10:43:59.2984383+01:00" endTime="2012-12-19T10:43:59.3024387+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2d3bf990-9e19-46ff-938b-f403e57f35fe">
+    </UnitTestResult>
+    <UnitTestResult executionId="1eea7129-62f6-4e1a-b6bb-2b3fa6a44790" testId="8be2d4b7-9fd7-c4a8-a17d-5515fedc2a41" testName="computeCountAverageAndStdDevTestBad" computerName="COMP" duration="00:00:00.0003916" startTime="2012-12-19T10:43:59.3094394+01:00" endTime="2012-12-19T10:43:59.3114396+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1eea7129-62f6-4e1a-b6bb-2b3fa6a44790">
+    </UnitTestResult>
+    <UnitTestResult executionId="5f20bbef-2da8-4c0f-880a-53e7bda3d929" testId="3fc1e880-2bad-753e-e70c-b2565d4b7dec" testName="computeCountAverageAndStdDevTestGood" computerName="COMP" duration="00:00:00.0003638" startTime="2012-12-19T10:43:59.3184403+01:00" endTime="2012-12-19T10:43:59.3284413+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5f20bbef-2da8-4c0f-880a-53e7bda3d929">
+    </UnitTestResult>
+    <UnitTestResult executionId="29c2a22b-bb29-48de-83c8-7a76f3104226" testId="6592734c-ef35-a8a7-69e6-b6f3a002ebed" testName="GetFrequenceyDictionaryTest" computerName="COMP" duration="00:00:00.0121898" startTime="2012-12-19T10:43:59.3354420+01:00" endTime="2012-12-19T10:43:59.3504435+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="29c2a22b-bb29-48de-83c8-7a76f3104226">
+    </UnitTestResult>
+    <UnitTestResult executionId="bf58fc4f-a093-4243-bee9-f202e68ecf1d" testId="3767f99a-1872-5771-4ce2-e4b7ac01e08a" testName="GetFrequenceyListTest" computerName="COMP" duration="00:00:00.0079281" startTime="2012-12-19T10:43:59.3584443+01:00" endTime="2012-12-19T10:43:59.3684453+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bf58fc4f-a093-4243-bee9-f202e68ecf1d">
+    </UnitTestResult>
+    <UnitTestResult executionId="8c02d736-ed42-4de6-bdc3-c4db0d34502f" testId="14f6aa1d-9d84-3382-6723-21959127cc92" testName="IsMoreThanEightyPercentTestFalse" computerName="COMP" duration="00:00:00.0002959" startTime="2012-12-19T10:43:59.3754460+01:00" endTime="2012-12-19T10:43:59.3784463+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8c02d736-ed42-4de6-bdc3-c4db0d34502f">
+    </UnitTestResult>
+    <UnitTestResult executionId="54bb7b36-ddb4-4fca-95e2-9dcd9da123fb" testId="c4bd5102-93cc-c975-98ff-77fc8e18d5ad" testName="IsMoreThanEightyPercentTestTrue" computerName="COMP" duration="00:00:00.0002817" startTime="2012-12-19T10:43:59.3864471+01:00" endTime="2012-12-19T10:43:59.3894474+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="54bb7b36-ddb4-4fca-95e2-9dcd9da123fb">
+    </UnitTestResult>
+    <UnitTestResult executionId="1b376ad7-1f4f-4860-b1d8-9ebafc77f29f" testId="a6e7ffcd-94ad-67de-d48d-9aa290987999" testName="RoundOffTestHighNum" computerName="COMP" duration="00:00:00.0004275" startTime="2012-12-19T10:43:59.3964481+01:00" endTime="2012-12-19T10:43:59.4034488+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1b376ad7-1f4f-4860-b1d8-9ebafc77f29f">
+    </UnitTestResult>
+    <UnitTestResult executionId="cb041f52-76dd-4451-a4dd-231b9eda4211" testId="705e3a35-3024-eb7a-e99f-5d2ff065901a" testName="RoundOffTestLowNum" computerName="COMP" duration="00:00:00.0002946" startTime="2012-12-19T10:43:59.4784563+01:00" endTime="2012-12-19T10:43:59.4814566+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cb041f52-76dd-4451-a4dd-231b9eda4211">
+    </UnitTestResult>
+  </Results>
+</TestRun>

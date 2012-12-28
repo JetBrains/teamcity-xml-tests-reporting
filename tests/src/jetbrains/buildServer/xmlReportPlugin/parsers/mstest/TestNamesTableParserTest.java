@@ -33,6 +33,11 @@ public class TestNamesTableParserTest extends TestCase {
     doTest("tests.simple.q.dll");
   }
 
+  @Test
+  public void test_tw_24766() throws IOException {
+    doTest("tmpC349.tmp.teamcity-TW24766");
+  }
+
   public static File getTestData(final String path) throws FileNotFoundException {
     return MSTestBaseTest.getTestData(path);
   }

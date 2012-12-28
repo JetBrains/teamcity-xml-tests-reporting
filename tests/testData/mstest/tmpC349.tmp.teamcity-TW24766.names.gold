@@ -1,0 +1,23 @@
+TestUtils.LimitLearnerTest.AlertComputationDisabled (do not compute alert if alert disabled) 860388d3-a412-0775-0f5f-20ac1501405e
+TestUtils.LimitLearnerTest.AlertReducedToEightyPercentOfDanger (reduce alert if > 80 % of danger) 5fcf161d-4ff5-eae0-516f-50ec3e8ace1d
+TestUtils.LimitLearnerTest.DangerComputationDisabled (do not compute danger if danger disabled) ff9bf833-7e8c-566c-ecc9-35dad58d8028
+TestUtils.LimitLearnerTest.DangerComputationDisabledButChangedAnyway (recompute compute danger if needed because alert too high even if danger disabled) 4fc63c37-fd84-92da-e804-80dab821a08c
+TestUtils.LimitLearnerTest.MeasurementSpecificMultipliersUsed (Use multipliers from measurement, if they are set) 3b075ad3-9264-2d22-93e7-277c16caccc7
+TestUtils.LimitLearnerTest.NoStdDevViolationWarningWhenLimitIsHigh (do no warn on high std dev if limit is high ) 69e1dcc9-e99c-ad74-76c9-e879f080b2fc
+TestUtils.LimitLearnerTest.NoStdDevViolationWarningWhenVariationIsLowAndLimitIsLow (warn on low std dev if variation limit is low) d3d04e08-6e54-a627-dd2b-8124d5956e58
+TestUtils.LimitLearnerTest.NoStdDevViolationWarningWhenVariationIsLowAndWarnDisabled (do not warn on low std dev if warning is disabled) 7cd784cb-0203-1507-f2a7-d4c92818a4a3
+TestUtils.LimitLearnerTest.NormalNoStdDevViolationWarning (do not warn on std dev with defaults) be12d7f2-5357-6c01-4394-31c73158532c
+TestUtils.LimitLearnerTest.StdDevViolationHighWarning (warn on high std dev) 0c843e1a-c905-8e45-4ad4-3d9c5261339c
+TestUtils.LimitLearnerTest.StdDevViolationWarningDisabled (do not warn on high std dev if warning disabled) 9c79697a-e951-6a9b-27a2-5f105d74694d
+TestUtils.LimitLearnerTest.StdDevViolationWarningWhenVariationIsLow (warn on low std dev if variaton is low) 5fae844d-b29c-bb87-9e52-e28b36b9805a
+TestUtils.LimitLearnerTest.TestNormal (Standard computation of limits) de8bb1d0-0f92-690f-2863-4f481f8f4284
+TestUtils.LimitLearnerTest.TooFewDataPoints (warn about too few data points) 751042bd-0362-93b8-1076-bc31d24a5fc0
+TestUtils.MathUtilsTest.CalculateMaxAllowedAlertLimitTest 17183e0c-108b-77e4-8ad5-651984667c8b
+TestUtils.MathUtilsTest.GetFrequenceyDictionaryTest 6592734c-ef35-a8a7-69e6-b6f3a002ebed
+TestUtils.MathUtilsTest.GetFrequenceyListTest 3767f99a-1872-5771-4ce2-e4b7ac01e08a
+TestUtils.MathUtilsTest.IsMoreThanEightyPercentTestFalse 14f6aa1d-9d84-3382-6723-21959127cc92
+TestUtils.MathUtilsTest.IsMoreThanEightyPercentTestTrue c4bd5102-93cc-c975-98ff-77fc8e18d5ad
+TestUtils.MathUtilsTest.RoundOffTestHighNum (Rounding test for 10000.55556) a6e7ffcd-94ad-67de-d48d-9aa290987999
+TestUtils.MathUtilsTest.RoundOffTestLowNum (Rounding test for 1.55554) 705e3a35-3024-eb7a-e99f-5d2ff065901a
+TestUtils.MathUtilsTest.computeCountAverageAndStdDevTestBad 8be2d4b7-9fd7-c4a8-a17d-5515fedc2a41
+TestUtils.MathUtilsTest.computeCountAverageAndStdDevTestGood 3fc1e880-2bad-753e-e70c-b2565d4b7dec

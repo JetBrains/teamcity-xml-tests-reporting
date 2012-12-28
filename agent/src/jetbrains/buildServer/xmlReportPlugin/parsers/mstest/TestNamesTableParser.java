@@ -2,8 +2,10 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.mstest;
 
 import java.util.Arrays;
 import java.util.List;
+import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.util.XmlXppAbstractParser;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author Eugene Petrenko
@@ -83,6 +85,9 @@ class TestNamesTableParser extends XmlXppAbstractParser {
         public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
           final String id = reader.getAttribute("id");
           if (id == null) return reader.noDeep();
+
+          final String[] nameParts = new String[3]; // classname, name, Description
+
           return reader.visitChildren(
             elementsPath(new Handler() {
               public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
@@ -90,20 +95,45 @@ class TestNamesTableParser extends XmlXppAbstractParser {
                 //            adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter"
                 //            className="Test4.DerivedClass, tests.lib9, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
                 //            name="testMethod" />
-
-                final String testName = NameUtil.getTestName(
-                  reader.getAttribute("className"),
-                  reader.getAttribute("name"));
+                nameParts[0] = reader.getAttribute("className");
+                nameParts[1] = reader.getAttribute("name");
+                return reader.noDeep();
+              }
+            }, "TestMethod"),
+            elementsPath(new Handler() {
+              public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+                // <Description>warn on high std dev</Description>
+                return reader.visitText(new TextHandler() {
+                  public void setText(@NotNull final String text) {
+                    nameParts[2] = text;
+                  }
+                });
+              }
+            }, "Description")).than(
+            new XmlAction() {
+              public void apply() {
+                final String testName = getTestName(nameParts);
 
                 if (testName != null) {
                   myParserCallback.testMethodFound(id, testName);
                 }
-                return reader.noDeep();
               }
-          }, "TestMethod"));
+            });
         }
       }, "UnitTest"
     );
+  }
+
+  @Nullable
+  private String getTestName(@NotNull String[] nameParts) {
+    final String testName = NameUtil.getTestName(nameParts[0], nameParts[1]);
+    final String testDescription = nameParts[2];
+
+    if (StringUtil.isNotEmpty(testName) && StringUtil.isNotEmpty(testDescription)) return testName + " (" + testDescription + ")";
+    if (StringUtil.isNotEmpty(testName)) return testName;
+    if (StringUtil.isNotEmpty(testDescription)) return testDescription;
+
+    return null;
   }
 
   private XmlHandler getUnknownTest2008Handler(final String pattern) {
