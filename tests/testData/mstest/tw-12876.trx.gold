@@ -1,48 +1,48 @@
 TestSuite:MSTest
 -->Info: Found 302 test definitions.
-  Test:Logitech.Dvs.Messaging.Test.XmppExceptionTests.KnownCode
+  Test:Logitech.Dvs.Messaging.Test.XmppExceptionTests.KnownCode (CustomResultCodeString is formatted correctly for a known code.)
   EndTest:30
 ------------------------
-  Test:Logitech.Dvs.Messaging.Test.XmppExceptionTests.UnknownCode
+  Test:Logitech.Dvs.Messaging.Test.XmppExceptionTests.UnknownCode (CustomResultCodeString is formatted correctly for an unknown code.)
   EndTest:1
 ------------------------
-  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_CustomResultCode
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_CustomResultCode (Send extracts the custom result code (if any) to the exception's CustomResultCode property.)
   EndTest:3306
 ------------------------
-  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_CustomResultData
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_CustomResultData (Send extracts the custom result data (if any) to the exception's CustomResultData property.)
   EndTest:4
 ------------------------
-  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapBadRequestPacketException
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapBadRequestPacketException (Send maps BadRequestPacketException to HTTP 400.)
   EndTest:8
 ------------------------
-  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapFeatureNotImplementedPacketException
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapFeatureNotImplementedPacketException (Send maps FeatureNotImplementedPacketException to HTTP 501.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapForbiddenPacketException
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapForbiddenPacketException (Send maps ForbiddenPacketException to HTTP 403.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapItemNotFoundPacketException
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapItemNotFoundPacketException (Send maps ItemNotFoundPacketException to HTTP 404.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapPacketException
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapPacketException (Send maps other packet exceptions to HTTP 500.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapServiceUnavailablePacketException
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapServiceUnavailablePacketException (Send maps ServiceUnavailablePacketException to HTTP 503.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapStreamException
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapStreamException (Send maps other stream exceptions to HTTP 500.)
   EndTest:3
 ------------------------
-  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapTimeoutException
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapTimeoutException (Send maps TimeoutException to HTTP 408.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapXMPPException
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_MapXMPPException (Send maps other XMPP exceptions to HTTP 500.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_OtherException
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_OtherException (Send DOES NOT map non-XMPP exceptions.)
   EndTest:6
 ------------------------
-  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_ResultTypeMismatch
+  Test:Logitech.Dvs.Messaging.Test.XmppMessageManagerTests.Send_ResultTypeMismatch (Send throws if the result type is not what is expected.)
   EndTest:6
 ------------------------
   Test:Logitech.Dvs.Entities.Test.DvsEntityContextTests.GetOptInList
@@ -75,412 +75,412 @@ TestSuite:MSTest
   Test:Logitech.Dvs.Entities.Test.DvsEntityContextTests.ToUserEntity_NoPrinciple
   EndTest:1
 ------------------------
-  Test:Logitech.Dvs.Test.FileObjectStoreTests.FileNameSafe
+  Test:Logitech.Dvs.Test.FileObjectStoreTests.FileNameSafe (Sanitizes keys for use as file names.)
   EndTest:141
 ------------------------
-  Test:Logitech.Dvs.Test.FileObjectStoreTests.PutObject
+  Test:Logitech.Dvs.Test.FileObjectStoreTests.PutObject (Stores objects on Put.)
   EndTest:3
 ------------------------
-  Test:Logitech.Dvs.Test.FileObjectStoreTests.Remove
+  Test:Logitech.Dvs.Test.FileObjectStoreTests.Remove (Removes objects when requested.)
   EndTest:5
 ------------------------
-  Test:Logitech.Dvs.Test.FileObjectStoreTests.Retry
+  Test:Logitech.Dvs.Test.FileObjectStoreTests.Retry (Is resilient to IOExceptions.)
   EndTest:309
 ------------------------
-  Test:Logitech.Dvs.Test.FileObjectStoreTests.RetryLimited
+  Test:Logitech.Dvs.Test.FileObjectStoreTests.RetryLimited (Eventually fails with too many IOExceptions.)
   EndTest:516
 ------------------------
-  Test:Logitech.Dvs.Test.FileObjectStoreTests.RoundTrip
+  Test:Logitech.Dvs.Test.FileObjectStoreTests.RoundTrip (Round-trips objects.)
   EndTest:12
 ------------------------
-  Test:Logitech.Dvs.Test.FileSharedStorageTests.BasePathParent
+  Test:Logitech.Dvs.Test.FileSharedStorageTests.BasePathParent (A path can't go outside of the storage's base path by using parent.)
   EndTest:11
 ------------------------
-  Test:Logitech.Dvs.Test.FileSharedStorageTests.BasePathSlash
+  Test:Logitech.Dvs.Test.FileSharedStorageTests.BasePathSlash (A path can't go outside of the storage's base path by starting with slash.)
   EndTest:4
 ------------------------
-  Test:Logitech.Dvs.Test.FileSharedStorageTests.CreateFile
+  Test:Logitech.Dvs.Test.FileSharedStorageTests.CreateFile (CreateFile creates a file at the specified location.)
   EndTest:4
 ------------------------
-  Test:Logitech.Dvs.Test.FileSharedStorageTests.CreateFileAndDirectory
+  Test:Logitech.Dvs.Test.FileSharedStorageTests.CreateFileAndDirectory (A stream can be created even if directories don't exist.)
   EndTest:7
 ------------------------
-  Test:Logitech.Dvs.Test.FileSharedStorageTests.CreateFileOverwrite
+  Test:Logitech.Dvs.Test.FileSharedStorageTests.CreateFileOverwrite (CreateFile overwrites any file at the specified location.)
   EndTest:8
 ------------------------
-  Test:Logitech.Dvs.Test.FileSharedStorageTests.DeleteFile
+  Test:Logitech.Dvs.Test.FileSharedStorageTests.DeleteFile (DeleteFile deletes a file at the specified location.)
   EndTest:5
 ------------------------
-  Test:Logitech.Dvs.Test.FileSharedStorageTests.DeleteNoFile
+  Test:Logitech.Dvs.Test.FileSharedStorageTests.DeleteNoFile (DeleteFile doesn't throw deleting a non-existent file.)
   EndTest:3
 ------------------------
   Test:Logitech.Dvs.Test.FluentXmlExtensionsExamples.TestMethod1
   EndTest:1
 ------------------------
-  Test:Logitech.Dvs.Test.FluentXmlExtensionsTest.AddElemActionNull
+  Test:Logitech.Dvs.Test.FluentXmlExtensionsTest.AddElemActionNull (Calling add element with a null parent never invokes the action and returns null)
   EndTest:9
 ------------------------
-  Test:Logitech.Dvs.Test.FluentXmlExtensionsTest.AddElemActionWorks
+  Test:Logitech.Dvs.Test.FluentXmlExtensionsTest.AddElemActionWorks (Calling add element with an action returns the parent node)
   EndTest:29
 ------------------------
-  Test:Logitech.Dvs.Test.FluentXmlExtensionsTest.AddElementAppends
+  Test:Logitech.Dvs.Test.FluentXmlExtensionsTest.AddElementAppends (Append appends and returns the new node)
   EndTest:8
 ------------------------
-  Test:Logitech.Dvs.Test.FluentXmlExtensionsTest.AddElemNull
+  Test:Logitech.Dvs.Test.FluentXmlExtensionsTest.AddElemNull (Calling add element with a null parent results in a null result)
   EndTest:1
 ------------------------
-  Test:Logitech.Dvs.Test.FluentXmlExtensionsTest.AddElemWorks
+  Test:Logitech.Dvs.Test.FluentXmlExtensionsTest.AddElemWorks (Calling add element returns the added node)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Test.VideoFileServiceTests.MergeEnumerable_EliminatesDuplicates
+  Test:Logitech.Dvs.Test.VideoFileServiceTests.MergeEnumerable_EliminatesDuplicates (MergeEnumerable eliminates duplicates.)
   EndTest:41
 ------------------------
-  Test:Logitech.Dvs.Test.VideoFileServiceTests.MergeEnumerable_Multiple
+  Test:Logitech.Dvs.Test.VideoFileServiceTests.MergeEnumerable_Multiple (MergeEnumerable can enumerate a multiple sorted IEnumerable in sorted order.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Test.VideoFileServiceTests.MergeEnumerable_Single
+  Test:Logitech.Dvs.Test.VideoFileServiceTests.MergeEnumerable_Single (MergeEnumerable can enumerate a single IEnumerable correctly.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.CameraIPCountryUpdated
+  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.CameraIPCountryUpdated (The country calculated from the IP address is automatically updated on any camera update.)
   EndTest:1438
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.FirmwareHistoryAdded
+  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.FirmwareHistoryAdded (A new firmware history entry is created if the firmware version is different.)
   EndTest:91
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.FirmwareHistoryUnchanged
+  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.FirmwareHistoryUnchanged (A new firmware history entry is NOT created if the firmware version is the same.)
   EndTest:16
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.NewCamera
+  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.NewCamera (Updating a non-existent camera creates a new one.)
   EndTest:30
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.NewCameraInternalIP
+  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.NewCameraInternalIP (Optional internal IP address is set when a camera is created.)
   EndTest:17
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.UpdateCamera
+  Test:Logitech.Dvs.Web.Test.CameraAdapterTests.UpdateCamera (An existing camera can be updated with new values.)
   EndTest:11
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.GetPtz
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.GetPtz (The camera service can retrieve PTZ for a camera.)
   EndTest:620
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.GetPtz_BadMac
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.GetPtz_BadMac (The camera service throws (400) for a bad MAC.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.GetPtz_NotAvailable
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.GetPtz_NotAvailable (The camera service throws (503) if the camera is not available when the XMPP is sent.)
   EndTest:15
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.GetPtz_NotFound
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.GetPtz_NotFound (The camera service throws (404) for an unknown MAC.)
   EndTest:5
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.GetPtz_Offline
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.GetPtz_Offline (The camera service throws (503) for an offline camera.)
   EndTest:6
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.UpdatePtz
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.UpdatePtz (The camera service can update PTZ for a camera.)
   EndTest:14
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.UpdatePtz_BadMac
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.UpdatePtz_BadMac (The camera service throws (400) for a bad MAC.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.UpdatePtz_NotFound
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.UpdatePtz_NotFound (The camera service throws (404) for an unknown MAC.)
   EndTest:11
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.UpdatePtz_Offline
+  Test:Logitech.Dvs.Web.Test.CameraServicePtzTests.UpdatePtz_Offline (The camera service throws (503) for an offline camera.)
   EndTest:11
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraServiceTest.NewCameraSite
+  Test:Logitech.Dvs.Web.Test.CameraServiceTest.NewCameraSite (Optional site is set when a camera is created.)
   EndTest:146
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraServiceTest.NewSite
+  Test:Logitech.Dvs.Web.Test.CameraServiceTest.NewSite (The camera's site is created if it doesn't exist.)
   EndTest:161
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraServiceTest.NonExistingCameraPresence
+  Test:Logitech.Dvs.Web.Test.CameraServiceTest.NonExistingCameraPresence (Presence can't be updated for a non-existing camera.)
   EndTest:19
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraServiceTest.UpdatePresence_StatusChanged
+  Test:Logitech.Dvs.Web.Test.CameraServiceTest.UpdatePresence_StatusChanged (Presence updates OnlineStatusChanged if available has changed)
   EndTest:24
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CameraServiceTest.UpdatePresence_StatusNotChanged
+  Test:Logitech.Dvs.Web.Test.CameraServiceTest.UpdatePresence_StatusNotChanged (Presence doesn't update OnlineStatusChanged if available hasn't changed)
   EndTest:15
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ChunkOutputStreamTests.LengthFromHeader
+  Test:Logitech.Dvs.Web.Test.ChunkOutputStreamTests.LengthFromHeader (The stream Length comes from the header chunk.)
   EndTest:84
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ChunkOutputStreamTests.LengthTimeout
+  Test:Logitech.Dvs.Web.Test.ChunkOutputStreamTests.LengthTimeout (Getting the Length throws if the header chunk doesn't exist within the timeout.)
   EndTest:284
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ChunkOutputStreamTests.ReadAll
+  Test:Logitech.Dvs.Web.Test.ChunkOutputStreamTests.ReadAll (The stream encapsulates multiple chunks as a single stream.)
   EndTest:10
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipFromCamera
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipFromCamera (GetClip successfully retrieves the specified clip from the camera (when not available from storage) and redirects.)
   EndTest:381
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipFromCameraOffline
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipFromCameraOffline (GetClip throws (503) if the clip needs to come from the camera, but the camera is offline.)
   EndTest:20
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipFromStorage
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipFromStorage (GetClip successfully retrieves the specified clip from storage (when available) and redirects.)
   EndTest:18
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipHostOverride
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipHostOverride (GetClip redirects to the correct host when the hostOverride parameter is included.)
   EndTest:15
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipInvalidMac
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipInvalidMac (GetClip throws (400) if the MAC address is invalid.)
   EndTest:8
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipNoMac
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipNoMac (GetClip throws (400) if the MAC address is not specified.)
   EndTest:7
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipNoMediaId
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipNoMediaId (GetClip throws (400) if the media id address is not specified.)
   EndTest:8
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipToDestination
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipToDestination (GetClip indirectly retrieves the clip from the camera if an upload destination is supplied.)
   EndTest:22
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipUnknownMac
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetClipUnknownMac (GetClip throws (404) if the MAC address doesn't refer to a known camera.)
   EndTest:20
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetShareStatus
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetShareStatus (GetShareStatus returns status for a known token.)
   EndTest:12
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetShareStatusRemove
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetShareStatusRemove (GetShareStatus removes the status object when the share is completed.)
   EndTest:9
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetShareStatusUnknown
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.GetShareStatusUnknown (GetShareStatus throws (404) for an unknown status token.)
   EndTest:8
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeFromCamera
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeFromCamera (ShareToYouTube submits the specified clip from the camera (when not available from storage) and returns status.)
   EndTest:27
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeFromCameraOffline
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeFromCameraOffline (ShareToYouTube throws (503) if the clip needs to come from the camera, but the camera is offline.)
   EndTest:17
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeFromStorage
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeFromStorage (ShareToYouTube submits the specified clip from storage (when available) and returns status.)
   EndTest:9
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeInvalidMac
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeInvalidMac (ShareToYouTube throws (400) if the MAC address is invalid.)
   EndTest:7
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeNoMac
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeNoMac (ShareToYouTube throws (400) if the MAC address is not specified.)
   EndTest:4
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeNoMediaId
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeNoMediaId (ShareToYouTube throws (400) if the media id address is not specified.)
   EndTest:7
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeStatusUrl
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeStatusUrl (ShareToYouTube strips any request query parameters when building the status location URL.)
   EndTest:14
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeUnknownMac
+  Test:Logitech.Dvs.Web.Test.ClipServiceTests.ShareToYouTubeUnknownMac (ShareToYouTube throws (404) if the MAC address doesn't refer to a known camera.)
   EndTest:11
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.CreateOrUpdateCommander_BadId
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.CreateOrUpdateCommander_BadId (CreateOrUpdateCommander throws if id is bad)
   EndTest:193
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.CreateOrUpdateCommander_Create
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.CreateOrUpdateCommander_Create (CreateOrUpdateCommander throws if id is bad)
   EndTest:55
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.CreateOrUpdateCommander_MissingRequired
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.CreateOrUpdateCommander_MissingRequired (CreateOrUpdateCommander throws if empty argument)
   EndTest:68
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.CreateOrUpdateCommander_UpdateModified
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.CreateOrUpdateCommander_UpdateModified (CreateOrUpdateCommander throws if id is bad)
   EndTest:17
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.CreateOrUpdateCommander_UpdateNotModified
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.CreateOrUpdateCommander_UpdateNotModified (CreateOrUpdateCommander throws if id is bad)
   EndTest:12
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommanderById_BadRequest
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommanderById_BadRequest (Tests)
   EndTest:5
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommanderById_Found
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommanderById_Found (GetCommanderByID_Found)
   EndTest:82
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommanderById_NotFound
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommanderById_NotFound (Tests)
   EndTest:9
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommandersByQuery_NoCommanders
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommandersByQuery_NoCommanders (GetCommandersByQuery throws if username is not specified)
   EndTest:29
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommandersByQuery_NoUserName
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommandersByQuery_NoUserName (GetCommandersByQuery throws if username is not specified)
   EndTest:3
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommandersByQuery_WithCommanders
+  Test:Logitech.Dvs.Web.Test.CommanderServiceTest.GetCommandersByQuery_WithCommanders (GetCommandersByQuery throws if username is not specified)
   EndTest:14
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.CreateProductKeyBatch_BatchEntity
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.CreateProductKeyBatch_BatchEntity (CreateProductKeyBatch creates a new product key batch entity.)
   EndTest:274
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.CreateProductKeyBatch_Count
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.CreateProductKeyBatch_Count (CreateProductKeyBatch generates the right number of keys.)
   EndTest:30
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.CreateProductKeyBatch_InvalidProduct
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.CreateProductKeyBatch_InvalidProduct (CreateProductKeyBatch throws if the specified product ID is invalid.)
   EndTest:9
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.CreateProductKeyBatch_InvalidProductKeyCategory
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.CreateProductKeyBatch_InvalidProductKeyCategory (CreateProductKeyBatch throws if the specified product key category ID is invalid.)
   EndTest:11
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfo_Malformed
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfo_Malformed (GetKeyInfo throws if the specified key is malformed.)
   EndTest:5
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfo_NotFound
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfo_NotFound (GetKeyInfo throws if the specified key is not in the database.)
   EndTest:10
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfo_Unused
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfo_Unused (GetKetInfo returns detail information about an unused key.)
   EndTest:19
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfo_Used
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfo_Used (GetKetInfo returns registration detail information about a used key.)
   EndTest:136
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfoForBatchCsv_AllKeys
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfoForBatchCsv_AllKeys (GetKeyInfoForBatchCsv gets all the keys for the specified batch.)
   EndTest:58
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfoForBatchCsv_BatchNotFound
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfoForBatchCsv_BatchNotFound (GetKeyInfoForBatchCsv throws if a batch ID is not found.)
   EndTest:12
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfoForBatchCsv_BatchNotSpecified
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetKeyInfoForBatchCsv_BatchNotSpecified (GetKeyInfoForBatchCsv throws if a batch ID is not specified.)
   EndTest:4
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductKeyBatches_All
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductKeyBatches_All (GetProductKeyBatches returns all batches when a batch ID is NOT specified.)
   EndTest:35
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductKeyBatches_NotFound
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductKeyBatches_NotFound (GetProductKeyBatches - throws if batch not found)
   EndTest:10
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductKeyBatches_One
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductKeyBatches_One (GetProductKeyBatches returns a single batch when a batch ID is specified.)
   EndTest:35
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductKeyCategories_ToProductKeyCategoryInfoCollection
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductKeyCategories_ToProductKeyCategoryInfoCollection (GetProductKeyCategories - tests the mapping of ProductKeyCategory Entities to ProductKeyCategoryInfoCollection)
   EndTest:18
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistration_ById
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistration_ById (GetProductRegistration_ById - returns the product info)
   EndTest:72
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistration_Invalid
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistration_Invalid (GetProductRegistration - throws if the guid is invalid)
   EndTest:6
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistration_NotFound
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistration_NotFound (GetProductRegistration_NotFound - throws for productregistration not found)
   EndTest:16
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistrationByUser_All
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistrationByUser_All (GetProductRegistrationByUser - returns all products for the user)
     Fail:Test method Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistrationByUser_All threw exception:  System.NullReferenceException: Object reference not set to an instance of an object.. Message:     at Logitech.Dvs.Web.Services.CommerceService.GetProductRegistrationsByUser() in f:\TeamCity\buildAgent\work\eee3f59bf291369f\Logitech\Dvs\Web\Services\CommerceService.cs:line 429
    at Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistrationByUser_All() in f:\TeamCity\buildAgent\work\eee3f59bf291369f\Logitech\Dvs\Web\Test\CommerceServiceTests.cs:line 1262
 
   EndTest:54
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistrationByUser_UserNotFound
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistrationByUser_UserNotFound (GetProductRegistrationByUser - throws if user is not found)
     Fail:Test method Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistrationByUser_UserNotFound threw exception:  System.NullReferenceException: Object reference not set to an instance of an object.. Message:     at Logitech.Dvs.Web.Services.CommerceService.GetProductRegistrationsByUser() in f:\TeamCity\buildAgent\work\eee3f59bf291369f\Logitech\Dvs\Web\Services\CommerceService.cs:line 429
    at Logitech.Dvs.Web.Test.CommerceServiceTests.GetProductRegistrationByUser_UserNotFound() in f:\TeamCity\buildAgent\work\eee3f59bf291369f\Logitech\Dvs\Web\Test\CommerceServiceTests.cs:line 1210
 
   EndTest:8
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProducts_ToProductInfoCollection
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.GetProducts_ToProductInfoCollection (GetProducts - tests the mapping of Product Entities to ProductInfoCollection)
   EndTest:53
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_AlreadyRegistered
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_AlreadyRegistered (RegisterKey throws if the key is registered to a different user)
   EndTest:42
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_Malformed
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_Malformed (RegisterKey throws if the supplied keys is malformed.)
   EndTest:4
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_NotFound
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_NotFound (RegisterKey throws if the supplied keys is not in the database.)
   EndTest:15
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_Twice
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_Twice (RegisterKey doesn't change the expiration date if registration is repeated.)
   EndTest:24
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_Unused
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_Unused (RegisterKey registers the unused product key for the user)
   EndTest:66
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_UserNotFound
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RegisterKey_UserNotFound (RegisterKey throws if the supplied user is not in the database.)
   EndTest:22
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RevokeKey_Malformed
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RevokeKey_Malformed (RevokeKey throws if the specified key is malformed.)
   EndTest:3
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RevokeKey_NotFound
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RevokeKey_NotFound (RevokeKey throws if the specified key is not in the database.)
   EndTest:13
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RevokeKey_Twice
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RevokeKey_Twice (RevokeKey doesn't overwrite the cancel date for a registration if it was already canceled.)
   EndTest:20
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RevokeKey_Unused
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RevokeKey_Unused (RevokeKey marks an unused key as such.)
   EndTest:16
 ------------------------
-  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RevokeKey_Used
+  Test:Logitech.Dvs.Web.Test.CommerceServiceTests.RevokeKey_Used (RevokeKey cancels the associated product registration if the key has been used.)
   EndTest:19
 ------------------------
-  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.Authenticate
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.Authenticate (A request with a correct password digest is authenticated.)
   EndTest:115
 ------------------------
-  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateBadNOnceEmpty
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateBadNOnceEmpty (A request with a bad nonce gets a 401.)
   EndTest:11
 ------------------------
-  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateBadNOnceFormat
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateBadNOnceFormat (A request with a bad nonce gets a 401.)
   EndTest:3
 ------------------------
-  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateBadNOnceNotHex
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateBadNOnceNotHex (A request with a bad nonce gets a 401.)
   EndTest:3
 ------------------------
-  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateBadNOnceShort
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateBadNOnceShort (A request with a bad nonce gets a 401.)
   EndTest:3
 ------------------------
-  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateTimeout
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateTimeout (An expired nonce results in 401.)
   EndTest:10
 ------------------------
-  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateUnknownUser
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateUnknownUser (A request with an unknown user gets a 401.)
   EndTest:9
 ------------------------
-  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateWrongPassword
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateWrongPassword (A request with an incorrect password digest gets a 401.)
   EndTest:8
 ------------------------
-  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateXHeader
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.AuthenticateXHeader (An 'X-Authorization' header is also acceptable.)
   EndTest:5
 ------------------------
-  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.DirectivesValidated
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.DirectivesValidated (ParseDirectives throws an exception 400 if a required directive is missing.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.ParseDirectives
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.ParseDirectives (ParseDirectives parses the directives out of an Authorization header.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.ToFromHex
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.ToFromHex (Data can be round-tripped through hexadecimal conversion.)
   EndTest:5
 ------------------------
-  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.UnauthenticatedException
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.UnauthenticatedException (AuthenticateCurrentRequest throws an exception 401 in response to a request without authentication.)
   EndTest:6
 ------------------------
-  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.UnauthenticatedHeader
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.UnauthenticatedHeader (AuthenticateCurrentRequest adds the WWW-Authenticate header in response to a request without authentication.)
   EndTest:6
 ------------------------
-  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.WrongAuthException
+  Test:Logitech.Dvs.Web.Test.DigestAuthenticationTest.WrongAuthException (AuthenticateCurrentRequest throws an exception 400 for non 'Digest' authorization.)
   EndTest:6
 ------------------------
-  Test:Logitech.Dvs.Web.Test.EncryptionServiceTests.RoundTrip
+  Test:Logitech.Dvs.Web.Test.EncryptionServiceTests.RoundTrip (Data can be round-tripped through encryption and decryption.)
   EndTest:77
 ------------------------
-  Test:Logitech.Dvs.Web.Test.EncryptionServiceTests.RoundTripBase64
+  Test:Logitech.Dvs.Web.Test.EncryptionServiceTests.RoundTripBase64 (Data can be round-tripped through encryption and decryption using the base 64 variations.)
   EndTest:44
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.ActiveProductTest
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.ActiveProductTest (Validates that only the active product is selected.)
   EndTest:19
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.ActiveProductTodayTest
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.ActiveProductTodayTest (Validates that only the active product is selected.)
   EndTest:8
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetActiationDateNoProducts
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetActiationDateNoProducts (Validates that today is returned if there are no active products.)
   EndTest:31
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetActivationDateWithActiveProduct
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetActivationDateWithActiveProduct (Validates that the correct activation date is returned when there is a single active product)
   EndTest:20
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetActivationDateWithMultipleProducts
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetActivationDateWithMultipleProducts (Validates that the correct activation date is returned when there are multiple product keys queued up.)
   EndTest:29
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetTrialTest
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetTrialTest (This validates the helper method that gets the current trial registration from a list of registrations.)
   EndTest:25
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetUnconfirmedCancelledProductTest
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetUnconfirmedCancelledProductTest (Validates that the latest unconfirmed and cancelled product is returned.)
   EndTest:12
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetUnconfirmedExpiredProductTest
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.GetUnconfirmedExpiredProductTest (Validates that the latest unconfirmed and expired product is returned.)
   EndTest:13
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.NoActiveProductTest
+  Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.NoActiveProductTest (Validates that only active products are returned.)
   EndTest:6
 ------------------------
   Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.NoRegisteredProducts
@@ -501,46 +501,46 @@ TestSuite:MSTest
   Test:Logitech.Dvs.Web.Test.FeatureSecurityServiceTests.SingleExpiredTrial
   EndTest:25
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.DownloadNotFound
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.DownloadNotFound (Download responds with Not Found (HTTP 404) if the requested file doesn't exist within the timeout.)
   EndTest:272
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.DownloadSave
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.DownloadSave (Download may include a content-disposition header if requested.)
   EndTest:35
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.DownloadSaveComplexQuery
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.DownloadSaveComplexQuery (Download correctly parses the file name for content-disposition even when the query string is complex.)
   EndTest:13
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.DownloadSaveNoFileName
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.DownloadSaveNoFileName (Download treats the save as file name as optional.)
   EndTest:11
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.DownloadSuccess
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.DownloadSuccess (Download can stream a previously uploaded file.)
   EndTest:20
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.MethodNotAllowed
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.MethodNotAllowed (Only PUT, POST and GET are allowed.)
   EndTest:9
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadBodyLarge
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadBodyLarge (The body chunk is written corectly on an upload where the body is larger than the buffer size.)
   EndTest:22
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadBodySmall
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadBodySmall (The body chunk is written corectly on an upload where the body is smaller than the buffer size.)
   EndTest:7
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadEof
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadEof (The EOF chunk is written correctly on an upload.)
   EndTest:8
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadHeader
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadHeader (The header chunk is written correctly on an upload.)
   EndTest:9
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadNoData
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadNoData (Upload fails if the content-length header value is zero.)
   EndTest:5
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadNoType
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadNoType (Upload fails if the content-type header value is missing.)
   EndTest:6
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadPut
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadPut (Upload works with PUT as well as POST.)
   EndTest:11
 ------------------------
-  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadSuccess
+  Test:Logitech.Dvs.Web.Test.FileRelayServiceTests.UploadSuccess (Upload reports success (HTTP 201) when successful.)
   EndTest:7
 ------------------------
   Test:Logitech.Dvs.Web.Test.HostIPServiceTest.TestGetCountry
@@ -630,109 +630,109 @@ TestSuite:MSTest
   Test:Logitech.Dvs.Web.Test.MembershipServiceTest.TestObfuscateId
   EndTest:22655
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.ExternalCredentialsTests.Delete
+  Test:Logitech.Dvs.Web.Test.Model.ExternalCredentialsTests.Delete (Can delete existing credentials for the current user.)
   EndTest:218
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.ExternalCredentialsTests.DeleteNone
+  Test:Logitech.Dvs.Web.Test.Model.ExternalCredentialsTests.DeleteNone (Is OK to delete non-existent credentials (no exception thrown or anything).)
   EndTest:8
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.ExternalCredentialsTests.LoadExisting
+  Test:Logitech.Dvs.Web.Test.Model.ExternalCredentialsTests.LoadExisting (Can load existing credentials for the current user.)
   EndTest:25
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.ExternalCredentialsTests.SaveNew
+  Test:Logitech.Dvs.Web.Test.Model.ExternalCredentialsTests.SaveNew (Can save new credentials for the current user.)
   EndTest:26
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.ExternalCredentialsTests.UpdateExisting
+  Test:Logitech.Dvs.Web.Test.Model.ExternalCredentialsTests.UpdateExisting (Can update existing credentials for the current user.)
   EndTest:21
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.CategoriesFromCache
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.CategoriesFromCache (Retrieves the list of YouTube categories from the cache if available.)
   EndTest:147
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.GetCategoriesFromYouTube
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.GetCategoriesFromYouTube (Retrieves the list of YouTube categories from YouTube if not available in the cache.)
   EndTest:12
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.NoSavedUserName
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.NoSavedUserName (Doesn't include the user name part of saved credentials if they don't exist.)
   EndTest:7
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.SavedUserName
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.SavedUserName (Includes the user name part of saved credentials if they exist.)
   EndTest:6
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareAutoCategory
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareAutoCategory (Fills in a default category if none is provided when sharing.)
   EndTest:66
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareAutoKeywords
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareAutoKeywords (Fills in key words if none are provided when sharing.)
   EndTest:4
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareMarketingTag
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareMarketingTag (Appends a marketing tag to the description when sharing.)
   EndTest:4
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareNoCredentials
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareNoCredentials (Throws (401) if credentials are not provided and there aren't saved credentials.)
   EndTest:5
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareNoTitle
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareNoTitle (Throws (400) if a title is not provided when sharing.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareSaveCredentials
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareSaveCredentials (Saves the user's credentials (with password encrypted) if told to when sharing.)
   EndTest:6
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareUseSavedCredentials
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.ShareUseSavedCredentials (Uses saved credentials if none are provided.)
   EndTest:6
 ------------------------
-  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.StatusPending
+  Test:Logitech.Dvs.Web.Test.Model.YouTubeServiceTests.StatusPending (Sets a pending status when sharing is started.)
   EndTest:4
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeBad
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeBad (TryCanonicalize fails if the supplied key contains a bad character.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeBad2
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeBad2 (TryCanonicalize fails if the supplied key contains a bad character, even if the length comes out right.)
   EndTest:1
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeCase
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeCase (TryCanonicalize converts to upper case.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeDashes
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeDashes (TryCanonicalize removes dashes.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeLong
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeLong (TryCanonicalize fails if the supplied key is too long.)
   EndTest:1
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeShort
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeShort (TryCanonicalize fails if the supplied key is too short.)
   EndTest:1
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeWhiteSpace
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.CanonicalizeWhiteSpace (TryCanonicalize removes white space.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.FormatForDisplay
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.FormatForDisplay (FormatForDisplay adds helpful group dashes.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.GenerateDifferent
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.GenerateDifferent (Successive calls to generate create different keys.)
   EndTest:3
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.GenerateLength
+  Test:Logitech.Dvs.Web.Test.ProductKeyGeneratorTest.GenerateLength (Generate creates a product key of the expected length.)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ReadChunkManagerTests.FileExistsWaitCreated
+  Test:Logitech.Dvs.Web.Test.ReadChunkManagerTests.FileExistsWaitCreated (FileExists waits for the second file to exist before returning (it shows up later).)
   EndTest:32
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ReadChunkManagerTests.FileExistsWaitExists
+  Test:Logitech.Dvs.Web.Test.ReadChunkManagerTests.FileExistsWaitExists (FileExists waits for the second file to exist before returning (it already exists).)
   EndTest:5
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ReadChunkManagerTests.FileExistsWaitTimeout
+  Test:Logitech.Dvs.Web.Test.ReadChunkManagerTests.FileExistsWaitTimeout (FileExists times out if the second file doesn't exist in time.)
   EndTest:264
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ReadChunkManagerTests.GetNextEof
+  Test:Logitech.Dvs.Web.Test.ReadChunkManagerTests.GetNextEof (GetNextStream stops before the timeout if the EOF appears.)
   EndTest:4
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ResponseInspectorTests.ShouldWrapMessageFalse
+  Test:Logitech.Dvs.Web.Test.ResponseInspectorTests.ShouldWrapMessageFalse (ShouldWrapMessage is false when the request header is not there.)
   EndTest:371
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ResponseInspectorTests.ShouldWrapMessageFalse_BadValue
+  Test:Logitech.Dvs.Web.Test.ResponseInspectorTests.ShouldWrapMessageFalse_BadValue (ShouldWrapMessage false with non-boolean value)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ResponseInspectorTests.ShouldWrapMessageFalseWithValue
+  Test:Logitech.Dvs.Web.Test.ResponseInspectorTests.ShouldWrapMessageFalseWithValue (ShouldWrapMessage is false when the request header is there but has a value of false)
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Web.Test.ResponseInspectorTests.ShouldWrapMessageTrue
+  Test:Logitech.Dvs.Web.Test.ResponseInspectorTests.ShouldWrapMessageTrue (ShouldWrapMessage is true when the request header is there.)
   EndTest:1
 ------------------------
   Test:Logitech.Dvs.Web.Test.RoleSecurityAttributeTests.AllowRoles_IsAuthorized
@@ -756,106 +756,106 @@ TestSuite:MSTest
   Test:Logitech.Dvs.Web.Test.RoleSecurityAttributeTests.NotSet_IsAuthorized
   EndTest:1
 ------------------------
-  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.CallsAuthServiceWithUserId
+  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.CallsAuthServiceWithUserId (Calls auth service using the userid without throwing.)
   EndTest:15
 ------------------------
-  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.ResolveEntityEmptyStringTest
+  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.ResolveEntityEmptyStringTest (An empty userName throw an ArgumentException)
   EndTest:77
 ------------------------
-  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.ResolveEntityNullTest
+  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.ResolveEntityNullTest (A null userName throw an ArgumentException)
   EndTest:3
 ------------------------
   Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.ResolveNullUserThrows
   EndTest:3
 ------------------------
-  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.UserNameForDeviceUser
+  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.UserNameForDeviceUser (End User name is used when the device user is used)
   EndTest:25
 ------------------------
-  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.UserNameForEndUser
+  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.UserNameForEndUser (User name is used when the username is an end user)
   EndTest:14
 ------------------------
-  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.UserWithNoDvsEntityKeyReturnsNull
+  Test:Logitech.Dvs.Web.Test.RuntimeUserResolverTests.UserWithNoDvsEntityKeyReturnsNull (End User name is used when the device user is used)
   EndTest:8
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SiteAdapterTests.SiteToSiteInfoIsMapped
+  Test:Logitech.Dvs.Web.Test.SiteAdapterTests.SiteToSiteInfoIsMapped (Ensures that a site is properly mapped to a SiteInfo)
   EndTest:13
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SiteAdapterTests.ToExistingEntity
+  Test:Logitech.Dvs.Web.Test.SiteAdapterTests.ToExistingEntity (ToEntity gets an existing entity if the id's match and updates the name)
   EndTest:21
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SiteAdapterTests.ToNewEntity
+  Test:Logitech.Dvs.Web.Test.SiteAdapterTests.ToNewEntity (ToEntity gets a new site when the id's don't match)
   EndTest:15
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SiteServiceTests.ResourceIdIsBadOnDelete
+  Test:Logitech.Dvs.Web.Test.SiteServiceTests.ResourceIdIsBadOnDelete (Throws and exception if the siteid in the resource uri is bad)
   EndTest:272
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SiteServiceTests.ResourceIdIsBadOnUpdate
+  Test:Logitech.Dvs.Web.Test.SiteServiceTests.ResourceIdIsBadOnUpdate (Throws and exception if the siteid in the resource uri is bad)
   EndTest:3
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SiteServiceTests.ResourceIdMatchPutData
+  Test:Logitech.Dvs.Web.Test.SiteServiceTests.ResourceIdMatchPutData (Throws and exeption if the resourceid doesn't match the PUT data)
   EndTest:3
 ------------------------
   Test:Logitech.Dvs.Web.Test.SiteServiceTests.SiteChangeNotification
   EndTest:352
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SiteServiceTests.SiteNotFound
+  Test:Logitech.Dvs.Web.Test.SiteServiceTests.SiteNotFound (WebProtocolException is thrown when the site is not found)
   EndTest:14
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SiteServiceTests.TestDeleteSite
+  Test:Logitech.Dvs.Web.Test.SiteServiceTests.TestDeleteSite (Tests deletion of a site)
   EndTest:30
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SiteServiceTests.TestDeleteSiteSecurity
+  Test:Logitech.Dvs.Web.Test.SiteServiceTests.TestDeleteSiteSecurity (Tests that only the owner of the site can delete it)
   EndTest:16
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SiteServiceTests.UpdateSite
+  Test:Logitech.Dvs.Web.Test.SiteServiceTests.UpdateSite (Tests updating a site)
   EndTest:35
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.DeleteSupportUser_Succeeds
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.DeleteSupportUser_Succeeds (UpdateSupportUser removes the user from all support roles.)
   EndTest:135
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomer_First_Last
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomer_First_Last (Tests search by full name exact)
   EndTest:92
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_ExactEmail
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_ExactEmail (Tests exact email)
   EndTest:42
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_Last_Comma_First
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_Last_Comma_First (Tests search by full starts with)
   EndTest:48
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_LastName_StartsWith
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_LastName_StartsWith (Tests search by lastname starts with)
   EndTest:26
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_MacAddress
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_MacAddress (Tests mac address)
   EndTest:27
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_NoResults_LastName
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_NoResults_LastName (Tests no results lastname)
   EndTest:11
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_PartialEmail
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_PartialEmail (Tests starts with email)
   EndTest:11
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_ProductKey_Delimited
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.FindCustomers_ProductKey_Delimited (Tests search by product key)
   EndTest:14
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetCustomerDetailInfo_UserNotFound
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetCustomerDetailInfo_UserNotFound (GetCustomerDetailInfo throws if not found)
   EndTest:18
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetQueryIndexParam_Invalid
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetQueryIndexParam_Invalid (GetQueryIndexParam throws if invalid)
   EndTest:4
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetQueryIndexParam_OutOfRange
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetQueryIndexParam_OutOfRange (GetQueryIndexParam throws if invalid)
   EndTest:4
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetQueryPageSizeParam_OutOfRange
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetQueryPageSizeParam_OutOfRange (GetQueryPageSizeParam throws if invalid)
   EndTest:4
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetQueryPageSizeParam_ParseFails
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetQueryPageSizeParam_ParseFails (GetQueryPageSizeParam throws if invalid)
   EndTest:6
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetSupportUserList_ReturnAll
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetSupportUserList_ReturnAll (Assertion about behavior)
   EndTest:19
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetSupportUserList_ReturnAll_LocationNotFound
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.GetSupportUserList_ReturnAll_LocationNotFound (Assertion about behavior)
   EndTest:6
 ------------------------
   Test:Logitech.Dvs.Web.Test.SupportServiceTests.MixedRolesStillWork
@@ -873,19 +873,19 @@ TestSuite:MSTest
   Test:Logitech.Dvs.Web.Test.SupportServiceTests.SupportTechReturns0
   EndTest:2
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.UpdateSupportUser_Location_NotFound
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.UpdateSupportUser_Location_NotFound (UpdateSupportUser throws if location not found)
   EndTest:7
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.UpdateSupportUser_Location_Succeeds
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.UpdateSupportUser_Location_Succeeds (UpdateSupportUser update location)
   EndTest:6
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.UpdateSupportUser_Role_SupportAdmin
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.UpdateSupportUser_Role_SupportAdmin (UpdateSupportUser updates the role for a support admin)
   EndTest:5
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.UpdateSupportUser_Role_SupportManager
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.UpdateSupportUser_Role_SupportManager (UpdateSupportUser updates the role for a support manager)
   EndTest:4
 ------------------------
-  Test:Logitech.Dvs.Web.Test.SupportServiceTests.UpdateSupportUser_Role_SupportTech
+  Test:Logitech.Dvs.Web.Test.SupportServiceTests.UpdateSupportUser_Role_SupportTech (UpdateSupportUser updates the role for a support tech)
   EndTest:5
 ------------------------
   Test:Logitech.Dvs.Web.Test.TemplateTests.TestAlertTemplate_Image

@@ -1,6 +1,6 @@
 TestSuite:MSTest
 -->Info: Found 5 test definitions.
-  Test:Tests.CodeTests.PropertiesNames
+  Test:Tests.CodeTests.PropertiesNames (Проверка наличия в классе свойств, имена которых прописаны в PropertyName)
   EndTest:209
 ------------------------
   Test:Tests.CodeTests.DisplayableProperties
