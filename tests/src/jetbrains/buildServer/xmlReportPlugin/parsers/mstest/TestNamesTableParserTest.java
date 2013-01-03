@@ -59,7 +59,7 @@ public class TestNamesTableParserTest extends TestCase {
     Collections.sort(myTests);
 
     final String actual = StringUtil.convertLineSeparators(StringUtil.join(myTests, "\n"));
-    final String gold = StringUtil.convertLineSeparators(goldFile.exists() ? new String(FileUtil.loadFileText(goldFile)) : "");
+    final String gold = StringUtil.convertLineSeparators(goldFile.exists() ? FileUtil.readText(goldFile, "UTF-8") : "");
 
     try {
       assertEquals(gold, actual);
