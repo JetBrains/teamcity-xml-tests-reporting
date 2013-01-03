@@ -193,7 +193,7 @@ public class MSTestBaseTest extends TestCase {
     final File tempFile = new File(fGold.getPath() + ".tmp");
     FileUtil.writeFile(tempFile, actual);
 
-    final String sGold = StringUtil.convertLineSeparators(new String(FileUtil.loadFileText(fGold)));
+    final String sGold = StringUtil.convertLineSeparators(FileUtil.readText(fGold, "UTF-8"));
     final String sActual = StringUtil.convertLineSeparators(actual);
 
     assertEquals("Actual: " + sActual, sGold, sActual);
