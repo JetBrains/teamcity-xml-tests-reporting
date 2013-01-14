@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="61d26029-6c87-4909-90ec-76a9093a784c" name="Eugene.Petrenko@MUNIT-055 2013-01-14 18:20:55" runUser="LABS\Eugene.Petrenko" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Default Test Settings" id="a7f75ce9-fa92-4aae-a92a-6152aeca120b">
+    <Deployment userDeploymentRoot="C:\Users\eugene.petrenko\AppData\Local\Temp\test846027386\buildTmp" useDefaultDeploymentRoot="false" runDeploymentRoot="Eugene.Petrenko_MUNIT-055 2013-01-14 18_20_55" />
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2013-01-14T18:20:55.8016496+01:00" queuing="2013-01-14T18:20:56.0696496+01:00" start="2013-01-14T18:20:56.1326496+01:00" finish="2013-01-14T18:21:02.7666496+01:00" />
+  <ResultSummary outcome="Error">
+    <Counters total="2" executed="2" passed="1" error="1" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="TestMethod1" storage="c:\users\eugene.petrenko\appdata\local\temp\test1910448828\test\bin\debug\test.dll" id="794e72e6-c851-1697-e2fd-bf37b0a28cec">
+      <Execution id="e3fddd6a-7554-4786-8fca-ccf4d59f9fb4" />
+      <TestMethod codeBase="C:/Users/eugene.petrenko/AppData/Local/Temp/test1910448828/test/bin/Debug/test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="test.UnitTest1, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestMethod1" />
+    </UnitTest>
+    <UnitTest name="TestStofl" storage="c:\users\eugene.petrenko\appdata\local\temp\test1910448828\test\bin\debug\test.dll" id="ab4471e7-156b-8070-9530-35910aef5927">
+      <Execution id="0d6b7455-e6f1-44e9-865f-335c6e3d2daf" />
+      <TestMethod codeBase="C:/Users/eugene.petrenko/AppData/Local/Temp/test1910448828/test/bin/Debug/test.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="test.UnitTest1, test, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="TestStofl" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="794e72e6-c851-1697-e2fd-bf37b0a28cec" executionId="e3fddd6a-7554-4786-8fca-ccf4d59f9fb4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ab4471e7-156b-8070-9530-35910aef5927" executionId="0d6b7455-e6f1-44e9-865f-335c6e3d2daf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="e3fddd6a-7554-4786-8fca-ccf4d59f9fb4" testId="794e72e6-c851-1697-e2fd-bf37b0a28cec" testName="TestMethod1" computerName="MUNIT-055" duration="00:00:00.0102226" startTime="2013-01-14T18:20:56.1526496+01:00" endTime="2013-01-14T18:20:56.3076496+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e3fddd6a-7554-4786-8fca-ccf4d59f9fb4">
+    </UnitTestResult>
+    <UnitTestResult executionId="0d6b7455-e6f1-44e9-865f-335c6e3d2daf" testId="ab4471e7-156b-8070-9530-35910aef5927" testName="TestStofl" computerName="MUNIT-055" startTime="2013-01-14T18:20:56.3076496+01:00" endTime="2013-01-14T18:21:02.7386496+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0d6b7455-e6f1-44e9-865f-335c6e3d2daf">
+      <Output>
+        <ErrorInfo>
+          <Message>The agent process was stopped while the test was running.</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>

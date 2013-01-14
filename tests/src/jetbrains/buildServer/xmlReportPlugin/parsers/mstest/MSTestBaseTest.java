@@ -2,6 +2,7 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.mstest;
 
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.StringUtil;
+import jetbrains.buildServer.util.TestFor;
 import jetbrains.buildServer.xmlReportPlugin.TestUtil;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import junit.framework.TestCase;
@@ -19,6 +20,12 @@ import java.io.IOException;
  */
 
 public class MSTestBaseTest extends TestCase {
+
+  @Test
+  @TestFor(issues = "TW-25225")
+  public void test_stofl() throws IOException {
+    doTest("stofl.trx", "stofl.trx.gold");
+  }
 
   @Test
   public void test_TW_15210() throws IOException {

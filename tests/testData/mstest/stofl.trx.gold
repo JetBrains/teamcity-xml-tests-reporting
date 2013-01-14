@@ -1,0 +1,11 @@
+TestSuite:MSTest
+-->Info: Found 2 test definitions.
+  Test:test.UnitTest1.TestMethod1
+  EndTest:11
+------------------------
+  Test:test.UnitTest1.TestStofl
+    Fail:The agent process was stopped while the test was running. Message: null
+  EndTest:6000
+------------------------
+-->Info: 2 test(s) were reported
+EndSuite
