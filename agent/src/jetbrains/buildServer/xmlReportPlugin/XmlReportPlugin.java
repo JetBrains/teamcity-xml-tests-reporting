@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2012 JetBrains s.r.o.
+ * Copyright 2000-2013 JetBrains s.r.o.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,10 @@ import java.util.*;
 import java.util.concurrent.*;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
-import jetbrains.buildServer.util.*;
+import jetbrains.buildServer.util.DiagnosticUtil;
+import jetbrains.buildServer.util.EventDispatcher;
+import jetbrains.buildServer.util.FileUtil;
+import jetbrains.buildServer.util.NamedThreadFactory;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.TeamCityDuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
