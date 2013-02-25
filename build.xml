@@ -59,6 +59,7 @@
         <junit printsummary="on" fork="true" haltonfailure="false" haltonerror="false" failureproperty="failure_found"
                showoutput="true" maxmemory='256m'>
             <jvmarg value="-Dfindbugs=${findbugs}"/>
+            <jvmarg value="-XX:-HeapDumpOnOutOfMemoryError"/>
             <classpath>
                 <path refid="tests.runtime.module.classpath"/>
             </classpath>
