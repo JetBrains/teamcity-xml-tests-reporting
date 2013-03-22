@@ -168,4 +168,13 @@ public class XmlReportPluginUtil {
   public static boolean isLogInternalSystemError(@NotNull final Map<String, String> params) {
     return Boolean.parseBoolean(params.get(LOG_INTERNAL_SYSTEM_ERROR));
   }
+
+  public static boolean isInspectionType(@NotNull String type) {
+    return INSPECTIONS_TYPES.contains(type);
+  }
+
+  @Nullable
+  public static String getReportTypeName(@NotNull String type) {
+    return SUPPORTED_REPORT_TYPES.get(type);
+  }
 }

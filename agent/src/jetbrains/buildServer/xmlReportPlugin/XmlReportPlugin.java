@@ -35,6 +35,8 @@ import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
+
 
 public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProcessor {
   @NotNull
@@ -101,8 +103,13 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     if (getStepProcessingContext().finished) return;
 
      //here we check if this path is already monitored for reports of this type
+     // we also don't support processign two inspections type during one build
+    final String newType = getReportType(params);
+
     for (RulesContext context : getStepProcessingContext().rulesContexts) {
-      if (context.getRulesData().getType().equals(XmlReportPluginUtil.getReportType(params))) {
+      final String existingType = context.getRulesData().getType();
+
+      if (existingType.equals(newType)) {
         final Collection<File> paths = context.getRulesData().getRules().getPaths();
         if (paths.size() == 1) {
           if (paths.contains(rulesFile)) {
@@ -110,6 +117,12 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
             return;
           }
         }
+      }
+      if (XmlReportPluginUtil.isInspectionType(existingType) && XmlReportPluginUtil.isInspectionType(newType)) {
+        LoggingUtils
+          .warn(String.format("Two different inspections can not be processed during one build, skip %s reports", getReportTypeName(
+            newType)), getBuild().getBuildLogger());
+        return;
       }
     }
 
@@ -252,7 +265,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   }
 
   private Rules getRules(@NotNull Map<String, String> parameters) {
-    final String rulesStr = XmlReportPluginUtil.getXmlReportPaths(parameters);
+    final String rulesStr = getXmlReportPaths(parameters);
     if (rulesStr == null || rulesStr.length() == 0) {
       throw new RuntimeException("Rules are empty");
     }
@@ -442,12 +455,12 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     }
 
     public boolean isVerbose() {
-      return XmlReportPluginUtil.isOutputVerbose(myParameters);
+      return isOutputVerbose(myParameters);
     }
 
     @NotNull
     public LogAction getWhenNoDataPublished() {
-      return LogAction.getAction(XmlReportPluginUtil.whenNoDataPublished(myParameters));
+      return LogAction.getAction(whenNoDataPublished(myParameters));
     }
 
     @NotNull
@@ -460,11 +473,11 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
         @NotNull
         public String getType() {
-          return XmlReportPluginUtil.getReportType(myParameters);
+          return getReportType(myParameters);
         }
 
         public boolean isParseOutOfDate() {
-          return XmlReportPluginUtil.isParseOutOfDateReports(myParameters);
+          return isParseOutOfDateReports(myParameters);
         }
 
         public long getStartTime() {
@@ -482,7 +495,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     public ParseParameters getParseReportParameters() {
       return new ParseParameters() {
         public boolean isVerbose() {
-          return XmlReportPluginUtil.isOutputVerbose(myParameters);
+          return isOutputVerbose(myParameters);
         }
 
         @NotNull
@@ -498,7 +511,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         }
 
         private boolean isLogAsInternal() {
-          return XmlReportPluginUtil.isLogIsInternal(myParameters);
+          return isLogIsInternal(myParameters);
         }
 
         @NotNull
@@ -523,7 +536,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
         @NotNull
         public String getType() {
-          return XmlReportPluginUtil.getReportType(myParameters);
+          return getReportType(myParameters);
         }
 
         @NotNull
