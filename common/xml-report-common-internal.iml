@@ -7,6 +7,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="common" />
+    <orderEntry type="library" name="annotations.jar" level="project" />
   </component>
 </module>
 

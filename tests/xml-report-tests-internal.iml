@@ -37,7 +37,7 @@
     </orderEntry>
     <orderEntry type="module" module-name="agent-openapi" />
     <orderEntry type="module" module-name="runtime-util" />
-    <orderEntry type="library" name="IDEA-openapi" level="project" />
+    <orderEntry type="module" module-name="idea-obsolete-openapi" />
     <orderEntry type="module" module-name="common" />
     <orderEntry type="module" module-name="test-api" />
     <orderEntry type="module" module-name="common-impl" />
