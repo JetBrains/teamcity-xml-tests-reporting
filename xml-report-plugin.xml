@@ -113,6 +113,7 @@
   <path id="library.teamcity_utils.classpath">
     <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/annotations.jar"/>
     <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/util.jar"/>
+    <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/openapi.jar"/>
   </path>
   
   
