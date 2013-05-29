@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.nUnit;
 
+import jetbrains.buildServer.util.TestFor;
 import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
@@ -163,8 +164,8 @@ public class NUnitReportParserTest extends BaseParserTestCase {
       "EndSuite\n");
   }
 
-  //TW-7573: XML Report plugin not reporting correct results for NUnit results
   @Test
+  @TestFor(issues = "TW-7573")
   public void testNegativePassedTestNumberObserved() throws Exception {
     parse("Pragma.OnKey5.Tests.OCL.dll.TestResult.xml");
     assertResultEquals(
@@ -193,24 +194,24 @@ public class NUnitReportParserTest extends BaseParserTestCase {
       getExpectedResult("singleCaseWithFailureInManyLines.gold"));
   }
 
-  //TW-8140 (TW-8120)
   @Test
+  @TestFor(issues = { "TW-8140", "TW-8120" })
   public void testReportWithPrematureEndOfFileFull() throws Exception {
     parse("TestResults_TW8120.xml");
     assertResultEquals(
       getExpectedResult("reportWithPrematureEndOfFileFull.gold"));
   }
 
-  //TW-8140 (TW-8120)
   @Test
+  @TestFor(issues = { "TW-8140", "TW-8120" })
   public void testReportWithPrematureEndOfFilePart() throws Exception {
     parse("TestResults_TW8120.xml", parse("TestResults_TW8120_part.xml", parse("TestResults_TW8120_part.xml")));
     assertResultEquals(
       getExpectedResult("reportWithPrematureEndOfFileFrom3Tries.gold"));
   }
 
-  //TW-8815
 //  @Test
+//  @TestFor(issues = "TW-8815")
 //  public void testTwoIdenticalAssembliesWithDifferingTimestamp() throws Exception {
 //    myContext.checking(new Expectations() {
 //      {
@@ -237,16 +238,16 @@ public class NUnitReportParserTest extends BaseParserTestCase {
 //    myContext.assertIsSatisfied();
 //  }
 
-  // TW-11744
   @Test
+  @TestFor(issues = "TW-11744")
   public void test_nunit_2_5_x_statuses() throws Exception {
     parse("nunit-2.5/statuses.xml");
     assertResultEquals(
       getExpectedResult("nunit_2_5_x_statuses.gold"));
   }
 
-  // TW-17110
   @Test
+  @TestFor(issues = "TW-17110")
   public void test_abnormal_termination() throws Exception {
     parse("abnormalTermination.xml");
     assertResultEquals("TestSuite:xxx.dll\n" +

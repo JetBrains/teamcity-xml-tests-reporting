@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit;
 
+import jetbrains.buildServer.util.TestFor;
 import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
 import jetbrains.buildServer.xmlReportPlugin.tests.SecondDurationParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
@@ -485,16 +486,16 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
       "EndSuite\n");
   }
 
-  // TW-7649: junit tests results being ignored
   @Test
+  @TestFor(issues = "TW-7649")
   public void testNoSuites() throws Exception {
     parse("noSuite.xml");
     assertResultEquals(
       getExpectedResult("noSuites.gold"));
   }
 
-  // TW-9343
   @Test
+  @TestFor(issues = "TW-9343")
   public void test2CasesFirstSuccessSecondSkipped() throws Exception {
     parse("twoCasesFirstSuccessSecondSkipped.xml");
     assertResultEquals(
@@ -509,8 +510,8 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
       "EndSuite\n");
   }
 
-  //TW-9343 strange class name
   @Test
+  @TestFor(issues = "TW-9343")
   public void testSuiteNameEqualsTestName() throws Exception {
     parse("TEST-ru.rambler.xmpp.server.core.cm.JDBCPgPersistenceManagerImplTest.xml");
     assertResultEquals(
@@ -546,8 +547,8 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
       "EndSuite\n");
   }
 
-  // TW-15430
   @Test
+  @TestFor(issues = "TW-15430")
   public void testNestedSuites() throws Exception {
     parse("nestedSuites.xml");
     assertResultEquals("TestSuite:\n" +
