@@ -34,6 +34,7 @@ import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.util.AntPathMatcher;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
 
@@ -126,7 +127,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
       }
     }
 
-    final RulesData rulesData = new RulesData(getRules(rulesFile), params, getStepProcessingContext().startTime);
+    final RulesData rulesData = new RulesData(getRules(rulesFile, params), params, getStepProcessingContext().startTime);
 
     getStepProcessingContext().rulesContexts.add(createRulesContext(rulesData));
 
@@ -265,15 +266,31 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   }
 
   private Rules getRules(@NotNull Map<String, String> parameters) {
-    final String rulesStr = getXmlReportPaths(parameters);
-    if (rulesStr == null || rulesStr.length() == 0) {
-      throw new RuntimeException("Rules are empty");
-    }
-    return new StringRules(getBuild().getCheckoutDirectory(), Arrays.asList(rulesStr.split(XmlReportPluginConstants.SPLIT_REGEX)));
+    return getRules(getXmlReportPaths(parameters), parameters);
   }
 
-  private Rules getRules(@NotNull File rulesFile) {
-    return new FileRules(rulesFile);
+  private Rules getRules(@Nullable File rulesFile, @NotNull Map<String, String> parameters) {
+    final String rulesStr = rulesFile == null ? getXmlReportPaths(parameters) : rulesFile.getAbsolutePath();
+    return getRules(rulesStr, parameters);
+  }
+
+  @NotNull
+  private Rules getRules(@NotNull String rulesStr, @NotNull Map<String, String> parameters) {
+    final List<String> rules = Arrays.asList(rulesStr.split(XmlReportPluginConstants.SPLIT_REGEX));
+
+    if (rules.size() == 1) {
+      final String rule = rules.get(0);
+      if (isFilePath(rule)) {
+        return new FileRules(new File(rule));
+      }
+    }
+
+    final File baseDir = getBuild().getCheckoutDirectory();
+    return isOptimizedFilesCollectionEnabled(parameters) ? new OptimizingIncludeExcludeRules(baseDir, rules) : new FullSearchIncludeExcludeRules(baseDir, rules);
+  }
+
+  private boolean isFilePath(@NotNull String rule) {
+    return !new AntPathMatcher().isPattern(rule);
   }
 
   private void logStatistics(@NotNull final RulesContext rulesContext) {
@@ -295,7 +312,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
             LoggingUtils.message(totalFileCount + " report" + getEnding(totalFileCount) + " found for paths:", logger);
           }
 
-          final List<String> rules = rulesContext.getRulesData().getRules().getBody();
+          final Collection<String> rules = rulesContext.getRulesData().getRules().getBody();
 
           if (rules.size() == 0) {
             LoggingUtils.warn("<no paths>", logger);

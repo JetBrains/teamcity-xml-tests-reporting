@@ -17,16 +17,10 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
+import java.util.*;
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.util.AntPathMatcher;
 
 /**
  * User: vbedrosova
@@ -60,9 +54,6 @@ public class MonitorRulesCommand {
   private final MonitorRulesListener myListener;
 
   private boolean myFirstRun;
-
-  @NotNull
-  private final Map<File, MaskData> myMasks = new HashMap<File, MaskData>();
 
   @NotNull
   private final Map<File, FileState> myKnownStates = new HashMap<File, FileState>();
@@ -126,7 +117,7 @@ public class MonitorRulesCommand {
       new Runnable() {
         public void run() {
           String message = "Watching paths:";
-          final List<String> rulesList = myParameters.getRules().getBody();
+          final Collection<String> rulesList = myParameters.getRules().getBody();
           if (rulesList.isEmpty()) {
             message += " <no paths>";
             LoggingUtils.warn(message, getThreadLogger());
@@ -157,8 +148,7 @@ public class MonitorRulesCommand {
       new MonitorRulesFileProcessor() {
         public void processFile(@NotNull File file) {
           if (file.isFile() && file.canRead() &&
-            !isFresh(file) &&
-            isIncluded(file)) {
+            !isFresh(file)) {
             existingPaths.add(file);
           }
         }
@@ -177,33 +167,14 @@ public class MonitorRulesCommand {
   }
 
   private void monitorRules(@NotNull MonitorRulesFileProcessor monitorRulesFileProcessor) {
-    for (File rule : myParameters.getRules().getPaths()) {
-      if (rule.isFile()) {
-        monitorRulesFileProcessor.processFile(rule);
-        continue;
-      }
-      if (rule.isDirectory()) {
-        final File[] files = rule.listFiles();
-        if ((files != null) && (files.length > 0)) {
-          for (File file : files) {
-            monitorRulesFileProcessor.processFile(file);
-          }
-        }
-        continue;
-      }
-      if (isAntMask(rule)) {
-        final MaskData md = getMask(rule);
-        for (File file : collectFiles(md.getPattern(), md.getBaseDir())) {
-          monitorRulesFileProcessor.processFile(file);
-        }
-      }
+    for (File file : myParameters.getRules().collectFiles()) {
+      monitorRulesFileProcessor.processFile(file);
     }
   }
 
   private boolean acceptFile(@NotNull File f) {
     return f.isFile() && f.canRead() &&
-           timeConstraintsSatisfied(f) &&
-           isIncluded(f);
+           timeConstraintsSatisfied(f);
   }
 
   private boolean timeConstraintsSatisfied(@NotNull File file) {
@@ -212,72 +183,6 @@ public class MonitorRulesCommand {
 
   private boolean isFresh(@NotNull File file) {
     return file.lastModified() >= myParameters.getStartTime();
-  }
-
-  private boolean isIncluded(@NotNull File file) {
-    return myParameters.getRules().shouldInclude(file);
-  }
-
-  private MaskData getMask(@NotNull File file) {
-    MaskData md;
-    if (!myMasks.containsKey(file)) {
-      final File baseDir = new File(getDirWithoutPattern(file.getPath()));
-      final Pattern pattern = Pattern.compile(FileUtil.convertAntToRegexp(file.getPath().replace(baseDir.getPath(), "")));
-      md = new MaskData(baseDir, pattern);
-      myMasks.put(file, md);
-    } else {
-      md = myMasks.get(file);
-    }
-    return md;
-  }
-
-  private static String getDirWithoutPattern(@NotNull String pathWithWildCard) {
-    String t = pathWithWildCard.replace('\\', '/');
-    final int firstStar = t.indexOf('*');
-    final int firstQuest = t.indexOf('?');
-    int mark = firstStar < 0 ? firstQuest :
-      ((firstStar < firstQuest || firstQuest < 0) ? firstStar : firstQuest);
-
-    final int lastSlash = t.lastIndexOf('/', mark);
-    return lastSlash > 0 ? pathWithWildCard.substring(0, lastSlash) : "";
-  }
-
-  private static ArrayList<File> collectFiles(@NotNull Pattern pattern, @NotNull File basePatternDir) {
-    final ArrayList<File> files = new ArrayList<File>();
-    FileUtil.collectMatchedFiles(basePatternDir, pattern, files);
-    return files;
-  }
-
-  private static final AntPathMatcher MATCHER = new AntPathMatcher();
-
-  private static boolean isAntMask(@NotNull File f) {
-    return isAntMask(f.getPath());
-  }
-
-  private static boolean isAntMask(@NotNull String s) {
-    return MATCHER.isPattern(s);
-  }
-
-  private static class MaskData {
-    @NotNull
-    private final File myBaseDir;
-    @NotNull
-    private final Pattern myPattern;
-
-    public MaskData(@NotNull File baseDir, @NotNull Pattern pattern) {
-      myBaseDir = baseDir;
-      myPattern = pattern;
-    }
-
-    @NotNull
-    public File getBaseDir() {
-      return myBaseDir;
-    }
-
-    @NotNull
-    public Pattern getPattern() {
-      return myPattern;
-    }
   }
 
   private static class FileState {

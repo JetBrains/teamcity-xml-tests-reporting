@@ -62,8 +62,8 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
   private MonitorRulesCommand createMonitorRulesCommand(@NotNull FileStates fileStates,
                                                         @NotNull final StringBuilder result,
                                                         final boolean parseOutOfDate, final long startTime) {
-    final List<String> rulesList = Arrays.asList(myBaseFolder + "/*.xml", myBaseFolder + "/**/*.xml");
-    final Rules rules = new StringRules(myBaseFolder, rulesList);
+    final List<String> rulesList = Arrays.asList("**/*.xml");
+    final Rules rules = new OptimizingIncludeExcludeRules(myBaseFolder, rulesList);
     final MonitorRulesCommand.MonitorRulesParameters parameters = new MonitorRulesCommand.MonitorRulesParameters() {
       @NotNull
       public Rules getRules() {
@@ -116,7 +116,7 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
     final MonitorRulesCommand command = createMonitorRulesCommand();
     command.run();
 
-    assertContains(myResult, "MESSAGE: Watching paths:", "MESSAGE: ##BASE_DIR##/*.xml", "MESSAGE: ##BASE_DIR##/**/*.xml");
+    assertContains(myResult, "MESSAGE: Watching paths:", "MESSAGE: **/*.xml");
 
     myResult.delete(0, myResult.length());
     command.run();

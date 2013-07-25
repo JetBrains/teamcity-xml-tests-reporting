@@ -58,7 +58,7 @@ public abstract class BaseParserTestCase extends TestCase {
 
   @NotNull
   protected String getExpectedResult(@NotNull final String fileName) throws IOException {
-    return FileUtil.readText(TestUtil.getTestDataFile(fileName, getReportDir()));
+    return FileUtil.readText(TestUtil.getTestDataFile(fileName, getReportDir()), "UTF-8");
   }
 
   @NotNull

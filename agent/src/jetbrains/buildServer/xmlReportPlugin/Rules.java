@@ -18,7 +18,6 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.List;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -27,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
  * Time: 13:19
  */
 public interface Rules {
-  Collection<File> getPaths();
-  List<String> getBody();
-  boolean shouldInclude(@NotNull File path);
+  @NotNull Collection<String> getBody();
+  @NotNull Collection<File> getPaths();
+  @NotNull Collection<File> collectFiles();
 }

@@ -37,6 +37,7 @@ public interface XmlReportPluginConstants {
   static final String WHEN_NO_DATA_PUBLISHED = "xmlReportParsing.whenNoDataPublished";
   static final String LOG_AS_INTERNAL = "xmlReportParsing.logAsInternal";
   static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
+  static final String OPTIMIZED_FILE_COLLECTION_ENABLED = "xmlReportParsing.optimizedFileCollectionEnabled";
 
 //  static final String CHECK_REPORT_GROWS = "xmlReportParsing.check.report.grows";
 //  static final String CHECK_REPORT_COMPLETE = "xmlReportParsing.check.report.complete";

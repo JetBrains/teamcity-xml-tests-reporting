@@ -1,6 +1,7 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -19,15 +20,32 @@ public class FileRules implements Rules {
     myFile = file;
   }
 
+  @NotNull
+  public Collection<String> getBody() {
+    return Collections.singletonList(myFile.getPath());
+  }
+
+  @NotNull
   public Collection<File> getPaths() {
     return Collections.singletonList(myFile);
   }
 
-  public List<String> getBody() {
-    return Collections.singletonList(myFile.getPath());
+  @NotNull
+  public List<File> collectFiles() {
+    return myFile.isFile() ? Collections.singletonList(myFile) : collectFilesInFolder(myFile);
   }
 
-  public boolean shouldInclude(@NotNull final File path) {
-    return true; // we believe that MonitorRulesCommand collects good files
+  @NotNull
+  private List<File> collectFilesInFolder(@NotNull File folder) {
+    if (myFile.isDirectory()) {
+      final File[] files = folder.listFiles();
+      return files == null || files.length == 0 ? emptyFileList() : Arrays.asList(files);
+    }
+    return emptyFileList();
+  }
+
+  @NotNull
+  private List<File> emptyFileList() {
+    return Collections.emptyList();
   }
 }
