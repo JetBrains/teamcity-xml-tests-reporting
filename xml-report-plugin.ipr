@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AntConfiguration">
-    <defaultAnt bundledAnt="true" />
     <buildFile url="file://$PROJECT_DIR$/build.xml">
-      <additionalClassPath />
-      <antReference projectDefault="true" />
-      <customJdkName value="" />
-      <maximumHeapSize value="128" />
       <maximumStackSize value="32" />
-      <properties />
     </buildFile>
   </component>
   <component name="BuildJarProjectSettings">
@@ -134,7 +128,11 @@
       <entry name="*?.jsp" />
       <entry name="*?.xsl" />
     </wildcardResourcePatterns>
-    <annotationProcessing enabled="false" useClasspath="true" />
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+    </annotationProcessing>
   </component>
   <component name="CopyrightManager" default="">
     <module2copyright />
@@ -328,6 +326,34 @@
       </item>
     </group>
   </component>
+  <component name="ProjectCodeStyleSettingsManager">
+    <option name="PER_PROJECT_SETTINGS">
+      <value>
+        <XML>
+          <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
+        </XML>
+        <ADDITIONAL_INDENT_OPTIONS fileType="gsp">
+          <option name="INDENT_SIZE" value="2" />
+        </ADDITIONAL_INDENT_OPTIONS>
+        <ADDITIONAL_INDENT_OPTIONS fileType="sql">
+          <option name="INDENT_SIZE" value="2" />
+        </ADDITIONAL_INDENT_OPTIONS>
+        <ADDITIONAL_INDENT_OPTIONS fileType="yml">
+          <option name="INDENT_SIZE" value="2" />
+        </ADDITIONAL_INDENT_OPTIONS>
+        <codeStyleSettings language="Groovy">
+          <indentOptions>
+            <option name="INDENT_SIZE" value="2" />
+          </indentOptions>
+        </codeStyleSettings>
+        <codeStyleSettings language="JavaScript">
+          <indentOptions>
+            <option name="CONTINUATION_INDENT_SIZE" value="8" />
+          </indentOptions>
+        </codeStyleSettings>
+      </value>
+    </option>
+  </component>
   <component name="ProjectDetails">
     <option name="projectName" value="xml-report-plugin" />
   </component>
@@ -346,7 +372,7 @@
   <component name="ProjectResources">
     <default-html-doctype>http://www.w3.org/1999/xhtml</default-html-doctype>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.5" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/classes" />
   </component>
   <component name="ResourceManagerContainer">
@@ -362,20 +388,6 @@
         <entry key="$PROJECT_DIR$">
           <value>
             <SvnBranchConfiguration>
-              <option name="branchMap">
-                <map>
-                  <entry key="http://svn.jetbrains.org/teamcity/plugins/xml-tests-reporting/branches">
-                    <value>
-                      <list />
-                    </value>
-                  </entry>
-                  <entry key="http://svn.jetbrains.org/teamcity/plugins/xml-tests-reporting/xml-tests-reporting">
-                    <value>
-                      <list />
-                    </value>
-                  </entry>
-                </map>
-              </option>
               <option name="branchUrls">
                 <list>
                   <option value="http://svn.jetbrains.org/teamcity/plugins/xml-tests-reporting/branches" />
@@ -389,15 +401,6 @@
         <entry key="$PROJECT_DIR$/agent">
           <value>
             <SvnBranchConfiguration>
-              <option name="branchMap">
-                <map>
-                  <entry key="http://svn.jetbrains.org/teamcity/plugins/xml-tests-reporting/branches">
-                    <value>
-                      <list />
-                    </value>
-                  </entry>
-                </map>
-              </option>
               <option name="branchUrls">
                 <list>
                   <option value="http://svn.jetbrains.org/teamcity/plugins/xml-tests-reporting/branches" />
@@ -478,6 +481,7 @@
         <root url="jar://$TeamCityDistribution$/devPackage/server-api.jar!/" />
         <root url="jar://$TeamCityDistribution$/devPackage/agent-api.jar!/" />
         <root url="jar://$TeamCityDistribution$/devPackage/common-api.jar!/" />
+        <root url="file://$TeamCityDistribution$/devPackage/tests" />
       </CLASSES>
       <JAVADOC>
         <root url="jar://$TeamCityDistribution$/devPackage/javadoc/openApi-help.jar!/" />
@@ -485,10 +489,11 @@
       <SOURCES>
         <root url="jar://$TeamCityDistribution$/devPackage/src/openApi-source.jar!/" />
       </SOURCES>
+      <jarDirectory url="file://$TeamCityDistribution$/devPackage/tests" recursive="false" />
     </library>
     <library name="TeamCity spring">
       <CLASSES>
-        <root url="jar://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib/org.springframework.core-3.0.5.RELEASE.jar!/" />
+        <root url="jar://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib/spring.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
