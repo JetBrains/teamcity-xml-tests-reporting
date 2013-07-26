@@ -63,7 +63,7 @@
                 classpathref="tests.runtime.module.classpath">
             <jvmarg value="-Dfindbugs=${findbugs}"/>
             <jvmarg value="-XX:+HeapDumpOnOutOfMemoryError"/>
-            <xmlfileset file="${basedir}/tests/src/testng.xml"/>
+            <xmlfileset file="${basedir}/tests/testng.xml"/>
         </testng>
     </target>
 
