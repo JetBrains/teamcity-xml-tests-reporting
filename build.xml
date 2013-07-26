@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+
 <project name="xml-report-plugin-custom" basedir="." default="all">
 
     <property file="build.properties"/>
@@ -50,28 +51,20 @@
 
     <target name="test" depends="test-nofail, check_failures"/>
 
+    <taskdef name="testng" classpathref="library.testng.classpath" classname="org.testng.TestNGAntTask"/>
     <target name="test-nofail">
         <delete dir="test-reports" quiet="true"/>
         <mkdir dir="test-reports"/>
 
         <antcall target="copy.log4j.configuration"/>
 
-        <junit printsummary="on" fork="true" haltonfailure="false" haltonerror="false" failureproperty="failure_found"
-               showoutput="true" maxmemory='256m'>
+        <testng haltonfailure="false" failureproperty="failure_found" dumpcommand="true"
+                workingdir="${basedir}"
+                classpathref="tests.runtime.module.classpath">
             <jvmarg value="-Dfindbugs=${findbugs}"/>
             <jvmarg value="-XX:+HeapDumpOnOutOfMemoryError"/>
-            <classpath>
-                <path refid="tests.runtime.module.classpath"/>
-            </classpath>
-
-            <formatter type="xml"/>
-
-            <batchtest todir="test-reports">
-                <fileset dir="${tests.testoutput.dir}">
-                    <include name="**/*Test.class"/>
-                </fileset>
-            </batchtest>
-        </junit>
+            <xmlfileset file="${basedir}/tests/src/testng.xml"/>
+        </testng>
     </target>
 
     <target name="check_failures" if="failure_found">

@@ -429,20 +429,9 @@
     </library>
     <library name="JMock">
       <CLASSES>
-        <root url="jar://$PROJECT_DIR$/tests/lib/objenesis-1.0.jar!/" />
-        <root url="jar://$PROJECT_DIR$/tests/lib/jmock-junit4-2.5.1.jar!/" />
         <root url="jar://$PROJECT_DIR$/tests/lib/hamcrest-library-1.1.jar!/" />
-        <root url="jar://$PROJECT_DIR$/tests/lib/jmock-legacy-2.5.1.jar!/" />
         <root url="jar://$PROJECT_DIR$/tests/lib/jmock-2.5.1.jar!/" />
         <root url="jar://$PROJECT_DIR$/tests/lib/hamcrest-core-1.1.jar!/" />
-        <root url="jar://$PROJECT_DIR$/tests/lib/cglib-nodep-2.1_3.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
-    <library name="JUnit">
-      <CLASSES>
-        <root url="jar://$PROJECT_DIR$/tests/lib/junit-4.5.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
@@ -510,6 +499,13 @@
         <root url="jar://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib/annotations.jar!/" />
         <root url="jar://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib/util.jar!/" />
         <root url="jar://$TeamCityDistribution$/webapps/ROOT/WEB-INF/lib/openapi.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
+    <library name="TestNG">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/tests/lib/testng-5.11-jdk15.jar!/" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />

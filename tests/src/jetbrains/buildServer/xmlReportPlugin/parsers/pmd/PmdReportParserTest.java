@@ -19,9 +19,9 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.pmd;
 import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
-
+@Test
 public class PmdReportParserTest extends BaseParserTestCase {
   private static final String TYPE = "pmd";
   @NotNull

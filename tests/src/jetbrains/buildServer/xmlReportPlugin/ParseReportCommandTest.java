@@ -25,14 +25,18 @@ import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.*;
 
 /**
  * User: vbedrosova
  * Date: 24.01.11
  * Time: 18:31
  */
+
+@Test
 public class ParseReportCommandTest extends BaseCommandTestCase {
   private File myFile;
   private RulesState myRulesState;
@@ -41,7 +45,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
   private BuildProgressLogger myLogger;
   private ParseParameters myParseParameters;
 
-  @Before
+  @BeforeMethod
   @Override
   public void setUp() throws Exception {
     super.setUp();
@@ -85,15 +89,15 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
   }
 
   private void assertFileState(@NotNull FileStates.FileState state) {
-    assertTrue("Wrong file state", myRulesState.getFileState(myFile) == state);
+    assertTrue(myRulesState.getFileState(myFile) == state);
   }
 
   private void assertNotInPrevState() {
-    assertFalse("", myPrevResults.containsKey(myFile));
+    assertFalse(myPrevResults.containsKey(myFile));
   }
 
   private void assertInPrevState() {
-    assertTrue("", myPrevResults.containsKey(myFile));
+    assertTrue(myPrevResults.containsKey(myFile));
   }
 
   @Test

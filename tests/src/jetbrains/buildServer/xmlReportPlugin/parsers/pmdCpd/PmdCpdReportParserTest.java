@@ -19,13 +19,14 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.pmdCpd;
 import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 /**
  * User: vbedrosova
  * Date: 07.09.2010
  * Time: 15:08:19
  */
+@Test
 public class PmdCpdReportParserTest extends BaseParserTestCase {
   @NotNull
   @Override

@@ -1,0 +1,26 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Xml report plugin tests">
+  <test name="Xml report plugin tests">
+    <classes>
+      <class name="jetbrains.buildServer.xmlReportPlugin.MonitorRulesCommandTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.ParseReportCommandTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessorTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtilTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.FullSearchIncludeExcludeRulesTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.OptimizingIncludeExcludeRulesTest"/>
+
+      <class name="jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit.AntJUnitReportParserTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.parsers.checkstyle.CheckstyleReportParserTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.parsers.ctest.CTestReportParserTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.parsers.findBugs.FindBugsReportParserTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.parsers.jslint.JSLintReportParserTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.parsers.mstest.DurationParserTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.parsers.mstest.TestNamesTableParserTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.parsers.mstest.TestResultsTableParserTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.parsers.mstest.MSTestBaseTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.parsers.nUnit.NUnitReportParserTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.parsers.pmd.PmdReportParserTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.parsers.pmdCpd.PmdCpdReportParserTest"/>
+    </classes>
+  </test>
+</suite>

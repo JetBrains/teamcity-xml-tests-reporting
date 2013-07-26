@@ -19,11 +19,12 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit;
 import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
 import jetbrains.buildServer.xmlReportPlugin.tests.SecondDurationParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
-import junit.framework.Assert;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
+import static org.testng.Assert.*;
 
+@Test
 public class AntJUnitReportParserTest extends BaseParserTestCase {
   private static final String REPORT_DIR = "junit";
 
@@ -120,10 +121,10 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
     final TestParsingResult result = (TestParsingResult) parse("empty.xml");
 
     final int suitesLogged = result.getSuites();
-    Assert.assertTrue("Empty reportData contains 0 suites, but " + suitesLogged + " suites logged", suitesLogged == 0);
+    assertEquals(suitesLogged, 0, "Empty reportData contains 0 suites, but " + suitesLogged + " suites logged");
 
     final int testsLogged = result.getTests();
-    Assert.assertTrue("Empty reportData contains 0 tests, but " + testsLogged + " tests logged", testsLogged == 0);
+    assertEquals(testsLogged, 0, "Empty reportData contains 0 tests, but " + testsLogged + " tests logged");
   }
 
   @Test

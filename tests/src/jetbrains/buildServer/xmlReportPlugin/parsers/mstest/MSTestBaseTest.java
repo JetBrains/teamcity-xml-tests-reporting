@@ -7,17 +7,19 @@ import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.xmlReportPlugin.TestUtil;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
-import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.junit.Test;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.*;
 
 /**
  * @author Eugene Petrenko
  *         Created: 24.10.2008 19:06:09
  */
 
-public class MSTestBaseTest extends TestCase {
+@Test
+public class MSTestBaseTest {
 
   @Test
   public void test_stofl() throws IOException {
@@ -192,7 +194,7 @@ public class MSTestBaseTest extends TestCase {
     compareFiles(gold, actual);
   }
 
-  public static void compareFiles(final String gold, final String actual) throws IOException {
+  private void compareFiles(final String gold, final String actual) throws IOException {
     final File fGold = getTestData(gold);
     final File tempFile = new File(fGold.getPath() + ".tmp");
     FileUtil.writeFile(tempFile, actual);
@@ -200,7 +202,7 @@ public class MSTestBaseTest extends TestCase {
     final String sGold = StringUtil.convertLineSeparators(FileUtil.readText(fGold, "UTF-8"));
     final String sActual = StringUtil.convertLineSeparators(actual);
 
-    assertEquals("Actual: " + sActual, sGold, sActual);
+    assertEquals(sActual, sGold, "Actual: " + sActual);
     FileUtil.delete(tempFile);
   }
 }

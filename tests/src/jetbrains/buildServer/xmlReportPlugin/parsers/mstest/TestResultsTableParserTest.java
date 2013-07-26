@@ -9,10 +9,11 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.StringUtil;
-import junit.framework.TestCase;
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
-public class TestResultsTableParserTest extends TestCase {
+@Test
+public class TestResultsTableParserTest {
 
   @Test
   public void test_tw_15210() throws IOException {
@@ -90,7 +91,7 @@ public class TestResultsTableParserTest extends TestCase {
     final String gold = StringUtil.convertLineSeparators(goldFile.exists() ? new String(FileUtil.loadFileText(goldFile)) : "");
 
     try {
-      assertEquals(actual, gold);
+      Assert.assertEquals(actual, gold);
     } catch (Throwable t) {
       System.out.println("actual = " + actual);
       FileUtil.writeFile(tmp, actual);

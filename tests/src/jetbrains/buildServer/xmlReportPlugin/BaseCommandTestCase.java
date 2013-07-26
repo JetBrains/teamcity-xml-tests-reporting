@@ -21,46 +21,37 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import jetbrains.buildServer.util.FileUtil;
-import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
-import org.junit.After;
-import org.junit.Before;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+
+import static org.testng.Assert.*;
 
 /**
  * User: vbedrosova
  * Date: 25.01.11
  * Time: 13:32
  */
-public abstract class BaseCommandTestCase extends TestCase {
+public abstract class BaseCommandTestCase {
   @NotNull
   protected static final ParsingResult EMPTY_RESULT = new ProblemParsingResult() {
-    public void accumulate(@NotNull ParsingResult parsingResult) {
-    }
-
-    public void logAsFileResult(@NotNull File file, @NotNull ParseParameters parameters) {
-    }
-
-    public void logAsTotalResult(@NotNull ParseParameters parameters) {
-    }
-
+    public void accumulate(@NotNull ParsingResult parsingResult) {}
+    public void logAsFileResult(@NotNull File file, @NotNull ParseParameters parameters) {}
+    public void logAsTotalResult(@NotNull ParseParameters parameters) {}
     @Override
-    public String toString() {
-      return "EMPTY_RESULT";
-    }
+    public String toString() { return "EMPTY_RESULT"; }
   };
 
   protected File myBaseFolder;
   protected long myTestStartTime;
 
-  @Override
-  @Before
+  @BeforeMethod
   public void setUp() throws Exception {
     myTestStartTime = new Date().getTime();
     myBaseFolder = FileUtil.createTempDirectory("", "");
   }
 
-  @Override
-  @After
+  @AfterTest
   public void tearDown() throws Exception {
     FileUtil.delete(myBaseFolder);
   }
@@ -78,8 +69,8 @@ public abstract class BaseCommandTestCase extends TestCase {
 
     final List<String> actualLines = Arrays.asList(resultStr.split("\\n"));
     for (String line : Arrays.asList(lines)) {
-      assertTrue("Text must" + (shouldContain ? "" : " not") + " contain: " + line + "\nActual text is: " + result,
-        shouldContain ? actualLines.contains(line) : !actualLines.contains(line) );
+      assertTrue(shouldContain ? actualLines.contains(line) : !actualLines.contains(line),
+        "Text must" + (shouldContain ? "" : " not") + " contain: " + line + "\nActual text is: " + result);
     }
   }
 

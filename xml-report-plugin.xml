@@ -71,17 +71,9 @@
   </path>
   
   <path id="library.jmock.classpath">
-    <pathelement location="${basedir}/tests/lib/cglib-nodep-2.1_3.jar"/>
     <pathelement location="${basedir}/tests/lib/hamcrest-core-1.1.jar"/>
     <pathelement location="${basedir}/tests/lib/hamcrest-library-1.1.jar"/>
     <pathelement location="${basedir}/tests/lib/jmock-2.5.1.jar"/>
-    <pathelement location="${basedir}/tests/lib/jmock-junit4-2.5.1.jar"/>
-    <pathelement location="${basedir}/tests/lib/jmock-legacy-2.5.1.jar"/>
-    <pathelement location="${basedir}/tests/lib/objenesis-1.0.jar"/>
-  </path>
-  
-  <path id="library.junit.classpath">
-    <pathelement location="${basedir}/tests/lib/junit-4.5.jar"/>
   </path>
   
   <path id="library.log4j.classpath">
@@ -122,6 +114,10 @@
     <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/annotations.jar"/>
     <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/openapi.jar"/>
     <pathelement location="${path.variable.teamcitydistribution}/webapps/ROOT/WEB-INF/lib/util.jar"/>
+  </path>
+  
+  <path id="library.testng.classpath">
+    <pathelement location="${basedir}/tests/lib/testng-5.11-jdk15.jar"/>
   </path>
   
   
@@ -483,7 +479,6 @@
   
   <path id="tests.module.production.classpath">
     <path refid="library.jmock.classpath"/>
-    <path refid="library.junit.classpath"/>
     <path refid="library.teamcity_api.classpath"/>
     <path refid="library.teamcity_utils.classpath"/>
     <path refid="library.teamcity_openapi.classpath"/>
@@ -492,12 +487,12 @@
     <pathelement location="${agent.output.dir}"/>
     <pathelement location="${common.output.dir}"/>
     <path refid="library.teamcity_common-impl.jar.classpath"/>
+    <path refid="library.testng.classpath"/>
   </path>
   
   <path id="tests.runtime.production.module.classpath">
     <pathelement location="${tests.output.dir}"/>
     <path refid="library.jmock.classpath"/>
-    <path refid="library.junit.classpath"/>
     <path refid="library.teamcity_api.classpath"/>
     <path refid="library.teamcity_utils.classpath"/>
     <path refid="library.teamcity_openapi.classpath"/>
@@ -506,12 +501,12 @@
     <path refid="agent.runtime.production.module.classpath"/>
     <path refid="common.runtime.production.module.classpath"/>
     <path refid="library.teamcity_common-impl.jar.classpath"/>
+    <path refid="library.testng.classpath"/>
   </path>
   
   <path id="tests.module.classpath">
     <pathelement location="${tests.output.dir}"/>
     <path refid="library.jmock.classpath"/>
-    <path refid="library.junit.classpath"/>
     <path refid="library.teamcity_api.classpath"/>
     <path refid="library.teamcity_utils.classpath"/>
     <path refid="library.teamcity_openapi.classpath"/>
@@ -521,13 +516,13 @@
     <pathelement location="${agent.output.dir}"/>
     <pathelement location="${common.output.dir}"/>
     <path refid="library.teamcity_common-impl.jar.classpath"/>
+    <path refid="library.testng.classpath"/>
   </path>
   
   <path id="tests.runtime.module.classpath">
     <pathelement location="${tests.testoutput.dir}"/>
     <pathelement location="${tests.output.dir}"/>
     <path refid="library.jmock.classpath"/>
-    <path refid="library.junit.classpath"/>
     <path refid="library.teamcity_api.classpath"/>
     <path refid="library.teamcity_utils.classpath"/>
     <path refid="library.teamcity_openapi.classpath"/>
@@ -536,6 +531,7 @@
     <path refid="agent.runtime.module.classpath"/>
     <path refid="common.runtime.module.classpath"/>
     <path refid="library.teamcity_common-impl.jar.classpath"/>
+    <path refid="library.testng.classpath"/>
   </path>
   
   

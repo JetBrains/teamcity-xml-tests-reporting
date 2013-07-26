@@ -22,14 +22,18 @@ import java.util.Date;
 import java.util.List;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.*;
 
 /**
  * User: vbedrosova
  * Date: 24.01.11
  * Time: 14:43
  */
+
+@Test
 public class MonitorRulesCommandTest extends BaseCommandTestCase {
   @NotNull
   private static final String TYPE = "TYPE";
@@ -39,7 +43,7 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
   private StringBuilder myResult;
   private File myFile;
 
-  @Before
+  @BeforeMethod
   @Override
   public void setUp() throws Exception {
     super.setUp();
@@ -99,11 +103,11 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
   }
 
   private void assertFileState(@NotNull FileStates.FileState state) {
-    assertTrue("Wrong file state", myRulesState.getFileState(myFile) == state);
+    assertTrue(myRulesState.getFileState(myFile) == state);
   }
 
   private void assertFileDetected() {
-    assertTrue("File doesn't exist", myFile.isFile());
+    assertTrue(myFile.isFile());
     assertContains(myResult, FILE_DETECTED_MESSAGE);
   }
 

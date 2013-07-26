@@ -8,11 +8,12 @@ import java.util.Collections;
 import java.util.List;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.StringUtil;
-import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
-public class TestNamesTableParserTest extends TestCase {
+@Test
+public class TestNamesTableParserTest {
   @Test
   public void test_TW_9376_ordered() throws IOException{
     doTest("orderedTests");
@@ -62,7 +63,7 @@ public class TestNamesTableParserTest extends TestCase {
     final String gold = StringUtil.convertLineSeparators(goldFile.exists() ? FileUtil.readText(goldFile, "UTF-8") : "");
 
     try {
-      assertEquals(gold, actual);
+      Assert.assertEquals(actual, gold);
     } catch (Throwable t) {
       System.out.println("actual = " + actual);
       FileUtil.writeFile(tmp, actual);

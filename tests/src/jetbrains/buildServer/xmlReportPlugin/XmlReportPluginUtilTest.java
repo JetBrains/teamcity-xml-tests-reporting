@@ -16,16 +16,17 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Before;
-import org.junit.Test;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginConstants.*;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
-import static junit.framework.Assert.*;
+import static org.testng.Assert.*;
 
-
+@Test
 public class XmlReportPluginUtilTest {
   private static final String TRUE = "true";
   private static final String ANT_JUNIT_REPORT_TYPE = "junit";
@@ -33,45 +34,45 @@ public class XmlReportPluginUtilTest {
 
   private Map<String, String> myRunParams;
 
-  @Before
+  @BeforeMethod
   public void setUp() {
     myRunParams = new HashMap<String, String>();
   }
 
   @Test
   public void testIsEnabledOnEmptyParams() {
-    assertFalse("Test report parsing must be disabled", isParsingEnabled(myRunParams));
+    assertFalse(isParsingEnabled(myRunParams), "Test report parsing must be disabled");
   }
 
   @Test
   public void testIsEnabledAfterPuttingTrueToParams() {
     myRunParams.put(REPORT_TYPE, TRUE);
-    assertTrue("Test report parsing must be enabled", isParsingEnabled(myRunParams));
+    assertTrue(isParsingEnabled(myRunParams), "Test report parsing must be enabled");
   }
 
   @Test
   public void testParamsContainTrueAfterEnabling() {
     enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
-    assertEquals("Params must contain true", ANT_JUNIT_REPORT_TYPE, myRunParams.get(REPORT_TYPE));
+    assertEquals(myRunParams.get(REPORT_TYPE), ANT_JUNIT_REPORT_TYPE, "Params must contain true");
   }
 
   @Test
   public void testParamsDoNotContainTrueAfterDisabling() {
     myRunParams.put(REPORT_TYPE, ANT_JUNIT_REPORT_TYPE);
     enableXmlReportParsing(myRunParams, EMPTY_REPORT_TYPE);
-    assertNull("Params must not contain any value for this key", myRunParams.get(REPORT_TYPE));
+    assertNull(myRunParams.get(REPORT_TYPE), "Params must not contain any value for this key");
   }
 
   @Test
   public void testIsEnabledAfterEnabling() {
     enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
-    assertTrue("Test report parsing must be enabled", isParsingEnabled(myRunParams));
+    assertTrue(isParsingEnabled(myRunParams), "Test report parsing must be enabled");
   }
 
   @Test
   public void testIsEnabledAfterDisabling() {
     enableXmlReportParsing(myRunParams, EMPTY_REPORT_TYPE);
-    assertFalse("Test report parsing must be disabled", isParsingEnabled(myRunParams));
+    assertFalse(isParsingEnabled(myRunParams), "Test report parsing must be disabled");
   }
 
   @Test
@@ -79,7 +80,7 @@ public class XmlReportPluginUtilTest {
     final String reportDirs = "reportDirs";
     myRunParams.put(REPORT_TYPE, ANT_JUNIT_REPORT_TYPE);
     setXmlReportPaths(myRunParams, reportDirs);
-    assertEquals("Unexpected value in parameters", myRunParams.get(REPORT_DIRS), reportDirs);
+    assertEquals(myRunParams.get(REPORT_DIRS), reportDirs, "Unexpected value in parameters");
   }
 
   @Test
@@ -87,96 +88,96 @@ public class XmlReportPluginUtilTest {
     final String reportDirs = "reportDirs";
     enableXmlReportParsing(myRunParams, EMPTY_REPORT_TYPE);
     setXmlReportPaths(myRunParams, reportDirs);
-    assertNull("ReportDirs parameter must be null", myRunParams.get(REPORT_DIRS));
+    assertNull(myRunParams.get(REPORT_DIRS), "ReportDirs parameter must be null");
   }
 
   @Test
   public void testVerboseOnEmptyParams() {
-    assertFalse("Verbose output must be disabled", isOutputVerbose(myRunParams));
+    assertFalse(isOutputVerbose(myRunParams), "Verbose output must be disabled");
   }
 
   @Test
   public void testVerboseAfterPuttingTrueToParams() {
     myRunParams.put(VERBOSE_OUTPUT, TRUE);
-    assertTrue("Verbose output must be enabled", isOutputVerbose(myRunParams));
+    assertTrue(isOutputVerbose(myRunParams), "Verbose output must be enabled");
   }
 
   @Test
   public void testParamsContainTrueAfterEnablingVerbose() {
     enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
     setVerboseOutput(myRunParams, true);
-    assertEquals("Params must contain true", TRUE, myRunParams.get(VERBOSE_OUTPUT));
+    assertEquals(myRunParams.get(VERBOSE_OUTPUT), TRUE, "Params must contain true");
   }
 
   @Test
   public void testParamsContainNothingAfterDisablingVerbose() {
     enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
     setVerboseOutput(myRunParams, false);
-    assertNull("Params mustn't contain anything", myRunParams.get(VERBOSE_OUTPUT));
+    assertNull(myRunParams.get(VERBOSE_OUTPUT), "Params mustn't contain anything");
   }
 
   @Test
   public void testParamsNotContainTrueAfterEnablingVerboseWhenParsingDisabled() {
     setVerboseOutput(myRunParams, true);
-    assertNull("Params mustn't contain anything", myRunParams.get(VERBOSE_OUTPUT));
+    assertNull(myRunParams.get(VERBOSE_OUTPUT), "Params mustn't contain anything");
   }
 
   @Test
   public void testParseOutOfDateOnEmptyParams() {
-    assertFalse("Parse outofdate must be disabled", isParseOutOfDateReports(myRunParams));
+    assertFalse(isParseOutOfDateReports(myRunParams), "Parse outofdate must be disabled");
   }
 
   @Test
   public void testParseOutOfDateAfterPuttingTrueToParams() {
     myRunParams.put(PARSE_OUT_OF_DATE, TRUE);
-    assertTrue("Parse outofdate must be enabled", isParseOutOfDateReports(myRunParams));
+    assertTrue(isParseOutOfDateReports(myRunParams), "Parse outofdate must be enabled");
   }
 
   @Test
   public void testParamsContainTrueAfterEnablingParseOutOfDate() {
     setParseOutOfDateReports(myRunParams, true);
-    assertEquals("Params must contain true", TRUE, myRunParams.get(PARSE_OUT_OF_DATE));
+    assertEquals(myRunParams.get(PARSE_OUT_OF_DATE), TRUE, "Params must contain true");
   }
 
   @Test
   public void testParamsContainNothingAfterDisablingParseOutOfDate() {
     setParseOutOfDateReports(myRunParams, false);
-    assertNull("Params must contain anything", myRunParams.get(PARSE_OUT_OF_DATE));
+    assertNull(myRunParams.get(PARSE_OUT_OF_DATE), "Params must contain anything");
   }
 
   @Test
   public void testGetMaxErrorsOnEmptyParams() {
-    assertEquals("Max errors value must be -1", -1, getMaxErrors(myRunParams));
+    assertEquals(getMaxErrors(myRunParams), -1);
   }
 
   @Test
   public void testGetMaxErrorsAfterPuttingToParams() {
     myRunParams.put(MAX_ERRORS, "10");
-    assertEquals("Max errors value must be 10", 10, getMaxErrors(myRunParams));
+    assertEquals(getMaxErrors(myRunParams), 10);
   }
 
   @Test
   public void testParamsContainsValueAfterSettingMaxErrors() {
     enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
     setMaxErrors(myRunParams, 10);
-    assertEquals("Max errors value must be 10", "10", myRunParams.get(MAX_ERRORS));
+    assertEquals(myRunParams.get(MAX_ERRORS), "10");
   }
 
   @Test
   public void testGetMaxWarningsOnEmptyParams() {
-    assertEquals("Max warnings value must be -1", -1, getMaxWarnings(myRunParams));
+    assertEquals(getMaxWarnings(myRunParams), -1);
   }
 
   @Test
   public void testGetMaxWarningsAfterPuttingToParams() {
     myRunParams.put(MAX_WARNINGS, "100");
-    assertEquals("Max warnings value must be 100", 100, getMaxWarnings(myRunParams));
+    assertEquals(getMaxWarnings(myRunParams), 100);
   }
 
   @Test
   public void testParamsContainsValueAfterSettingMaxWarnings() {
     enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
     setMaxWarnings(myRunParams, 100);
-    assertEquals("Max warnings value must be 100", "100", myRunParams.get(MAX_WARNINGS));
+    assertEquals(myRunParams.get(MAX_WARNINGS), "100");
   }
 }

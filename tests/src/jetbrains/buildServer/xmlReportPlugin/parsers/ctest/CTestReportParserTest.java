@@ -19,10 +19,12 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.ctest;
 import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import org.jetbrains.annotations.NotNull;
+import org.testng.annotations.Test;
 
 /**
  * @author Vladislav.Rassokhin
  */
+@Test
 public class CTestReportParserTest extends BaseParserTestCase {
 
   public static final String REPORT_DIR = "ctest";

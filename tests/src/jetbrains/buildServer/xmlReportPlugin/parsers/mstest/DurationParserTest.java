@@ -1,13 +1,14 @@
 package jetbrains.buildServer.xmlReportPlugin.parsers.mstest;
 
-import junit.framework.TestCase;
-import org.junit.Test;
+import org.testng.annotations.Test;
+import static org.testng.Assert.*;
 
 /**
  * @author Eugene Petrenko
  *         Created: 27.10.2008 12:10:02
  */
-public class DurationParserTest extends TestCase {
+@Test
+public class DurationParserTest {
   @Test
   public void test_ones() {
     doTest("01:01:01.00", 60*60*1000 + 60 * 1000 + 1000);
@@ -61,11 +62,11 @@ public class DurationParserTest extends TestCase {
 
   private void doTest(final String str, final long expected) {
     long v = new DurationParser().parseTestDuration(str);
-    assertEquals("Parsing " + str, v, expected);
+    assertEquals(v, expected,"Parsing " + str);
   }
 
   private void doTest(final String start, final String stop, final long expected) {
     long v = new DurationParser().parseTestDuration(start, stop);
-    assertEquals("Parsing " + start + " -> " + stop, v, expected);
+    assertEquals(v, expected, "Parsing " + start + " -> " + stop);
   }
 }

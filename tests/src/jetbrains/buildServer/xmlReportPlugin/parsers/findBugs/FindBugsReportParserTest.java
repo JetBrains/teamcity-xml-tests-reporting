@@ -23,9 +23,9 @@ import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.TestUtil;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
-
+@Test
 public class FindBugsReportParserTest extends BaseParserTestCase {
   private static final String FINDBUGS_HOME = System.getProperty("findbugs");
   private static final String TYPE = "findBugs";

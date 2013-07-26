@@ -26,8 +26,8 @@ import jetbrains.buildServer.util.Converter;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.filters.Filter;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 /**
  * User: vbedrosova
@@ -40,7 +40,7 @@ public abstract class BaseRulesTest extends BaseTestCase {
   @NotNull
   private File myOuterFolder;
 
-  @Before
+  @BeforeMethod
   @Override
   public void setUp() throws Exception {
     super.setUp();

@@ -24,27 +24,29 @@ import java.util.Map;
 import jetbrains.buildServer.agent.AgentRunningBuild;
 import jetbrains.buildServer.agent.DataProcessorContext;
 import jetbrains.buildServer.util.FileUtil;
-import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
 import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.junit.Test;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import static jetbrains.buildServer.xmlReportPlugin.TestUtil.readFileToList;
+import static org.testng.Assert.*;
 
-public class XmlReportDataProcessorTest extends TestCase {
+@Test
+public class XmlReportDataProcessorTest {
   private Mockery myContext;
   private File myCheckoutDir;
   private File myReport;
 
-  @Override
+  @BeforeMethod
   public void setUp() throws Exception {
-    myContext = new JUnit4Mockery();
+    myContext = new Mockery();
     myCheckoutDir = FileUtil.createTempDirectory("", "");
     myReport = new File(myCheckoutDir, "Report.xml");
   }
 
-  @Override
+  @AfterTest
   protected void tearDown() throws Exception {
     FileUtil.delete(myCheckoutDir);
   }
@@ -82,8 +84,8 @@ public class XmlReportDataProcessorTest extends TestCase {
     final List<String> expectedList = readFileToList(expectedFile);
     final List<String> actualList = readFileToList(resultsFile);
 
-    assertTrue("Some unexpected attributes detected", expectedList.containsAll(actualList));
-    assertTrue("Missing some  attributes", actualList.containsAll(expectedList));
+    assertTrue(expectedList.containsAll(actualList), "Some unexpected attributes detected");
+    assertTrue(actualList.containsAll(expectedList), "Missing some  attributes");
   }
 
   private RulesProcessor createRulesProcessor(final StringBuilder results) {

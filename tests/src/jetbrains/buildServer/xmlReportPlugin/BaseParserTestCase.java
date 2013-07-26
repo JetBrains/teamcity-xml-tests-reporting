@@ -23,13 +23,13 @@ import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
-import junit.framework.TestCase;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.junit.Before;
+import org.testng.annotations.BeforeMethod;
 
+import static org.testng.Assert.*;
 
-public abstract class BaseParserTestCase extends TestCase {
+public abstract class BaseParserTestCase {
   private StringBuilder myResult;
 
   private InspectionReporter myInspectionReporter;
@@ -39,8 +39,7 @@ public abstract class BaseParserTestCase extends TestCase {
   private File myBaseDir;
 
 
-  @Override
-  @Before
+  @BeforeMethod
   public void setUp() throws Exception {
     myResult = new StringBuilder();
 
@@ -73,7 +72,7 @@ public abstract class BaseParserTestCase extends TestCase {
                                 @Nullable ParsingResult prevResult) throws Exception {
     parser.parse(getReport(reportName), prevResult);
     final ParsingResult result = parser.getParsingResult();
-    assertNotNull("Result is null", result);
+    assertNotNull(result);
     return result;
   }
 
@@ -90,7 +89,7 @@ public abstract class BaseParserTestCase extends TestCase {
 
   protected void assertResultEquals(@NotNull String expected) {
     final String actual = prepareResult();
-    assertEquals("Actual result: " + actual, expected, actual);
+    assertEquals(actual, expected, "Actual result: " + actual);
   }
 
   @NotNull
