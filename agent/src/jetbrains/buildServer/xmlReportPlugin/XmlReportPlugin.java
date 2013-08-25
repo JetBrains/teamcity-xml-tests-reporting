@@ -252,7 +252,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
       executor.awaitTermination(30, TimeUnit.SECONDS);
     } catch (InterruptedException e) {
-      LoggingUtils.LOG.warn(e);
+      LoggingUtils.LOG.warn(e.toString());
+      LoggingUtils.LOG.debug(e.getMessage(), e);
     }
 
     if (!executor.isTerminated()) {
