@@ -42,12 +42,10 @@ public class XmlReportPluginReportTypeUsageStatisticsProvider extends BaseBuildT
   @Override
   protected Collection<String> collectExtensions(@NotNull final SBuildType buildType) {
     final Collection<String> result = new ArrayList<String>();
-    for (final SBuildFeatureDescriptor featureDescriptor : buildType.getBuildFeatures()) {
-      if (featureDescriptor.getBuildFeature() instanceof XmlReportPluginBuildFeature) {
-        final Map<String, String> params = featureDescriptor.getParameters();
-        if (XmlReportPluginUtil.isParsingEnabled(params)) {
-          result.add(XmlReportPluginUtil.getReportType(params));
-        }
+    for (final SBuildFeatureDescriptor featureDescriptor : buildType.getBuildFeaturesOfType(XmlReportPluginBuildFeature.FEATURE_TYPE)) {
+      final Map<String, String> params = featureDescriptor.getParameters();
+      if (XmlReportPluginUtil.isParsingEnabled(params)) {
+        result.add(XmlReportPluginUtil.getReportType(params));
       }
     }
     return result;

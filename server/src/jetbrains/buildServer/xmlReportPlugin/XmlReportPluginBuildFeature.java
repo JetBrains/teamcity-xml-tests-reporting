@@ -32,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
  * Time: 21:14
  */
 public class XmlReportPluginBuildFeature extends BuildFeature {
+  public static final String FEATURE_TYPE = "xml-report-plugin";
   private final String myEditUrl;
 
   public XmlReportPluginBuildFeature(@NotNull final PluginDescriptor descriptor) {
@@ -41,7 +42,7 @@ public class XmlReportPluginBuildFeature extends BuildFeature {
   @NotNull
   @Override
   public String getType() {
-    return "xml-report-plugin";
+    return FEATURE_TYPE;
   }
 
   @NotNull
