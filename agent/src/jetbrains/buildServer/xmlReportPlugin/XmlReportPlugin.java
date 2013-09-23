@@ -95,7 +95,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   }
 
   @Override
-  public void beforeRunnerStart(@NotNull BuildRunnerContext runner) {
+  public synchronized void beforeRunnerStart(@NotNull BuildRunnerContext runner) {
     myStepProcessingContext = new ProcessingContext(new CopyOnWriteArrayList<RulesContext>());
   }
 
@@ -438,7 +438,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   @SuppressWarnings({"NullableProblems"})
   @NotNull
-  private ProcessingContext getStepProcessingContext() {
+  private synchronized ProcessingContext getStepProcessingContext() {
     if (myStepProcessingContext == null) {
       throw new IllegalStateException("Step processing context is null");
     }
