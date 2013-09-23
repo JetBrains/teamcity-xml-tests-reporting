@@ -101,13 +101,13 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   public synchronized void processRules(@NotNull File rulesFile,
                                         @NotNull Map<String, String> params) {
-    if (getStepProcessingContext().finished) return;
+    if (getNotNullStepProcessingContext().finished) return;
 
      //here we check if this path is already monitored for reports of this type
      // we also don't support processign two inspections type during one build
     final String newType = getReportType(params);
 
-    for (RulesContext context : getStepProcessingContext().rulesContexts) {
+    for (RulesContext context : getNotNullStepProcessingContext().rulesContexts) {
       final String existingType = context.getRulesData().getType();
 
       if (existingType.equals(newType)) {
@@ -127,16 +127,18 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
       }
     }
 
-    final RulesData rulesData = new RulesData(getRules(rulesFile, params), params, getStepProcessingContext().startTime);
+    final RulesData rulesData = new RulesData(getRules(rulesFile, params), params, getNotNullStepProcessingContext().startTime);
 
-    getStepProcessingContext().rulesContexts.add(createRulesContext(rulesData));
+    getNotNullStepProcessingContext().rulesContexts.add(createRulesContext(rulesData));
 
-    startProcessing(getStepProcessingContext());
+    startProcessing(getNotNullStepProcessingContext());
   }
 
   @Override
   public synchronized void runnerFinished(@NotNull BuildRunnerContext runner, @NotNull BuildFinishedStatus status) {
-    finishProcessing(getStepProcessingContext(), true);
+    if (getStepProcessingContext() == null) return; // if beforeRunnerStart was not called
+
+    finishProcessing(getNotNullStepProcessingContext(), true);
 
     finishProcessing(getBuildProcessingContext(), false);
     startProcessing(getBuildProcessingContext());
@@ -436,13 +438,18 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     return myBuildProcessingContext;
   }
 
-  @SuppressWarnings({"NullableProblems"})
-  @NotNull
+  @Nullable
   private synchronized ProcessingContext getStepProcessingContext() {
-    if (myStepProcessingContext == null) {
+    return myStepProcessingContext;
+  }
+
+  @NotNull
+  private synchronized ProcessingContext getNotNullStepProcessingContext() {
+    final ProcessingContext context = getStepProcessingContext();
+    if (context == null) {
       throw new IllegalStateException("Step processing context is null");
     }
-    return myStepProcessingContext;
+    return context;
   }
 
   public class RulesData {
