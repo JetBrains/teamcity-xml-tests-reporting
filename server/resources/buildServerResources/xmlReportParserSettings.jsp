@@ -105,7 +105,7 @@
                               selected="${selected}"><c:out value="${reportType.displayName}"/></props:option>
             </c:forEach>
         </props:selectProperty>
-        <span class="smallNote">Choose report type.</span>
+        <span class="smallNote">Choose a report type.</span>
       <span class="error" id="error_xmlReportParsing.reportType"></span>
     </td>
 </tr>
@@ -125,8 +125,8 @@
         <props:multilineProperty name="xmlReportParsing.reportDirs" className="longField" expanded="true" rows="5" cols="40"
                                  linkTitle="Type report monitoring rules"/>
     <span class="smallNote">
-      New line or comma separated set of rules in the form <strong>of +|-:path</strong>.<br/>
-      Ant-style wildcards like <strong>dir/**/*.xml</strong> supported.
+      Newline- or comma-separated set of rules in the form <strong>of +|-:path</strong>.<br/>
+      Ant-style wildcards supported, e.g. <strong>dir/**/*.xml</strong>
     </span>
     <span class="error" id="error_xmlReportParsing.reportDirs"></span>
     </td>
@@ -163,7 +163,7 @@
     style="${noLimits ? 'display: none;' : ''}">
     <th><label for="xmlReportParsing.max.errors">Maximum error count:</label></th>
     <td><props:textProperty name="xmlReportParsing.max.errors" style="width:6em;" maxlength="12"/>
-        <span class="smallNote">Fail the build if the specified number of errors is exceeded. . Leave blank if there is no limit.</span>
+        <span class="smallNote">Fail a build if the specified number of errors is exceeded. Leave blank if there is no limit.</span>
     </td>
 </tr>
 
@@ -172,7 +172,7 @@
     style="${noLimits ? 'display: none;' : ''}">
     <th><label for="xmlReportParsing.max.warnings">Maximum warning count:</label></th>
     <td><props:textProperty name="xmlReportParsing.max.warnings" style="width:6em;" maxlength="12"/>
-        <span class="smallNote">Fail the build if the specified number of warnings is exceeded. Leave blank if there is no limit.</span>
+        <span class="smallNote">Fail a build if the specified number of warnings is exceeded. Leave blank if there is no limit.</span>
     </td>
 </tr>
 
