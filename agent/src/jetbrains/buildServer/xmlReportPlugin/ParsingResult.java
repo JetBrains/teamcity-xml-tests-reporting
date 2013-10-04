@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 public interface ParsingResult {
   /**
    * Accumulate the given result into current
-   * @param parsingResult te result to accumulate
+   * @param parsingResult the result to accumulate
    */
   void accumulate(@NotNull ParsingResult parsingResult);
 
