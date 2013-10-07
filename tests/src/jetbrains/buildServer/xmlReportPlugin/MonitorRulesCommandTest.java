@@ -63,7 +63,7 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
   }
     
   @NotNull
-  private MonitorRulesCommand createMonitorRulesCommand(@NotNull FileStates fileStates,
+  private MonitorRulesCommand createMonitorRulesCommand(@NotNull ReportStateHolder reportStateHolder,
                                                         @NotNull final StringBuilder result,
                                                         final boolean parseOutOfDate, final long startTime) {
     final List<String> rulesList = Arrays.asList("**/*.xml");
@@ -99,11 +99,11 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
       }
     };
 
-    return new MonitorRulesCommand(parameters, fileStates, listener);
+    return new MonitorRulesCommand(parameters, reportStateHolder, listener);
   }
 
-  private void assertFileState(@NotNull FileStates.FileState state) {
-    assertTrue(myRulesState.getFileState(myFile) == state);
+  private void assertFileState(@NotNull ReportStateHolder.ReportState state) {
+    assertTrue(myRulesState.getReportState(myFile) == state);
   }
 
   private void assertFileDetected() {
@@ -134,7 +134,7 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
     command.run();
 
     assertFileDetected();
-    assertFileState(FileStates.FileState.ON_PROCESSING);
+    assertFileState(ReportStateHolder.ReportState.ON_PROCESSING);
   }
 
   @Test
@@ -143,7 +143,7 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
     command.run();
 
     assertFileNotDetected();
-    assertFileState(FileStates.FileState.UNKNOWN);
+    assertFileState(ReportStateHolder.ReportState.OUT_OF_DATE);
   }
 
   @Test
@@ -152,7 +152,7 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
     command.run();
 
     assertFileDetected();
-    assertFileState(FileStates.FileState.ON_PROCESSING);
+    assertFileState(ReportStateHolder.ReportState.ON_PROCESSING);
   }
 
   @Test
@@ -161,13 +161,13 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
     command.run();
 
     assertFileDetected();
-    assertFileState(FileStates.FileState.ON_PROCESSING);
+    assertFileState(ReportStateHolder.ReportState.ON_PROCESSING);
 
     myResult.delete(0, myResult.length());
     command.run();
 
     assertFileNotDetected();
-    assertFileState(FileStates.FileState.ON_PROCESSING);
+    assertFileState(ReportStateHolder.ReportState.ON_PROCESSING);
   }
 
   @Test
@@ -176,14 +176,14 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
     command.run();
 
     assertFileDetected();
-    assertFileState(FileStates.FileState.ON_PROCESSING);
+    assertFileState(ReportStateHolder.ReportState.ON_PROCESSING);
 
-    myRulesState.setFileProcessed(myFile, EMPTY_RESULT);
+    myRulesState.setReportState(myFile, ReportStateHolder.ReportState.PROCESSED, EMPTY_RESULT);
     myResult.delete(0, myResult.length());
     command.run();
 
     assertFileNotDetected();
-    assertFileState(FileStates.FileState.PROCESSED);
+    assertFileState(ReportStateHolder.ReportState.PROCESSED);
   }
 
   @Test
@@ -192,15 +192,15 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
     command.run();
 
     assertFileDetected();
-    assertFileState(FileStates.FileState.ON_PROCESSING);
+    assertFileState(ReportStateHolder.ReportState.ON_PROCESSING);
 
-    myRulesState.removeFile(myFile);
+    myRulesState.setReportState(myFile, ReportStateHolder.ReportState.ERROR, EMPTY_RESULT);
     writeFile(myFile, true);
     myResult.delete(0, myResult.length());
     command.run();
 
     assertFileDetected();
-    assertFileState(FileStates.FileState.ON_PROCESSING);
+    assertFileState(ReportStateHolder.ReportState.ON_PROCESSING);
   }
 
   @Test
@@ -209,13 +209,13 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
     command.run();
 
     assertFileDetected();
-    assertFileState(FileStates.FileState.ON_PROCESSING);
+    assertFileState(ReportStateHolder.ReportState.ON_PROCESSING);
 
-    myRulesState.removeFile(myFile);
+    myRulesState.setReportState(myFile, ReportStateHolder.ReportState.ERROR, EMPTY_RESULT);
     myResult.delete(0, myResult.length());
     command.run();
 
     assertFileNotDetected();
-    assertFileState(FileStates.FileState.UNKNOWN);
+    assertFileState(ReportStateHolder.ReportState.ERROR);
   }
 }

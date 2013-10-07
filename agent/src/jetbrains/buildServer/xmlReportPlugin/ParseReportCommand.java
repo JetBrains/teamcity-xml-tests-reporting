@@ -17,7 +17,6 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import java.io.File;
-import java.util.Map;
 import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,23 +33,18 @@ public class ParseReportCommand implements Runnable {
   private final ParseParameters myParameters;
 
   @NotNull
-  private final FileStates myFileStates;
-
-  @NotNull
-  private final Map<File, ParsingResult> myPrevResults;
+  private final RulesState myRulesState;
 
   @NotNull
   private final ParserFactory myParserFactory;
 
   public ParseReportCommand(@NotNull File file,
                             @NotNull ParseParameters parameters,
-                            @NotNull FileStates fileStates,
-                            @NotNull Map<File, ParsingResult> prevResults,
+                            @NotNull RulesState rulesState,
                             @NotNull ParserFactory parserFactory) {
     myFile = file;
     myParameters = parameters;
-    myFileStates = fileStates;
-    myPrevResults = prevResults;
+    myRulesState = rulesState;
     myParserFactory = parserFactory;
   }
 
@@ -60,7 +54,7 @@ public class ParseReportCommand implements Runnable {
     boolean finished;
     Throwable problem = null;
     try {
-      finished = parser.parse(myFile, myPrevResults.get(myFile));
+      finished = parser.parse(myFile, myRulesState.getParsingResult(myFile));
     } catch (ParsingException e) {
       finished = true;
       problem = e;
@@ -76,12 +70,10 @@ public class ParseReportCommand implements Runnable {
 
     if (finished) { // file processed
       parsingResult.logAsFileResult(myFile, myParameters);
-      myPrevResults.remove(myFile);
-      myFileStates.setFileProcessed(myFile, parsingResult);
+      myRulesState.setReportState(myFile, ReportStateHolder.ReportState.PROCESSED, parsingResult);
     } else {
       //todo: log file not processed
-      myPrevResults.put(myFile, parsingResult);
-      myFileStates.removeFile(myFile);
+      myRulesState.setReportState(myFile, ReportStateHolder.ReportState.ERROR, parsingResult);
     }
   }
 }

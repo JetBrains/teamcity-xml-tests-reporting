@@ -37,20 +37,15 @@ public class RulesContext {
   private final RulesState myRulesState;
 
   @NotNull
-  private final Map<File, ParsingResult> myFailedToParse;
-
-  @NotNull
   private final List<Future> myParseTasks = new ArrayList<Future>();
 
   @NotNull
   private MonitorRulesCommand myMonitorRulesCommand;
 
   public RulesContext(@NotNull XmlReportPlugin.RulesData rulesData,
-                      @NotNull RulesState rulesState,
-                      @NotNull Map<File, ParsingResult> failedToParse) {
+                      @NotNull RulesState rulesState) {
     myRulesData = rulesData;
     myRulesState = rulesState;
-    myFailedToParse = failedToParse;
   }
 
   public void addParseTask(@NotNull Future parseTask) {
@@ -83,10 +78,5 @@ public class RulesContext {
   @NotNull
   public RulesState getRulesState() {
     return myRulesState;
-  }
-
-  @NotNull
-  public Map<File, ParsingResult> getFailedToParse() {
-    return myFailedToParse;
   }
 }

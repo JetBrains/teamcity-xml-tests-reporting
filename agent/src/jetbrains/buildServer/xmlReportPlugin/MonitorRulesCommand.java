@@ -48,21 +48,18 @@ public class MonitorRulesCommand {
   private final MonitorRulesParameters myParameters;
 
   @NotNull
-  private final FileStates myFileStates;
+  private final ReportStateHolder myReportStateHolder;
 
   @NotNull
   private final MonitorRulesListener myListener;
 
   private boolean myFirstRun;
 
-  @NotNull
-  private final Map<File, FileState> myKnownStates = new HashMap<File, FileState>();
-
   public MonitorRulesCommand(@NotNull MonitorRulesParameters parameters,
-                             @NotNull FileStates fileStates,
+                             @NotNull ReportStateHolder reportStateHolder,
                              @NotNull MonitorRulesListener listener) {
     myParameters = parameters;
-    myFileStates = fileStates;
+    myReportStateHolder = reportStateHolder;
     myListener = listener;
 
     myFirstRun = true;
@@ -71,40 +68,42 @@ public class MonitorRulesCommand {
   public void run() {
     if (myFirstRun) {
       logWatchingPaths();
-      checkExistingPaths();
       myFirstRun = false;
     }
 
     monitorRules(
       new MonitorRulesFileProcessor() {
         public void processFile(@NotNull File file) {
-          if (acceptFile(file)) { //TODO: also grows
-            switch (myFileStates.getFileState(file)) {
-              case ON_PROCESSING:
-                return;
-              case PROCESSED:
-                if (myKnownStates.containsKey(file)) {
-                  myKnownStates.remove(file);
-                }
-                return;
-              case UNKNOWN:
-                final long lastModified = file.lastModified();
-                final long length = file.length();
+          if (acceptFile(file)) {
 
-                final FileState fileState = myKnownStates.get(file);
+            final long fileLastModified = file.lastModified();
 
-                if (fileState == null) {
-                  myKnownStates.put(file, new FileState(lastModified, length));
-
+            if (timeConstraintsSatisfied(file.lastModified())) {
+              switch (myReportStateHolder.getReportState(file)) {
+                case ON_PROCESSING:
+                case PROCESSED:
+                  return;
+                case UNKNOWN:
+                  myReportStateHolder.setReportState(file, ReportStateHolder.ReportState.ON_PROCESSING, fileLastModified, file.length());
                   modificationDetected(file);
-                } else {
-                  if (lastModified > fileState.lastModified || length > fileState.length) {
-                    fileState.lastModified = lastModified;
-                    fileState.length = length;
+                  return;
+                case ERROR:
+                case OUT_OF_DATE:
+                  final long fileLength = file.length();
 
+                  final Long lastModified = myReportStateHolder.getLastModified(file);
+                  final Long length = myReportStateHolder.getLength(file);
+
+                  assert lastModified != null;
+                  assert length != null;
+
+                  if (fileLastModified > lastModified || fileLength > length) {
+                    myReportStateHolder.setReportState(file, ReportStateHolder.ReportState.ON_PROCESSING, file.lastModified(), file.length());
                     modificationDetected(file);
                   }
-                }
+              }
+            } else {
+              myReportStateHolder.setReportState(file, ReportStateHolder.ReportState.OUT_OF_DATE, fileLastModified, file.length());
             }
           }
         }
@@ -137,29 +136,7 @@ public class MonitorRulesCommand {
   }
 
   private void modificationDetected(File file) {
-    myFileStates.addFile(file);
     myListener.modificationDetected(file);
-  }
-
-  private void checkExistingPaths() {
-    final List<File> existingPaths = new ArrayList<File>();
-
-    monitorRules(
-      new MonitorRulesFileProcessor() {
-        public void processFile(@NotNull File file) {
-          if (file.isFile() && file.canRead() &&
-            !isFresh(file)) {
-            existingPaths.add(file);
-          }
-        }
-      });
-
-    if (existingPaths.size() > 0) {
-      LoggingUtils.LOG.info("Found " + existingPaths.size() + " files from previous builds or build steps:");
-      for (File f : existingPaths) {
-        LoggingUtils.LOG.info(f.getPath());
-      }
-    }
   }
 
   private interface MonitorRulesFileProcessor {
@@ -173,25 +150,14 @@ public class MonitorRulesCommand {
   }
 
   private boolean acceptFile(@NotNull File f) {
-    return f.isFile() && f.canRead() &&
-           timeConstraintsSatisfied(f);
+    return f.isFile() && f.canRead();
   }
 
-  private boolean timeConstraintsSatisfied(@NotNull File file) {
-    return myParameters.isParseOutOfDate() || isFresh(file);
+  private boolean timeConstraintsSatisfied(long lastModified) {
+    return myParameters.isParseOutOfDate() || isFresh(lastModified);
   }
 
-  private boolean isFresh(@NotNull File file) {
-    return file.lastModified() >= myParameters.getStartTime();
-  }
-
-  private static class FileState {
-    private long lastModified;
-    private long length;
-
-    private FileState(long lastModified, long length) {
-      this.lastModified = lastModified;
-      this.length = length;
-    }
+  private boolean isFresh(long lastModified) {
+    return lastModified >= myParameters.getStartTime();
   }
 }

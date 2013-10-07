@@ -164,10 +164,9 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   private RulesContext createRulesContext(@NotNull final RulesData rulesData) {
     final RulesState fileStateHolder = new RulesState();
-    final Map<File, ParsingResult> failedToParse = new HashMap<File, ParsingResult>();
     final ParserFactory parserFactory = getParserFactory(rulesData.getType());
 
-    final RulesContext rulesContext = new RulesContext(rulesData, fileStateHolder, failedToParse);
+    final RulesContext rulesContext = new RulesContext(rulesData, fileStateHolder);
 
     final MonitorRulesCommand monitorRulesCommand = new MonitorRulesCommand(rulesData.getMonitorRulesParameters(), rulesContext.getRulesState(),
       new MonitorRulesCommand.MonitorRulesListener() {
@@ -234,8 +233,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   }
 
   private void submitParsing(@NotNull File file, @NotNull final RulesContext rulesContext, @NotNull ParserFactory parserFactory) {
-    final ParseReportCommand parseReportCommand = new ParseReportCommand(file, rulesContext.getRulesData().getParseReportParameters(),
-      rulesContext.getRulesState(), rulesContext.getFailedToParse(), parserFactory);
+    final ParseReportCommand parseReportCommand = new ParseReportCommand(file, rulesContext.getRulesData().getParseReportParameters(), rulesContext.getRulesState(), parserFactory);
 
     synchronized (myParseExecutor) {
       rulesContext.addParseTask(myParseExecutor.submit(parseReportCommand));
@@ -299,20 +297,23 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   private void logStatistics(@NotNull final RulesContext rulesContext) {
     final BuildProgressLogger logger = getBuild().getBuildLogger();
 
-    final Map<File, ParsingResult> processedFiles = rulesContext.getRulesState().getFiles();
-    final Map<File, ParsingResult> failedToParse = rulesContext.getFailedToParse();
+    final Map<File, ParsingResult> processedFiles = rulesContext.getRulesState().getProcessedFiles();
+    final Map<File, ParsingResult> failedToParse = rulesContext.getRulesState().getFailedToProcessFiles();
+    final List<File> outOfDate = rulesContext.getRulesState().getOutOfDateFiles();
 
     final int totalFileCount = processedFiles.size() + failedToParse.size();
 
     if (totalFileCount == 0 && rulesContext.getRulesData().getWhenNoDataPublished() == LogAction.DO_NOTHING) return;
 
+    final int outOfDateCount = outOfDate.size();
+
     LoggingUtils.logInTarget(LoggingUtils.getTypeDisplayName(rulesContext.getRulesData().getType()) + " report watcher",
       new Runnable() {
         public void run() {
-          if (totalFileCount == 0) {
+          if (totalFileCount + outOfDateCount == 0) {
             rulesContext.getRulesData().getWhenNoDataPublished().doLogAction("No reports found for paths:", logger, LoggingUtils.LOG);
           } else {
-            LoggingUtils.message(totalFileCount + " report" + getEnding(totalFileCount) + " found for paths:", logger);
+            LoggingUtils.message(totalFileCount + outOfDateCount + " report" + getEnding(totalFileCount) + " found for paths:", logger);
           }
 
           final Collection<String> rules = rulesContext.getRulesData().getRules().getBody();
@@ -324,17 +325,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
               LoggingUtils.message(r, logger);
             }
           }
-
-          final ArrayList<File> toRemove = new ArrayList<File>();
-          for (Map.Entry<File, ParsingResult> e : processedFiles.entrySet()) {
-            //noinspection ThrowableResultOfMethodCallIgnored
-            if (e.getValue().getProblem() != null) {
-              failedToParse.put(e.getKey(), e.getValue());
-              toRemove.add(e.getKey());
-            }
-          }
-
-          for (File f : toRemove) processedFiles.remove(f);
 
           final ParsingResult result = myParserFactoryMap.get(rulesContext.getRulesData().getType()).createEmptyResult();
 
@@ -385,6 +375,11 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
                                          }
                                        }
                                      }, logger);
+          }
+
+          if (!outOfDate.isEmpty()) {
+            LoggingUtils
+              .message(outOfDate.size() + " report" + getEnding(outOfDate.size()) + " skipped as out-of-date", logger);
           }
 
           result.logAsTotalResult(rulesContext.getRulesData().getParseReportParameters());

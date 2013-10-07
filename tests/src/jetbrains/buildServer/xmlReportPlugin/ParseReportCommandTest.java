@@ -17,7 +17,6 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.Map;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
@@ -41,7 +40,6 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
   private File myFile;
   private RulesState myRulesState;
   private StringBuilder myResult;
-  private Map<File, ParsingResult> myPrevResults;
   private BuildProgressLogger myLogger;
   private ParseParameters myParseParameters;
 
@@ -52,14 +50,13 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
     myFile = writeFile("file.xml", false);
     myRulesState = new RulesState();
     myResult = new StringBuilder();
-    myPrevResults = new HashMap<File, ParsingResult>();
     myLogger = new BuildLoggerForTesting(myResult);
     myParseParameters = createParseParameters();
   }
 
   @NotNull
   private ParseReportCommand createParseReportCommand(@NotNull Parser parser) {
-    return new ParseReportCommand(myFile, myParseParameters, myRulesState, myPrevResults, createParserFactory(parser));
+    return new ParseReportCommand(myFile, myParseParameters, myRulesState, createParserFactory(parser));
   }
 
   @NotNull
@@ -88,37 +85,24 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
     };
   }
 
-  private void assertFileState(@NotNull FileStates.FileState state) {
-    assertTrue(myRulesState.getFileState(myFile) == state);
-  }
-
-  private void assertNotInPrevState() {
-    assertFalse(myPrevResults.containsKey(myFile));
-  }
-
-  private void assertInPrevState() {
-    assertTrue(myPrevResults.containsKey(myFile));
+  private void assertFileState(@NotNull ReportStateHolder.ReportState state) {
+    assertTrue(myRulesState.getReportState(myFile) == state);
   }
 
   @Test
   public void testParsedSuccess() throws Exception {
-    myRulesState.addFile(myFile);
-
     final Parser parser = createParser(true, false);
     final ParseReportCommand parseReportCommand = createParseReportCommand(parser);
     parseReportCommand.run();
 
     assertContains(myResult, "PARSING: ##BASE_DIR##/file.xml PREVIOUS RESULT: null",
-      "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
+                   "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
-    assertNotInPrevState();
-    assertFileState(FileStates.FileState.PROCESSED);
+    assertFileState(ReportStateHolder.ReportState.PROCESSED);
   }
 
   @Test
   public void testParsedWithFailure() throws Exception {
-    myRulesState.addFile(myFile);
-
     final Parser parser = createParser(false, false);
     final ParseReportCommand parseReportCommand = createParseReportCommand(parser);
     parseReportCommand.run();
@@ -126,14 +110,11 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
     assertContains(myResult, "PARSING: ##BASE_DIR##/file.xml PREVIOUS RESULT: null");
     assertNotContains(myResult, "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
-    assertInPrevState();
-    assertFileState(FileStates.FileState.UNKNOWN);
+    assertFileState(ReportStateHolder.ReportState.ERROR);
   }
 
   @Test
   public void testParsedWithException() throws Exception {
-    myRulesState.addFile(myFile);
-
     final Parser parser = createParser(true, true);
     final ParseReportCommand parseReportCommand = createParseReportCommand(parser);
     parseReportCommand.run();
@@ -142,30 +123,26 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
       //"ERROR: Failed to parse ##BASE_DIR##/file.xml with null parser",
       "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
-    assertNotInPrevState();
-    assertFileState(FileStates.FileState.PROCESSED);
+    assertFileState(ReportStateHolder.ReportState.PROCESSED);
   }
 
   @Test
   public void testReparsedSuccess() throws Exception {
-    myRulesState.addFile(myFile);
-    myPrevResults.put(myFile, EMPTY_RESULT);
+    myRulesState.setReportState(myFile, ReportStateHolder.ReportState.ERROR, EMPTY_RESULT);
 
     final Parser parser = createParser(true, false);
     final ParseReportCommand parseReportCommand = createParseReportCommand(parser);
     parseReportCommand.run();
 
     assertContains(myResult, "PARSING: ##BASE_DIR##/file.xml PREVIOUS RESULT: EMPTY_RESULT",
-      "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
+                   "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
-    assertNotInPrevState();
-    assertFileState(FileStates.FileState.PROCESSED);
+    assertFileState(ReportStateHolder.ReportState.PROCESSED);
   }
 
   @Test
   public void testReparsedWithFailure() throws Exception {
-    myRulesState.addFile(myFile);
-    myPrevResults.put(myFile, EMPTY_RESULT);
+    myRulesState.setReportState(myFile, ReportStateHolder.ReportState.ERROR, EMPTY_RESULT);
 
     final Parser parser = createParser(false, false);
     final ParseReportCommand parseReportCommand = createParseReportCommand(parser);
@@ -174,14 +151,12 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
     assertContains(myResult, "PARSING: ##BASE_DIR##/file.xml PREVIOUS RESULT: EMPTY_RESULT");
     assertNotContains(myResult, "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
-    assertInPrevState();
-    assertFileState(FileStates.FileState.UNKNOWN);
+    assertFileState(ReportStateHolder.ReportState.ERROR);
   }
 
   @Test
   public void testReparsedWithException() throws Exception {
-    myRulesState.addFile(myFile);
-    myPrevResults.put(myFile, EMPTY_RESULT);
+    myRulesState.setReportState(myFile, ReportStateHolder.ReportState.ERROR, EMPTY_RESULT);
 
     final Parser parser = createParser(false, true);
     final ParseReportCommand parseReportCommand = createParseReportCommand(parser);
@@ -191,8 +166,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
       //"ERROR: Failed to parse ##BASE_DIR##/file.xml with null parser",
       "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
-    assertNotInPrevState();
-    assertFileState(FileStates.FileState.PROCESSED);
+    assertFileState(ReportStateHolder.ReportState.PROCESSED);
   }
 
   @NotNull
