@@ -55,12 +55,6 @@ public abstract class XmlReportDataProcessor implements ScopeAwareDataProcessor 
   }
 
   public void processData(@NotNull final DataProcessorContext context) {
-    try {
-      Thread.sleep(15000L);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-
     final Map<String, String> arguments = context.getArguments();
 
     final Map<String, String> params = new HashMap<String, String>();
