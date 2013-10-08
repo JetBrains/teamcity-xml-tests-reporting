@@ -18,8 +18,9 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import java.util.HashMap;
 import java.util.Map;
-import jetbrains.buildServer.agent.DataProcessor;
 import jetbrains.buildServer.agent.DataProcessorContext;
+import jetbrains.buildServer.agent.impl.serviceProcess.ScopeAwareDataProcessor;
+import jetbrains.buildServer.agent.impl.serviceProcess.ServiceProcessScope;
 import org.jetbrains.annotations.NotNull;
 
 //"##teamcity[importData type='sometype' file='somedir']"
@@ -37,7 +38,7 @@ import org.jetbrains.annotations.NotNull;
 //starts watching somedir directory for findBugs reports, findBugs report processor needs findBugsHome
 //attribute
 
-public abstract class XmlReportDataProcessor implements DataProcessor {
+public abstract class XmlReportDataProcessor implements ScopeAwareDataProcessor {
   public static final String VERBOSE_ARGUMENT = "verbose";
   public static final String PARSE_OUT_OF_DATE_ARGUMENT = "parseOutOfDate";
   public static final String ERRORS_LIMIT_ARGUMENT = "errorLimit";
@@ -54,6 +55,12 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
   }
 
   public void processData(@NotNull final DataProcessorContext context) {
+    try {
+      Thread.sleep(15000L);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
     final Map<String, String> arguments = context.getArguments();
 
     final Map<String, String> params = new HashMap<String, String>();
@@ -73,6 +80,11 @@ public abstract class XmlReportDataProcessor implements DataProcessor {
     pass(params, XmlReportPluginConstants.MAX_WARNINGS, arguments, WARNINGS_LIMIT_ARGUMENT, null);
 
     myRulesProcessor.processRules(context.getFile(), params);
+  }
+
+  @NotNull
+  public ServiceProcessScope getScope() {
+    return ServiceProcessScope.BUILD_STEP;
   }
 
   private static void pass(final Map<String, String> target,
