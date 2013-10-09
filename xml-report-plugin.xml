@@ -85,6 +85,7 @@
   </path>
   
   <path id="library.teamcity_api.classpath">
+    <pathelement location="${path.variable.teamcitydistribution}/buildAgent/lib/agent.jar"/>
     <pathelement location="${path.variable.teamcitydistribution}/buildAgent/lib/runtime-util.jar"/>
     <pathelement location="${path.variable.teamcitydistribution}/buildAgent/lib/server-logging.jar"/>
   </path>
@@ -543,12 +544,6 @@
     <patternset refid="excluded.from.module.tests"/>
   </patternset>
   
-  <path id="tests.module.sourcepath">
-    <dirset dir="${module.tests.basedir}/tests">
-      <include name="none"/>
-    </dirset>
-  </path>
-  
   <path id="tests.module.test.sourcepath">
     <dirset dir="${module.tests.basedir}/tests">
       <include name="src"/>
@@ -558,23 +553,7 @@
   
   <target name="compile.module.tests" depends="compile.module.tests.production,compile.module.tests.tests" description="Compile module tests"/>
   
-  <target name="compile.module.tests.production" depends="compile.module.agent,compile.module.common" description="Compile module tests; production classes">
-    <mkdir dir="${tests.output.dir}"/>
-    <javac destdir="${tests.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
-      <compilerarg line="${compiler.args.tests}"/>
-      <bootclasspath refid="tests.module.bootclasspath"/>
-      <classpath refid="tests.module.production.classpath"/>
-      <src refid="tests.module.sourcepath"/>
-      <patternset refid="excluded.from.compilation.tests"/>
-    </javac>
-    
-    <copy todir="${tests.output.dir}">
-      <fileset dir="${module.tests.basedir}/tests/none">
-        <patternset refid="compiler.resources"/>
-        <type type="file"/>
-      </fileset>
-    </copy>
-  </target>
+  <target name="compile.module.tests.production" depends="compile.module.agent,compile.module.common" description="Compile module tests; production classes"/>
   
   <target name="compile.module.tests.tests" depends="compile.module.tests.production" description="compile module tests; test classes" unless="skip.tests">
     <mkdir dir="${tests.testoutput.dir}"/>
