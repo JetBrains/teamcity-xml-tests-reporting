@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FacetAutodetectingManager">
+    <autodetection-disabled>
+      <facet-type id="jsf">
+        <modules>
+          <module name="TestReportParserPluginServer">
+            <files>
+              <file url="file://$PROJECT_DIR$/TestReportParserPluginServer/web/WEB-INF/faces-config.xml" />
+            </files>
+          </module>
+        </modules>
+      </facet-type>
+      <facet-type id="web">
+        <modules>
+          <module name="TestReportParserPluginServer">
+            <files>
+              <file url="file://$PROJECT_DIR$/TestReportParserPluginServer/web/WEB-INF/web.xml" />
+            </files>
+          </module>
+        </modules>
+      </facet-type>
+    </autodetection-disabled>
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_5" assert-keyword="true" jdk-15="true" project-jdk-name="1.6" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/classes" />
+  </component>
+  <component name="SvnBranchConfigurationManager">
+    <option name="myConfigurationMap">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="http://svn.jetbrains.org/teamcity/plugins/xml-tests-reporting/branches" />
+                  <option value="http://svn.jetbrains.org/teamcity/plugins/xml-tests-reporting/xml-tests-reporting" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="http://svn.jetbrains.org/teamcity/plugins/xml-tests-reporting/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/agent">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="http://svn.jetbrains.org/teamcity/plugins/xml-tests-reporting/branches" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="http://svn.jetbrains.org/teamcity/plugins/xml-tests-reporting/trunk" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="myVersion" value="124" />
+    <option name="mySupportsUserInfoFilter" value="true" />
+  </component>
+</project>
+

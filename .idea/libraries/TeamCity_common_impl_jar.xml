@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="TeamCity common-impl.jar">
+    <CLASSES>
+      <root url="jar://$teamcitydistribution$/webapps/ROOT/WEB-INF/lib/common-impl.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

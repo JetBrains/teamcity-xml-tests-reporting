@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Servlet API">
+    <CLASSES>
+      <root url="jar://$teamcitydistribution$/lib/servlet-api.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

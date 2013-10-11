@@ -1,0 +1,36 @@
+<component name="ArtifactManager">
+  <artifact name="plugin">
+    <output-path>$PROJECT_DIR$/out/artifacts/plugin</output-path>
+    <properties id="ant-postprocessing">
+      <options enabled="true">
+        <file>file://$PROJECT_DIR$/ant.build.xml</file>
+        <target>replace-tokens-in-teamcity-plugin-xml</target>
+      </options>
+    </properties>
+    <root id="root">
+      <element id="directory" name="agent">
+        <element id="archive" name="xml-report-plugin.zip">
+          <element id="directory" name="xml-report-plugin">
+            <element id="directory" name="lib">
+              <element id="archive" name="xml-report-plugin-agent.jar">
+                <element id="module-output" name="agent" />
+              </element>
+              <element id="archive" name="xml-report-plugin-common.jar">
+                <element id="module-output" name="common" />
+              </element>
+            </element>
+          </element>
+        </element>
+      </element>
+      <element id="directory" name="server">
+        <element id="archive" name="xml-report-plugin-common.jar">
+          <element id="module-output" name="common" />
+        </element>
+        <element id="archive" name="xml-report-plugin-server.jar">
+          <element id="module-output" name="server" />
+        </element>
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/teamcity-plugin.xml" />
+    </root>
+  </artifact>
+</component>

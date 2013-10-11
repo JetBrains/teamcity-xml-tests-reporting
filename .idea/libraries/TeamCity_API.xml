@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="TeamCity API">
+    <CLASSES>
+      <root url="jar://$teamcitydistribution$/buildAgent/lib/runtime-util.jar!/" />
+      <root url="jar://$teamcitydistribution$/buildAgent/lib/server-logging.jar!/" />
+      <root url="jar://$teamcitydistribution$/buildAgent/lib/agent.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
