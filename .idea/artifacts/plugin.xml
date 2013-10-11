@@ -29,6 +29,7 @@
         <element id="archive" name="xml-report-plugin-server.jar">
           <element id="module-output" name="server" />
         </element>
+        <element id="file-copy" path="$teamcitydistribution$/webapps/ROOT/WEB-INF/plugins/usage-statistics/server/usage-statistics-util.jar" />
       </element>
       <element id="file-copy" path="$PROJECT_DIR$/teamcity-plugin.xml" />
     </root>
