@@ -10,7 +10,7 @@
     <option name="METHOD_NAME" value="" />
     <option name="GROUP_NAME" value="" />
     <option name="TEST_OBJECT" value="PACKAGE" />
-    <option name="VM_PARAMETERS" value="" />
+    <option name="VM_PARAMETERS" value="-Xmx256m" />
     <option name="PARAMETERS" value="" />
     <option name="WORKING_DIRECTORY" value="" />
     <option name="OUTPUT_DIRECTORY" value="" />
