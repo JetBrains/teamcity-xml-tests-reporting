@@ -18,8 +18,8 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import java.util.HashMap;
 import java.util.Map;
+import jetbrains.buildServer.agent.BuildStepDataProcessor;
 import jetbrains.buildServer.agent.DataProcessorContext;
-import jetbrains.buildServer.agent.impl.serviceProcess.ScopeAwareDataProcessor;
 import jetbrains.buildServer.agent.impl.serviceProcess.ServiceProcessScope;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,7 +38,7 @@ import org.jetbrains.annotations.NotNull;
 //starts watching somedir directory for findBugs reports, findBugs report processor needs findBugsHome
 //attribute
 
-public abstract class XmlReportDataProcessor implements ScopeAwareDataProcessor {
+public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
   public static final String VERBOSE_ARGUMENT = "verbose";
   public static final String PARSE_OUT_OF_DATE_ARGUMENT = "parseOutOfDate";
   public static final String ERRORS_LIMIT_ARGUMENT = "errorLimit";
