@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 import jetbrains.buildServer.agent.BuildStepDataProcessor;
 import jetbrains.buildServer.agent.DataProcessorContext;
-import jetbrains.buildServer.agent.impl.serviceProcess.ServiceProcessScope;
 import org.jetbrains.annotations.NotNull;
 
 //"##teamcity[importData type='sometype' file='somedir']"
@@ -74,11 +73,6 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     pass(params, XmlReportPluginConstants.MAX_WARNINGS, arguments, WARNINGS_LIMIT_ARGUMENT, null);
 
     myRulesProcessor.processRules(context.getFile(), params);
-  }
-
-  @NotNull
-  public ServiceProcessScope getScope() {
-    return ServiceProcessScope.BUILD_STEP;
   }
 
   private static void pass(final Map<String, String> target,
