@@ -19,12 +19,10 @@ package jetbrains.buildServer.xmlReportPlugin;
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.*;
+import jetbrains.buildServer.BuildProblemData;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
-import jetbrains.buildServer.util.DiagnosticUtil;
-import jetbrains.buildServer.util.EventDispatcher;
-import jetbrains.buildServer.util.FileUtil;
-import jetbrains.buildServer.util.NamedThreadFactory;
+import jetbrains.buildServer.util.*;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.TeamCityDuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
@@ -354,6 +352,10 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
                                          }
                                        }
                                      }, logger);
+
+            if (rulesContext.getRulesData().failBuildIfParsingFailed()) {
+              logger.logBuildProblem(createBuildProblem(rulesContext.getRulesData().getType(), failedToParse.keySet()));
+            }
           }
 
           if (!processedFiles.isEmpty()) {
@@ -483,6 +485,10 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
       return LogAction.getAction(whenNoDataPublished(myParameters));
     }
 
+    public boolean failBuildIfParsingFailed() {
+      return isFailBuildIfParsingFailed(myParameters);
+    }
+
     @NotNull
     public MonitorRulesCommand.MonitorRulesParameters getMonitorRulesParameters() {
       return new MonitorRulesCommand.MonitorRulesParameters() {
@@ -565,6 +571,16 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         }
       };
     }
+  }
+
+  @NotNull
+  private BuildProblemData createBuildProblem(@NotNull String type, @NotNull Collection<File> failedToParse) {
+    return BuildProblemData.createBuildProblem(String.valueOf(failedToParse.hashCode()), getBuildProblemType(type), "Failed to parse xml " + StringUtil.pluralize("report", failedToParse.size()));
+  }
+
+  @NotNull
+  private String getBuildProblemType(@NotNull String type) {
+    return XmlReportPluginConstants.BUILD_PROBLEM_TYPE + StringUtil.capitalize(type) + "ParsingFailure";
   }
 
   private static final class ProcessingContext {

@@ -43,6 +43,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
   public static final String ERRORS_LIMIT_ARGUMENT = "errorLimit";
   public static final String WARNINGS_LIMIT_ARGUMENT = "warningLimit";
   public static final String FINDBUGS_HOME_ARGUMENT = "findBugsHome";
+  public static final String FAIL_BUILD_IF_PARSING_FAILED = "failBuildIfParsingFailed";
   public static final String WHEN_NO_DATA_PUBLISHED_ARGUMENT = "whenNoDataPublished";
   public static final String LOG_AS_INTERNAL_ARGUMENT = "logAsInternal";
 
@@ -63,6 +64,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     pass(params, XmlReportPluginConstants.VERBOSE_OUTPUT, arguments, VERBOSE_ARGUMENT, "false");
     pass(params, XmlReportPluginConstants.PARSE_OUT_OF_DATE, arguments, PARSE_OUT_OF_DATE_ARGUMENT, "false");
     pass(params, XmlReportPluginConstants.WHEN_NO_DATA_PUBLISHED, arguments, WHEN_NO_DATA_PUBLISHED_ARGUMENT, "error");
+    pass(params, XmlReportPluginConstants.FAIL_BUILD_IF_PARSING_FAILED, arguments, FAIL_BUILD_IF_PARSING_FAILED, "true");
     pass(params, XmlReportPluginConstants.LOG_AS_INTERNAL, arguments, LOG_AS_INTERNAL_ARGUMENT, null);
 
     if ("findBugs".equals(getType())) {

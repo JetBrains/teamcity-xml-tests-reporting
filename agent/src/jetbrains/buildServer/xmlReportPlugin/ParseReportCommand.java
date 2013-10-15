@@ -70,7 +70,7 @@ public class ParseReportCommand implements Runnable {
 
     if (finished) { // file processed
       parsingResult.logAsFileResult(myFile, myParameters);
-      myRulesState.setReportState(myFile, ReportStateHolder.ReportState.PROCESSED, parsingResult);
+      myRulesState.setReportState(myFile, problem == null ? ReportStateHolder.ReportState.PROCESSED : ReportStateHolder.ReportState.ERROR, parsingResult);
     } else {
       //todo: log file not processed
       myRulesState.setReportState(myFile, ReportStateHolder.ReportState.ERROR, parsingResult);

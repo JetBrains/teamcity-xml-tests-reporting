@@ -160,6 +160,10 @@ public class XmlReportPluginUtil {
     return params.get(WHEN_NO_DATA_PUBLISHED);
   }
 
+  public static boolean isFailBuildIfParsingFailed(@NotNull final Map<String, String> params) {
+    return !params.containsKey(FAIL_BUILD_IF_PARSING_FAILED) || Boolean.parseBoolean(params.get(FAIL_BUILD_IF_PARSING_FAILED));
+  }
+
   public static boolean isLogIsInternal(@NotNull final Map<String, String> params) {
     return params.containsKey(LOG_AS_INTERNAL) && params.get(LOG_AS_INTERNAL) != null
       ? Boolean.parseBoolean(params.get(LOG_AS_INTERNAL)) : !isOutputVerbose(params);
