@@ -1,3 +1,4 @@
+<xmlReportParsing.failBuildIfParsingFailed, true>
 <xmlReportParsing.max.warnings, null>
 <xmlReportParsing.max.errors, 10>
 <xmlReportParsing.reportType, junit>

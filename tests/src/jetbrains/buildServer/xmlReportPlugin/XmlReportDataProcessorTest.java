@@ -141,6 +141,13 @@ public class XmlReportDataProcessorTest {
   }
 
   @Test
+  public void testNotFailBuildOnParsingFilure() throws Exception {
+    final Map<String, String> arguments = new HashMap<String, String>();
+    arguments.put(XmlReportDataProcessor.FAIL_BUILD_IF_PARSING_FAILED, "false");
+    runTest(arguments, "notFailBuildOnParsingFilure");
+  }
+
+  @Test
   public void testLogAsInternalDisabled() throws Exception {
     final Map<String, String> arguments = new HashMap<String, String>();
     arguments.put(XmlReportDataProcessor.LOG_AS_INTERNAL_ARGUMENT, "false");
