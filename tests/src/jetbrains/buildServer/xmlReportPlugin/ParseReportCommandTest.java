@@ -123,7 +123,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
       //"ERROR: Failed to parse ##BASE_DIR##/file.xml with null parser",
       "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
-    assertFileState(ReportStateHolder.ReportState.PROCESSED);
+    assertFileState(ReportStateHolder.ReportState.ERROR);
   }
 
   @Test
@@ -166,7 +166,7 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
       //"ERROR: Failed to parse ##BASE_DIR##/file.xml with null parser",
       "PROCESSING RESULT: FILE: ##BASE_DIR##/file.xml RESULT: EMPTY_RESULT");
 
-    assertFileState(ReportStateHolder.ReportState.PROCESSED);
+    assertFileState(ReportStateHolder.ReportState.ERROR);
   }
 
   @NotNull
