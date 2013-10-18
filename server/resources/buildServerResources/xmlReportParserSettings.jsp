@@ -1,5 +1,6 @@
 <%@ taglib prefix="props" tagdir="/WEB-INF/tags/props" %>
 <%@ taglib prefix="l" tagdir="/WEB-INF/tags/layout" %>
+<%@ taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="forms" tagdir="/WEB-INF/tags/forms" %>
 <%--
@@ -143,15 +144,17 @@
        value="${empty propertiesBean.properties['xmlReportParsing.max.errors'] and empty propertiesBean.properties['xmlReportParsing.max.warnings']}"/>
 
 <tr id="xmlReportParsing.condition.note.container" style="${displayInspectionsSettings ? '' : 'display:none;'}">
-  <c:url var="link" value="/admin/editBuildFailureConditions.html?init=1&id=${param['id']}"/>
-  <td colspan="2">You can configure a build to fail if it has too many inspection errors or warnings by
-    adding a corresponding <a href="${link}">Build Failure Condition</a>.<br/>
+  <td colspan="2">
+    <c:set var="editFailureCondLink"><admin:editBuildTypeLink step="buildFailureConditions" buildTypeId="${buildForm.settings.externalId}" withoutLink="true"/></c:set>
+    You can configure a build to fail if it has too many inspection errors or warnings by
+    adding a corresponding <a href="${editFailureCondLink}#addFeature=BuildFailureOnMetric">build failure condition</a>.<br/>
     To configure error and warning limits for current monitoring rules only, use the
     <c:choose>
       <c:when test="${noLimits}">
         <a href="#"
         onclick="BS.Util.show('xmlReportParsing.max.errors.container');
         BS.Util.show('xmlReportParsing.max.warnings.container');
+        BS.MultilineProperties.updateVisible();
         return false;">following settings</a>
       </c:when>
       <c:otherwise>following settings</c:otherwise>
