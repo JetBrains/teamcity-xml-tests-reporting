@@ -32,16 +32,13 @@ public class FileRules implements Rules {
 
   @NotNull
   public List<File> collectFiles() {
-    return myFile.isFile() ? Collections.singletonList(myFile) : collectFilesInFolder(myFile);
+    return myFile.isDirectory() ? collectFilesInFolder(myFile) : Collections.singletonList(myFile);
   }
 
   @NotNull
   private List<File> collectFilesInFolder(@NotNull File folder) {
-    if (myFile.isDirectory()) {
-      final File[] files = folder.listFiles();
-      return files == null || files.length == 0 ? emptyFileList() : Arrays.asList(files);
-    }
-    return emptyFileList();
+    final File[] files = folder.listFiles();
+    return files == null || files.length == 0 ? emptyFileList() : Arrays.asList(files);
   }
 
   @NotNull
