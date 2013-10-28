@@ -94,7 +94,7 @@ public class TestResultsTableParserTest {
       Assert.assertEquals(actual, gold);
     } catch (Throwable t) {
       System.out.println("actual = " + actual);
-      FileUtil.writeFile(tmp, actual);
+      FileUtil.writeFileAndReportErrors(tmp, actual);
       throw new RuntimeException(t);
     }
   }

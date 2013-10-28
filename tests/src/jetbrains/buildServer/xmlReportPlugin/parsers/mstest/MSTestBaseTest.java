@@ -197,7 +197,7 @@ public class MSTestBaseTest {
   private void compareFiles(final String gold, final String actual) throws IOException {
     final File fGold = getTestData(gold);
     final File tempFile = new File(fGold.getPath() + ".tmp");
-    FileUtil.writeFile(tempFile, actual);
+    FileUtil.writeFileAndReportErrors(tempFile, actual);
 
     final String sGold = StringUtil.convertLineSeparators(FileUtil.readText(fGold, "UTF-8"));
     final String sActual = StringUtil.convertLineSeparators(actual);

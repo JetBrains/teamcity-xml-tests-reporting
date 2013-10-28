@@ -87,7 +87,7 @@ public abstract class BaseCommandTestCase {
     if (withDelay) {
       Thread.sleep(1000L); // to make sure time in seconds changes
     }
-    FileUtil.writeFile(file, "some data");
+    FileUtil.writeFileAndReportErrors(file, "some data");
     if (withDelay) {
       Thread.sleep(1000L); // to make sure time in seconds changes
     }

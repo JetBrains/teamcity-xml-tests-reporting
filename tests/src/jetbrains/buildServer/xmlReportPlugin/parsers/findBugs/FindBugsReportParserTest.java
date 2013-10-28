@@ -53,8 +53,7 @@ public class FindBugsReportParserTest extends BaseParserTestCase {
     final File sample = getReport(sampleName);
     final File report = new File(getBaseDir(), reportName);
 
-    FileUtil.writeFile(report,
-      FileUtil.readText(sample).replace("##BASE_DIR##", getBaseDir().getAbsolutePath().replace("\\", "/")));
+    FileUtil.writeFileAndReportErrors(report, FileUtil.readText(sample).replace("##BASE_DIR##", getBaseDir().getAbsolutePath().replace("\\", "/")));
 
     parse(reportName);
 
