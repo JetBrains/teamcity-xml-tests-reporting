@@ -82,13 +82,13 @@ final class TestData {
       if (myExitCode != null) {
         sb.append("\"").append(myExitCode).append("\" ");
       }
-      sb.append("(exit code: " + myExitValue + ")");
+      sb.append("(exit code: ").append(myExitValue).append(")");
     } else if (myCompletionStatus != null) {
       sb.append("Unknown status: ").append(myCompletionStatus).append(' ');
       if (myExitCode != null) {
         sb.append(myExitCode).append(' ');
       }
-      sb.append("(exit code: " + myExitValue + ")");
+      sb.append("(exit code: ").append(myExitValue).append(")");
     }
 
     if (myReason != null) {
