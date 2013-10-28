@@ -26,7 +26,7 @@ class MSTestTRXParser implements Parser {
   private final Map<String,String> myTestIdToName = new HashMap<String,String>();
   private final TestReporter myLogger;
 
-  private int myReportedTestsCount = 0;
+  @SuppressWarnings("FieldMayBeFinal") private int myReportedTestsCount = 0;
 
   public MSTestTRXParser(@NotNull final TestReporter logger) {
     myLogger = logger;
