@@ -136,7 +136,7 @@ public class FullSearchIncludeExcludeRules implements Rules {
       final File basePath = getPathWithoutPattern(baseRule);
       final String pattern = baseRule.replace(normalizePath(basePath.getPath()), "");
 
-      if (pattern.isEmpty()) {
+      if (pattern.length() == 0) {
         if (basePath.isFile()) resultPart.add(basePath);
       } else {
         FileUtil.collectMatchedFiles(basePath, getRegexPattern(pattern), resultPart);
