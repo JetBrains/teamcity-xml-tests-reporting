@@ -106,6 +106,7 @@ class AntJUnitXmlReportParser extends XmlXppAbstractParser {
                 return reader.visitChildren(
                   elementsPath(new Handler() {
                     public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+                      testData.setExecuted(true);
                       return processTestFailure(reader, testData);
                     }
                   }, "failure"),
