@@ -276,16 +276,24 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   @NotNull
   private Rules getRules(@NotNull String rulesStr, @NotNull Map<String, String> parameters) {
     final List<String> rules = Arrays.asList(rulesStr.split(XmlReportPluginConstants.SPLIT_REGEX));
+    final File baseDir = getBuild().getCheckoutDirectory();
 
     if (rules.size() == 1) {
       final String rule = rules.get(0);
       if (isFilePath(rule)) {
-        return new FileRules(new File(rule));
+        return new FileRules(new File(resolveRule(rule, baseDir)));
       }
     }
 
-    final File baseDir = getBuild().getCheckoutDirectory();
     return isOptimizedFilesCollectionEnabled(parameters) ? new OptimizingIncludeExcludeRules(baseDir, rules) : new FullSearchIncludeExcludeRules(baseDir, rules);
+  }
+
+  @NotNull
+  private String resolveRule(@NotNull String rule, @NotNull File baseDir) {
+    if (rule.startsWith("+:") || rule.startsWith("-:")) {
+      rule = rule.substring(2);
+    }
+    return FileUtil.resolvePath(baseDir, rule).getAbsolutePath();
   }
 
   private boolean isFilePath(@NotNull String rule) {
