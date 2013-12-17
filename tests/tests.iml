@@ -18,6 +18,8 @@
     <orderEntry type="module" module-name="common" />
     <orderEntry type="library" name="TeamCity common-impl.jar" level="project" />
     <orderEntry type="library" name="TestNG" level="project" />
+    <orderEntry type="library" name="TeamCity server" level="project" />
+    <orderEntry type="module" module-name="server" />
   </component>
 </module>
 
