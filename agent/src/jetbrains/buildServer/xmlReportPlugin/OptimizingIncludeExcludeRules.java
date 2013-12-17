@@ -18,6 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.Collections;
 import jetbrains.buildServer.util.CollectionsUtil;
 import jetbrains.buildServer.util.Converter;
 import jetbrains.buildServer.util.pathMatcher.AntPatternFileCollector;
@@ -67,7 +68,7 @@ public class OptimizingIncludeExcludeRules implements Rules {
 
   @NotNull
   public Collection<File> collectFiles() {
-    return AntPatternFileCollector.scanDir(myBaseDir, getRulesArray(), getScanOptions());
+    return myBaseDir.exists() ? AntPatternFileCollector.scanDir(myBaseDir, getRulesArray(), getScanOptions()) : Collections.<File>emptyList();
   }
 
   @NotNull
