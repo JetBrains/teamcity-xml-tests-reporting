@@ -14,11 +14,12 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="TeamCity openAPI" level="project" />
-    <orderEntry type="library" name="TeamCity utils" level="project" />
+    <orderEntry type="library" name="TeamCity util" level="project" />
     <orderEntry type="module" module-name="common" />
-    <orderEntry type="library" name="Servlet API" level="project" />
+    <orderEntry type="library" name="TeamCity servlet-api" level="project" />
     <orderEntry type="library" name="TeamCity Usage Statistics Util" level="project" />
+    <orderEntry type="library" name="TeamCity annotations" level="project" />
+    <orderEntry type="library" name="TeamCity Open API" level="project" />
   </component>
 </module>
 

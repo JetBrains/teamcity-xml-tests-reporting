@@ -8,7 +8,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="TeamCity utils" level="project" />
+    <orderEntry type="library" name="TeamCity util" level="project" />
+    <orderEntry type="library" name="TeamCity annotations" level="project" />
   </component>
 </module>
 

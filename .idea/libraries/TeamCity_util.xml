@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="Servlet API">
+  <library name="TeamCity util">
     <CLASSES>
-      <root url="jar://$teamcitydistribution$/lib/servlet-api.jar!/" />
+      <root url="jar://$teamcitydistribution$/webapps/ROOT/WEB-INF/lib/util.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

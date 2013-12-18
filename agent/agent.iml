@@ -14,14 +14,17 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="TeamCity openAPI" level="project" />
-    <orderEntry type="library" name="TeamCity API" level="project" />
-    <orderEntry type="library" name="TeamCity utils" level="project" />
-    <orderEntry type="library" name="JDom" level="project" />
-    <orderEntry type="library" name="Log4J" level="project" />
+    <orderEntry type="library" name="TeamCity runtime-util" level="project" />
+    <orderEntry type="library" name="TeamCity util" level="project" />
+    <orderEntry type="library" name="TeamCity jdom" level="project" />
+    <orderEntry type="library" name="TeamCity log4j" level="project" />
     <orderEntry type="library" name="TeamCity spring" level="project" />
     <orderEntry type="module" module-name="common" />
     <orderEntry type="library" name="TeamCity common-impl.jar" level="project" />
+    <orderEntry type="library" name="TeamCity annotations" level="project" />
+    <orderEntry type="library" name="TeamCity Open API" level="project" />
+    <orderEntry type="library" name="TeamCity util" level="project" />
+    <orderEntry type="library" name="TeamCity openapi" level="project" />
   </component>
 </module>
 

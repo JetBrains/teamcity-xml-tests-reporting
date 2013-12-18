@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="Log4J">
+  <library name="TeamCity jdom">
     <CLASSES>
-      <root url="jar://$teamcitydistribution$/webapps/ROOT/WEB-INF/lib/log4j-1.2.12.jar!/" />
+      <root url="jar://$teamcitydistribution$/webapps/ROOT/WEB-INF/lib/jdom.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

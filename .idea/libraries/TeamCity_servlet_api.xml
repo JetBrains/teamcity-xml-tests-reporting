@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="JDom">
+  <library name="TeamCity servlet-api">
     <CLASSES>
-      <root url="jar://$teamcitydistribution$/webapps/ROOT/WEB-INF/lib/jdom.jar!/" />
+      <root url="jar://$teamcitydistribution$/lib/servlet-api.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

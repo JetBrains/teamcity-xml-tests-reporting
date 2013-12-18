@@ -1,9 +1,7 @@
 <component name="libraryTable">
-  <library name="TeamCity utils">
+  <library name="TeamCity annotations">
     <CLASSES>
       <root url="jar://$teamcitydistribution$/webapps/ROOT/WEB-INF/lib/annotations.jar!/" />
-      <root url="jar://$teamcitydistribution$/webapps/ROOT/WEB-INF/lib/util.jar!/" />
-      <root url="jar://$teamcitydistribution$/webapps/ROOT/WEB-INF/lib/openapi.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

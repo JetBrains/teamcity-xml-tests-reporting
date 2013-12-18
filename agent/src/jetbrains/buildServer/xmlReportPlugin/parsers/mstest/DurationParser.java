@@ -1,9 +1,10 @@
 package jetbrains.buildServer.xmlReportPlugin.parsers.mstest;
 
-import com.intellij.openapi.diagnostic.Logger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -12,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
  *         Created: 27.10.2008 12:10:37
  */
 class DurationParser {
-  private static final Logger LOG = Logger.getInstance(DurationParser.class.getName());
+  private static final Logger LOG = Logger.getLogger(DurationParser.class.getName());
 
   public long parseTestDuration(@NotNull final String duration) {
     try {

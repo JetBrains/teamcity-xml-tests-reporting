@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="for tests">
+    <CLASSES>
+      <root url="file://$teamcitydistribution$/webapps/ROOT/WEB-INF/lib" />
+      <root url="file://$teamcitydistribution$/devPackage/tests" />
+      <root url="file://$teamcitydistribution$/buildAgent/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$teamcitydistribution$/buildAgent/lib" recursive="false" />
+    <jarDirectory url="file://$teamcitydistribution$/devPackage/tests" recursive="false" />
+    <jarDirectory url="file://$teamcitydistribution$/webapps/ROOT/WEB-INF/lib" recursive="false" />
+  </library>
+</component>
