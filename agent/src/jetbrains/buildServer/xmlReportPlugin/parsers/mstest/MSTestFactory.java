@@ -1,8 +1,6 @@
 package jetbrains.buildServer.xmlReportPlugin.parsers.mstest;
 
-import jetbrains.buildServer.xmlReportPlugin.*;
-import jetbrains.buildServer.xmlReportPlugin.tests.TeamCityTestReporter;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.ParserFactory;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -10,14 +8,11 @@ import org.jetbrains.annotations.NotNull;
  * Date: 09.02.11
  * Time: 13:36
  */
-public class MSTestFactory implements ParserFactory {
-  @NotNull
-  public Parser createParser(@NotNull final ParseParameters parameters) {
-    return new MSTestTRXParser(new TeamCityTestReporter(parameters.getThreadLogger()));
-  }
+public class MSTestFactory extends TRXFactory implements ParserFactory {
 
   @NotNull
-  public ParsingResult createEmptyResult() {
-    return TestParsingResult.createEmptyResult();
+  @Override
+  protected final String getDefaultSuiteName() {
+    return "MSTest";
   }
 }

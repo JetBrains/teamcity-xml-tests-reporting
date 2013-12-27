@@ -17,19 +17,25 @@ import org.jetbrains.annotations.Nullable;
  * @author Eugene Petrenko
  *         Created: 23.10.2008 22:47:48
  */
-class MSTestTRXParser implements Parser {
-  private static final Logger LOG = Logger.getInstance(MSTestTRXParser.class.getName());
+class TRXParser implements Parser {
+  private static final Logger LOG = Logger.getInstance(TRXParser.class.getName());
 
   private final TestNamesTableParser myNamesParser;
   private final TestResultsTableParser myResultsParser;
 
   private final Map<String,String> myTestIdToName = new HashMap<String,String>();
+
+  @NotNull
   private final TestReporter myLogger;
+
+  @NotNull
+  private final String myDefaultSuiteName;
 
   @SuppressWarnings("FieldMayBeFinal") private int myReportedTestsCount = 0;
 
-  public MSTestTRXParser(@NotNull final TestReporter logger) {
+  public TRXParser(@NotNull final TestReporter logger, @NotNull final String defaultSuiteName) {
     myLogger = logger;
+    myDefaultSuiteName = defaultSuiteName;
     myNamesParser = new TestNamesTableParser(new TestNamesTableParser.Callback() {
       public void testMethodFound(@NotNull final String id, @NotNull final String testName) {
         myTestIdToName.put(id, testName);
@@ -113,10 +119,10 @@ class MSTestTRXParser implements Parser {
   }
 
   public boolean parse(@NotNull File file, @Nullable ParsingResult prevResult) throws ParsingException {
-    myLogger.openTestSuite("MSTest");
+    myLogger.openTestSuite(myDefaultSuiteName);
 
     if (!file.isFile() || file.length() == 0) {
-      myLogger.error("File " + file + " does not exist. Please check if MSTest.exe process failed.");
+      myLogger.error("File " + file + " does not exist. Please check if report producer process has failed.");
       return false;
     }
 

@@ -1,2 +1,2 @@
 TestSuite:MSTest
--->Error: File #PATH#\not-existsing.trx does not exist. Please check if MSTest.exe process failed.
+-->Error: File #PATH#\not-existsing.trx does not exist. Please check if report producer process has failed.

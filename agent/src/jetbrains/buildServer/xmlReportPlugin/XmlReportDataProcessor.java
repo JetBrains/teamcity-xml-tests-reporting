@@ -174,6 +174,28 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
   }
 
+  public static final class VSTestDataProcessor extends XmlReportDataProcessor {
+    public VSTestDataProcessor(RulesProcessor plugin) {
+      super(plugin);
+    }
+
+    @NotNull
+    public String getType() {
+      return "vstest";
+    }
+  }
+
+  public static final class TRXDataProcessor extends XmlReportDataProcessor {
+    public TRXDataProcessor(RulesProcessor plugin) {
+      super(plugin);
+    }
+
+    @NotNull
+    public String getType() {
+      return "vstest";
+    }
+  }
+
   public static final class GTestDataProcessor extends XmlReportDataProcessor {
     public GTestDataProcessor(RulesProcessor plugin) {
       super(plugin);

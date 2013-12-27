@@ -18,64 +18,74 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans default-autowire="constructor" default-lazy-init="false" default-dependency-check="none">
-    <bean id="junitFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit.AntJUnitFactory"/>
-    <bean id="nunitFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.parsers.nUnit.NUnitFactory"/>
-    <bean id="findBugsFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.parsers.findBugs.FindBugsFactory"/>
-    <bean id="pmdFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.parsers.pmd.PmdFactory"/>
-    <bean id="checkstyleFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.parsers.checkstyle.CheckstyleFactory"/>
-    <bean id="pmdCpdFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.parsers.pmdCpd.PmdCpdFactory"/>
-    <bean id="mstestFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.parsers.mstest.MSTestFactory"/>
-    <bean id="jslintFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.parsers.jslint.JSLintFactory"/>
-    <bean id="ctestFactory"
-          class="jetbrains.buildServer.xmlReportPlugin.parsers.ctest.CTestFactory"/>
+  <bean id="junitFactory"
+        class="jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit.AntJUnitFactory"/>
+  <bean id="nunitFactory"
+        class="jetbrains.buildServer.xmlReportPlugin.parsers.nUnit.NUnitFactory"/>
+  <bean id="findBugsFactory"
+        class="jetbrains.buildServer.xmlReportPlugin.parsers.findBugs.FindBugsFactory"/>
+  <bean id="pmdFactory"
+        class="jetbrains.buildServer.xmlReportPlugin.parsers.pmd.PmdFactory"/>
+  <bean id="checkstyleFactory"
+        class="jetbrains.buildServer.xmlReportPlugin.parsers.checkstyle.CheckstyleFactory"/>
+  <bean id="pmdCpdFactory"
+        class="jetbrains.buildServer.xmlReportPlugin.parsers.pmdCpd.PmdCpdFactory"/>
+  <bean id="mstestFactory"
+        class="jetbrains.buildServer.xmlReportPlugin.parsers.mstest.MSTestFactory"/>
+  <bean id="vstestFactory"
+        class="jetbrains.buildServer.xmlReportPlugin.parsers.mstest.VSTestFactory"/>
+  <bean id="trxFactory"
+        class="jetbrains.buildServer.xmlReportPlugin.parsers.mstest.TRXFactory"/>
+  <bean id="jslintFactory"
+        class="jetbrains.buildServer.xmlReportPlugin.parsers.jslint.JSLintFactory"/>
+  <bean id="ctestFactory"
+        class="jetbrains.buildServer.xmlReportPlugin.parsers.ctest.CTestFactory"/>
 
-    <bean class="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin" lazy-init="default" autowire="default"
-          dependency-check="default">
-        <constructor-arg index="0">
-            <map>
-                <entry key="junit" value-ref="junitFactory"/>
-                <entry key="nunit" value-ref="nunitFactory"/>
-                <entry key="findBugs" value-ref="findBugsFactory"/>
-                <entry key="pmd" value-ref="pmdFactory"/>
-                <entry key="checkstyle" value-ref="checkstyleFactory"/>
-                <entry key="pmdCpd" value-ref="pmdCpdFactory"/>
-                <entry key="surefire" value-ref="junitFactory"/>
-                <entry key="mstest" value-ref="mstestFactory"/>
-                <entry key="gtest" value-ref="junitFactory"/>
-                <entry key="jslint" value-ref="jslintFactory"/>
-                <entry key="ctest" value-ref="ctestFactory"/>
-            </map>
-        </constructor-arg>
-    </bean>
+  <bean class="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin" lazy-init="default" autowire="default"
+        dependency-check="default">
+    <constructor-arg index="0">
+      <map>
+        <entry key="junit" value-ref="junitFactory"/>
+        <entry key="nunit" value-ref="nunitFactory"/>
+        <entry key="findBugs" value-ref="findBugsFactory"/>
+        <entry key="pmd" value-ref="pmdFactory"/>
+        <entry key="checkstyle" value-ref="checkstyleFactory"/>
+        <entry key="pmdCpd" value-ref="pmdCpdFactory"/>
+        <entry key="surefire" value-ref="junitFactory"/>
+        <entry key="mstest" value-ref="mstestFactory"/>
+        <entry key="vstest" value-ref="vstestFactory"/>
+        <entry key="trx" value-ref="trxFactory"/>
+        <entry key="gtest" value-ref="junitFactory"/>
+        <entry key="jslint" value-ref="jslintFactory"/>
+        <entry key="ctest" value-ref="ctestFactory"/>
+      </map>
+    </constructor-arg>
+  </bean>
 
-    <bean id="JUnitDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$JUnitDataProcessor"/>
-    <bean id="NUnitDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$NUnitDataProcessor"/>
-    <bean id="SurefireDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$SurefireDataProcessor"/>
-    <bean id="FindBugsDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$FindBugsDataProcessor"/>
-    <bean id="PmdDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$PmdDataProcessor"/>
-    <bean id="CheckstyleDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$CheckstyleDataProcessor"/>
-    <bean id="PmdCpdDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$PmdCpdDataProcessor"/>
-    <bean id="MSTestDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$MSTestDataProcessor"/>
-    <bean id="GTestDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$GTestDataProcessor"/>
-    <bean id="JSLintDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$JSLintDataProcessor"/>
-    <bean id="CTestDataProcessor"
-          class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$CTestDataProcessor"/>
+  <bean id="JUnitDataProcessor"
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$JUnitDataProcessor"/>
+  <bean id="NUnitDataProcessor"
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$NUnitDataProcessor"/>
+  <bean id="SurefireDataProcessor"
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$SurefireDataProcessor"/>
+  <bean id="FindBugsDataProcessor"
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$FindBugsDataProcessor"/>
+  <bean id="PmdDataProcessor"
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$PmdDataProcessor"/>
+  <bean id="CheckstyleDataProcessor"
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$CheckstyleDataProcessor"/>
+  <bean id="PmdCpdDataProcessor"
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$PmdCpdDataProcessor"/>
+  <bean id="MSTestDataProcessor"
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$MSTestDataProcessor"/>
+  <bean id="VSTestDataProcessor"
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$VSTestDataProcessor"/>
+  <bean id="TRXDataProcessor"
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$TRXDataProcessor"/>
+  <bean id="GTestDataProcessor"
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$GTestDataProcessor"/>
+  <bean id="JSLintDataProcessor"
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$JSLintDataProcessor"/>
+  <bean id="CTestDataProcessor"
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$CTestDataProcessor"/>
 </beans>

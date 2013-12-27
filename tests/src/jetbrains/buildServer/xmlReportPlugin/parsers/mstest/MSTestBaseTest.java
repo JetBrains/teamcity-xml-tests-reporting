@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 /**
  * @author Eugene Petrenko
@@ -142,7 +142,7 @@ public class MSTestBaseTest {
 
   private void doTest(String file, String gold) throws IOException {
     final StringBuilder sb = new StringBuilder();
-    MSTestTRXParser ps = new MSTestTRXParser(new TestReporter() {
+    final TRXParser ps = new TRXParser(new TestReporter() {
       public void openTestSuite(@NotNull final String name) {
         sb.append("TestSuite:").append(name).append("\n");
       }
@@ -186,7 +186,7 @@ public class MSTestBaseTest {
       public void info(@NotNull final String message) {
         sb.append("-->Info: ").append(message).append("\r\n");
       }
-    });
+    }, "MSTest");
 
     ps.parse(getTestData(file), null);
 
