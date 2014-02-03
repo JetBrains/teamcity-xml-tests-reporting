@@ -16,7 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.mstest;
 
-import com.intellij.openapi.diagnostic.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -26,6 +25,7 @@ import jetbrains.buildServer.xmlReportPlugin.ParsingException;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -34,7 +34,7 @@ import org.jetbrains.annotations.Nullable;
  *         Created: 23.10.2008 22:47:48
  */
 class TRXParser implements Parser {
-  private static final Logger LOG = Logger.getInstance(TRXParser.class.getName());
+  private static final Logger LOG = Logger.getLogger(TRXParser.class);
 
   private final TestNamesTableParser myNamesParser;
   private final TestResultsTableParser myResultsParser;
