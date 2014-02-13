@@ -1,10 +1,5 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 import jetbrains.buildServer.AgentServerFunctionalTestCase;
 import jetbrains.buildServer.RunBuildException;
 import jetbrains.buildServer.agent.*;
@@ -19,6 +14,12 @@ import org.jetbrains.annotations.NotNull;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @User Victory.Bedrosova
@@ -57,7 +58,8 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
           @NotNull
           public BuildFinishedStatus waitFor() throws RunBuildException {
             try {
-              FileUtil.writeFile(new File(runningBuild.getCheckoutDirectory(), "report.xml"),
+              final File reportFile = new File(runningBuild.getCheckoutDirectory(), "report.xml");
+              FileUtil.writeFile(reportFile,
                                  "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
                                  "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase\" tests=\"1\" time=\"0.031\"\n" +
                                  "           timestamp=\"2008-10-30T17:11:25\">\n" +
@@ -66,7 +68,12 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
                                  "</testsuite>\n",
                                  "UTF-8"
               );
-              FileUtil.writeFile(new File(runningBuild.getCheckoutDirectory(), "result.xml"),
+              // Make sure file is created after build start, as some
+              // filesystems have 1 second last-modified resolution.
+                assertTrue("Failed to update 'last-modified' attribute of a report", reportFile.setLastModified(reportFile.lastModified() + 1000));
+
+              final File resultFile = new File(runningBuild.getCheckoutDirectory(), "result.xml");
+              FileUtil.writeFile(resultFile,
                                  "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
                                  "<testsuite errors=\"0\" failures=\"1\" hostname=\"ruspd-student3\" name=\"TestCase\" tests=\"1\" time=\"0.047\"\n" +
                                  "           timestamp=\"2008-10-30T17:11:25\">\n" +
@@ -80,6 +87,10 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
                                  "</testsuite>\n",
                                  "UTF-8"
               );
+              // Make sure file is created after build start, as some
+              // filesystems have 1 second last-modified resolution.
+              assertTrue("Failed to update 'last-modified' attribute of a report", resultFile.setLastModified(resultFile.lastModified() + 1000));
+
             } catch (IOException e) {
               throw new RunBuildException(e);
             }
