@@ -39,9 +39,6 @@ import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
 
 public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProcessor {
   @NotNull
-  private static final NamedThreadFactory THREAD_FACTORY = new NamedThreadFactory("xml-report-plugin");
-
-  @NotNull
   private final jetbrains.buildServer.agent.inspections.InspectionReporter myInspectionReporter;
   @NotNull
   private final jetbrains.buildServer.agent.duplicates.DuplicatesReporter myDuplicatesReporter;
@@ -256,12 +253,12 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
     if (!executor.isTerminated()) {
       LoggingUtils.LOG.warn("Stopped waiting for one xml-report-plugin executors to complete, it is still running");
-      DiagnosticUtil.threadDumpToLog(THREAD_FACTORY);
+      DiagnosticUtil.threadDumpToLog(executor);
     }
   }
 
   private static ExecutorService createExecutor() {
-    return Executors.newSingleThreadScheduledExecutor(THREAD_FACTORY);
+    return ExecutorsUtil.newFixedDaemonExecutor("xml-report-plugin", 1);
   }
 
   private Rules getRules(@NotNull Map<String, String> parameters) {
