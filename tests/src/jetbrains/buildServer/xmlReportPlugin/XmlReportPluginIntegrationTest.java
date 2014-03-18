@@ -159,6 +159,16 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   }
 
   @Test
+  public void testSingleRelativeFile() throws Exception {
+    doTest("##C_D##/fold/../report.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testSingleRelativeMaskFile() throws Exception {
+    doTest("##C_D##/fold/../rep*.xml", 1, "1 report found for paths");
+  }
+
+  @Test
   public void testSingleAbsoluteMaskFile() throws Exception {
     doTest("##C_D##/rep*.xml", 1, "1 report found for paths");
   }
@@ -176,6 +186,16 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   @Test
   public void testSingleAbsoluteRule() throws Exception {
     doTest("+:##C_D##/report.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testSingleRelativeRule() throws Exception {
+    doTest("+:##C_D##/fold/../report.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testSingleRelativeMaskRule() throws Exception {
+    doTest("+:##C_D##/fold/../rep*.xml", 1, "1 report found for paths");
   }
 
   @Test
@@ -199,6 +219,16 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   }
 
   @Test
+  public void testTwoRelativeFiles() throws Exception {
+    doTest("##C_D##/fold/../report.xml\n##C_D##/fold/../result.xml", 2, "2 reports found for paths");
+  }
+
+  @Test
+  public void testTwoRelativeMaskFiles() throws Exception {
+    doTest("##C_D##/fold/../rep*.xml\n##C_D##/fold/../res*.xml", 2, "2 reports found for paths");
+  }
+
+  @Test
   public void testTwoAbsoluteMaskFiles() throws Exception {
     doTest("##C_D##/rep*.xml\n##C_D##/res*.xml", 2, "2 reports found for paths");
   }
@@ -219,6 +249,16 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   }
 
   @Test
+  public void testTwoRelativeRules() throws Exception {
+    doTest("+:##C_D##/fold/../report.xml\n+:##C_D##/fold/../result.xml", 2, "2 reports found for paths");
+  }
+
+  @Test
+  public void testTwoRelativeMaskRules() throws Exception {
+    doTest("+:##C_D##/fold/../rep*.xml\n+:##C_D##/fold/../res*.xml", 2, "2 reports found for paths");
+  }
+
+  @Test
   public void testTwoAbsoluteMaskRules() throws Exception {
     doTest("+:##C_D##/rep*.xml\n+:##C_D##/res*.xml", 2, "2 reports found for paths");
   }
@@ -236,6 +276,16 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   @Test
   public void testTwoDifferentAbsoluteRules() throws Exception {
     doTest("+:##C_D##/report.xml\n-:##C_D##/result.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testTwoDifferentRelativeRules() throws Exception {
+    doTest("+:##C_D##/fold/../report.xml\n-:##C_D##/fold/../result.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testTwoDifferentRelativeMaskRules() throws Exception {
+    doTest("+:##C_D##/fold/../rep*.xml\n-:##C_D##/fold/../res*.xml", 1, "1 report found for paths");
   }
 
   @Test
