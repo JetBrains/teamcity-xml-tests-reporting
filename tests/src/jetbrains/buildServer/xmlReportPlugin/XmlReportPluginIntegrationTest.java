@@ -33,6 +33,9 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   @NotNull
   private File myCheckoutDir;
 
+  @NotNull
+  private File myOuterDir;
+
   @BeforeClass
   @Override
   protected void setUpClass() {
@@ -45,6 +48,7 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   protected void setUp1() throws Throwable {
     super.setUp1();
     myCheckoutDir = createTempDir();
+    myOuterDir = createTempDir();
     new XmlReportPlugin(Collections.<String, ParserFactory>singletonMap("junit", new AntJUnitFactory()),
                         getAgentEvents(),
                         getExtensionHolder().findSingletonService(InspectionReporter.class),
@@ -73,7 +77,7 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
               );
               // Make sure file is created after build start, as some
               // filesystems have 1 second last-modified resolution.
-                assertTrue("Failed to update 'last-modified' attribute of a report", reportFile.setLastModified(reportFile.lastModified() + 1000));
+                assertTrue("Failed to update 'last-modified' attribute of report.xml", reportFile.setLastModified(reportFile.lastModified() + 1000));
 
               final File resultFile = getCheckoutDirFile("result.xml");
               FileUtil.writeFile(resultFile,
@@ -92,7 +96,21 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
               );
               // Make sure file is created after build start, as some
               // filesystems have 1 second last-modified resolution.
-              assertTrue("Failed to update 'last-modified' attribute of a report", resultFile.setLastModified(resultFile.lastModified() + 1000));
+              assertTrue("Failed to update 'last-modified' attribute of result.xml", resultFile.setLastModified(resultFile.lastModified() + 1000));
+
+              final File outerFile = getOuterDirFile("outer.xml");
+              FileUtil.writeFile(outerFile,
+                                 "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" +
+                                 "<testsuite errors=\"0\" failures=\"0\" hostname=\"ruspd-student3\" name=\"TestCase\" tests=\"1\" time=\"0.031\"\n" +
+                                 "           timestamp=\"2008-10-30T17:11:25\">\n" +
+                                 "  <properties/>\n" +
+                                 "  <testcase classname=\"TestCase\" name=\"test\" executed=\"false\"/>\n" +
+                                 "</testsuite>\n",
+                                 "UTF-8"
+              );
+              // Make sure file is created after build start, as some
+              // filesystems have 1 second last-modified resolution.
+              assertTrue("Failed to update 'last-modified' attribute of outer.xml", outerFile.setLastModified(outerFile.lastModified() + 1000));
 
             } catch (IOException e) {
               throw new RunBuildException(e);
@@ -121,6 +139,11 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   @NotNull
   private File getCheckoutDirFile(@NotNull String name) {
     return new File(myCheckoutDir, name);
+  }
+
+  @NotNull
+  private File getOuterDirFile(@NotNull String name) {
+    return new File(myOuterDir, name);
   }
 
   @Test
@@ -159,8 +182,18 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   }
 
   @Test
+  public void testSingleOuterFile() throws Exception {
+    doTest("##O_D##/outer.xml", 1, "1 report found for paths");
+  }
+
+  @Test
   public void testSingleRelativeFile() throws Exception {
     doTest("##C_D##/fold/../report.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testSingleOuterRelativeFile() throws Exception {
+    doTest("##O_D##/fold/../outer.xml", 1, "1 report found for paths");
   }
 
   @Test
@@ -169,8 +202,18 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   }
 
   @Test
+  public void testSingleOuterRelativeMaskFile() throws Exception {
+    doTest("##O_D##/fold/../out*.xml", 1, "1 report found for paths");
+  }
+
+  @Test
   public void testSingleAbsoluteMaskFile() throws Exception {
     doTest("##C_D##/rep*.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testSingleOuterMaskFile() throws Exception {
+    doTest("##O_D##/out*.xml", 1, "1 report found for paths");
   }
 
   @Test
@@ -189,8 +232,18 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   }
 
   @Test
+  public void testSingleOuterRule() throws Exception {
+    doTest("+:##O_D##/outer.xml", 1, "1 report found for paths");
+  }
+
+  @Test
   public void testSingleRelativeRule() throws Exception {
     doTest("+:##C_D##/fold/../report.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testSingleOuterRelativeRule() throws Exception {
+    doTest("+:##O_D##/fold/../outer.xml", 1, "1 report found for paths");
   }
 
   @Test
@@ -199,8 +252,18 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   }
 
   @Test
+  public void testSingleOuterRelativeMaskRule() throws Exception {
+    doTest("+:##O_D##/fold/../out*.xml", 1, "1 report found for paths");
+  }
+
+  @Test
   public void testSingleAbsoluteMaskRule() throws Exception {
     doTest("+:##C_D##/rep*.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testSingleOuterMaskRule() throws Exception {
+    doTest("+:##O_D##/out*.xml", 1, "1 report found for paths");
   }
 
   @Test
@@ -300,7 +363,7 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
 
     final Map<String, String> fps = new HashMap<String, String>();
     fps.put(XmlReportPluginConstants.REPORT_TYPE, "junit");
-    fps.put(XmlReportPluginConstants.REPORT_DIRS, reportDirs.replace("##C_D##", myCheckoutDir.getAbsolutePath()));
+    fps.put(XmlReportPluginConstants.REPORT_DIRS, reportDirs.replace("##C_D##", myCheckoutDir.getAbsolutePath()).replace("##O_D##", myOuterDir.getAbsolutePath()));
 
     bt.addBuildFeature(XmlReportPluginBuildFeature.FEATURE_TYPE, fps);
 
