@@ -197,6 +197,16 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   }
 
   @Test
+  public void testSingleRelativeFileDot() throws Exception {
+    doTest("##C_D##/./report.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testSingleOuterRelativeFileDot() throws Exception {
+    doTest("##O_D##/./outer.xml", 1, "1 report found for paths");
+  }
+
+  @Test
   public void testSingleRelativeMaskFile() throws Exception {
     doTest("##C_D##/fold/../rep*.xml", 1, "1 report found for paths");
   }
@@ -204,6 +214,16 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   @Test
   public void testSingleOuterRelativeMaskFile() throws Exception {
     doTest("##O_D##/fold/../out*.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testSingleRelativeMaskFileDot() throws Exception {
+    doTest("##C_D##/./rep*.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testSingleOuterRelativeMaskFileDot() throws Exception {
+    doTest("##O_D##/./out*.xml", 1, "1 report found for paths");
   }
 
   @Test
@@ -247,6 +267,16 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   }
 
   @Test
+  public void testSingleRelativeRuleDor() throws Exception {
+    doTest("+:##C_D##/./report.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testSingleOuterRelativeRuleDot() throws Exception {
+    doTest("+:##O_D##/./outer.xml", 1, "1 report found for paths");
+  }
+
+  @Test
   public void testSingleRelativeMaskRule() throws Exception {
     doTest("+:##C_D##/fold/../rep*.xml", 1, "1 report found for paths");
   }
@@ -254,6 +284,16 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   @Test
   public void testSingleOuterRelativeMaskRule() throws Exception {
     doTest("+:##O_D##/fold/../out*.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testSingleRelativeMaskRuleDot() throws Exception {
+    doTest("+:##C_D##/./rep*.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testSingleOuterRelativeMaskRuleDot() throws Exception {
+    doTest("+:##O_D##/./out*.xml", 1, "1 report found for paths");
   }
 
   @Test
@@ -292,6 +332,16 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   }
 
   @Test
+  public void testTwoRelativeFilesDot() throws Exception {
+    doTest("##C_D##/./report.xml\n##C_D##/./result.xml", 2, "2 reports found for paths");
+  }
+
+  @Test
+  public void testTwoRelativeMaskFilesDot() throws Exception {
+    doTest("##C_D##/./rep*.xml\n##C_D##/./res*.xml", 2, "2 reports found for paths");
+  }
+
+  @Test
   public void testTwoAbsoluteMaskFiles() throws Exception {
     doTest("##C_D##/rep*.xml\n##C_D##/res*.xml", 2, "2 reports found for paths");
   }
@@ -322,6 +372,16 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   }
 
   @Test
+  public void testTwoRelativeRulesDot() throws Exception {
+    doTest("+:##C_D##/./report.xml\n+:##C_D##/./result.xml", 2, "2 reports found for paths");
+  }
+
+  @Test
+  public void testTwoRelativeMaskRulesDot() throws Exception {
+    doTest("+:##C_D##/./rep*.xml\n+:##C_D##/./res*.xml", 2, "2 reports found for paths");
+  }
+
+  @Test
   public void testTwoAbsoluteMaskRules() throws Exception {
     doTest("+:##C_D##/rep*.xml\n+:##C_D##/res*.xml", 2, "2 reports found for paths");
   }
@@ -349,6 +409,16 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   @Test
   public void testTwoDifferentRelativeMaskRules() throws Exception {
     doTest("+:##C_D##/fold/../rep*.xml\n-:##C_D##/fold/../res*.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testTwoDifferentRelativeRulesDot() throws Exception {
+    doTest("+:##C_D##/./report.xml\n-:##C_D##/./result.xml", 1, "1 report found for paths");
+  }
+
+  @Test
+  public void testTwoDifferentRelativeMaskRulesDot() throws Exception {
+    doTest("+:##C_D##/./rep*.xml\n-:##C_D##/./res*.xml", 1, "1 report found for paths");
   }
 
   @Test
