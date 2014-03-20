@@ -290,7 +290,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     if (rule.startsWith("+:") || rule.startsWith("-:")) {
       rule = rule.substring(2);
     }
-    return FileUtil.resolvePath(baseDir, rule).getAbsolutePath();
+    return FileUtil.normalizeAbsolutePath(FileUtil.resolvePath(baseDir, rule).getAbsolutePath());
   }
 
   private boolean isFilePath(@NotNull String rule) {
