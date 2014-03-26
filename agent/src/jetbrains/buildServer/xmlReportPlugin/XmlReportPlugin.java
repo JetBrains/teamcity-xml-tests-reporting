@@ -23,6 +23,7 @@ import jetbrains.buildServer.BuildProblemData;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
 import jetbrains.buildServer.util.*;
+import jetbrains.buildServer.util.executors.ExecutorsFactory;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.TeamCityDuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
@@ -258,7 +259,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   }
 
   private static ExecutorService createExecutor() {
-    return ExecutorsUtil.newFixedDaemonExecutor("xml-report-plugin", 1);
+    return ExecutorsFactory.newFixedDaemonExecutor("xml-report-plugin", 1);
   }
 
   private Rules getRules(@NotNull Map<String, String> parameters) {
