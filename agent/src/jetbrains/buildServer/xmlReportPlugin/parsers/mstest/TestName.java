@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.parsers.mstest;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author Eugene Petrenko
@@ -40,11 +41,12 @@ class TestName {
     return myTestId;
   }
 
-  public String presentName(@NotNull final String testName) {
+  public String presentName(@Nullable final String testName) {
+    final String name = testName == null ? myTestId : testName;
     if (myDataRowInfo == null) {
-      return testName;
+      return name;
     } else {
-      return testName + "(" + myDataRowInfo + ")";
+      return name + "(" + myDataRowInfo + ")";
     }
   }
 
