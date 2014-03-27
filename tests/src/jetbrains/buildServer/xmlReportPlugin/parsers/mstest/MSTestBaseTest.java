@@ -131,6 +131,11 @@ public class MSTestBaseTest {
     doTest("tests-vs2005.trx", "tests-vs2005.trx.gold");
   }
 
+  @Test
+  public void test_TW_357245() throws IOException {
+    doTest("tw35724.trx", "tw35724.trx.gold");
+  }
+
   @Test//(dependsOnGroups = "implement TW-7907")
   public void test_Hyung_Choi_autodesk_com() throws IOException {
     doTest("hyung-choi-autodesk-com.trx", "hyung-choi-autodesk-com.trx.gold");
