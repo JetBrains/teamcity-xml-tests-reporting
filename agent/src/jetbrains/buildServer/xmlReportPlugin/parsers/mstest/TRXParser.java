@@ -138,7 +138,6 @@ class TRXParser implements Parser {
     myLogger.openTestSuite(myDefaultSuiteName);
 
     if (!file.isFile() || file.length() == 0) {
-      myLogger.error("File " + file + " does not exist. Please check if report producer process has failed.");
       return false;
     }
 
