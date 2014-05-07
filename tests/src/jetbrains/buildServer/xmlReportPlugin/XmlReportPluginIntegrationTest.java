@@ -1,10 +1,16 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import jetbrains.buildServer.AgentServerFunctionalTestCase;
 import jetbrains.buildServer.RunBuildException;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
+import jetbrains.buildServer.serverSide.BuildStatisticsOptions;
 import jetbrains.buildServer.serverSide.BuildTypeEx;
 import jetbrains.buildServer.serverSide.SFinishedBuild;
 import jetbrains.buildServer.serverSide.SRunningBuild;
@@ -14,12 +20,6 @@ import org.jetbrains.annotations.NotNull;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @User Victory.Bedrosova
@@ -440,7 +440,7 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
     final SRunningBuild sb = startBuild(bt, true);
     final SFinishedBuild fb = finishBuild(sb);
 
-    assertEquals(numberOfTests, fb.getShortStatistics().getAllTestCount());
+    assertEquals(numberOfTests, fb.getBuildStatistics(BuildStatisticsOptions.ALL_TESTS_NO_DETAILS).getAllTestRunCount());
 
     final String buildLog = getBuildLog(fb);
     for (String m : messages) {
