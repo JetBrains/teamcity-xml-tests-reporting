@@ -78,7 +78,7 @@ public class MonitorRulesCommand {
 
             final long fileLastModified = file.lastModified();
 
-            if (timeConstraintsSatisfied(file.lastModified())) {
+            if (timeConstraintsSatisfied(fileLastModified)) {
               switch (myReportStateHolder.getReportState(file)) {
                 case ON_PROCESSING:
                 case PROCESSED:
@@ -158,6 +158,6 @@ public class MonitorRulesCommand {
   }
 
   private boolean isFresh(long lastModified) {
-    return lastModified >= myParameters.getStartTime();
+    return lastModified/1000*1000 >= myParameters.getStartTime();
   }
 }

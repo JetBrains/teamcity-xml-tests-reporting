@@ -589,7 +589,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     return XmlReportPluginConstants.BUILD_PROBLEM_TYPE + StringUtil.capitalize(type) + "ParsingFailure";
   }
 
-  private static final class ProcessingContext {
+  private final class ProcessingContext {
     private final long startTime;
     private volatile boolean finished;
     @Nullable
@@ -599,7 +599,9 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
     private ProcessingContext(@NotNull List<RulesContext> rulesContexts) {
       this.rulesContexts = rulesContexts;
-      startTime = new Date().getTime();
+
+      startTime = new Date().getTime()/1000*1000;
+
       finished = false;
     }
   }
