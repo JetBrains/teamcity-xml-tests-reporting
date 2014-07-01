@@ -192,7 +192,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
 
     @NotNull
     public String getType() {
-      return "vstest";
+      return "trx";
     }
   }
 
