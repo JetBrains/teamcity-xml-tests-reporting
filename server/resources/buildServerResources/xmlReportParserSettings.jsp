@@ -1,3 +1,4 @@
+<%@ taglib prefix="bs" tagdir="/WEB-INF/tags/" %>
 <%@ taglib prefix="props" tagdir="/WEB-INF/tags/props" %>
 <%@ taglib prefix="l" tagdir="/WEB-INF/tags/layout" %>
 <%@ taglib prefix="admin" tagdir="/WEB-INF/tags/admin" %>
@@ -42,6 +43,10 @@
   <c:set var="displayWarning"
          value="true"/>
 </c:if>
+
+<tr>
+  <td colspan="2"><em>Allows importing data from report files produced by an external tool in TeamCity.</em> <bs:help file="XML+Report+Processing"/></td>
+</tr>
 
 <tr id="xmlReportParsing.warning.container" style="${empty displayWarning ? 'display:none;' : ''}">
     <td colspan="2">
