@@ -18,11 +18,17 @@ package jetbrains.buildServer.xmlReportPlugin;
 
 import java.io.File;
 import java.util.*;
-import java.util.concurrent.*;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import jetbrains.buildServer.BuildProblemData;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
-import jetbrains.buildServer.util.*;
+import jetbrains.buildServer.util.DiagnosticUtil;
+import jetbrains.buildServer.util.EventDispatcher;
+import jetbrains.buildServer.util.FileUtil;
+import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.util.executors.ExecutorsFactory;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.TeamCityDuplicationReporter;
@@ -145,10 +151,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   @Override
   public void beforeBuildFinish(@NotNull final AgentRunningBuild build, @NotNull final BuildFinishedStatus buildStatus) {
     finishProcessing(getBuildProcessingContext(), true);
-  }
-
-  @Override
-  public void buildFinished(@NotNull AgentRunningBuild build, @NotNull BuildFinishedStatus buildStatus) {
     myBuild = null;
     myBuildProcessingContext = null;
   }

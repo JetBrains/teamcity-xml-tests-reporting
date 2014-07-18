@@ -14,6 +14,7 @@ import jetbrains.buildServer.serverSide.BuildStatisticsOptions;
 import jetbrains.buildServer.serverSide.BuildTypeEx;
 import jetbrains.buildServer.serverSide.SFinishedBuild;
 import jetbrains.buildServer.serverSide.SRunningBuild;
+import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit.AntJUnitFactory;
 import org.jetbrains.annotations.NotNull;
@@ -424,6 +425,29 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   @Test
   public void testTwoDifferentAbsoluteMaskRules() throws Exception {
     doTest("+:##C_D##/rep*.xml\n-:##C_D##/res*.xml", 1, "1 report found for paths");
+  }
+
+  // TW-37280
+  @Test
+  public void testOverlappingBuildFinishedBuildStartedEvents() throws Exception {
+    final EventDispatcher<AgentLifeCycleListener> agentEvents = getAgentEvents();
+    final XmlReportPlugin reportPlugin = new XmlReportPlugin(Collections.<String, ParserFactory>singletonMap("junit", new AntJUnitFactory()),
+                                                      agentEvents,
+                                                      getExtensionHolder().findSingletonService(InspectionReporter.class),
+                                                      getExtensionHolder().findSingletonService(DuplicatesReporter.class));
+    final BuildTypeEx bt = createBuildType(RUN_TYPE);
+    startBuild(bt, true);
+
+    final AgentRunningBuildEx build = getAgentRunningBuild();
+
+    reportPlugin.buildStarted(build);
+    reportPlugin.beforeBuildFinish(build, BuildFinishedStatus.FINISHED_SUCCESS);
+
+    reportPlugin.buildStarted(build);
+    reportPlugin.buildFinished(build,  BuildFinishedStatus.FINISHED_SUCCESS);
+
+    reportPlugin.beforeBuildFinish(build, BuildFinishedStatus.FINISHED_SUCCESS);
+    reportPlugin.buildFinished(build,  BuildFinishedStatus.FINISHED_SUCCESS);
   }
 
   private void doTest(@NotNull String reportDirs, int numberOfTests, String... messages) throws Exception {
