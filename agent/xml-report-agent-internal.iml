@@ -4,11 +4,11 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="fileset1" name="xml-report-plugin-agent" removed="false">
-          <file>file://$BUILDSERVER_PROJECT_HOME$/common-impl/src/META-INF/per-plugin-shared-spring.xml</file>
-          <file>file://$BUILDSERVER_PROJECT_HOME$/plugin-model-common/src/META-INF/plugin-model-shared-spring-common.xml</file>
-          <file>file://$BUILDSERVER_PROJECT_HOME$/common-impl/src/META-INF/plugin-model-shared-spring.xml</file>
-          <file>file://$BUILDSERVER_PROJECT_HOME$/common-impl/src/META-INF/shared-agent-server-spring.xml</file>
-          <file>file://$BUILDSERVER_PROJECT_HOME$/common-impl/src/META-INF/shared-spring-sub-container.xml</file>
+          <file>file://$MODULE_DIR$/../../../common-impl/src/META-INF/per-plugin-shared-spring.xml</file>
+          <file>file://$MODULE_DIR$/../../../plugin-model-common/src/META-INF/plugin-model-shared-spring-common.xml</file>
+          <file>file://$MODULE_DIR$/../../../common-impl/src/META-INF/plugin-model-shared-spring.xml</file>
+          <file>file://$MODULE_DIR$/../../../common-impl/src/META-INF/shared-agent-server-spring.xml</file>
+          <file>file://$MODULE_DIR$/../../../common-impl/src/META-INF/shared-spring-sub-container.xml</file>
           <file>file://$MODULE_DIR$/src/META-INF/build-agent-plugin.xml</file>
         </fileset>
       </configuration>
