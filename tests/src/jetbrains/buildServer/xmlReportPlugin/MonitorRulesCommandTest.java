@@ -146,6 +146,18 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
     assertFileState(ReportStateHolder.ReportState.OUT_OF_DATE);
   }
 
+  // TW-21402
+  @Test
+  public void testFileDetectedWhenLastModifiedInSeconds() throws Exception {
+      final long modificationTime = new Date().getTime() / 1000 * 1000;
+      final MonitorRulesCommand command = createMonitorRulesCommand(false, modificationTime);
+      myFile.setLastModified(modificationTime);
+      command.run();
+
+      assertFileDetected();
+      assertFileState(ReportStateHolder.ReportState.ON_PROCESSING);
+  }
+
   @Test
   public void testFileDetectedWhenOutOfDate() throws Exception {
     final MonitorRulesCommand command = createMonitorRulesCommand(true, new Date().getTime());
