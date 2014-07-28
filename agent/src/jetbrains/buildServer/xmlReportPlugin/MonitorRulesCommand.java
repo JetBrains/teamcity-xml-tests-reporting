@@ -97,7 +97,7 @@ public class MonitorRulesCommand {
                   assert lastModified != null;
                   assert length != null;
 
-                  if (fileLastModified > lastModified || fileLength > length) {
+                  if (fileLastModified > lastModified || fileLength != length) {
                     myReportStateHolder.setReportState(file, ReportStateHolder.ReportState.ON_PROCESSING, file.lastModified(), file.length());
                     modificationDetected(file);
                   }
