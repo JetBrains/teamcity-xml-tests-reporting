@@ -127,14 +127,12 @@
 <tr id="xmlReportParsing.reportDirs.container"
     style="${displayReportsSettings ? '' : 'display: none;'}">
     <th><label for="xmlReportParsing.reportDirs">Monitoring rules: <l:star/></label></th>
-    <td>
-        <props:multilineProperty name="xmlReportParsing.reportDirs" className="longField" expanded="true" rows="5" cols="40"
-                                 linkTitle="Type report monitoring rules"/>
-    <span class="smallNote">
+    <td><c:set var="note">
       Newline- or comma-separated set of rules in the form <strong>of +|-:path</strong>.<br/>
       Ant-style wildcards supported, e.g. <strong>dir/**/*.xml</strong>
-    </span>
-    <span class="error" id="error_xmlReportParsing.reportDirs"></span>
+    </c:set
+        ><props:multilineProperty name="xmlReportParsing.reportDirs" className="longField" expanded="true" rows="5" cols="40"
+                                 linkTitle="Type report monitoring rules" note="${note}"/>
     </td>
 </tr>
 <tr id="xmlReportParsing.verboseOutput.container"
