@@ -78,19 +78,18 @@ class NUnitXmlReportParser extends XmlXppAbstractParser {
         final TestData testData = new TestData();
 
         testData.setName(reader.getAttribute("name"));
-        testData.setExecuted(
-          Boolean.parseBoolean(reader.getAttribute("executed")) && !"Inconclusive".equals(reader.getAttribute("result")));
+        final String result = reader.getAttribute("result");
+        final boolean executed = Boolean.parseBoolean(reader.getAttribute("executed"));
+        testData.setSuccess("Success".equals(result) || (executed && Boolean.parseBoolean(reader.getAttribute("success"))));
+        testData.setIgnored(!executed || "Inconclusive".equals(result));
         testData.setDuration(myDurationParser.parseTestDuration(reader.getAttribute("time")));
 
         return reader.visitChildren(
           elementsPath(new Handler() {
             public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+              testData.setSuccess(false);
               return reader.visitChildren(
-                elementsPath(new TextHandler() {
-                  public void setText(@NotNull final String text) {
-                    testData.setFailureMessage(text.trim());
-                  }
-                }, "message"),
+                getMessageHandler(testData),
                 elementsPath(new TextHandler() {
                   public void setText(@NotNull final String text) {
                     testData.setFailureStackTrace(text.trim());
@@ -98,12 +97,27 @@ class NUnitXmlReportParser extends XmlXppAbstractParser {
                 }, "stack-trace")
               );
             }
-          }, "failure")
+          }, "failure"),
+          elementsPath(new Handler() {
+            public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+              return reader.visitChildren(
+                getMessageHandler(testData)
+              );
+            }
+          }, "reason")
         ).than(new XmlAction() {
           public void apply() {
             myCallback.testFound(testData);
           }
         });
+      }
+
+      private XmlHandler getMessageHandler(final TestData testData) {
+        return elementsPath(new TextHandler() {
+          public void setText(@NotNull final String text) {
+            testData.setMessage(text.trim());
+          }
+        }, "message");
       }
     }, "test-case");
   }

@@ -18,6 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.nUnit;
 
 import java.io.File;
 import java.io.IOException;
+import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.ParsingException;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
@@ -90,10 +91,15 @@ class NUnitReportParser implements Parser {
             }
 
             myTestReporter.openTest(testName);
-            if (!testData.isExecuted()) myTestReporter.testIgnored("");
-            if (testData.getFailureMessage() != null) {
-              myTestReporter
-                .testFail(testData.getFailureMessage(), testData.getFailureStackTrace());
+            final String message = testData.getMessage();
+            if (testData.isIgnored()) {
+              myTestReporter.testIgnored(StringUtil.emptyIfNull(message));
+            } else if (testData.isSuccess()) {
+              if (!StringUtil.isEmptyOrSpaces(message)) {
+                myTestReporter.testStdOutput(message);
+              }
+            } else if (message != null) {
+              myTestReporter.testFail(message, testData.getFailureStackTrace());
             }
             myTestReporter.closeTest(testData.getDuration());
           } finally {

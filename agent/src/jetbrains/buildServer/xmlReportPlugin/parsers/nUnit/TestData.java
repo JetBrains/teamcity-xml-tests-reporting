@@ -23,12 +23,13 @@ final class TestData {
   @Nullable
   private String myName;
   private long myDuration;
-  private boolean myExecuted;
+  private boolean myIgnored;
 
   @Nullable
-  private String myFailureMessage;
+  private String myMessage;
   @Nullable
   private String myFailureStackTrace;
+  private boolean mySuccess;
 
   @Nullable
   public String getName() {
@@ -47,21 +48,21 @@ final class TestData {
     myDuration = duration;
   }
 
-  public boolean isExecuted() {
-    return myExecuted;
+  public boolean isIgnored() {
+    return myIgnored;
   }
 
-  public void setExecuted(final boolean executed) {
-    myExecuted = executed;
+  public void setIgnored(final boolean executed) {
+    myIgnored = executed;
   }
 
   @Nullable
-  public String getFailureMessage() {
-    return myFailureMessage;
+  public String getMessage() {
+    return myMessage;
   }
 
-  public void setFailureMessage(@Nullable final String failureMessage) {
-    myFailureMessage = failureMessage;
+  public void setMessage(@Nullable final String message) {
+    myMessage = message;
   }
 
   @Nullable
@@ -71,5 +72,13 @@ final class TestData {
 
   public void setFailureStackTrace(@Nullable final String failureStackTrace) {
     myFailureStackTrace = failureStackTrace;
+  }
+
+  public void setSuccess(final boolean success) {
+    mySuccess = success;
+  }
+
+  public boolean isSuccess() {
+    return mySuccess;
   }
 }

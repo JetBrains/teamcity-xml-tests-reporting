@@ -4,19 +4,19 @@ TestSuite:statuses.dll
   EndTest:3
 ------------------------
   Test:Class1.IgnoredAsAssert
-    Ignored:
+    Ignored:I is here
   EndTest:0
 ------------------------
   Test:Class1.IgnoredWithAttribute
-    Ignored:
+    Ignored:Message of ignore
   EndTest:0
 ------------------------
   Test:Class1.InconclusiveAsAssert
-    Ignored:
+    Ignored:Shit is here
   EndTest:0
 ------------------------
   Test:Class1.InconclusiveAsException
-    Ignored:
+    Ignored:IOpps
   EndTest:1
 ------------------------
   Test:Class1.PassAsAssert

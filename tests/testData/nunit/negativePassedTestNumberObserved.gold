@@ -19,11 +19,11 @@ TestSuite:OnKeyOCLTestSuite
   EndTest:0
 ------------------------
   Test:Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_Staff_Member_And_Try_To_Delete_The_Trade
-    Ignored:
+    Ignored:JA: Cannot run this test because Staff Member Section lookup is broken (SectionTradeID missing?)
   EndTest:0
 ------------------------
   Test:Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_SectionStaff_Member_And_Try_To_Make_The_Trade_Inactive
-    Ignored:
+    Ignored:JA: Cannot run this test because Staff Member Section lookup is broken (SectionTradeID missing?)
   EndTest:0
 ------------------------
   Test:Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Two_Trades_With_The_Same_Code_To_Display_The_Message_Cannot_Insert_Duplicate
@@ -35,15 +35,15 @@ TestSuite:OnKeyOCLTestSuite
   EndTest:0
 ------------------------
   Test:Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Load_Existing_Staff_Member_To_Check_Edit_Grid_Functionality_And_Cancel_Changes
-    Ignored:
+    Ignored:JA: Not working at the moment for various small reasons including tests not running in correct order. Will enable again soon.
   EndTest:0
 ------------------------
   Test:Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Insert_And_Validate_New_Staff_Member
-    Ignored:
+    Ignored:JA: Not working at the moment for various small reasons including tests not running in correct order. Will enable again soon.
   EndTest:0
 ------------------------
   Test:Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Delete_New_Staff_Member
-    Ignored:
+    Ignored:JA: Not working at the moment for various small reasons including tests not running in correct order. Will enable again soon.
   EndTest:0
 ------------------------
   Test:Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Click_The_Navigation_Buttons_On_The_Staff_Members_Browse_Screen
