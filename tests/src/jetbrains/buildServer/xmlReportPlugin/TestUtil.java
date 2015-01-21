@@ -105,6 +105,7 @@ public final class TestUtil {
         for (final DuplicatingFragment fragment : duplicate.getFragments()) {
           results.append("[File: ").append(fragment.getPath());
           results.append(" Line: ").append(fragment.getLine());
+          results.append(" Hash: ").append(fragment.getHash());
           results.append("]\n");
         }
         results.append("]\n\n");

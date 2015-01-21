@@ -17,7 +17,9 @@
 package jetbrains.buildServer.xmlReportPlugin.duplicates;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -61,5 +63,16 @@ public class DuplicationResult {
 
   public void setHash(int hash) {
     myHash = hash;
+  }
+
+  public void setFragmentHashes() {
+    final Set<Integer> used = new HashSet<Integer>();
+    for (DuplicatingFragment fragment : myFragments) {
+      int hash = ("" + fragment.getPath() + fragment.getLine() + myHash).hashCode();
+      while (!used.add(hash)) {
+        hash++;
+      }
+      fragment.setHash(hash);
+    }
   }
 }

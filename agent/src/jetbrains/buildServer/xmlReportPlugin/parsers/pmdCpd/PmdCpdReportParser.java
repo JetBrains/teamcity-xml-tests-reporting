@@ -35,9 +35,11 @@ import org.jetbrains.annotations.Nullable;
 class PmdCpdReportParser implements Parser {
   @NotNull
   private final DuplicationReporter myDuplicationReporter;
+  private final File myCheckoutDirectory;
 
-  public PmdCpdReportParser(@NotNull DuplicationReporter duplicationReporter) {
+  public PmdCpdReportParser(@NotNull DuplicationReporter duplicationReporter, final File checkoutDirectory) {
     myDuplicationReporter = duplicationReporter;
+    myCheckoutDirectory = checkoutDirectory;
   }
 
   public boolean parse(@NotNull File file, @Nullable ParsingResult prevResult) throws ParsingException {
@@ -58,7 +60,7 @@ class PmdCpdReportParser implements Parser {
         public void reportDuplicate(@NotNull DuplicationResult duplicate) {
           myDuplicationReporter.reportDuplicate(duplicate);
         }
-      }).parse(file);
+      }, myCheckoutDirectory.getAbsolutePath()).parse(file);
     } catch (IOException e) {
       throw new ParsingException(e);
     }

@@ -16,10 +16,9 @@
 
 package jetbrains.buildServer.xmlReportPlugin.duplicates;
 
-import java.io.File;
 import java.util.ArrayList;
+import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.duplicator.DuplicateInfo;
-import jetbrains.buildServer.xmlReportPlugin.utils.PathUtils;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -30,13 +29,9 @@ import org.jetbrains.annotations.NotNull;
 public class TeamCityDuplicationReporter implements DuplicationReporter {
   @NotNull
   private final jetbrains.buildServer.agent.duplicates.DuplicatesReporter myDuplicatesReporter;
-  @NotNull
-  private final File myBaseFolder;
 
-  public TeamCityDuplicationReporter(@NotNull jetbrains.buildServer.agent.duplicates.DuplicatesReporter duplicatesReporter,
-                                     @NotNull File baseFolder) {
+  public TeamCityDuplicationReporter(@NotNull DuplicatesReporter duplicatesReporter) {
     myDuplicatesReporter = duplicatesReporter;
-    myBaseFolder = baseFolder;
   }
 
   public void startDuplicates() {
@@ -47,8 +42,7 @@ public class TeamCityDuplicationReporter implements DuplicationReporter {
     final ArrayList<DuplicateInfo.Fragment> fragmentsList = new ArrayList<DuplicateInfo.Fragment>();
 
     for (DuplicatingFragment fragment : duplicate.getFragments()) {
-      fragmentsList.add(new DuplicateInfo.Fragment(duplicate.getHash(),
-        PathUtils.getRelativePath(myBaseFolder.getAbsolutePath(), fragment.getPath()), fragment.getLine(),
+      fragmentsList.add(new DuplicateInfo.Fragment(fragment.getHash(), fragment.getPath(), fragment.getLine(),
         new DuplicateInfo.LineOffset(fragment.getLine(), fragment.getLine() + duplicate.getLines())));
     }
 

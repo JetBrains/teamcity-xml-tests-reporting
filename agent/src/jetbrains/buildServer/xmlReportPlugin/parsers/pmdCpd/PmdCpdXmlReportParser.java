@@ -21,6 +21,7 @@ import java.util.List;
 import jetbrains.buildServer.util.XmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatingFragment;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationResult;
+import jetbrains.buildServer.xmlReportPlugin.utils.PathUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,9 +33,11 @@ import org.jetbrains.annotations.Nullable;
 class PmdCpdXmlReportParser extends XmlXppAbstractParser {
   @NotNull
   private final Callback myCallback;
+  private final String myRootPath;
 
-  public PmdCpdXmlReportParser(@NotNull Callback callback) {
+  public PmdCpdXmlReportParser(@NotNull Callback callback, @NotNull String rootPath) {
     myCallback = callback;
+    myRootPath = rootPath;
   }
 
   @Override
@@ -59,12 +62,13 @@ class PmdCpdXmlReportParser extends XmlXppAbstractParser {
 
                   elementsPath(new Handler() {
                     public XmlReturn processElement(@NotNull XmlElementInfo reader) {
-                      duplicationResult.addFragment(new DuplicatingFragment(reader.getAttribute("path"), getInt(reader.getAttribute("line"))));
+                      duplicationResult.addFragment(new DuplicatingFragment(getRelativePath(reader.getAttribute("path")), getInt(reader.getAttribute("line"))));
                       return reader.noDeep();
                     }
                   }, "file")
                 ).than(new XmlAction() {
                   public void apply() {
+                    duplicationResult.setFragmentHashes();
                     myCallback.reportDuplicate(duplicationResult);
                   }
                 });
@@ -86,6 +90,11 @@ class PmdCpdXmlReportParser extends XmlXppAbstractParser {
     void finishDuplicates();
 
     void reportDuplicate(@NotNull DuplicationResult duplicate);
+  }
+
+  @NotNull
+  private String getRelativePath(final String path) {
+    return PathUtils.getRelativePath(myRootPath, path);
   }
 
   private static int getInt(@Nullable String val) {
