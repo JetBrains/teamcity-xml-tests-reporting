@@ -82,22 +82,26 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   @Override
   public void buildStarted(@NotNull AgentRunningBuild runningBuild) {
     myBuild = runningBuild;
+    initBuildProcessingContext(runningBuild);
+  }
+
+  private boolean initBuildProcessingContext(final @NotNull AgentRunningBuild runningBuild) {
     myBuildProcessingContext = new ProcessingContext(new ArrayList<RulesContext>());
 
     final Collection<AgentBuildFeature> features = getBuild().getBuildFeaturesOfType("xml-report-plugin");
-    if (features.isEmpty()) return;
+    if (features.isEmpty()) return false;
 
     for (AgentBuildFeature feature : features) {
       final Map<String, String> params = feature.getParameters();
       params.putAll(runningBuild.getSharedConfigParameters());
       getBuildProcessingContext().rulesContexts.add(createRulesContext(new RulesData(getRules(params), params, getBuildProcessingContext().startTime)));
     }
-
-    startProcessing(getBuildProcessingContext());
+    return true;
   }
 
   @Override
   public synchronized void beforeRunnerStart(@NotNull BuildRunnerContext runner) {
+    startProcessing(getBuildProcessingContext());
     myStepProcessingContext = new ProcessingContext(new CopyOnWriteArrayList<RulesContext>());
   }
 
@@ -105,8 +109,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
                                         @NotNull Map<String, String> params) {
     if (getNotNullStepProcessingContext().finished) return;
 
-     //here we check if this path is already monitored for reports of this type
-     // we also don't support processign two inspections type during one build
+     // here we check if this path is already monitored for reports of this type
+     // we also don't support processing two inspections type during one build
     final String newType = getReportType(params);
 
     for (RulesContext context : getNotNullStepProcessingContext().rulesContexts) {
@@ -179,16 +183,14 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   }
 
   private void startProcessing(@NotNull final ProcessingContext processingContext) {
-    if (processingContext.monitorThread != null) return;
-    if (processingContext.rulesContexts.size() == 0) return;
+    if (isStarted(processingContext)) return;
+    if (!rulesExist(processingContext)) return;
 
     processingContext.finished = false;
     processingContext.monitorThread = new Thread(new Runnable() {
       public void run() {
         while (!processingContext.finished) {
-          for (RulesContext rulesContext : processingContext.rulesContexts) {
-            rulesContext.getMonitorRulesCommand().run();
-          }
+          processAllRules(processingContext);
 
           try {
             Thread.sleep(500L);
@@ -201,12 +203,32 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     processingContext.monitorThread.start();
   }
 
+  private boolean rulesExist(final @NotNull ProcessingContext processingContext) {
+    return processingContext.rulesContexts.size() > 0;
+  }
+
+  private boolean isStarted(final @NotNull ProcessingContext processingContext) {
+    return processingContext.monitorThread != null;
+  }
+
+  private void processAllRules(final @NotNull ProcessingContext processingContext) {
+    for (RulesContext rulesContext : processingContext.rulesContexts) {
+      rulesContext.getMonitorRulesCommand().run();
+    }
+  }
+
   private void finishProcessing(@NotNull final ProcessingContext processingContext, boolean logStatistics) {
-    if (processingContext.monitorThread == null) return;
+    if (!isStarted(processingContext) && !rulesExist(processingContext)) return;
+    if (!isStarted(processingContext)) {
+      // process all rules even if we do not have build steps
+      processAllRules(processingContext);
+    }
 
     processingContext.finished = true;
     try {
-      if (processingContext.monitorThread != null) processingContext.monitorThread.join();
+      if (isStarted(processingContext)) {
+        processingContext.monitorThread.join();
+      }
 
       processingContext.monitorThread = null;
 
