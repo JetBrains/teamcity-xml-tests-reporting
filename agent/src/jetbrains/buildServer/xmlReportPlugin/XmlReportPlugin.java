@@ -85,18 +85,17 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     initBuildProcessingContext(runningBuild);
   }
 
-  private boolean initBuildProcessingContext(final @NotNull AgentRunningBuild runningBuild) {
+  private void initBuildProcessingContext(final @NotNull AgentRunningBuild runningBuild) {
     myBuildProcessingContext = new ProcessingContext(new ArrayList<RulesContext>());
 
     final Collection<AgentBuildFeature> features = getBuild().getBuildFeaturesOfType("xml-report-plugin");
-    if (features.isEmpty()) return false;
+    if (features.isEmpty()) return;
 
     for (AgentBuildFeature feature : features) {
       final Map<String, String> params = feature.getParameters();
       params.putAll(runningBuild.getSharedConfigParameters());
       getBuildProcessingContext().rulesContexts.add(createRulesContext(new RulesData(getRules(params), params, getBuildProcessingContext().startTime)));
     }
-    return true;
   }
 
   @Override
