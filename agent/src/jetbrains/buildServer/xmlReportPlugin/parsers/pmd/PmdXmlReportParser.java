@@ -47,16 +47,18 @@ class PmdXmlReportParser extends XmlXppAbstractParser {
 
             return reader.visitChildren(elementsPath(new Handler() {
               public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-                myCallback.reportInspectionType(
-                  new InspectionTypeResult(reader.getAttribute("rule"), reader.getAttribute("rule"),
-                                         reader.getAttribute("ruleset"), reader.getAttribute("ruleset")));
+                final String rule = reader.getAttribute("rule");
+                final String ruleset = reader.getAttribute("ruleset");
+                // 'beginline' and 'priority' MUST be evaluated here (before visitText)
+                // because reader may be changed later (when reading text, underlying buffer could be changed)
+                final int beginline = getInt(reader.getAttribute("beginline"));
+                final int priority = getInt(reader.getAttribute("priority"));
+
+                myCallback.reportInspectionType(new InspectionTypeResult(rule, rule, ruleset, ruleset));
 
                 return reader.visitText(new TextHandler() {
                   public void setText(@NotNull final String text) {
-                    myCallback.reportInspection(
-                      new InspectionResult(file, reader.getAttribute("rule"), text.trim(),
-                                         getInt(reader.getAttribute("beginline")),
-                                         getInt(reader.getAttribute("priority"))));
+                    myCallback.reportInspection(new InspectionResult(file, rule, text.trim(), beginline, priority));
                   }
                 });
               }

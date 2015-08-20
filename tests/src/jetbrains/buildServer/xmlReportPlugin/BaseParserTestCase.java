@@ -30,13 +30,13 @@ import org.testng.annotations.BeforeMethod;
 import static org.testng.Assert.*;
 
 public abstract class BaseParserTestCase {
-  private StringBuilder myResult;
+  protected StringBuilder myResult;
 
   private InspectionReporter myInspectionReporter;
   private DuplicationReporter myDuplicationReporter;
   private TestReporter myTestReporter;
 
-  private File myBaseDir;
+  protected File myBaseDir;
 
 
   @BeforeMethod
