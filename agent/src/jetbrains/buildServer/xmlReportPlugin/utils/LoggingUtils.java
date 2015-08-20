@@ -33,6 +33,7 @@ public class LoggingUtils {
   public static void logInTarget(@NotNull String target,
                                  @NotNull Runnable activity,
                                  @NotNull BuildProgressLogger logger) {
+    LOG.info(target);
     logger.targetStarted(target);
     activity.run();
     logger.targetFinished(target);
