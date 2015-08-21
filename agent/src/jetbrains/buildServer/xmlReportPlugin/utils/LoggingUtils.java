@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin.utils;
 
+import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil;
@@ -28,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
  * Time: 14:46
  */
 public class LoggingUtils {
-  public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(XmlReportPlugin.class);
+  public static final Logger LOG = Logger.getInstance(XmlReportPlugin.class.getName());
 
   public static void logInTarget(@NotNull String target,
                                  @NotNull Runnable activity,
