@@ -46,7 +46,7 @@ public class PmdReportParserTest extends BaseParserTestCase {
     runTest("inner.xml");
   }
 
-  @Test
+  @Test(timeOut = 5 * 1000)
   public void testXmlBomb() throws Exception {
     // Should not be parsed at all.
     // So nothing would be found

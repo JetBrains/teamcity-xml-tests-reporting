@@ -38,7 +38,7 @@ public class ParserUtilsTest {
     doTestReportComplete("xml-xxe-file-first.xml", true);
   }
 
-  @Test
+  @Test(timeOut = 5 * 1000)
   public void testIsReportComplete_XML_Bomb() throws Exception {
     doTestReportComplete("xml-bomb.xml", false);
   }
