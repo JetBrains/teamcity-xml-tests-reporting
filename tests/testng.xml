@@ -24,6 +24,8 @@
       <class name="jetbrains.buildServer.xmlReportPlugin.parsers.pmdCpd.PmdCpdReportParserTest"/>
 
       <class name="jetbrains.buildServer.xmlReportPlugin.XmlReportPluginIntegrationTest"/>
+
+      <class name="jetbrains.buildServer.xmlReportPlugin.utils.ParserUtilsTest"/>
     </classes>
   </test>
 </suite>

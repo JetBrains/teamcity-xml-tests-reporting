@@ -1,0 +1,2 @@
+InspectionTypeInfo{myId='OverrideBothEqualsAndHashcode', myName='OverrideBothEqualsAndHashcode', myDescription='Basic Rules', myCategory='Basic Rules'}
+InspectionInstance{myInspectionId='OverrideBothEqualsAndHashcode', myMessage='Ensure you override both equals() and hashCode()', myFilePath='org/jetbrains/testProject/BuggyClass.java', myLine=12, myPriority=3}

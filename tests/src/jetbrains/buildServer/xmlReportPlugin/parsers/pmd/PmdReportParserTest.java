@@ -46,6 +46,31 @@ public class PmdReportParserTest extends BaseParserTestCase {
     runTest("inner.xml");
   }
 
+  @Test
+  public void testXmlBomb() throws Exception {
+    // Should not be parsed at all.
+    // So nothing would be found
+    runTest("xml-bomb.xml");
+  }
+
+  @Test
+  public void testXmlXXE_File() throws Exception {
+    // Should be parsed, but external resource is not loaded
+    runTest("xml-xxe-file.xml");
+  }
+
+  @Test
+  public void testXmlXXE_File_First() throws Exception {
+    // Should be parsed, but external resource is not loaded
+    runTest("xml-xxe-file-first.xml");
+  }
+
+  @Test
+  public void testXmlXXE_URL() throws Exception {
+    // Should be parsed, but external resource is not loaded
+    runTest("xml-xxe-url.xml");
+  }
+
   private void runTest(final String reportName) throws Exception {
     parse(reportName);
     assertResultEquals(getExpectedResult(reportName + ".gold"));

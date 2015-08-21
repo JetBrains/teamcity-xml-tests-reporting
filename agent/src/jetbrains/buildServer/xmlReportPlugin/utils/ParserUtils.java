@@ -17,10 +17,11 @@
 package jetbrains.buildServer.xmlReportPlugin.utils;
 
 import java.io.File;
+import jetbrains.buildServer.util.XmlUtil;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
-import org.xml.sax.helpers.XMLReaderFactory;
 
 /**
  * User: vbedrosova
@@ -28,22 +29,12 @@ import org.xml.sax.helpers.XMLReaderFactory;
  * Time: 15:23
  */
 public class ParserUtils {
-  private static final String DEFAULT_PARSER = "com.sun.org.apache.xerces.internal.parsers.SAXParser";
-
-  @NotNull
-  public static XMLReader createXmlReader(boolean validate) throws SAXException {
-    final XMLReader xmlReader = createXmlReader();
-
-    setValidationFeature(validate, xmlReader);
-
-    return xmlReader;
-  }
 
   @NotNull
   public static XMLReader createXmlReader(@NotNull ContentHandler contentHandler,
                                           @NotNull ErrorHandler errorHandler,
                                           boolean validate) throws SAXException {
-    final XMLReader xmlReader = createXmlReader(validate);
+    final XMLReader xmlReader = XmlUtil.createXMLReader(validate);
 
     xmlReader.setContentHandler(contentHandler);
     xmlReader.setErrorHandler(errorHandler);
@@ -51,30 +42,12 @@ public class ParserUtils {
   }
 
   @NotNull
-  private static XMLReader createXmlReader() throws SAXException {
-    try {
-      return XMLReaderFactory.createXMLReader(DEFAULT_PARSER);
-    } catch (Exception e) {
-      LoggingUtils.LOG.warn("Failed to load " + DEFAULT_PARSER, e);
-      return XMLReaderFactory.createXMLReader();
-    }
-  }
-
-  private static void setValidationFeature(boolean validate, @NotNull XMLReader xmlReader) throws SAXNotRecognizedException, SAXNotSupportedException {
-    try {
-      xmlReader.setFeature("http://xml.org/sax/features/validation", validate);
-    } catch (Exception e) {
-      LoggingUtils.LOG.warn("Failed to set validation: " + validate, e);
-    }
-  }
-
-  @NotNull
   public static String formatText(@NotNull String s) {
     return s.replace("&nbsp;", " ").replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").replaceAll("<[a-z]>|</[a-z]>", "").trim();
   }
 
-  public static boolean isReportComplete(@NotNull final File report, @NotNull String rootTag) {
-    // here we preparse the report to check it's complete
+  public static boolean isReportComplete(@NotNull final File report, @Nullable String rootTag) {
+    // here we pre-parse the report to check it's complete
     final CompleteReportHandler handler = new CompleteReportHandler(rootTag);
     try {
       final XMLReader reader = createXmlReader(handler, handler, false);
@@ -88,21 +61,32 @@ public class ParserUtils {
   }
 
   private static final class CompleteReportHandler extends DefaultHandler {
-    @NotNull
-    private final String myRootTag;
-    private boolean myReportComplete = false;
+    private String myRootTag;
+    private int myDepth = 0;
+    private boolean myRightStart = false;
+    private boolean myRightEnd = false;
 
-    private CompleteReportHandler(@NotNull String rootTag) {
+    private CompleteReportHandler(@Nullable String rootTag) {
       myRootTag = rootTag;
     }
 
     public boolean isReportComplete() {
-      return myReportComplete;
+      return myRightStart && myRightEnd && myDepth == 0;
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
-      if (myRootTag.equals(localName)) myReportComplete = true;
+    public void startElement(final String uri, final String localName, final String qName, final Attributes attributes) {
+      if (myDepth == 0) {
+        if (myRootTag == null) myRootTag = localName;
+        if (myRootTag.equals(localName)) myRightStart = true;
+      }
+      myDepth++;
+    }
+
+    @Override
+    public void endElement(String uri, String localName, String qName) {
+      myDepth--;
+      if (myDepth == 0 && myRootTag != null && myRootTag.equals(localName)) myRightEnd = true;
     }
   }
 }
