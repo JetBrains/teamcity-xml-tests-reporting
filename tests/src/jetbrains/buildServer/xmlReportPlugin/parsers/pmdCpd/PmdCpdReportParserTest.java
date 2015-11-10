@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.pmdCpd;
 
+import jetbrains.buildServer.util.TestFor;
 import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import org.jetbrains.annotations.NotNull;
@@ -43,6 +44,12 @@ public class PmdCpdReportParserTest extends BaseParserTestCase {
   @Test
   public void testSimple() throws Exception {
     runTest("result.xml");
+  }
+
+  @Test
+  @TestFor(issues = "TW-43120")
+  public void testSimpleJavaEncoding() throws Exception {
+    runTest("result2.xml");
   }
 
   private void runTest(final String reportName) throws Exception {

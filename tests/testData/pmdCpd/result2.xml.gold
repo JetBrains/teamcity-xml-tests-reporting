@@ -1,0 +1,258 @@
+[Cost: 115 Hash: -251352884 Lines: 12
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 235 Hash: -2021293558]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 276 Hash: 993053255]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 379 Hash: -396236533]
+]
+
+[Cost: 113 Hash: -438684273 Lines: 10
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 235 Hash: 1474381709]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 411 Hash: -772718899]
+]
+
+[Cost: 96 Hash: -1122084371 Lines: 13
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/FilesComparisonTest.java Line: 59 Hash: 635995825]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SnapshotFilesTraversalTest.java Line: 47 Hash: 936812115]
+]
+
+[Cost: 91 Hash: -348344407 Lines: 10
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 223 Hash: -190047914]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 263 Hash: 326282962]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 366 Hash: -1063006826]
+]
+
+[Cost: 89 Hash: -59420310 Lines: 8
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 223 Hash: -95749779]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 394 Hash: 143061810]
+]
+
+[Cost: 73 Hash: -1033926903 Lines: 13
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/FileSystemFilesTraversalTest.java Line: 55 Hash: -1377126150]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SnapshotFilesTraversalTest.java Line: 50 Hash: 134817624]
+]
+
+[Cost: 63 Hash: -604532071 Lines: 10
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/FilesComparisonTest.java Line: 62 Hash: -1314592808]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/FileSystemFilesTraversalTest.java Line: 55 Hash: -799472108]
+]
+
+[Cost: 55 Hash: -814615049 Lines: 8
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/FileSystemFilesTraversalTest.java Line: 48 Hash: 425298494]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SnapshotFilesTraversalTest.java Line: 43 Hash: -1465591776]
+]
+
+[Cost: 53 Hash: 1635444983 Lines: 6
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 400 Hash: -1934302580]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 419 Hash: -797912908]
+]
+
+[Cost: 53 Hash: 243529256 Lines: 6
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 225 Hash: 614884098]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 238 Hash: -1771607776]
+]
+
+[Cost: 52 Hash: -611218431 Lines: 13
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 147 Hash: -1495631020]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 160 Hash: -1543707957]
+]
+
+[Cost: 48 Hash: 1351715259 Lines: 5
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/FilesCollectionProcessorTest.java Line: 72 Hash: -425940422]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/FilesCollectionProcessorTest.java Line: 82 Hash: -296857703]
+]
+
+[Cost: 47 Hash: 1521981034 Lines: 8
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 74 Hash: -1556920735]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 174 Hash: -1336596274]
+]
+
+[Cost: 41 Hash: 154230387 Lines: 4
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 223 Hash: 1065481295]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 235 Hash: -1124497074]
+]
+
+[Cost: 37 Hash: -1480154179 Lines: 4
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/FilesComparisonTest.java Line: 59 Hash: -373623538]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/FileSystemFilesTraversalTest.java Line: 52 Hash: 1125986077]
+]
+
+[Cost: 31 Hash: -319821686 Lines: 6
+[File: ##BASE_DIR##/agent/src/jetbrains/buildServer/swabra/SwabraPropertiesProcessor.java Line: 142 Hash: -426819114]
+[File: ##BASE_DIR##/agent/src/jetbrains/buildServer/swabra/SwabraPropertiesProcessor.java Line: 173 Hash: -1836522316]
+]
+
+[Cost: 30 Hash: -860253003 Lines: 6
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 404 Hash: 1668478097]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 424 Hash: 1926643535]
+]
+
+[Cost: 30 Hash: -1247459285 Lines: 8
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 372 Hash: 1184576681]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 387 Hash: 1536587269]
+]
+
+[Cost: 30 Hash: -47408405 Lines: 83
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 269 Hash: 902840167]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 284 Hash: -1708495026]
+]
+
+[Cost: 30 Hash: 762282390 Lines: 21
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 229 Hash: 1899055559]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 243 Hash: -515766129]
+]
+
+[Cost: 30 Hash: -2063737608 Lines: 4
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/FileSystemFilesTraversalTest.java Line: 45 Hash: -403080807]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SnapshotFilesTraversalTest.java Line: 40 Hash: 1108862967]
+]
+
+[Cost: 30 Hash: 1169800429 Lines: 7
+[File: ##BASE_DIR##/agent/src/jetbrains/buildServer/swabra/snapshots/rules/AntMaskRule.java Line: 14 Hash: -1880740991]
+[File: ##BASE_DIR##/agent/src/jetbrains/buildServer/swabra/snapshots/rules/PathRule.java Line: 11 Hash: -2101724418]
+]
+
+[Cost: 29 Hash: 1389689613 Lines: 5
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 117 Hash: 699308409]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 131 Hash: -1145719887]
+]
+
+[Cost: 29 Hash: -315362036 Lines: 4
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/FileSystemFilesTraversalTest.java Line: 36 Hash: 848633346]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SnapshotFilesTraversalTest.java Line: 35 Hash: 359872232]
+]
+
+[Cost: 29 Hash: 104743793 Lines: 5
+[File: ##BASE_DIR##/agent/src/jetbrains/buildServer/swabra/processes/LockedFileResolver.java Line: 76 Hash: 1791366814]
+[File: ##BASE_DIR##/agent/src/jetbrains/buildServer/swabra/processes/LockedFileResolver.java Line: 103 Hash: -2042535505]
+]
+
+[Cost: 28 Hash: 1755131218 Lines: 3
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 193 Hash: 603023052]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 199 Hash: -1588750510]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 206 Hash: -1948011207]
+]
+
+[Cost: 28 Hash: -157494375 Lines: 6
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 116 Hash: -162702084]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 159 Hash: -742257989]
+]
+
+[Cost: 26 Hash: -642858235 Lines: 5
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 117 Hash: 113555285]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 147 Hash: 500803442]
+]
+
+[Cost: 26 Hash: -1723249918 Lines: 6
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 26 Hash: 185890135]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 86 Hash: -1574527907]
+]
+
+[Cost: 26 Hash: -1687677095 Lines: 4
+[File: ##BASE_DIR##/server/src/jetbrains/buildServer/swabra/web/actions/DownloadAction.java Line: 47 Hash: 1815331484]
+[File: ##BASE_DIR##/server/src/jetbrains/buildServer/swabra/web/actions/UploadAction.java Line: 45 Hash: -1324702505]
+]
+
+[Cost: 25 Hash: -590924692 Lines: 8
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 38 Hash: -1463247462]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 46 Hash: -2035229321]
+]
+
+[Cost: 25 Hash: -742822358 Lines: 3
+[File: ##BASE_DIR##/agent/src/jetbrains/buildServer/swabra/SwabraSettings.java Line: 133 Hash: 251818653]
+[File: ##BASE_DIR##/handle-provider/src/jetbrains/buildServer/handleProvider/HandleProvider.java Line: 20 Hash: 312391088]
+]
+
+[Cost: 23 Hash: -1789004045 Lines: 8
+[File: ##BASE_DIR##/server/src/jetbrains/buildServer/swabra/web/actions/DownloadAction.java Line: 37 Hash: 1897958309]
+[File: ##BASE_DIR##/server/src/jetbrains/buildServer/swabra/web/actions/UploadAction.java Line: 35 Hash: -1242075680]
+]
+
+[Cost: 23 Hash: -207269449 Lines: 3
+[File: ##BASE_DIR##/server/src/jetbrains/buildServer/swabra/URLDownloader.java Line: 35 Hash: 2146779131]
+[File: ##BASE_DIR##/server/src/jetbrains/buildServer/swabra/URLDownloader.java Line: 70 Hash: -1237035086]
+]
+
+[Cost: 23 Hash: 730289311 Lines: 2
+[File: ##BASE_DIR##/common/src/jetbrains/buildServer/swabra/SwabraUtil.java Line: 71 Hash: -759315355]
+[File: ##BASE_DIR##/common/src/jetbrains/buildServer/swabra/SwabraUtil.java Line: 79 Hash: 1963543901]
+]
+
+[Cost: 22 Hash: 2088488798 Lines: 5
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 195 Hash: 266579582]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 202 Hash: -92681115]
+]
+
+[Cost: 22 Hash: -1545872273 Lines: 6
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 40 Hash: -715479441]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 57 Hash: -105303415]
+]
+
+[Cost: 22 Hash: -1228672923 Lines: 5
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/FilesComparisonTest.java Line: 20 Hash: -252141882]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SnapshotFilesTraversalTest.java Line: 36 Hash: 494530146]
+]
+
+[Cost: 22 Hash: -930621323 Lines: 4
+[File: ##BASE_DIR##/agent/src/jetbrains/buildServer/swabra/snapshots/iteration/FilesTraversal.java Line: 69 Hash: -319331837]
+[File: ##BASE_DIR##/agent/src/jetbrains/buildServer/swabra/snapshots/iteration/FilesTraversal.java Line: 82 Hash: -367408774]
+]
+
+[Cost: 22 Hash: -138960454 Lines: 4
+[File: ##BASE_DIR##/agent/src/jetbrains/buildServer/swabra/snapshots/iteration/FilesTraversal.java Line: 66 Hash: 950936417]
+[File: ##BASE_DIR##/agent/src/jetbrains/buildServer/swabra/snapshots/iteration/FilesTraversal.java Line: 86 Hash: 1209101855]
+]
+
+[Cost: 21 Hash: 1080878245 Lines: 7
+[File: ##BASE_DIR##/server/src/jetbrains/buildServer/swabra/web/actions/DownloadAction.java Line: 16 Hash: 1675778366]
+[File: ##BASE_DIR##/server/src/jetbrains/buildServer/swabra/web/actions/UploadAction.java Line: 18 Hash: -1318351193]
+]
+
+[Cost: 21 Hash: 766817509 Lines: 2
+[File: ##BASE_DIR##/server/src/jetbrains/buildServer/swabra/URLDownloader.java Line: 35 Hash: -1247784180]
+[File: ##BASE_DIR##/server/src/jetbrains/buildServer/swabra/URLDownloader.java Line: 62 Hash: -1754130446]
+]
+
+[Cost: 21 Hash: -1396870859 Lines: 5
+[File: ##BASE_DIR##/agent/src/jetbrains/buildServer/swabra/SwabraLogger.java Line: 48 Hash: 595250886]
+[File: ##BASE_DIR##/agent/src/jetbrains/buildServer/swabra/SwabraLogger.java Line: 63 Hash: -636968723]
+]
+
+[Cost: 20 Hash: -2076932947 Lines: 4
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 270 Hash: 742454802]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/SwabraTest.java Line: 405 Hash: -1864395100]
+]
+
+[Cost: 20 Hash: 1877112667 Lines: 4
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 181 Hash: -320313196]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 189 Hash: -1811022180]
+]
+
+[Cost: 20 Hash: 687730585 Lines: 4
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 121 Hash: -2004854619]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 137 Hash: -685919712]
+]
+
+[Cost: 20 Hash: -1955112904 Lines: 4
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 86 Hash: 1782393248]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 117 Hash: -2089546581]
+]
+
+[Cost: 20 Hash: 760309094 Lines: 4
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 55 Hash: -830510178]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 65 Hash: 1667505759]
+]
+
+[Cost: 20 Hash: 1877112667 Lines: 4
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 38 Hash: -879808877]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 189 Hash: -1811022180]
+]
+
+[Cost: 20 Hash: -1955112904 Lines: 4
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 26 Hash: -752156006]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/RulesTest.java Line: 117 Hash: -2089546581]
+]
+
+[Cost: 20 Hash: 919659310 Lines: 3
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/FilesComparisonTest.java Line: 20 Hash: 420098690]
+[File: ##BASE_DIR##/tests/src/jetbrains/buildServer/swabra/FileSystemFilesTraversalTest.java Line: 37 Hash: -479557948]
+]
+
