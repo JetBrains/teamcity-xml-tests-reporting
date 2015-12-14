@@ -277,7 +277,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
     if (!executor.isTerminated()) {
       LoggingUtils.LOG.warn("Stopped waiting for one xml-report-plugin executors to complete, it is still running");
-      DiagnosticUtil.threadDumpToLog(executor);
+      final String dumpToString = DiagnosticUtil.threadDumpToString();
+      LoggingUtils.LOG.warn(dumpToString);
     }
   }
 
