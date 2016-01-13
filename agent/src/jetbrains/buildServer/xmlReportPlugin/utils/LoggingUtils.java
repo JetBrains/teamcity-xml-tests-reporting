@@ -18,6 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin.utils;
 
 import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.messages.DefaultMessagesInfo;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil;
 import org.jetbrains.annotations.NotNull;
@@ -38,6 +39,11 @@ public class LoggingUtils {
     logger.targetStarted(target);
     activity.run();
     logger.targetFinished(target);
+  }
+
+  public static void verbose(@NotNull final String message, @NotNull final BuildProgressLogger logger) {
+    LOG.debug(message);
+    logger.logMessage(DefaultMessagesInfo.internalize(DefaultMessagesInfo.createTextMessage(message)));
   }
 
   public static void message(@NotNull String message, @NotNull BuildProgressLogger logger) {

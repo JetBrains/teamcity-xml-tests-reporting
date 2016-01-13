@@ -410,10 +410,12 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
           }
 
           if (!outOfDate.isEmpty()) {
-            LoggingUtils
-              .message(outOfDate.size() + " report" + getEnding(outOfDate.size()) + " skipped as out-of-date", logger);
+            LoggingUtils.message(outOfDate.size() + " report" + getEnding(outOfDate.size()) + " skipped as out-of-date", logger);
+            LoggingUtils.verbose("Processing start time is: [" + rulesContext.getRulesData().getMonitorRulesParameters().getStartTime() + "]", logger);
+            for (File f: outOfDate) {
+              LoggingUtils.verbose("Report [" + f.getAbsolutePath() + "] has last modified timestamp [" + f.lastModified() + "]", logger);
+            }
           }
-
           result.logAsTotalResult(rulesContext.getRulesData().getParseReportParameters());
         }
       }, logger);
