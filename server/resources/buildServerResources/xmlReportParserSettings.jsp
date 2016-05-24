@@ -50,7 +50,7 @@
 
 <tr id="xmlReportParsing.warning.container" style="${empty displayWarning ? 'display:none;' : ''}">
     <td colspan="2">
-        <div class="attentionComment">
+        <div class="icon_before icon16 attentionComment">
             Please make sure that tests are not detected automatically before using this feature.
         </div>
     </td>
