@@ -59,6 +59,8 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   @NotNull
   private final Map<String, ParserFactory> myParserFactoryMap;
 
+  @NotNull private final BuildAgentConfiguration myConfiguration;
+
   @Nullable
   private ProcessingContext myBuildProcessingContext;
 
@@ -68,8 +70,10 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   public XmlReportPlugin(@NotNull Map<String, ParserFactory> parserFactoryMap,
                          @NotNull EventDispatcher<AgentLifeCycleListener> agentDispatcher,
                          @NotNull jetbrains.buildServer.agent.inspections.InspectionReporter inspectionReporter,
-                         @NotNull jetbrains.buildServer.agent.duplicates.DuplicatesReporter duplicatesReporter) {
+                         @NotNull jetbrains.buildServer.agent.duplicates.DuplicatesReporter duplicatesReporter,
+                         @NotNull BuildAgentConfiguration configuration) {
     myParserFactoryMap = parserFactoryMap;
+    myConfiguration = configuration;
 
     agentDispatcher.addListener(this);
 
@@ -276,9 +280,9 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     }
 
     if (!executor.isTerminated()) {
-      LoggingUtils.LOG.warn("Stopped waiting for one xml-report-plugin executors to complete, it is still running");
-      final String dumpToString = DiagnosticUtil.threadDumpToString();
-      LoggingUtils.LOG.warn(dumpToString);
+      final File dump = DiagnosticUtil.threadDumpToDirectory(myConfiguration.getAgentLogsDirectory(), new DiagnosticUtil.ThreadDumpData()
+        .withSummary("Stopped waiting for one xml-report-plugin executors to complete, it is still running"));
+      LoggingUtils.LOG.warn("Stopped waiting for one xml-report-plugin executors to complete, it is still running. Thread dump is  saved to " + dump.getAbsolutePath());
     }
   }
 

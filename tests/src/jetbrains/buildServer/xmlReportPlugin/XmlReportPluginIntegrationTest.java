@@ -53,7 +53,8 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
     new XmlReportPlugin(Collections.<String, ParserFactory>singletonMap("junit", new AntJUnitFactory()),
                         getAgentEvents(),
                         getExtensionHolder().findSingletonService(InspectionReporter.class),
-                        getExtensionHolder().findSingletonService(DuplicatesReporter.class));
+                        getExtensionHolder().findSingletonService(DuplicatesReporter.class),
+                        getExtensionHolder().findSingletonService(BuildAgentConfiguration.class));
     registerRunner(new AgentBuildRunner() {
       @NotNull
       public BuildProcess createBuildProcess(@NotNull final AgentRunningBuild runningBuild, @NotNull final BuildRunnerContext context) {
@@ -432,9 +433,10 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   public void testOverlappingBuildFinishedBuildStartedEvents() throws Exception {
     final EventDispatcher<AgentLifeCycleListener> agentEvents = getAgentEvents();
     final XmlReportPlugin reportPlugin = new XmlReportPlugin(Collections.<String, ParserFactory>singletonMap("junit", new AntJUnitFactory()),
-                                                      agentEvents,
-                                                      getExtensionHolder().findSingletonService(InspectionReporter.class),
-                                                      getExtensionHolder().findSingletonService(DuplicatesReporter.class));
+                                                             agentEvents,
+                                                             getExtensionHolder().findSingletonService(InspectionReporter.class),
+                                                             getExtensionHolder().findSingletonService(DuplicatesReporter.class),
+                                                             getExtensionHolder().findSingletonService(BuildAgentConfiguration.class));
     final BuildTypeEx bt = createBuildType(RUN_TYPE);
     startBuild(bt, true);
 
