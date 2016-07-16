@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dsl-extension kind="buildFeature" type="xml-report-plugin" generateDslJar="true">
+  <class name="XmlReport" />
+  <function name="xmlReport" description="Adds [Xml Report Processing](https://confluence.jetbrains.com/display/TCD9/XML+Report+Processing) build feature"/>
+  <params>
+    <param name="xmlReportParsing.reportType" dslName="reportType" type="XmlReportType" />
+    <param name="xmlReportParsing.reportDirs" dslName="rules" />
+    <param name="xmlReportParsing.verboseOutput" dslName="verbose" type="boolean" trueValue="true" falseValue="" />
+    <param name="xmlReportParsing.findBugs.home" dslName="findBugsHome" />
+  </params>
+  <types>
+    <enum name="XmlReportType">
+      <option name="JUNIT" value="junit"/>
+      <option name="CTEST" value="ctest"/>
+      <option name="CHECKSTYLE" value="checkstyle"/>
+      <option name="FINDBUGS" value="findBugs"/>
+      <option name="GOOGLE_TEST" value="gtest"/>
+      <option name="JSLINT" value="jslint"/>
+      <option name="MSTEST" value="mstest"/>
+      <option name="NUNIT" value="nunit"/>
+      <option name="PMD" value="pmd"/>
+      <option name="PMD_CPD" value="pmdCpd"/>
+      <option name="SUREFIRE" value="surefire"/>
+      <option name="TRX" value="trx"/>
+      <option name="VSTEST" value="vstest"/>
+    </enum>
+  </types>
+</dsl-extension>
