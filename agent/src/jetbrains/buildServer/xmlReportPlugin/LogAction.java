@@ -16,10 +16,10 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import com.intellij.openapi.diagnostic.Logger;
 import java.util.Arrays;
 import java.util.List;
 import jetbrains.buildServer.agent.BuildProgressLogger;
+import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,26 +31,26 @@ import org.jetbrains.annotations.Nullable;
 public enum LogAction {
   DO_NOTHING("nothing") {
     @Override
-    public void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger, @NotNull Logger log) {}
+    public void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger) {}
   },
   INFO("info") {
     @Override
-    public void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger, @NotNull Logger log) {
-      log.info(message);
+    public void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger) {
+      LoggingUtils.LOG.info(message);
       logger.message(message);
     }
   },
   WARNING("warning") {
     @Override
-    public void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger, @NotNull Logger log) {
-      log.warn(message);
+    public void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger) {
+      LoggingUtils.LOG.warn(message);
       logger.warning(message);
     }
   },
   ERROR("error") {
     @Override
-    public void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger, @NotNull Logger log) {
-      log.warn(message);
+    public void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger) {
+      LoggingUtils.LOG.warn(message);
       logger.error(message);
     }
   };
@@ -69,7 +69,7 @@ public enum LogAction {
     return myName;
   }
 
-  public abstract void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger, @NotNull Logger log);
+  public abstract void doLogAction(@NotNull String message, @NotNull BuildProgressLogger logger);
 
   public static LogAction getAction(@Nullable String name) {
     if (name == null) return INFO;

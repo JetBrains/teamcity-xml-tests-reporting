@@ -329,24 +329,23 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   private void logStatistics(@NotNull final RulesContext rulesContext) {
     final BuildProgressLogger logger = getBuild().getBuildLogger();
 
-    final Map<File, ParsingResult> processedFiles = rulesContext.getRulesState().getProcessedFiles();
+    final Map<File, ParsingResult> succeeded = rulesContext.getRulesState().getProcessedFiles();
     final Map<File, ParsingResult> failedToParse = rulesContext.getRulesState().getFailedToProcessFiles();
     final List<File> outOfDate = rulesContext.getRulesState().getOutOfDateFiles();
 
-    final int totalFileCount = processedFiles.size() + failedToParse.size();
+    final int processedFileCount = succeeded.size() + failedToParse.size();
 
-    if (totalFileCount == 0 && rulesContext.getRulesData().getWhenNoDataPublished() == LogAction.DO_NOTHING) return;
-
-    final int outOfDateCount = outOfDate.size();
+    final LogAction summaryLogAction = processedFileCount == 0 ? rulesContext.getRulesData().getWhenNoDataPublished() : LogAction.INFO;
+    if (summaryLogAction == LogAction.DO_NOTHING) return;
 
     LoggingUtils.logInTarget(LoggingUtils.getTypeDisplayName(rulesContext.getRulesData().getType()) + " report watcher",
       new Runnable() {
         public void run() {
-          if (totalFileCount + outOfDateCount == 0) {
-            rulesContext.getRulesData().getWhenNoDataPublished().doLogAction("No reports found for paths:", logger, LoggingUtils.LOG);
-          } else {
-            LoggingUtils.message(totalFileCount + outOfDateCount + " report" + getEnding(totalFileCount) + " found for paths:", logger);
-          }
+          final int totalFileCount = processedFileCount + outOfDate.size();
+          summaryLogAction.doLogAction(
+            totalFileCount == 0 ?
+            "No reports found for paths:" :
+            totalFileCount + " report" + getEnding(totalFileCount) + " found for paths:", logger);
 
           final Collection<String> rules = rulesContext.getRulesData().getRules().getBody();
 
@@ -354,7 +353,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
             LoggingUtils.warn("<no paths>", logger);
           } else {
             for (String r : rules) {
-              LoggingUtils.message(r, logger);
+              summaryLogAction.doLogAction(r, logger);
             }
           }
 
@@ -392,17 +391,17 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
             }
           }
 
-          if (!processedFiles.isEmpty()) {
+          if (!succeeded.isEmpty()) {
             LoggingUtils.logInTarget("Successfully parsed",
                                      new Runnable() {
                                        public void run() {
                                          LoggingUtils
-                                           .message(processedFiles.size() + " report" + getEnding(processedFiles.size()), logger);
+                                           .message(succeeded.size() + " report" + getEnding(succeeded.size()), logger);
 
-                                         for (Map.Entry<File, ParsingResult> e : processedFiles.entrySet()) {
+                                         for (Map.Entry<File, ParsingResult> e : succeeded.entrySet()) {
                                            final String m = getPathInCheckoutDir(e.getKey());
 
-                                           if (rulesContext.getRulesData().isVerbose() || processedFiles.size() == 1) {
+                                           if (rulesContext.getRulesData().isVerbose() || succeeded.size() == 1) {
                                              LoggingUtils.message(m, logger);
                                            } else {
                                              LoggingUtils.LOG.debug(m);
@@ -414,11 +413,33 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
           }
 
           if (!outOfDate.isEmpty()) {
-            LoggingUtils.message(outOfDate.size() + " report" + getEnding(outOfDate.size()) + " skipped as out-of-date", logger);
-            LoggingUtils.verbose("Processing start time is: [" + rulesContext.getRulesData().getMonitorRulesParameters().getStartTime() + "]", logger);
-            for (File f: outOfDate) {
-              LoggingUtils.verbose("Report [" + f.getAbsolutePath() + "] has last modified timestamp [" + f.lastModified() + "]", logger);
-            }
+            LoggingUtils.logInTarget("Skipped as out-of-date", new Runnable() {
+              @Override
+              public void run() {
+                LoggingUtils.verbose("Processing start time is: [" + rulesContext.getRulesData().getMonitorRulesParameters().getStartTime() + "]", logger);
+                summaryLogAction.doLogAction(outOfDate.size() + " report" + getEnding(outOfDate.size()), logger);
+
+                int i = 0;
+                for (File f : outOfDate) {
+                  final String m = getPathInCheckoutDir(f);
+                  final String details = m + " has last modified timestamp [" + f.lastModified() + "]";
+
+                  if (rulesContext.getRulesData().isVerbose() || outOfDate.size() == 1 || processedFileCount == 0) {
+                    summaryLogAction.doLogAction(m, logger);
+                    LoggingUtils.verbose(details, logger);
+                  } else {
+                    if (i < 10) {
+                      LoggingUtils.LOG.info(m);
+                    } else {
+                      LoggingUtils.LOG.debug(m);
+                    }
+                    LoggingUtils.LOG.debug(details);
+                  }
+                  ++i;
+                }
+
+              }
+            }, logger);
           }
           result.logAsTotalResult(rulesContext.getRulesData().getParseReportParameters());
         }
@@ -426,11 +447,11 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   }
 
   private String getPathInCheckoutDir(@NotNull File file) {
+    String relativePath = null;
     if (FileUtil.isAncestor(getBuild().getCheckoutDirectory(), file, false)) {
-      final String relativePath = FileUtil.getRelativePath(getBuild().getCheckoutDirectory(), file);
-      return relativePath == null ? file.getPath() : relativePath;
+      relativePath = FileUtil.getRelativePath(getBuild().getCheckoutDirectory(), file);
     }
-    return file.getPath();
+    return relativePath == null ? file.getAbsolutePath() : relativePath;
   }
 
   @Nullable Throwable getProblem(@NotNull ParsingResult parsingResult) {

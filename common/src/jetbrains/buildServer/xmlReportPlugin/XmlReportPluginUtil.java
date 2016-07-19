@@ -159,7 +159,7 @@ public class XmlReportPluginUtil {
 
   @Nullable
   public static String whenNoDataPublished(@NotNull final Map<String, String> params) {
-    return params.get(WHEN_NO_DATA_PUBLISHED);
+    return params.containsKey(WHEN_NO_DATA_PUBLISHED) ? params.get(WHEN_NO_DATA_PUBLISHED) : "error";
   }
 
   public static boolean isFailBuildIfParsingFailed(@NotNull final Map<String, String> params) {
