@@ -27,7 +27,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.testng.annotations.BeforeMethod;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 
 public abstract class BaseParserTestCase {
   protected StringBuilder myResult;
@@ -94,7 +95,12 @@ public abstract class BaseParserTestCase {
 
   @NotNull
   protected String prepareResult() {
-    return myResult.toString().replace(myBaseDir.getAbsolutePath(), "##BASE_DIR##").replace("\\", "/");
+    return unifySlashes(myResult.toString()).replace(unifySlashes(myBaseDir.getAbsolutePath()), "##BASE_DIR##").replace(unifySlashes(myBaseDir.getPath()), "##BASE_DIR##");
+  }
+
+  @NotNull
+  protected String unifySlashes(@NotNull String s) {
+    return s.replace("\\", "/");
   }
 
   protected InspectionReporter getInspectionReporter() {

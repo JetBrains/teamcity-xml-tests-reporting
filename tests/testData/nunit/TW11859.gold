@@ -17,7 +17,7 @@ TestSuite:Company.Sea.Papay.UnitTest.dll
   Test:Company.Sea.Papay.UnitTest.ApiConsistency.TestPublicApiConsistency.TestPublicContructorForHostedDomainObjects
   EndTest:2
 ------------------------
--->Problem: testData/nunit/TestResults_TW11859.xml: suite TestNavigationGuppy failure: SetUp : System.Reflection.TargetInvocationException : Exception has been thrown by the target of an invocation.
+-->Problem: ##BASE_DIR##/TestResults_TW11859.xml: suite TestNavigationGuppy failure: SetUp : System.Reflection.TargetInvocationException : Exception has been thrown by the target of an invocation.
   ----> NUnit.Framework.AssertionException : Trying to load a project from:
 E:/BuildAgent/work/checkoutDir/UnitTestData/Sea/2006/Guppy/Guppy 2004.pet
 Innerexception:
