@@ -20,7 +20,6 @@ import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.ParserFactory;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
-import jetbrains.buildServer.xmlReportPlugin.tests.TeamCityTestReporter;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,7 +34,7 @@ public class TRXFactory implements ParserFactory {
 
   @NotNull
   public final Parser createParser(@NotNull final ParseParameters parameters) {
-    return new TRXParser(new TeamCityTestReporter(parameters.getThreadLogger()), getDefaultSuiteName());
+    return new TRXParser(parameters.getTestReporter(), getDefaultSuiteName());
   }
 
   @NotNull

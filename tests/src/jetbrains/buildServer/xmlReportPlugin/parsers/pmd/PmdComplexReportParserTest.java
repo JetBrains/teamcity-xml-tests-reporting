@@ -17,9 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.parsers.pmd;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import jetbrains.buildServer.util.TestFor;
 import jetbrains.buildServer.xmlReportPlugin.BaseParserTestCase;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
@@ -83,6 +81,11 @@ public class PmdComplexReportParserTest extends BaseParserTestCase {
 
       public void error(@NotNull final String message) {
         myResult.append("ERROR: ").append(message).append("\n");
+      }
+
+      @Override
+      public void failure(@NotNull final String message) {
+        myResult.append("PROBLEM: ").append(message).append("\n");
       }
     };
   }

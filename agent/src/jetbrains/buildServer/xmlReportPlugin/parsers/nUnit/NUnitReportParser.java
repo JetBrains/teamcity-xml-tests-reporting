@@ -106,7 +106,22 @@ class NUnitReportParser implements Parser {
             ++myLoggedTests;
           }
         }
-    }).parse(file);
+
+        @Override
+        public void failure(@NotNull final String msg) {
+          myTestReporter.failure(file + ": " + msg);
+        }
+
+        @Override
+        public void warning(@NotNull final String msg) {
+          myTestReporter.warning(file + ": " + msg);
+        }
+
+        @Override
+        public void message(@NotNull final String msg) {
+          myTestReporter.info(file + ": " + msg);
+        }
+      }).parse(file);
       return true;
     } catch (IOException e) {
       myParsingException = new ParsingException(e);

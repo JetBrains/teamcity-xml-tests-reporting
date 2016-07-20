@@ -599,7 +599,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
         @NotNull
         public InspectionReporter getInspectionReporter() {
-          return new TeamCityInspectionReporter(myInspectionReporter, getBuild().getBuildLogger(), getBuild().getCheckoutDirectory());
+          return new TeamCityInspectionReporter(myInspectionReporter, getBuild().getBuildLogger(), getCheckoutDir(), getBuildProblemType(getType(), "InspectFailure"));
         }
 
         @NotNull
@@ -609,7 +609,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
         @NotNull
         public TestReporter getTestReporter() {
-          return new TeamCityTestReporter(getInternalizingThreadLogger());
+          return new TeamCityTestReporter(getInternalizingThreadLogger(), getBuildProblemType(getType(), "TestFailure"), getCheckoutDir().getAbsolutePath());
         }
 
         @NotNull
@@ -632,14 +632,13 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   @NotNull
   private BuildProblemData createBuildProblem(@NotNull String type, @NotNull Collection<File> failedToParse) {
-    return BuildProblemData.createBuildProblem(String.valueOf(failedToParse.hashCode()), getBuildProblemType(type), "Failed to parse xml " + StringUtil.pluralize("report", failedToParse.size()));
+    return BuildProblemData.createBuildProblem(String.valueOf(failedToParse.hashCode()), getBuildProblemType(type, "ParsingFailure"), "Failed to parse xml " + StringUtil.pluralize("report", failedToParse.size()));
   }
 
   @NotNull
-  private String getBuildProblemType(@NotNull String type) {
-    return XmlReportPluginConstants.BUILD_PROBLEM_TYPE + StringUtil.capitalize(type) + "ParsingFailure";
+  private String getBuildProblemType(@NotNull String type, @NotNull String suffix) {
+    return StringUtil.truncateStringValue(XmlReportPluginConstants.BUILD_PROBLEM_TYPE + StringUtil.capitalize(type) + suffix, BuildProblemData.MAX_TYPE_LENGTH);
   }
-
   private final class ProcessingContext {
     private final long startTime;
     private volatile boolean finished;

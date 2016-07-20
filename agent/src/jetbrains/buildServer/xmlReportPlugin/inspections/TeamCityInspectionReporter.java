@@ -23,6 +23,7 @@ import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionAttributesId;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
 import jetbrains.buildServer.agent.inspections.InspectionSeverityValues;
+import jetbrains.buildServer.xmlReportPlugin.BaseMessageLogger;
 import jetbrains.buildServer.xmlReportPlugin.utils.PathUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -32,28 +33,22 @@ import org.jetbrains.annotations.Nullable;
  * Date: 17.02.11
  * Time: 13:26
  */
-public class TeamCityInspectionReporter implements InspectionReporter {
+public class TeamCityInspectionReporter extends BaseMessageLogger implements InspectionReporter {
   @NotNull
   private final jetbrains.buildServer.agent.inspections.InspectionReporter myInspectionReporter;
 
-  @NotNull
-  private final BuildProgressLogger myLogger;
-
-  @NotNull
-  private final File myBaseFolder;
-
   public TeamCityInspectionReporter(@NotNull jetbrains.buildServer.agent.inspections.InspectionReporter inspectionReporter,
                                     @NotNull BuildProgressLogger logger,
-                                    @NotNull File baseFolder) {
+                                    @NotNull File baseFolder,
+                                    @NotNull String buildProblemType) {
+    super(logger, buildProblemType, baseFolder.getAbsolutePath());
     myInspectionReporter = inspectionReporter;
-    myLogger = logger;
-    myBaseFolder = baseFolder;
   }
 
   public void reportInspection(@NotNull final InspectionResult inspection) {
     final InspectionInstance inspectionInstance = new InspectionInstance();
 
-    inspectionInstance.setFilePath(PathUtils.getRelativePath(myBaseFolder.getAbsolutePath(), inspection.getFilePath()));
+    inspectionInstance.setFilePath(PathUtils.getRelativePath(myBaseFolder, inspection.getFilePath()));
     inspectionInstance.setLine(inspection.getLine());
     inspectionInstance.setMessage(getValueOrUnknown(inspection.getMessage()));
     inspectionInstance.setInspectionId(getValueOrUnknown(inspection.getInspectionId()));
@@ -91,17 +86,5 @@ public class TeamCityInspectionReporter implements InspectionReporter {
   @NotNull
   private String getValueOrUnknown(@Nullable String val) {
     return val == null || val.trim().length() == 0 ? "<unknown>" : val;
-  }
-
-  public void info(@NotNull final String message) {
-    myLogger.message(message);
-  }
-
-  public void warning(@NotNull final String message) {
-    myLogger.warning(message);
-  }
-
-  public void error(@NotNull final String message) {
-    myLogger.error(message);
   }
 }

@@ -19,6 +19,7 @@ package jetbrains.buildServer.xmlReportPlugin.tests;
 import java.util.Stack;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.messages.DefaultMessagesInfo;
+import jetbrains.buildServer.xmlReportPlugin.BaseMessageLogger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,16 +27,14 @@ import org.jetbrains.annotations.Nullable;
  * @author Eugene Petrenko
  *         Created: 24.10.2008 20:42:56
  */
-public class TeamCityTestReporter implements TestReporter {
-  @NotNull
-  private final BuildProgressLogger myLogger;
+public class TeamCityTestReporter extends BaseMessageLogger implements TestReporter {
   @NotNull
   private final Stack<String> myTestSuites = new Stack<String>();
   @NotNull
   private final Stack<String> myTests = new Stack<String>();
 
-  public TeamCityTestReporter(@NotNull final BuildProgressLogger logger) {
-    myLogger = logger;
+  public TeamCityTestReporter(@NotNull final BuildProgressLogger logger, @NotNull final String buildProblemType, @NotNull final String baseFolder) {
+    super(logger, buildProblemType, baseFolder);
   }
 
   public void openTestSuite(@NotNull final String name) {
@@ -71,18 +70,6 @@ public class TeamCityTestReporter implements TestReporter {
 
   public void closeTestSuite() {
     myLogger.logMessage(DefaultMessagesInfo.createTestSuiteEnd(myTestSuites.pop()));
-  }
-
-  public void warning(@NotNull final String s) {
-    myLogger.warning(s);
-  }
-
-  public void error(@NotNull final String message) {
-    myLogger.error(message);
-  }
-
-  public void info(@NotNull final String message) {
-    myLogger.message(message);
   }
 }
 

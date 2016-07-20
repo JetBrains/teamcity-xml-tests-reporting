@@ -27,4 +27,5 @@ public interface MessageLogger {
   void info(@NotNull String message);
   void warning(@NotNull String message);
   void error(@NotNull String message);
+  void failure(@NotNull String message);
 }

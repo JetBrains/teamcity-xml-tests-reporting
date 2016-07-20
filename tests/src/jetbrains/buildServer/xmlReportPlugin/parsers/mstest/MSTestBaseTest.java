@@ -191,6 +191,11 @@ public class MSTestBaseTest {
       public void info(@NotNull final String message) {
         sb.append("-->Info: ").append(message).append("\r\n");
       }
+
+      @Override
+      public void failure(@NotNull final String message) {
+        sb.append("-->Problem: ").append(message).append("\r\n");
+      }
     }, "MSTest");
 
     ps.parse(getTestData(file), null);

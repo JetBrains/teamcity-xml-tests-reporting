@@ -90,6 +90,11 @@ public final class TestUtil {
       public void error(@NotNull final String message) {
         results.append("ERROR: ").append(message).append("\n");
       }
+
+      @Override
+      public void failure(@NotNull final String message) {
+        results.append("PROBLEM: ").append(message).append("\n");
+      }
     };
   }
 
@@ -160,6 +165,11 @@ public final class TestUtil {
 
       public void info(@NotNull final String message) {
         sb.append("-->Info: ").append(message).append("\n");
+      }
+
+      @Override
+      public void failure(@NotNull final String message) {
+        sb.append("-->Problem: ").append(message).append("\n");
       }
     };
   }
