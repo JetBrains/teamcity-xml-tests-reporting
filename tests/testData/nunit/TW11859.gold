@@ -1,0 +1,41 @@
+TestSuite:Company.Sea.Papay.UnitTest.dll
+  Test:Company.Sea.Papay.UnitTest.ApiConsistency.TestPublicApiConsistency.TestAllAttributes
+  EndTest:110
+------------------------
+  Test:Company.Sea.Papay.UnitTest.ApiConsistency.TestPublicApiConsistency.TestCreateMethodsPresent
+  EndTest:19
+------------------------
+  Test:Company.Sea.Papay.UnitTest.ApiConsistency.TestPublicApiConsistency.TestDeleteMethodsPresent
+  EndTest:15
+------------------------
+  Test:Company.Sea.Papay.UnitTest.ApiConsistency.TestPublicApiConsistency.TestForSerializable
+  EndTest:6
+------------------------
+  Test:Company.Sea.Papay.UnitTest.ApiConsistency.TestPublicApiConsistency.TestHostedForIdentifyableDomainObjects
+  EndTest:4
+------------------------
+  Test:Company.Sea.Papay.UnitTest.ApiConsistency.TestPublicApiConsistency.TestPublicContructorForHostedDomainObjects
+  EndTest:2
+------------------------
+-->Problem: testData/nunit/TestResults_TW11859.xml: suite TestNavigationGuppy failure: SetUp : System.Reflection.TargetInvocationException : Exception has been thrown by the target of an invocation.
+  ----> NUnit.Framework.AssertionException : Trying to load a project from:
+E:/BuildAgent/work/checkoutDir/UnitTestData/Sea/2006/Guppy/Guppy 2004.pet
+Innerexception:
+NOTE: The project was NOT loaded! Check the message log for more information.
+Exception:
+Could not open the project.
+at System.RuntimeTypeHandle.CreateInstance(RuntimeType type, Boolean publicOnly, Boolean noCheck, Boolean& canBeCached, RuntimeMethodHandleInternal& ctor, Boolean& bNeedSecurityCheck)
+at System.RuntimeType.CreateInstanceSlow(Boolean publicOnly, Boolean skipCheckThis, Boolean fillCache)
+at System.RuntimeType.CreateInstanceDefaultCtor(Boolean publicOnly, Boolean skipVisibilityChecks, Boolean skipCheckThis, Boolean fillCache)
+at System.Activator.CreateInstance[T]()
+at Company.Sea.Papay.Core.UnitTestUtil.MultiProjectBase`1.TestFixtureSetUp() in E:/BuildAgent/work/checkoutDir/src/Sea/Papay/Core/UnitTestUtil/MultiProjectBase.cs:line 9
+--AssertionException
+at Company.Sea.Papay.Core.UnitTestUtil.ProjectHelper.Load(String projectPath, Boolean isRelative) in E:/BuildAgent/work/checkoutDir/src/Sea/Papay/Core/UnitTestUtil/ProjectHelper.cs:line 54
+at Company.Sea.Papay.Core.UnitTestUtil.Projects.UnitTestDataProject.Load(String projectRelativePath) in E:/BuildAgent/work/checkoutDir/src/Sea/Papay/Core/UnitTestUtil/Projects/UnitTestDataProject.cs:line 63
+at Company.Sea.Papay.Core.UnitTestUtil.Projects.GuppyProject..ctor(Int32 year) in E:/BuildAgent/work/checkoutDir/src/Sea/Papay/Core/UnitTestUtil/Projects/GuppyProject.cs:line 24
+
+  Test:Company.Sea.Papay.UnitTest.MultiProject.TestNavigationGuppy.TestIsGood
+    Fail:TestFixtureSetUp failed in TestNavigationGuppy Message: 
+  EndTest:0
+------------------------
+EndSuite

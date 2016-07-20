@@ -256,4 +256,10 @@ public class NUnitReportParserTest extends BaseParserTestCase {
                        "------------------------\n" +
                        "EndSuite\n");
   }
+
+  @Test
+  public void test_TW_11859() throws Exception {
+    parse("TestResults_TW11859.xml");
+    assertResultEquals(getExpectedResult("TW11859.gold"));
+  }
 }
