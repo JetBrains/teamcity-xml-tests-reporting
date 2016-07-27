@@ -22,7 +22,7 @@ import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
 import org.jetbrains.annotations.NotNull;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
 
 @Test
 public class AntJUnitReportParserTest extends BaseParserTestCase {
@@ -592,5 +592,11 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
       "------------------------\n" +
       "-->Info: System error from suite TestCase: from test1\n" +
       "EndSuite\n");
+  }
+
+  @Test
+  public void testNUnitReport_TW_33521() throws Exception {
+    parse(new AntJUnitReportParser(getTestReporter(), new SecondDurationParser(), true), "nunit.xml");
+    assertResultEquals("-->Error: File ##BASE_DIR##/nunit.xml doesn't match the expected format: \"testsuites\" or \"testsuite\" root element expected\n");
   }
 }

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--
+  ~ Copyright 2000-2012 JetBrains s.r.o.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!--This file represents the results of running a test suite-->
+<test-results name="OnKeyOCLTestSuite" total="2" errors="0" failures="0" not-run="11" ignored="11" skipped="0"
+              invalid="0" date="2009-03-20" time="00:28:59">
+  <environment nunit-version="2.5.0.9015" clr-version="2.0.50727.3074"
+               os-version="Microsoft Windows NT 6.0.6001 Service Pack 1" platform="Win32NT"
+               cwd="D:\TeamCity.Builds\OK52\pOnKey\Main\OCL\Source\Pragma.OnKey5.Tests.OCL\bin\Debug"
+               machine-name="PRODS-BUILD2" user="buildservice" user-domain="PRAGMA"/>
+  <culture-info current-culture="en-US" current-uiculture="en-US"/>
+  <test-suite name="OnKeyOCLTestSuite" executed="True" success="True" time="80.247" asserts="0">
+    <results>
+      <test-suite name="TradesCrudTests" executed="True" success="True" time="59.858" asserts="0">
+        <categories>
+          <category name="OCL"/>
+        </categories>
+        <results>
+          <test-case name="Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_A_For_Basic_Testing"
+                     executed="True" success="True" time="59.248" asserts="0"/>
+          <test-case name="Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_B_For_Basic_Testing"
+                     executed="False">
+            <reason>
+              <message><![CDATA[]]></message>
+            </reason>
+          </test-case>
+          <test-case name="Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Trade_C_For_Basic_Testing"
+                     executed="False">
+            <reason>
+              <message><![CDATA[]]></message>
+            </reason>
+          </test-case>
+          <test-case name="Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Update_A_Trade_For_Basic_Testing"
+                     executed="False">
+            <reason>
+              <message><![CDATA[]]></message>
+            </reason>
+          </test-case>
+          <test-case name="Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Delete_A_Trade_For_Basic_Testing"
+                     executed="False">
+            <reason>
+              <message><![CDATA[]]></message>
+            </reason>
+          </test-case>
+          <test-case
+            name="Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_Staff_Member_And_Try_To_Delete_The_Trade"
+            executed="False">
+            <reason>
+              <message>
+                <![CDATA[JA: Cannot run this test because Staff Member Section lookup is broken (SectionTradeID missing?)]]></message>
+            </reason>
+          </test-case>
+          <test-case
+            name="Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_A_Trade_Link_It_To_A_SectionStaff_Member_And_Try_To_Make_The_Trade_Inactive"
+            executed="False">
+            <reason>
+              <message>
+                <![CDATA[JA: Cannot run this test because Staff Member Section lookup is broken (SectionTradeID missing?)]]></message>
+            </reason>
+          </test-case>
+          <test-case
+            name="Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_Two_Trades_With_The_Same_Code_To_Display_The_Message_Cannot_Insert_Duplicate"
+            executed="False">
+            <reason>
+              <message><![CDATA[]]></message>
+            </reason>
+          </test-case>
+          <test-case
+            name="Pragma.OnKey.Tests.OCL.Functional.Staff.TradesCrudTests.Insert_New_Trade_With_No_Value_In_Rates"
+            executed="False">
+            <reason>
+              <message><![CDATA[]]></message>
+            </reason>
+          </test-case>
+        </results>
+      </test-suite>
+      <test-suite name="StaffMembersDemoTests" executed="True" success="True" time="20.380" asserts="0">
+        <categories>
+          <category name="OCL"/>
+        </categories>
+        <results>
+          <test-case
+            name="Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Load_Existing_Staff_Member_To_Check_Edit_Grid_Functionality_And_Cancel_Changes"
+            executed="False">
+            <reason>
+              <message>
+                <![CDATA[JA: Not working at the moment for various small reasons including tests not running in correct order. Will enable again soon.]]></message>
+            </reason>
+          </test-case>
+          <test-case
+            name="Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Insert_And_Validate_New_Staff_Member"
+            executed="False">
+            <reason>
+              <message>
+                <![CDATA[JA: Not working at the moment for various small reasons including tests not running in correct order. Will enable again soon.]]></message>
+            </reason>
+          </test-case>
+          <test-case name="Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Delete_New_Staff_Member"
+                     executed="False">
+            <reason>
+              <message>
+                <![CDATA[JA: Not working at the moment for various small reasons including tests not running in correct order. Will enable again soon.]]></message>
+            </reason>
+          </test-case>
+          <test-case
+            name="Pragma.OnKey.Tests.OCL.Functional.Staff.StaffMembersDemoTests.Click_The_Navigation_Buttons_On_The_Staff_Members_Browse_Screen"
+            executed="True" success="True" time="20.079" asserts="0"/>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

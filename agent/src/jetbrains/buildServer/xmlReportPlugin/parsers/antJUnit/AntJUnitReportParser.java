@@ -162,6 +162,11 @@ class AntJUnitReportParser implements Parser {
             ++myLoggedTests;
           }
         }
+
+        @Override
+        public void unexpectedFormat(@NotNull final String msg) {
+          myTestReporter.error("File " + file + " doesn't match the expected format: " + msg);
+        }
       }, myDurationParser).parse(file);
       return true;
     } catch (IOException e) {
