@@ -113,6 +113,11 @@ class NUnitReportParser implements Parser {
         }
 
         @Override
+        public void error(@NotNull final String msg) {
+          myTestReporter.error(file + ": " + msg);
+        }
+
+        @Override
         public void warning(@NotNull final String msg) {
           myTestReporter.warning(file + ": " + msg);
         }

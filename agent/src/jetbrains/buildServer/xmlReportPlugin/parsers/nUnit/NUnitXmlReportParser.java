@@ -19,7 +19,7 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.nUnit;
 import java.util.Arrays;
 import java.util.List;
 import jetbrains.buildServer.util.StringUtil;
-import jetbrains.buildServer.util.XmlXppAbstractParser;
+import jetbrains.buildServer.xmlReportPlugin.parsers.BaseXmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.SecondDurationParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
  * Date: 22.02.11
  * Time: 18:19
  */
-class NUnitXmlReportParser extends XmlXppAbstractParser {
+class NUnitXmlReportParser extends BaseXmlXppAbstractParser {
   @NotNull
   private final Callback myCallback;
   @NotNull
@@ -43,11 +43,16 @@ class NUnitXmlReportParser extends XmlXppAbstractParser {
   @Override
   protected List<XmlHandler> getRootHandlers() {
     return Arrays.asList(
-      elementsPath(new Handler() {
+      new ORHandler(elementsPath(new Handler() {
         public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
           return reader.visitChildren(suiteHandler(true));
         }
-      }, "test-results"),
+      }, "test-results")) {
+        @Override
+        protected void finished(final boolean matched) {
+          if (!matched) myCallback.error("must contain \"test-results\" root element\nPlease check the NUnit sources for the supported XML Schema");
+        }
+      },
       elementsPath(new TextHandler() {
         @Override
         public void setText(@NotNull final String text) {
@@ -186,6 +191,8 @@ class NUnitXmlReportParser extends XmlXppAbstractParser {
     void testFound(@NotNull TestData testData);
 
     void failure(@NotNull String msg);
+
+    void error(@NotNull String msg);
 
     void warning(@NotNull String msg);
 

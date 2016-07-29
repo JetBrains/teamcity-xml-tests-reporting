@@ -60,6 +60,11 @@ class PmdCpdReportParser implements Parser {
         public void reportDuplicate(@NotNull DuplicationResult duplicate) {
           myDuplicationReporter.reportDuplicate(duplicate);
         }
+
+        @Override
+        public void error(@NotNull final String message) {
+          myDuplicationReporter.error(message);
+        }
       }, myCheckoutDirectory.getAbsolutePath()).parse(file);
     } catch (IOException e) {
       throw new ParsingException(e);

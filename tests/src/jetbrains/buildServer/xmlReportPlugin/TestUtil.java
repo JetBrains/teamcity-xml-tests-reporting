@@ -118,6 +118,26 @@ public final class TestUtil {
 
       public void finishDuplicates() {
       }
+
+      @Override
+      public void info(@NotNull final String message) {
+        results.append("ERROR:").append(message);
+      }
+
+      @Override
+      public void warning(@NotNull final String message) {
+
+      }
+
+      @Override
+      public void error(@NotNull final String message) {
+
+      }
+
+      @Override
+      public void failure(@NotNull final String message) {
+
+      }
     };
   }
 

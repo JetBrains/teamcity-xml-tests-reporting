@@ -179,6 +179,11 @@ class FindBugsReportParser implements Parser {
           myInspectionReporter.reportInspectionType(new InspectionTypeResult(type, pName, descr, cName));
           myInspectionReporter.reportInspection(new InspectionResult(findFile(file, clazz), type, mess, line, priority));
         }
+
+        @Override
+        public void error(@NotNull final String message) {
+          myInspectionReporter.error(message);
+        }
       }).parse(file);
     } catch (IOException e) {
       throw new ParsingException(e);

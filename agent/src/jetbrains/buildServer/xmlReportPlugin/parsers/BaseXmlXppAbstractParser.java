@@ -26,11 +26,11 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author vbedrosova
  */
-public abstract class XmlXppAbstractParserHandlers extends XmlXppAbstractParser {
+public abstract class BaseXmlXppAbstractParser extends XmlXppAbstractParser {
 
   protected abstract class ORHandler implements CloseableHandler, XmlHandler {
     private final List<XmlHandler> myDelegates;
-    private boolean myMissed = true;
+    private boolean myMatched = false;
 
     public ORHandler(XmlHandler... delegates) {
       myDelegates = Arrays.asList(delegates);
@@ -40,7 +40,7 @@ public abstract class XmlXppAbstractParserHandlers extends XmlXppAbstractParser 
     public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
       final XmlHandler handler = findHandler(reader.getLocalName());
       if (handler == null) return reader.noDeep();
-      myMissed = false;
+      myMatched = true;
       return handler.processElement(reader);
     }
 
@@ -51,7 +51,7 @@ public abstract class XmlXppAbstractParserHandlers extends XmlXppAbstractParser 
 
     @Override
     public void close() {
-      if (myMissed) missed();
+      finished(myMatched);
     }
 
     @Nullable
@@ -64,7 +64,7 @@ public abstract class XmlXppAbstractParserHandlers extends XmlXppAbstractParser 
       return null;
     }
 
-    protected abstract void missed();
+    protected abstract void finished(boolean matched);
 
     @NotNull
     public List<XmlHandler> asList() {

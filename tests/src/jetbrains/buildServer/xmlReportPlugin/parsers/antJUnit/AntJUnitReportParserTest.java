@@ -597,6 +597,7 @@ public class AntJUnitReportParserTest extends BaseParserTestCase {
   @Test
   public void testNUnitReport_TW_33521() throws Exception {
     parse(new AntJUnitReportParser(getTestReporter(), new SecondDurationParser(), true), "nunit.xml");
-    assertResultEquals("-->Error: File ##BASE_DIR##/nunit.xml doesn't match the expected format: \"testsuites\" or \"testsuite\" root element expected\n");
+    assertResultEquals("-->Error: File ##BASE_DIR##/nunit.xml doesn't match the expected format: \"testsuites\" or \"testsuite\" root element expected\n" +
+                       "Please check Ant JUnit Task binaries for the supported DTD\n");
   }
 }

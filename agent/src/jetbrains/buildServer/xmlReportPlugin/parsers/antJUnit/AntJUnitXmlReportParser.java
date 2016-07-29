@@ -17,7 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit;
 
 import java.util.List;
-import jetbrains.buildServer.xmlReportPlugin.parsers.XmlXppAbstractParserHandlers;
+import jetbrains.buildServer.xmlReportPlugin.parsers.BaseXmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.DurationParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
  * Date: 21.02.11
  * Time: 17:50
  */
-class AntJUnitXmlReportParser extends XmlXppAbstractParserHandlers {
+class AntJUnitXmlReportParser extends BaseXmlXppAbstractParser {
   @NotNull
   private final Callback myCallback;
   @NotNull
@@ -46,8 +46,8 @@ class AntJUnitXmlReportParser extends XmlXppAbstractParserHandlers {
       elementsPath(handler, "testsuites", "testsuite")
     ) {
       @Override
-      protected void missed() {
-        myCallback.unexpectedFormat("\"testsuites\" or \"testsuite\" root element expected");
+      protected void finished(final boolean matched) {
+        if (!matched) myCallback.unexpectedFormat("\"testsuites\" or \"testsuite\" root element expected");
       }
     }.asList();
   }

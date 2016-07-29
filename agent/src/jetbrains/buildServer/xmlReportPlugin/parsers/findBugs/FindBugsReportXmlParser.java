@@ -16,9 +16,9 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.findBugs;
 
-import java.util.Arrays;
 import java.util.List;
 import jetbrains.buildServer.util.XmlXppAbstractParser;
+import jetbrains.buildServer.xmlReportPlugin.parsers.BaseXmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.utils.ParserUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
  * Date: 18.02.11
  * Time: 14:38
  */
-class FindBugsReportXmlParser extends XmlXppAbstractParser {
+class FindBugsReportXmlParser extends BaseXmlXppAbstractParser {
   @NotNull
   private final Callback myCallback;
 
@@ -38,7 +38,7 @@ class FindBugsReportXmlParser extends XmlXppAbstractParser {
 
   @Override
   protected List<XmlXppAbstractParser.XmlHandler> getRootHandlers() {
-    return Arrays.asList(elementsPath(new XmlXppAbstractParser.Handler() {
+    return new ORHandler(elementsPath(new XmlXppAbstractParser.Handler() {
       public XmlXppAbstractParser.XmlReturn processElement(@NotNull final XmlXppAbstractParser.XmlElementInfo reader) {
         return reader.visitChildren(
           elementsPath(new XmlXppAbstractParser.Handler() {
@@ -123,7 +123,12 @@ class FindBugsReportXmlParser extends XmlXppAbstractParser {
           }, "BugInstance")
         );
       }
-    }, "BugCollection"));
+    }, "BugCollection")) {
+      @Override
+      protected void finished(final boolean matched) {
+        if (!matched) myCallback.error("Unexpected report format: \"BugCollection\" root element not present. Please check FindBugs sources bugcollection.xsd for the supported schema");
+      }
+    }.asList();
   }
 
   private static int getInt(@Nullable String val) {
@@ -138,5 +143,6 @@ class FindBugsReportXmlParser extends XmlXppAbstractParser {
     void jarFound(@NotNull String jar);
     void bugInstanceFound(@Nullable String file, @Nullable String clazz, int line,
                           @Nullable String type, @Nullable String category, @Nullable String message, @Nullable String details, int priority);
+    void error(@NotNull String message);
   }
 }

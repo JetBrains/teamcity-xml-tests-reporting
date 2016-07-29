@@ -16,11 +16,10 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.checkstyle;
 
-import java.util.Arrays;
 import java.util.List;
-import jetbrains.buildServer.util.XmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionTypeResult;
+import jetbrains.buildServer.xmlReportPlugin.parsers.BaseXmlXppAbstractParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
  * Date: 17.02.11
  * Time: 16:44
  */
-class CheckstyleXmlReportParser extends XmlXppAbstractParser {
+class CheckstyleXmlReportParser extends BaseXmlXppAbstractParser {
   @NotNull
   private final Callback myCallback;
 
@@ -39,7 +38,7 @@ class CheckstyleXmlReportParser extends XmlXppAbstractParser {
 
   @Override
   protected List<XmlHandler> getRootHandlers() {
-    return Arrays.asList(elementsPath(new Handler() {
+    return new ORHandler(elementsPath(new Handler() {
       public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
         return reader.visitChildren(
           elementsPath(new Handler() {
@@ -69,7 +68,12 @@ class CheckstyleXmlReportParser extends XmlXppAbstractParser {
             }
           }, "exception"));
       }
-    }, "checkstyle"));
+    }, "checkstyle")) {
+      @Override
+      protected void finished(final boolean matched) {
+        if (!matched) myCallback.error("Unexpected report format: \"checkstyle\" root element not present. Please see checkstyle sources XMLLogger.java for the supported format");
+      }
+    }.asList();
   }
 
   private int getPriority(@Nullable String severity) {
@@ -93,5 +97,6 @@ class CheckstyleXmlReportParser extends XmlXppAbstractParser {
     void reportInspection(@NotNull InspectionResult inspection);
     void reportInspectionType(@NotNull InspectionTypeResult inspectionType);
     void reportException(@NotNull String message);
+    void error(@NotNull String message);
   }
 }

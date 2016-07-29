@@ -17,8 +17,10 @@
 package jetbrains.buildServer.xmlReportPlugin.duplicates;
 
 import java.util.ArrayList;
+import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.duplicator.DuplicateInfo;
+import jetbrains.buildServer.xmlReportPlugin.BaseMessageLogger;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -26,11 +28,15 @@ import org.jetbrains.annotations.NotNull;
  * Date: 08.02.11
  * Time: 16:12
  */
-public class TeamCityDuplicationReporter implements DuplicationReporter {
+public class TeamCityDuplicationReporter extends BaseMessageLogger implements DuplicationReporter {
   @NotNull
   private final jetbrains.buildServer.agent.duplicates.DuplicatesReporter myDuplicatesReporter;
 
-  public TeamCityDuplicationReporter(@NotNull DuplicatesReporter duplicatesReporter) {
+  public TeamCityDuplicationReporter(@NotNull DuplicatesReporter duplicatesReporter,
+                                     @NotNull BuildProgressLogger logger,
+                                     @NotNull String baseFolder,
+                                     @NotNull String buildProblemType) {
+    super(logger, buildProblemType, baseFolder);
     myDuplicatesReporter = duplicatesReporter;
   }
 

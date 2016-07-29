@@ -23,8 +23,8 @@ import java.util.Map;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.ParsingException;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
-import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -130,6 +130,11 @@ class TRXParser implements Parser {
         }
         logger.closeTest(duration);
         myTestName = null;
+      }
+
+      @Override
+      public void error(@NotNull final String message) {
+        myLogger.error(message);
       }
     });
   }

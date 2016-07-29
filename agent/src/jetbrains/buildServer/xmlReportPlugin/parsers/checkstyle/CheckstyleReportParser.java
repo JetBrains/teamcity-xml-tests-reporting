@@ -74,6 +74,11 @@ class CheckstyleReportParser implements Parser {
         public void reportException(@NotNull final String message) {
           myInspectionReporter.error("Exception in report " + file.getAbsolutePath() + "\n" + message);
         }
+
+        @Override
+        public void error(@NotNull final String message) {
+          myInspectionReporter.error(message);
+        }
       }).parse(file);
     } catch (IOException e) {
       throw new ParsingException(e);

@@ -109,6 +109,11 @@ public class CTestReportParser implements Parser {
           ++myLoggedTests;
         }
       }
+
+      @Override
+      public void error(@NotNull final String message) {
+        myTestReporter.error(message);
+      }
     });
   }
 

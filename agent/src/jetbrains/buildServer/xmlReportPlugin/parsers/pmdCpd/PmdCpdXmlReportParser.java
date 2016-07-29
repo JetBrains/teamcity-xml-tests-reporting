@@ -16,11 +16,10 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.pmdCpd;
 
-import java.util.Arrays;
 import java.util.List;
-import jetbrains.buildServer.util.XmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicatingFragment;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationResult;
+import jetbrains.buildServer.xmlReportPlugin.parsers.BaseXmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.utils.PathUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -30,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
  * Date: 07.02.11
  * Time: 19:04
  */
-class PmdCpdXmlReportParser extends XmlXppAbstractParser {
+class PmdCpdXmlReportParser extends BaseXmlXppAbstractParser {
   @NotNull
   private final Callback myCallback;
   private final String myRootPath;
@@ -42,7 +41,7 @@ class PmdCpdXmlReportParser extends XmlXppAbstractParser {
 
   @Override
   protected List<XmlHandler> getRootHandlers() {
-    return Arrays.asList(elementsPath(
+    return new ORHandler(elementsPath(
       new Handler() {
         public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
           myCallback.startDuplicates();
@@ -81,7 +80,12 @@ class PmdCpdXmlReportParser extends XmlXppAbstractParser {
           });
         }
       },
-      "pmd-cpd"));
+      "pmd-cpd")) {
+      @Override
+      protected void finished(final boolean matched) {
+        if (!matched) myCallback.error("Unexpected report format: root \"pmd-cpd\" element not present. Please check PMD CPD sources for the supported XML Schema");
+      }
+    }.asList();
   }
 
   public static interface Callback {
@@ -90,6 +94,8 @@ class PmdCpdXmlReportParser extends XmlXppAbstractParser {
     void finishDuplicates();
 
     void reportDuplicate(@NotNull DuplicationResult duplicate);
+
+    void error(@NotNull String message);
   }
 
   @NotNull

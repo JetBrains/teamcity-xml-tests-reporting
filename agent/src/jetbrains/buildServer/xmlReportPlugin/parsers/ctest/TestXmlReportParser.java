@@ -16,9 +16,8 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.ctest;
 
-import java.util.Arrays;
 import java.util.List;
-import jetbrains.buildServer.util.XmlXppAbstractParser;
+import jetbrains.buildServer.xmlReportPlugin.parsers.BaseXmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.SecondDurationParser;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Vladislav.Rassokhin
  */
-class TestXmlReportParser extends XmlXppAbstractParser {
+class TestXmlReportParser extends BaseXmlXppAbstractParser {
   @NotNull
   private final Callback myCallback;
   @NotNull
@@ -40,11 +39,16 @@ class TestXmlReportParser extends XmlXppAbstractParser {
 
   @Override
   protected List<XmlHandler> getRootHandlers() {
-    return Arrays.asList(elementsPath(new Handler() {
+    return new ORHandler(elementsPath(new Handler() {
       public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
         return reader.visitChildren(testingHandler());
       }
-    }, "Site"));
+    }, "Site")) {
+      @Override
+      protected void finished(final boolean matched) {
+        if (!matched) myCallback.error("Unexpected report format: \"Site\" root element missing. Please check CTest documentation for the supported schema");
+      }
+    }.asList();
   }
 
   @NotNull
@@ -196,6 +200,7 @@ class TestXmlReportParser extends XmlXppAbstractParser {
 
   public static interface Callback {
     void testFound(@NotNull TestData testData);
+    void error(@NotNull String message);
 
 //    void testInList(@NotNull String name);
   }

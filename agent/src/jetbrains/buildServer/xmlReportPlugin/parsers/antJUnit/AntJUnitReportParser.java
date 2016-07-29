@@ -165,7 +165,7 @@ class AntJUnitReportParser implements Parser {
 
         @Override
         public void unexpectedFormat(@NotNull final String msg) {
-          myTestReporter.error("File " + file + " doesn't match the expected format: " + msg);
+          myTestReporter.error("File " + file + " doesn't match the expected format: " + msg + "\nPlease check Ant JUnit Task binaries for the supported DTD");
         }
       }, myDurationParser).parse(file);
       return true;

@@ -16,11 +16,10 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.jslint;
 
-import java.util.Arrays;
 import java.util.List;
-import jetbrains.buildServer.util.XmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionTypeResult;
+import jetbrains.buildServer.xmlReportPlugin.parsers.BaseXmlXppAbstractParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
  * Date: 06.05.11
  * Time: 18:35
  */
-class JSLintXmlReportParser extends XmlXppAbstractParser {
+class JSLintXmlReportParser extends BaseXmlXppAbstractParser {
   private static final String INSPECTION_ID = "JSLint";
   private static final InspectionTypeResult INSPECTION_TYPE = new InspectionTypeResult(INSPECTION_ID, INSPECTION_ID, INSPECTION_ID, INSPECTION_ID);
 
@@ -42,7 +41,7 @@ class JSLintXmlReportParser extends XmlXppAbstractParser {
 
   @Override
   protected List<XmlHandler> getRootHandlers() {
-    return Arrays.asList(elementsPath(new Handler() {
+    return new ORHandler(elementsPath(new Handler() {
       public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
         return reader.visitChildren(elementsPath(new Handler() {
           public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
@@ -62,7 +61,12 @@ class JSLintXmlReportParser extends XmlXppAbstractParser {
           }
         }, "file"));
       }
-    }, "jslint"));
+    }, "jslint")) {
+      @Override
+      protected void finished(final boolean matched) {
+        if (!matched) myCallback.error("Unexpected report format: \"jslint\" root element missing. Please see JSLint sources for the supported format");
+      }
+    }.asList();
   }
 
   @Nullable
@@ -93,5 +97,6 @@ class JSLintXmlReportParser extends XmlXppAbstractParser {
   public static interface Callback {
     void reportInspection(@NotNull InspectionResult inspection);
     void reportInspectionType(@NotNull InspectionTypeResult inspectionType);
+    void error(@NotNull String message);
   }
 }

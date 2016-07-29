@@ -16,10 +16,9 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.mstest;
 
-import java.util.Arrays;
 import java.util.List;
 import jetbrains.buildServer.util.StringUtil;
-import jetbrains.buildServer.util.XmlXppAbstractParser;
+import jetbrains.buildServer.xmlReportPlugin.parsers.BaseXmlXppAbstractParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
  * @author Eugene Petrenko
  *         Created: 24.10.2008 15:02:03
  */
-class TestResultsTableParser extends XmlXppAbstractParser {
+class TestResultsTableParser extends BaseXmlXppAbstractParser {
   private final Callback myCallback;
   private final DurationParser myDurationParser = new DurationParser();
 
@@ -37,7 +36,12 @@ class TestResultsTableParser extends XmlXppAbstractParser {
 
   @Override
   protected List<XmlHandler> getRootHandlers() {
-    return Arrays.asList(getRootHandler9(), getRootHandler8());
+    return new ORHandler(getRootHandler9(), getRootHandler8()) {
+      @Override
+      protected void finished(final boolean matched) {
+        if (!matched) myCallback.error("Unexpected report format: root element must be one of \"Tests\" or \"TestRun\"\nPlease check Microsoft documentation for the supported schema" );
+      }
+    }.asList();
   }
 
   protected XmlHandler getRootHandler8() {
@@ -304,5 +308,7 @@ class TestResultsTableParser extends XmlXppAbstractParser {
     void warning(@Nullable TestName testId, @NotNull String message);
 
     void warning(@Nullable String message, @Nullable String exception);
+
+    void error(@NotNull String message);
   }
 }

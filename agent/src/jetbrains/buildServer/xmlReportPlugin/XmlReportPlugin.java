@@ -604,7 +604,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
         @NotNull
         public DuplicationReporter getDuplicationReporter() {
-          return new TeamCityDuplicationReporter(myDuplicatesReporter);
+          return new TeamCityDuplicationReporter(myDuplicatesReporter, getBuild().getBuildLogger(), getCheckoutDir().getAbsolutePath(), getBuildProblemType(getType(), "DupFailure"));
         }
 
         @NotNull

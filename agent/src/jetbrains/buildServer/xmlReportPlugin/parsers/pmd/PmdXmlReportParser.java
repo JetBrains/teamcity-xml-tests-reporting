@@ -16,11 +16,10 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.pmd;
 
-import java.util.Arrays;
 import java.util.List;
-import jetbrains.buildServer.util.XmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionTypeResult;
+import jetbrains.buildServer.xmlReportPlugin.parsers.BaseXmlXppAbstractParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
  * Date: 17.02.11
  * Time: 13:29
  */
-class PmdXmlReportParser extends XmlXppAbstractParser {
+class PmdXmlReportParser extends BaseXmlXppAbstractParser {
   @NotNull
   private final Callback myCallback;
 
@@ -39,7 +38,7 @@ class PmdXmlReportParser extends XmlXppAbstractParser {
 
   @Override
   protected List<XmlHandler> getRootHandlers() {
-    return Arrays.asList(elementsPath(new Handler() {
+    return new ORHandler(elementsPath(new Handler() {
       public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
         return reader.visitChildren(elementsPath(new Handler() {
           public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
@@ -66,7 +65,12 @@ class PmdXmlReportParser extends XmlXppAbstractParser {
           }
         }, "file"));
       }
-    }, "pmd"));
+    }, "pmd")) {
+      @Override
+      protected void finished(final boolean matched) {
+        if (!matched) myCallback.error("Unexpected report format: \"pmd\" root element missing. Please check PMD sources for the supported XML Schema");
+      }
+    }.asList();
   }
 
   private static int getInt(@Nullable String val) {
@@ -80,5 +84,6 @@ class PmdXmlReportParser extends XmlXppAbstractParser {
   public static interface Callback {
     void reportInspection(@NotNull InspectionResult inspection);
     void reportInspectionType(@NotNull InspectionTypeResult inspectionType);
+    void error(@NotNull String message);
   }
 }

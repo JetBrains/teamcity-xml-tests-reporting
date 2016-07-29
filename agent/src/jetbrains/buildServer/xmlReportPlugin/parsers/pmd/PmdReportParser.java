@@ -66,6 +66,11 @@ class PmdReportParser implements Parser {
         public void reportInspectionType(@NotNull final InspectionTypeResult inspectionType) {
           myInspectionReporter.reportInspectionType(inspectionType);
         }
+
+        @Override
+        public void error(@NotNull final String message) {
+          myInspectionReporter.error(message);
+        }
       }).parse(file);
     } catch (IOException e) {
       throw new ParsingException(e);
