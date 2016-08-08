@@ -1,0 +1,266 @@
+<test-results name="Z:\TeamCityAgent\work\d019c349c8757ee3\src\TestFx.SpecK.Tests\bin\Release\TestFx.SpecK.Tests.dll" total="34" errors="0" failures="0" not-run="1" inconclusive="0" ignored="1" skipped="0" invalid="0" date="2016-08-04" time="20:36:21">
+  <environment nunit-version="2.6.4.14350" clr-version="2.0.50727.6421" os-version="Microsoft Windows NT 6.2.9200.0" platform="Win32NT" cwd="Z:\TeamCityAgent\work\d019c349c8757ee3\packages\NUnit.Runners.2.6.4\tools" machine-name="WIN-OJ3LCVAVSG3" user="SYSTEM" user-domain="WORKGROUP"/>
+  <culture-info current-culture="en-US" current-uiculture="en-US"/>
+  <test-suite type="Test Project" name="" executed="True" result="Success" success="True" time="10.563" asserts="0">
+    <results>
+      <test-suite type="Assembly" name="Z:\TeamCityAgent\work\d019c349c8757ee3\src\TestFx.SpecK.Tests\bin\Release\TestFx.SpecK.Tests.dll" executed="True" result="Success" success="True" time="6.970" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="TestFx" executed="True" result="Success" success="True" time="6.958" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="SpecK" executed="True" result="Success" success="True" time="6.958" asserts="0">
+                <results>
+                  <test-suite type="Namespace" name="Tests" executed="True" result="Success" success="True" time="6.957" asserts="0">
+                    <results>
+                      <test-suite type="Namespace" name="Async" executed="True" result="Success" success="True" time="2.700" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="AsyncTest" executed="True" result="Success" success="True" time="2.698" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Async.AsyncTest.TestBase`1.Test" executed="True" result="Success" success="True" time="2.050" asserts="0"/>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="Combinatorics" executed="True" result="Success" success="True" time="0.547" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="PermutationsTest" executed="True" result="Success" success="True" time="0.486" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Combinatorics.PermutationsTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.474" asserts="0"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="SequencesTest" executed="True" result="Success" success="True" time="0.057" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Combinatorics.SequencesTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.047" asserts="0"/>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ContextBehaviorTest" executed="True" result="Success" success="True" time="0.323" asserts="0">
+                        <results>
+                          <test-case name="TestFx.SpecK.Tests.ContextBehaviorTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.319" asserts="1"/>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="Exceptions" executed="True" result="Success" success="True" time="0.188" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="ExceptionAssertionTest" executed="True" result="Success" success="True" time="0.137" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Exceptions.ExceptionAssertionTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.120" asserts="2"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="UnexpectedExceptionTest" executed="True" result="Success" success="True" time="0.046" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Exceptions.UnexpectedExceptionTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.037" asserts="1"/>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="FakeItEasy" executed="True" result="Success" success="True" time="0.659" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="FakeCreationTest" executed="True" result="Success" success="True" time="0.431" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.FakeItEasy.FakeCreationTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.422" asserts="1"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="FakeSetupTest" executed="True" result="Success" success="True" time="0.087" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.FakeItEasy.FakeSetupTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.078" asserts="1"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="OrderedAssertionsTest" executed="True" result="Success" success="True" time="0.134" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.FakeItEasy.OrderedAssertionsTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.125" asserts="0"/>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="Farada" executed="True" result="Success" success="True" time="0.297" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="AutoConfigurationTest" executed="True" result="Success" success="True" time="0.168" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Farada.AutoConfigurationTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.159" asserts="1"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="AutoCreationTest" executed="True" result="Success" success="True" time="0.126" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Farada.AutoCreationTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.115" asserts="1"/>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="Generics" executed="True" result="Success" success="True" time="0.647" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="GenericArgumentTest" executed="True" result="Success" success="True" time="0.641" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Generics.GenericArgumentTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.631" asserts="0"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="GenericTypeTest" executed="False" result="Ignored">
+                            <reason>
+                              <message>
+                                <![CDATA[ ]]>
+                              </message>
+                            </reason>
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Generics.GenericTypeTest.TestBase`1.Test" executed="False" result="Ignored">
+                                <reason>
+                                  <message>
+                                    <![CDATA[ ]]>
+                                  </message>
+                                </reason>
+                              </test-case>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="Setups" executed="True" result="Success" success="True" time="0.435" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="SimpleSetupExecutionTest" executed="True" result="Success" success="True" time="0.283" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Setups.SimpleSetupExecutionTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.258" asserts="0"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ThrowingSetupExecutionTest" executed="True" result="Success" success="True" time="0.147" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Setups.ThrowingSetupExecutionTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.115" asserts="0"/>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="Simple" executed="True" result="Success" success="True" time="0.486" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="FailingTest" executed="True" result="Success" success="True" time="0.087" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Simple.FailingTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.078" asserts="2"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="HaltingTest" executed="True" result="Success" success="True" time="0.077" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Simple.HaltingTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.069" asserts="1"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="InconclusiveTest" executed="True" result="Success" success="True" time="0.074" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Simple.InconclusiveTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.062" asserts="2"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="InheritanceTest" executed="True" result="Success" success="True" time="0.079" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Simple.InheritanceTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.066" asserts="0"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="IsolationTest" executed="True" result="Success" success="True" time="0.055" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Simple.IsolationTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.041" asserts="0"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="PassingTest" executed="True" result="Success" success="True" time="0.031" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Simple.PassingTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.024" asserts="1"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="VariableTest" executed="True" result="Success" success="True" time="0.052" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Simple.VariableTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.041" asserts="1"/>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="Subject" executed="True" result="Success" success="True" time="0.353" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="AdHocCreationTest" executed="True" result="Success" success="True" time="0.101" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Subject.AdHocCreationTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.091" asserts="1"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="CustomCreationTest" executed="True" result="Success" success="True" time="0.097" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Subject.CustomCreationTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.085" asserts="1"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="DefaultCreationTest" executed="True" result="Success" success="True" time="0.069" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Subject.DefaultCreationTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.064" asserts="1"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="MissingArgumentsTest" executed="True" result="Success" success="True" time="0.040" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Subject.MissingArgumentsTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.031" asserts="1"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="NoDefaultConstructorTest" executed="True" result="Success" success="True" time="0.033" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Subject.NoDefaultConstructorTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.026" asserts="1"/>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="Using" executed="True" result="Success" success="True" time="0.245" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="FailingTest" executed="True" result="Success" success="True" time="0.130" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Using.FailingTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.121" asserts="1"/>
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="NestingTest" executed="True" result="Success" success="True" time="0.111" asserts="0">
+                            <results>
+                              <test-case name="TestFx.SpecK.Tests.Using.NestingTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.095" asserts="1"/>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+      <test-suite type="Assembly" name="Z:\TeamCityAgent\work\d019c349c8757ee3\src\TestFx.MSpec.Tests\bin\Release\TestFx.MSpec.Tests.dll" executed="True" result="Success" success="True" time="2.476" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="TestFx" executed="True" result="Success" success="True" time="2.467" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="MSpec" executed="True" result="Success" success="True" time="2.466" asserts="0">
+                <results>
+                  <test-suite type="Namespace" name="Tests" executed="True" result="Success" success="True" time="2.465" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="BehaviorTest" executed="True" result="Success" success="True" time="1.849" asserts="0">
+                        <results>
+                          <test-case name="TestFx.MSpec.Tests.BehaviorTest.TestBase`1.Test" executed="True" result="Success" success="True" time="1.387" asserts="0"/>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="HierarchyLoaderTest" executed="True" result="Success" success="True" time="0.028" asserts="0">
+                        <results>
+                          <test-case name="TestFx.MSpec.Tests.HierarchyLoaderTest.Test" executed="True" result="Success" success="True" time="0.024" asserts="1"/>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="InconclusiveTest" executed="True" result="Success" success="True" time="0.031" asserts="0">
+                        <results>
+                          <test-case name="TestFx.MSpec.Tests.InconclusiveTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.023" asserts="0"/>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="SimpleContextExecutionTest" executed="True" result="Success" success="True" time="0.170" asserts="0">
+                        <results>
+                          <test-case name="TestFx.MSpec.Tests.SimpleContextExecutionTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.166" asserts="0"/>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="SimpleTest" executed="True" result="Success" success="True" time="0.276" asserts="0">
+                        <results>
+                          <test-case name="TestFx.MSpec.Tests.SimpleTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.265" asserts="0"/>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ThrowingContextExecutionTest" executed="True" result="Success" success="True" time="0.083" asserts="0">
+                        <results>
+                          <test-case name="TestFx.MSpec.Tests.ThrowingContextExecutionTest.TestBase`1.Test" executed="True" result="Success" success="True" time="0.077" asserts="0"/>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

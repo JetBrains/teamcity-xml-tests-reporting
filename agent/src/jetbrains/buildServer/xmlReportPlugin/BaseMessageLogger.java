@@ -54,6 +54,7 @@ public class BaseMessageLogger implements MessageLogger {
 
   @Override
   public void failure(@NotNull final String message) {
+    myLogger.error(message);
     myLogger.logBuildProblem(BuildProblemUtil.createBuildProblem(myBuildProblemType, makeRelativePaths(message), myBaseFolder));
   }
 

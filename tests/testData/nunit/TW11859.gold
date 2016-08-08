@@ -33,7 +33,6 @@ at Company.Sea.Papay.Core.UnitTestUtil.MultiProjectBase`1.TestFixtureSetUp() in 
 at Company.Sea.Papay.Core.UnitTestUtil.ProjectHelper.Load(String projectPath, Boolean isRelative) in E:/BuildAgent/work/checkoutDir/src/Sea/Papay/Core/UnitTestUtil/ProjectHelper.cs:line 54
 at Company.Sea.Papay.Core.UnitTestUtil.Projects.UnitTestDataProject.Load(String projectRelativePath) in E:/BuildAgent/work/checkoutDir/src/Sea/Papay/Core/UnitTestUtil/Projects/UnitTestDataProject.cs:line 63
 at Company.Sea.Papay.Core.UnitTestUtil.Projects.GuppyProject..ctor(Int32 year) in E:/BuildAgent/work/checkoutDir/src/Sea/Papay/Core/UnitTestUtil/Projects/GuppyProject.cs:line 24
-
   Test:Company.Sea.Papay.UnitTest.MultiProject.TestNavigationGuppy.TestIsGood
     Fail:TestFixtureSetUp failed in TestNavigationGuppy Message: 
   EndTest:0

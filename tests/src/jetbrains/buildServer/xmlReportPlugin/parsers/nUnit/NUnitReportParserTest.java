@@ -268,4 +268,10 @@ public class NUnitReportParserTest extends BaseParserTestCase {
     parse("junit.xml");
     assertResultEquals("-->Error: ##BASE_DIR##/junit.xml: must contain \"test-results\" root element\nPlease check the NUnit sources for the supported XML Schema\n");
   }
+
+  @Test
+  public void test_TW_46544() throws Exception {
+    parse("TestResults_TW46544.xml");
+    assertResultEquals(getExpectedResult("TW46544.gold"));
+  }
 }

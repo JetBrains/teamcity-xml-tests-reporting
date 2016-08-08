@@ -1,0 +1,109 @@
+TestSuite:
+  Test:TestFx.SpecK.Tests.Async.AsyncTest.TestBase`1.Test
+  EndTest:2050
+------------------------
+  Test:TestFx.SpecK.Tests.Combinatorics.PermutationsTest.TestBase`1.Test
+  EndTest:474
+------------------------
+  Test:TestFx.SpecK.Tests.Combinatorics.SequencesTest.TestBase`1.Test
+  EndTest:47
+------------------------
+  Test:TestFx.SpecK.Tests.ContextBehaviorTest.TestBase`1.Test
+  EndTest:319
+------------------------
+  Test:TestFx.SpecK.Tests.Exceptions.ExceptionAssertionTest.TestBase`1.Test
+  EndTest:120
+------------------------
+  Test:TestFx.SpecK.Tests.Exceptions.UnexpectedExceptionTest.TestBase`1.Test
+  EndTest:37
+------------------------
+  Test:TestFx.SpecK.Tests.FakeItEasy.FakeCreationTest.TestBase`1.Test
+  EndTest:422
+------------------------
+  Test:TestFx.SpecK.Tests.FakeItEasy.FakeSetupTest.TestBase`1.Test
+  EndTest:78
+------------------------
+  Test:TestFx.SpecK.Tests.FakeItEasy.OrderedAssertionsTest.TestBase`1.Test
+  EndTest:125
+------------------------
+  Test:TestFx.SpecK.Tests.Farada.AutoConfigurationTest.TestBase`1.Test
+  EndTest:159
+------------------------
+  Test:TestFx.SpecK.Tests.Farada.AutoCreationTest.TestBase`1.Test
+  EndTest:115
+------------------------
+  Test:TestFx.SpecK.Tests.Generics.GenericArgumentTest.TestBase`1.Test
+  EndTest:631
+------------------------
+-->Warning: ##BASE_DIR##/TestResults_TW46544.xml: suite GenericTypeTest ignored
+  Test:TestFx.SpecK.Tests.Generics.GenericTypeTest.TestBase`1.Test
+    Ignored:
+  EndTest:0
+------------------------
+  Test:TestFx.SpecK.Tests.Setups.SimpleSetupExecutionTest.TestBase`1.Test
+  EndTest:258
+------------------------
+  Test:TestFx.SpecK.Tests.Setups.ThrowingSetupExecutionTest.TestBase`1.Test
+  EndTest:115
+------------------------
+  Test:TestFx.SpecK.Tests.Simple.FailingTest.TestBase`1.Test
+  EndTest:78
+------------------------
+  Test:TestFx.SpecK.Tests.Simple.HaltingTest.TestBase`1.Test
+  EndTest:69
+------------------------
+  Test:TestFx.SpecK.Tests.Simple.InconclusiveTest.TestBase`1.Test
+  EndTest:62
+------------------------
+  Test:TestFx.SpecK.Tests.Simple.InheritanceTest.TestBase`1.Test
+  EndTest:66
+------------------------
+  Test:TestFx.SpecK.Tests.Simple.IsolationTest.TestBase`1.Test
+  EndTest:41
+------------------------
+  Test:TestFx.SpecK.Tests.Simple.PassingTest.TestBase`1.Test
+  EndTest:24
+------------------------
+  Test:TestFx.SpecK.Tests.Simple.VariableTest.TestBase`1.Test
+  EndTest:41
+------------------------
+  Test:TestFx.SpecK.Tests.Subject.AdHocCreationTest.TestBase`1.Test
+  EndTest:91
+------------------------
+  Test:TestFx.SpecK.Tests.Subject.CustomCreationTest.TestBase`1.Test
+  EndTest:85
+------------------------
+  Test:TestFx.SpecK.Tests.Subject.DefaultCreationTest.TestBase`1.Test
+  EndTest:64
+------------------------
+  Test:TestFx.SpecK.Tests.Subject.MissingArgumentsTest.TestBase`1.Test
+  EndTest:31
+------------------------
+  Test:TestFx.SpecK.Tests.Subject.NoDefaultConstructorTest.TestBase`1.Test
+  EndTest:26
+------------------------
+  Test:TestFx.SpecK.Tests.Using.FailingTest.TestBase`1.Test
+  EndTest:121
+------------------------
+  Test:TestFx.SpecK.Tests.Using.NestingTest.TestBase`1.Test
+  EndTest:95
+------------------------
+  Test:TestFx.MSpec.Tests.BehaviorTest.TestBase`1.Test
+  EndTest:1387
+------------------------
+  Test:TestFx.MSpec.Tests.HierarchyLoaderTest.Test
+  EndTest:24
+------------------------
+  Test:TestFx.MSpec.Tests.InconclusiveTest.TestBase`1.Test
+  EndTest:23
+------------------------
+  Test:TestFx.MSpec.Tests.SimpleContextExecutionTest.TestBase`1.Test
+  EndTest:166
+------------------------
+  Test:TestFx.MSpec.Tests.SimpleTest.TestBase`1.Test
+  EndTest:265
+------------------------
+  Test:TestFx.MSpec.Tests.ThrowingContextExecutionTest.TestBase`1.Test
+  EndTest:77
+------------------------
+EndSuite

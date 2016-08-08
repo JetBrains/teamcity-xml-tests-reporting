@@ -18,11 +18,13 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.nUnit;
 
 import java.util.Arrays;
 import java.util.List;
-import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.xmlReportPlugin.parsers.BaseXmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.SecondDurationParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static jetbrains.buildServer.util.StringUtil.isEmpty;
+import static jetbrains.buildServer.util.StringUtil.isNotEmpty;
 
 /**
  * User: vbedrosova
@@ -85,33 +87,31 @@ class NUnitXmlReportParser extends BaseXmlXppAbstractParser {
               return reader.visitChildren(
                 elementsPath(new TextHandler() {
                   public void setText(@NotNull final String text) {
-                    details.message = text;
+                    details.message = text.trim();
                   }
                 }, "message"),
                 elementsPath(new TextHandler() {
                   @Override
                   public void setText(@NotNull final String text) {
-                    details.stackTrace = text;
+                    details.stackTrace = text.trim();
                   }
                 }, "stack-trace")
               ).than(new XmlAction() {
                 @Override
                 public void apply() {
-                  if (failed) {
-                    myCallback.failure("suite " + name + " failure" + getMessage());
-                  } else if (ignored) {
-                    myCallback.warning("suite " + name + " ignored" + getMessage());
-                  } else {
-                    final String msg = getMessage();
-                    if (StringUtil.isNotEmpty(msg)) {
-                      myCallback.message("suite " + name + msg);
-                    }
+                  final String msg = getMessage();
+                  if (ignored) {
+                    myCallback.warning("suite " + name + " ignored" + msg);
+                  } else if (failed) {
+                    myCallback.failure("suite " + name + " failure" + msg);
+                  } else if (isNotEmpty(msg)) {
+                    myCallback.message("suite " + name + msg);
                   }
                 }
 
                 private String getMessage() {
-                  if (details.message == null) return "";
-                  return ": " + details.message + (details.stackTrace == null ? "" : "\n" + details.stackTrace);
+                  if (isEmpty(details.message) && isEmpty(details.stackTrace)) return "";
+                  return ": " + details.message + (isEmpty(details.stackTrace) ? "" : "\n" + details.stackTrace);
                 }
               });
             }
