@@ -13,25 +13,16 @@
     <orderEntry type="module-library">
       <library name="JMock (XML report)">
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/jmock-junit4-2.5.1.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/cglib-nodep-2.1_3.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/objenesis-1.0.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/jmock-legacy-2.5.1.jar!/" />
           <root url="jar://$MODULE_DIR$/lib/jmock-2.5.1.jar!/" />
           <root url="jar://$MODULE_DIR$/lib/hamcrest-core-1.3.jar!/" />
           <root url="jar://$MODULE_DIR$/lib/hamcrest-library-1.3.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jmock-core-1.2.0.jar!/" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="JUnit (XML report)">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/junit-4.5.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/lib/jmock-2.5.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/jmock-core-1.2.0.jar!/" />
+        </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module" module-name="agent-openapi" />
@@ -42,4 +33,3 @@
     <orderEntry type="module" module-name="integration-test-core" />
   </component>
 </module>
-
