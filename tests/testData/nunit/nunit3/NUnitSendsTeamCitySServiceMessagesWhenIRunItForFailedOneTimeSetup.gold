@@ -1,0 +1,16 @@
+TestSuite:foo.tests.dll
+-->Warning: ##BASE_DIR##/NUnitSendsTeamCitySServiceMessagesWhenIRunItForFailedOneTimeSetup.xml: suite foo.tests.dll failure: One or more child tests had errors
+TestSuite:Foo
+-->Warning: ##BASE_DIR##/NUnitSendsTeamCitySServiceMessagesWhenIRunItForFailedOneTimeSetup.xml: suite Foo failure: One or more child tests had errors
+TestSuite:Tests
+-->Warning: ##BASE_DIR##/NUnitSendsTeamCitySServiceMessagesWhenIRunItForFailedOneTimeSetup.xml: suite Tests failure: One or more child tests had errors
+TestSuite:UnitTests1
+-->Warning: ##BASE_DIR##/NUnitSendsTeamCitySServiceMessagesWhenIRunItForFailedOneTimeSetup.xml: suite UnitTests1 failure: One or more child tests had errors
+  Test:SuccessfulTest
+    Fail:System.Exception : Exception during setup Message: at Foo.Tests.UnitTests1.FailedOneTimeSetUp()
+  EndTest:8
+------------------------
+EndSuite
+EndSuite
+EndSuite
+EndSuite

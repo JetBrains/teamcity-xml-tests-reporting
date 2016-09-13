@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-run id="2" testcasecount="1" result="Failed" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2016-09-09 10:14:42Z" end-time="2016-09-09 10:14:42Z" duration="0.087147">
+  <command-line><![CDATA["C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\-1498987812\nunit\NUnit.ConsoleRunner.3.5.0-dev-03196\tools\nunit3-console.exe"  C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\-1498987812\mocks\foo.tests.dll --teamcity]]></command-line>
+  <test-suite type="Assembly" id="0-1002" name="foo.tests.dll" fullname="C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\-1498987812\mocks\foo.tests.dll" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2016-09-09 10:14:42Z" end-time="2016-09-09 10:14:42Z" duration="0.047078" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+    <environment framework-version="3.5.0.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.14393.0" platform="Win32NT" cwd="C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\-1498987812" machine-name="UNIT-728" user="Nikolay.Pianikov" user-domain="LABS" culture="ru-RU" uiculture="en-US" os-architecture="x64" />
+    <settings>
+      <setting name="DisposeRunners" value="True" />
+      <setting name="WorkDirectory" value="C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\-1498987812" />
+      <setting name="ImageRuntimeVersion" value="4.0.30319" />
+      <setting name="ImageRequiresX86" value="False" />
+      <setting name="ImageRequiresDefaultAppDomainAssemblyResolver" value="False" />
+      <setting name="NumberOfTestWorkers" value="8" />
+    </settings>
+    <properties>
+      <property name="_PID" value="18896" />
+      <property name="_APPDOMAIN" value="test-domain-" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="TestSuite" id="0-1003" name="Foo" fullname="Foo" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2016-09-09 10:14:42Z" end-time="2016-09-09 10:14:42Z" duration="0.027555" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="0-1004" name="Tests" fullname="Foo.Tests" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2016-09-09 10:14:42Z" end-time="2016-09-09 10:14:42Z" duration="0.023994" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestFixture" id="0-1000" name="UnitTests1" fullname="Foo.Tests.UnitTests1" classname="Foo.Tests.UnitTests1" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2016-09-09 10:14:42Z" end-time="2016-09-09 10:14:42Z" duration="0.018658" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-case id="0-1001" name="SuccessfulTest" fullname="Foo.Tests.UnitTests1.SuccessfulTest" methodname="SuccessfulTest" classname="Foo.Tests.UnitTests1" runstate="Runnable" seed="1162557048" result="Failed" label="Error" start-time="2016-09-09 10:14:42Z" end-time="2016-09-09 10:14:42Z" duration="0.008431" asserts="0">
+            <failure>
+              <message><![CDATA[System.Exception : Exception during setup]]></message>
+              <stack-trace><![CDATA[   at Foo.Tests.UnitTests1.FailedSetUp()]]></stack-trace>
+            </failure>
+          </test-case>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

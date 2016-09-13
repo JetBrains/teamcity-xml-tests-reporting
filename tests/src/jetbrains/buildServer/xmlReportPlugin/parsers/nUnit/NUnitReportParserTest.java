@@ -266,7 +266,7 @@ public class NUnitReportParserTest extends BaseParserTestCase {
   @Test
   public void testUnsupportedFormat() throws Exception {
     parse("junit.xml");
-    assertResultEquals("-->Error: ##BASE_DIR##/junit.xml: must contain \"test-results\" root element\nPlease check the NUnit sources for the supported XML Schema\n");
+    assertResultEquals("-->Error: ##BASE_DIR##/junit.xml: must contain \"test-results\", \"test-run\" or \"stack-trace\" root element\nPlease check the NUnit sources for the supported XML Schema\n");
   }
 
   @Test

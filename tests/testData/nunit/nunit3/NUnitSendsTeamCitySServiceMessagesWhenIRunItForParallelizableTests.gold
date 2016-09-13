@@ -1,0 +1,40 @@
+TestSuite:foo1.tests.dll
+TestSuite:Foo
+TestSuite:Tests
+TestSuite:UnitTests1
+  Test:SuccessfulParallelizable1
+    StdOutput:!!! ManagedThreadId = 10
+  EndTest:106
+------------------------
+  Test:SuccessfulParallelizable2
+    StdOutput:!!! ManagedThreadId = 10
+  EndTest:102
+------------------------
+  Test:SuccessfulParallelizable3
+    StdOutput:!!! ManagedThreadId = 10
+  EndTest:101
+------------------------
+EndSuite
+EndSuite
+EndSuite
+EndSuite
+TestSuite:foo2.tests.dll
+TestSuite:Foo
+TestSuite:Tests
+TestSuite:UnitTests1
+  Test:SuccessfulParallelizable4
+    StdOutput:!!! ManagedThreadId = 9
+  EndTest:106
+------------------------
+  Test:SuccessfulParallelizable5
+    StdOutput:!!! ManagedThreadId = 9
+  EndTest:101
+------------------------
+  Test:SuccessfulParallelizable6
+    StdOutput:!!! ManagedThreadId = 9
+  EndTest:100
+------------------------
+EndSuite
+EndSuite
+EndSuite
+EndSuite

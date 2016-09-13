@@ -1,0 +1,72 @@
+TestSuite:foo1.tests.dll
+TestSuite:Foo
+TestSuite:Tests
+TestSuite:UnitTests1
+  Test:SuccessfulTest
+    StdOutput:output
+  EndTest:4
+------------------------
+EndSuite
+EndSuite
+EndSuite
+EndSuite
+TestSuite:foo2.tests.dll
+TestSuite:Foo
+TestSuite:Tests
+TestSuite:UnitTests1
+  Test:SuccessfulTest
+    StdOutput:output
+  EndTest:4
+------------------------
+EndSuite
+EndSuite
+EndSuite
+EndSuite
+TestSuite:foo3.tests.dll
+TestSuite:Foo
+TestSuite:Tests
+TestSuite:UnitTests1
+  Test:SuccessfulTest
+    StdOutput:output
+  EndTest:5
+------------------------
+EndSuite
+EndSuite
+EndSuite
+EndSuite
+TestSuite:foo4.tests.dll
+TestSuite:Foo
+TestSuite:Tests
+TestSuite:UnitTests1
+  Test:SuccessfulTest
+    StdOutput:output
+  EndTest:5
+------------------------
+EndSuite
+EndSuite
+EndSuite
+EndSuite
+TestSuite:foo5.tests.dll
+TestSuite:Foo
+TestSuite:Tests
+TestSuite:UnitTests1
+  Test:SuccessfulTest
+    StdOutput:output
+  EndTest:5
+------------------------
+EndSuite
+EndSuite
+EndSuite
+EndSuite
+TestSuite:foo6.tests.dll
+TestSuite:Foo
+TestSuite:Tests
+TestSuite:UnitTests1
+  Test:SuccessfulTest
+    StdOutput:output
+  EndTest:5
+------------------------
+EndSuite
+EndSuite
+EndSuite
+EndSuite

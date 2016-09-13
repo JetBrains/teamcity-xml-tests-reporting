@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-run id="2" testcasecount="4" result="Failed" total="4" passed="1" failed="1" inconclusive="1" skipped="1" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2016-09-09 10:13:09Z" end-time="2016-09-09 10:13:09Z" duration="0.113669">
+  <command-line><![CDATA["C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\-1362678443\nunit\NUnit.ConsoleRunner.3.5.0-dev-03196\tools\nunit3-console.exe"  C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\-1362678443\mocks\foo.tests.dll --teamcity]]></command-line>
+  <test-suite type="Assembly" id="0-1008" name="foo.tests.dll" fullname="C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\-1362678443\mocks\foo.tests.dll" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2016-09-09 10:13:09Z" end-time="2016-09-09 10:13:09Z" duration="0.077170" total="4" passed="1" failed="1" inconclusive="1" skipped="1" asserts="0">
+    <environment framework-version="3.5.0.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.14393.0" platform="Win32NT" cwd="C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\-1362678443" machine-name="UNIT-728" user="Nikolay.Pianikov" user-domain="LABS" culture="ru-RU" uiculture="en-US" os-architecture="x64" />
+    <settings>
+      <setting name="DisposeRunners" value="True" />
+      <setting name="WorkDirectory" value="C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\-1362678443" />
+      <setting name="ImageRuntimeVersion" value="4.0.30319" />
+      <setting name="ImageRequiresX86" value="False" />
+      <setting name="ImageRequiresDefaultAppDomainAssemblyResolver" value="False" />
+      <setting name="NumberOfTestWorkers" value="8" />
+    </settings>
+    <properties>
+      <property name="_PID" value="14280" />
+      <property name="_APPDOMAIN" value="test-domain-" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="TestSuite" id="0-1009" name="Foo" fullname="Foo" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2016-09-09 10:13:09Z" end-time="2016-09-09 10:13:09Z" duration="0.059688" total="4" passed="1" failed="1" inconclusive="1" skipped="1" asserts="0">
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="0-1010" name="Tests" fullname="Foo.Tests" runstate="Runnable" testcasecount="4" result="Failed" site="Child" start-time="2016-09-09 10:13:09Z" end-time="2016-09-09 10:13:09Z" duration="0.055654" total="4" passed="1" failed="1" inconclusive="1" skipped="1" asserts="0">
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestFixture" id="0-1000" name="UnitTests1" fullname="Foo.Tests.UnitTests1" classname="Foo.Tests.UnitTests1" runstate="Runnable" testcasecount="1" result="Passed" start-time="2016-09-09 10:13:09Z" end-time="2016-09-09 10:13:09Z" duration="0.016155" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-case id="0-1001" name="SuccessfulTest" fullname="Foo.Tests.UnitTests1.SuccessfulTest" methodname="SuccessfulTest" classname="Foo.Tests.UnitTests1" runstate="Runnable" seed="1451867105" result="Passed" start-time="2016-09-09 10:13:09Z" end-time="2016-09-09 10:13:09Z" duration="0.004737" asserts="0">
+            <output><![CDATA[output]]></output>
+          </test-case>
+        </test-suite>
+        <test-suite type="TestFixture" id="0-1002" name="UnitTests2" fullname="Foo.Tests.UnitTests2" classname="Foo.Tests.UnitTests2" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2016-09-09 10:13:09Z" end-time="2016-09-09 10:13:09Z" duration="0.017530" total="1" passed="0" failed="1" inconclusive="0" skipped="0" asserts="0">
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-case id="0-1003" name="FailedTest" fullname="Foo.Tests.UnitTests2.FailedTest" methodname="FailedTest" classname="Foo.Tests.UnitTests2" runstate="Runnable" seed="768957549" result="Failed" start-time="2016-09-09 10:13:09Z" end-time="2016-09-09 10:13:09Z" duration="0.014460" asserts="0">
+            <failure>
+              <message><![CDATA[Reason]]></message>
+              <stack-trace><![CDATA[at Foo.Tests.UnitTests2.FailedTest()
+]]></stack-trace>
+            </failure>
+          </test-case>
+        </test-suite>
+        <test-suite type="TestFixture" id="0-1004" name="UnitTests3" fullname="Foo.Tests.UnitTests3" classname="Foo.Tests.UnitTests3" runstate="Runnable" testcasecount="1" result="Skipped" label="Ignored" start-time="2016-09-09 10:13:09Z" end-time="2016-09-09 10:13:09Z" duration="0.004015" total="1" passed="0" failed="0" inconclusive="0" skipped="1" asserts="0">
+          <reason>
+            <message><![CDATA[One or more child tests were ignored]]></message>
+          </reason>
+          <test-case id="0-1005" name="IgnoredTest" fullname="Foo.Tests.UnitTests3.IgnoredTest" methodname="IgnoredTest" classname="Foo.Tests.UnitTests3" runstate="Runnable" seed="402855282" result="Skipped" label="Ignored" start-time="2016-09-09 10:13:09Z" end-time="2016-09-09 10:13:09Z" duration="0.001047" asserts="0">
+            <reason>
+              <message><![CDATA[Reason]]></message>
+            </reason>
+          </test-case>
+        </test-suite>
+        <test-suite type="TestFixture" id="0-1006" name="UnitTests4" fullname="Foo.Tests.UnitTests4" classname="Foo.Tests.UnitTests4" runstate="Runnable" testcasecount="1" result="Passed" start-time="2016-09-09 10:13:09Z" end-time="2016-09-09 10:13:09Z" duration="0.003475" total="1" passed="0" failed="0" inconclusive="1" skipped="0" asserts="0">
+          <test-case id="0-1007" name="InconclusiveTest" fullname="Foo.Tests.UnitTests4.InconclusiveTest" methodname="InconclusiveTest" classname="Foo.Tests.UnitTests4" runstate="Runnable" seed="504618265" result="Inconclusive" start-time="2016-09-09 10:13:09Z" end-time="2016-09-09 10:13:09Z" duration="0.000959" asserts="0">
+            <reason>
+              <message><![CDATA[Reason]]></message>
+            </reason>
+          </test-case>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

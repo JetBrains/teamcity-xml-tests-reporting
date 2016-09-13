@@ -18,6 +18,7 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.nUnit;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Stack;
 import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.ParsingException;
@@ -42,8 +43,8 @@ class NUnitReportParser implements Parser {
   @Nullable
   private ParsingException myParsingException;
 
-  @Nullable
-  private String mySuite;
+  @NotNull
+  final private Stack<String> mySuites = new Stack<String>();
 
   public NUnitReportParser(@NotNull TestReporter testReporter) {
     myTestReporter = testReporter;
@@ -56,10 +57,6 @@ class NUnitReportParser implements Parser {
     try {
       new NUnitXmlReportParser(new NUnitXmlReportParser.Callback() {
         public void suiteFound(@Nullable final String suiteName) {
-          if (mySuite != null) {
-            LOG.warn("Suite " + mySuite + " was not closed");
-          }
-
           if (suiteName == null) {
             myTestReporter.warning("File " + file + " contains unnamed suite");
             return;
@@ -67,16 +64,16 @@ class NUnitReportParser implements Parser {
 
           myTestReporter.openTestSuite(suiteName);
           ++myLoggedSuites;
-          mySuite = suiteName;
+          mySuites.push(suiteName);
         }
 
         public void suiteFinished(@Nullable final String suiteName) {
-          if (mySuite == null || !mySuite.equals(suiteName)) {
+          if (mySuites.isEmpty() || !mySuites.peek().equals(suiteName)) {
             LOG.warn("Failed to log suite finish for not-opened suite " + suiteName);
             return;
           }
           myTestReporter.closeTestSuite();
-          mySuite = null;
+          mySuites.pop();
         }
 
         public void testFound(@NotNull final TestData testData) {
@@ -91,6 +88,12 @@ class NUnitReportParser implements Parser {
             }
 
             myTestReporter.openTest(testName);
+
+            final String output = testData.getOutput();
+            if (StringUtil.isNotEmpty(output)) {
+              myTestReporter.testStdOutput(output);
+            }
+
             final String message = testData.getMessage();
             if (testData.isIgnored()) {
               myTestReporter.testIgnored(StringUtil.emptyIfNull(message));
@@ -130,7 +133,12 @@ class NUnitReportParser implements Parser {
       return true;
     } catch (IOException e) {
       myParsingException = new ParsingException(e);
-      if (mySuite != null) myTestReporter.closeTestSuite();
+
+      while (!mySuites.isEmpty()) {
+        myTestReporter.closeTestSuite();
+        mySuites.pop();
+      }
+
       LOG.debug("Couldn't completely parse " + file
                 + " report, exception occurred: " + e + ", " + myLoggedTests + " tests logged");
     }

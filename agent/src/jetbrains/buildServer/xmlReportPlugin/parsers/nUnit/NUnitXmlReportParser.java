@@ -16,8 +16,8 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.nUnit;
 
-import java.util.Arrays;
 import java.util.List;
+import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.xmlReportPlugin.parsers.BaseXmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.SecondDurationParser;
 import org.jetbrains.annotations.NotNull;
@@ -44,144 +44,259 @@ class NUnitXmlReportParser extends BaseXmlXppAbstractParser {
 
   @Override
   protected List<XmlHandler> getRootHandlers() {
-    return Arrays.asList(
-      new ORHandler(elementsPath(new Handler() {
+    return new ORHandler(
+      new Version2Handler().getRootHandler(),
+      new Version3Handler().getRootHandler(),
+      getGeneralFailureHandler()) {
+      @Override
+      protected void finished(final boolean matched) {
+        if (!matched) myCallback.error("must contain \"test-results\", \"test-run\" or \"stack-trace\" root element\nPlease check the NUnit sources for the supported XML Schema");
+      }
+    }.asList();
+  }
+
+  @NotNull
+  private XmlHandler getGeneralFailureHandler() {
+    return elementsPath(new TextHandler() {
+      @Override
+      public void setText(@NotNull final String text) {
+        myCallback.failure("general failure:\n" + text);
+      }
+    }, "stack-trace");
+  }
+
+  private final class Version2Handler {
+    @NotNull
+    public XmlHandler getRootHandler() {
+      return elementsPath(new Handler() {
         public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
           return reader.visitChildren(suiteHandler(true));
         }
-      }, "test-results")) {
-        @Override
-        protected void finished(final boolean matched) {
-          if (!matched) myCallback.error("must contain \"test-results\" root element\nPlease check the NUnit sources for the supported XML Schema");
+      }, "test-results");
+    }
+
+    @NotNull
+    private XmlHandler suiteHandler(final boolean addLogging) {
+      return elementsPath(new Handler() {
+        public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+          final String name = getSuiteName(reader.getAttribute("name"));
+          final boolean ignored = ignored(reader);
+          final boolean failed = !success(reader);
+
+          if (addLogging) myCallback.suiteFound(name);
+
+          return reader.visitChildren(
+            elementsPath(new Handler() {
+              public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+                return reader.visitChildren(suiteHandler(false), testHandler());
+              }
+            }, "results"),
+            failureAndReasonHandler(name, ignored, failed, true)
+          ).than(new XmlAction() {
+            public void apply() {
+              if (addLogging) myCallback.suiteFinished(name);
+            }
+          });
         }
-      },
-      elementsPath(new TextHandler() {
-        @Override
-        public void setText(@NotNull final String text) {
-          myCallback.failure("general failure:\n" + text);
+      }, "test-suite");
+    }
+
+    @NotNull
+    private XmlHandler testHandler() {
+      return elementsPath(new Handler() {
+        public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+          final TestData testData = new TestData();
+
+          testData.setName(reader.getAttribute("name"));
+          testData.setIgnored(ignored(reader));
+          testData.setSuccess(success(reader));
+          testData.setDuration(myDurationParser.parseTestDuration(reader.getAttribute("time")));
+
+          return reader.visitChildren(
+            elementsPatternPath(new Handler() {
+              public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+                if ("failure".equals(reader.getLocalName())) testData.setSuccess(false);
+                return reader.visitChildren(
+                  elementsPath(new TextHandler() {
+                    public void setText(@NotNull final String text) {
+                      testData.setMessage(text.trim());
+                    }
+                  }, "message"),
+                  elementsPath(new TextHandler() {
+                    public void setText(@NotNull final String text) {
+                      testData.setFailureStackTrace(text.trim());
+                    }
+                  }, "stack-trace")
+                );
+              }
+            }, "failure|reason")
+          ).than(new XmlAction() {
+            public void apply() {
+              myCallback.testFound(testData);
+            }
+          });
         }
-      }, "stack-trace")
-    );
-  }
+      }, "test-case");
+    }
 
-  @NotNull
-  private XmlHandler suiteHandler(final boolean addLogging) {
-    return elementsPath(new Handler() {
-      public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-        final String name = getSuiteName(reader.getAttribute("name"));
-        final boolean ignored = ignored(reader);
-        final boolean failed = !success(reader);
+    @Nullable
+    private String getSuiteName(@Nullable String name) {
+      if (name == null) return null;
+      if (name.replace("\\", "/").contains("/")) return name.substring(name.lastIndexOf("\\") + 1);
+      return name;
+    }
 
-        if (addLogging) myCallback.suiteFound(name);
+    private boolean ignored(@NotNull final XmlElementInfo reader) {
+      final String result = reader.getAttribute("result");
+      return "False".equalsIgnoreCase(reader.getAttribute("executed")) ||
+             "Inconclusive".equals(result) ||
+             "Ignored".equals(result) ||
+             "Skipped".equals(result) ||
+             "NotRunnable".equals(result);
+    }
 
-        return reader.visitChildren(
-          elementsPath(new Handler() {
-            public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-              return reader.visitChildren(suiteHandler(false), testHandler());
-            }
-          }, "results"),
-          elementsPatternPath(new Handler() {
-            @Override
-            public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-              final FailureDetails details = new FailureDetails();
-              return reader.visitChildren(
-                elementsPath(new TextHandler() {
-                  public void setText(@NotNull final String text) {
-                    details.message = text.trim();
-                  }
-                }, "message"),
-                elementsPath(new TextHandler() {
-                  @Override
-                  public void setText(@NotNull final String text) {
-                    details.stackTrace = text.trim();
-                  }
-                }, "stack-trace")
-              ).than(new XmlAction() {
-                @Override
-                public void apply() {
-                  final String msg = getMessage();
-                  if (ignored) {
-                    myCallback.warning("suite " + name + " ignored" + msg);
-                  } else if (failed) {
-                    myCallback.failure("suite " + name + " failure" + msg);
-                  } else if (isNotEmpty(msg)) {
-                    myCallback.message("suite " + name + msg);
-                  }
-                }
-
-                private String getMessage() {
-                  if (isEmpty(details.message) && isEmpty(details.stackTrace)) return "";
-                  return ": " + details.message + (isEmpty(details.stackTrace) ? "" : "\n" + details.stackTrace);
-                }
-              });
-            }
-          }, "failure|reason")
-        ).than(new XmlAction() {
-          public void apply() {
-            if (addLogging) myCallback.suiteFinished(name);
-          }
-        });
-      }
-    }, "test-suite");
-  }
-
-  @NotNull
-  private XmlHandler testHandler() {
-    return elementsPath(new Handler() {
-      public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-        final TestData testData = new TestData();
-
-        testData.setName(reader.getAttribute("name"));
-        testData.setIgnored(ignored(reader));
-        testData.setSuccess(success(reader));
-        testData.setDuration(myDurationParser.parseTestDuration(reader.getAttribute("time")));
-
-        return reader.visitChildren(
-          elementsPatternPath(new Handler() {
-            public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-              if ("failure".equals(reader.getLocalName())) testData.setSuccess(false);
-              return reader.visitChildren(
-                elementsPath(new TextHandler() {
-                  public void setText(@NotNull final String text) {
-                    testData.setMessage(text.trim());
-                  }
-                }, "message"),
-                elementsPath(new TextHandler() {
-                  public void setText(@NotNull final String text) {
-                    testData.setFailureStackTrace(text.trim());
-                  }
-                }, "stack-trace")
-              );
-            }
-          }, "failure|reason")
-        ).than(new XmlAction() {
-          public void apply() {
-            myCallback.testFound(testData);
-          }
-        });
-      }
-    }, "test-case");
-  }
-
-  private boolean ignored(@NotNull final XmlElementInfo reader) {
-    return !Boolean.parseBoolean(reader.getAttribute("executed")) || "Inconclusive".equals(reader.getAttribute("result"));
-  }
-
-  private boolean success(@NotNull final XmlElementInfo reader) {
-    return "Success".equals(reader.getAttribute("result")) || Boolean.parseBoolean(reader.getAttribute("success")) && !ignored(reader);
-  }
-
-  @Nullable
-  private String getSuiteName(@Nullable String name) {
-    if (name == null) return null;
-    if (name.replace("\\", "/").contains("/")) return name.substring(name.lastIndexOf("\\") + 1);
-    return name;
+    private boolean success(@NotNull final XmlElementInfo reader) {
+      final String result = reader.getAttribute("result");
+      return "Success".equals(result) || Boolean.parseBoolean(reader.getAttribute("success")) && !ignored(reader);
+    }
   }
 
   private final class FailureDetails {
     private String message; private String stackTrace;
   }
 
+  private XmlHandler failureAndReasonHandler(final String name, final boolean ignored, final boolean failed, final boolean failOnFailure) {
+    return elementsPatternPath(new Handler() {
+      @Override
+      public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+        final FailureDetails details = new FailureDetails();
+        return reader.visitChildren(
+          elementsPath(new TextHandler() {
+            public void setText(@NotNull final String text) {
+              details.message = text.trim();
+            }
+          }, "message"),
+          elementsPath(new TextHandler() {
+            @Override
+            public void setText(@NotNull final String text) {
+              details.stackTrace = text.trim();
+            }
+          }, "stack-trace")
+        ).than(new XmlAction() {
+          @Override
+          public void apply() {
+            final String msg = getMessage();
+            if (ignored) {
+              myCallback.warning("suite " + name + " ignored" + msg);
+            } else if (failed) {
+              final String err = "suite " + name + " failure" + msg;
+              if (failOnFailure) {
+                myCallback.failure(err);
+              } else {
+                myCallback.warning(err);
+              }
+            } else if (isNotEmpty(msg)) {
+              myCallback.message("suite " + name + msg);
+            }
+          }
+
+          private String getMessage() {
+            if (isEmpty(details.message) && isEmpty(details.stackTrace)) return "";
+            return ": " + details.message + (isEmpty(details.stackTrace) ? "" : "\n" + details.stackTrace);
+          }
+        });
+      }
+    }, "failure|reason");
+  }
+
+  private final class Version3Handler {
+    @NotNull
+    public XmlHandler getRootHandler() {
+      return elementsPath(new Handler() {
+        public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+          return reader.visitChildren(suiteHandler());
+        }
+      }, "test-run");
+    }
+
+    @NotNull
+    private XmlHandler suiteHandler() {
+      return elementsPath(new Handler() {
+        public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+          final String name = StringUtil.emptyIfNull(reader.getAttribute("name"));
+          final String fullName = reader.getAttribute("fullname");
+          final boolean addLogging = StringUtil.isEmpty(fullName) || fullName.endsWith(name);
+          if (addLogging) myCallback.suiteFound(name);
+
+          final boolean ignored = ignored(reader);
+          final boolean failed = !success(reader);
+
+          return reader.visitChildren(
+            suiteHandler(),
+            testHandler(),
+            failureAndReasonHandler(name, ignored, failed, false)
+          ).than(new XmlAction() {
+            public void apply() {
+              if (addLogging) myCallback.suiteFinished(name);
+            }
+          });
+        }
+      }, "test-suite");
+    }
+
+    @NotNull
+    private XmlHandler testHandler() {
+      return elementsPath(new Handler() {
+        public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+          final TestData testData = new TestData();
+
+          testData.setName(reader.getAttribute("name"));
+          testData.setIgnored(ignored(reader));
+          testData.setSuccess(success(reader));
+          testData.setDuration(myDurationParser.parseTestDuration(reader.getAttribute("duration")));
+
+          return reader.visitChildren(
+            elementsPath(new TextHandler() {
+              @Override
+              public void setText(@NotNull final String text) {
+                testData.setOutput(text.trim());
+              }
+            }, "output"),
+            elementsPatternPath(new Handler() {
+              public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+                if ("failure".equals(reader.getLocalName())) testData.setSuccess(false);
+                return reader.visitChildren(
+                  elementsPath(new TextHandler() {
+                    public void setText(@NotNull final String text) {
+                      testData.setMessage(text.trim());
+                    }
+                  }, "message"),
+                  elementsPath(new TextHandler() {
+                    public void setText(@NotNull final String text) {
+                      testData.setFailureStackTrace(text.trim());
+                    }
+                  }, "stack-trace")
+                );
+              }
+            }, "failure|reason")
+          ).than(new XmlAction() {
+            public void apply() {
+              myCallback.testFound(testData);
+            }
+          });
+        }
+      }, "test-case");
+    }
+
+    private boolean ignored(@NotNull final XmlElementInfo reader) {
+      final String result = reader.getAttribute("result");
+      return "Inconclusive".equals(result) || "Skipped".equals(result);
+    }
+
+    private boolean success(@NotNull final XmlElementInfo reader) {
+      return "Success".equals(reader.getAttribute("result"));
+    }
+  }
 
   public static interface Callback {
     void suiteFound(@Nullable String suiteName);
@@ -202,7 +317,7 @@ class NUnitXmlReportParser extends BaseXmlXppAbstractParser {
 
 /*
 
-Currently supported schema is
+Currently supported NUnit 2 schema is (for the NUnit 3 supported format see the NUNit 3 sources):
 
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">

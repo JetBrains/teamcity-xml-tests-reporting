@@ -19,6 +19,7 @@
       <class name="jetbrains.buildServer.xmlReportPlugin.parsers.mstest.TestResultsTableParserTest"/>
       <class name="jetbrains.buildServer.xmlReportPlugin.parsers.mstest.MSTestBaseTest"/>
       <class name="jetbrains.buildServer.xmlReportPlugin.parsers.nUnit.NUnitReportParserTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.parsers.nUnit.NUnit3ReportParserTest"/>
       <class name="jetbrains.buildServer.xmlReportPlugin.parsers.pmd.PmdReportParserTest"/>
       <class name="jetbrains.buildServer.xmlReportPlugin.parsers.pmd.PmdComplexReportParserTest"/>
       <class name="jetbrains.buildServer.xmlReportPlugin.parsers.pmdCpd.PmdCpdReportParserTest"/>

@@ -28,6 +28,8 @@ final class TestData {
   @Nullable
   private String myMessage;
   @Nullable
+  private String myOutput;
+  @Nullable
   private String myFailureStackTrace;
   private boolean mySuccess;
 
@@ -63,6 +65,15 @@ final class TestData {
 
   public void setMessage(@Nullable final String message) {
     myMessage = message;
+  }
+
+  @Nullable
+  public String getOutput() {
+    return myOutput;
+  }
+
+  public void setOutput(@Nullable final String output) {
+    myOutput = output;
   }
 
   @Nullable

@@ -1,0 +1,35 @@
+TestSuite:foo.tests.dll
+-->Warning: ##BASE_DIR##/NUnitSendsTeamCitySServiceMessagesWhenIRunItForDifferentTypesOfTests.xml: suite foo.tests.dll failure: One or more child tests had errors
+TestSuite:Foo
+-->Warning: ##BASE_DIR##/NUnitSendsTeamCitySServiceMessagesWhenIRunItForDifferentTypesOfTests.xml: suite Foo failure: One or more child tests had errors
+TestSuite:Tests
+-->Warning: ##BASE_DIR##/NUnitSendsTeamCitySServiceMessagesWhenIRunItForDifferentTypesOfTests.xml: suite Tests failure: One or more child tests had errors
+TestSuite:UnitTests1
+  Test:SuccessfulTest
+    StdOutput:output
+  EndTest:5
+------------------------
+EndSuite
+TestSuite:UnitTests2
+-->Warning: ##BASE_DIR##/NUnitSendsTeamCitySServiceMessagesWhenIRunItForDifferentTypesOfTests.xml: suite UnitTests2 failure: One or more child tests had errors
+  Test:FailedTest
+    Fail:Reason Message: at Foo.Tests.UnitTests2.FailedTest()
+  EndTest:14
+------------------------
+EndSuite
+TestSuite:UnitTests3
+-->Warning: ##BASE_DIR##/NUnitSendsTeamCitySServiceMessagesWhenIRunItForDifferentTypesOfTests.xml: suite UnitTests3 ignored: One or more child tests were ignored
+  Test:IgnoredTest
+    Ignored:Reason
+  EndTest:1
+------------------------
+EndSuite
+TestSuite:UnitTests4
+  Test:InconclusiveTest
+    Ignored:Reason
+  EndTest:1
+------------------------
+EndSuite
+EndSuite
+EndSuite
+EndSuite

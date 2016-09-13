@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2016-09-09 10:15:19Z" end-time="2016-09-09 10:15:20Z" duration="0.406138">
+  <command-line><![CDATA["C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\1096801093\nunit\NUnit.ConsoleRunner.3.5.0-dev-03196\tools\nunit3-console.exe"  C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\1096801093\mocks\foo1.tests.dll C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\1096801093\mocks\foo2.tests.dll --teamcity --workers=10 --agents=10]]></command-line>
+  <test-suite type="Assembly" id="1-1004" name="foo1.tests.dll" fullname="C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\1096801093\mocks\foo1.tests.dll" runstate="Runnable" testcasecount="3" result="Passed" start-time="2016-09-09 10:15:20Z" end-time="2016-09-09 10:15:20Z" duration="0.356460" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <environment framework-version="3.5.0.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.14393.0" platform="Win32NT" cwd="C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\1096801093" machine-name="UNIT-728" user="Nikolay.Pianikov" user-domain="LABS" culture="ru-RU" uiculture="en-US" os-architecture="x64" />
+    <settings>
+      <setting name="DisposeRunners" value="True" />
+      <setting name="WorkDirectory" value="C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\1096801093" />
+      <setting name="MaxAgents" value="10" />
+      <setting name="NumberOfTestWorkers" value="10" />
+      <setting name="ImageRuntimeVersion" value="4.0.30319" />
+      <setting name="ImageRequiresX86" value="False" />
+      <setting name="ImageRequiresDefaultAppDomainAssemblyResolver" value="False" />
+    </settings>
+    <properties>
+      <property name="ParallelScope" value="Self" />
+      <property name="_PID" value="12012" />
+      <property name="_APPDOMAIN" value="test-domain-foo1.tests.dll" />
+    </properties>
+    <test-suite type="TestSuite" id="1-1005" name="Foo" fullname="Foo" runstate="Runnable" testcasecount="3" result="Passed" start-time="2016-09-09 10:15:20Z" end-time="2016-09-09 10:15:20Z" duration="0.335967" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestSuite" id="1-1006" name="Tests" fullname="Foo.Tests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2016-09-09 10:15:20Z" end-time="2016-09-09 10:15:20Z" duration="0.331951" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <test-suite type="TestFixture" id="1-1000" name="UnitTests1" fullname="Foo.Tests.UnitTests1" classname="Foo.Tests.UnitTests1" runstate="Runnable" testcasecount="3" result="Passed" start-time="2016-09-09 10:15:20Z" end-time="2016-09-09 10:15:20Z" duration="0.327787" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties>
+            <property name="ParallelScope" value="Self" />
+          </properties>
+          <test-case id="1-1001" name="SuccessfulParallelizable1" fullname="Foo.Tests.UnitTests1.SuccessfulParallelizable1" methodname="SuccessfulParallelizable1" classname="Foo.Tests.UnitTests1" runstate="Runnable" seed="1208588200" result="Passed" start-time="2016-09-09 10:15:20Z" end-time="2016-09-09 10:15:20Z" duration="0.105608" asserts="0">
+            <properties>
+              <property name="ParallelScope" value="Self" />
+            </properties>
+            <output><![CDATA[!!! ManagedThreadId = 10
+]]></output>
+          </test-case>
+          <test-case id="1-1002" name="SuccessfulParallelizable2" fullname="Foo.Tests.UnitTests1.SuccessfulParallelizable2" methodname="SuccessfulParallelizable2" classname="Foo.Tests.UnitTests1" runstate="Runnable" seed="1535129365" result="Passed" start-time="2016-09-09 10:15:20Z" end-time="2016-09-09 10:15:20Z" duration="0.101969" asserts="0">
+            <properties>
+              <property name="ParallelScope" value="Self" />
+            </properties>
+            <output><![CDATA[!!! ManagedThreadId = 10
+]]></output>
+          </test-case>
+          <test-case id="1-1003" name="SuccessfulParallelizable3" fullname="Foo.Tests.UnitTests1.SuccessfulParallelizable3" methodname="SuccessfulParallelizable3" classname="Foo.Tests.UnitTests1" runstate="Runnable" seed="1072648834" result="Passed" start-time="2016-09-09 10:15:20Z" end-time="2016-09-09 10:15:20Z" duration="0.100543" asserts="0">
+            <properties>
+              <property name="ParallelScope" value="Self" />
+            </properties>
+            <output><![CDATA[!!! ManagedThreadId = 10
+]]></output>
+          </test-case>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+  <test-suite type="Assembly" id="2-1004" name="foo2.tests.dll" fullname="C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\1096801093\mocks\foo2.tests.dll" runstate="Runnable" testcasecount="3" result="Passed" start-time="2016-09-09 10:15:20Z" end-time="2016-09-09 10:15:20Z" duration="0.355437" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <environment framework-version="3.5.0.0" clr-version="4.0.30319.42000" os-version="Microsoft Windows NT 10.0.14393.0" platform="Win32NT" cwd="C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\1096801093" machine-name="UNIT-728" user="Nikolay.Pianikov" user-domain="LABS" culture="ru-RU" uiculture="en-US" os-architecture="x64" />
+    <settings>
+      <setting name="DisposeRunners" value="True" />
+      <setting name="WorkDirectory" value="C:\Projects\GitHub\nunit-teamcity-event-listener\bin\Debug\1096801093" />
+      <setting name="MaxAgents" value="10" />
+      <setting name="NumberOfTestWorkers" value="10" />
+      <setting name="ImageRuntimeVersion" value="4.0.30319" />
+      <setting name="ImageRequiresX86" value="False" />
+      <setting name="ImageRequiresDefaultAppDomainAssemblyResolver" value="False" />
+    </settings>
+    <properties>
+      <property name="ParallelScope" value="Self" />
+      <property name="_PID" value="19168" />
+      <property name="_APPDOMAIN" value="test-domain-foo2.tests.dll" />
+    </properties>
+    <test-suite type="TestSuite" id="2-1005" name="Foo" fullname="Foo" runstate="Runnable" testcasecount="3" result="Passed" start-time="2016-09-09 10:15:20Z" end-time="2016-09-09 10:15:20Z" duration="0.334959" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestSuite" id="2-1006" name="Tests" fullname="Foo.Tests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2016-09-09 10:15:20Z" end-time="2016-09-09 10:15:20Z" duration="0.330948" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <test-suite type="TestFixture" id="2-1000" name="UnitTests1" fullname="Foo.Tests.UnitTests1" classname="Foo.Tests.UnitTests1" runstate="Runnable" testcasecount="3" result="Passed" start-time="2016-09-09 10:15:20Z" end-time="2016-09-09 10:15:20Z" duration="0.326143" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties>
+            <property name="ParallelScope" value="Self" />
+          </properties>
+          <test-case id="2-1001" name="SuccessfulParallelizable4" fullname="Foo.Tests.UnitTests1.SuccessfulParallelizable4" methodname="SuccessfulParallelizable4" classname="Foo.Tests.UnitTests1" runstate="Runnable" seed="326430943" result="Passed" start-time="2016-09-09 10:15:20Z" end-time="2016-09-09 10:15:20Z" duration="0.105593" asserts="0">
+            <properties>
+              <property name="ParallelScope" value="Self" />
+            </properties>
+            <output><![CDATA[!!! ManagedThreadId = 9
+]]></output>
+          </test-case>
+          <test-case id="2-1002" name="SuccessfulParallelizable5" fullname="Foo.Tests.UnitTests1.SuccessfulParallelizable5" methodname="SuccessfulParallelizable5" classname="Foo.Tests.UnitTests1" runstate="Runnable" seed="2067902088" result="Passed" start-time="2016-09-09 10:15:20Z" end-time="2016-09-09 10:15:20Z" duration="0.101116" asserts="0">
+            <properties>
+              <property name="ParallelScope" value="Self" />
+            </properties>
+            <output><![CDATA[!!! ManagedThreadId = 9
+]]></output>
+          </test-case>
+          <test-case id="2-1003" name="SuccessfulParallelizable6" fullname="Foo.Tests.UnitTests1.SuccessfulParallelizable6" methodname="SuccessfulParallelizable6" classname="Foo.Tests.UnitTests1" runstate="Runnable" seed="1407351934" result="Passed" start-time="2016-09-09 10:15:20Z" end-time="2016-09-09 10:15:20Z" duration="0.100412" asserts="0">
+            <properties>
+              <property name="ParallelScope" value="Self" />
+            </properties>
+            <output><![CDATA[!!! ManagedThreadId = 9
+]]></output>
+          </test-case>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
