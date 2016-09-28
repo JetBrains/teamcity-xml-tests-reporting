@@ -157,6 +157,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   @Override
   public void beforeBuildFinish(@NotNull final AgentRunningBuild build, @NotNull final BuildFinishedStatus buildStatus) {
+    if (myBuildProcessingContext == null) return;
     finishProcessing(getBuildProcessingContext(), true);
     myBuild = null;
     myBuildProcessingContext = null;
