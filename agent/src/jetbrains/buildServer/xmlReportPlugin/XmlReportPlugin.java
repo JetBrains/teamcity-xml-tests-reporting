@@ -367,22 +367,16 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
                                          LoggingUtils
                                            .error("Failed to parse " + failedToParse.size() + " report" + getEnding(failedToParse.size()), logger);
 
-                                         int i = 0;
                                          for (Map.Entry<File, ParsingResult> e : failedToParse.entrySet()) {
                                            final Throwable p = getProblem(e.getValue());
                                            String m = getPathInCheckoutDir(e.getKey());
 
                                            if (p == null) m = m + ": Report is incomplete or has unexpected structure";
+                                           else if (StringUtil.isNotEmpty(p.getMessage())) m = m + ": " + p.getMessage();
 
-                                           if (rulesContext.getRulesData().isVerbose() || failedToParse.size() == 1) {
-                                             LoggingUtils.logError(m, p, logger, true);
-                                           } else if (i < 10) {
-                                             LoggingUtils.LOG.warn(m);
-                                           } else {
-                                             LoggingUtils.LOG.debug(m, p);
-                                           }
+                                           LoggingUtils.logError(m, p, logger, rulesContext.getRulesData().isVerbose() || failedToParse.size() == 1);
+
                                            result.accumulate(e.getValue());
-                                           ++i;
                                          }
                                        }
                                      }, logger);
@@ -420,23 +414,14 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
                 LoggingUtils.verbose("Processing start time is: [" + rulesContext.getRulesData().getMonitorRulesParameters().getStartTime() + "]", logger);
                 summaryLogAction.doLogAction(outOfDate.size() + " report" + getEnding(outOfDate.size()), logger);
 
-                int i = 0;
                 for (File f : outOfDate) {
                   final String m = getPathInCheckoutDir(f);
                   final String details = m + " has last modified timestamp [" + f.lastModified() + "]";
 
                   if (rulesContext.getRulesData().isVerbose() || outOfDate.size() == 1 || processedFileCount == 0) {
                     summaryLogAction.doLogAction(m, logger);
-                    LoggingUtils.verbose(details, logger);
-                  } else {
-                    if (i < 10) {
-                      LoggingUtils.LOG.info(m);
-                    } else {
-                      LoggingUtils.LOG.debug(m);
-                    }
-                    LoggingUtils.LOG.debug(details);
                   }
-                  ++i;
+                  LoggingUtils.verbose(details, logger);
                 }
 
               }

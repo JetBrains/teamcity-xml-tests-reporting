@@ -61,24 +61,16 @@ public class LoggingUtils {
     logger.error(message);
   }
 
-  public static void logError(@Nullable String error,
+  public static void logError(@NotNull String error,
                               @Nullable Throwable throwable,
                               @NotNull BuildProgressLogger logger,
-                              boolean debugStackTrace) {
-    final String message =
-        (error != null ? error : "")
-      + (error != null && throwable != null ? ": " : "")
-      + (throwable != null ? throwable.getMessage() : "");
-
-    if (message.length() > 0) {
-      logger.error(message);
-      LOG.warn(message);
-    }
+                              boolean addStackTraceToBuildLog) {
+    error(error, logger);
     if (throwable != null) {
-      if (debugStackTrace) {
-        LOG.debug(throwable.getMessage(), throwable);
+      if (addStackTraceToBuildLog) {
+        logger.exception(throwable);
       } else {
-        LOG.warn(throwable.getMessage(), throwable);
+        LOG.warn(throwable);
       }
     }
   }
