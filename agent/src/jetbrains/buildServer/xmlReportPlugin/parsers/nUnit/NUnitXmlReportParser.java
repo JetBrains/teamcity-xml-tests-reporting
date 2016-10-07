@@ -294,7 +294,7 @@ class NUnitXmlReportParser extends BaseXmlXppAbstractParser {
     }
 
     private boolean success(@NotNull final XmlElementInfo reader) {
-      return "Success".equals(reader.getAttribute("result"));
+      return "Passed".equals(reader.getAttribute("result"));
     }
   }
 

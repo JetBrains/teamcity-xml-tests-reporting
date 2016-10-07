@@ -1,0 +1,6 @@
+TestSuite:test
+  Test:Try_NoExceptions_NeverCallsRecoveryAction
+    StdOutput:This should be called
+  EndTest:25
+------------------------
+EndSuite

@@ -101,7 +101,7 @@ class NUnitReportParser implements Parser {
               if (!StringUtil.isEmptyOrSpaces(message)) {
                 myTestReporter.testStdOutput(message);
               }
-            } else if (message != null) {
+            } else {
               myTestReporter.testFail(message, testData.getFailureStackTrace());
             }
             myTestReporter.closeTest(testData.getDuration());

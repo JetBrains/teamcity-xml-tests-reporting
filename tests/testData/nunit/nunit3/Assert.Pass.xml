@@ -1,0 +1,12 @@
+<test-run>
+  <test-suite name="test">
+    <test-case id="0-1017" name="Try_NoExceptions_NeverCallsRecoveryAction" fullname="FifteenBelow.GDS.Wrapper.Radixx.RadixxTests.RetryTests.Try_NoExceptions_NeverCallsRecoveryAction" methodname="Try_NoExceptions_NeverCallsRecoveryAction" classname="FifteenBelow.GDS.Wrapper.Radixx.RadixxTests.RetryTests" runstate="Runnable" seed="485577664" result="Passed" start-time="2016-09-23 11:00:40Z" end-time="2016-09-23 11:00:40Z" duration="0.024590" asserts="0">
+      <properties />
+      <reason>
+        <message>
+          <![CDATA[This should be called]]>
+        </message>
+      </reason>
+    </test-case>
+  </test-suite>
+</test-run>

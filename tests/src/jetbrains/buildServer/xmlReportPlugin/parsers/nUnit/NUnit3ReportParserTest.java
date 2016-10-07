@@ -45,6 +45,13 @@ public class NUnit3ReportParserTest extends BaseParserTestCase {
       getExpectedResult("UserRunsTestsForSeveralAssemblies.gold"));
   }
 
+  @Test
+  public void test_AssertPass() throws Exception {
+    parse("Assert.Pass.xml");
+    assertResultEquals(
+      getExpectedResult("Assert.Pass.gold"));
+  }
+
   @NotNull
   @Override
   protected Parser getParser() {
