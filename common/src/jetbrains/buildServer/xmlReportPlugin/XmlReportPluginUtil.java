@@ -183,9 +183,4 @@ public class XmlReportPluginUtil {
   public static String getReportTypeName(@NotNull String type) {
     return SUPPORTED_REPORT_TYPES.get(type);
   }
-
-  public static boolean isOptimizedFilesCollectionEnabled(@NotNull final Map<String, String> params) {
-    final String param = params.get(OPTIMIZED_FILE_COLLECTION_ENABLED);
-    return param == null || Boolean.parseBoolean(param);
-  }
 }

@@ -6,7 +6,6 @@
       <class name="jetbrains.buildServer.xmlReportPlugin.ParseReportCommandTest"/>
       <class name="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessorTest"/>
       <class name="jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtilTest"/>
-      <class name="jetbrains.buildServer.xmlReportPlugin.FullSearchIncludeExcludeRulesTest"/>
       <class name="jetbrains.buildServer.xmlReportPlugin.OptimizingIncludeExcludeRulesTest"/>
 
       <class name="jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit.AntJUnitReportParserTest"/>
