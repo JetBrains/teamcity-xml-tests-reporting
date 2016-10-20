@@ -39,6 +39,7 @@ import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.util.AntPathMatcher;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
 
@@ -302,8 +303,28 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   @NotNull
   private Rules getRules(@NotNull String rulesStr) {
     final List<String> rules = Arrays.asList(rulesStr.split(XmlReportPluginConstants.SPLIT_REGEX));
+    final File baseDir = getBuild().getCheckoutDirectory();
 
-    return new OptimizingIncludeExcludeRules(getBuild().getCheckoutDirectory(), rules);
+    if (rules.size() == 1) {
+      final String rule = rules.get(0);
+      if (isFilePath(rule)) {
+        return new FileRules(new File(resolveRule(rule, baseDir)));
+      }
+    }
+
+    return new OptimizingIncludeExcludeRules(baseDir, rules);
+  }
+
+  @NotNull
+  private String resolveRule(@NotNull String rule, @NotNull File baseDir) {
+    if (rule.startsWith("+:") || rule.startsWith("-:")) {
+      rule = rule.substring(2);
+    }
+    return FileUtil.normalizeAbsolutePath(FileUtil.resolvePath(baseDir, rule).getAbsolutePath());
+  }
+
+  private boolean isFilePath(@NotNull String rule) {
+    return !new AntPathMatcher().isPattern(rule);
   }
 
   private void logStatistics(@NotNull final RulesContext rulesContext) {
