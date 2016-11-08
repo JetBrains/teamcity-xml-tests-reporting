@@ -17,7 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
 import java.io.File;
-import java.util.*;
+import java.util.Collection;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import org.jetbrains.annotations.NotNull;
@@ -150,7 +150,7 @@ public class MonitorRulesCommand {
   }
 
   private boolean acceptFile(@NotNull File f) {
-    return f.isFile() && f.canRead();
+    return f.isFile() && f.canRead() && f.length() > 0;
   }
 
   private boolean timeConstraintsSatisfied(long lastModified) {
