@@ -21,10 +21,7 @@ import java.io.IOException;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.ParsingException;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
-import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionParsingResult;
-import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
-import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionResult;
-import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionTypeResult;
+import jetbrains.buildServer.xmlReportPlugin.inspections.*;
 import jetbrains.buildServer.xmlReportPlugin.utils.ParserUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -51,6 +48,13 @@ class JSLintReportParser implements Parser {
 
     try {
       new JSLintXmlReportParser(new JSLintXmlReportParser.Callback() {
+        @Override
+        public void markBuildAsInspectionsBuild() {
+          if (myInspectionReporter instanceof TeamCityInspectionReporter) {
+            ((TeamCityInspectionReporter)myInspectionReporter).markBuildAsInspectionsBuild();
+          }
+        }
+
         public void reportInspection(@NotNull final InspectionResult inspection) {
           ++myWarnings;
           myInspectionReporter.reportInspection(inspection);

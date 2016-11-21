@@ -64,7 +64,11 @@ class JSLintXmlReportParser extends BaseXmlXppAbstractParser {
     }, "jslint")) {
       @Override
       protected void finished(final boolean matched) {
-        if (!matched) myCallback.error("Unexpected report format: \"jslint\" root element missing. Please see JSLint sources for the supported format");
+        if (matched) {
+          myCallback.markBuildAsInspectionsBuild();
+        } else {
+          myCallback.error("Unexpected report format: \"jslint\" root element missing. Please see JSLint sources for the supported format");
+        }
       }
     }.asList();
   }
@@ -95,6 +99,7 @@ class JSLintXmlReportParser extends BaseXmlXppAbstractParser {
   }
 
   public static interface Callback {
+    void markBuildAsInspectionsBuild();
     void reportInspection(@NotNull InspectionResult inspection);
     void reportInspectionType(@NotNull InspectionTypeResult inspectionType);
     void error(@NotNull String message);

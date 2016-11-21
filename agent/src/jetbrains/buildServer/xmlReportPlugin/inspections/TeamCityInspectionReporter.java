@@ -45,6 +45,10 @@ public class TeamCityInspectionReporter extends BaseMessageLogger implements Ins
     myInspectionReporter = inspectionReporter;
   }
 
+  public void markBuildAsInspectionsBuild() {
+    myInspectionReporter.markBuildAsInspectionsBuild();
+  }
+
   public void reportInspection(@NotNull final InspectionResult inspection) {
     final InspectionInstance inspectionInstance = new InspectionInstance();
 
