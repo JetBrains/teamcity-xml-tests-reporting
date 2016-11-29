@@ -557,6 +557,11 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         public BuildProgressLogger getThreadLogger() {
           return getBuild().getBuildLogger().getThreadLogger();
         }
+
+        @Override
+        public boolean isReparseUpdated() {
+          return isReparseUpdatedReports(myParameters);
+        }
       };
     }
 

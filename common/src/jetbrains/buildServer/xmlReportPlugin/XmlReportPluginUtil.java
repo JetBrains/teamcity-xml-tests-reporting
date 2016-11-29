@@ -66,6 +66,11 @@ public class XmlReportPluginUtil {
     return params.containsKey(PARSE_OUT_OF_DATE) && Boolean.parseBoolean(params.get(PARSE_OUT_OF_DATE));
   }
 
+  public static boolean isReparseUpdatedReports(@NotNull final Map<String, String> params) {
+    final String reparseUpdated = params.get(REPARSE_UPDATED);
+    return reparseUpdated == null || Boolean.parseBoolean(reparseUpdated);
+  }
+
   public static void enableXmlReportParsing(@NotNull final Map<String, String> params, String reportType) {
     if (reportType.equals("")) {
       params.remove(REPORT_TYPE);

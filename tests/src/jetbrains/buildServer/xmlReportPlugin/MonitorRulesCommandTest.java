@@ -91,6 +91,11 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
       public BuildProgressLogger getThreadLogger() {
         return new BuildLoggerForTesting(result);
       }
+
+      @Override
+      public boolean isReparseUpdated() {
+        return true;
+      }
     };
 
     final MonitorRulesCommand.MonitorRulesListener listener = new MonitorRulesCommand.MonitorRulesListener() {

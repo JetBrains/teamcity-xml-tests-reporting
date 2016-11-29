@@ -38,6 +38,8 @@ public class MonitorRulesCommand {
     long getStartTime();
 
     @NotNull BuildProgressLogger getThreadLogger();
+
+    boolean isReparseUpdated();
   }
 
   public static interface MonitorRulesListener {
@@ -86,8 +88,9 @@ public class MonitorRulesCommand {
                   myReportStateHolder.setReportState(file, ReportStateHolder.ReportState.ON_PROCESSING, fileLastModified, file.length());
                   modificationDetected(file);
                   return;
-                case ERROR:
                 case PROCESSED:
+                  if (!myParameters.isReparseUpdated()) return;
+                case ERROR:
                 case OUT_OF_DATE:
                   final long fileLength = file.length();
 
