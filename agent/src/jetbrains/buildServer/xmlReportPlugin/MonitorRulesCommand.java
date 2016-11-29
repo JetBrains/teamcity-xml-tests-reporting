@@ -81,13 +81,13 @@ public class MonitorRulesCommand {
             if (timeConstraintsSatisfied(fileLastModified)) {
               switch (myReportStateHolder.getReportState(file)) {
                 case ON_PROCESSING:
-                case PROCESSED:
                   return;
                 case UNKNOWN:
                   myReportStateHolder.setReportState(file, ReportStateHolder.ReportState.ON_PROCESSING, fileLastModified, file.length());
                   modificationDetected(file);
                   return;
                 case ERROR:
+                case PROCESSED:
                 case OUT_OF_DATE:
                   final long fileLength = file.length();
 

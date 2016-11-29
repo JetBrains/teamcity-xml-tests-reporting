@@ -25,7 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertTrue;
 
 /**
  * User: vbedrosova
@@ -183,7 +183,7 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
   }
 
   @Test
-  public void testFileNotDetectedWhenProcessed() throws Exception {
+  public void testFileDetectedWhenChangedProcessed() throws Exception {
     final MonitorRulesCommand command = createMonitorRulesCommand();
     command.run();
 
@@ -191,11 +191,12 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
     assertFileState(ReportStateHolder.ReportState.ON_PROCESSING);
 
     myRulesState.setReportState(myFile, ReportStateHolder.ReportState.PROCESSED, EMPTY_RESULT);
+    writeFile(myFile, true);
     myResult.delete(0, myResult.length());
     command.run();
 
-    assertFileNotDetected();
-    assertFileState(ReportStateHolder.ReportState.PROCESSED);
+    assertFileDetected();
+    assertFileState(ReportStateHolder.ReportState.ON_PROCESSING);
   }
 
   @Test
