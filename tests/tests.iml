@@ -11,7 +11,6 @@
     <orderEntry type="library" name="JMock" level="project" />
     <orderEntry type="module" module-name="agent" />
     <orderEntry type="module" module-name="common" />
-    <orderEntry type="library" name="TestNG" level="project" />
     <orderEntry type="module" module-name="server" />
     <orderEntry type="library" name="TeamCity annotations" level="project" />
     <orderEntry type="library" name="for tests" level="project" />
