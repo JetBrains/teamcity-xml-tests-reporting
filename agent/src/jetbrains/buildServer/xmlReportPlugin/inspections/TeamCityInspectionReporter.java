@@ -17,8 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.inspections;
 
 import java.io.File;
-import java.util.Collection;
-import java.util.Vector;
+import java.util.Collections;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.inspections.InspectionAttributesId;
 import jetbrains.buildServer.agent.inspections.InspectionInstance;
@@ -69,9 +68,7 @@ public class TeamCityInspectionReporter extends BaseMessageLogger implements Ins
         level = InspectionSeverityValues.INFO;
     }
 
-    final Collection<String> attrValue = new Vector<String>();
-    attrValue.add(level.toString());
-    inspectionInstance.addAttribute(InspectionAttributesId.SEVERITY.toString(), attrValue);
+    inspectionInstance.addAttribute(InspectionAttributesId.SEVERITY.toString(), Collections.singleton(level.toString()));
 
     myInspectionReporter.reportInspection(inspectionInstance);
   }
