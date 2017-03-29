@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="TeamCity IDEA openapi">
+  <library name="TeamCity IntelliJ IDEA openapi">
     <CLASSES>
       <root url="jar://$teamcitydistribution$/webapps/ROOT/WEB-INF/lib/openapi.jar!/" />
     </CLASSES>
