@@ -1,15 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dsl-extension kind="buildFeature" type="xml-report-plugin" generateDslJar="true">
-  <class name="XmlReport" />
-  <function name="xmlReport" description="Adds [Xml Report Processing](https://confluence.jetbrains.com/display/TCD9/XML+Report+Processing) build feature"/>
+  <class name="XmlReport">
+    <description>
+      A [build feature](https://confluence.jetbrains.com/display/TCDL/XML+Report+Processing) parses
+      xml report produced by external tools and present them as build results
+    </description>
+  </class>
+  <function name="xmlReport">
+    <description>
+      Adds a [build feature](https://confluence.jetbrains.com/display/TCDL/XML+Report+Processing) parses
+      xml report produced by external tools and present them as build results
+      @see XmlReport
+    </description>
+  </function>
   <params>
-    <param name="xmlReportParsing.reportType" dslName="reportType" type="XmlReportType" />
+    <param name="xmlReportParsing.reportType" dslName="reportType" type="XmlReportType">
+      <description>
+        A report type
+        @see XmlReportType
+      </description>
+    </param>
     <param name="xmlReportParsing.reportDirs" dslName="rules" />
-    <param name="xmlReportParsing.verboseOutput" dslName="verbose" type="boolean" trueValue="true" falseValue="" />
-    <param name="xmlReportParsing.findBugs.home" dslName="findBugsHome" />
+    <param name="xmlReportParsing.verboseOutput" dslName="verbose" type="boolean" trueValue="true" falseValue="">
+      <description>
+        Enables verbose output to the build log
+      </description>
+    </param>
+    <param name="xmlReportParsing.findBugs.home" dslName="findBugsHome">
+      <description>
+        A path to FindBugs installation on the agent if the XmlReportType.FINDBUGS reportType
+      </description>
+    </param>
   </params>
   <types>
     <enum name="XmlReportType">
+      <description>Xml report type</description>
       <option name="JUNIT" value="junit"/>
       <option name="CTEST" value="ctest"/>
       <option name="CHECKSTYLE" value="checkstyle"/>
