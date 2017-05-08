@@ -23,6 +23,7 @@ import jetbrains.buildServer.agent.FlowLogger;
 import jetbrains.buildServer.agent.impl.BuildMessageTweaker;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
 import jetbrains.buildServer.messages.BuildMessage1;
+import jetbrains.buildServer.messages.Status;
 import org.jetbrains.annotations.NotNull;
 
 class BuildLoggerForTesting implements FlowLogger, MessageTweakingSupport {
@@ -244,7 +245,12 @@ class BuildLoggerForTesting implements FlowLogger, MessageTweakingSupport {
     myText.append("\n");
   }
 
-  
+  @Override
+  public void message(final String message, final Status status) {
+    message(message);
+  }
+
+
   public void error(@NotNull final String message) {
     myText.append("ERROR: ");
     myText.append(message);
