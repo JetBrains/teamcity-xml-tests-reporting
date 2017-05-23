@@ -30,6 +30,8 @@ import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.util.executors.ExecutorsFactory;
+import jetbrains.buildServer.util.positioning.PositionAware;
+import jetbrains.buildServer.util.positioning.PositionConstraint;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.TeamCityDuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
@@ -44,7 +46,7 @@ import org.springframework.util.AntPathMatcher;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
 
 
-public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProcessor {
+public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProcessor, PositionAware {
   @NotNull
   private final jetbrains.buildServer.agent.inspections.InspectionReporter myInspectionReporter;
   @NotNull
@@ -490,6 +492,18 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
       throw new IllegalStateException("Step processing context is null");
     }
     return context;
+  }
+
+  @NotNull
+  @Override
+  public String getOrderId() {
+    return "XmlReportPlugin";
+  }
+
+  @NotNull
+  @Override
+  public PositionConstraint getConstraint() {
+    return PositionConstraint.before("InspectionsReporter", "DuplicatesReporter");
   }
 
   public class RulesData {
