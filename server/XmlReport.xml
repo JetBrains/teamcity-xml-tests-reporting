@@ -14,13 +14,18 @@
     </description>
   </function>
   <params>
-    <param name="xmlReportParsing.reportType" dslName="reportType" type="XmlReportType">
+    <param name="xmlReportParsing.reportType" dslName="reportType" type="XmlReportType" mandatory="true">
       <description>
         A report type
         @see XmlReportType
       </description>
     </param>
-    <param name="xmlReportParsing.reportDirs" dslName="rules" />
+    <param name="xmlReportParsing.reportDirs" dslName="rules" mandatory="true">
+      <description>
+        Newline- or comma-separated set of rules specifying where to find reports in the form of +|-:path.
+        Ant-style wildcards are supported.
+      </description>
+    </param>
     <param name="xmlReportParsing.verboseOutput" dslName="verbose" type="boolean" trueValue="true" falseValue="">
       <description>
         Enables verbose output to the build log
