@@ -1,16 +1,16 @@
 package jetbrains.buildServer.xmlReportPlugin.parsers.mstest;
 
+import jetbrains.buildServer.util.FileUtil;
+import jetbrains.buildServer.util.StringUtil;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import jetbrains.buildServer.util.FileUtil;
-import jetbrains.buildServer.util.StringUtil;
-import org.jetbrains.annotations.NotNull;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 @Test
 public class TestNamesTableParserTest {
@@ -39,10 +39,16 @@ public class TestNamesTableParserTest {
     doTest("tmpC349.tmp.teamcity-TW24766");
   }
 
-  public static File getTestData(final String path) throws FileNotFoundException {
+  @Test
+  public void test_tw_50428_names() throws IOException {
+    doTest("tw-50428");
+  }
+
+  private static File getTestData(final String path) throws FileNotFoundException {
     return MSTestBaseTest.getTestData(path);
   }
 
+  @SuppressWarnings("Duplicates")
   private void doTest(String testName) throws IOException {
     final File xml = getTestData(testName + ".trx");
     final File goldFile = getTestData(testName + ".names.gold");
@@ -50,12 +56,8 @@ public class TestNamesTableParserTest {
 
     FileUtil.delete(tmp);
 
-    final List<String> myTests = new ArrayList<String>();
-    TestNamesTableParser ps = new TestNamesTableParser(new TestNamesTableParser.Callback() {
-      public void testMethodFound(@NotNull final String id, @NotNull final String testName) {
-        myTests.add(testName + " " + id);
-      }
-    });
+    final List<String> myTests = new ArrayList<>();
+    final TestNamesTableParser ps = new TestNamesTableParser((id, testName1) -> myTests.add(testName1 + " " + id));
     ps.parse(xml);
     Collections.sort(myTests);
 

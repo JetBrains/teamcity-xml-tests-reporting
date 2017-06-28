@@ -16,12 +16,13 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.mstest;
 
-import java.util.Arrays;
-import java.util.List;
 import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.util.XmlXppAbstractParser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Eugene Petrenko
@@ -30,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
 class TestNamesTableParser extends XmlXppAbstractParser {
   private final Callback myParserCallback;
 
-  public TestNamesTableParser(@NotNull final Callback parserCallback) {
+  TestNamesTableParser(@NotNull final Callback parserCallback) {
     myParserCallback = parserCallback;
   }
 
@@ -39,7 +40,7 @@ class TestNamesTableParser extends XmlXppAbstractParser {
     return Arrays.asList(getRootHandler9(), getRootHandler8());
   }
 
-  protected XmlHandler getRootHandler8() {
+  private XmlHandler getRootHandler8() {
     return elementsPath(new Handler() {
       public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
         final String[] id = {null};
@@ -67,9 +68,7 @@ class TestNamesTableParser extends XmlXppAbstractParser {
                   public void apply() {
                     if (id[0] != null && name[0] != null && name[1] != null) {
                       String testName = NameUtil.getTestName(name[0], name[1]);
-                      if (testName != null) {
-                        myParserCallback.testMethodFound(id[0], testName);
-                      }
+                      myParserCallback.testMethodFound(id[0], testName);
                     }
                     id[0] = null;
                     name[0] = null;
@@ -82,12 +81,13 @@ class TestNamesTableParser extends XmlXppAbstractParser {
     }, "Tests", "TestRun", "tests");
   }
 
-  protected XmlHandler getRootHandler9() {
+  private XmlHandler getRootHandler9() {
     return elementsPath(
       new Handler() {
         public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
           return reader.visitChildren(
               getUnitTest2008Handler(),
+              getLoadTest2008Handler(),
               getUnknownTest2008Handler(".*Test")
             );
         }
@@ -140,6 +140,21 @@ class TestNamesTableParser extends XmlXppAbstractParser {
     );
   }
 
+  private XmlHandler getLoadTest2008Handler() {
+    return elementsPath(new Handler() {
+      @Override
+      public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+        final String id = reader.getAttribute("Id");
+        final String name = reader.getAttribute("Name");
+        /* <LoadTest Name="SearchRateCardTable50LoadTest" Id="bbec0151-f113-492d-adf5-4092923e149c"....        */
+        if (id != null && name != null) {
+          myParserCallback.testMethodFound(id, name);
+        }
+        return reader.noDeep();
+      }
+    }, "LoadTest");
+  }
+
   @Nullable
   private String getTestName(@NotNull String[] nameParts) {
     final String testName = NameUtil.getTestName(nameParts[0], nameParts[1]);
@@ -152,13 +167,13 @@ class TestNamesTableParser extends XmlXppAbstractParser {
     return null;
   }
 
+  @SuppressWarnings("SameParameterValue")
   private XmlHandler getUnknownTest2008Handler(final String pattern) {
     return elementsPatternPath(
       new Handler() {
         public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
           final String id = reader.getAttribute("id");
           final String name = reader.getAttribute("name");
-
           if (id != null && name != null) {
             myParserCallback.testMethodFound(id, name);
           }
@@ -167,7 +182,7 @@ class TestNamesTableParser extends XmlXppAbstractParser {
       }, pattern);
   }
 
-  public static interface Callback {
+  public interface Callback {
     void testMethodFound(@NotNull String id, @NotNull String testName);
   }
 }

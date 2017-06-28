@@ -1,6 +1,6 @@
 TestSuite:MSTest
--->Info: Found 1 test definitions.
-  Test:a9ef7aa7-5bc3-4d38-ba49-fb387e2daf41
+-->Info: Found 2 test definitions.
+  Test:LoginForNetwork
   EndTest:60000
 ------------------------
 -->Info: 1 test(s) were reported
