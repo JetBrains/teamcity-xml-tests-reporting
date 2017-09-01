@@ -30,6 +30,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class NUnitFactory implements ParserFactory {
   @NotNull
+  @Override
+  public String getType() {
+    return "nunit";
+  }
+
+  @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
     return new NUnitReportParser(parameters.getTestReporter());
   }

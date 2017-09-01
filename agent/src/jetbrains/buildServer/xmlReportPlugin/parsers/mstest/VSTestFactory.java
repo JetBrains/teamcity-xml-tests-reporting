@@ -20,6 +20,11 @@ import jetbrains.buildServer.xmlReportPlugin.ParserFactory;
 import org.jetbrains.annotations.NotNull;
 
 public class VSTestFactory extends TRXFactory implements ParserFactory {
+  @NotNull
+  @Override
+  public String getType() {
+    return "vstest";
+  }
 
   @NotNull
   @Override

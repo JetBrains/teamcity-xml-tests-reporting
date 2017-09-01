@@ -25,6 +25,11 @@ import org.jetbrains.annotations.NotNull;
  * Time: 13:36
  */
 public class MSTestFactory extends TRXFactory implements ParserFactory {
+  @NotNull
+  @Override
+  public String getType() {
+    return "mstest";
+  }
 
   @NotNull
   @Override

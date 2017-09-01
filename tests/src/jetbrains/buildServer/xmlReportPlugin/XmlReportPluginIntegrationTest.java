@@ -6,9 +6,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import jetbrains.buildServer.AgentServerFunctionalTestCase;
+import jetbrains.buildServer.ExtensionHolder;
 import jetbrains.buildServer.RunBuildException;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
+import jetbrains.buildServer.agent.impl.SpringContextFixture;
+import jetbrains.buildServer.agent.impl.SpringContextXmlBean;
 import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.serverSide.BuildStatisticsOptions;
 import jetbrains.buildServer.serverSide.BuildTypeEx;
@@ -27,6 +30,7 @@ import org.testng.annotations.Test;
  * 12/16/13.
  */
 @Test
+@SpringContextFixture(beans = @SpringContextXmlBean(clazz = AntJUnitFactory.class))
 public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCase {
 
   public static final String RUN_TYPE = "reportPublisher";
@@ -50,7 +54,7 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
     super.setUp1();
     myCheckoutDir = createTempDir();
     myOuterDir = createTempDir();
-    new XmlReportPlugin(Collections.<String, ParserFactory>singletonMap("junit", new AntJUnitFactory()),
+    new XmlReportPlugin(getExtensionHolder(),
                         getAgentEvents(),
                         getExtensionHolder().findSingletonService(InspectionReporter.class),
                         getExtensionHolder().findSingletonService(DuplicatesReporter.class),
@@ -432,7 +436,7 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
   @Test
   public void testOverlappingBuildFinishedBuildStartedEvents() throws Exception {
     final EventDispatcher<AgentLifeCycleListener> agentEvents = getAgentEvents();
-    final XmlReportPlugin reportPlugin = new XmlReportPlugin(Collections.<String, ParserFactory>singletonMap("junit", new AntJUnitFactory()),
+    final XmlReportPlugin reportPlugin = new XmlReportPlugin(getExtensionHolder(),
                                                              agentEvents,
                                                              getExtensionHolder().findSingletonService(InspectionReporter.class),
                                                              getExtensionHolder().findSingletonService(DuplicatesReporter.class),

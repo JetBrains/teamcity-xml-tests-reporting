@@ -33,6 +33,12 @@ public class TRXFactory implements ParserFactory {
   private static final String DEFAULT_TEST_SUITE = "TRX";
 
   @NotNull
+  @Override
+  public String getType() {
+    return "trx";
+  }
+
+  @NotNull
   public final Parser createParser(@NotNull final ParseParameters parameters) {
     return new TRXParser(parameters.getTestReporter(), getDefaultSuiteName());
   }

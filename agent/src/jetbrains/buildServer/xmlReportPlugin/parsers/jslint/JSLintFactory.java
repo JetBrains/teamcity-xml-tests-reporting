@@ -30,6 +30,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class JSLintFactory implements ParserFactory {
   @NotNull
+  @Override
+  public String getType() {
+    return "jslint";
+  }
+
+  @NotNull
   public Parser createParser(@NotNull final ParseParameters parameters) {
     return new JSLintReportParser(parameters.getInspectionReporter());
   }

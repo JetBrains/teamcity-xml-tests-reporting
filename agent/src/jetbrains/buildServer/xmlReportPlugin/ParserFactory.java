@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
+import jetbrains.buildServer.agent.AgentExtension;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -23,7 +24,10 @@ import org.jetbrains.annotations.NotNull;
  * Date: 21.01.11
  * Time: 23:19
  */
-public interface ParserFactory {
+public interface ParserFactory extends AgentExtension {
+  @NotNull
+  String getType();
+
   @NotNull Parser createParser(@NotNull ParseParameters parameters);
   @NotNull ParsingResult createEmptyResult();
 }

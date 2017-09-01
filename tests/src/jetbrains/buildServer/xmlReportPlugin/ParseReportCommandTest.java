@@ -221,6 +221,12 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
   private static ParserFactory createParserFactory(@NotNull final Parser parser) {
     return new ParserFactory() {
       @NotNull
+      @Override
+      public String getType() {
+        return "test";
+      }
+
+      @NotNull
       public Parser createParser(@NotNull ParseParameters parameters) {
         return parser;
       }

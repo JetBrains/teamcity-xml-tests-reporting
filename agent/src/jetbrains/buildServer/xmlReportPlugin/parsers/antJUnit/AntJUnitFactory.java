@@ -28,6 +28,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class AntJUnitFactory implements ParserFactory {
   @NotNull
+  @Override
+  public String getType() {
+    return "junit";
+  }
+
+  @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
     return new AntJUnitReportParser(parameters.getTestReporter(), new SecondDurationParser(),
                                     XmlReportPluginUtil.isLogInternalSystemError(parameters.getParameters()));

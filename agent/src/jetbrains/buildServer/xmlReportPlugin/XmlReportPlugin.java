@@ -23,6 +23,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import jetbrains.buildServer.BuildProblemData;
+import jetbrains.buildServer.ExtensionsProvider;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
 import jetbrains.buildServer.util.DiagnosticUtil;
@@ -30,6 +31,7 @@ import jetbrains.buildServer.util.EventDispatcher;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.util.executors.ExecutorsFactory;
+import jetbrains.buildServer.util.impl.Lazy;
 import jetbrains.buildServer.util.positioning.PositionAware;
 import jetbrains.buildServer.util.positioning.PositionConstraint;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
@@ -51,6 +53,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   private final jetbrains.buildServer.agent.inspections.InspectionReporter myInspectionReporter;
   @NotNull
   private final jetbrains.buildServer.agent.duplicates.DuplicatesReporter myDuplicatesReporter;
+  @NotNull private final ExtensionsProvider myExtensionProvider;
 
   @Nullable
   private AgentRunningBuild myBuild;
@@ -59,7 +62,18 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   private final ExecutorService myParseExecutor;
 
   @NotNull
-  private final Map<String, ParserFactory> myParserFactoryMap;
+  private final Lazy<Map<String, ParserFactory>> myParserFactoryMap = new Lazy<Map<String, ParserFactory>>() {
+    @Nullable
+    @Override
+    protected Map<String, ParserFactory> createValue() {
+      final Map<String, ParserFactory> map = new HashMap<String, ParserFactory>();
+      final Collection<ParserFactory> factories = myExtensionProvider.getExtensions(ParserFactory.class);
+      for (ParserFactory factory : factories) {
+        map.put(factory.getType(), factory);
+      }
+      return map;
+    }
+  };
 
   @NotNull private final BuildAgentConfiguration myConfiguration;
 
@@ -69,12 +83,12 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   @Nullable
   private ProcessingContext myStepProcessingContext;
 
-  public XmlReportPlugin(@NotNull Map<String, ParserFactory> parserFactoryMap,
+  public XmlReportPlugin(@NotNull ExtensionsProvider extensionsProvider,
                          @NotNull EventDispatcher<AgentLifeCycleListener> agentDispatcher,
                          @NotNull jetbrains.buildServer.agent.inspections.InspectionReporter inspectionReporter,
                          @NotNull jetbrains.buildServer.agent.duplicates.DuplicatesReporter duplicatesReporter,
                          @NotNull BuildAgentConfiguration configuration) {
-    myParserFactoryMap = parserFactoryMap;
+    myExtensionProvider = extensionsProvider;
     myConfiguration = configuration;
 
     agentDispatcher.addListener(this);
@@ -360,7 +374,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
             }
           }
 
-          final ParsingResult result = myParserFactoryMap.get(rulesContext.getRulesData().getType()).createEmptyResult();
+          final ParsingResult result = getParserFactory(rulesContext.getRulesData().getType()).createEmptyResult();
 
           if (!failedToParse.isEmpty()) {
             LoggingUtils.logInTarget("Parsing errors",
@@ -466,9 +480,10 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   @NotNull
   private ParserFactory getParserFactory(@NotNull String type) {
-    if (!myParserFactoryMap.containsKey(type))
+    final Map<String, ParserFactory> map = myParserFactoryMap.getValue();
+    if (!map.containsKey(type))
       throw new IllegalArgumentException("No factory for " + type);
-    return myParserFactoryMap.get(type);
+    return map.get(type);
   }
 
   @SuppressWarnings({"NullableProblems"})

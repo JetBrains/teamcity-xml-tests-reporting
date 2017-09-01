@@ -29,6 +29,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PmdCpdFactory implements ParserFactory {
   @NotNull
+  @Override
+  public String getType() {
+    return "pmdCpd";
+  }
+
+  @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
     return new PmdCpdReportParser(parameters.getDuplicationReporter(), parameters.getCheckoutDir());
   }

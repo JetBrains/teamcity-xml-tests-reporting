@@ -21,6 +21,10 @@
        default-autowire="constructor" default-lazy-init="false">
   <bean id="junitFactory"
         class="jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit.AntJUnitFactory"/>
+  <bean id="gtestFactory"
+        class="jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit.GTestFactory"/>
+  <bean id="surefireFactory"
+        class="jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit.SurefireFactory"/>
   <bean id="nunitFactory"
         class="jetbrains.buildServer.xmlReportPlugin.parsers.nUnit.NUnitFactory"/>
   <bean id="findBugsFactory"
@@ -43,23 +47,6 @@
         class="jetbrains.buildServer.xmlReportPlugin.parsers.ctest.CTestFactory"/>
 
   <bean class="jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin" lazy-init="default" autowire="default">
-    <constructor-arg index="0">
-      <map>
-        <entry key="junit" value-ref="junitFactory"/>
-        <entry key="nunit" value-ref="nunitFactory"/>
-        <entry key="findBugs" value-ref="findBugsFactory"/>
-        <entry key="pmd" value-ref="pmdFactory"/>
-        <entry key="checkstyle" value-ref="checkstyleFactory"/>
-        <entry key="pmdCpd" value-ref="pmdCpdFactory"/>
-        <entry key="surefire" value-ref="junitFactory"/>
-        <entry key="mstest" value-ref="mstestFactory"/>
-        <entry key="vstest" value-ref="vstestFactory"/>
-        <entry key="trx" value-ref="trxFactory"/>
-        <entry key="gtest" value-ref="junitFactory"/>
-        <entry key="jslint" value-ref="jslintFactory"/>
-        <entry key="ctest" value-ref="ctestFactory"/>
-      </map>
-    </constructor-arg>
   </bean>
 
   <bean id="JUnitDataProcessor"

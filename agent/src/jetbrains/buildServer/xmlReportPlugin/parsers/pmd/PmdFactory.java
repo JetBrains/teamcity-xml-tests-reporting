@@ -30,6 +30,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class PmdFactory implements ParserFactory {
   @NotNull
+  @Override
+  public String getType() {
+    return "pmd";
+  }
+
+  @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
     return new PmdReportParser(parameters.getInspectionReporter());
   }

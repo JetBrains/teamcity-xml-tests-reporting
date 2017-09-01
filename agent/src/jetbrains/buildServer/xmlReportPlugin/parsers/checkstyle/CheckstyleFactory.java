@@ -30,6 +30,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class CheckstyleFactory implements ParserFactory {
   @NotNull
+  @Override
+  public String getType() {
+    return "checkstyle";
+  }
+
+  @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
     return new CheckstyleReportParser(parameters.getInspectionReporter());
   }

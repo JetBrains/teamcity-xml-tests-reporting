@@ -28,6 +28,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class FindBugsFactory implements ParserFactory {
   @NotNull
+  @Override
+  public String getType() {
+    return "findBugs";
+  }
+
+  @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
     final Map<String,String> params = parameters.getParameters();
     return new FindBugsReportParser(parameters.getInspectionReporter(), XmlReportPluginUtil.getFindBugsHomePath(params),

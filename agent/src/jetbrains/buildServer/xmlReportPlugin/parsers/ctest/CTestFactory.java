@@ -28,6 +28,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class CTestFactory implements ParserFactory {
   @NotNull
+  @Override
+  public String getType() {
+    return "ctest";
+  }
+
+  @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
     return new CTestReportParser(parameters.getTestReporter());
   }
