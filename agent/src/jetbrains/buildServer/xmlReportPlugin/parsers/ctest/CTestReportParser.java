@@ -50,17 +50,19 @@ public class CTestReportParser implements Parser {
 
   public boolean parse(@NotNull final File file, @Nullable final ParsingResult prevResult) throws ParsingException {
     try {
-      XmlXppAbstractParser suitableParser = null;
+      XmlXppAbstractParser parser = null;
 
       // Determine report type & create parser
       if (file.getName().equalsIgnoreCase(TESTS_REPORT_FILE_NAME)) {
-        suitableParser = createTestXmlParser(file);
+        parser = createTestXmlParser(file);
       }
       // TODO: support for Coverage.xml & others
 
-      if (suitableParser != null) {
-        suitableParser.parse(file);
+      if (parser == null) {
+        return false;
       }
+
+      parser.parse(file);
       return true;
     } catch (IOException e) {
       myParsingException = new ParsingException(e);
@@ -118,6 +120,6 @@ public class CTestReportParser implements Parser {
   }
 
   public ParsingResult getParsingResult() {
-    return new TestParsingResult(1, myLoggedTests, myParsingException);
+    return new TestParsingResult(myLoggedTests > 0 ? 1 : 0, myLoggedTests, myParsingException);
   }
 }
