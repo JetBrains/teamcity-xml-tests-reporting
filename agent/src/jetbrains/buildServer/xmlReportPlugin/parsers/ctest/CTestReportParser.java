@@ -19,7 +19,6 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.ctest;
 import java.io.File;
 import java.io.IOException;
 import jetbrains.buildServer.util.StringUtil;
-import jetbrains.buildServer.util.XmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.ParsingException;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
@@ -50,19 +49,7 @@ public class CTestReportParser implements Parser {
 
   public boolean parse(@NotNull final File file, @Nullable final ParsingResult prevResult) throws ParsingException {
     try {
-      XmlXppAbstractParser parser = null;
-
-      // Determine report type & create parser
-      if (file.getName().equalsIgnoreCase(TESTS_REPORT_FILE_NAME)) {
-        parser = createTestXmlParser(file);
-      }
-      // TODO: support for Coverage.xml & others
-
-      if (parser == null) {
-        return false;
-      }
-
-      parser.parse(file);
+      createTestXmlParser(file).parse(file);
       return true;
     } catch (IOException e) {
       myParsingException = new ParsingException(e);
@@ -115,6 +102,11 @@ public class CTestReportParser implements Parser {
       @Override
       public void error(@NotNull final String message) {
         myTestReporter.error(message);
+      }
+
+      @Override
+      public void unexpectedFormat(@NotNull final String msg) {
+        myTestReporter.error("File " + file + " doesn't match the expected format: " + msg + "\nPlease check CTest documentation for the supported schema");
       }
     });
   }

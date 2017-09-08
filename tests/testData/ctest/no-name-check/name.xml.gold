@@ -1,0 +1,14 @@
+  Test:test_calculator
+    StdOutput:Running 2 test cases...
+
+*** No errors detected
+
+  EndTest:338
+------------------------
+  Test:test_generator
+    StdOutput:Running 1 test case...
+
+*** No errors detected
+
+  EndTest:306
+------------------------

@@ -1,0 +1,2 @@
+-->Error: File ##BASE_DIR##/incorrect-format/junit.xml doesn't match the expected format: "Site" root element expected.
+Please check CTest documentation for the supported schema

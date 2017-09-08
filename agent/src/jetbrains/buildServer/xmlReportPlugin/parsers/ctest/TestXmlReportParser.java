@@ -39,19 +39,24 @@ class TestXmlReportParser extends BaseXmlXppAbstractParser {
 
   @Override
   protected List<XmlHandler> getRootHandlers() {
-    return new ORHandler(elementsPath(new Handler() {
-      public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-        return reader.visitChildren(testingHandler());
-      }
-    }, "Site")) {
+    // TODO: support for Coverage.xml & other reports produced by CTest
+    return new ORHandler(elementsPath(getSiteHandler(), "Site")) {
       @Override
       protected void finished(final boolean matched) {
-        if (!matched) myCallback.error("Unexpected report format: \"Site\" root element missing. Please check CTest documentation for the supported schema");
+        if (!matched) myCallback.unexpectedFormat("\"Site\" root element expected.");
       }
     }.asList();
   }
 
   @NotNull
+  private Handler getSiteHandler() {
+    return new Handler() {
+      public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
+        return reader.visitChildren(testingHandler());
+      }
+    };
+  }
+
   private XmlHandler testingHandler() {
     return elementsPath(new Handler() {
       public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
@@ -202,6 +207,7 @@ class TestXmlReportParser extends BaseXmlXppAbstractParser {
     void testFound(@NotNull TestData testData);
     void error(@NotNull String message);
 
+    void unexpectedFormat(@NotNull String msg);
 //    void testInList(@NotNull String name);
   }
 }

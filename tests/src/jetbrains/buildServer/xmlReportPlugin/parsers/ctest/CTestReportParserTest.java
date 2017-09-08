@@ -42,9 +42,13 @@ public class CTestReportParserTest extends BaseParserTestCase {
   }
 
   private void runTest(final String dirName) throws Exception {
-    String fileName = dirName + "/Test.xml";
-    parse(fileName);
-    assertResultEquals(getExpectedResult(fileName + ".gold"));
+    runTest(dirName, "Test.xml");
+  }
+
+  private void runTest(final String dirName, final String fileName) throws Exception {
+    String fullFileName = dirName + "/" + fileName;
+    parse(fullFileName);
+    assertResultEquals(getExpectedResult(fullFileName + ".gold"));
   }
 
   public void testSample1() throws Exception {
@@ -72,5 +76,13 @@ public class CTestReportParserTest extends BaseParserTestCase {
     parse(s + "A/Test.xml");
     parse(s + "B/Test.xml");
     assertResultEquals(getExpectedResult(s + "result" + ".gold"));
+  }
+
+  public void testIncorrectFormat() throws Exception {
+    runTest("incorrect-format", "junit.xml");
+  }
+
+  public void testNoNameCheck() throws Exception {
+    runTest("no-name-check", "name.xml");
   }
 }
