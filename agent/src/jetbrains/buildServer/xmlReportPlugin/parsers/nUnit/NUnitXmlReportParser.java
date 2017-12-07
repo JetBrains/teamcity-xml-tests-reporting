@@ -142,7 +142,10 @@ class NUnitXmlReportParser extends BaseXmlXppAbstractParser {
     @Nullable
     private String getSuiteName(@Nullable String name) {
       if (name == null) return null;
-      if (name.replace("\\", "/").contains("/")) return name.substring(name.lastIndexOf("\\") + 1);
+      final String patchedName = name.replace('\\', '/');
+      if (patchedName.contains("/")) {
+        return patchedName.substring(patchedName.lastIndexOf('/') + 1);
+      }
       return name;
     }
 

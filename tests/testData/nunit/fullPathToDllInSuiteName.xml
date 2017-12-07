@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="/some/path/to/Test.dll" total="36" errors="0" failures="0" not-run="2" inconclusive="0" ignored="2" skipped="0" invalid="0" date="2017-12-05" time="21:07:09">
+  <environment nunit-version="2.6.4.0" clr-version="4.0.30319.42000" os-version="Unix 2.6.32.431" platform="Unix" cwd="/some/path/to" machine-name="cfbuildl2" user="drmsbuild5" user-domain="cfbuildl2" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Test Project" name="/some/path/to/Test.dll" executed="True" result="Success" success="True" time="435.984" asserts="0">
+    <results>
+      <test-case name="Namespace.Package.Class.testMethod" executed="True" result="Success" success="True" time="11.041" asserts="402">
+        <categories>
+          <category name="LongRunning" />
+        </categories>
+      </test-case>
+    </results>
+  </test-suite>
+</test-results>

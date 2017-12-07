@@ -209,6 +209,17 @@ public class NUnitReportParserTest extends BaseParserTestCase {
       getExpectedResult("reportWithPrematureEndOfFileFrom3Tries.gold"));
   }
 
+  @Test
+  public void testSuiteNameWithFullPathToAssemblyDll() throws Exception {
+    parse("fullPathToDllInSuiteName.xml");
+    assertResultEquals(
+      "TestSuite:Test.dll\n" +
+      "  Test:Namespace.Package.Class.testMethod\n" +
+      "  EndTest:11041\n" +
+      "------------------------\n" +
+      "EndSuite\n");
+  }
+
   //TW-8815
 //  @Test
 //  public void testTwoIdenticalAssembliesWithDifferingTimestamp() throws Exception {
