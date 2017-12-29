@@ -1,5 +1,6 @@
 package jetbrains.buildServer.xmlReportPlugin;
 
+import com.intellij.openapi.util.SystemInfo;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -10,6 +11,7 @@ import jetbrains.buildServer.util.Converter;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.util.filters.Filter;
 import org.jetbrains.annotations.NotNull;
+import org.testng.SkipException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -122,6 +124,20 @@ public class OptimizingIncludeExcludeRulesTest extends BaseTestCase {
 
   @Test
   public void test_absolute_path_include() throws Exception {
+    final Rules rules = createRules("+:##BASE_DIR##/some/path/**/*");
+
+    assertIncludeWithStars(rules, createFile("some/path/file.txt"));
+    assertInclude(rules, createFile("some/path/content/file.txt"));
+
+    assertExclude(rules, createFile("some/file.txt"));
+    assertExclude(rules, createFile("another/file.txt"));
+    assertExclude(rules, createFile("file.txt"));
+  }
+
+  @Test
+  public void test_absolute_path_include_windows() throws Exception {
+    if (!SystemInfo.isWindows)
+      throw new SkipException("Test is for Windows only");
     final Rules rules = createRules("+:##BASE_DIR##\\some\\path\\**\\*");
 
     assertIncludeWithStars(rules, createFile("some/path/file.txt"));
