@@ -50,8 +50,8 @@
 
 <tr id="xmlReportParsing.warning.container" style="${empty displayWarning ? 'display:none;' : ''}">
     <td colspan="2">
-        <div class="icon_before icon16 attentionComment">
-            Please make sure that tests are not detected automatically before using this feature.
+        <div class="attentionComment">
+            <bs:buildStatusIcon type="red-sign" className="warningIcon"/>Please make sure that tests are not detected automatically before using this feature.
         </div>
     </td>
 </tr>
