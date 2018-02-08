@@ -45,7 +45,7 @@
 </c:if>
 
 <tr>
-  <td colspan="2"><em>Allows importing data from report files produced by an external tool in TeamCity.</em> <bs:help file="XML+Report+Processing"/></td>
+  <td colspan="2"><em>Allows importing data from report files produced by an external tool in TeamCity.</em><bs:help file="XML+Report+Processing"/></td>
 </tr>
 
 <tr id="xmlReportParsing.warning.container" style="${empty displayWarning ? 'display:none;' : ''}">
@@ -56,7 +56,7 @@
     </td>
 </tr>
 <tr id="xmlReportParsing.reportType.container">
-    <th><label for="xmlReportParsing.reportType">Report type: <l:star/></label></th>
+    <th><label for="xmlReportParsing.reportType">Report type:<l:star/></label></th>
     <td>
         <c:set var="onchange">
           var selectedValue = this.options[this.selectedIndex].value;
@@ -126,7 +126,7 @@
 
 <tr id="xmlReportParsing.reportDirs.container"
     style="${displayReportsSettings ? '' : 'display: none;'}">
-    <th><label for="xmlReportParsing.reportDirs">Monitoring rules: <l:star/></label></th>
+    <th><label for="xmlReportParsing.reportDirs">Monitoring rules:<l:star/></label></th>
     <td><c:set var="note">
       Newline- or comma-separated set of rules in the form <strong>of +|-:path</strong>.<br/>
       Ant-style wildcards supported, e.g. <strong>dir/**/*.xml</strong>
