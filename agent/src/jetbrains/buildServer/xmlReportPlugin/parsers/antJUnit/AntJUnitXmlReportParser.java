@@ -177,8 +177,10 @@ class AntJUnitXmlReportParser extends BaseXmlXppAbstractParser {
     if (reader.getAttribute("executed") != null) {
       return Boolean.parseBoolean(reader.getAttribute("executed"));
     }
-    final String status = reader.getAttribute("status");
-    return status == null || "run".equals(status) || "passed".equals(status) || "success".equals(status) || "failure".equals(status) || "error".equals(status);
+    String rawStatus = reader.getAttribute("status");
+    if (rawStatus == null) return true;
+    final String status = rawStatus.toLowerCase();
+    return "run".equals(status) || "passed".equals(status) || "success".equals(status) || "failure".equals(status) || "failed".equals(status) || "error".equals(status);
   }
 
   public static interface Callback {
