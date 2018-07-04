@@ -24,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
  * Time: 19:03
  */
 public class MillisecondDurationParser implements DurationParser {
-  public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(SecondDurationParser.class);
+  public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(MillisecondDurationParser.class);
 
   public long parseTestDuration(@Nullable String duration) {
     if (duration == null || "".equals(duration)) {

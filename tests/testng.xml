@@ -9,6 +9,7 @@
       <class name="jetbrains.buildServer.xmlReportPlugin.OptimizingIncludeExcludeRulesTest"/>
 
       <class name="jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit.AntJUnitReportParserTest"/>
+      <class name="jetbrains.buildServer.xmlReportPlugin.parsers.testng.TestNGReportParserTest"/>
       <class name="jetbrains.buildServer.xmlReportPlugin.parsers.checkstyle.CheckstyleReportParserTest"/>
       <class name="jetbrains.buildServer.xmlReportPlugin.parsers.ctest.CTestReportParserTest"/>
       <class name="jetbrains.buildServer.xmlReportPlugin.parsers.findBugs.FindBugsReportParserTest"/>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results total="2" passed="1" failed="1" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2018-06-06T04:56:45Z" name="Surefire suite" finished-at="2018-06-06T04:56:45Z" duration-ms="23">
+    <groups>
+    </groups>
+    <test started-at="2018-06-06T04:56:45Z" name="Surefire test" finished-at="2018-06-06T04:56:45Z" duration-ms="23">
+      <class name="TestCase">
+        <test-method signature="test1()[pri:0, instance:TestCase@65466a6a]" started-at="2018-06-06T11:56:45Z" name="test1" finished-at="2018-06-06T11:56:45Z" duration-ms="6"
+                     status="FAIL">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[Assertion message form test]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: Assertion message form test
+    at org.testng.Assert.fail(Assert.java:94)
+    at TestCase.test2(TestCase.java:10)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test1 -->
+        <test-method signature="test2()[pri:0, instance:TestCase@65466a6a]" started-at="2018-06-06T11:56:45Z" name="test2" finished-at="2018-06-06T11:56:45Z" duration-ms="1"
+                     status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test2 -->
+      </class> <!-- TestCase -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>

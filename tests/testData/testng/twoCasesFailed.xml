@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results total="1" passed="0" failed="1" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2018-06-06T04:05:14Z" name="Surefire suite" finished-at="2018-06-06T04:05:14Z" duration-ms="18">
+    <groups>
+    </groups>
+    <test started-at="2018-06-06T04:05:14Z" name="Surefire test" finished-at="2018-06-06T04:05:14Z" duration-ms="18">
+      <class name="TestCase">
+        <test-method signature="test1()[pri:0, instance:TestCase@4b14c583]" started-at="2018-06-06T11:05:14Z" name="test1" finished-at="2018-06-06T11:05:14Z" duration-ms="5"
+                     status="FAIL">
+          <exception class="org.testng.Assert.fail">
+            <message>
+              <![CDATA[Assertion message from test]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.testng.Assert.fail: Assertion message from test
+      at TestCase.test(Unknown Source)]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test1 -->
+
+        <test-method signature="test2()[pri:0, instance:TestCase@4b14c583]" started-at="2018-06-05T17:51:43Z" name="test2" finished-at="2018-06-05T17:51:43Z" duration-ms="47"
+                     status="FAIL">
+          <exception class="java.lang.NullPointerException">
+            <message>
+              <![CDATA[Error message from test]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.NullPointerException:
+      Error message from test
+      at TestCase.test(Unknown Source)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.NullPointerException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test2 -->
+      </class> <!-- TestCase -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results total="2" passed="1" failed="0" skipped="1">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2018-06-07T04:22:35Z" name="Surefire suite" finished-at="2018-06-07T04:22:35Z" duration-ms="14">
+    <groups>
+    </groups>
+    <test started-at="2018-06-07T04:22:35Z" name="Surefire test" finished-at="2018-06-07T04:22:35Z" duration-ms="14">
+      <class name="TestCase">
+        <test-method signature="test1()[pri:0, instance:TestCase@47d90b9e]" started-at="2018-06-07T11:22:35Z" name="test1" finished-at="2018-06-07T11:22:35Z" duration-ms="5"
+                     status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test1 -->
+        <test-method signature="test2()[pri:0, instance:TestCase@47d90b9e]" started-at="2018-06-07T11:22:35Z" name="test2" finished-at="2018-06-07T11:22:35Z" duration-ms="0"
+                     status="SKIP">
+          <exception class="org.testng.SkipException">
+            <message>
+              <![CDATA[skip test2]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[org.testng.SkipException: skip test2
+	at TestCase.test2(TestCase.java:12)
+]]>
+            </full-stacktrace>
+          </exception> <!-- org.testng.SkipException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test2 -->
+        <test-method signature="test3()[pri:0, instance:TestCase@47d90b9e]" started-at="2018-06-07T11:22:35Z" name="test3" finished-at="2018-06-07T11:22:35Z" duration-ms="0"
+                     status="SKIP">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test3 -->
+      </class> <!-- TestCase -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>

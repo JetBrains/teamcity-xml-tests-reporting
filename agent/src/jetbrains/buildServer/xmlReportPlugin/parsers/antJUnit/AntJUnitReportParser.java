@@ -22,6 +22,7 @@ import java.util.Stack;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.ParsingException;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.parsers.TestMessages;
 import jetbrains.buildServer.xmlReportPlugin.tests.DurationParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
@@ -55,6 +56,7 @@ class AntJUnitReportParser implements Parser {
     myLogInternalSystemError = logInternalSystemError;
   }
 
+  @Override
   public boolean parse(@NotNull final File file, @Nullable final ParsingResult prevResult) throws ParsingException {
     if (prevResult != null) {
       myTestsToSkip = ((TestParsingResult) prevResult).getTests();
@@ -62,9 +64,10 @@ class AntJUnitReportParser implements Parser {
     try {
       new AntJUnitXmlReportParser(new AntJUnitXmlReportParser.Callback() {
 
+        @Override
         public void suiteFound(@Nullable final String suiteName) {
           if (suiteName == null) {
-            myTestReporter.warning("File " + file + " contains unnamed suite");
+            myTestReporter.warning(TestMessages.getFileContainsUnnamedMessage(file, "suite"));
             return;
           }
 
@@ -73,45 +76,49 @@ class AntJUnitReportParser implements Parser {
           mySuites.push(suiteName);
         }
 
+        @Override
         public void suiteFailureFound(@Nullable final String suiteName,
                                       @Nullable final String type,
                                       @Nullable final String message,
                                       @Nullable final String trace) {
           if (mySuites.isEmpty() || !mySuites.peek().equals(suiteName)) {
-            LOG.warn("Failed to log suite failure for not-opened suite " + suiteName);
+            LOG.warn(TestMessages.getFailedToLogSuiteMessage("failure", suiteName));
             return;
           }
-          myTestReporter.error("Failure from suite " + suiteName + ": " + getFailureMessage(type, message) + "\n" + trace);
+          myTestReporter.error(TestMessages.getOutFromSuiteMessage("Failure", suiteName, type, message, trace));
         }
 
+        @Override
         public void suiteErrorFound(@Nullable final String suiteName,
                                     @Nullable final String type,
                                     @Nullable final String message,
                                     @Nullable final String trace) {
           if (mySuites.isEmpty() || !mySuites.peek().equals(suiteName)) {
-            LOG.warn("Failed to log suite error for not-opened suite " + suiteName);
+            LOG.warn(TestMessages.getFailedToLogSuiteMessage("error", suiteName));
             return;
           }
-          myTestReporter.error("Error from suite " + suiteName + ": " + getFailureMessage(type, message) + "\n" + trace);
+          myTestReporter.error(TestMessages.getOutFromSuiteMessage("Error", suiteName, type, message, trace));
         }
 
+        @Override
         public void suiteSystemOutFound(@Nullable final String suiteName, @Nullable final String message) {
           if (mySuites.isEmpty() || !mySuites.peek().equals(suiteName)) {
-            LOG.warn("Failed to log suite system out for not-opened suite " + suiteName);
+            LOG.warn(TestMessages.getFailedToLogSuiteMessage("system out", suiteName));
             return;
           }
           if (message != null && message.length() > 0) {
-            myTestReporter.info("System out from suite " + suiteName + ": " + message);
+            myTestReporter.info(TestMessages.getOutFromSuiteMessage("System out", suiteName, message));
           }
         }
 
+        @Override
         public void suiteSystemErrFound(@Nullable final String suiteName, @Nullable final String message) {
           if (mySuites.isEmpty() || !mySuites.peek().equals(suiteName)) {
-            LOG.warn("Failed to log suite system err for not-opened suite " + suiteName);
+            LOG.warn(TestMessages.getFailedToLogSuiteMessage("system err", suiteName));
             return;
           }
           if (message != null && message.length() > 0) {
-            final String msg = "System error from suite " + suiteName + ": " + message;
+            final String msg = TestMessages.getOutFromSuiteMessage("System error", suiteName, message);
             if (myLogInternalSystemError) {
               myTestReporter.info(msg);
             } else {
@@ -120,16 +127,17 @@ class AntJUnitReportParser implements Parser {
           }
         }
 
+        @Override
         public void suiteFinished(@Nullable final String suiteName) {
           if (mySuites.isEmpty() || !mySuites.peek().equals(suiteName)) {
-            LOG.warn("Failed to log suite finish for not-opened suite " + suiteName);
+            LOG.warn(TestMessages.getFailedToLogSuiteMessage("finish", suiteName));
             return;
           }
           myTestReporter.closeTestSuite();
           mySuites.pop();
         }
 
-        @SuppressWarnings({"ConstantConditions"})
+        @Override
         public void testFound(@NotNull TestData testData) {
           try {
             if (testSkipped()) return;
@@ -137,7 +145,7 @@ class AntJUnitReportParser implements Parser {
             final String testName = testData.getName();
 
             if (testName == null) {
-              myTestReporter.warning("File " + file + " contains unnamed test");
+              myTestReporter.warning(TestMessages.getFileContainsUnnamedMessage(file, "test"));
               return;
             }
 
@@ -155,7 +163,7 @@ class AntJUnitReportParser implements Parser {
             }
             if (testData.getFailureType() != null || testData.getFailureMessage() != null || testData.getFailureStackTrace() != null) {
               myTestReporter
-                .testFail(getFailureMessage(testData.getFailureType(), testData.getFailureMessage()), testData.getFailureStackTrace());
+                .testFail(TestMessages.getFailureMessage(testData.getFailureType(), testData.getFailureMessage()), testData.getFailureStackTrace());
             }
             myTestReporter.closeTest(testData.getDuration());
           } finally {
@@ -165,7 +173,7 @@ class AntJUnitReportParser implements Parser {
 
         @Override
         public void unexpectedFormat(@NotNull final String msg) {
-          myTestReporter.error("File " + file + " doesn't match the expected format: " + msg + "\nPlease check Ant JUnit Task binaries for the supported DTD");
+          myTestReporter.error(TestMessages.getFileExpectedFormatMessage(file, msg, "Ant JUnit Task"));
         }
       }, myDurationParser).parse(file);
       return true;
@@ -177,31 +185,17 @@ class AntJUnitReportParser implements Parser {
         mySuites.pop();
       }
 
-      LOG.debug("Couldn't completely parse " + file
-                + " report, exception occurred: " + e + ", " + myLoggedTests + " tests logged");
+      LOG.debug(TestMessages.getCouldNotCompletelyParseMessage(file, e, myLoggedTests));
     }
 
     return false;
   }
 
+  @Override
   public ParsingResult getParsingResult() {
     return new TestParsingResult(myLoggedSuites, (myLoggedTests > myTestsToSkip) ? myLoggedTests : myTestsToSkip, myParsingException);
   }
 
-  @NotNull
-  private String getFailureMessage(@Nullable String type, @Nullable String message) {
-    String failureMessage = "";
-    if (type != null) {
-      failureMessage = failureMessage.concat(type);
-    }
-    if (message != null) {
-      if (failureMessage.length() > 0) {
-        failureMessage = failureMessage.concat(": ");
-      }
-      failureMessage = failureMessage.concat(message);
-    }
-    return failureMessage;
-  }
 
   private boolean testSkipped() {
     return myLoggedTests < myTestsToSkip;

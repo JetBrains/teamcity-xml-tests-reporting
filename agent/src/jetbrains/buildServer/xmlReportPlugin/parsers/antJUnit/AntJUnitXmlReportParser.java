@@ -54,6 +54,7 @@ class AntJUnitXmlReportParser extends BaseXmlXppAbstractParser {
 
   private Handler getSuiteHandler() {
     return new Handler() {
+      @Override
         public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
           final String name = reader.getAttribute("name");
           final String pack = reader.getAttribute("package");
@@ -63,6 +64,7 @@ class AntJUnitXmlReportParser extends BaseXmlXppAbstractParser {
 
           return reader.visitChildren(
             elementsPath(new Handler() {
+              @Override
               public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
                 final String type = reader.getAttribute("type");
                 final String message = reader.getAttribute("message");
@@ -75,6 +77,7 @@ class AntJUnitXmlReportParser extends BaseXmlXppAbstractParser {
               }
             }, "failure"),
             elementsPath(new Handler() {
+              @Override
               public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
                 final String type = reader.getAttribute("type");
                 final String message = reader.getAttribute("message");
@@ -87,16 +90,19 @@ class AntJUnitXmlReportParser extends BaseXmlXppAbstractParser {
               }
             }, "error"),
             elementsPath(new TextHandler() {
+              @Override
               public void setText(@NotNull final String text) {
                 myCallback.suiteSystemOutFound(suiteName, text.trim());
               }
             }, "system-out"),
             elementsPath(new TextHandler() {
+              @Override
               public void setText(@NotNull final String text) {
                 myCallback.suiteSystemErrFound(suiteName, text.trim());
               }
             }, "system-err"),
             elementsPath(new Handler() {
+              @Override
               public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
                 final String name = reader.getAttribute("name");
                 final String className = reader.getAttribute("classname");
@@ -109,17 +115,20 @@ class AntJUnitXmlReportParser extends BaseXmlXppAbstractParser {
 
                 return reader.visitChildren(
                   elementsPath(new Handler() {
+                    @Override
                     public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
                       testData.setExecuted(true);
                       return processTestFailure(reader, testData);
                     }
                   }, "failure"),
                   elementsPath(new Handler() {
+                    @Override
                     public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
                       return processTestFailure(reader, testData);
                     }
                   }, "error"),
                   elementsPath(new TextHandler() {
+                    @Override
                     public void setText(@NotNull final String text) {
                       testData.setStdOut(text.trim());
                     }
@@ -136,11 +145,13 @@ class AntJUnitXmlReportParser extends BaseXmlXppAbstractParser {
                     }
                   }, "skipped"),
                   elementsPath(new TextHandler() {
+                    @Override
                     public void setText(@NotNull final String text) {
                       testData.setDuration(myDurationParser.parseTestDuration(text.trim()));
                     }
                   }, "time")
                 ).than(new XmlAction() {
+                  @Override
                   public void apply() {
                     myCallback.testFound(testData);
                   }
@@ -149,6 +160,7 @@ class AntJUnitXmlReportParser extends BaseXmlXppAbstractParser {
             }, "testcase"),
             elementsPath(getSuiteHandler(), "testsuite")
           ).than(new XmlAction() {
+            @Override
             public void apply() {
               myCallback.suiteFinished(suiteName);
             }
@@ -167,6 +179,7 @@ class AntJUnitXmlReportParser extends BaseXmlXppAbstractParser {
     testData.setFailureMessage(reader.getAttribute("message"));
 
     return reader.visitText(new TextHandler() {
+      @Override
       public void setText(@NotNull final String text) {
         testData.setFailureStackTrace(text.trim());
       }

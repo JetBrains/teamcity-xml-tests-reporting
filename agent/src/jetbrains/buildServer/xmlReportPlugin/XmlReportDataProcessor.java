@@ -97,6 +97,17 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
   }
 
+  public static final class TestNGDataProcessor extends XmlReportDataProcessor {
+    public TestNGDataProcessor(RulesProcessor plugin) {
+      super(plugin);
+    }
+
+    @NotNull
+    public String getType() {
+      return "testng";
+    }
+  }
+
   public static final class NUnitDataProcessor extends XmlReportDataProcessor {
     public NUnitDataProcessor(RulesProcessor plugin) {
       super(plugin);

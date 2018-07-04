@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results total="0" passed="0" failed="0" skipped="0">
+  <suite started-at="2018-06-05T10:29:54Z" name="Surefire suite" duration-ms="4">
+    <test started-at="2018-06-05T10:29:54Z" name="Surefire test" duration-ms="4">
+      <class name="TestCase" />
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>

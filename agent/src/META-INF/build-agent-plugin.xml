@@ -21,6 +21,8 @@
        default-autowire="constructor" default-lazy-init="false">
   <bean id="junitFactory"
         class="jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit.AntJUnitFactory"/>
+  <bean id="testngFactory"
+        class="jetbrains.buildServer.xmlReportPlugin.parsers.testng1.TestNGFactory"/>
   <bean id="gtestFactory"
         class="jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit.GTestFactory"/>
   <bean id="surefireFactory"
@@ -51,6 +53,8 @@
 
   <bean id="JUnitDataProcessor"
         class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$JUnitDataProcessor"/>
+  <bean id="TestNGDataProcessor"
+        class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$TestNGDataProcessor"/>
   <bean id="NUnitDataProcessor"
         class="jetbrains.buildServer.xmlReportPlugin.XmlReportDataProcessor$NUnitDataProcessor"/>
   <bean id="SurefireDataProcessor"

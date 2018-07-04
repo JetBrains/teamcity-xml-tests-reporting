@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results total="2" passed="2" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2018-06-07T07:05:48Z" name="Surefire suite" finished-at="2018-06-07T07:05:48Z" duration-ms="14">
+    <groups>
+      <group name="test-method-with-params">
+        <method signature="TestCase.test(boolean, java.lang.String)[pri:0, instance:TestCase@3aefe5e5]" name="test" class="TestCase"/>
+      </group> <!-- test-method-with-params -->
+    </groups>
+    <test started-at="2018-06-07T07:05:48Z" name="Surefire test" finished-at="2018-06-07T07:05:48Z" duration-ms="14">
+      <class name="TestCase">
+        <test-method signature="test(boolean, java.lang.String)[pri:0, instance:TestCase@3aefe5e5]" started-at="2018-06-07T14:05:48Z" name="test" data-provider="provider"
+                     finished-at="2018-06-07T14:05:48Z" duration-ms="4" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[true]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[testng: 1]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test -->
+        <test-method signature="test(boolean, java.lang.String)[pri:0, instance:TestCase@3aefe5e5]" started-at="2018-06-07T14:05:48Z" name="test" data-provider="provider"
+                     finished-at="2018-06-07T14:05:48Z" duration-ms="0" status="PASS">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[false]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[testng: 2]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- test -->
+      </class> <!-- TestCase -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>
