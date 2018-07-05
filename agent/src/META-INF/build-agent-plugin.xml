@@ -22,7 +22,7 @@
   <bean id="junitFactory"
         class="jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit.AntJUnitFactory"/>
   <bean id="testngFactory"
-        class="jetbrains.buildServer.xmlReportPlugin.parsers.testng1.TestNGFactory"/>
+        class="jetbrains.buildServer.xmlReportPlugin.parsers.testng.TestNGFactory"/>
   <bean id="gtestFactory"
         class="jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit.GTestFactory"/>
   <bean id="surefireFactory"
