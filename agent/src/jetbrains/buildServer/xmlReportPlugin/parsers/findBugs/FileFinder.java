@@ -18,19 +18,20 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.findBugs;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipFile;
 import jetbrains.buildServer.util.fileLookup.MemorizingFileLookup;
 import jetbrains.buildServer.util.fileLookup.MemorizingLookup;
 import jetbrains.buildServer.util.fileLookup.MemorizingZipFileLookup;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 
 class FileFinder {
   @NotNull
-  private final List<Entry> myJars = new LinkedList<Entry>();
+  private final List<Entry> myJars = new ArrayList<Entry>();
   @Nullable
   private MemorizingLookup<String, String, Entry> myLookup;
 
@@ -50,6 +51,7 @@ class FileFinder {
   }
 
   @Nullable
+  @Contract("null -> null")
   public String getVeryFullFilePath(@Nullable String filePath) {
     if (filePath == null) return null;
 

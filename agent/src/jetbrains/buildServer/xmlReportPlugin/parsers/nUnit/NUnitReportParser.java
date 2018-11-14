@@ -18,7 +18,8 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.nUnit;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.ParsingException;
@@ -44,7 +45,7 @@ class NUnitReportParser implements Parser {
   private ParsingException myParsingException;
 
   @NotNull
-  final private Stack<String> mySuites = new Stack<String>();
+  final private Deque<String> mySuites = new ArrayDeque<String>();
 
   public NUnitReportParser(@NotNull TestReporter testReporter) {
     myTestReporter = testReporter;

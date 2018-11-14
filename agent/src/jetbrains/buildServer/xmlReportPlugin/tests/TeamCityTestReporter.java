@@ -16,7 +16,8 @@
 
 package jetbrains.buildServer.xmlReportPlugin.tests;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.messages.DefaultMessagesInfo;
 import jetbrains.buildServer.xmlReportPlugin.BaseMessageLogger;
@@ -29,9 +30,9 @@ import org.jetbrains.annotations.Nullable;
  */
 public class TeamCityTestReporter extends BaseMessageLogger implements TestReporter {
   @NotNull
-  private final Stack<String> myTestSuites = new Stack<String>();
+  private final Deque<String> myTestSuites = new ArrayDeque<String>();
   @NotNull
-  private final Stack<String> myTests = new Stack<String>();
+  private final Deque<String> myTests = new ArrayDeque<String>();
 
   public TeamCityTestReporter(@NotNull final BuildProgressLogger logger, @NotNull final String buildProblemType, @NotNull final String baseFolder) {
     super(logger, buildProblemType, baseFolder);

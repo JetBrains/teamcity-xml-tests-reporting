@@ -18,7 +18,8 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.ParsingException;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
@@ -46,7 +47,7 @@ class AntJUnitReportParser implements Parser {
   private ParsingException myParsingException;
 
   @NotNull
-  private final Stack<String> mySuites = new Stack<String>();
+  private final Deque<String> mySuites = new ArrayDeque<String>();
 
   private final boolean myLogInternalSystemError;
 
