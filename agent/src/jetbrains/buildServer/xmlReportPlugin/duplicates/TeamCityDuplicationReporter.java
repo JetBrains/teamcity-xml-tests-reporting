@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.duplicates;
 
 import java.util.ArrayList;
+import java.util.List;
 import jetbrains.buildServer.agent.BuildProgressLogger;
 import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.duplicator.DuplicateInfo;
@@ -30,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class TeamCityDuplicationReporter extends BaseMessageLogger implements DuplicationReporter {
   @NotNull
-  private final jetbrains.buildServer.agent.duplicates.DuplicatesReporter myDuplicatesReporter;
+  private final DuplicatesReporter myDuplicatesReporter;
 
   public TeamCityDuplicationReporter(@NotNull DuplicatesReporter duplicatesReporter,
                                      @NotNull BuildProgressLogger logger,
@@ -45,14 +46,14 @@ public class TeamCityDuplicationReporter extends BaseMessageLogger implements Du
   }
 
   public void reportDuplicate(@NotNull DuplicationResult duplicate) {
-    final ArrayList<DuplicateInfo.Fragment> fragmentsList = new ArrayList<DuplicateInfo.Fragment>();
+    final List<DuplicateInfo.Fragment> fragmentsList = new ArrayList<DuplicateInfo.Fragment>();
 
     for (DuplicatingFragment fragment : duplicate.getFragments()) {
       fragmentsList.add(new DuplicateInfo.Fragment(fragment.getHash(), fragment.getPath(), fragment.getLine(),
         new DuplicateInfo.LineOffset(fragment.getLine(), fragment.getLine() + duplicate.getLines())));
     }
 
-    myDuplicatesReporter.addDuplicate(new DuplicateInfo(duplicate.getHash(), duplicate.getTokens(), fragmentsList.toArray(new DuplicateInfo.Fragment[fragmentsList.size()])));
+    myDuplicatesReporter.addDuplicate(new DuplicateInfo(duplicate.getHash(), duplicate.getTokens(), fragmentsList.toArray(new DuplicateInfo.Fragment[0])));
   }
 
   public void finishDuplicates() {

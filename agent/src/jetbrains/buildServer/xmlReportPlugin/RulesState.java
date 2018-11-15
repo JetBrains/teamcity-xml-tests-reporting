@@ -35,17 +35,20 @@ public class RulesState implements ReportStateHolder {
 
   @NotNull
   public synchronized ReportState getReportState(@NotNull final File report) {
-    return myParsingResults.containsKey(report) ? myParsingResults.get(report).reportState : ReportState.UNKNOWN;
+    FileState store = myParsingResults.get(report);
+    return store != null ? store.reportState : ReportState.UNKNOWN;
   }
 
   @Nullable
   public synchronized Long getLastModified(@NotNull final File report) {
-    return myParsingResults.containsKey(report) ? myParsingResults.get(report).lastModified : null;
+    FileState store = myParsingResults.get(report);
+    return store != null ? store.lastModified : null;
   }
 
   @Nullable
   public synchronized Long getLength(@NotNull final File report) {
-    return myParsingResults.containsKey(report) ? myParsingResults.get(report).length : null;
+    FileState store = myParsingResults.get(report);
+    return store != null ? store.length : null;
   }
 
   public synchronized void setReportState(@NotNull final File report, @NotNull final ReportState state, @Nullable ParsingResult parsingResult) {

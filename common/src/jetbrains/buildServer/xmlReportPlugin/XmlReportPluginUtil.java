@@ -16,55 +16,50 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import jetbrains.buildServer.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginConstants.*;
 
-
 public class XmlReportPluginUtil {
-  public static final Map<String, String> SUPPORTED_REPORT_TYPES = new HashMap<String, String>();
-  public static final List<String> INSPECTIONS_TYPES = new LinkedList<String>();
-  public static final List<String> DUPLICATES_TYPES = new LinkedList<String>();
+  public static final Map<String, String> SUPPORTED_REPORT_TYPES;
+  private static final List<String> INSPECTIONS_TYPES = Arrays.asList("findBugs",
+                                                                      "pmd",
+                                                                      "checkstyle",
+                                                                      "jslint");
 
   static {
-    SUPPORTED_REPORT_TYPES.put("junit", "Ant JUnit");
-    SUPPORTED_REPORT_TYPES.put("nunit", "NUnit");
-    SUPPORTED_REPORT_TYPES.put("surefire", "Surefire");
-    SUPPORTED_REPORT_TYPES.put("findBugs", "FindBugs");
-    SUPPORTED_REPORT_TYPES.put("pmd", "PMD");
-    SUPPORTED_REPORT_TYPES.put("checkstyle", "Checkstyle");
-    SUPPORTED_REPORT_TYPES.put("pmdCpd", "PMD CPD");
-    SUPPORTED_REPORT_TYPES.put("mstest", "MSTest");
-    SUPPORTED_REPORT_TYPES.put("vstest", "VSTest");
-    SUPPORTED_REPORT_TYPES.put("trx", "TRX");
-    SUPPORTED_REPORT_TYPES.put("gtest", "Google Test");
-    SUPPORTED_REPORT_TYPES.put("jslint", "JSLint");
-    SUPPORTED_REPORT_TYPES.put("ctest", "CTest");
-    SUPPORTED_REPORT_TYPES.put("testng", "TestNG");
-
-    INSPECTIONS_TYPES.add("findBugs");
-    INSPECTIONS_TYPES.add("pmd");
-    INSPECTIONS_TYPES.add("checkstyle");
-    INSPECTIONS_TYPES.add("jslint");
-
-    DUPLICATES_TYPES.add("pmdCpd");
+    final Map<String, String> reportTypes = new HashMap<String, String>();
+    reportTypes.put("junit", "Ant JUnit");
+    reportTypes.put("nunit", "NUnit");
+    reportTypes.put("surefire", "Surefire");
+    reportTypes.put("findBugs", "FindBugs");
+    reportTypes.put("pmd", "PMD");
+    reportTypes.put("checkstyle", "Checkstyle");
+    reportTypes.put("pmdCpd", "PMD CPD");
+    reportTypes.put("mstest", "MSTest");
+    reportTypes.put("vstest", "VSTest");
+    reportTypes.put("trx", "TRX");
+    reportTypes.put("gtest", "Google Test");
+    reportTypes.put("jslint", "JSLint");
+    reportTypes.put("ctest", "CTest");
+    reportTypes.put("testng", "TestNG");
+    reportTypes.put("goLang", "GoLang");
+    SUPPORTED_REPORT_TYPES = Collections.unmodifiableMap(reportTypes);
   }
 
   public static boolean isParsingEnabled(@NotNull final Map<String, String> params) {
-    return params.containsKey(REPORT_TYPE) && !"".equals(params.get(REPORT_TYPE));
+    return StringUtil.isNotEmpty(params.get(REPORT_TYPE));
   }
 
   public static boolean isOutputVerbose(@NotNull final Map<String, String> params) {
-    return params.containsKey(VERBOSE_OUTPUT) && Boolean.parseBoolean(params.get(VERBOSE_OUTPUT));
+    return Boolean.parseBoolean(params.get(VERBOSE_OUTPUT));
   }
 
   public static boolean isParseOutOfDateReports(@NotNull final Map<String, String> params) {
-    return params.containsKey(PARSE_OUT_OF_DATE) && Boolean.parseBoolean(params.get(PARSE_OUT_OF_DATE));
+    return Boolean.parseBoolean(params.get(PARSE_OUT_OF_DATE));
   }
 
   public static boolean isReparseUpdatedReports(@NotNull final Map<String, String> params) {
@@ -72,45 +67,12 @@ public class XmlReportPluginUtil {
     return reparseUpdated == null || Boolean.parseBoolean(reparseUpdated);
   }
 
-  public static void enableXmlReportParsing(@NotNull final Map<String, String> params, String reportType) {
-    if (reportType.equals("")) {
-      params.remove(REPORT_TYPE);
-      params.remove(REPORT_DIRS);
-      params.remove(VERBOSE_OUTPUT);
-      params.remove(PARSE_OUT_OF_DATE);
-    } else {
-      params.put(REPORT_TYPE, reportType);
-    }
-  }
-
-  public static void setVerboseOutput(@NotNull final Map<String, String> params, boolean verboseOutput) {
-    if (isParsingEnabled(params)) {
-      if (verboseOutput) {
-        params.put(VERBOSE_OUTPUT, "true");
-      } else {
-        params.remove(VERBOSE_OUTPUT);
-      }
-    }
-  }
-
-  public static void setParseOutOfDateReports(@NotNull final Map<String, String> systemProperties, boolean shouldParse) {
-    if (shouldParse) {
-      systemProperties.put(PARSE_OUT_OF_DATE, "true");
-    } else {
-      systemProperties.remove(PARSE_OUT_OF_DATE);
-    }
-  }
-
-  public static void setXmlReportPaths(@NotNull final Map<String, String> params, String reportDirs) {
-    if (isParsingEnabled(params)) {
-      params.put(REPORT_DIRS, reportDirs);
-    }
-  }
-
+  @Nullable
   public static String getXmlReportPaths(@NotNull final Map<String, String> params) {
     return params.get(REPORT_DIRS);
   }
 
+  @Nullable
   public static String getReportType(@NotNull final Map<String, String> params) {
     return params.get(REPORT_TYPE);
   }
@@ -119,26 +81,18 @@ public class XmlReportPluginUtil {
     return getMaxErrorsOrWarnings(params, MAX_ERRORS);
   }
 
-  public static void setMaxErrors(@NotNull final Map<String, String> params, int maxErrors) {
-    if (isParsingEnabled(params)) {
-      params.put(MAX_ERRORS, "" + maxErrors);
-    }
-  }
-
   public static int getMaxWarnings(@NotNull final Map<String, String> params) {
     return getMaxErrorsOrWarnings(params, MAX_WARNINGS);
   }
 
-  public static void setMaxWarnings(@NotNull final Map<String, String> params, int maxWarnings) {
-    if (isParsingEnabled(params)) {
-      params.put(MAX_WARNINGS, "" + maxWarnings);
-    }
-  }
-
   private static int getMaxErrorsOrWarnings(@NotNull final Map<String, String> params, String what) {
-    if (params.containsKey(what)) {
+    String errorsCount = params.get(what);
+    if (StringUtil.isNotEmpty(errorsCount)) {
+      if (!StringUtil.isNumber(errorsCount)) {
+        return -1;
+      }
       try {
-        return Integer.parseInt(params.get(what));
+        return Integer.parseInt(errorsCount);
       } catch (NumberFormatException e) {
         return -1;
       }
@@ -155,14 +109,6 @@ public class XmlReportPluginUtil {
     return param == null || Boolean.parseBoolean(param);
   }
 
-//  public static boolean isCheckReportComplete(@NotNull final Map<String, String> params) {
-//    return !"false".equalsIgnoreCase(params.get(CHECK_REPORT_COMPLETE));
-//  }
-//
-//  public static boolean isCheckReportGrows(@NotNull final Map<String, String> params) {
-//    return !"false".equalsIgnoreCase(params.get(CHECK_REPORT_GROWS));
-//  }
-
   @Nullable
   public static String whenNoDataPublished(@NotNull final Map<String, String> params) {
     return params.containsKey(WHEN_NO_DATA_PUBLISHED) ? params.get(WHEN_NO_DATA_PUBLISHED) : "error";
@@ -173,8 +119,8 @@ public class XmlReportPluginUtil {
   }
 
   public static boolean isLogIsInternal(@NotNull final Map<String, String> params) {
-    return params.containsKey(LOG_AS_INTERNAL) && params.get(LOG_AS_INTERNAL) != null
-      ? Boolean.parseBoolean(params.get(LOG_AS_INTERNAL)) : !isOutputVerbose(params);
+    final String param = params.get(LOG_AS_INTERNAL);
+    return param != null ? Boolean.parseBoolean(param) : !isOutputVerbose(params);
   }
 
   public static boolean isLogInternalSystemError(@NotNull final Map<String, String> params) {

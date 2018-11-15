@@ -16,11 +16,10 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-
 import java.util.HashMap;
 import java.util.Map;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginConstants.*;
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
@@ -51,47 +50,6 @@ public class XmlReportPluginUtilTest {
   }
 
   @Test
-  public void testParamsContainTrueAfterEnabling() {
-    enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
-    assertEquals(myRunParams.get(REPORT_TYPE), ANT_JUNIT_REPORT_TYPE, "Params must contain true");
-  }
-
-  @Test
-  public void testParamsDoNotContainTrueAfterDisabling() {
-    myRunParams.put(REPORT_TYPE, ANT_JUNIT_REPORT_TYPE);
-    enableXmlReportParsing(myRunParams, EMPTY_REPORT_TYPE);
-    assertNull(myRunParams.get(REPORT_TYPE), "Params must not contain any value for this key");
-  }
-
-  @Test
-  public void testIsEnabledAfterEnabling() {
-    enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
-    assertTrue(isParsingEnabled(myRunParams), "Test report parsing must be enabled");
-  }
-
-  @Test
-  public void testIsEnabledAfterDisabling() {
-    enableXmlReportParsing(myRunParams, EMPTY_REPORT_TYPE);
-    assertFalse(isParsingEnabled(myRunParams), "Test report parsing must be disabled");
-  }
-
-  @Test
-  public void testSetReportDirsAfterPuttingToParams() {
-    final String reportDirs = "reportDirs";
-    myRunParams.put(REPORT_TYPE, ANT_JUNIT_REPORT_TYPE);
-    setXmlReportPaths(myRunParams, reportDirs);
-    assertEquals(myRunParams.get(REPORT_DIRS), reportDirs, "Unexpected value in parameters");
-  }
-
-  @Test
-  public void testSetReportDirsAfterDisabling() {
-    final String reportDirs = "reportDirs";
-    enableXmlReportParsing(myRunParams, EMPTY_REPORT_TYPE);
-    setXmlReportPaths(myRunParams, reportDirs);
-    assertNull(myRunParams.get(REPORT_DIRS), "ReportDirs parameter must be null");
-  }
-
-  @Test
   public void testVerboseOnEmptyParams() {
     assertFalse(isOutputVerbose(myRunParams), "Verbose output must be disabled");
   }
@@ -100,26 +58,6 @@ public class XmlReportPluginUtilTest {
   public void testVerboseAfterPuttingTrueToParams() {
     myRunParams.put(VERBOSE_OUTPUT, TRUE);
     assertTrue(isOutputVerbose(myRunParams), "Verbose output must be enabled");
-  }
-
-  @Test
-  public void testParamsContainTrueAfterEnablingVerbose() {
-    enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
-    setVerboseOutput(myRunParams, true);
-    assertEquals(myRunParams.get(VERBOSE_OUTPUT), TRUE, "Params must contain true");
-  }
-
-  @Test
-  public void testParamsContainNothingAfterDisablingVerbose() {
-    enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
-    setVerboseOutput(myRunParams, false);
-    assertNull(myRunParams.get(VERBOSE_OUTPUT), "Params mustn't contain anything");
-  }
-
-  @Test
-  public void testParamsNotContainTrueAfterEnablingVerboseWhenParsingDisabled() {
-    setVerboseOutput(myRunParams, true);
-    assertNull(myRunParams.get(VERBOSE_OUTPUT), "Params mustn't contain anything");
   }
 
   @Test
@@ -134,18 +72,6 @@ public class XmlReportPluginUtilTest {
   }
 
   @Test
-  public void testParamsContainTrueAfterEnablingParseOutOfDate() {
-    setParseOutOfDateReports(myRunParams, true);
-    assertEquals(myRunParams.get(PARSE_OUT_OF_DATE), TRUE, "Params must contain true");
-  }
-
-  @Test
-  public void testParamsContainNothingAfterDisablingParseOutOfDate() {
-    setParseOutOfDateReports(myRunParams, false);
-    assertNull(myRunParams.get(PARSE_OUT_OF_DATE), "Params must contain anything");
-  }
-
-  @Test
   public void testGetMaxErrorsOnEmptyParams() {
     assertEquals(getMaxErrors(myRunParams), -1);
   }
@@ -157,13 +83,6 @@ public class XmlReportPluginUtilTest {
   }
 
   @Test
-  public void testParamsContainsValueAfterSettingMaxErrors() {
-    enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
-    setMaxErrors(myRunParams, 10);
-    assertEquals(myRunParams.get(MAX_ERRORS), "10");
-  }
-
-  @Test
   public void testGetMaxWarningsOnEmptyParams() {
     assertEquals(getMaxWarnings(myRunParams), -1);
   }
@@ -172,12 +91,5 @@ public class XmlReportPluginUtilTest {
   public void testGetMaxWarningsAfterPuttingToParams() {
     myRunParams.put(MAX_WARNINGS, "100");
     assertEquals(getMaxWarnings(myRunParams), 100);
-  }
-
-  @Test
-  public void testParamsContainsValueAfterSettingMaxWarnings() {
-    enableXmlReportParsing(myRunParams, ANT_JUNIT_REPORT_TYPE);
-    setMaxWarnings(myRunParams, 100);
-    assertEquals(myRunParams.get(MAX_WARNINGS), "100");
   }
 }
