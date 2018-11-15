@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.utils;
 
 import jetbrains.buildServer.util.FileUtil;
+import jetbrains.buildServer.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +31,7 @@ public class PathUtils {
 
   @NotNull
   public static String getRelativePath(@NotNull String base, @Nullable String path) {
-    if (path == null || path.trim().length() == 0) return "<unknown>";
+    if (StringUtil.isEmptyOrSpaces(path)) return "<unknown>";
 
     base = unifySlashes(base);
     path = unifySlashes(path);
@@ -47,7 +48,9 @@ public class PathUtils {
 
     return resolved;
   }
+
+  @NotNull
   private static String unifySlashes(String s) {
-    return s == null ? "" : s.replace('\\', SEPARATOR);
+    return s == null ? StringUtil.EMPTY : s.replace('\\', SEPARATOR);
   }
 }

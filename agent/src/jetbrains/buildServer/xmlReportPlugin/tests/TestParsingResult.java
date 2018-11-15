@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.tests;
 
 import java.io.File;
+import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.ProblemParsingResult;
@@ -63,11 +64,12 @@ public class TestParsingResult extends ProblemParsingResult {
   }
 
   public void logAsFileResult(@NotNull File file, @NotNull ParseParameters parameters) {
-    final StringBuilder message = new StringBuilder(file.getAbsolutePath()).append(" report processed: ");
+    final StringBuilder message = new StringBuilder(file.getAbsolutePath())
+      .append(" report processed: ")
+      .append(mySuites).append(" ").append(StringUtil.pluralize("suite", mySuites));
 
-    message.append(mySuites).append(" suite").append(getEnding(mySuites));
     if (myTests > 0) {
-      message.append(", ").append(myTests).append(" test").append(getEnding(myTests));
+      message.append(", ").append(myTests).append(" ").append(StringUtil.pluralize("test", myTests));
     }
 
     if (parameters.isVerbose()) {
@@ -75,11 +77,6 @@ public class TestParsingResult extends ProblemParsingResult {
     }
 
     LoggingUtils.LOG.debug(message.toString());
-  }
-
-  @NotNull
-  private static String getEnding(int number) {
-    return (number == 1 ? "" : "s");
   }
 
   public void logAsTotalResult(@NotNull ParseParameters parameters) {}
