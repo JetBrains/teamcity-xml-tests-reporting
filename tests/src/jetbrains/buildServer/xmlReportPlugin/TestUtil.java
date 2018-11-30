@@ -62,7 +62,7 @@ public final class TestUtil {
     if (file2.exists()) {
       return file2;
     }
-    final File file3 = new File("svnrepo" + File.separator + "xml-tests-reporting" + File.separator + "tests" + File.separator + relativeFileName);
+    final File file3 = new File("bundled-plugins" + File.separator + "xml-tests-reporting" + File.separator + "tests" + File.separator + relativeFileName);
     if (file3.exists()) {
       return file3;
     }
