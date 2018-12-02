@@ -16,9 +16,6 @@
 
 package jetbrains.buildServer.xmlReportPlugin;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import jetbrains.buildServer.util.FileUtil;
 import jetbrains.buildServer.xmlReportPlugin.duplicates.DuplicationReporter;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionReporter;
@@ -26,6 +23,10 @@ import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.testng.annotations.BeforeMethod;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
@@ -89,8 +90,13 @@ public abstract class BaseParserTestCase {
   }
 
   protected void assertResultEquals(@NotNull String expected) {
-    final String actual = prepareResult();
-    assertEquals(actual, expected, "Actual result: " + actual);
+    final String actual = normalizeLineEndings(prepareResult());
+    assertEquals(actual, normalizeLineEndings(expected), "Actual result: " + actual);
+  }
+
+  @NotNull
+  private String normalizeLineEndings(@NotNull String text) {
+    return text.replace("\r", "");
   }
 
   @NotNull
