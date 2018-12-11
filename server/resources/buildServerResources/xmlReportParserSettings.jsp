@@ -148,7 +148,17 @@
 
 <tr id="xmlReportParsing.condition.note.container" style="${displayInspectionsSettings ? '' : 'display:none;'}">
   <td colspan="2">
-    <c:set var="editFailureCondLink"><admin:editBuildTypeLink step="buildFailureConditions" buildTypeId="${buildForm.settings.externalId}" withoutLink="true"/></c:set>
+    <c:set var="editFailureCondLink">
+      <c:choose>
+        <%--@elvariable id="buildForm" type="jetbrains.buildServer.controllers.admin.projects.EditableBuildTypeSettingsForm"--%>
+        <c:when test="${not empty buildForm.settingsTemplate}">
+          <admin:editTemplateLink step="buildFailureConditions" templateId="${buildForm.settingsTemplate.externalId}" withoutLink="true"/>
+        </c:when>
+        <c:otherwise>
+          <admin:editBuildTypeLink step="buildFailureConditions" buildTypeId="${buildForm.settingsBuildType.externalId}" withoutLink="true"/>
+        </c:otherwise>
+      </c:choose>
+    </c:set>
     You can configure a build to fail if it has too many inspection errors or warnings by
     adding a corresponding <a href="${editFailureCondLink}#addFeature=BuildFailureOnMetric">build failure condition</a>.<br/>
     To configure error and warning limits for current monitoring rules only, use the
