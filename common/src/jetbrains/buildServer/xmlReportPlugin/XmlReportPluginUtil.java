@@ -46,7 +46,6 @@ public class XmlReportPluginUtil {
     reportTypes.put("jslint", "JSLint");
     reportTypes.put("ctest", "CTest");
     reportTypes.put("testng", "TestNG");
-    reportTypes.put("goLang", "GoLang");
     SUPPORTED_REPORT_TYPES = Collections.unmodifiableMap(reportTypes);
   }
 
