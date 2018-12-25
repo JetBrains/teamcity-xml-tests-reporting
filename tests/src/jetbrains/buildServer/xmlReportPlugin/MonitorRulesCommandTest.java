@@ -104,7 +104,7 @@ public class MonitorRulesCommandTest extends BaseCommandTestCase {
       }
     };
 
-    return new MonitorRulesCommand(parameters, reportStateHolder, listener);
+    return new MonitorRulesCommand(parameters, reportStateHolder, false, listener);
   }
 
   private void assertFileState(@NotNull ReportStateHolder.ReportState state) {

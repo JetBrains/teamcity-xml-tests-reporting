@@ -54,22 +54,28 @@ public class MonitorRulesCommand {
 
   @NotNull
   private final MonitorRulesListener myListener;
+  private final boolean myQuietMode;
 
   private boolean myFirstRun;
 
   public MonitorRulesCommand(@NotNull MonitorRulesParameters parameters,
                              @NotNull ReportStateHolder reportStateHolder,
+                             final boolean quietMode,
                              @NotNull MonitorRulesListener listener) {
     myParameters = parameters;
     myReportStateHolder = reportStateHolder;
     myListener = listener;
+    myQuietMode = quietMode;
 
     myFirstRun = true;
   }
 
   public void run() {
     if (myFirstRun) {
-      logWatchingPaths();
+      if (!myQuietMode) {
+        logWatchingPaths();
+      }
+
       myFirstRun = false;
     }
 

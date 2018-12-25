@@ -26,10 +26,7 @@ import jetbrains.buildServer.BuildProblemData;
 import jetbrains.buildServer.ExtensionsProvider;
 import jetbrains.buildServer.agent.*;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
-import jetbrains.buildServer.util.DiagnosticUtil;
-import jetbrains.buildServer.util.EventDispatcher;
-import jetbrains.buildServer.util.FileUtil;
-import jetbrains.buildServer.util.StringUtil;
+import jetbrains.buildServer.util.*;
 import jetbrains.buildServer.util.executors.ExecutorsFactory;
 import jetbrains.buildServer.util.impl.Lazy;
 import jetbrains.buildServer.util.positioning.PositionAware;
@@ -82,6 +79,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   @Nullable
   private ProcessingContext myStepProcessingContext;
+  private boolean myQuietMode;
 
   public XmlReportPlugin(@NotNull ExtensionsProvider extensionsProvider,
                          @NotNull EventDispatcher<AgentLifeCycleListener> agentDispatcher,
@@ -120,6 +118,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   @Override
   public synchronized void beforeRunnerStart(@NotNull BuildRunnerContext runner) {
+    myQuietMode = PropertiesUtil.getBoolean(runner.getRunnerParameters().get(XmlReportPluginConstants.QUIET_MODE));
     startProcessing(getBuildProcessingContext());
     myStepProcessingContext = new ProcessingContext(new CopyOnWriteArrayList<RulesContext>());
   }
@@ -190,7 +189,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
     final RulesContext rulesContext = new RulesContext(rulesData, fileStateHolder);
 
-    final MonitorRulesCommand monitorRulesCommand = new MonitorRulesCommand(rulesData.getMonitorRulesParameters(), rulesContext.getRulesState(),
+    final MonitorRulesCommand monitorRulesCommand = new MonitorRulesCommand(rulesData.getMonitorRulesParameters(), rulesContext.getRulesState(), myQuietMode,
       new MonitorRulesCommand.MonitorRulesListener() {
         public void modificationDetected(@NotNull File file) {
           submitParsing(file, rulesContext, parserFactory);
@@ -265,7 +264,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
           future.get();
         }
 
-        if (logStatistics) logStatistics(rulesContext);
+        if (logStatistics && !myQuietMode) logStatistics(rulesContext);
       }
     } catch (Exception e) {
       LoggingUtils.logError("Exception occurred while finishing rules monitoring", e, getBuild().getBuildLogger(), false);

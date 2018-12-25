@@ -40,6 +40,8 @@ public interface XmlReportPluginConstants {
   static final String LOG_INTERNAL_SYSTEM_ERROR = "xmlReportParsing.logInternalSystemError";
   static final String REPARSE_UPDATED = "xmlReportParsing.reparse.updated";
 
+  static final String QUIET_MODE = "xmlReportParsing.quietMode";
+
   static final String SPLIT_REGEX = " *[,\n\r] *";
 
   static final String BUILD_PROBLEM_TYPE = "xmlReportParsing";
