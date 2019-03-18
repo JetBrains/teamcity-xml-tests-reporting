@@ -48,6 +48,13 @@ class BuildLoggerForTesting implements FlowLogger, MessageTweakingSupport {
     th.printStackTrace();
   }
 
+  @Override
+  public void debug(final String message) {
+    myText.append("DEBUG: ");
+    myText.append(message);
+    myText.append("\n");
+  }
+
   public void activityStarted(final String activityName, final String activityType) {
 
   }
