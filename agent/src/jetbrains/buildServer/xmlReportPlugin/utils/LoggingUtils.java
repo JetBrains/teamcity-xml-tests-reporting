@@ -43,7 +43,7 @@ public class LoggingUtils {
 
   public static void verbose(@NotNull final String message, @NotNull final BuildProgressLogger logger) {
     LOG.debug(message);
-    logger.logMessage(DefaultMessagesInfo.internalize(DefaultMessagesInfo.createTextMessage(message)));
+    logger.debug(message);
   }
 
   public static void message(@NotNull String message, @NotNull BuildProgressLogger logger) {
