@@ -61,17 +61,14 @@ class FindBugsReportXmlParser extends BaseXmlXppAbstractParser {
               final String category = reader.getAttribute("category");
               final int priority = getInt(reader.getAttribute("priority"));
 
-              final String[] file = new String[1];
               final String[] clazz = new String[1];
               final String[] message = new String[1];
-              final int[] line = new int[1];
+              final SourceLine sourceLine = new SourceLine();
               final StringBuilder details = new StringBuilder();
 
               final XmlHandler sourceLineHandler = elementsPath(new Handler() {
                 public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
-                  file[0] = reader.getAttribute("sourcepath");
-                  final int lineAttr = getInt(reader.getAttribute("start"));
-                  if (lineAttr > 0) line[0] = lineAttr;
+                  sourceLine.update(reader.getAttribute("sourcepath"), getInt(reader.getAttribute("start")), reader.getAttribute("primary"));
                   return reader.noDeep();
                 }
               }, "SourceLine");
@@ -91,9 +88,11 @@ class FindBugsReportXmlParser extends BaseXmlXppAbstractParser {
                   public XmlReturn processElement(@NotNull final XmlElementInfo reader) {
                     //noinspection ConstantConditions
                     if (reader.getAttribute("classname").equals(clazz[0])) {
-                      details.append(" ").append(reader.getLocalName()).append("[name=\"").append(reader.getAttribute("name"))
-                        .append("\" signature=\"").append(reader.getAttribute("signature")).append(
-                        "\"]");
+                      details.append(" ").append(reader.getLocalName())
+                             .append("[")
+                             .append("name=\"").append(reader.getAttribute("name")).append("\" ")
+                             .append("signature=\"").append(reader.getAttribute("signature")).append("\"")
+                             .append("]");
                       return reader.visitChildren(sourceLineHandler);
                     }
                     return reader.noDeep();
@@ -116,7 +115,7 @@ class FindBugsReportXmlParser extends BaseXmlXppAbstractParser {
                 }, "ShortMessage", "LongMessage")
               ).than(new XmlAction() {
                 public void apply() {
-                  myCallback.bugInstanceFound(file[0], clazz[0], line[0], type, category, message[0], details.toString(), priority);
+                  myCallback.bugInstanceFound(sourceLine.getFile(), clazz[0], sourceLine.getLine(), type, category, message[0], details.toString(), priority);
                 }
               });
             }
@@ -144,5 +143,34 @@ class FindBugsReportXmlParser extends BaseXmlXppAbstractParser {
     void bugInstanceFound(@Nullable String file, @Nullable String clazz, int line,
                           @Nullable String type, @Nullable String category, @Nullable String message, @Nullable String details, int priority);
     void error(@NotNull String message);
+  }
+
+  private static class SourceLine {
+    private boolean myPrimary = false;
+    private String myFile;
+    private int myLine;
+
+    public void update(final String file, final int line, final String isPrimary) {
+      if (checkAndSet(isPrimary)) {
+        myFile = file;
+        if (line > 0) myLine = line;
+      }
+    }
+
+    public String getFile() {
+      return myFile;
+    }
+
+    public int getLine() {
+      return myLine;
+    }
+
+    private boolean checkAndSet(String isPrimary) {
+      if (Boolean.parseBoolean(isPrimary)) {
+        myPrimary = true;
+        return true;
+      }
+      return !myPrimary;
+    }
   }
 }

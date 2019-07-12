@@ -114,4 +114,9 @@ public class FindBugsReportParserTest extends BaseParserTestCase {
   public void testUnfinished() throws Exception {
     runTest("unfinished_simple.sample.xml");
   }
+
+  @Test
+  public void testMultipleSourceLine() throws Exception {
+    runTest("sourceLine.sample.xml");
+  }
 }
