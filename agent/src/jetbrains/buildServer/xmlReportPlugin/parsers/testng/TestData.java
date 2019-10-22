@@ -20,6 +20,7 @@ package jetbrains.buildServer.xmlReportPlugin.parsers.testng;
 import java.util.ArrayList;
 import java.util.List;
 import jetbrains.buildServer.util.StringUtil;
+import jetbrains.buildServer.xmlReportPlugin.utils.ParserUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -115,14 +116,18 @@ final class TestData {
 
   public void addParam(@Nullable final String index, @Nullable final String value) {
     String trimValue = '"' + value.replace("\\", "\\\\").replace("\"", "\\\"") + '"';
-    if (!StringUtil.isNumber(index)) {
+    if (!ParserUtils.isNumber(index)) {
       myParamsWithoutIndex.add(trimValue);
     } else {
-      int idx = Integer.parseInt(index);
-      while (myParams.size() <= idx) {
-        myParams.add(EMPTY_PARAM);
+      try {
+        int idx = Integer.parseInt(index);
+        while (myParams.size() <= idx) {
+          myParams.add(EMPTY_PARAM);
+        }
+        myParams.set(idx, trimValue);
+      } catch (NumberFormatException e) {
+        myParamsWithoutIndex.add(trimValue);
       }
-      myParams.set(idx, trimValue);
     }
   }
 

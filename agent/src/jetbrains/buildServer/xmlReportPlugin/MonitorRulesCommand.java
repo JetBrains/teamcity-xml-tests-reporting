@@ -125,14 +125,14 @@ public class MonitorRulesCommand {
       new Runnable() {
         public void run() {
           String message = "Watching paths:";
-          final Collection<String> rulesList = myParameters.getRules().getBody();
-          if (rulesList.isEmpty()) {
+          final Collection<String> rules = myParameters.getRules().getBody();
+          if (rules.isEmpty()) {
             message += " <no paths>";
             LoggingUtils.warn(message, getThreadLogger());
           } else {
             LoggingUtils.message(message, getThreadLogger());
-            for (String r : rulesList) {
-              LoggingUtils.message(r, getThreadLogger());
+            for (String rule : rules) {
+              LoggingUtils.message(rule, getThreadLogger());
             }
           }
         }

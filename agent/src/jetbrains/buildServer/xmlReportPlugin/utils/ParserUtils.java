@@ -17,7 +17,11 @@
 package jetbrains.buildServer.xmlReportPlugin.utils;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.util.XmlUtil;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.xml.sax.*;
@@ -29,6 +33,12 @@ import org.xml.sax.helpers.DefaultHandler;
  * Time: 15:23
  */
 public class ParserUtils {
+
+  private static final Pattern HTML_SPACE = Pattern.compile("&nbsp;", Pattern.LITERAL);
+  private static final Pattern CARRIAGE_RETURN = Pattern.compile("\r", Pattern.LITERAL);
+  private static final Pattern NEW_LINE = Pattern.compile("\n", Pattern.LITERAL);
+  private static final Pattern SPACES = Pattern.compile("\\s+");
+  private static final Pattern HTML_TAGS = Pattern.compile("<[a-z]>|</[a-z]>");
 
   @NotNull
   public static XMLReader createXmlReader(@NotNull ContentHandler contentHandler,
@@ -43,7 +53,32 @@ public class ParserUtils {
 
   @NotNull
   public static String formatText(@NotNull String s) {
-    return s.replace("&nbsp;", " ").replace("\r", "").replace("\n", " ").replaceAll("\\s+", " ").replaceAll("<[a-z]>|</[a-z]>", "").trim();
+    s = replaceHtmlSpace(s);
+    s = removeCarriageReturn(s);
+    s = replaceNewLine(s);
+    s = trimSpaces(s);
+    s = removeHtmlTags(s);
+    return s.trim();
+  }
+
+  private static String replaceHtmlSpace(@NotNull String s) {
+    return HTML_SPACE.matcher(s).replaceAll(Matcher.quoteReplacement(" "));
+  }
+
+  private static String removeCarriageReturn(@NotNull String s) {
+    return CARRIAGE_RETURN.matcher(s).replaceAll(Matcher.quoteReplacement(""));
+  }
+
+  private static String replaceNewLine(@NotNull String s) {
+    return NEW_LINE.matcher(s).replaceAll(Matcher.quoteReplacement(" "));
+  }
+
+  private static String trimSpaces(@NotNull String s) {
+    return SPACES.matcher(s).replaceAll(" ");
+  }
+
+  private static String removeHtmlTags(@NotNull String s) {
+    return HTML_TAGS.matcher(s).replaceAll("");
   }
 
   public static boolean isReportComplete(@NotNull final File report, @Nullable String rootTag) {
@@ -58,6 +93,20 @@ public class ParserUtils {
     } catch (Exception e) {
       return true;
     }
+  }
+
+  @Contract("null -> false")
+  public static boolean isNumber(@Nullable final String str) {
+    if(StringUtil.isEmptyOrSpaces(str)) return false;
+    int position = 0;
+    char ch = str.charAt(position);
+    if (ch == '+' || ch == '-') position++;
+    if (position >= str.length()) return false;
+
+    while (position < str.length()) {
+      if (!Character.isDigit(str.charAt(position++))) return false;
+    }
+    return true;
   }
 
   private static final class CompleteReportHandler extends DefaultHandler {

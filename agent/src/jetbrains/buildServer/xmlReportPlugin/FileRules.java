@@ -54,11 +54,6 @@ public class FileRules implements Rules {
   @NotNull
   private List<File> collectFilesInFolder(@NotNull File folder) {
     final File[] files = folder.listFiles();
-    return files == null || files.length == 0 ? emptyFileList() : Arrays.asList(files);
-  }
-
-  @NotNull
-  private List<File> emptyFileList() {
-    return Collections.emptyList();
+    return files == null || files.length == 0 ? Collections.<File>emptyList() : Arrays.asList(files);
   }
 }

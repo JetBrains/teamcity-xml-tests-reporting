@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import jetbrains.buildServer.xmlReportPlugin.TestUtil;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class ParserUtilsTest {
@@ -41,5 +42,41 @@ public class ParserUtilsTest {
   @Test(timeOut = 5 * 1000)
   public void testIsReportComplete_XML_Bomb() throws Exception {
     doTestReportComplete("xml-bomb.xml", false);
+  }
+
+  @DataProvider(name = "isNumberData")
+  public Object[][] isNumberData() {
+    return new Object[][] {
+      {"0", true},
+      {"+0", true},
+      {"-0", true},
+      {"1", true},
+      {"+1", true},
+      {"-1", true},
+      {"019", true},
+      {"+019", true},
+      {"-019", true},
+      {"1234567890", true},
+      {"-1234567890", true},
+      {"+1234567890", true},
+      {"123456789098765432123456789098765432123456789098765432", true},
+      {"+", false},
+      {"-", false},
+      {" ", false},
+      {"", false},
+      {null, false},
+      {"text", false},
+      {"0.19", false},
+      {"0,19", false},
+      {" 19", false},
+      {"19 ", false},
+      {"1 9", false},
+      {"123456789098765432123456789098765432123456789098765432 ", false},
+    };
+  }
+
+  @Test(dataProvider = "isNumberData")
+  public void isNumber(String str, Boolean isNumber) {
+    Assert.assertEquals(Boolean.valueOf(ParserUtils.isNumber(str)), isNumber, str + " != " + isNumber);
   }
 }

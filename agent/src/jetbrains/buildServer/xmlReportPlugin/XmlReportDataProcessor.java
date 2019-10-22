@@ -21,6 +21,7 @@ import java.util.Map;
 import jetbrains.buildServer.agent.BuildStepDataProcessor;
 import jetbrains.buildServer.agent.DataProcessorContext;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 //"##teamcity[importData type='sometype' file='somedir']"
 // service message activates watching "somedir" directory for reports of sometype type
@@ -54,36 +55,30 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     myRulesProcessor = rulesProcessor;
   }
 
+  @Override
   public void processData(@NotNull final DataProcessorContext context) {
-    final Map<String, String> arguments = context.getArguments();
-
-    final Map<String, String> params = new HashMap<String, String>();
-
-    params.put(XmlReportPluginConstants.REPORT_TYPE, getType());
-
-    pass(params, XmlReportPluginConstants.VERBOSE_OUTPUT, arguments, VERBOSE_ARGUMENT, "false");
-    pass(params, XmlReportPluginConstants.PARSE_OUT_OF_DATE, arguments, PARSE_OUT_OF_DATE_ARGUMENT, "false");
-    pass(params, XmlReportPluginConstants.WHEN_NO_DATA_PUBLISHED, arguments, WHEN_NO_DATA_PUBLISHED_ARGUMENT, "error");
-    pass(params, XmlReportPluginConstants.FAIL_BUILD_IF_PARSING_FAILED, arguments, FAIL_BUILD_IF_PARSING_FAILED, "true");
-    pass(params, XmlReportPluginConstants.LOG_AS_INTERNAL, arguments, LOG_AS_INTERNAL_ARGUMENT, null);
-
-    if ("findBugs".equals(getType())) {
-      pass(params, XmlReportPluginConstants.FINDBUGS_HOME, arguments, FINDBUGS_HOME_ARGUMENT, null);
-    }
-
-    pass(params, XmlReportPluginConstants.MAX_ERRORS, arguments, ERRORS_LIMIT_ARGUMENT, null);
-    pass(params, XmlReportPluginConstants.MAX_WARNINGS, arguments, WARNINGS_LIMIT_ARGUMENT, null);
-
-    myRulesProcessor.processRules(context.getFile(), params);
+    myRulesProcessor.processRules(context.getFile(), getParams(context.getArguments()));
   }
 
-  private static void pass(final Map<String, String> target,
-                           final String targetKey,
-                           final Map<String, String> source,
-                           final String sourceKey,
-                           final String defaultValue) {
-    String sourceValue = source.containsKey(sourceKey) ? source.get(sourceKey) : defaultValue;
-    target.put(targetKey, sourceValue);
+  @NotNull
+  protected Map<String, String> getParams(@NotNull final Map<String, String> arguments) {
+    final Map<String, String> params = new HashMap<String, String>();
+    params.put(XmlReportPluginConstants.REPORT_TYPE, getType());
+    params.put(XmlReportPluginConstants.VERBOSE_OUTPUT, getOrDefault(arguments, VERBOSE_ARGUMENT, "false"));
+    params.put(XmlReportPluginConstants.PARSE_OUT_OF_DATE, getOrDefault(arguments, PARSE_OUT_OF_DATE_ARGUMENT, "false"));
+    params.put(XmlReportPluginConstants.WHEN_NO_DATA_PUBLISHED, getOrDefault(arguments, WHEN_NO_DATA_PUBLISHED_ARGUMENT, "error"));
+    params.put(XmlReportPluginConstants.FAIL_BUILD_IF_PARSING_FAILED, getOrDefault(arguments, FAIL_BUILD_IF_PARSING_FAILED, "true"));
+    params.put(XmlReportPluginConstants.LOG_AS_INTERNAL, getOrDefault(arguments, LOG_AS_INTERNAL_ARGUMENT, null));
+    params.put(XmlReportPluginConstants.MAX_ERRORS, getOrDefault(arguments, ERRORS_LIMIT_ARGUMENT, null));
+    params.put(XmlReportPluginConstants.MAX_WARNINGS, getOrDefault(arguments, WARNINGS_LIMIT_ARGUMENT, null));
+    return params;
+  }
+
+  @Nullable
+  protected String getOrDefault(@NotNull final Map<String, String> source,
+                           @NotNull final String sourceKey,
+                           @Nullable final String defaultValue) {
+    return source.containsKey(sourceKey) ? source.get(sourceKey) : defaultValue;
   }
 
   public static final class JUnitDataProcessor extends XmlReportDataProcessor {
@@ -92,6 +87,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
 
     @NotNull
+    @Override
     public String getType() {
       return "junit";
     }
@@ -103,6 +99,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
 
     @NotNull
+    @Override
     public String getType() {
       return "testng";
     }
@@ -114,6 +111,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
 
     @NotNull
+    @Override
     public String getType() {
       return "nunit";
     }
@@ -125,6 +123,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
 
     @NotNull
+    @Override
     public String getType() {
       return "surefire";
     }
@@ -136,8 +135,17 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
 
     @NotNull
+    @Override
     public String getType() {
       return "findBugs";
+    }
+
+    @NotNull
+    @Override
+    protected Map<String, String> getParams(@NotNull final Map<String, String> arguments) {
+      final Map<String, String> params = super.getParams(arguments);
+      params.put(XmlReportPluginConstants.FINDBUGS_HOME, getOrDefault(arguments, FINDBUGS_HOME_ARGUMENT, null));
+      return params;
     }
   }
 
@@ -147,6 +155,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
 
     @NotNull
+    @Override
     public String getType() {
       return "pmd";
     }
@@ -158,6 +167,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
 
     @NotNull
+    @Override
     public String getType() {
       return "checkstyle";
     }
@@ -169,6 +179,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
 
     @NotNull
+    @Override
     public String getType() {
       return "pmdCpd";
     }
@@ -180,6 +191,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
 
     @NotNull
+    @Override
     public String getType() {
       return "mstest";
     }
@@ -191,6 +203,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
 
     @NotNull
+    @Override
     public String getType() {
       return "vstest";
     }
@@ -202,6 +215,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
 
     @NotNull
+    @Override
     public String getType() {
       return "trx";
     }
@@ -213,6 +227,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
 
     @NotNull
+    @Override
     public String getType() {
       return "gtest";
     }
@@ -224,6 +239,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
 
     @NotNull
+    @Override
     public String getType() {
       return "jslint";
     }
@@ -235,6 +251,7 @@ public abstract class XmlReportDataProcessor implements BuildStepDataProcessor {
     }
 
     @NotNull
+    @Override
     public String getType() {
       return "ctest";
     }

@@ -73,7 +73,7 @@ public class OptimizingIncludeExcludeRules implements Rules {
 
   @NotNull
   private String[] getRulesArray() {
-    return  myBody.toArray(new String[myBody.size()]);
+    return  myBody.toArray(new String[0]);
   }
 
   @NotNull

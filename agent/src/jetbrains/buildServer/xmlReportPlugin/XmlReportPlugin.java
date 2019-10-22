@@ -361,16 +361,15 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
           summaryLogAction.doLogAction(
             totalFileCount == 0 ?
             "No reports found for paths:" :
-            totalFileCount + " report" + getEnding(totalFileCount) + " found for paths:", logger);
+            totalFileCount + " " + StringUtil.pluralize("report", totalFileCount) + " found for paths:", logger);
 
           final Collection<String> rules = rulesContext.getRulesData().getRules().getBody();
 
-          if (rules.size() == 0) {
+          if (rules.isEmpty()) {
             LoggingUtils.warn("<no paths>", logger);
-          } else {
-            for (String r : rules) {
-              summaryLogAction.doLogAction(r, logger);
-            }
+          }
+          for (String rule : rules) {
+            summaryLogAction.doLogAction(rule, logger);
           }
 
           final ParsingResult result = getParserFactory(rulesContext.getRulesData().getType()).createEmptyResult();
@@ -380,18 +379,20 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
                                      new Runnable() {
                                        public void run() {
                                          LoggingUtils
-                                           .error("Failed to parse " + failedToParse.size() + " report" + getEnding(failedToParse.size()), logger);
+                                           .error("Failed to parse " + failedToParse.size() + " " + StringUtil.pluralize("report", failedToParse.size()), logger);
 
-                                         for (Map.Entry<File, ParsingResult> e : failedToParse.entrySet()) {
-                                           final Throwable p = getProblem(e.getValue());
-                                           String m = getPathInCheckoutDir(e.getKey());
+                                         for (Map.Entry<File, ParsingResult> parsedFile : failedToParse.entrySet()) {
+                                           final ParsingResult parsingResult = parsedFile.getValue();
+                                           final File file = parsedFile.getKey();
+                                           final Throwable problem = getProblem(parsingResult);
+                                           String path = getPathInCheckoutDir(file);
 
-                                           if (p == null) m = m + ": Report is incomplete or has unexpected structure";
-                                           else if (StringUtil.isNotEmpty(p.getMessage())) m = m + ": " + p.getMessage();
+                                           if (problem == null) path = path + ": Report is incomplete or has unexpected structure";
+                                           else if (StringUtil.isNotEmpty(problem.getMessage())) path = path + ": " + problem.getMessage();
 
-                                           LoggingUtils.logError(m, p, logger, rulesContext.getRulesData().isVerbose() || failedToParse.size() == 1);
+                                           LoggingUtils.logError(path, problem, logger, rulesContext.getRulesData().isVerbose() || failedToParse.size() == 1);
 
-                                           result.accumulate(e.getValue());
+                                           result.accumulate(parsingResult);
                                          }
                                        }
                                      }, logger);
@@ -406,17 +407,20 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
                                      new Runnable() {
                                        public void run() {
                                          LoggingUtils
-                                           .message(succeeded.size() + " report" + getEnding(succeeded.size()), logger);
+                                           .message(succeeded.size() + " " + StringUtil.pluralize("report", succeeded.size()), logger);
 
-                                         for (Map.Entry<File, ParsingResult> e : succeeded.entrySet()) {
-                                           final String m = getPathInCheckoutDir(e.getKey());
+                                         for (Map.Entry<File, ParsingResult> parsedFile : succeeded.entrySet()) {
+                                           final ParsingResult parsingResult = parsedFile.getValue();
+                                           final File file = parsedFile.getKey();
+
+                                           final String path = getPathInCheckoutDir(file);
 
                                            if (rulesContext.getRulesData().isVerbose() || succeeded.size() == 1) {
-                                             LoggingUtils.message(m, logger);
+                                             LoggingUtils.message(path, logger);
                                            } else {
-                                             LoggingUtils.LOG.debug(m);
+                                             LoggingUtils.LOG.debug(path);
                                            }
-                                           result.accumulate(e.getValue());
+                                           result.accumulate(parsingResult);
                                          }
                                        }
                                      }, logger);
@@ -427,14 +431,14 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
               @Override
               public void run() {
                 LoggingUtils.verbose("Processing start time is: [" + rulesContext.getRulesData().getMonitorRulesParameters().getStartTime() + "]", logger);
-                summaryLogAction.doLogAction(outOfDate.size() + " report" + getEnding(outOfDate.size()), logger);
+                summaryLogAction.doLogAction(outOfDate.size() + " " + StringUtil.pluralize("report", outOfDate.size()), logger);
 
-                for (File f : outOfDate) {
-                  final String m = getPathInCheckoutDir(f);
-                  final String details = m + " has last modified timestamp [" + f.lastModified() + "]";
+                for (File outOfDateFile : outOfDate) {
+                  final String path = getPathInCheckoutDir(outOfDateFile);
+                  final String details = path + " has last modified timestamp [" + outOfDateFile.lastModified() + "]";
 
                   if (rulesContext.getRulesData().isVerbose() || outOfDate.size() == 1 || processedFileCount == 0) {
-                    summaryLogAction.doLogAction(m, logger);
+                    summaryLogAction.doLogAction(path, logger);
                   }
                   LoggingUtils.verbose(details, logger);
                 }
@@ -461,11 +465,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     if (problem == null) return null;
     assert problem instanceof ParsingException;
     return problem.getCause();
-  }
-
-  @NotNull
-  private static String getEnding(int count) {
-    return count == 1 ? "" : "s";
   }
 
   @SuppressWarnings({"NullableProblems"})
