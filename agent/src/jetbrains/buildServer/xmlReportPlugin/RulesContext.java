@@ -35,7 +35,7 @@ public class RulesContext {
   private final RulesState myRulesState;
 
   @NotNull
-  private final List<Future> myParseTasks = new ArrayList<Future>();
+  private final List<Future<?>> myParseTasks = new ArrayList<Future<?>>();
 
   @NotNull
   private MonitorRulesCommand myMonitorRulesCommand;
@@ -46,12 +46,12 @@ public class RulesContext {
     myRulesState = rulesState;
   }
 
-  public void addParseTask(@NotNull Future parseTask) {
+  public void addParseTask(@NotNull Future<?> parseTask) {
     myParseTasks.add(parseTask);
   }
 
   @NotNull
-  public List<Future> getParseTasks() {
+  public List<Future<?>> getParseTasks() {
     return Collections.unmodifiableList(myParseTasks);
   }
 

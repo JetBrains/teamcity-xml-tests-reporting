@@ -22,9 +22,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 import jetbrains.buildServer.BuildProblemData;
 import jetbrains.buildServer.ExtensionsProvider;
 import jetbrains.buildServer.agent.*;
+import jetbrains.buildServer.agent.duplicates.DuplicatesReporter;
 import jetbrains.buildServer.agent.impl.MessageTweakingSupport;
 import jetbrains.buildServer.util.*;
 import jetbrains.buildServer.util.executors.ExecutorsFactory;
@@ -38,6 +40,7 @@ import jetbrains.buildServer.xmlReportPlugin.inspections.TeamCityInspectionRepor
 import jetbrains.buildServer.xmlReportPlugin.tests.TeamCityTestReporter;
 import jetbrains.buildServer.xmlReportPlugin.tests.TestReporter;
 import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.util.AntPathMatcher;
@@ -46,10 +49,11 @@ import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
 
 
 public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProcessor, PositionAware {
+  private static final Pattern SPLIT_RULES = Pattern.compile(XmlReportPluginConstants.SPLIT_REGEX);
   @NotNull
   private final jetbrains.buildServer.agent.inspections.InspectionReporter myInspectionReporter;
   @NotNull
-  private final jetbrains.buildServer.agent.duplicates.DuplicatesReporter myDuplicatesReporter;
+  private final DuplicatesReporter myDuplicatesReporter;
   @NotNull private final ExtensionsProvider myExtensionProvider;
 
   @Nullable
@@ -60,11 +64,11 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   @NotNull
   private final Lazy<Map<String, ParserFactory>> myParserFactoryMap = new Lazy<Map<String, ParserFactory>>() {
-    @Nullable
+    @NotNull
     @Override
     protected Map<String, ParserFactory> createValue() {
-      final Map<String, ParserFactory> map = new HashMap<String, ParserFactory>();
       final Collection<ParserFactory> factories = myExtensionProvider.getExtensions(ParserFactory.class);
+      final Map<String, ParserFactory> map = new HashMap<String, ParserFactory>((int)(factories.size() / 0.75f) + 1);
       for (ParserFactory factory : factories) {
         map.put(factory.getType(), factory);
       }
@@ -84,7 +88,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   public XmlReportPlugin(@NotNull ExtensionsProvider extensionsProvider,
                          @NotNull EventDispatcher<AgentLifeCycleListener> agentDispatcher,
                          @NotNull jetbrains.buildServer.agent.inspections.InspectionReporter inspectionReporter,
-                         @NotNull jetbrains.buildServer.agent.duplicates.DuplicatesReporter duplicatesReporter,
+                         @NotNull DuplicatesReporter duplicatesReporter,
                          @NotNull BuildAgentConfiguration configuration) {
     myExtensionProvider = extensionsProvider;
     myConfiguration = configuration;
@@ -143,7 +147,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
           }
         }
       }
-      if (XmlReportPluginUtil.isInspectionType(existingType) && XmlReportPluginUtil.isInspectionType(newType)) {
+      if (isInspectionType(existingType) && newType != null && isInspectionType(newType)) {
         LoggingUtils
           .warn(String.format("Two different inspections can not be processed during one build, skip %s reports", getReportTypeName(
             newType)), getBuild().getBuildLogger());
@@ -202,11 +206,12 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   }
 
   private void startProcessing(@NotNull final ProcessingContext processingContext) {
-    if (isStarted(processingContext)) return;
-    if (!rulesExist(processingContext)) return;
+    Thread monitor = processingContext.monitorThread;
+    if (isStarted(monitor)) return;
+    if (isRulesEmpty(processingContext)) return;
 
     processingContext.finished = false;
-    processingContext.monitorThread = new Thread(new Runnable() {
+    monitor = new Thread(new Runnable() {
       public void run() {
         while (!processingContext.finished) {
           processAllRules(processingContext);
@@ -219,15 +224,16 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         }
       }
     });
-    processingContext.monitorThread.start();
+    (processingContext.monitorThread = monitor).start();
   }
 
-  private boolean rulesExist(final @NotNull ProcessingContext processingContext) {
-    return processingContext.rulesContexts.size() > 0;
+  private boolean isRulesEmpty(final @NotNull ProcessingContext processingContext) {
+    return processingContext.rulesContexts.isEmpty();
   }
 
-  private boolean isStarted(final @NotNull ProcessingContext processingContext) {
-    return processingContext.monitorThread != null;
+  @Contract("null -> false")
+  private boolean isStarted(@Nullable final Thread monitor) {
+    return monitor != null;
   }
 
   private void processAllRules(final @NotNull ProcessingContext processingContext) {
@@ -237,22 +243,24 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   }
 
   private void finishProcessing(@NotNull final ProcessingContext processingContext, boolean logStatistics) {
-    if (!isStarted(processingContext) && !rulesExist(processingContext)) return;
-    if (!isStarted(processingContext)) {
+    Thread monitor = processingContext.monitorThread;
+    if (!isStarted(monitor) && isRulesEmpty(processingContext)) return;
+    if (!isStarted(monitor)) {
       // process all rules even if we do not have build steps
       processAllRules(processingContext);
     }
 
     processingContext.finished = true;
     try {
-      if (isStarted(processingContext)) {
-        processingContext.monitorThread.join();
+      monitor = processingContext.monitorThread;
+      processingContext.monitorThread = null;
+      if (isStarted(monitor)) {
+        monitor.join();
       }
 
-      processingContext.monitorThread = null;
 
       for (RulesContext rulesContext : processingContext.rulesContexts) {
-        for (Future future : rulesContext.getParseTasks()) {
+        for (Future<?> future : rulesContext.getParseTasks()) {
           future.get();
         }
 
@@ -260,7 +268,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
         rulesContext.getMonitorRulesCommand().run();
 
-        for (Future future : rulesContext.getParseTasks()) {
+        for (Future<?> future : rulesContext.getParseTasks()) {
           future.get();
         }
 
@@ -306,10 +314,13 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     return ExecutorsFactory.newFixedDaemonExecutor("xml-report-plugin", 1);
   }
 
+  @SuppressWarnings("ConstantConditions")
   private Rules getRules(@NotNull Map<String, String> parameters) {
     return getRules(getXmlReportPaths(parameters));
   }
 
+  @NotNull
+  @SuppressWarnings("ConstantConditions")
   private Rules getRules(@Nullable File rulesFile, @NotNull Map<String, String> parameters) {
     final String rulesStr = rulesFile == null ? getXmlReportPaths(parameters) : rulesFile.getAbsolutePath();
     return getRules(rulesStr);
@@ -317,7 +328,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   @NotNull
   private Rules getRules(@NotNull String rulesStr) {
-    final List<String> rules = Arrays.asList(rulesStr.split(XmlReportPluginConstants.SPLIT_REGEX));
+    final List<String> rules = Arrays.asList(SPLIT_RULES.split(rulesStr));
     final File baseDir = getBuild().getCheckoutDirectory();
 
     if (rules.size() == 1) {
@@ -541,9 +552,10 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
       return myRules;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @NotNull
     public String getType() {
-      return XmlReportPluginUtil.getReportType(myParameters);
+      return getReportType(myParameters);
     }
 
     public boolean isVerbose() {
@@ -567,6 +579,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
           return myRules;
         }
 
+        @SuppressWarnings("ConstantConditions")
         @NotNull
         public String getType() {
           return getReportType(myParameters);
@@ -635,6 +648,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
           return Collections.unmodifiableMap(myParameters);
         }
 
+        @SuppressWarnings("ConstantConditions")
         @NotNull
         public String getType() {
           return getReportType(myParameters);
