@@ -38,14 +38,19 @@ public class ParseReportCommand implements Runnable {
   @NotNull
   private final ParserFactory myParserFactory;
 
-  public ParseReportCommand(@NotNull File file,
-                            @NotNull ParseParameters parameters,
-                            @NotNull RulesState rulesState,
-                            @NotNull ParserFactory parserFactory) {
+  public ParseReportCommand(@NotNull final File file,
+                            @NotNull final ParseParameters parameters,
+                            @NotNull final RulesState rulesState,
+                            @NotNull final ParserFactory parserFactory) {
     myFile = file;
     myParameters = parameters;
     myRulesState = rulesState;
     myParserFactory = parserFactory;
+  }
+
+  @NotNull
+  public ParserFactory.ParsingStage getParsingStage() {
+    return myParserFactory.getParsingStage();
   }
 
   public void run() {

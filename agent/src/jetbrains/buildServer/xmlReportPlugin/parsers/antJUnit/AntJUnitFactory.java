@@ -34,6 +34,12 @@ public class AntJUnitFactory implements ParserFactory {
   }
 
   @NotNull
+  @Override
+  public ParsingStage getParsingStage() {
+    return ParsingStage.RUNTIME;
+  }
+
+  @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
     return new AntJUnitReportParser(parameters.getTestReporter(), new SecondDurationParser(),
                                     XmlReportPluginUtil.isLogInternalSystemError(parameters.getParameters()));

@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.pmdCpd;
 
+import jetbrains.buildServer.serverSide.TeamCityProperties;
 import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.ParserFactory;
@@ -32,6 +33,15 @@ public class PmdCpdFactory implements ParserFactory {
   @Override
   public String getType() {
     return "pmdCpd";
+  }
+
+  @NotNull
+  @Override
+  public ParsingStage getParsingStage() {
+    final String stageName = TeamCityProperties.getPropertyOrNull(TEAMCITY_PROPERTY_STAGE_PREFIX + "." + getType());
+    final ParsingStage stage = ParsingStage.of(stageName);
+    if (stage != null) return stage;
+    else return ParsingStage.BEFORE_FINISH;
   }
 
   @NotNull

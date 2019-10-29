@@ -39,6 +39,12 @@ public class TRXFactory implements ParserFactory {
   }
 
   @NotNull
+  @Override
+  public ParsingStage getParsingStage() {
+    return ParsingStage.RUNTIME;
+  }
+
+  @NotNull
   public final Parser createParser(@NotNull final ParseParameters parameters) {
     return new TRXParser(parameters.getTestReporter(), getDefaultSuiteName());
   }

@@ -24,4 +24,10 @@ public class GTestFactory extends AntJUnitFactory {
   public String getType() {
     return "gtest";
   }
+
+  @NotNull
+  @Override
+  public ParsingStage getParsingStage() {
+    return ParsingStage.RUNTIME;
+  }
 }

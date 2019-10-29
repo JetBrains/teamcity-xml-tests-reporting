@@ -16,11 +16,13 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.checkstyle;
 
+import jetbrains.buildServer.serverSide.TeamCityProperties;
 import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.ParserFactory;
 import jetbrains.buildServer.xmlReportPlugin.ParsingResult;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionParsingResult;
+import jetbrains.buildServer.xmlReportPlugin.utils.LoggingUtils;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -33,6 +35,15 @@ public class CheckstyleFactory implements ParserFactory {
   @Override
   public String getType() {
     return "checkstyle";
+  }
+
+  @NotNull
+  @Override
+  public ParsingStage getParsingStage() {
+    final String stageName = TeamCityProperties.getPropertyOrNull(TEAMCITY_PROPERTY_STAGE_PREFIX + "." + getType());
+    final ParsingStage stage = ParsingStage.of(stageName);
+    if (stage != null) return stage;
+    else return ParsingStage.BEFORE_FINISH;
   }
 
   @NotNull

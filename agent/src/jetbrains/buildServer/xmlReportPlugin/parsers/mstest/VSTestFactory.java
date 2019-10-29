@@ -28,6 +28,12 @@ public class VSTestFactory extends TRXFactory implements ParserFactory {
 
   @NotNull
   @Override
+  public ParsingStage getParsingStage() {
+    return ParsingStage.RUNTIME;
+  }
+
+  @NotNull
+  @Override
   protected String getDefaultSuiteName() {
     return "VSTest";
   }

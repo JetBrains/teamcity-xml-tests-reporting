@@ -33,6 +33,12 @@ public class MSTestFactory extends TRXFactory implements ParserFactory {
 
   @NotNull
   @Override
+  public ParsingStage getParsingStage() {
+    return ParsingStage.RUNTIME;
+  }
+
+  @NotNull
+  @Override
   protected final String getDefaultSuiteName() {
     return "MSTest";
   }

@@ -29,6 +29,12 @@ public class TestNGFactory implements ParserFactory {
   }
 
   @NotNull
+  @Override
+  public ParsingStage getParsingStage() {
+    return ParsingStage.RUNTIME;
+  }
+
+  @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
     return new TestNGReportParser(parameters.getTestReporter(), new MillisecondDurationParser(),
                                   XmlReportPluginUtil.isLogInternalSystemError(parameters.getParameters()));

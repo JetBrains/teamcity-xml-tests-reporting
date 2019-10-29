@@ -16,6 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.jslint;
 
+import jetbrains.buildServer.serverSide.TeamCityProperties;
 import jetbrains.buildServer.xmlReportPlugin.ParseParameters;
 import jetbrains.buildServer.xmlReportPlugin.Parser;
 import jetbrains.buildServer.xmlReportPlugin.ParserFactory;
@@ -33,6 +34,15 @@ public class JSLintFactory implements ParserFactory {
   @Override
   public String getType() {
     return "jslint";
+  }
+
+  @NotNull
+  @Override
+  public ParsingStage getParsingStage() {
+    final String stageName = TeamCityProperties.getPropertyOrNull(TEAMCITY_PROPERTY_STAGE_PREFIX + "." + getType());
+    final ParsingStage stage = ParsingStage.of(stageName);
+    if (stage != null) return stage;
+    else return ParsingStage.BEFORE_FINISH;
   }
 
   @NotNull

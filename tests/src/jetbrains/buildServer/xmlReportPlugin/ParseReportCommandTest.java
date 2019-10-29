@@ -227,6 +227,12 @@ public class ParseReportCommandTest extends BaseCommandTestCase {
       }
 
       @NotNull
+      @Override
+      public ParsingStage getParsingStage() {
+        return ParsingStage.RUNTIME;
+      }
+
+      @NotNull
       public Parser createParser(@NotNull ParseParameters parameters) {
         return parser;
       }

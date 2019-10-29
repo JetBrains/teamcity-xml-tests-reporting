@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.parsers.findBugs;
 
 import java.util.Map;
+import jetbrains.buildServer.serverSide.TeamCityProperties;
 import jetbrains.buildServer.xmlReportPlugin.*;
 import jetbrains.buildServer.xmlReportPlugin.inspections.InspectionParsingResult;
 import org.jetbrains.annotations.NotNull;
@@ -31,6 +32,15 @@ public class FindBugsFactory implements ParserFactory {
   @Override
   public String getType() {
     return "findBugs";
+  }
+
+  @NotNull
+  @Override
+  public ParsingStage getParsingStage() {
+    final String stageName = TeamCityProperties.getPropertyOrNull(TEAMCITY_PROPERTY_STAGE_PREFIX + "." + getType());
+    final ParsingStage stage = ParsingStage.of(stageName);
+    if (stage != null) return stage;
+    else return ParsingStage.BEFORE_FINISH;
   }
 
   @NotNull

@@ -34,6 +34,12 @@ public class CTestFactory implements ParserFactory {
   }
 
   @NotNull
+  @Override
+  public ParsingStage getParsingStage() {
+    return ParsingStage.RUNTIME;
+  }
+
+  @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
     return new CTestReportParser(parameters.getTestReporter());
   }

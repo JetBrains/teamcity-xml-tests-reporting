@@ -20,7 +20,6 @@ import java.io.File;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import jetbrains.buildServer.BuildProblemData;
@@ -46,7 +45,6 @@ import org.jetbrains.annotations.Nullable;
 import org.springframework.util.AntPathMatcher;
 
 import static jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil.*;
-
 
 public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProcessor, PositionAware {
   private static final Pattern SPLIT_RULES = Pattern.compile(XmlReportPluginConstants.SPLIT_REGEX);
@@ -129,13 +127,17 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   public synchronized void processRules(@NotNull File rulesFile,
                                         @NotNull Map<String, String> params) {
-    if (getNotNullStepProcessingContext().finished) return;
+    final ProcessingContext stepContext = getStepProcessingContext();
+    if (stepContext == null) {
+      throw new IllegalStateException("Step processing context is null");
+    }
+    if (stepContext.finished) return;
 
      // here we check if this path is already monitored for reports of this type
      // we also don't support processing two inspections type during one build
     final String newType = getReportType(params);
 
-    for (RulesContext context : getNotNullStepProcessingContext().rulesContexts) {
+    for (RulesContext context : stepContext.rulesContexts) {
       final String existingType = context.getRulesData().getType();
 
       if (existingType.equals(newType)) {
@@ -155,18 +157,19 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
       }
     }
 
-    final RulesData rulesData = new RulesData(getRules(rulesFile, params), params, getNotNullStepProcessingContext().startTime);
+    final RulesData rulesData = new RulesData(getRules(rulesFile, params), params, stepContext.startTime);
 
-    getNotNullStepProcessingContext().rulesContexts.add(createRulesContext(rulesData));
+    stepContext.rulesContexts.add(createRulesContext(rulesData));
 
-    startProcessing(getNotNullStepProcessingContext());
+    startProcessing(stepContext);
   }
 
   @Override
   public synchronized void runnerFinished(@NotNull BuildRunnerContext runner, @NotNull BuildFinishedStatus status) {
-    if (getStepProcessingContext() == null) return; // if beforeRunnerStart was not called
+    final ProcessingContext stepContext = getStepProcessingContext();
+    if (stepContext == null) return; // if beforeRunnerStart was not called
 
-    finishProcessing(getNotNullStepProcessingContext(), true);
+    finishProcessing(stepContext, true);
 
     finishProcessing(getBuildProcessingContext(), false);
     startProcessing(getBuildProcessingContext());
@@ -192,16 +195,19 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     final ParserFactory parserFactory = getParserFactory(rulesData.getType());
 
     final RulesContext rulesContext = new RulesContext(rulesData, fileStateHolder);
-
-    final MonitorRulesCommand monitorRulesCommand = new MonitorRulesCommand(rulesData.getMonitorRulesParameters(), rulesContext.getRulesState(), myQuietMode,
-      new MonitorRulesCommand.MonitorRulesListener() {
-        public void modificationDetected(@NotNull File file) {
-          submitParsing(file, rulesContext, parserFactory);
-        }
-      });
-
-    rulesContext.setMonitorRulesCommand(monitorRulesCommand);
-
+    switch (parserFactory.getParsingStage()) {
+      case BEFORE_FINISH:
+        rulesContext.addParseFactory(parserFactory);
+        break;
+      case RUNTIME:
+        rulesContext.setMonitorRulesCommand(new MonitorRulesCommand(rulesData.getMonitorRulesParameters(), rulesContext.getRulesState(), myQuietMode,
+                                                                    new MonitorRulesCommand.MonitorRulesListener() {
+                                                                      public void modificationDetected(@NotNull File file) {
+                                                                        submitParsing(file, rulesContext, parserFactory);
+                                                                      }
+                                                                    }));
+        break;
+    }
     return rulesContext;
   }
 
@@ -238,11 +244,12 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   private void processAllRules(final @NotNull ProcessingContext processingContext) {
     for (RulesContext rulesContext : processingContext.rulesContexts) {
-      rulesContext.getMonitorRulesCommand().run();
+      final MonitorRulesCommand monitorRules = rulesContext.getMonitorRulesCommand();
+      if (monitorRules != null) monitorRules.run();
     }
   }
 
-  private void finishProcessing(@NotNull final ProcessingContext processingContext, boolean logStatistics) {
+  private void finishProcessing(@NotNull final ProcessingContext processingContext, boolean fullFinish) {
     Thread monitor = processingContext.monitorThread;
     if (!isStarted(monitor) && isRulesEmpty(processingContext)) return;
     if (!isStarted(monitor)) {
@@ -260,19 +267,15 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
 
       for (RulesContext rulesContext : processingContext.rulesContexts) {
-        for (Future<?> future : rulesContext.getParseTasks()) {
-          future.get();
-        }
+        rulesContext.waitRuntimeParsing();
+        rulesContext.clearRuntimeParseTasks();
 
-        rulesContext.clearParseTasks();
+        final MonitorRulesCommand monitorRules = rulesContext.getMonitorRulesCommand();
+        if (monitorRules != null) monitorRules.run();
+        if (fullFinish) rulesContext.finish();
+        else rulesContext.waitRuntimeParsing();
 
-        rulesContext.getMonitorRulesCommand().run();
-
-        for (Future<?> future : rulesContext.getParseTasks()) {
-          future.get();
-        }
-
-        if (logStatistics && !myQuietMode) logStatistics(rulesContext);
+        if (fullFinish && !myQuietMode) logStatistics(rulesContext);
       }
     } catch (Exception e) {
       LoggingUtils.logError("Exception occurred while finishing rules monitoring", e, getBuild().getBuildLogger(), false);
@@ -281,10 +284,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
 
   private void submitParsing(@NotNull File file, @NotNull final RulesContext rulesContext, @NotNull ParserFactory parserFactory) {
     final ParseReportCommand parseReportCommand = new ParseReportCommand(file, rulesContext.getRulesData().getParseReportParameters(), rulesContext.getRulesState(), parserFactory);
-
-    synchronized (myParseExecutor) {
-      rulesContext.addParseTask(myParseExecutor.submit(parseReportCommand));
-    }
+    rulesContext.addParseTask(myParseExecutor, parseReportCommand);
   }
 
   private void shutdownExecutor(@NotNull ExecutorService executor) {
@@ -370,9 +370,9 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         public void run() {
           final int totalFileCount = processedFileCount + outOfDate.size();
           summaryLogAction.doLogAction(
-            totalFileCount == 0 ?
-            "No reports found for paths:" :
-            totalFileCount + " " + StringUtil.pluralize("report", totalFileCount) + " found for paths:", logger);
+            totalFileCount == 0
+            ? "No reports found for paths:"
+            : totalFileCount + " " + StringUtil.pluralize("report", totalFileCount) + " found for paths:", logger);
 
           final Collection<String> rules = rulesContext.getRulesData().getRules().getBody();
 
@@ -507,15 +507,6 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
   @Nullable
   private synchronized ProcessingContext getStepProcessingContext() {
     return myStepProcessingContext;
-  }
-
-  @NotNull
-  private synchronized ProcessingContext getNotNullStepProcessingContext() {
-    final ProcessingContext context = getStepProcessingContext();
-    if (context == null) {
-      throw new IllegalStateException("Step processing context is null");
-    }
-    return context;
   }
 
   @NotNull

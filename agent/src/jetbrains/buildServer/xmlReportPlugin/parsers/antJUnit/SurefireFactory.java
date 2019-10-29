@@ -24,4 +24,10 @@ public class SurefireFactory extends AntJUnitFactory {
   public String getType() {
     return "surefire";
   }
+
+  @NotNull
+  @Override
+  public ParsingStage getParsingStage() {
+    return ParsingStage.RUNTIME;
+  }
 }
