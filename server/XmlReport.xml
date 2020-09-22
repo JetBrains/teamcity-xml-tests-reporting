@@ -2,13 +2,13 @@
 <dsl-extension kind="buildFeature" type="xml-report-plugin" generateDslJar="true">
   <class name="XmlReport">
     <description>
-      A [build feature](https://www.jetbrains.com/help/teamcity/?XML+Report+Processing) parses
+      A [build feature](https://www.jetbrains.com/help/teamcity/xml-report-processing.html) parses
       xml report produced by external tools and present them as build results
     </description>
   </class>
   <function name="xmlReport">
     <description>
-      Adds a [build feature](https://www.jetbrains.com/help/teamcity/?XML+Report+Processing) parses
+      Adds a [build feature](https://www.jetbrains.com/help/teamcity/xml-report-processing.html) parses
       xml report produced by external tools and present them as build results
       @see XmlReport
     </description>
