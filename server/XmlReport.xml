@@ -57,6 +57,7 @@
     <enum name="XmlReportType">
       <description>Xml report type</description>
       <option name="JUNIT" value="junit"/>
+      <option name="TESTNG" value="testng"/>
       <option name="CTEST" value="ctest"/>
       <option name="CHECKSTYLE" value="checkstyle"/>
       <option name="FINDBUGS" value="findBugs"/>
