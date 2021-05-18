@@ -16,7 +16,7 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit;
 
-import java.util.List;
+import java.util.*;
 import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.xmlReportPlugin.parsers.BaseXmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.DurationParser;
@@ -38,6 +38,10 @@ class AntJUnitXmlReportParser extends BaseXmlXppAbstractParser {
     myCallback = callback;
     myDurationParser = durationParser;
   }
+
+  private static final Set<String> EXECUTED_STATUSES = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+    "run", "passed", "success", "failure", "failed", "error"
+  )));
 
   @Override
   protected List<XmlHandler> getRootHandlers() {
@@ -188,13 +192,10 @@ class AntJUnitXmlReportParser extends BaseXmlXppAbstractParser {
   }
 
   private static boolean isExecuted(@NotNull XmlElementInfo reader) {
-    if (reader.getAttribute("executed") != null) {
-      return Boolean.parseBoolean(reader.getAttribute("executed"));
-    }
-    String rawStatus = reader.getAttribute("status");
-    if (StringUtil.isEmptyOrSpaces(rawStatus)) return true;
-    final String status = rawStatus.toLowerCase();
-    return "run".equals(status) || "passed".equals(status) || "success".equals(status) || "failure".equals(status) || "failed".equals(status) || "error".equals(status);
+    final String executed = reader.getAttribute("executed");
+    if (executed != null) return Boolean.parseBoolean(executed);
+    final String rawStatus = reader.getAttribute("status");
+    return StringUtil.isEmptyOrSpaces(rawStatus) || EXECUTED_STATUSES.contains(rawStatus.toLowerCase());
   }
 
   public static interface Callback {
