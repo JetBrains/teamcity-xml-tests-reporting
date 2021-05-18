@@ -17,6 +17,7 @@
 package jetbrains.buildServer.xmlReportPlugin.parsers.antJUnit;
 
 import java.util.List;
+import jetbrains.buildServer.util.StringUtil;
 import jetbrains.buildServer.xmlReportPlugin.parsers.BaseXmlXppAbstractParser;
 import jetbrains.buildServer.xmlReportPlugin.tests.DurationParser;
 import org.jetbrains.annotations.NotNull;
@@ -191,7 +192,7 @@ class AntJUnitXmlReportParser extends BaseXmlXppAbstractParser {
       return Boolean.parseBoolean(reader.getAttribute("executed"));
     }
     String rawStatus = reader.getAttribute("status");
-    if (rawStatus == null) return true;
+    if (StringUtil.isEmptyOrSpaces(rawStatus)) return true;
     final String status = rawStatus.toLowerCase();
     return "run".equals(status) || "passed".equals(status) || "success".equals(status) || "failure".equals(status) || "failed".equals(status) || "error".equals(status);
   }

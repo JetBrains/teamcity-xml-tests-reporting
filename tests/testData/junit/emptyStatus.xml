@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<testsuite version="1.20.00" disabled="0" errors="0" failures="1" hostname="localhost" id="" name="" package="" skipped="0" tests="5" time="87.612999" timestamp="2021-05-11 15:45:54">
+  <testcase assertions="" classname="Test" name="test0" time="14.374">
+  </testcase>
+  <testcase assertions="" classname="Test" name="test1" status="" time="3.566">
+  </testcase>
+  <testcase assertions="" classname="Test" name="test2" status=" " time="2.02">
+  </testcase>
+  <testcase assertions="" classname="Test" name="test3" status="  " time="2.023">
+  </testcase>
+  <testcase assertions="" classname="Test" name="test4" status="      " time="65.628998">
+  </testcase>
+</testsuite>
