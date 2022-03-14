@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2000-2012 JetBrains s.r.o.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<Configuration status="INFO">
+  <Appenders>
+    <Console name="CONSOLE-WARN" target="SYSTEM_ERR">
+      <PatternLayout pattern="[%d] %6p - %30.30c - %m %n"/>
+      <Filters>
+        <LevelRangeFilter minLevel="WARN"/>
+      </Filters>
+    </Console>
+    <Console name="CONSOLE-ERROR" target="SYSTEM_ERR">
+      <PatternLayout pattern="[%d] %6p - %30.30c - %m %n"/>
+      <Filters>
+        <LevelRangeFilter minLevel="ERROR"/>
+      </Filters>
+    </Console>
+    <RollingFile name="ROLL" createOnDemand="true" append="true" filePattern="${sys:teamcity_logs}teamcity-server.log.%i" fileName="${sys:teamcity_logs}teamcity-server.log">
+      <DefaultRolloverStrategy max="3" fileIndex="min"/>
+      <PatternLayout pattern="[%d] %6p - %30.30c - %m %n"/>
+      <SizeBasedTriggeringPolicy size="10 MB"/>
+      <Filters>
+        <CategoryFilter denyCategory="javasvn.output"/>
+      </Filters>
+    </RollingFile>
+    <RollingFile name="ROLL.VCS" createOnDemand="true" append="true" filePattern="${sys:teamcity_logs}teamcity-vcs.log.%i" fileName="${sys:teamcity_logs}teamcity-vcs.log">
+      <PatternLayout pattern="[%d] %6p - %30.30c - %m %n"/>
+      <SizeBasedTriggeringPolicy size="10 MB"/>
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <Logger name="jetbrains.buildServer.VCS" additivity="false" level="INFO">
+      <AppenderRef ref="ROLL.VCS"/>
+      <AppenderRef ref="CONSOLE-ERROR"/>
+    </Logger>
+    <Logger name="jetbrains.buildServer.buildTriggers.vcs" additivity="false" level="INFO">
+      <AppenderRef ref="ROLL.VCS"/>
+      <AppenderRef ref="CONSOLE-ERROR"/>
+    </Logger>
+    <Logger name="jetbrains.buildServer" level="INFO">
+      <AppenderRef ref="ROLL"/>
+    </Logger>
+    <Root level="INFO">
+      <AppenderRef ref="CONSOLE-WARN"/>
+    </Root>
+  </Loggers>
+</Configuration>
