@@ -72,4 +72,17 @@
       <option name="VSTEST" value="vstest"/>
     </enum>
   </types>
+  <examples>
+    <example>
+      <description>
+        Enables import of the test results in JUnit format from all the XML reports stored by the build on the agent under the "test-reports" directory.
+      </description>
+      <code>
+        xmlReport {
+          reportType = XmlReport.XmlReportType.JUNIT
+          rules = "+:test-reports/**/*.xml"
+        }
+      </code>
+    </example>
+  </examples>
 </dsl-extension>
