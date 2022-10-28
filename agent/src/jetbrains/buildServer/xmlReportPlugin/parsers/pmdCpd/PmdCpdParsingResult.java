@@ -32,6 +32,7 @@ class PmdCpdParsingResult extends ProblemParsingResult {
   public void accumulate(@NotNull ParsingResult parsingResult) {
   }
 
+  @Override
   public void logAsFileResult(@NotNull File file, @NotNull ParseParameters parameters) {
     final String message = file.getAbsolutePath() + " report processed: ";
 

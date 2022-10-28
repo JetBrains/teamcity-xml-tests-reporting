@@ -42,6 +42,7 @@ class PmdCpdReportParser implements Parser {
     myCheckoutDirectory = checkoutDirectory;
   }
 
+  @Override
   public boolean parse(@NotNull File file, @Nullable ParsingResult prevResult) throws ParsingException {
     if (!ParserUtils.isReportComplete(file, "pmd-cpd")) {
       return false;

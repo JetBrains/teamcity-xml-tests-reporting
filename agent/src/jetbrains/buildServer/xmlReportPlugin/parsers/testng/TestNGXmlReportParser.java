@@ -211,7 +211,7 @@ public class TestNGXmlReportParser extends BaseXmlXppAbstractParser {
     };
   }
 
-  public static interface Callback {
+  public interface Callback {
     void suiteFound(@Nullable String suiteName);
 
     void suiteSystemOutFound(@Nullable String suiteName, @Nullable String message);
@@ -240,9 +240,7 @@ public class TestNGXmlReportParser extends BaseXmlXppAbstractParser {
     }
 
     public void set(@Nullable final String name, @NotNull final SuiteSource source) {
-      if (source.test(name)) {
-        data.put(source, source.getName(name));
-      }
+      data.put(source, name);
     }
 
     @Nullable
@@ -252,26 +250,8 @@ public class TestNGXmlReportParser extends BaseXmlXppAbstractParser {
 
   }
 
-  private static enum SuiteSource {
-    SUITE("Surefire suite"),
-    TEST("Surefire test"),
-    CLASS("");
-
-    @NotNull
-    private final String myDefaultName;
-
-    SuiteSource(@NotNull final String defaultName) {
-      myDefaultName = defaultName;
-    }
-
-    public boolean test(@Nullable final String name) {
-      return true;
-    }
-
-    @Nullable
-    public String getName(@Nullable final String name) {
-      return name;
-    }
+  private enum SuiteSource {
+    SUITE, TEST, CLASS
   }
 
 }

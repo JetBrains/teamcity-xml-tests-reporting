@@ -68,7 +68,7 @@ public abstract class BaseXmlXppAbstractParser extends XmlXppAbstractParser {
 
     @NotNull
     public List<XmlHandler> asList() {
-      return Collections.<XmlHandler>singletonList(this);
+      return Collections.singletonList(this);
     }
   }
 

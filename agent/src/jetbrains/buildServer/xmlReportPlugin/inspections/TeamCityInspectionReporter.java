@@ -48,6 +48,7 @@ public class TeamCityInspectionReporter extends BaseMessageLogger implements Ins
     myInspectionReporter.markBuildAsInspectionsBuild();
   }
 
+  @Override
   public void reportInspection(@NotNull final InspectionResult inspection) {
     final InspectionInstance inspectionInstance = new InspectionInstance();
 
@@ -73,6 +74,7 @@ public class TeamCityInspectionReporter extends BaseMessageLogger implements Ins
     myInspectionReporter.reportInspection(inspectionInstance);
   }
 
+  @Override
   public void reportInspectionType(@NotNull final InspectionTypeResult inspectionType) {
     final jetbrains.buildServer.agent.inspections.InspectionTypeInfo inspectionTypeInfo = new jetbrains.buildServer.agent.inspections.InspectionTypeInfo();
 

@@ -63,6 +63,7 @@ public class TestParsingResult extends ProblemParsingResult {
     return new TestParsingResult(0, 0);
   }
 
+  @Override
   public void logAsFileResult(@NotNull File file, @NotNull ParseParameters parameters) {
     final StringBuilder message = new StringBuilder(file.getAbsolutePath())
       .append(" report processed: ")

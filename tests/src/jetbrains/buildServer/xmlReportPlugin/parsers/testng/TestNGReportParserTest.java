@@ -96,7 +96,7 @@ public class TestNGReportParserTest extends BaseParserTestCase {
   @NotNull
   @Override
   protected Parser getParser() {
-    return new TestNGReportParser(getTestReporter(), new MillisecondDurationParser(), false);
+    return new TestNGReportParser(getTestReporter(), new MillisecondDurationParser());
   }
 
   @NotNull

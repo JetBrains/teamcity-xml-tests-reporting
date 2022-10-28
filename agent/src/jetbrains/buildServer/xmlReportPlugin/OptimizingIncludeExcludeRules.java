@@ -41,8 +41,10 @@ public class OptimizingIncludeExcludeRules implements Rules {
   }
 
   @NotNull
+  @Override
   public Collection<File> getPaths() {
     return CollectionsUtil.convertAndFilterNulls(myBody, new Converter<File, String>() {
+      @Override
       public File createFrom(@NotNull final String source) {
         return isIncludeRule(source) ? new File(getRulePath(source)) : null;
       }
@@ -62,13 +64,15 @@ public class OptimizingIncludeExcludeRules implements Rules {
   }
 
   @NotNull
+  @Override
   public Collection<String> getBody() {
     return myBody;
   }
 
   @NotNull
+  @Override
   public Collection<File> collectFiles() {
-    return myBaseDir.exists() ? AntPatternFileCollector.scanDir(myBaseDir, getRulesArray(), getScanOptions()) : Collections.<File>emptyList();
+    return myBaseDir.exists() ? AntPatternFileCollector.scanDir(myBaseDir, getRulesArray(), getScanOptions()) : Collections.emptyList();
   }
 
   @NotNull

@@ -31,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public interface ReportStateHolder {
 
-  public static enum ReportState {
+  enum ReportState {
     /*
     * UNKNOWN brand new report
     * ON_PROCESSING report was added, but not processed yet

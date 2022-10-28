@@ -133,6 +133,7 @@ class FindBugsReportParser implements Parser {
 
     if (myFindBugsHome != null) {
       new FindBugsPluginVisitor(new FindBugsPluginVisitor.Callback() {
+        @Override
         public void pluginFound(@NotNull File messages) {
           try {
             myPatternXmlParser.parse(messages);

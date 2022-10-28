@@ -100,7 +100,7 @@ enum TestOutcome {
     return UNKNOWN;
   }
  
-  static enum Status {
+  enum Status {
     Ignored,
     Passed,
     Failed

@@ -38,7 +38,6 @@ public class TestNGReportParser implements Parser {
   private final TestReporter myTestReporter;
   @NotNull
   private final DurationParser myDurationParser;
-  private final boolean myLogInternalSystemError;
   @NotNull
   private final Deque<String> mySuites = new ArrayDeque<String>();
   private int myTestsToSkip;
@@ -47,10 +46,9 @@ public class TestNGReportParser implements Parser {
   @Nullable
   private ParsingException myParsingException;
 
-  public TestNGReportParser(@NotNull final TestReporter testReporter, @NotNull final DurationParser durationParser, final boolean logInternalSystemError) {
+  public TestNGReportParser(@NotNull final TestReporter testReporter, @NotNull final DurationParser durationParser) {
     myTestReporter = testReporter;
     myDurationParser = durationParser;
-    myLogInternalSystemError = logInternalSystemError;
   }
 
 
@@ -115,14 +113,10 @@ public class TestNGReportParser implements Parser {
               case PASS:
                 break;
               case FAIL:
-                if (testData.getFailureType() != null || testData.getFailureMessage() != null || testData.getFailureStackTrace() != null) {
-                  myTestReporter
-                    .testFail(TestMessages.getFailureMessage(testData.getFailureType(), testData.getFailureMessage()), testData.getFailureStackTrace());
-                }
+                myTestReporter.testFail(TestMessages.getFailureMessage(testData.getFailureType(), testData.getFailureMessage()), testData.getFailureStackTrace());
                 break;
               case SKIP:
-                String message = testData.getFailureMessage();
-                myTestReporter.testIgnored(message == null ? "" : message);
+                myTestReporter.testIgnored(testData.getFailureMessage());
                 break;
             }
 

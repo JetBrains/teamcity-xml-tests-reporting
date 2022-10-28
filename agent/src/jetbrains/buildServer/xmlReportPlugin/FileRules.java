@@ -37,16 +37,19 @@ public class FileRules implements Rules {
   }
 
   @NotNull
+  @Override
   public Collection<String> getBody() {
     return Collections.singletonList(myFile.getPath());
   }
 
   @NotNull
+  @Override
   public Collection<File> getPaths() {
     return Collections.singletonList(myFile);
   }
 
   @NotNull
+  @Override
   public List<File> collectFiles() {
     return myFile.isDirectory() ? collectFilesInFolder(myFile) : Collections.singletonList(myFile);
   }
@@ -54,6 +57,6 @@ public class FileRules implements Rules {
   @NotNull
   private List<File> collectFilesInFolder(@NotNull File folder) {
     final File[] files = folder.listFiles();
-    return files == null || files.length == 0 ? Collections.<File>emptyList() : Arrays.asList(files);
+    return files == null || files.length == 0 ? Collections.emptyList() : Arrays.asList(files);
   }
 }

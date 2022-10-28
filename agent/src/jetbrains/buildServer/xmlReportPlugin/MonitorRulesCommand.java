@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
  * Time: 13:17
  */
 public class MonitorRulesCommand {
-  public static interface MonitorRulesParameters {
+  public interface MonitorRulesParameters {
     @NotNull Rules getRules();
 
     @NotNull String getType();
@@ -42,7 +42,7 @@ public class MonitorRulesCommand {
     boolean isReparseUpdated();
   }
 
-  public static interface MonitorRulesListener {
+  public interface MonitorRulesListener {
     void modificationDetected(@NotNull File file);
   }
 
@@ -85,21 +85,20 @@ public class MonitorRulesCommand {
           if (acceptFile(file)) {
 
             final long fileLastModified = file.lastModified();
+            final long fileLength = file.length();
 
             if (timeConstraintsSatisfied(fileLastModified)) {
               switch (myReportStateHolder.getReportState(file)) {
                 case ON_PROCESSING:
                   return;
                 case UNKNOWN:
-                  myReportStateHolder.setReportState(file, ReportStateHolder.ReportState.ON_PROCESSING, fileLastModified, file.length());
+                  myReportStateHolder.setReportState(file, ReportStateHolder.ReportState.ON_PROCESSING, fileLastModified, fileLength);
                   modificationDetected(file);
                   return;
                 case PROCESSED:
                   if (!myParameters.isReparseUpdated()) return;
                 case ERROR:
                 case OUT_OF_DATE:
-                  final long fileLength = file.length();
-
                   final Long lastModified = myReportStateHolder.getLastModified(file);
                   final Long length = myReportStateHolder.getLength(file);
 
@@ -107,12 +106,12 @@ public class MonitorRulesCommand {
                   assert length != null;
 
                   if (fileLastModified > lastModified || fileLength > length) {
-                    myReportStateHolder.setReportState(file, ReportStateHolder.ReportState.ON_PROCESSING, file.lastModified(), file.length());
+                    myReportStateHolder.setReportState(file, ReportStateHolder.ReportState.ON_PROCESSING, fileLastModified, fileLength);
                     modificationDetected(file);
                   }
               }
             } else {
-              myReportStateHolder.setReportState(file, ReportStateHolder.ReportState.OUT_OF_DATE, fileLastModified, file.length());
+              myReportStateHolder.setReportState(file, ReportStateHolder.ReportState.OUT_OF_DATE, fileLastModified, fileLength);
             }
           }
         }
@@ -159,7 +158,7 @@ public class MonitorRulesCommand {
   }
 
   private boolean acceptFile(@NotNull File f) {
-    return f.isFile() && f.canRead() && f.length() > 0;
+      return f.isFile() && f.canRead() && f.length() > 0;
   }
 
   private boolean timeConstraintsSatisfied(long lastModified) {

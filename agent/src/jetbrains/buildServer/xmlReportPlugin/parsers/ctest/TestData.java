@@ -131,7 +131,7 @@ final class TestData {
     }
   }
 
-  static class NamedMeasurement {
+  private static class NamedMeasurement {
     final String myName;
     final String myType;
     final String myValue;
@@ -140,7 +140,6 @@ final class TestData {
       myName = name;
       myType = type;
       myValue = value;
-
     }
   }
 
@@ -159,7 +158,7 @@ final class TestData {
   }
 
   public void setFullCommandLine(@NotNull String fullCommandLine) {
-    this.myFullCommandLine = fullCommandLine;
+    myFullCommandLine = fullCommandLine;
   }
 
   @Nullable
@@ -168,7 +167,7 @@ final class TestData {
   }
 
   public void setFullName(@NotNull String fullName) {
-    this.myFullName = fullName;
+    myFullName = fullName;
   }
 
   @Nullable
@@ -177,7 +176,7 @@ final class TestData {
   }
 
   public void setPath(@NotNull String path) {
-    this.myPath = path;
+    myPath = path;
   }
 
   @NotNull
@@ -186,6 +185,6 @@ final class TestData {
   }
 
   public void setDuration(long duration) {
-    this.myDuration = duration;
+    myDuration = duration;
   }
 }

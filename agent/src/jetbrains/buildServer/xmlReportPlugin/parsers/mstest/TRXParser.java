@@ -126,7 +126,7 @@ class TRXParser implements Parser {
 
       public void testFinished(@NotNull final TestName testId, @NotNull final TestOutcome outcome, final long duration) {
         if (myTestName == null) {
-          LOG.warn("Test " + myTestName + " was not opened");
+          LOG.warn("Test null was not opened");
         }
         logger.closeTest(duration);
         myTestName = null;
@@ -139,6 +139,7 @@ class TRXParser implements Parser {
     });
   }
 
+  @Override
   public boolean parse(@NotNull File file, @Nullable ParsingResult prevResult) throws ParsingException {
     myLogger.openTestSuite(myDefaultSuiteName);
 

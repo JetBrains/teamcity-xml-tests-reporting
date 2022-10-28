@@ -46,6 +46,7 @@ class CheckstyleReportParser implements Parser {
     myInspectionReporter = inspectionReporter;
   }
 
+  @Override
   public boolean parse(@NotNull final File file, @Nullable final ParsingResult prevResult) throws ParsingException {
     if (!ParserUtils.isReportComplete(file, "checkstyle")) {
       return false;

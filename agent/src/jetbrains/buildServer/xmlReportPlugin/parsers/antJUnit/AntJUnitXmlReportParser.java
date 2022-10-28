@@ -198,7 +198,7 @@ class AntJUnitXmlReportParser extends BaseXmlXppAbstractParser {
     return StringUtil.isEmptyOrSpaces(rawStatus) || EXECUTED_STATUSES.contains(rawStatus.toLowerCase());
   }
 
-  public static interface Callback {
+  public interface Callback {
     void suiteFound(@Nullable String suiteName);
 
     void suiteFailureFound(@Nullable String suiteName, @Nullable String type, @Nullable String message, @Nullable String trace);

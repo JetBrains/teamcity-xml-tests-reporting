@@ -51,6 +51,7 @@ class NUnitReportParser implements Parser {
     myTestReporter = testReporter;
   }
 
+  @Override
   public boolean parse(@NotNull final File file, @Nullable final ParsingResult prevResult) throws ParsingException {
     if (prevResult != null) {
       myTestsToSkip = ((TestParsingResult) prevResult).getTests();

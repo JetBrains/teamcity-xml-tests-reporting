@@ -18,7 +18,6 @@ package jetbrains.buildServer.xmlReportPlugin.utils;
 
 import com.intellij.openapi.diagnostic.Logger;
 import jetbrains.buildServer.agent.BuildProgressLogger;
-import jetbrains.buildServer.messages.DefaultMessagesInfo;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPlugin;
 import jetbrains.buildServer.xmlReportPlugin.XmlReportPluginUtil;
 import org.jetbrains.annotations.NotNull;

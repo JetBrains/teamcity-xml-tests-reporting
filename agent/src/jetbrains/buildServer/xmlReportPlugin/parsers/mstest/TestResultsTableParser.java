@@ -112,7 +112,7 @@ class TestResultsTableParser extends BaseXmlXppAbstractParser {
   private void processTest(final TestResult result) {
     final TestName testId = result.getTestName();
     if (testId == null) {
-      myCallback.warning(testId, "Failed to read testId");
+      myCallback.warning((TestName)null, "Failed to read testId");
       return;
     }
 
@@ -292,7 +292,7 @@ class TestResultsTableParser extends BaseXmlXppAbstractParser {
       }
     }, pattern);
   }
-  public static interface Callback {
+  public interface Callback {
     void testFound(@NotNull TestName testId);
 
     void testOutput(@NotNull TestName testId, @NotNull String text);

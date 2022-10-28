@@ -301,7 +301,7 @@ class NUnitXmlReportParser extends BaseXmlXppAbstractParser {
     }
   }
 
-  public static interface Callback {
+  public interface Callback {
     void suiteFound(@Nullable String suiteName);
 
     void suiteFinished(@Nullable String suiteName);

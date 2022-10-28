@@ -88,7 +88,7 @@ class PmdCpdXmlReportParser extends BaseXmlXppAbstractParser {
     }.asList();
   }
 
-  public static interface Callback {
+  public interface Callback {
     void startDuplicates();
 
     void finishDuplicates();

@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipFile;
+import jetbrains.buildServer.util.ZipSlipAwareZipFile;
 import jetbrains.buildServer.util.fileLookup.MemorizingFileLookup;
 import jetbrains.buildServer.util.fileLookup.MemorizingLookup;
 import jetbrains.buildServer.util.fileLookup.MemorizingZipFileLookup;
@@ -36,11 +37,11 @@ class FileFinder {
   private MemorizingLookup<String, String, Entry> myLookup;
 
   public void addJar(@NotNull String jar) {
-    jar = getDependentPath(jar, File.separator);
+    jar = getDependentPath(jar);
     if (jar.endsWith(".zip") || jar.endsWith(".jar")) {
       try {
-        myJars.add(new ArchiveEntry(new ZipFile(jar)));
-      } catch (IOException e) {
+        myJars.add(new ArchiveEntry(new ZipSlipAwareZipFile(jar)));
+      } catch (IOException ignore) {
         //just ignore
       }
     } else if (jar.endsWith(".class")) {
@@ -55,7 +56,7 @@ class FileFinder {
   public String getVeryFullFilePath(@Nullable String filePath) {
     if (filePath == null) return null;
 
-    filePath = getDependentPath(filePath, File.separator);
+    filePath = getDependentPath(filePath);
 
     if (myLookup == null) {
       myLookup = new MemorizingLookup<String, String, Entry>(myJars) {
@@ -76,8 +77,8 @@ class FileFinder {
   }
 
   @NotNull
-  private static String getDependentPath(@NotNull String path, @NotNull String separator) {
-    return path.replace("\\", separator).replace("/", separator);
+  private static String getDependentPath(@NotNull String path) {
+    return path.replace("\\", File.separator).replace("/", File.separator);
   }
 
   private static abstract class Entry {
@@ -122,7 +123,7 @@ class FileFinder {
     public void close() {
       try {
         myArchive.close();
-      } catch (IOException e) {
+      } catch (IOException ignore) {
         //TODO: log somehow
       }
     }

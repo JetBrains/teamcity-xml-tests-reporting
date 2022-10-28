@@ -138,7 +138,7 @@ class FindBugsReportXmlParser extends BaseXmlXppAbstractParser {
     }
   }
 
-  public static interface Callback {
+  public interface Callback {
     void jarFound(@NotNull String jar);
     void bugInstanceFound(@Nullable String file, @Nullable String clazz, int line,
                           @Nullable String type, @Nullable String category, @Nullable String message, @Nullable String details, int priority);

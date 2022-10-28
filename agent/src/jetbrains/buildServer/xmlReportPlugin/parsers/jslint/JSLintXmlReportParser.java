@@ -98,7 +98,7 @@ class JSLintXmlReportParser extends BaseXmlXppAbstractParser {
     }
   }
 
-  public static interface Callback {
+  public interface Callback {
     void markBuildAsInspectionsBuild();
     void reportInspection(@NotNull InspectionResult inspection);
     void reportInspectionType(@NotNull InspectionTypeResult inspectionType);

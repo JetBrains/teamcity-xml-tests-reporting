@@ -66,7 +66,7 @@ class CategoryXmlParser extends XmlXppAbstractParser {
     }, ".*Collection"));
   }
 
-  public static interface Callback {
+  public interface Callback {
     void categoryFound(@NotNull String category);
     void categoryDescriptionFound(@NotNull String category, @NotNull String description);
     void categoryDetailsFound(@NotNull String category, @NotNull String details);

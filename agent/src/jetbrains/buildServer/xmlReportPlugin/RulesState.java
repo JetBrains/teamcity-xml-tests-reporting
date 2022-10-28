@@ -31,21 +31,24 @@ import org.jetbrains.annotations.Nullable;
  */
 public class RulesState implements ReportStateHolder {
   @NotNull
-  private final Map<File, FileState> myParsingResults = new HashMap<File, FileState>();
+  private final Map<File, FileState> myParsingResults = new HashMap<>();
 
   @NotNull
+  @Override
   public synchronized ReportState getReportState(@NotNull final File report) {
     FileState store = myParsingResults.get(report);
     return store != null ? store.reportState : ReportState.UNKNOWN;
   }
 
   @Nullable
+  @Override
   public synchronized Long getLastModified(@NotNull final File report) {
     FileState store = myParsingResults.get(report);
     return store != null ? store.lastModified : null;
   }
 
   @Nullable
+  @Override
   public synchronized Long getLength(@NotNull final File report) {
     FileState store = myParsingResults.get(report);
     return store != null ? store.length : null;
@@ -55,12 +58,13 @@ public class RulesState implements ReportStateHolder {
     FileState fileState = myParsingResults.get(report);
     if (fileState == null) {
       fileState = new FileState(report.lastModified(), report.length());
-      myParsingResults.put(report, fileState);
+        myParsingResults.put(report, fileState);
     }
     fileState.reportState = state;
     fileState.parsingResult = parsingResult;
   }
 
+  @Override
   public synchronized void setReportState(@NotNull final File report, @NotNull final ReportState state, final long lastModified, final long length) {
     FileState fileState = myParsingResults.get(report);
     if (fileState == null) {
@@ -81,7 +85,7 @@ public class RulesState implements ReportStateHolder {
 
   @NotNull
   public synchronized Map<File, ParsingResult> getProcessedFiles() {
-    final Map<File, ParsingResult> res = new HashMap<File, ParsingResult>();
+    final Map<File, ParsingResult> res = new HashMap<>();
     for (Map.Entry<File, FileState> e : myParsingResults.entrySet()) {
       final File key = e.getKey();
       final FileState value = e.getValue();
@@ -95,7 +99,7 @@ public class RulesState implements ReportStateHolder {
 
   @NotNull
   public synchronized Map<File, ParsingResult> getFailedToProcessFiles() {
-    final Map<File, ParsingResult> res = new HashMap<File, ParsingResult>();
+    final Map<File, ParsingResult> res = new HashMap<>();
     for (Map.Entry<File, FileState> e : myParsingResults.entrySet()) {
       final File key = e.getKey();
       final FileState value = e.getValue();
@@ -109,7 +113,7 @@ public class RulesState implements ReportStateHolder {
 
   @NotNull
   public synchronized List<File> getOutOfDateFiles() {
-    final List<File> res = new ArrayList<File>();
+    final List<File> res = new ArrayList<>();
     for (Map.Entry<File, FileState> e : myParsingResults.entrySet()) {
       final File key = e.getKey();
       final FileState value = e.getValue();

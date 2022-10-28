@@ -137,7 +137,7 @@ class TestResult {
     myStdError = stdError;
   }
 
-  public static enum VS_Version {VS_8, VS_9}
+  public enum VS_Version {VS_8, VS_9}
 
 
   public VS_Version getVersion() {

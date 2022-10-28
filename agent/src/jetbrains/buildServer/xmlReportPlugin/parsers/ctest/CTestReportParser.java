@@ -33,8 +33,6 @@ import org.jetbrains.annotations.Nullable;
 public class CTestReportParser implements Parser {
   public static final org.apache.log4j.Logger LOG = org.apache.log4j.Logger.getLogger(CTestReportParser.class);
 
-  public static final String TESTS_REPORT_FILE_NAME = "Test.xml";
-
   @NotNull
   private final TestReporter myTestReporter;
 
@@ -47,6 +45,7 @@ public class CTestReportParser implements Parser {
     myTestReporter = testReporter;
   }
 
+  @Override
   public boolean parse(@NotNull final File file, @Nullable final ParsingResult prevResult) throws ParsingException {
     try {
       createTestXmlParser(file).parse(file);
@@ -62,6 +61,7 @@ public class CTestReportParser implements Parser {
 
   private TestXmlReportParser createTestXmlParser(final File file) {
     return new TestXmlReportParser(new TestXmlReportParser.Callback() {
+      @Override
       public void testFound(@NotNull final TestData testData) {
         try {
           final String testName = testData.getName();
@@ -111,6 +111,7 @@ public class CTestReportParser implements Parser {
     });
   }
 
+  @Override
   public ParsingResult getParsingResult() {
     return new TestParsingResult(myLoggedTests > 0 ? 1 : 0, myLoggedTests, myParsingException);
   }

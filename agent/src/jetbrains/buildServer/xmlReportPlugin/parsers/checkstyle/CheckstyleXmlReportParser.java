@@ -93,7 +93,7 @@ class CheckstyleXmlReportParser extends BaseXmlXppAbstractParser {
     }
   }
 
-  public static interface Callback {
+  public interface Callback {
     void reportInspection(@NotNull InspectionResult inspection);
     void reportInspectionType(@NotNull InspectionTypeResult inspectionType);
     void reportException(@NotNull String message);

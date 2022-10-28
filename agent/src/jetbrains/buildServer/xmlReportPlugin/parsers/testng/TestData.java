@@ -115,7 +115,7 @@ final class TestData {
   }
 
   public void addParam(@Nullable final String index, @Nullable final String value) {
-    String trimValue = '"' + value.replace("\\", "\\\\").replace("\"", "\\\"") + '"';
+    String trimValue = value == null ? "" : '"' + value.replace("\\", "\\\\").replace("\"", "\\\"") + '"';
     if (!ParserUtils.isNumber(index)) {
       myParamsWithoutIndex.add(trimValue);
     } else {
@@ -148,7 +148,7 @@ final class TestData {
     myFailureType = failureType;
   }
 
-  @Nullable
+  @NotNull
   public String getFailureMessage() {
     return myFailureMessage == null ? "" : myFailureMessage;
   }
@@ -166,7 +166,7 @@ final class TestData {
     myFailureStackTrace = failureStackTrace;
   }
 
-  public static enum Status {
+  public enum Status {
     PASS, FAIL, SKIP;
 
     public static Status of(@Nullable String status) {

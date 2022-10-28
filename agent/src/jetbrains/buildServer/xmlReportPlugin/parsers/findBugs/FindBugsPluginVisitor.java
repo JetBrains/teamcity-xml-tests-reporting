@@ -16,10 +16,8 @@
 
 package jetbrains.buildServer.xmlReportPlugin.parsers.findBugs;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import jetbrains.buildServer.util.FileUtil;
@@ -52,11 +50,11 @@ class FindBugsPluginVisitor {
     }
     final File pluginFolder = new File(findBugsHome, "plugin");
     final File[] plugins = pluginFolder.listFiles();
-    if ((plugins == null) || (plugins.length == 0)) {
+    if (plugins == null) {
       return;
     }
-    for (File p : plugins) {
-      if (p.getAbsolutePath().endsWith(".jar")) {
+      for (File p : plugins) {
+        if (p.getAbsolutePath().endsWith(".jar")) {
         load(p);
       }
     }
@@ -76,10 +74,10 @@ class FindBugsPluginVisitor {
 
       final File tempFile = FileUtil.createTempFile("", "");
       InputStream jarFileStream = null;
-      FileOutputStream tempFileStream = null;
+      OutputStream tempFileStream = null;
       try {
         jarFileStream = jar.getInputStream(messages);
-        tempFileStream = new FileOutputStream(tempFile);
+        tempFileStream = Files.newOutputStream(tempFile.toPath());
 
         FileUtil.copy(jarFileStream, tempFileStream);
       } finally {
@@ -103,7 +101,7 @@ class FindBugsPluginVisitor {
     }
   }
 
-  public static interface Callback {
+  public interface Callback {
     void pluginFound(@NotNull File messages);
   }
 }

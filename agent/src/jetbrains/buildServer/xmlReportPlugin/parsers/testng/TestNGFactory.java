@@ -36,8 +36,7 @@ public class TestNGFactory implements ParserFactory {
 
   @NotNull
   public Parser createParser(@NotNull ParseParameters parameters) {
-    return new TestNGReportParser(parameters.getTestReporter(), new MillisecondDurationParser(),
-                                  XmlReportPluginUtil.isLogInternalSystemError(parameters.getParameters()));
+    return new TestNGReportParser(parameters.getTestReporter(), new MillisecondDurationParser());
   }
 
   @NotNull

@@ -66,7 +66,7 @@ class PatternXmlParser extends XmlXppAbstractParser {
     }, ".*Collection"));
   }
 
-  public static interface Callback {
+  public interface Callback {
     void patternFound(@NotNull String type);
     void patternShortDescriptionFound(@NotNull String type, @NotNull String description);
     void patternDetailsFound(@NotNull String type, @NotNull String details);

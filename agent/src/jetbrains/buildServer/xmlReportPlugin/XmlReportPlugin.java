@@ -125,6 +125,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     myStepProcessingContext = new ProcessingContext(new CopyOnWriteArrayList<RulesContext>());
   }
 
+  @Override
   public synchronized void processRules(@NotNull File rulesFile,
                                         @NotNull Map<String, String> params) {
     final ProcessingContext stepContext = getStepProcessingContext();
@@ -202,6 +203,7 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
       case RUNTIME:
         rulesContext.setMonitorRulesCommand(new MonitorRulesCommand(rulesData.getMonitorRulesParameters(), rulesContext.getRulesState(), myQuietMode,
                                                                     new MonitorRulesCommand.MonitorRulesListener() {
+                                                                      @Override
                                                                       public void modificationDetected(@NotNull File file) {
                                                                         submitParsing(file, rulesContext, parserFactory);
                                                                       }
@@ -566,25 +568,30 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     public MonitorRulesCommand.MonitorRulesParameters getMonitorRulesParameters() {
       return new MonitorRulesCommand.MonitorRulesParameters() {
         @NotNull
+        @Override
         public Rules getRules() {
           return myRules;
         }
 
         @SuppressWarnings("ConstantConditions")
         @NotNull
+        @Override
         public String getType() {
           return getReportType(myParameters);
         }
 
+        @Override
         public boolean isParseOutOfDate() {
           return isParseOutOfDateReports(myParameters);
         }
 
+        @Override
         public long getStartTime() {
           return myStartTime;
         }
 
         @NotNull
+        @Override
         public BuildProgressLogger getThreadLogger() {
           return getBuild().getBuildLogger().getThreadLogger();
         }
@@ -599,11 +606,13 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
     @NotNull
     public ParseParameters getParseReportParameters() {
       return new ParseParameters() {
+        @Override
         public boolean isVerbose() {
           return isOutputVerbose(myParameters);
         }
 
         @NotNull
+        @Override
         public BuildProgressLogger getThreadLogger() {
           return getBuild().getBuildLogger().getThreadLogger();
         }
@@ -620,32 +629,38 @@ public class XmlReportPlugin extends AgentLifeCycleAdapter implements RulesProce
         }
 
         @NotNull
+        @Override
         public InspectionReporter getInspectionReporter() {
           return new TeamCityInspectionReporter(myInspectionReporter, getBuild().getBuildLogger(), getCheckoutDir(), getBuildProblemType(getType(), "InspectFailure"));
         }
 
         @NotNull
+        @Override
         public DuplicationReporter getDuplicationReporter() {
           return new TeamCityDuplicationReporter(myDuplicatesReporter, getBuild().getBuildLogger(), getCheckoutDir().getAbsolutePath(), getBuildProblemType(getType(), "DupFailure"));
         }
 
         @NotNull
+        @Override
         public TestReporter getTestReporter() {
           return new TeamCityTestReporter(getInternalizingThreadLogger(), getBuildProblemType(getType(), "TestFailure"), getCheckoutDir().getAbsolutePath());
         }
 
         @NotNull
+        @Override
         public Map<String, String> getParameters() {
           return Collections.unmodifiableMap(myParameters);
         }
 
         @SuppressWarnings("ConstantConditions")
         @NotNull
+        @Override
         public String getType() {
           return getReportType(myParameters);
         }
 
         @NotNull
+        @Override
         public File getCheckoutDir() {
           return getBuild().getCheckoutDirectory();
         }
