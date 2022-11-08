@@ -47,6 +47,8 @@ final class TestData {
   private String myFailureMessage;
   @Nullable
   private String myFailureStackTrace;
+  private boolean myConfig;
+
 
   @NotNull
   public Status getStatus() {
@@ -164,6 +166,14 @@ final class TestData {
 
   public void setFailureStackTrace(@Nullable final String failureStackTrace) {
     myFailureStackTrace = failureStackTrace;
+  }
+
+  public boolean isConfig() {
+    return myConfig;
+  }
+
+  public void setConfig(@Nullable String isConfig) {
+    myConfig = isConfig != null && isConfig.equalsIgnoreCase("true");
   }
 
   public enum Status {

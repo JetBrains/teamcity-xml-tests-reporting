@@ -109,6 +109,7 @@ public class TestNGXmlReportParser extends BaseXmlXppAbstractParser {
                                 testData.setMethodName(reader.getAttribute("name"));
                                 testData.setDuration(myDurationParser.parseTestDuration(reader.getAttribute("duration-ms")));
                                 testData.setStatus(reader.getAttribute("status"));
+                                testData.setConfig(reader.getAttribute("is-config"));
                                 return reader.visitChildren(
                                   elementsPath(new Handler() {
                                     @Override

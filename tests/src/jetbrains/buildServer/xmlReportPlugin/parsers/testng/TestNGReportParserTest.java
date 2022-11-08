@@ -561,4 +561,22 @@ public class TestNGReportParserTest extends BaseParserTestCase {
       "EndSuite\n" +
       "EndSuite\n");
   }
+
+  @Test
+  public void configTests() throws Exception {
+    parse("setUp_tearDown.xml");
+    assertResultEquals(
+      "TestSuite:Surefire suite\n" +
+      "TestSuite:Surefire test\n" +
+      "TestSuite:TestCase\n" +
+      "  Test:TestCase.first\n" +
+      "  EndTest:0\n" +
+      "------------------------\n" +
+      "  Test:TestCase.second\n" +
+      "  EndTest:0\n" +
+      "------------------------\n" +
+      "EndSuite\n" +
+      "EndSuite\n" +
+      "EndSuite\n");
+  }
 }
