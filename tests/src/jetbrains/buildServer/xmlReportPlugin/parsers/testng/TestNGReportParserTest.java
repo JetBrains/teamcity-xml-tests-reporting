@@ -579,4 +579,27 @@ public class TestNGReportParserTest extends BaseParserTestCase {
       "EndSuite\n" +
       "EndSuite\n");
   }
+
+  @Test
+  public void configTestsWithProbleb() throws Exception {
+    parse("setUp_tearDown_fail.xml");
+    assertResultEquals(
+      "TestSuite:Surefire suite\n" +
+      "TestSuite:Surefire test\n" +
+      "TestSuite:TestCase\n" +
+      "  Test:TestCase.beforeMethod\n" +
+      "    Fail:org.testng.Assert.fail:  Message: org.testng.Assert.fail: Assertion message from test\n" +
+      "      at TestCase.test(Unknown Source)\n" +
+      "  EndTest:1\n" +
+      "------------------------\n" +
+      "  Test:TestCase.first\n" +
+      "  EndTest:0\n" +
+      "------------------------\n" +
+      "  Test:TestCase.second\n" +
+      "  EndTest:0\n" +
+      "------------------------\n" +
+      "EndSuite\n" +
+      "EndSuite\n" +
+      "EndSuite\n");
+  }
 }

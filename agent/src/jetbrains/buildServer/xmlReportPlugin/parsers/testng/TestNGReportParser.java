@@ -98,7 +98,7 @@ public class TestNGReportParser implements Parser {
         public void testFound(@NotNull TestData testData) {
           try {
             if (testSkipped()) return;
-            if (testData.isConfig()) return;
+            if (testData.isConfig() && testData.getStatus() != TestData.Status.FAIL) return;
             String methodNameWithClass = (testData.getClassName() == null || testData.getMethodName() != null && testData.getMethodName().startsWith(testData.getClassName())
                                           ? ""
                                           : testData.getClassName() + ".") + testData.getMethodName();
