@@ -30,6 +30,7 @@
     <orderEntry type="module" module-name="common" />
     <orderEntry type="module" module-name="test-api" />
     <orderEntry type="module" module-name="common-impl" />
+    <orderEntry type="module" module-name="migration" />
     <orderEntry type="module" module-name="integration-test-core" />
   </component>
 </module>

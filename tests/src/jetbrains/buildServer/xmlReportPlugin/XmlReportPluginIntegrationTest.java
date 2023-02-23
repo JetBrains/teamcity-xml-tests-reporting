@@ -66,7 +66,7 @@ public class XmlReportPluginIntegrationTest extends AgentServerFunctionalTestCas
 
   @BeforeMethod
   @Override
-  protected void setUp1() throws Throwable {
+  public void setUp1() throws Throwable {
     super.setUp1();
     myCheckoutDir = createTempDir();
     myOuterDir = createTempDir();

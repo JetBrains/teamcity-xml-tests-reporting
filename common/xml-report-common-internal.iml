@@ -7,6 +7,7 @@
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="common" />
+    <orderEntry type="module" module-name="idea-obsolete-openapi" />
     <orderEntry type="library" name="annotations.jar" level="project" />
   </component>
 </module>

@@ -26,6 +26,7 @@
     <orderEntry type="module" module-name="xml-report-common-internal" />
     <orderEntry type="module" module-name="common" />
     <orderEntry type="module" module-name="server-openapi" />
+    <orderEntry type="module" module-name="migration" />
     <orderEntry type="module" module-name="web-openapi" />
     <orderEntry type="library" name="ServletApi" level="project" />
     <orderEntry type="module" module-name="usage-statistics-api" />
